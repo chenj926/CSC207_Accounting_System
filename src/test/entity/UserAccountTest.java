@@ -1,3 +1,5 @@
+package test.entity;
+
 public class UserAccountTest {
     @Test
     public void testRecordTransaction() {
