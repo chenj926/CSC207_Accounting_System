@@ -14,7 +14,7 @@ public class OneTimeInflow extends OneTimeTransaction {
     }
 
     @Override
-    punlic void recordTransaction(float amount) {
+    public void recordTransaction(float amount) {
         super.recordTransaction(amount);
         // System.out.println("one-time inflow: " +amount);
     }
@@ -26,7 +26,7 @@ public class OneTimeOutflow extends OneTimeTransaction {
         super(transactionAmount);
     }
     @Override
-    punlic void recordTransaction(float amount) {
+    public void recordTransaction(float amount) {
         super.recordTransaction(amount);
         // System.out.println("one-time outflow: " +amount);
     }
