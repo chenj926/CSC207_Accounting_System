@@ -1,11 +1,5 @@
 package main.entity;
 
-public interface Transaction {
-    void RecordTransaction(float amount);
-}
-
-
-
 public abstract class OneTimeTransaction implements Transaction {
     protected float transactionAmount;
 
