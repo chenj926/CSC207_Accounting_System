@@ -53,7 +53,12 @@ public abstract class UserAccount implements Transaction {
     // implement the interface's RecordTransaction method
     @Override
     public void RecordTransaction(float amount) {
-        // further override in inflow or outflow subclass need to be done
+        if (amount >= 0.0) {
+            this.totalIncome += amount;
+        }
+        else {
+            this.totalOutflow += Math.abs(amount);  // let the outflow to p+ first
+        }
         this.totalCurrentBalance += amount;
     }
 }
