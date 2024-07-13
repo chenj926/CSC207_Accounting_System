@@ -1,6 +1,6 @@
 package use_case;
 
-public class periodicTransactionInputData {
+public class PeriodicTransactionInputData {
 
     private float transactionAmount;
     private String transactionDate;
