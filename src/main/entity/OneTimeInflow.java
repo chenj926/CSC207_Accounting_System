@@ -1,4 +1,4 @@
-package main.entity;
+package entity;
 
 public class OneTimeInflow extends OneTimeTransaction {
     public OneTimeInflow(float transactionAmount){

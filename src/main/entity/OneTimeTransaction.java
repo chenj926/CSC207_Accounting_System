@@ -1,4 +1,4 @@
-package main.entity;
+package entity;
 
 public abstract class OneTimeTransaction implements Transaction {
     protected float transactionAmount;
