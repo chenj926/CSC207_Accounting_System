@@ -1,4 +1,4 @@
-package main.interface_adaptors;
+package interface_adaptors;
 
 import use_case.SignupOutputBoundary;
 import use_case.SignupOutputData;
