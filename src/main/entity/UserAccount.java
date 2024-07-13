@@ -1,10 +1,14 @@
 package entity;
 
+import java.util.List;
+import java.util.Map;
+
 public class UserAccount implements main.entity.Transaction {
     private float totalCurrentBalance;
     private float totalIncome;
     private float totalOutflow;
     private String identification;
+    protected static Map<String, UserAccount> userAccounts;
 
     // Constructors
     public UserAccount(){
@@ -12,12 +16,14 @@ public class UserAccount implements main.entity.Transaction {
         this.totalIncome = 0.0f;
         this.totalOutflow = 0.0f;
         this.identification = "";
+        userAccounts.put(this.identification, this);
     }
     public UserAccount(float balance, float income, float outflow, String identification) {
         this.totalCurrentBalance = balance;
         this.totalIncome = income;
         this.totalOutflow = outflow;
         this.identification = identification;
+        userAccounts.put(this.identification, this);
     }
 
     // Getters
