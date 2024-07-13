@@ -1,4 +1,4 @@
-package main.interface_adapters;
+package interface_adapters;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -60,20 +60,3 @@ public class PeriodicTransactionViewModel extends ViewModel {
         this.recurrence = recurrence;
         propertyChangeSupport.firePropertyChange("recurrence", oldRecurrence, this.recurrence);
     }
-
-    @Override
-    public void firePropertyChanged() {
-        // This method is not needed as the PropertyChangeSupport class
-        // handles the firing of property changes
-    }
-
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.addPropertyChangeListener(listener);
-    }
-
-    @Override
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        propertyChangeSupport.removePropertyChangeListener(listener);
-    }
-}
