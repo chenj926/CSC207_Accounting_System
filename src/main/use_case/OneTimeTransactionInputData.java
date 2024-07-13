@@ -3,10 +3,10 @@ package use_case;
 public class OneTimeTransactionInputData {
 
     private float transactionAmount;
-    private String TransactionDate;
-    private String TransactionDescription;
-    private String TransactionCategory;
-    private String TransactionNotes;
+    private String transactionDate;
+    private String transactionDescription;
+    private String transactionCategory;
+    private String transactionNotes;
 
     public OneTimeTransactionInputData(float transactionAmount, String transactionDate, String transactionDescription,
                                        String transactionCategory, String transactionNotes) {
@@ -14,7 +14,7 @@ public class OneTimeTransactionInputData {
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
         this.transactionCategory = transactionCategory;
-        this.TransactionNotes = TransactionNotes;
+        this.transactionNotes = transactionNotes;
     }
 
     public float getTransactionAmount() {
@@ -22,7 +22,7 @@ public class OneTimeTransactionInputData {
     }
 
     public String getTransactionDate() {
-        return TransactionDate
+        return transactionDate;
     }
 
     public String getTransactionDescription() {
@@ -34,8 +34,6 @@ public class OneTimeTransactionInputData {
     }
 
     public String getTransactionNotes() {
-        return TransactionNotes;
-    }
-
+        return transactionNotes;
     }
 }

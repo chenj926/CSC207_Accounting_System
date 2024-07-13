@@ -7,7 +7,7 @@ public class PeriodicTransactionInputData {
     private String transactionDescription;
     private String recurrence;
 
-    public periodicTransactionInputData(float transactionAmount, String transactionDate, String transactionDescription, String recurrence) {
+    public PeriodicTransactionInputData(float transactionAmount, String transactionDate, String transactionDescription, String recurrence) {
         this.transactionAmount = transactionAmount;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
