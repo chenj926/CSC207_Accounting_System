@@ -1,4 +1,4 @@
-package main.interface_adapters;
+package main.interface_adaptors;
 
 import use_case.TransactionInputBoundary;
 import use_case.TransactionInputData;
