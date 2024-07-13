@@ -1,3 +1,5 @@
+package entity;
+
 public abstract class PeriodicTransaction implements Transaction {
     private float transactionAmount;
     private String transactionDate;
