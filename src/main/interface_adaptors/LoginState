@@ -1,12 +1,12 @@
-package interface-adapters;
+package interface_adapters;
 
-public class LoginController {
+public class LoginState {
     private String username;
     private String usernameError;
     private String password;
     private String passwordError;
 
-    public LoginController() {
+    public LoginState() {
         this.username = "";
         this.usernameError = null;
         this.password = "";
