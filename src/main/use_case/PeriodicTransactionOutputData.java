@@ -8,7 +8,8 @@ public class PeriodicTransactionOutputData {
     private String transactionDescription;
     private String recurrence;
 
-    public PeriodicTransactionOutputData {
+    public PeriodicTransactionOutputData(boolean success, String message, float transactionAmount,
+                                         String transactionDate, String transactionDescription, String recurrence) {
         this.success = success;
         this.message = message;
         this.transactionAmount = transactionAmount;
