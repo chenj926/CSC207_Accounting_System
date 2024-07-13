@@ -1,19 +1,16 @@
-package main.entity;
+package entity;
 
-import util.*;
+import java.time.LocalDate;
+import java.util.Set;
 
-public class SharedAccount extends UserAccount {
+public class SharedAccount extends entity.UserAccount {
     Set<String> userIdentifications;
-    private float[] userShares;
 
     public SharedAccount(String id_a, String id_b) {
         userIdentifications.add(id_a);
         userIdentifications.add(id_b);
         System.out.println(id_a + id_b + " added to account.");
 
-        // super();
-        // this.userIdentifications = userIdentifications;
-        // this.userShares = userShares;
     }
 
     // add new account to shared account
@@ -22,18 +19,16 @@ public class SharedAccount extends UserAccount {
     }
 
     @Override
-    public void recordTransaction(float amount, user_id) {
-        // recording to shared account
-        super.RecordTransaction(amount);
+    public void recordTransaction(String identification, float transactionAmount,
+                                  LocalDate transactionDate, String transactionDescription,
+                                  String recurrence, boolean periodic){
+        // recording to shared account, enter personal account id for identification
+        super.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, boolean periodic);
         // record spendings in personal account as well
-        UserAccount userAccount = getUserAccount(userid);
-        userAccount.RecordTransaction(userAmount);
+        UserAccount userAccount = UserAccount.userAccounts.get(identification);
+        userAccount.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, periodic);
 
-        //for (int i = 0; i < userShares.length; i++) {
-        //    float userAmount = amount * userShares[i];
-        //    UserAccount userAccount = getUserAccount(userIdentifications[i]);
-        //    userAccount.RecordTransaction(userAmount);
-        }
+
     }
 
 }
