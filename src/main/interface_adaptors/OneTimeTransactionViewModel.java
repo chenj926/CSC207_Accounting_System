@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-package main.interface_adapters;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-=======
-package main.interface_adaptors;
+package interface_adapters;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
