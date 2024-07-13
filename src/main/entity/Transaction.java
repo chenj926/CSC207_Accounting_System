@@ -6,5 +6,5 @@ import java.time.LocalDate;
 // dateTimes.add(LocalDateTime.now());
 
 public interface Transaction {
-    void recordTransaction(String identification, float transactionAmount, LocalDate transactionDate, String transactionDescription, String recurrence, Boolean periodic);
+    void recordTransaction(String identification, float transactionAmount, LocalDate transactionDate, String transactionDescription, String recurrence, boolean periodic);
 }

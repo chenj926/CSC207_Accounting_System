@@ -1,9 +1,10 @@
 package entity;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
-public class UserAccount implements main.entity.Transaction {
+public class UserAccount implements entity.Transaction {
     private float totalCurrentBalance;
     private float totalIncome;
     private float totalOutflow;
@@ -56,13 +57,16 @@ public class UserAccount implements main.entity.Transaction {
 
     // implement the interface's RecordTransaction method
     @Override
-    public void recordTransaction(float amount) {
-        if (amount >= 0.0) {
-            this.totalIncome += amount;
+    public void recordTransaction(String identification, float transactionAmount,
+                                  LocalDate transactionDate, String transactionDescription,
+                                  String recurrence, boolean periodic){
+
+        if (transactionAmount >= 0.0) {
+            this.totalIncome += transactionAmount;
         }
         else {
-            this.totalOutflow += Math.abs(amount);  // let the outflow to p+ first
+            this.totalOutflow += Math.abs(transactionAmount);  // let the outflow to p+ first
         }
-        this.totalCurrentBalance += amount;
+        this.totalCurrentBalance += transactionAmount;
     }
 }
