@@ -23,11 +23,10 @@ public class SharedAccount extends entity.UserAccount {
                                   LocalDate transactionDate, String transactionDescription,
                                   String recurrence, boolean periodic){
         // recording to shared account, enter personal account id for identification
-        super.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, boolean periodic);
+        super.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, periodic);
         // record spendings in personal account as well
         UserAccount userAccount = UserAccount.userAccounts.get(identification);
         userAccount.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, periodic);
-
 
     }
 
