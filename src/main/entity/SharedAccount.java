@@ -6,7 +6,7 @@ public class SharedAccount extends UserAccount {
     Set<String> userIdentifications;
     private float[] userShares;
 
-    public SharedAccount(string id_a, string id_b) {
+    public SharedAccount(String id_a, String id_b) {
         userIdentifications.add(id_a);
         userIdentifications.add(id_b);
         System.out.println(id_a + id_b + " added to account.");
@@ -14,6 +14,11 @@ public class SharedAccount extends UserAccount {
         // super();
         // this.userIdentifications = userIdentifications;
         // this.userShares = userShares;
+    }
+
+    // add new account to shared account
+    public void addAccount(String new_id) {
+        userIdentifications.add(new_id);
     }
 
     @Override
