@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+package main.interface_adapters;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+=======
 package main.interface_adaptors;
 
 import java.beans.PropertyChangeListener;
@@ -38,3 +44,4 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
         return state;
     }
 }
+>>>>>>> origin/interface-adaptors
