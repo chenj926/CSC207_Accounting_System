@@ -17,7 +17,7 @@ public class PeriodicOutflow extends PeriodicTransaction {
     }
 
     @Override
-    public void recordTransaction() {
+    public void RecordTransaction() {
         System.out.println("Recording Expense: ");
         displayTransactionDetails();
         System.out.println("Category: " + expenseCategory);
