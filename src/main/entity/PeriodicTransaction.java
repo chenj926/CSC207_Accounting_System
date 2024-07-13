@@ -1,4 +1,4 @@
-package main.entity;
+package entity;
 
 public abstract class PeriodicTransaction implements Transaction {
     private float transactionAmount;

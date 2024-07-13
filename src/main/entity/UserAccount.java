@@ -1,25 +1,31 @@
-package main.entity;
+package entity;
 
-import util.*;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
-public abstract class UserAccount implements Transaction {
+public class UserAccount implements entity.Transaction {
     private float totalCurrentBalance;
     private float totalIncome;
     private float totalOutflow;
     private String identification;
+    protected static Map<String, UserAccount> userAccounts;
+    protected List<Transaction> transactions;
 
     // Constructors
-    public UserAccount(){
+    public UserAccount(String identification){
         this.totalCurrentBalance = 0.0f;
         this.totalIncome = 0.0f;
         this.totalOutflow = 0.0f;
-        this.identification = "";
+        this.identification = identification;
+        userAccounts.put(identification, this);
     }
     public UserAccount(float balance, float income, float outflow, String identification) {
         this.totalCurrentBalance = balance;
         this.totalIncome = income;
         this.totalOutflow = outflow;
         this.identification = identification;
+        userAccounts.put(this.identification, this);
     }
 
     // Getters
@@ -52,13 +58,16 @@ public abstract class UserAccount implements Transaction {
 
     // implement the interface's RecordTransaction method
     @Override
-    public void RecordTransaction(float amount) {
-        if (amount >= 0.0) {
-            this.totalIncome += amount;
+    public void recordTransaction(String identification, float transactionAmount,
+                                  LocalDate transactionDate, String transactionDescription,
+                                  String recurrence, boolean periodic){
+
+        if (transactionAmount >= 0.0) {
+            this.totalIncome += transactionAmount;
         }
         else {
-            this.totalOutflow += Math.abs(amount);  // let the outflow to p+ first
+            this.totalOutflow += Math.abs(transactionAmount);  // let the outflow to p+ first
         }
-        this.totalCurrentBalance += amount;
+        this.totalCurrentBalance += transactionAmount;
     }
 }

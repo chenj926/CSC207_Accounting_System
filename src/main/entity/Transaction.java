@@ -1,15 +1,10 @@
-package main.entity;
+package entity;
+
+import java.time.LocalDate;
+
+// dateTimes.add(LocalDateTime.of(2024, 7, 13));
+// dateTimes.add(LocalDateTime.now());
 
 public interface Transaction {
-    void RecordTransaction(float amount);
-}
-
-
-
-public abstract class OneTimeTransaction implements Transaction {
-    protected float transactionAmount;
-
-    // Abstract method to record the transaction
-    public abstract void recordTransaction(float amount);
-}
+    void recordTransaction(String identification, float transactionAmount, LocalDate transactionDate, String transactionDescription, String recurrence, boolean periodic);
 }
