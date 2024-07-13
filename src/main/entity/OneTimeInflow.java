@@ -8,6 +8,6 @@ public class OneTimeInflow extends OneTimeTransaction {
     @Override
     punlic void recordTransaction(float amount) {
         super.recordTransaction(amount);
-        // System.out.println("one-time inflow: " +amount);
+        System.out.println("one-time inflow: " +amount);
     }
 }
