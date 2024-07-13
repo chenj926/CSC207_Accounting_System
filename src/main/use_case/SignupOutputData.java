@@ -9,7 +9,7 @@ public class SignupOutputData {
     // Constructor
     public SignupOutputData(String username, boolean useCaseFailed) {
         this.username = username;
-        this.useCaseFailed - useCaseFailed;
+        this.useCaseFailed = useCaseFailed;
     }
 
     // getters
