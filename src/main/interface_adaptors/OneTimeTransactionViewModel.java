@@ -1,4 +1,4 @@
-package main.interface_adapters;
+package main.interface_adaptors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -14,28 +14,39 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
     public final String RECORD_BUTTON_LABEL = "Record Transaction";
     public final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private OneTimeTransactionState state = new OneTimeTransactionState();
+    private float transactionAmount;
+    private String transactionDate;
+    private String transactionDescription;
 
     public OneTimeTransactionViewModel() {
         super("One-Time Transaction");
     }
 
-    public void setState(OneTimeTransactionState state) {
-        this.state = state;
+    public float getTransactionAmount() {
+        return transactionAmount;
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+    public void setTransactionAmount(float transactionAmount) {
+        float oldTransactionAmount = this.transactionAmount;
+        this.transactionAmount = transactionAmount;
     }
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
+    public String getTransactionDate() {
+        return transactionDate;
     }
 
-    public OneTimeTransactionState getState() {
-        return state;
+    public void setTransactionDate(String transactionDate) {
+        String oldTransactionDate = this.transactionDate;
+        this.transactionDate = transactionDate;
     }
+
+    public String getTransactionDescription() {
+        return transactionDescription;
+    }
+
+    public void setTransactionDescription(String transactionDescription) {
+        String oldTransactionDescription = this.transactionDescription;
+        this.transactionDescription = transactionDescription;
+    }
+
 }
->>>>>>> origin/interface-adaptors
