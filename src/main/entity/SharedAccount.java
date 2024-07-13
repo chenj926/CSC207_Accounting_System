@@ -3,27 +3,32 @@ package main.entity;
 import util.*;
 
 public class SharedAccount extends UserAccount {
-    private String[] userIdentifications;
+    Set<String> userIdentifications;
     private float[] userShares;
 
-    public SharedAccount(float balance, float income, float outflow, String identification, String[] userIdentifications, float[] userShares) {
-        super(balance, income, outflow, identification);
-        this.userIdentifications = userIdentifications;
-        this.userShares = userShares;
+    public SharedAccount(string id_a, string id_b) {
+        userIdentifications.add(id_a);
+        userIdentifications.add(id_b);
+        System.out.println(id_a + id_b + " added to account.");
+
+        // super();
+        // this.userIdentifications = userIdentifications;
+        // this.userShares = userShares;
     }
 
     @Override
-    public void RecordTransaction(float amount) {
+    public void recordTransaction(float amount, user_id) {
+        // recording to shared account
         super.RecordTransaction(amount);
+        // record spendings in personal account as well
+        UserAccount userAccount = getUserAccount(userid);
+        userAccount.RecordTransaction(userAmount);
 
-        for (int i = 0; i < userShares.length; i++) {
-            float userAmount = amount * userShares[i];
-            UserAccount userAccount = getUserAccount(userIdentifications[i]);
-            userAccount.RecordTransaction(userAmount);
+        //for (int i = 0; i < userShares.length; i++) {
+        //    float userAmount = amount * userShares[i];
+        //    UserAccount userAccount = getUserAccount(userIdentifications[i]);
+        //    userAccount.RecordTransaction(userAmount);
         }
     }
 
-    private UserAccount getUserAccount(String userIdentification) {
-        return new UserAccount(0.0f, 0.0f, 0.0f, userIdentification);
-    }
 }
