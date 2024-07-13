@@ -16,15 +16,8 @@ public class PeriodicTransactionOutputData {
         this.transactionDescription = transactionDescription;
         this.recurrence = recurrence;
     }
-}
 
     // getters
-    public boolean isSuccess() {
-        return success;
-    }
-    public String getMessage() {
-        return message;
-    }
     public float getTransactionAmount() {
         return transactionAmount;
     }
@@ -39,10 +32,7 @@ public class PeriodicTransactionOutputData {
     }
 
     // setters
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-    public void setMessage(String message) {
-        this.message = message;
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
 }
