@@ -1,8 +1,6 @@
-package main.entity;
+package entity;
 
-import util.*;
-
-public abstract class UserAccount implements Transaction {
+public class UserAccount implements main.entity.Transaction {
     private float totalCurrentBalance;
     private float totalIncome;
     private float totalOutflow;
@@ -52,7 +50,7 @@ public abstract class UserAccount implements Transaction {
 
     // implement the interface's RecordTransaction method
     @Override
-    public void RecordTransaction(float amount) {
+    public void recordTransaction(float amount) {
         if (amount >= 0.0) {
             this.totalIncome += amount;
         }
