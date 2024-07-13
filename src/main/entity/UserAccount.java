@@ -10,14 +10,15 @@ public class UserAccount implements entity.Transaction {
     private float totalOutflow;
     private String identification;
     protected static Map<String, UserAccount> userAccounts;
+    protected List<Transaction> transactions;
 
     // Constructors
-    public UserAccount(){
+    public UserAccount(String identification){
         this.totalCurrentBalance = 0.0f;
         this.totalIncome = 0.0f;
         this.totalOutflow = 0.0f;
-        this.identification = "";
-        userAccounts.put(this.identification, this);
+        this.identification = identification;
+        userAccounts.put(identification, this);
     }
     public UserAccount(float balance, float income, float outflow, String identification) {
         this.totalCurrentBalance = balance;
