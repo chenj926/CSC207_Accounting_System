@@ -1,4 +1,4 @@
-package test.entity;
+package entity;
 
 public class UserAccountTest {
     @Test
