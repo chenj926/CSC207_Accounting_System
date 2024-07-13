@@ -1,12 +1,11 @@
-package entity;
+package test.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
+import java.util.List;
 
 public class SharedAccountTest {
     @Test
     public void testAddAccount(){
-        SharedAccount sharedAccount = new SharedAccount("a", "b");
+        SharedAccount sharedAccount = new SharedAccount("a", "b"):
         String newAccount = "c";
         sharedAccount.AddAccount(newAccount);
 

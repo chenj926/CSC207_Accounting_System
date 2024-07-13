@@ -1,4 +1,6 @@
-package test.entity;
+package entity;
+
+import org.junit.Test;
 
 public class UserAccountTest {
     @Test
