@@ -14,7 +14,7 @@ public class SharedAccount extends UserAccount {
     }
 
     public Set<String> getSharedUserIdentifications() {
-        return new HashSet<>(sharedUserIdentifications);
+        return this.sharedUserIdentifications;
     }
 
     public void addUserIdentification(String identification) {
