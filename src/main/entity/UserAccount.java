@@ -86,15 +86,12 @@ public class UserAccount implements Account {
         this.password = password;
     }
 
-    @Override
     public void setTotalIncome(float totalIncome) {
         this.totalIncome = totalIncome;
     }
-    @Override
     public void setTotalOutflow(float totalOutflow) {
         this.totalOutflow = totalOutflow;
     }
-    @Override
     public void setTotalBalance(float totalBalance) {
         this.totalBalance = totalBalance;
     }
