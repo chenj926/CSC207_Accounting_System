@@ -1,6 +1,6 @@
 package use_case;
 
-import util.*;
+import java.util.*;
 
 public class SignupInputData {
     private final String username;
@@ -15,13 +15,13 @@ public class SignupInputData {
     }
 
     // getter
-    public String getUsername {
+    public String getUsername() {
         return this.username;
     }
-    public String getPassword {
+    public String getPassword() {
         return this.password;
     }
-    public String getIdentification {
+    public String getIdentification() {
         return this.identification;
     }
 }
