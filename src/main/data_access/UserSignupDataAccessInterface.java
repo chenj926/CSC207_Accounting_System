@@ -1,9 +1,9 @@
 package data_access;
 
-import entity.AccountFactory;
+import entity.UserAccount;
 
 public interface UserSignupDataAccessInterface {
     boolean existById(String identification);
 
-    void save(AccountFactory user);
+    void save(UserAccount user);
 }
