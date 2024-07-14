@@ -1,5 +1,14 @@
-package main.entity;
+package entity;
 
+import java.time.LocalDate;
+
+public class OneTimeOutflow extends OneTimeTransaction {
+    public OneTimeOutflow(String identification, double amount, LocalDate date, String description) {
+        super(identification, amount, date, description);
+        if(this.isInflow()) System.out.println("Periodic outflow error, should be inflow!");
+    }
+}
+/*
 public class OneTimeOutflow extends OneTimeTransaction {
     public OneTimeOutflow(float transactionAmount){
         super(transactionAmount);
@@ -7,6 +16,8 @@ public class OneTimeOutflow extends OneTimeTransaction {
     @Override
     punlic void recordTransaction(float amount) {
         super.recordTransaction(amount);
-        // System.out.println("one-time outflow: " +amount);
+        System.out.println("one-time outflow: " + amount);
     }
 }
+
+ */
