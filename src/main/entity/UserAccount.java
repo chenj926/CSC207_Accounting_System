@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -109,6 +110,7 @@ public class UserAccount implements Account {
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         updateTotals(transaction);
+        Collections.sort(transactions, new TransactionComparator());
     }
 
     // update total income, total outflow, and total balance for each transaction
