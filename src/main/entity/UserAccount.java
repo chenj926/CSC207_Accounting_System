@@ -1,15 +1,48 @@
 package entity;
 
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
 
+
+public class UserAccount {
+    private String username;
+    private String password;
+    private String identification;
+    private List<Transaction> transactions;
+
+    public UserAccount(String username, String password, String identification) {
+        this.username = username;
+        this.password = password;
+        this.identification = identification;
+        this.transactions = new ArrayList<>();
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getIdentification() {
+        return identification;
+    }
+
+    public List<Transaction> getTransactions() {
+        return new ArrayList<>(transactions);
+    }
+
+    public void recordTransaction(Transaction transaction) {
+        transactions.add(transaction);
+    }
+}
+
+
+/*
 public class UserAccount implements entity.Transaction {
+    private String identification;
+
     private float totalCurrentBalance;
     private float totalIncome;
     private float totalOutflow;
-    private String identification;
-    protected static Map<String, UserAccount> userAccounts;
+
     protected List<Transaction> transactions;
 
     // Constructors
@@ -18,14 +51,12 @@ public class UserAccount implements entity.Transaction {
         this.totalIncome = 0.0f;
         this.totalOutflow = 0.0f;
         this.identification = identification;
-        userAccounts.put(identification, this);
     }
     public UserAccount(float balance, float income, float outflow, String identification) {
         this.totalCurrentBalance = balance;
         this.totalIncome = income;
         this.totalOutflow = outflow;
         this.identification = identification;
-        userAccounts.put(this.identification, this);
     }
 
     // Getters
@@ -52,16 +83,17 @@ public class UserAccount implements entity.Transaction {
     public void setTotalOutflow(float outflow) {
         this.totalOutflow = outflow;
     }
-    public void setIdentification(String indentification) {
-        this.identification = indentification;
+    public void setIdentification(String identification) {
+        this.identification = identification;
     }
 
-    // implement the interface's RecordTransaction method
+    // implement the interface's recordTransaction method
     @Override
     public void recordTransaction(String identification, float transactionAmount,
                                   LocalDate transactionDate, String transactionDescription,
                                   String recurrence, boolean periodic){
 
+        boolean inflow = (transactionAmount > 0.0f);
         if (transactionAmount >= 0.0) {
             this.totalIncome += transactionAmount;
         }
@@ -69,5 +101,25 @@ public class UserAccount implements entity.Transaction {
             this.totalOutflow += Math.abs(transactionAmount);  // let the outflow to p+ first
         }
         this.totalCurrentBalance += transactionAmount;
+
+        if(periodic){
+            if(inflow){
+                // periodic inflow
+
+            }else{
+                // periodic outflow
+
+            }
+        } else{
+            if(inflow){
+                // one time inflow
+
+            }else{
+                // one time outflow
+
+            }
+        }
+
     }
 }
+ */
