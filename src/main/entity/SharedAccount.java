@@ -8,10 +8,9 @@ public class SharedAccount extends UserAccount {
     private Set<String> sharedUserIdentifications;
 
     // adds first id to account
-    public SharedAccount(String identification) {
-        super(null, null, identification); // SharedAccount may not need username/password
+    public SharedAccount(String shareAccountIdentification) {
+        super(null, null, shareAccountIdentification); // SharedAccount have own shared account id
         this.sharedUserIdentifications = new HashSet<>();
-        this.sharedUserIdentifications.add(identification);
     }
 
     public Set<String> getSharedUserIdentifications() {
@@ -26,11 +25,11 @@ public class SharedAccount extends UserAccount {
         sharedUserIdentifications.remove(identification);
     }
 
-    @Override
-    public String getIdentification() {
-        System.out.println("Please use getSharedUserIdentifications method.");
-        return null;
-    }
+//    @Override
+//    public String getIdentification() {
+//        System.out.println("Please use getSharedUserIdentifications method.");
+//        return null;
+//    }
 }
 
 
