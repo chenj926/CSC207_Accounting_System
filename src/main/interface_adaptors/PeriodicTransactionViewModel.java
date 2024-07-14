@@ -1,9 +1,11 @@
-package interface_adapters;
+package main.interface_adaptors;
+
+import main.interface_adaptors.TransactionViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class PeriodicTransactionViewModel extends ViewModel {
+public class PeriodicTransactionViewModel extends TransactionViewModel {
     public static final String TITLE_LABEL = "Periodic Transaction";
     public static final String TRANSACTION_AMOUNT_LABEL = "Transaction Amount";
     public static final String TRANSACTION_DATE_LABEL = "Transaction Date";
@@ -14,11 +16,10 @@ public class PeriodicTransactionViewModel extends ViewModel {
     private String transactionDate;
     private String transactionDescription;
     private String recurrence;
-    private final PropertyChangeSupport propertyChangeSupport;
 
-    public PeriodicTransactionViewModel(String viewName) {
-        super(viewName);
-        this.propertyChangeSupport = new PropertyChangeSupport(this);
+
+    public PeriodicTransactionViewModel() {
+        super("Periodic Transaction");
     }
 
     public float getTransactionAmount() {
@@ -28,7 +29,6 @@ public class PeriodicTransactionViewModel extends ViewModel {
     public void setTransactionAmount(float transactionAmount) {
         float oldTransactionAmount = this.transactionAmount;
         this.transactionAmount = transactionAmount;
-        propertyChangeSupport.firePropertyChange("transactionAmount", oldTransactionAmount, this.transactionAmount);
     }
 
     public String getTransactionDate() {
@@ -38,7 +38,6 @@ public class PeriodicTransactionViewModel extends ViewModel {
     public void setTransactionDate(String transactionDate) {
         String oldTransactionDate = this.transactionDate;
         this.transactionDate = transactionDate;
-        propertyChangeSupport.firePropertyChange("transactionDate", oldTransactionDate, this.transactionDate);
     }
 
     public String getTransactionDescription() {
@@ -48,7 +47,6 @@ public class PeriodicTransactionViewModel extends ViewModel {
     public void setTransactionDescription(String transactionDescription) {
         String oldTransactionDescription = this.transactionDescription;
         this.transactionDescription = transactionDescription;
-        propertyChangeSupport.firePropertyChange("transactionDescription", oldTransactionDescription, this.transactionDescription);
     }
 
     public String getRecurrence() {
@@ -58,5 +56,5 @@ public class PeriodicTransactionViewModel extends ViewModel {
     public void setRecurrence(String recurrence) {
         String oldRecurrence = this.recurrence;
         this.recurrence = recurrence;
-        propertyChangeSupport.firePropertyChange("recurrence", oldRecurrence, this.recurrence);
     }
+}
