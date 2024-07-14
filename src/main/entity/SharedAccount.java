@@ -7,6 +7,7 @@ import java.util.Set;
 public class SharedAccount extends UserAccount {
     private Set<String> sharedUserIdentifications;
 
+    // adds first id to account
     public SharedAccount(String identification) {
         super(null, null, identification); // SharedAccount may not need username/password
         this.sharedUserIdentifications = new HashSet<>();
@@ -23,6 +24,12 @@ public class SharedAccount extends UserAccount {
 
     public void removeUserIdentification(String identification) {
         sharedUserIdentifications.remove(identification);
+    }
+
+    @Override
+    public String getIdentification() {
+        System.out.println("Please use getSharedUserIdentifications method.");
+        return null;
     }
 }
 
