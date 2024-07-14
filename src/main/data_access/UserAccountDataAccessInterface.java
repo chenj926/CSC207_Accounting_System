@@ -4,6 +4,9 @@ import entity.UserAccount;
 
 public interface UserAccountDataAccessInterface {
     boolean existById(String identification);
+    UserAccount getById(String identification);
+
+    void getId(String identification);
 
     void updateId(UserAccount userAccount);
     //account balance
