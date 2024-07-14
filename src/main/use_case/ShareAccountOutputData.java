@@ -4,12 +4,14 @@ import java.util.*;
 
 public class ShareAccountOutputData {
     private final Set<String> id;
+    private final String shareAccountId;
     private boolean shareAccountFailed;
 
     // Constructor
-    public ShareAccountOutputData(Set<String> id, boolean shareAccountFailed) {
+    public ShareAccountOutputData(String shareAccountId, Set<String> id, boolean shareAccountFailed) {
         this.id = id;
         this.shareAccountFailed = shareAccountFailed;
+        this.shareAccountId = shareAccountId;
     }
 
     // Getters
@@ -19,4 +21,5 @@ public class ShareAccountOutputData {
     public boolean isShareAccountFailed() {
         return shareAccountFailed;
     }
+    public String getShareAccountId() {return shareAccountId; }
 }
