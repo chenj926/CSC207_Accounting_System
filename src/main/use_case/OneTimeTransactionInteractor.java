@@ -1,7 +1,6 @@
 package use_case;
 
 import data_access.UserAccountDataAccessInterface;
-import entity.AccountFactory;
 import entity.Transaction;
 import entity.UserAccount;
 
@@ -10,14 +9,15 @@ import entity.UserAccount;
 public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
     final OneTimeTransactionOutputBoundary presenter;
-    final AccountFactory accountFactory;
+    final UserAccount userAccount;
 
     public OneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                         OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
-                                        AccountFactory accountFactory) {
+                                        UserAccount userAccount) {
         this.userDataAccessObject = userAccountDataAccessInterface;
         this.presenter = oneTimeTransactionOutputBoundary;
-        this.accountFactory = accountFactory;
+        this.userAccount = userAccount;
+
     }
 
     @Override
