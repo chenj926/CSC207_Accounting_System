@@ -3,36 +3,124 @@ package entity;
 import java.util.List;
 import java.util.ArrayList;
 
-
-public class UserAccount {
+public class UserAccount implements Account {
     private String username;
     private String password;
     private String identification;
+
     private List<Transaction> transactions;
 
+    private double totalIncome;
+    private double totalOutflow;
+    private double totalBalance;
+
+    // constructors
     public UserAccount(String username, String password, String identification) {
         this.username = username;
         this.password = password;
         this.identification = identification;
+
         this.transactions = new ArrayList<>();
+
+        this.totalIncome = 0.0;
+        this.totalOutflow = 0.0;
+        this.totalBalance = 0.0;
     }
 
-    public void setPassword(String password) {
+    public UserAccount(String username, String password, String identification,
+                       float totalIncome, float totalOutflow, float totalBalance) {
+        this.username = username;
         this.password = password;
+        this.identification = identification;
+
+        this.transactions = new ArrayList<>();
+
+        this.totalIncome = totalIncome;
+        this.totalOutflow = totalOutflow;
+        this.totalBalance = totalBalance;
     }
 
+    // getters
+    @Override
     public String getIdentification() {
         return identification;
     }
+    @Override
+    public String getUsername() {
+        return username;
+    }
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
+    @Override
+    public double getTotalIncome() {
+        return totalIncome;
+    }
+    @Override
+    public double getTotalOutflow() {
+        return totalOutflow;
+    }
+    @Override
+    public double getTotalBalance() {
+        return totalBalance;
+    }
+
+    @Override
     public List<Transaction> getTransactions() {
         return new ArrayList<>(transactions);
     }
 
-    public void recordTransaction(Transaction transaction) {
+    // setters
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    @Override
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public void setTotalIncome(float totalIncome) {
+        this.totalIncome = totalIncome;
+    }
+    @Override
+    public void setTotalOutflow(float totalOutflow) {
+        this.totalOutflow = totalOutflow;
+    }
+    @Override
+    public void setTotalBalance(float totalBalance) {
+        this.totalBalance = totalBalance;
+    }
+    @Override
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+
+    @Override
+    public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
+        updateTotals(transaction);
+    }
+
+    private void updateTotals(Transaction transaction) {
+        double amount = transaction.getAmount();
+        if (amount > 0) {
+            totalIncome += amount;
+        } else {
+            totalOutflow += amount;
+        }
+        totalBalance += amount;
     }
 }
+
 
 
 /*
