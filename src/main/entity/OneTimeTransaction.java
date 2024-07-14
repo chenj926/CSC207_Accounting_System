@@ -10,7 +10,7 @@ public abstract class OneTimeTransaction implements Transaction {
 
     private boolean inflow;
 
-    public OneTimeTransaction(String identification, double amount, LocalDate date, String description, int recurrencePeriodInDays) {
+    public OneTimeTransaction(String identification, double amount, LocalDate date, String description) {
         this.identification = identification;
         this.amount = amount;
         this.date = date;
