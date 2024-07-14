@@ -3,20 +3,20 @@ package use_case;
 import java.util.*;
 
 import data_access.ShareAccountDataAccessInterface;
-import entity.UserAccount;
+import entity.SharedAccount;
 import entity.AccountFactory;
 
 public class ShareAccountInteractor implements ShareAccountInputBoundary{
     final AccountFactory accountFactory;
     final ShareAccountOutputBoundary presenter;
-    final ShareAccountDataAccessInterface usersDataAccessObject;
+    final ShareAccountDataAccessInterface shareAccountDataAccessObject;
 
     // Constructor
     public ShareAccountInteractor(ShareAccountDataAccessInterface shareAccountDataAccessInterface,
                                   ShareAccountOutputBoundary shareAccountOutputBoundary,
                                   AccountFactory accountFactory){
         this.accountFactory = accountFactory;
-        this.usersDataAccessObject = shareAccountDataAccessInterface;
+        this.shareAccountDataAccessObject = shareAccountDataAccessInterface;
         this.presenter = shareAccountOutputBoundary;
     }
 
@@ -25,7 +25,7 @@ public class ShareAccountInteractor implements ShareAccountInputBoundary{
         boolean allIdExist = true;
         // if all the entered share account id exist
         for (String id : shareAccountInputData.getSharedUserIdentifications()){
-            if (!usersDataAccessObject.existById(id)){
+            if (!shareAccountDataAccessObject.existById(id)){
                 allIdExist = false;
                 break;
             }
@@ -38,9 +38,15 @@ public class ShareAccountInteractor implements ShareAccountInputBoundary{
         }
         // now all id exist
         else {
-            UserAccount shareAccount = accountFactory.createSharedAccount()
+            // create new share acc
+            SharedAccount shareAccount =
+                    accountFactory.createSharedAccount(shareAccountInputData.getShareAccountIdentification());
+            shareAccountDataAccessObject.save(shareAccount);  // save this user
 
+            // prepare output to presenter
+            ShareAccountOutputData shareAccountOutputData = new ShareAccountOutputData(shareAccount.getIdentification(),
+                    shareAccount.getSharedUserIdentifications(), false);
+            presenter.prepareSuccessView(shareAccountOutputData);
         }
-
     }
 }
