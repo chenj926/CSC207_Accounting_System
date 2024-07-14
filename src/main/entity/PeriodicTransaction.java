@@ -1,5 +1,73 @@
 package entity;
 
+import java.time.LocalDate;
+
+public abstract class PeriodicTransaction implements Transaction {
+    private String identification;
+    private double amount;
+    private LocalDate date;
+    private String description;
+    private int recurrencePeriodInDays;
+
+    private boolean inflow;
+
+    public PeriodicTransaction(String identification, double amount, LocalDate date, String description, int recurrencePeriodInDays) {
+        this.identification = identification;
+        this.amount = amount;
+        this.date = date;
+        this.description = description;
+        this.recurrencePeriodInDays = recurrencePeriodInDays;
+        this.inflow = (amount>=0);
+    }
+
+    // Setter
+    @Override
+    public String getIdentification() {
+        return identification;
+    }
+    @Override
+    public double getAmount() {
+        return amount;
+    }
+    @Override
+    public LocalDate getDate() {
+        return date;
+    }
+    @Override
+    public String getDescription() {
+        return description;
+    }
+    public int getRecurrencePeriodInDays() {
+        return recurrencePeriodInDays;
+    }
+    public boolean isInflow() {
+        return inflow;
+    }
+
+    // Getter
+    @Override
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+    @Override
+    public void setAmount(double amount) {
+        this.amount = amount;
+        this.inflow = (amount>=0);
+    }
+    @Override
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
+        this.recurrencePeriodInDays = recurrencePeriodInDays;
+    }
+}
+
+/*
 public abstract class PeriodicTransaction implements Transaction {
     private float transactionAmount;
     private String transactionDate;
@@ -54,3 +122,5 @@ public abstract class PeriodicTransaction implements Transaction {
         System.out.println("Recurrence: " + recurrence);
     }
 }
+
+ */

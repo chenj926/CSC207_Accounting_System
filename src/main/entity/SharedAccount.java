@@ -1,9 +1,41 @@
 package entity;
 
-import java.time.LocalDate;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+public class SharedAccount extends UserAccount {
+    private Set<String> sharedUserIdentifications;
+
+    // adds first id to account
+    public SharedAccount(String identification) {
+        super(null, null, identification); // SharedAccount may not need username/password
+        this.sharedUserIdentifications = new HashSet<>();
+        this.sharedUserIdentifications.add(identification);
+    }
+
+    public Set<String> getSharedUserIdentifications() {
+        return new HashSet<>(sharedUserIdentifications);
+    }
+
+    public void addUserIdentification(String identification) {
+        sharedUserIdentifications.add(identification);
+    }
+
+    public void removeUserIdentification(String identification) {
+        sharedUserIdentifications.remove(identification);
+    }
+
+    @Override
+    public String getIdentification() {
+        System.out.println("Please use getSharedUserIdentifications method.");
+        return null;
+    }
+}
+
+
+
+/*
 public class SharedAccount extends entity.UserAccount {
     Set<String> userIdentifications;
     protected static Map<Set<String>, UserAccount> sharedAccounts;
@@ -38,5 +70,5 @@ public class SharedAccount extends entity.UserAccount {
         userAccount.recordTransaction(identification, transactionAmount, transactionDate, transactionDescription, recurrence, periodic);
 
     }
-
 }
+ */

@@ -1,5 +1,15 @@
 package entity;
 
+import java.time.LocalDate;
+
+public class PeriodicOutflow extends PeriodicTransaction {
+    public PeriodicOutflow(String identification, double amount, LocalDate date, String description, int recurrencePeriodInDays) {
+        super(identification, amount, date, description, recurrencePeriodInDays);
+        if(this.isInflow()) System.out.println("Periodic outflow error, should be inflow!");
+    }
+}
+
+/*
 public class PeriodicOutflow extends PeriodicTransaction {
     private String expenseCategory;
 
@@ -23,3 +33,5 @@ public class PeriodicOutflow extends PeriodicTransaction {
         System.out.println("Category: " + expenseCategory);
     }
 }
+
+ */
