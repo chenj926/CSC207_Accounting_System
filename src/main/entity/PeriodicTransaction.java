@@ -65,8 +65,6 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
         this.recurrencePeriodInDays = recurrencePeriodInDays;
     }
-
-
 }
 
 /*
