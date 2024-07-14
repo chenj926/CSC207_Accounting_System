@@ -2,7 +2,7 @@ package use_case;
 
 public class OneTimeTransactionOutputData {
 
-    private float transactionAmount;
+    private float newBalance;
     private String transactionDate;
     private String transactionDescription;
     private String transactionCategory;
@@ -10,10 +10,10 @@ public class OneTimeTransactionOutputData {
 
     private boolean useCaseFailed;
 
-    public OneTimeTransactionOutputData(float transactionAmount, String transactionDate, String transactionDescription,
+    public OneTimeTransactionOutputData(float newBalance, String transactionDate, String transactionDescription,
                                         String transactionCategory, String transactionNotes) {
 
-        this.transactionAmount = transactionAmount;
+        this.newBalance = newBalance;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
         this.transactionCategory = transactionCategory;
@@ -21,8 +21,8 @@ public class OneTimeTransactionOutputData {
         this.useCaseFailed = false;
 
     }
-    public float getTransactionAmount() {
-            return transactionAmount;
+    public float getNewBalance() {
+            return newBalance;
         }
 
     public String getTransactionDate() {
@@ -40,6 +40,12 @@ public class OneTimeTransactionOutputData {
     public String getTransactionNotes() {
             return transactionNotes;
         }
+
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
+
+    public void setUseCaseFailed(boolean useCaseFailed) {}
 
     public void setTransactionDate(String transactionDate) {
             this.transactionDate = transactionDate;
