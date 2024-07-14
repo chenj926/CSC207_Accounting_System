@@ -86,27 +86,32 @@ public class UserAccount implements Account {
         this.password = password;
     }
 
-    public void setTotalIncome(float totalIncome) {
+    @Override
+    public void setTotalIncome(double totalIncome) {
         this.totalIncome = totalIncome;
     }
-    public void setTotalOutflow(float totalOutflow) {
+    @Override
+    public void setTotalOutflow(double totalOutflow) {
         this.totalOutflow = totalOutflow;
     }
-    public void setTotalBalance(float totalBalance) {
+    @Override
+    public void setTotalBalance(double totalBalance) {
         this.totalBalance = totalBalance;
     }
+
     @Override
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
     }
 
-
+    // add transaction object
     @Override
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         updateTotals(transaction);
     }
 
+    // update total income, total outflow, and total balance for each transaction
     private void updateTotals(Transaction transaction) {
         double amount = transaction.getAmount();
         if (amount > 0) {
