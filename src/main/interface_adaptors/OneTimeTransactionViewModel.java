@@ -1,7 +1,7 @@
 package main.interface_adaptors;
 
 
-public class OneTimeTransactionViewModel {
+public class OneTimeTransactionViewModel extends TransactionViewModel {
 
     public final String TITLE_LABEL = "One-Time Transaction";
     public final String AMOUNT_LABEL = "Transaction Amount";
@@ -16,6 +16,9 @@ public class OneTimeTransactionViewModel {
     private String transactionDate;
     private String transactionDescription;
 
+    public OneTimeTransactionViewModel() {
+        super("One-Time Transaction");
+    }
 
     public float getTransactionAmount() {
         return transactionAmount;
