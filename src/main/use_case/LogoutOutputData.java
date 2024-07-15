@@ -1,2 +1,4 @@
-package use_case;public class LogoutOutputData {
+package use_case;
+
+public class LogoutOutputData {
 }
