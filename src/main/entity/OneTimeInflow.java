@@ -3,8 +3,8 @@ package entity;
 import java.time.LocalDate;
 
 public class OneTimeInflow extends OneTimeTransaction {
-    public OneTimeInflow(String identification, float amount, LocalDate date, String description) {
-        super(identification, amount, date, description);
+    public OneTimeInflow(String identification, float amount, LocalDate date, String description, String category) {
+        super(identification, amount, date, description, category);
         if(!this.isInflow()) System.out.println("Periodic inflow error, should be outflow!");
     }
 }
