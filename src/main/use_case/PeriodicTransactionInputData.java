@@ -5,15 +5,18 @@ public class PeriodicTransactionInputData {
     private float transactionAmount;
     private final String identification;
     private String transactionDate;
+    private String transactionDuration;
     private String transactionDescription;
     private String recurrence;
 
-    public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionDate, String transactionDescription, String recurrence) {
+    public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionDate,
+                                        String transactionDescription, String recurrence, String transactionDuration) {
         this.transactionAmount = transactionAmount;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
         this.recurrence = recurrence;
         this.identification = identification;
+        this.transactionDuration = transactionDuration;
 
     }
 
@@ -35,6 +38,10 @@ public class PeriodicTransactionInputData {
 
     public String getRecurrence() {
         return recurrence;
+    }
+
+    public String getTransactionDuration() {
+        return transactionDuration;
     }
 
 }
