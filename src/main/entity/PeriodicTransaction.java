@@ -5,22 +5,27 @@ import java.time.LocalDate;
 public abstract class PeriodicTransaction implements Transaction {
     private String identification;
     private float amount;
-    private LocalDate date;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String duration;
     private String description;
     private int recurrencePeriodInDays;
 
     private boolean inflow;
 
-    public PeriodicTransaction(String identification, float amount, LocalDate date, String description, int recurrencePeriodInDays) {
+    public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
+                               int recurrencePeriodInDays, LocalDate endDate, String duration) {
         this.identification = identification;
         this.amount = amount;
-        this.date = date;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.duration = duration;
         this.description = description;
         this.recurrencePeriodInDays = recurrencePeriodInDays;
         this.inflow = (amount>=0);
     }
 
-    // Setter
+    // Getter
     @Override
     public String getIdentification() {
         return identification;
@@ -28,10 +33,6 @@ public abstract class PeriodicTransaction implements Transaction {
     @Override
     public float getAmount() {
         return amount;
-    }
-    @Override
-    public LocalDate getDate() {
-        return date;
     }
     @Override
     public String getDescription() {
@@ -43,8 +44,11 @@ public abstract class PeriodicTransaction implements Transaction {
     public boolean isInflow() {
         return inflow;
     }
+    public LocalDate getStartDate() { return startDate; }
+    public LocalDate getEndDate() { return endDate; }
+    public String getDuration() { return duration; }
 
-    // Getter
+    // Setter
     @Override
     public void setIdentification(String identification) {
         this.identification = identification;
@@ -54,10 +58,19 @@ public abstract class PeriodicTransaction implements Transaction {
         this.amount = amount;
         this.inflow = (amount>=0);
     }
-    @Override
-    public void setDate(LocalDate date) {
-        this.date = date;
+
+    public void setStartDateDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
     @Override
     public void setDescription(String description) {
         this.description = description;
