@@ -11,13 +11,13 @@ public interface Transaction {
     LocalDate getDate();
     String getIdentification();
     String getDescription();
-    double getAmount();
+    float getAmount();
 
     // setters
     void setDate(LocalDate date);
     void setIdentification(String identification);
     void setDescription(String description);
-    void setAmount(double amount);
+    void setAmount(float amount);
 }
 
 /*

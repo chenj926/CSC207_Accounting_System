@@ -8,9 +8,9 @@ public interface Account {
     String getUsername();
     String getPassword();
 
-    double getTotalIncome();
-    double getTotalOutflow();
-    double getTotalBalance();
+    float getTotalIncome();
+    float getTotalOutflow();
+    float getTotalBalance();
 
     List<Transaction> getTransactions();
 
@@ -19,9 +19,9 @@ public interface Account {
     void setUsername(String username);
     void setPassword(String password);
 
-    void setTotalIncome(double totalIncome);
-    void setTotalOutflow(double totalOutflow);
-    void setTotalBalance(double totalBalance);
+    void setTotalIncome(float totalIncome);
+    void setTotalOutflow(float totalOutflow);
+    void setTotalBalance(float totalBalance);
 
     void setTransactions(List<Transaction> transactions);
 

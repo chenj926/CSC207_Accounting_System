@@ -4,13 +4,13 @@ import java.time.LocalDate;
 
 public abstract class OneTimeTransaction implements Transaction {
     private String identification;
-    private double amount;
+    private float amount;
     private LocalDate date;
     private String description;
 
     private boolean inflow;
 
-    public OneTimeTransaction(String identification, double amount, LocalDate date, String description) {
+    public OneTimeTransaction(String identification, float amount, LocalDate date, String description) {
         this.identification = identification;
         this.amount = amount;
         this.date = date;
@@ -24,7 +24,7 @@ public abstract class OneTimeTransaction implements Transaction {
         return identification;
     }
     @Override
-    public double getAmount() {
+    public float getAmount() {
         return amount;
     }
     @Override
@@ -45,7 +45,7 @@ public abstract class OneTimeTransaction implements Transaction {
         this.identification = identification;
     }
     @Override
-    public void setAmount(double amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
         this.inflow = (amount>=0);
     }
