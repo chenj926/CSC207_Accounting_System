@@ -1,2 +1,4 @@
-package use_case;public interface LogoutOutputBoundary {
+package use_case;
+
+public interface LogoutOutputBoundary {
 }
