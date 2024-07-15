@@ -67,7 +67,7 @@ public abstract class PeriodicTransaction implements Transaction {
         this.endDate = endDate;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(LocalDate duration) {
         this.duration = duration;
     }
 
