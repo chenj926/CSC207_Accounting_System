@@ -1,37 +1,48 @@
 package use_case;
 
+import java.time.LocalDate;
+
 public class PeriodicTransactionOutputData {
     private float transactionAmount;
-    private String transactionDate;
+    private LocalDate transactionStartDate;
+    private LocalDate transactionEndDate;
+    private int transactionDuration;
     private String transactionDescription;
-    private String recurrence;
 
     public PeriodicTransactionOutputData(float transactionAmount,
-                                         String transactionDate, String transactionDescription, String recurrence) {
+                                         LocalDate transactionStartDate, String transactionDescription,
+                                         int transactionDuration, LocalDate transactionEndDate) {
 
         this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
+        this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
-        this.recurrence = recurrence;
+        this.transactionEndDate = transactionEndDate;
+        this.transactionDuration = transactionDuration;
     }
 
     // getters
     public float getTransactionAmount() {
-        return transactionAmount;
+        return this.transactionAmount;
     }
-    public String getTransactionDate() {
-        return transactionDate;
+    public LocalDate getTransactionStartDate() {
+        return this.transactionStartDate;
     }
     public String getTransactionDescription() {
         return transactionDescription;
     }
-    public String getRecurrence() {
-        return recurrence;
+    public LocalDate getTransactionEndDate() {
+        return this.transactionEndDate;
+    }
+    public int getTransactionDuration() {
+        return this.transactionDuration;
     }
 
     // setters
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+    public void setTransactionStartDate(LocalDate transactionStartDate) {
+        this. transactionStartDate = transactionStartDate;
+    }
+    public void setTransactionEndDate(LocalDate transactionEndDate) {
+        this. transactionEndDate = transactionEndDate;
     }
     public void setTransactionAmount(float transactionAmount) {
         this.transactionAmount = transactionAmount;
@@ -39,7 +50,5 @@ public class PeriodicTransactionOutputData {
     public void setTransactionDescription(String transactionDescription) {
         this.transactionDescription = transactionDescription;
     }
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence;
-    }
+    public void setTransactionDuration(int transactionDuration) {this.transactionDuration = transactionDuration; }
 }

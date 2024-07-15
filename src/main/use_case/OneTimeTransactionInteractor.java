@@ -1,7 +1,6 @@
 package use_case;
 
 import data_access.UserAccountDataAccessInterface;
-import entity.Transaction;
 import entity.UserAccount;
 import entity.OneTimeInflow;
 import entity.OneTimeOutflow;
@@ -13,8 +12,6 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
     final UserAccountDataAccessInterface userDataAccessObject;
     final OneTimeTransactionOutputBoundary presenter;
     final UserAccount userAccount;
-//    final OneTimeInflow oneTimeInflow;
-//    final OneTimeOutflow oneTimeOutflow;
 
     public OneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                         OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
@@ -55,12 +52,15 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
                 presenter.prepareFailView("Invalid date format! Plz enter again");
                 return;
             }
-            OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, localDate, description);
+            OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, localDate, description, category);
 
             // update the balance accordingly
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance + income;
             userAccount.setTotalBalance(totalBalance);
+            // Prepare output data
+            OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow, userAccount.getTotalBalance());
+            presenter.prepareSuccessView(outputData);
         }
         else {
             float totalOutflow = userAccount.getTotalOutflow();
@@ -75,17 +75,15 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
                 presenter.prepareFailView("Invalid date format! Plz enter again");
                 return;
             }
-            OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(identification, amount, localDate, description);
+            OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(identification, amount, localDate, description, category);
 
             // update the balance accordingly
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance - outFlow;
             userAccount.setTotalBalance(totalBalance);
+            // Prepare output data
+            OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow, userAccount.getTotalBalance());
+            presenter.prepareSuccessView(outputData);
         }
-
-        // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(
-                amount, date, description, category);
-        presenter.prepareSuccessView(outputData);
     }
 }

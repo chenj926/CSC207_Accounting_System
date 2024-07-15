@@ -7,21 +7,21 @@ public abstract class PeriodicTransaction implements Transaction {
     private float amount;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String duration;
+    private int duration;
     private String description;
-    private int recurrencePeriodInDays;
+//    private int recurrencePeriodInDays;
 
     private boolean inflow;
 
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
-                               int recurrencePeriodInDays, LocalDate endDate, String duration) {
+                               LocalDate endDate, int duration) {
         this.identification = identification;
         this.amount = amount;
         this.startDate = startDate;
         this.endDate = endDate;
         this.duration = duration;
         this.description = description;
-        this.recurrencePeriodInDays = recurrencePeriodInDays;
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
         this.inflow = (amount>=0);
     }
 
@@ -36,17 +36,17 @@ public abstract class PeriodicTransaction implements Transaction {
     }
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
-    public int getRecurrencePeriodInDays() {
-        return recurrencePeriodInDays;
-    }
+//    public int getRecurrencePeriodInDays() {
+//        return recurrencePeriodInDays;
+//    }
     public boolean isInflow() {
-        return inflow;
+        return this.inflow;
     }
-    public LocalDate getStartDate() { return startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public String getDuration() { return duration; }
+    public LocalDate getStartDate() { return this.startDate; }
+    public LocalDate getEndDate() { return this.endDate; }
+    public int getDuration() { return this.duration; }
 
     // Setter
     @Override
@@ -67,7 +67,7 @@ public abstract class PeriodicTransaction implements Transaction {
         this.endDate = endDate;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
@@ -75,9 +75,9 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
-        this.recurrencePeriodInDays = recurrencePeriodInDays;
-    }
+//    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
+//    }
 }
 
 /*

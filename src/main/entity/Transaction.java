@@ -8,13 +8,13 @@ import java.time.LocalDate;
 
 public interface Transaction {
     // getters
-    LocalDate getDate();
+//    LocalDate getDate();
     String getIdentification();
     String getDescription();
     float getAmount();
 
     // setters
-    void setDate(LocalDate date);
+//    void setDate(LocalDate date);
     void setIdentification(String identification);
     void setDescription(String description);
     void setAmount(float amount);
