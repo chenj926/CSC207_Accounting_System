@@ -1,12 +1,12 @@
 package use_case;
 
-public class SignInInputData {
+public class LoginInputData {
     private final String username;
     private final String password;
     private final String identification;
 
     // Constructor
-    public SignInInputData(String username, String password, String identification){
+    public LoginInputData(String username, String password, String identification){
         this.username = username;
         this.password = password;
         this.identification = identification;
