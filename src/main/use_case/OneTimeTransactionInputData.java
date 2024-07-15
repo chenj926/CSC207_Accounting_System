@@ -36,5 +36,4 @@ public class OneTimeTransactionInputData {
     public String getTransactionCategory() {
         return transactionCategory;
     }
-
 }
