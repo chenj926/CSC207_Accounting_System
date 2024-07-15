@@ -4,44 +4,45 @@ public class PeriodicTransactionInputData {
 
     private float transactionAmount;
     private final String identification;
-    private String transactionDate;
+    private String transactionStartDate;
+    private String transactionEndDate;
     private String transactionDuration;
     private String transactionDescription;
-    private String recurrence;
 
-    public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionDate,
-                                        String transactionDescription, String recurrence, String transactionDuration) {
+
+    public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionStartDate,
+                                        String transactionDescription, String transactionDuration, String transactionEndDate) {
         this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
+        this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
-        this.recurrence = recurrence;
+        this.transactionEndDate = transactionEndDate;
         this.identification = identification;
         this.transactionDuration = transactionDuration;
 
     }
 
     public String getIdentification() {
-        return identification;
+        return this.identification;
     }
 
     public float getTransactionAmount() {
-        return transactionAmount;
+        return this.transactionAmount;
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
+    public String getTransactionStartDate() {
+        return this.transactionStartDate;
     }
 
     public String getTransactionDescription() {
-        return transactionDescription;
+        return this.transactionDescription;
     }
 
-    public String getRecurrence() {
-        return recurrence;
+    public String getTransactionEndDate() {
+        return this.transactionEndDate;
     }
 
     public String getTransactionDuration() {
-        return transactionDuration;
+        return this.transactionDuration;
     }
 
 }
