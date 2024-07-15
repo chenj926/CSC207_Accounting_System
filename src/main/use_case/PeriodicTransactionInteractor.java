@@ -29,6 +29,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         String transactionDate = periodicTransactionInputData.getTransactionDate();
         String transactionDescription = periodicTransactionInputData.getTransactionDescription();
         String transactionReccurence = periodicTransactionInputData.getRecurrence();
+        String transactionDuration = periodicTransactionInputData.getTransactionDuration();
         // Assuming user is already logged in
         boolean userExists = userDataAccessObject.existById(identification);
 
