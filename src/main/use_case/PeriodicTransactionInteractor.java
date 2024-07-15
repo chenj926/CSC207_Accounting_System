@@ -5,8 +5,9 @@ import data_access.UserAccountDataAccessInterface;
 import entity.PeriodicTransaction;
 import entity.Transaction;
 import entity.UserAccount;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
-// import java.time.LocalDateTime;
 
 public class PeriodicTransactionInteractor implements PeriodicTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
@@ -28,6 +29,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         String transactionDate = periodicTransactionInputData.getTransactionDate();
         String transactionDescription = periodicTransactionInputData.getTransactionDescription();
         String transactionReccurence = periodicTransactionInputData.getRecurrence();
+        String transactionDuration = periodicTransactionInputData.getTransactionDuration();
         // Assuming user is already logged in
         boolean userExists = userDataAccessObject.existById(identification);
 
@@ -38,25 +40,30 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 //        }
 
 
-        // Fetch user account based on identification
-        UserAccount userAccount = userDataAccessObject.getById(identification);
-        // Record transaction in user account
-        userAccount.getIdentification();
-        userAccount.getUsername();
-        userAccount.getTotalBalance();
-        userAccount.getTotalOutflow();
-        userAccount.getTotalIncome();
 
 
-        // Update the user account in the data store
-        userDataAccessObject.updateBalance(userAccount);
-        userDataAccessObject.updateOutflow(userAccount);
-        userDataAccessObject.updateInflow(userAccount);
-        userDataAccessObject.updateId(userAccount);
 
-        // Prepare output data
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(
-                true, identification, transactionAmount, transactionDate, transactionDescription, transactionReccurence);
-        presenter.prepareSuccessView(outputData);
-    }
-}
+
+
+//        // Fetch user account based on identification
+//        UserAccount userAccount = userDataAccessObject.getById(identification);
+//        // Record transaction in user account
+//        userAccount.getIdentification();
+//        userAccount.getUsername();
+//        userAccount.getTotalBalance();
+//        userAccount.getTotalOutflow();
+//        userAccount.getTotalIncome();
+//
+//
+//        // Update the user account in the data store
+//        userDataAccessObject.updateBalance(userAccount);
+//        userDataAccessObject.updateOutflow(userAccount);
+//        userDataAccessObject.updateInflow(userAccount);
+//        userDataAccessObject.updateId(userAccount);
+//
+//        // Prepare output data
+//        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(
+//                true, identification, transactionAmount, transactionDate, transactionDescription, transactionReccurence);
+//        presenter.prepareSuccessView(outputData);
+//    }
+//}

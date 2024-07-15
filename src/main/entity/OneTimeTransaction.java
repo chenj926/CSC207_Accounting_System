@@ -7,39 +7,44 @@ public abstract class OneTimeTransaction implements Transaction {
     private float amount;
     private LocalDate date;
     private String description;
+    private String category;
 
     private boolean inflow;
 
-    public OneTimeTransaction(String identification, float amount, LocalDate date, String description) {
+    public OneTimeTransaction(String identification, float amount, LocalDate date, String description, String category) {
         this.identification = identification;
         this.amount = amount;
         this.date = date;
         this.description = description;
+        this.category = category;
         this.inflow = (amount>=0);
     }
 
-    // Setter
+    // Getter
     @Override
     public String getIdentification() {
-        return identification;
+        return this.identification;
     }
     @Override
     public float getAmount() {
-        return amount;
+        return this.amount;
     }
     @Override
     public LocalDate getDate() {
-        return date;
+        return this.date;
     }
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
     public boolean isInflow() {
-        return inflow;
+        return this.inflow;
+    }
+    public String getCategory() {
+        return this.category;
     }
 
-    // Getter
+    // Setter
     @Override
     public void setIdentification(String identification) {
         this.identification = identification;

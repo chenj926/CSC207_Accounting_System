@@ -1,8 +1,12 @@
 package use_case;
 
 import data_access.UserAccountDataAccessInterface;
-import entity.Transaction;
 import entity.UserAccount;
+import entity.OneTimeInflow;
+import entity.OneTimeOutflow;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
@@ -20,24 +24,16 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
     @Override
     public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
         String identification = oneTimeTransactionInputData.getIdentification();
-        float transactionAmount = oneTimeTransactionInputData.getTransactionAmount();
-        String transactionDate = oneTimeTransactionInputData.getTransactionDate();
-        String transactionDescription = oneTimeTransactionInputData.getTransactionDescription();
-        String transactionCategory = oneTimeTransactionInputData.getTransactionCategory();
-        String transactionNotes = oneTimeTransactionInputData.getTransactionNotes();
+        float amount = oneTimeTransactionInputData.getTransactionAmount();
+        String date = oneTimeTransactionInputData.getTransactionDate();
+        String description = oneTimeTransactionInputData.getTransactionDescription();
+        String category = oneTimeTransactionInputData.getTransactionCategory();
 
-        // Assuming user is already logged in
-//        boolean userExists = userDataAccessObject.existById(identification);
-
-//        if (!userExists) {
-//            // Handle case where user does not exist
-//            presenter.prepareFailView("User not found!"); // Example method in presenter to handle this case
-//            return;
-//        }
-        boolean isInflow = transactionAmount >= 0.0;  // if amount < 0 then inflow = false
+        boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
 
         // Fetch user account based on identification
         UserAccount userAccount = userDataAccessObject.getById(identification);
+
 
         float income = 0.0f;
         float outFlow = 0.0f;
@@ -45,28 +41,49 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         // update the inflow and outflow
         if (isInflow) {
             float totalIncome = userAccount.getTotalIncome();
-            income = totalIncome + transactionAmount;
+            income = totalIncome + amount;
             userAccount.setTotalIncome(income);  // update the total income
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localDate = null;
+            try {
+                localDate = LocalDate.parse(date, formatter);
+            } catch (DateTimeParseException e) {
+                presenter.prepareFailView("Invalid date format! Plz enter again");
+                return;
+            }
+            OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, localDate, description, category);
 
             // update the balance accordingly
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance + income;
             userAccount.setTotalBalance(totalBalance);
+            // Prepare output data
+            OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow, userAccount.getTotalBalance());
+            presenter.prepareSuccessView(outputData);
         }
         else {
             float totalOutflow = userAccount.getTotalOutflow();
-            outFlow = totalOutflow + transactionAmount;
+            outFlow = totalOutflow + amount;
             userAccount.setTotalOutflow(outFlow);  // update the total outflow
+
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate localDate = null;
+            try {
+                localDate = LocalDate.parse(date, formatter);
+            } catch (DateTimeParseException e) {
+                presenter.prepareFailView("Invalid date format! Plz enter again");
+                return;
+            }
+            OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(identification, amount, localDate, description, category);
 
             // update the balance accordingly
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance - outFlow;
             userAccount.setTotalBalance(totalBalance);
+            // Prepare output data
+            OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow, userAccount.getTotalBalance());
+            presenter.prepareSuccessView(outputData);
         }
-
-        // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(
-                transactionAmount, transactionDate, transactionDescription, transactionCategory, transactionNotes);
-        presenter.prepareSuccessView(outputData);
     }
 }
