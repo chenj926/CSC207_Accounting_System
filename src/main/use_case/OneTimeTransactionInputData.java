@@ -7,16 +7,14 @@ public class OneTimeTransactionInputData {
     private String transactionDate;
     private String transactionDescription;
     private String transactionCategory;
-    private String transactionNotes;
 
     public OneTimeTransactionInputData(float transactionAmount, String identification,String transactionDate, String transactionDescription,
-                                       String transactionCategory, String transactionNotes) {
+                                       String transactionCategory) {
         this.transactionAmount = transactionAmount;
         this.identification = identification;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
         this.transactionCategory = transactionCategory;
-        this.transactionNotes = transactionNotes;
     }
 
     public String getIdentification() {
@@ -39,7 +37,4 @@ public class OneTimeTransactionInputData {
         return transactionCategory;
     }
 
-    public String getTransactionNotes() {
-        return transactionNotes;
-    }
 }
