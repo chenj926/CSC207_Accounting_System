@@ -7,21 +7,21 @@ public abstract class PeriodicTransaction implements Transaction {
     private float amount;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String duration;
+    private LocalDate duration;
     private String description;
-    private int recurrencePeriodInDays;
+//    private int recurrencePeriodInDays;
 
     private boolean inflow;
 
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
-                               int recurrencePeriodInDays, LocalDate endDate, String duration) {
+                               int recurrencePeriodInDays, LocalDate endDate, LocalDate duration) {
         this.identification = identification;
         this.amount = amount;
         this.startDate = startDate;
         this.endDate = endDate;
         this.duration = duration;
         this.description = description;
-        this.recurrencePeriodInDays = recurrencePeriodInDays;
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
         this.inflow = (amount>=0);
     }
 
@@ -36,17 +36,17 @@ public abstract class PeriodicTransaction implements Transaction {
     }
     @Override
     public String getDescription() {
-        return description;
+        return this.description;
     }
-    public int getRecurrencePeriodInDays() {
-        return recurrencePeriodInDays;
-    }
+//    public int getRecurrencePeriodInDays() {
+//        return recurrencePeriodInDays;
+//    }
     public boolean isInflow() {
-        return inflow;
+        return this.inflow;
     }
-    public LocalDate getStartDate() { return startDate; }
-    public LocalDate getEndDate() { return endDate; }
-    public String getDuration() { return duration; }
+    public LocalDate getStartDate() { return this.startDate; }
+    public LocalDate getEndDate() { return this.endDate; }
+    public LocalDate getDuration() { return this.duration; }
 
     // Setter
     @Override
@@ -75,9 +75,9 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
-        this.recurrencePeriodInDays = recurrencePeriodInDays;
-    }
+//    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
+//    }
 }
 
 /*
