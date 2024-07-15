@@ -3,8 +3,9 @@ package entity;
 import java.time.LocalDate;
 
 public class PeriodicInflow extends PeriodicTransaction {
-    public PeriodicInflow(String identification, float amount, LocalDate date, String description, int recurrencePeriodInDays) {
-        super(identification, amount, date, description, recurrencePeriodInDays);
+    public PeriodicInflow(String identification, float amount, LocalDate startDate, String description,
+                          int recurrencePeriodInDays, LocalDate endDate, String duration) {
+        super(identification, amount, startDate, description, recurrencePeriodInDays, endDate, duration);
     }
 }
 
