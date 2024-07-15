@@ -2,12 +2,12 @@ package use_case;
 
 public class LogInOutputData {
     private final String username;
-    private final boolean useCaseFailed;
+    private final boolean success;
 
     // Constructor
-    public LogInOutputData(String username, boolean useCaseFailed) {
+    public LogInOutputData(String username, boolean success) {
         this.username = username;
-        this.useCaseFailed = useCaseFailed;
+        this.success = success;
     }
 
     // Getters
@@ -15,7 +15,7 @@ public class LogInOutputData {
         return this.username;
     }
 
-    public boolean isUseCaseFailed() {
-        return this.useCaseFailed;
+    public boolean isSuccess() {
+        return this.success;
     }
 }
