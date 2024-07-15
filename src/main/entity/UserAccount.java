@@ -11,9 +11,9 @@ public class UserAccount implements Account {
 
     private List<Transaction> transactions;
 
-    private double totalIncome;
-    private double totalOutflow;
-    private double totalBalance;
+    private float totalIncome;
+    private float totalOutflow;
+    private float totalBalance;
 
     // constructors
     public UserAccount(String username, String password, String identification) {
@@ -23,9 +23,9 @@ public class UserAccount implements Account {
 
         this.transactions = new ArrayList<>();
 
-        this.totalIncome = 0.0;
-        this.totalOutflow = 0.0;
-        this.totalBalance = 0.0;
+        this.totalIncome = 0.0f;
+        this.totalOutflow = 0.0f;
+        this.totalBalance = 0.0f;
     }
 
     public UserAccount(String username, String password, String identification,
@@ -56,20 +56,20 @@ public class UserAccount implements Account {
     }
 
     @Override
-    public double getTotalIncome() {
+    public float getTotalIncome() {
         return totalIncome;
     }
     @Override
-    public double getTotalOutflow() {
+    public float getTotalOutflow() {
         return totalOutflow;
     }
     @Override
-    public double getTotalBalance() {
+    public float getTotalBalance() {
         return totalBalance;
     }
 
     @Override
-    public List<Transaction> getTransactions() {
+    public ArrayList<Transaction> getTransactions() {
         return new ArrayList<>(transactions);
     }
 
@@ -88,15 +88,15 @@ public class UserAccount implements Account {
     }
 
     @Override
-    public void setTotalIncome(double totalIncome) {
+    public void setTotalIncome(float totalIncome) {
         this.totalIncome = totalIncome;
     }
     @Override
-    public void setTotalOutflow(double totalOutflow) {
+    public void setTotalOutflow(float totalOutflow) {
         this.totalOutflow = totalOutflow;
     }
     @Override
-    public void setTotalBalance(double totalBalance) {
+    public void setTotalBalance(float totalBalance) {
         this.totalBalance = totalBalance;
     }
 
@@ -110,12 +110,12 @@ public class UserAccount implements Account {
     public void addTransaction(Transaction transaction) {
         transactions.add(transaction);
         updateTotals(transaction);
-        Collections.sort(transactions, new TransactionComparator());
+        transactions.sort(new TransactionComparator());
     }
 
     // update total income, total outflow, and total balance for each transaction
     private void updateTotals(Transaction transaction) {
-        double amount = transaction.getAmount();
+        float amount = transaction.getAmount();
         if (amount > 0) {
             totalIncome += amount;
         } else {
