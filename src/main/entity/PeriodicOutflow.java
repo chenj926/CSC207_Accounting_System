@@ -4,8 +4,8 @@ import java.time.LocalDate;
 
 public class PeriodicOutflow extends PeriodicTransaction {
     public PeriodicOutflow(String identification, float amount, LocalDate startDate, String description,
-                           int recurrencePeriodInDays, LocalDate endDate, LocalDate duration) {
-        super(identification, amount, startDate, description, recurrencePeriodInDays, endDate, duration);
+                           LocalDate endDate, LocalDate duration) {
+        super(identification, amount, startDate, description, endDate, duration);
     }
 }
 

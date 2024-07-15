@@ -14,7 +14,7 @@ public abstract class PeriodicTransaction implements Transaction {
     private boolean inflow;
 
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
-                               int recurrencePeriodInDays, LocalDate endDate, LocalDate duration) {
+                               LocalDate endDate, LocalDate duration) {
         this.identification = identification;
         this.amount = amount;
         this.startDate = startDate;
