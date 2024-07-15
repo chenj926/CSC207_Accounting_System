@@ -2,7 +2,7 @@ package use_case;
 
 
 public interface SignInOutputBoundary {
-    void prepareSuccessView(SignInOutputData user);
+    void prepareSuccessView(LogInOutputData user);
 
     void prepareFailView(String error);
 }
