@@ -1,11 +1,11 @@
 package use_case;
 
-public class SignInOutputData {
+public class LogInOutputData {
     private final String username;
     private final boolean useCaseFailed;
 
     // Constructor
-    public SignInOutputData(String username, boolean useCaseFailed) {
+    public LogInOutputData(String username, boolean useCaseFailed) {
         this.username = username;
         this.useCaseFailed = useCaseFailed;
     }
