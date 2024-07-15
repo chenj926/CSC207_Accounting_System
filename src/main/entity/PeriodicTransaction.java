@@ -4,14 +4,14 @@ import java.time.LocalDate;
 
 public abstract class PeriodicTransaction implements Transaction {
     private String identification;
-    private double amount;
+    private float amount;
     private LocalDate date;
     private String description;
     private int recurrencePeriodInDays;
 
     private boolean inflow;
 
-    public PeriodicTransaction(String identification, double amount, LocalDate date, String description, int recurrencePeriodInDays) {
+    public PeriodicTransaction(String identification, float amount, LocalDate date, String description, int recurrencePeriodInDays) {
         this.identification = identification;
         this.amount = amount;
         this.date = date;
@@ -26,7 +26,7 @@ public abstract class PeriodicTransaction implements Transaction {
         return identification;
     }
     @Override
-    public double getAmount() {
+    public float getAmount() {
         return amount;
     }
     @Override
@@ -50,7 +50,7 @@ public abstract class PeriodicTransaction implements Transaction {
         this.identification = identification;
     }
     @Override
-    public void setAmount(double amount) {
+    public void setAmount(float amount) {
         this.amount = amount;
         this.inflow = (amount>=0);
     }
