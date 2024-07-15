@@ -6,12 +6,12 @@ public class PeriodicTransactionOutputData {
     private float transactionAmount;
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
-    private String transactionDuration;
+    private int transactionDuration;
     private String transactionDescription;
 
     public PeriodicTransactionOutputData(float transactionAmount,
                                          LocalDate transactionStartDate, String transactionDescription,
-                                         String transactionDuration, LocalDate transactionEndDate) {
+                                         int transactionDuration, LocalDate transactionEndDate) {
 
         this.transactionAmount = transactionAmount;
         this.transactionStartDate = transactionStartDate;
@@ -33,7 +33,7 @@ public class PeriodicTransactionOutputData {
     public LocalDate getTransactionEndDate() {
         return this.transactionEndDate;
     }
-    public String getTransactionDuration() {
+    public int getTransactionDuration() {
         return this.transactionDuration;
     }
 
@@ -50,5 +50,5 @@ public class PeriodicTransactionOutputData {
     public void setTransactionDescription(String transactionDescription) {
         this.transactionDescription = transactionDescription;
     }
-    public void setTransactionDuration(String transactionDuration) {this.transactionDuration = transactionDuration; }
+    public void setTransactionDuration(int transactionDuration) {this.transactionDuration = transactionDuration; }
 }
