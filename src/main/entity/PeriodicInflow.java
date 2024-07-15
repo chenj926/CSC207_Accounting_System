@@ -3,9 +3,9 @@ package entity;
 import java.time.LocalDate;
 
 public class PeriodicInflow extends PeriodicTransaction {
-    public PeriodicInflow(String identification, float amount, LocalDate date, String description, int recurrencePeriodInDays) {
-        super(identification, amount, date, description, recurrencePeriodInDays);
-        if(!this.isInflow()) System.out.println("Periodic inflow error, should be outflow!");
+    public PeriodicInflow(String identification, float amount, LocalDate startDate, String description,
+                          int recurrencePeriodInDays, LocalDate endDate, String duration) {
+        super(identification, amount, startDate, description, recurrencePeriodInDays, endDate, duration);
     }
 }
 

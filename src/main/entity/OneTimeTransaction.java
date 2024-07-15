@@ -29,7 +29,7 @@ public abstract class OneTimeTransaction implements Transaction {
     public float getAmount() {
         return this.amount;
     }
-    @Override
+
     public LocalDate getDate() {
         return this.date;
     }
@@ -54,7 +54,7 @@ public abstract class OneTimeTransaction implements Transaction {
         this.amount = amount;
         this.inflow = (amount>=0);
     }
-    @Override
+
     public void setDate(LocalDate date) {
         this.date = date;
     }
