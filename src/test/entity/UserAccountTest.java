@@ -31,3 +31,16 @@ public class UserAccountTest {
         System.out.println("All tests passed.");
     }
 }
+
+class Transaction {
+    private float amount;
+
+    public Transaction(float amount) {
+        this.amount = amount;
+    }
+
+    public float getAmount() {
+        return amount;
+    }
+}
+
