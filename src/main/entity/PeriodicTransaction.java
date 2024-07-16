@@ -30,11 +30,11 @@ public abstract class PeriodicTransaction implements Transaction {
     // Getter
     @Override
     public String getIdentification() {
-        return identification;
+        return this.identification;
     }
     @Override
     public float getAmount() {
-        return amount;
+        return this.amount;
     }
     @Override
     public String getDescription() {
