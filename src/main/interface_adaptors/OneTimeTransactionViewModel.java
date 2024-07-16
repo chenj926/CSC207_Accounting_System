@@ -1,8 +1,6 @@
-package main.interface_adaptors;
-
+package interface_adaptors;
 
 public class OneTimeTransactionViewModel extends TransactionViewModel {
-
     public final String TITLE_LABEL = "One-Time Transaction";
     public final String AMOUNT_LABEL = "Transaction Amount";
     public final String DATE_LABEL = "Transaction Date";
@@ -25,7 +23,6 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionAmount(float transactionAmount) {
-        float oldTransactionAmount = this.transactionAmount;
         this.transactionAmount = transactionAmount;
     }
 
@@ -34,7 +31,6 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionDate(String transactionDate) {
-        String oldTransactionDate = this.transactionDate;
         this.transactionDate = transactionDate;
     }
 
@@ -43,8 +39,9 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionDescription(String transactionDescription) {
-        String oldTransactionDescription = this.transactionDescription;
         this.transactionDescription = transactionDescription;
     }
 }
+
+
 
