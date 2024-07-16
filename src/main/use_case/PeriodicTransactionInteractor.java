@@ -113,6 +113,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             while (!currentDate.isAfter(localEndDate)) {
                 // Add the transaction for the current date
 
+                PeriodicTransactionOutputData outputData;
                 if (periodTypes.contains(period)) {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
@@ -122,7 +123,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     float totalBalance = balance + income;
                     userAccount.setTotalBalance(totalBalance);
 
-                    PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, userAccount.getTotalBalance())
+                    outputData = new PeriodicTransactionOutputData(periodicInflow,
+                            userAccount.getTotalBalance());
                 } else {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
@@ -132,19 +134,17 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     float totalBalance = balance + income;
                     userAccount.setTotalBalance(totalBalance);
 
-                    PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, userAccount.getTotalBalance())
+                    outputData = new PeriodicTransactionOutputData(periodicInflow,
+                            userAccount.getTotalBalance());
                 }
-
-                //这里period output要改成利用periodic inflow和outflow的地方 明天醒来再说
-                // 放在什么位置也很不好说，感觉这是一个很容易出bug的地方
-                //  = new PeriodicTransactionOutputData();
-                // presenter.prepareSuccessView(outputData);
 
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
+                    outputData.setDate(currentDate);
                 } else {
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
+                    outputData.setDate(currentDate);
                 }
             }
         }
