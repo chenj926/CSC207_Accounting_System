@@ -26,10 +26,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         this.userAccount = userAccount;
     }
 
-
-    public void executeHelper(PeriodicTransactionInputData periodicTransactionInputData, boolean isInflow) {
-
-    }
     @Override
     public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
         String identification = periodicTransactionInputData.getIdentification();
