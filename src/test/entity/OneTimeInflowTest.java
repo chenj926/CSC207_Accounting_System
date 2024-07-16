@@ -26,7 +26,6 @@ public class OneTimeInflowTest {
         assert "New description".equals(inflow.getDescription()) : "Description doesn't match after set";
         assert inflow.isInflow() : "Inflow should be true after setting positive amount";
 
-        // If no assertion fails
         System.out.println("All tests for OneTimeInflow passed.");
     }
 }
