@@ -31,22 +31,3 @@ public class UserAccountTest {
         System.out.println("All tests passed.");
     }
 }
-
-class Transaction {
-    private float amount;
-
-    public Transaction(float amount) {
-        this.amount = amount;
-    }
-
-    public float getAmount() {
-        return amount;
-    }
-}
-
-class TransactionComparator implements java.util.Comparator<Transaction> {
-    @Override
-    public int compare(Transaction t1, Transaction t2) {
-        return Float.compare(t1.getAmount(), t2.getAmount());
-    }
-}
