@@ -3,30 +3,12 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class TransactionViewModel {
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-    private String title;
-    private TransactionViewModel currentViewModel;
-
-    public final String ONE_TIME_BUTTON_LABEL = "One-Time Transaction";
-    public final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
+public class TransactionViewModel extends ViewModel {
+    public static final String TRANSACTION_PROPERTY = "transaction";
+    protected TransactionViewModel currentViewModel;
 
     public TransactionViewModel(String title) {
-        this.title = title;
-    }
-
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
-    public void firePropertyChange(String propertyName, Object oldValue, Object newValue) {
-        support.firePropertyChange(propertyName, oldValue, newValue);
-    }
-
-    public void setCurrentViewModel(TransactionViewModel newViewModel) {
-        TransactionViewModel oldViewModel = this.currentViewModel;
-        this.currentViewModel = newViewModel;
-        firePropertyChange("currentViewModel", oldViewModel, newViewModel);
+        super(title);
     }
 
     public TransactionViewModel getCurrentViewModel() {
@@ -41,6 +23,12 @@ public class TransactionViewModel {
     // Method to handle button click for periodic transaction
     public void selectPeriodicTransaction() {
         setCurrentViewModel(new PeriodicTransactionViewModel());
+    }
+
+    public void setCurrentViewModel(TransactionViewModel newViewModel) {
+        TransactionViewModel oldViewModel = this.currentViewModel;
+        this.currentViewModel = newViewModel;
+        firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
     }
 }
 
