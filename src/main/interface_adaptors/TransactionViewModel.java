@@ -1,4 +1,4 @@
-package main.interface_adaptors;
+package interface_adaptors;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -43,6 +43,7 @@ public class TransactionViewModel {
         setCurrentViewModel(new PeriodicTransactionViewModel());
     }
 }
+
 
 
 
