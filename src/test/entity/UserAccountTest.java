@@ -1,37 +1,67 @@
 package entity;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.ArrayList;
+
+import static org.junit.Assert.*;
 
 public class UserAccountTest {
 
-    public static void main(String[] args) {
-        UserAccount account = new UserAccount("testUser", "testPass", "testID");
+    private UserAccount account;
 
-        assert "testUser".equals(account.getUsername()) : "Username doesn't match";
-        assert "testPass".equals(account.getPassword()) : "Password doesn't match";
-        assert "testID".equals(account.getIdentification()) : "Identification doesn't match";
-        assert account.getTotalIncome() == 0.0f : "Initial total income should be 0.0";
-        assert account.getTotalOutflow() == 0.0f : "Initial total outflow should be 0.0";
-        assert account.getTotalBalance() == 0.0f : "Initial total balance should be 0.0";
-        assert account.getTransactions().isEmpty() : "Transactions should initially be empty";
+    @Before
+    public void setUp() {
+        account = new UserAccount("testUser", "testPass", "testID");
+    }
 
+    @Test
+    public void testInitialValues() {
+        assertEquals("Username doesn't match", "testUser", account.getUsername());
+        assertEquals("Password doesn't match", "testPass", account.getPassword());
+        assertEquals("Identification doesn't match", "testID", account.getIdentification());
+        assertEquals("Initial total income should be 0.0", 0.0f, account.getTotalIncome(), 0.0f);
+        assertEquals("Initial total outflow should be 0.0", 0.0f, account.getTotalOutflow(), 0.0f);
+        assertEquals("Initial total balance should be 0.0", 0.0f, account.getTotalBalance(), 0.0f);
+        assertTrue("Transactions should initially be empty", account.getTransactions().isEmpty());
+    }
+
+    @Test
+    public void testAddTransaction() {
         Transaction incomeTransaction = new Transaction(100.0f);
         Transaction outflowTransaction = new Transaction(-50.0f);
 
         account.addTransaction(incomeTransaction);
         account.addTransaction(outflowTransaction);
 
-        assert account.getTotalIncome() == 100.0f : "Total income should be 100.0";
-        assert account.getTotalOutflow() == -50.0f : "Total outflow should be -50.0";
-        assert account.getTotalBalance() == 50.0f : "Total balance should be 50.0";
+        assertEquals("Total income should be 100.0", 100.0f, account.getTotalIncome(), 0.0f);
+        assertEquals("Total outflow should be -50.0", -50.0f, account.getTotalOutflow(), 0.0f);
+        assertEquals("Total balance should be 50.0", 50.0f, account.getTotalBalance(), 0.0f);
 
         ArrayList<Transaction> transactions = account.getTransactions();
-        assert transactions.size() == 2 : "There should be 2 transactions";
+        assertEquals("There should be 2 transactions", 2, transactions.size());
+    }
 
-        System.out.println("All tests passed.");
+    @Test
+    public void testSetters() {
+        account.setUsername("newUser");
+        account.setPassword("newPass");
+        account.setIdentification("newID");
+        account.setTotalIncome(200.0f);
+        account.setTotalOutflow(-100.0f);
+        account.setTotalBalance(100.0f);
+
+        assertEquals("Username doesn't match after set", "newUser", account.getUsername());
+        assertEquals("Password doesn't match after set", "newPass", account.getPassword());
+        assertEquals("Identification doesn't match after set", "newID", account.getIdentification());
+        assertEquals("Total income doesn't match after set", 200.0f, account.getTotalIncome(), 0.0f);
+        assertEquals("Total outflow doesn't match after set", -100.0f, account.getTotalOutflow(), 0.0f);
+        assertEquals("Total balance doesn't match after set", 100.0f, account.getTotalBalance(), 0.0f);
     }
 }
 
+// Dummy Transaction class for testing purposes
 class Transaction {
     private float amount;
 
@@ -41,6 +71,14 @@ class Transaction {
 
     public float getAmount() {
         return amount;
+    }
+}
+
+// Dummy TransactionComparator class for testing purposes
+class TransactionComparator implements java.util.Comparator<Transaction> {
+    @Override
+    public int compare(Transaction t1, Transaction t2) {
+        return Float.compare(t1.getAmount(), t2.getAmount());
     }
 }
 
