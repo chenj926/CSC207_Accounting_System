@@ -1,7 +1,8 @@
 package interface_adaptors;
 
-import use_case.TransactionInputBoundary;
-import use_case.TransactionInputData;
+import use_case.OneTimeTransactionInputBoundary;
+import use_case.OneTimeTransactionInputData;
+
 
 public class TransacationController {
 
