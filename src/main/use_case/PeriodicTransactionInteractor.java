@@ -117,18 +117,25 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
                             description, localEndDate, (int) unit.getDuration().toDays());
+                    // update the balance accordingly
+                    float balance = userAccount.getTotalBalance();
+                    float totalBalance = balance + income;
+                    userAccount.setTotalBalance(totalBalance);
+
+                    PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, userAccount.getTotalBalance())
                 } else {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
                             description, localEndDate, customPeriod);
+                    // update the balance accordingly
+                    float balance = userAccount.getTotalBalance();
+                    float totalBalance = balance + income;
+                    userAccount.setTotalBalance(totalBalance);
+
+                    PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, userAccount.getTotalBalance())
                 }
 
-                // update the balance accordingly
-                float balance = userAccount.getTotalBalance();
-                float totalBalance = balance + income;
-                userAccount.setTotalBalance(totalBalance);
-
-                PeriodicTransactionOutputData outputData;  //这里period output要改成利用periodic inflow和outflow的地方 明天醒来再说
+                //这里period output要改成利用periodic inflow和outflow的地方 明天醒来再说
                 // 放在什么位置也很不好说，感觉这是一个很容易出bug的地方
                 //  = new PeriodicTransactionOutputData();
                 // presenter.prepareSuccessView(outputData);
@@ -140,9 +147,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
                 }
             }
-
-        } else{
-
         }
     }
 }
