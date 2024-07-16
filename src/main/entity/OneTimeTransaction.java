@@ -7,7 +7,7 @@ public abstract class OneTimeTransaction implements Transaction {
     private float amount;
     private LocalDate date;
     private String description;
-    private String category;
+    // private String category;
 
     private boolean inflow;
 
@@ -16,7 +16,7 @@ public abstract class OneTimeTransaction implements Transaction {
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.category = category;
+        // this.category = category;
         this.inflow = (amount>=0);
     }
 
@@ -40,8 +40,9 @@ public abstract class OneTimeTransaction implements Transaction {
     public boolean isInflow() {
         return this.inflow;
     }
-    public String getCategory() {
-        return this.category;
+    // public String getCategory() {return this.category;}
+    public String getTransactionType() {
+        return this.transactionType;
     }
 
     // Setter
