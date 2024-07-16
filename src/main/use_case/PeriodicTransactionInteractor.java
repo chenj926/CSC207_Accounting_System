@@ -103,7 +103,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             // Calculate the total number of days between start and end dates
             long totalDaysBetween = ChronoUnit.DAYS.between(localStartDate, localEndDate);
             // period is longer than the days between start and end
-            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getPeriod().toDays()) ||
+            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) ||
                     (unit == ChronoUnit.DAYS && totalDaysBetween < customPeriod)) {
                 presenter.prepareFailView("Period is longer than the period between start and end date!");
                 return;
@@ -116,7 +116,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 if (periodTypes.contains(period)) {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
-                            description, localEndDate, (int) unit.getPeriod().toDays());
+                            description, localEndDate, (int) unit.getDuration().toDays());
                 } else {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
@@ -130,7 +130,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
                 PeriodicTransactionOutputData outputData;  //这里period output要改成利用periodic inflow和outflow的地方 明天醒来再说
                 // 放在什么位置也很不好说，感觉这是一个很容易出bug的地方
-//                = new PeriodicTransactionOutputData();
+                //  = new PeriodicTransactionOutputData();
                 presenter.prepareSuccessView(outputData);
 
                 // Move to the next date based on the period
