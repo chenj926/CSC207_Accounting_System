@@ -3,8 +3,6 @@ package use_case;
 import data_access.UserAccountDataAccessInterface;
 
 import entity.PeriodicInflow;
-import entity.PeriodicTransaction;
-import entity.Transaction;
 import entity.UserAccount;
 
 import java.time.LocalDate;
@@ -34,7 +32,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         String endDate = periodicTransactionInputData.getTransactionEndDate();
         String description = periodicTransactionInputData.getTransactionDescription();
         String startDate = periodicTransactionInputData.getTransactionStartDate();
-        String duration = periodicTransactionInputData.getTransactionDuration();
+        String period = periodicTransactionInputData.getTransactionPeriod();
 
         // Fetch user account based on identification
         UserAccount userAccount = userDataAccessObject.getById(identification);
@@ -42,12 +40,12 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
         float income = 0.0f;
         float outFlow = 0.0f;
-        ArrayList<String> durationTypes = new ArrayList<>();
-        durationTypes.add("day");
-        durationTypes.add("week");
-        durationTypes.add("month");
-        durationTypes.add("year");
-        int customDuration = 0;
+        ArrayList<String> periodTypes = new ArrayList<>();
+        periodTypes.add("day");
+        periodTypes.add("week");
+        periodTypes.add("month");
+        periodTypes.add("year");
+        int customPeriod = 0;
 
         // update the inflow and outflow
         if (isInflow) {
@@ -72,19 +70,19 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 return;
             }
 
-            // if the user did not chose the pre-determined duration
-            if (!durationTypes.contains(duration)) {
+            // if the user did not choose the pre-determined period
+            if (!periodTypes.contains(period)) {
                 try {
-                    // assume the custom duration is in days
-                    customDuration = Integer.parseInt(duration);
+                    // assume the custom period is in days
+                    customPeriod = Integer.parseInt(period);
                 } catch (NumberFormatException e) {
-                    presenter.prepareFailView("The custom duration is not in correct format, please enter again!");
+                    presenter.prepareFailView("The custom period is not in correct format, please enter again!");
                     return;  // fail than do not excute the rest of the code
                 }
             }
 
             ChronoUnit unit;
-            switch (duration) {
+            switch (period) {
                 case "day":
                     unit = ChronoUnit.DAYS;
                     break;
@@ -98,16 +96,16 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     unit = ChronoUnit.YEARS;
                     break;
                 default:
-                    unit = ChronoUnit.DAYS; // default to days if a custom duration is provided
+                    unit = ChronoUnit.DAYS; // default to days if a custom period is provided
                     break;
             }
 
             // Calculate the total number of days between start and end dates
             long totalDaysBetween = ChronoUnit.DAYS.between(localStartDate, localEndDate);
-            // duration is longer than the days between start and end
-            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) ||
-                    (unit == ChronoUnit.DAYS && totalDaysBetween < customDuration)) {
-                presenter.prepareFailView("Duration is longer than the period between start and end date!");
+            // period is longer than the days between start and end
+            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getPeriod().toDays()) ||
+                    (unit == ChronoUnit.DAYS && totalDaysBetween < customPeriod)) {
+                presenter.prepareFailView("Period is longer than the period between start and end date!");
                 return;
             }
 
@@ -115,14 +113,14 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             while (!currentDate.isAfter(localEndDate)) {
                 // Add the transaction for the current date
 
-                if (durationTypes.contains(duration)) {
+                if (periodTypes.contains(period)) {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
-                            description, localEndDate, (int) unit.getDuration().toDays());
+                            description, localEndDate, (int) unit.getPeriod().toDays());
                 } else {
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
-                            description, localEndDate, customDuration);
+                            description, localEndDate, customPeriod);
                 }
 
                 // update the balance accordingly
@@ -135,11 +133,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 //                = new PeriodicTransactionOutputData();
                 presenter.prepareSuccessView(outputData);
 
-                // Move to the next date based on the duration
+                // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
                 } else {
-                    currentDate = currentDate.plusDays(customDuration);  // plus the custom days
+                    currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
                 }
             }
 

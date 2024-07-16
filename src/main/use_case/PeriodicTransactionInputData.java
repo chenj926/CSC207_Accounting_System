@@ -6,18 +6,18 @@ public class PeriodicTransactionInputData {
     private final String identification;
     private String transactionStartDate;
     private String transactionEndDate;
-    private String transactionDuration;
+    private String transactionPeriod;
     private String transactionDescription;
 
 
     public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionStartDate,
-                                        String transactionDescription, String transactionDuration, String transactionEndDate) {
+                                        String transactionDescription, String transactionPeriod, String transactionEndDate) {
         this.transactionAmount = transactionAmount;
         this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
         this.transactionEndDate = transactionEndDate;
         this.identification = identification;
-        this.transactionDuration = transactionDuration;
+        this.transactionPeriod = transactionPeriod;
 
     }
 
@@ -41,8 +41,8 @@ public class PeriodicTransactionInputData {
         return this.transactionEndDate;
     }
 
-    public String getTransactionDuration() {
-        return this.transactionDuration;
+    public String getTransactionPeriod() {
+        return this.transactionPeriod;
     }
 
 }
