@@ -8,22 +8,14 @@ import java.time.LocalDate;
 
 public interface Transaction {
     // getters
-    LocalDate getDate();
+//    LocalDate getDate();
     String getIdentification();
     String getDescription();
-    double getAmount();
+    float getAmount();
 
     // setters
-    void setDate(LocalDate date);
+//    void setDate(LocalDate date);
     void setIdentification(String identification);
     void setDescription(String description);
-    void setAmount(double amount);
+    void setAmount(float amount);
 }
-
-/*
-public interface Transaction {
-    void recordTransaction(String identification, float transactionAmount, LocalDate transactionDate, String transactionDescription, String recurrence, boolean periodic);
-}
-
- */
-
