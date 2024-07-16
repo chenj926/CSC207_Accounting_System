@@ -3,6 +3,7 @@ package entity;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;
@@ -29,8 +30,8 @@ public class UserAccountTest {
 
     @Test
     public void testAddTransaction() {
-        Transaction incomeTransaction = new Transaction(100.0f);
-        Transaction outflowTransaction = new Transaction(-50.0f);
+        UserAccountTestHelper incomeTransaction = new UserAccountTestHelper(100.0f);
+        UserAccountTestHelper outflowTransaction = new UserAccountTestHelper(-50.0f);
 
         account.addTransaction(incomeTransaction);
         account.addTransaction(outflowTransaction);
@@ -61,16 +62,52 @@ public class UserAccountTest {
     }
 }
 
-// Dummy Transaction class for testing purposes
-class Transaction {
+// Dummy Transaction class renamed to UserAccountTestHelper for testing purposes
+class UserAccountTestHelper implements Transaction {
     private float amount;
 
-    public Transaction(float amount) {
+    public UserAccountTestHelper(float amount) {
         this.amount = amount;
     }
 
+    @Override
+    public LocalDate getDate() {
+        return null;
+    }
+
+    @Override
+    public String getIdentification() {
+        return "";
+    }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
     public float getAmount() {
         return amount;
+    }
+
+    @Override
+    public void setDate(LocalDate date) {
+
+    }
+
+    @Override
+    public void setIdentification(String identification) {
+
+    }
+
+    @Override
+    public void setDescription(String description) {
+
+    }
+
+    @Override
+    public void setAmount(float amount) {
+
     }
 }
 

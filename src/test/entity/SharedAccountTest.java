@@ -1,29 +1,48 @@
 package entity;
 
+import org.junit.Before;
+import org.junit.Test;
+
 import java.util.Set;
 
+import static org.junit.Assert.*;
+
 public class SharedAccountTest {
-    public static void main(String[] args) {
-        SharedAccount sharedAccount = new SharedAccount("sharedTestID", "irrelevantPassword");
 
-        assert "sharedTestID".equals(sharedAccount.getIdentification()) : "Identification doesn't match";
-        assert sharedAccount.getSharedUserIdentifications().isEmpty() : "Shared user identifications should initially be empty";
+    private SharedAccount sharedAccount;
 
+    @Before
+    public void setUp() {
+        sharedAccount = new SharedAccount("sharedTestID", "irrelevantPassword");
+    }
+
+    @Test
+    public void testInitialValues() {
+        assertEquals("Identification doesn't match", "sharedTestID", sharedAccount.getIdentification());
+        assertTrue("Shared user identifications should initially be empty", sharedAccount.getSharedUserIdentifications().isEmpty());
+    }
+
+    @Test
+    public void testAddUserIdentification() {
         sharedAccount.addUserIdentification("user1");
         sharedAccount.addUserIdentification("user2");
 
         Set<String> sharedUsers = sharedAccount.getSharedUserIdentifications();
-        assert sharedUsers.size() == 2 : "There should be 2 shared user identifications";
-        assert sharedUsers.contains("user1") : "Shared user identifications should contain 'user1'";
-        assert sharedUsers.contains("user2") : "Shared user identifications should contain 'user2'";
+        assertEquals("There should be 2 shared user identifications", 2, sharedUsers.size());
+        assertTrue("Shared user identifications should contain 'user1'", sharedUsers.contains("user1"));
+        assertTrue("Shared user identifications should contain 'user2'", sharedUsers.contains("user2"));
+    }
+
+    @Test
+    public void testRemoveUserIdentification() {
+        sharedAccount.addUserIdentification("user1");
+        sharedAccount.addUserIdentification("user2");
 
         sharedAccount.removeUserIdentification("user1");
 
-        sharedUsers = sharedAccount.getSharedUserIdentifications();
-        assert sharedUsers.size() == 1 : "There should be 1 shared user identification";
-        assert !sharedUsers.contains("user1") : "Shared user identifications should not contain 'user1'";
-        assert sharedUsers.contains("user2") : "Shared user identifications should contain 'user2'";
-
-        System.out.println("All tests passed.");
+        Set<String> sharedUsers = sharedAccount.getSharedUserIdentifications();
+        assertEquals("There should be 1 shared user identification", 1, sharedUsers.size());
+        assertFalse("Shared user identifications should not contain 'user1'", sharedUsers.contains("user1"));
+        assertTrue("Shared user identifications should contain 'user2'", sharedUsers.contains("user2"));
     }
 }
