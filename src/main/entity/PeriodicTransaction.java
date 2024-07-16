@@ -74,7 +74,7 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setDate(LocalDate startDate) {
         this.startDate = startDate;
     }
-    public void setStartDateDate(LocalDate startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
