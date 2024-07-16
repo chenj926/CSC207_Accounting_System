@@ -8,16 +8,18 @@ public class PeriodicTransactionOutputData {
     private LocalDate transactionEndDate;
     private int transactionPeriod;
     private String transactionDescription;
+    private LocalDate date;
 
     public PeriodicTransactionOutputData(float transactionAmount,
                                          LocalDate transactionStartDate, String transactionDescription,
-                                         int transactionPeriod, LocalDate transactionEndDate) {
+                                         int transactionPeriod, LocalDate transactionEndDate, LocalDate date) {
 
         this.transactionAmount = transactionAmount;
         this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
         this.transactionEndDate = transactionEndDate;
         this.transactionPeriod = transactionPeriod;
+        this.date = date;
     }
 
     // getters
@@ -36,6 +38,7 @@ public class PeriodicTransactionOutputData {
     public int getTransactionPeriod() {
         return this.transactionPeriod;
     }
+    public LocalDate getDate() {return this.date; }
 
     // setters
     public void setTransactionStartDate(LocalDate transactionStartDate) {
@@ -51,4 +54,5 @@ public class PeriodicTransactionOutputData {
         this.transactionDescription = transactionDescription;
     }
     public void setTransactionPeriod(int transactionPeriod) {this.transactionPeriod = transactionPeriod; }
+    public void setDate (LocalDate date) { this.date = date;}
 }
