@@ -24,7 +24,7 @@ public abstract class PeriodicTransaction implements Transaction {
         this.description = description;
 //        this.recurrencePeriodInDays = recurrencePeriodInDays;
         this.inflow = (amount>=0);
-        this.date = date;
+        this.date = startDate;
     }
 
     // Getter
