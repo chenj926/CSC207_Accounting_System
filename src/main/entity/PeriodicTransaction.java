@@ -1,56 +1,87 @@
 package entity;
 
+import java.time.LocalDate;
+
 public abstract class PeriodicTransaction implements Transaction {
-    private float transactionAmount;
-    private String transactionDate;
-    private String transactionDescription;
-    private String recurrence;
+    private String identification;
+    private float amount;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int period;
+    private String description;
+//    private int recurrencePeriodInDays;
 
-    public PeriodicTransaction(float transactionAmount, String transactionDate, String transactionDescription, String recurrence) {
-        this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
-        this.transactionDescription = transactionDescription;
-        this.recurrence = recurrence;
+    private boolean inflow;
+
+    public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
+                               LocalDate endDate, int period) {
+        this.identification = identification;
+        this.amount = amount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.period = period;
+        this.description = description;
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
+        this.inflow = (amount>=0);
     }
 
-    public float getTransactionAmount() {
-        return transactionAmount;
+    // Getter
+    @Override
+    public String getIdentification() {
+        return identification;
+    }
+    @Override
+    public float getAmount() {
+        return amount;
+    }
+    @Override
+    public String getDescription() {
+        return this.description;
+    }
+//    public int getRecurrencePeriodInDays() {
+//        return recurrencePeriodInDays;
+//    }
+    public boolean isInflow() {
+        return this.inflow;
+    }
+    public LocalDate getStartDate() {
+        return this.startDate;
+    }
+    public LocalDate getEndDate() {
+        return this.endDate;
+    }
+    public int getPeriod() {
+        return this.period;
     }
 
-    public void setTransactionAmount(float transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    // Setter
+    @Override
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+    @Override
+    public void setAmount(float amount) {
+        this.amount = amount;
+        this.inflow = (amount>=0);
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
+    public void setStartDateDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public String getTransactionDescription() {
-        return transactionDescription;
+    public void setPeriod(int period) {
+        this.period = period;
     }
 
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
     }
-
-    public String getRecurrence() {
-        return recurrence;
-    }
-
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence;
-    }
-
-    public abstract void recordTransaction();
-
-    public void displayTransactionDetails() {
-        System.out.println("Amount: " + transactionAmount);
-        System.out.println("Date: " + transactionDate);
-        System.out.println("Description: " + transactionDescription);
-        System.out.println("Recurrence: " + recurrence);
-    }
+//    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
+//        this.recurrencePeriodInDays = recurrencePeriodInDays;
+//    }
 }
