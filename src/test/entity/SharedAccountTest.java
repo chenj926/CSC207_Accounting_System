@@ -13,7 +13,7 @@ public class SharedAccountTest {
 
     @Before
     public void setUp() {
-        sharedAccount = new SharedAccount("sharedTestID", "irrelevantPassword");
+        sharedAccount = new SharedAccount("sharedTestID");
     }
 
     @Test
