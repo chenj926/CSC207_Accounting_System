@@ -13,10 +13,10 @@ public class SignupOutputData {
     }
 
     // getters
-    public String getUsername {
+    public String getUsername() {
         return this.username;
     }
-    public boolean isUseCaseFailed {
+    public boolean isUseCaseFailed() {
         return this.useCaseFailed;
     }
 }

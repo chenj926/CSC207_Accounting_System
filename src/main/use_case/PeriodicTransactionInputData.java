@@ -3,32 +3,46 @@ package use_case;
 public class PeriodicTransactionInputData {
 
     private float transactionAmount;
-    private String transactionDate;
+    private final String identification;
+    private String transactionStartDate;
+    private String transactionEndDate;
+    private String transactionPeriod;
     private String transactionDescription;
-    private String recurrence;
 
-    public PeriodicTransactionInputData(float transactionAmount, String transactionDate, String transactionDescription, String recurrence) {
+
+    public PeriodicTransactionInputData(String identification, float transactionAmount, String transactionStartDate,
+                                        String transactionDescription, String transactionPeriod, String transactionEndDate) {
         this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
+        this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
-        this.recurrence = recurrence;
+        this.transactionEndDate = transactionEndDate;
+        this.identification = identification;
+        this.transactionPeriod = transactionPeriod;
 
+    }
+
+    public String getIdentification() {
+        return this.identification;
     }
 
     public float getTransactionAmount() {
-        return transactionAmount;
+        return this.transactionAmount;
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
+    public String getTransactionStartDate() {
+        return this.transactionStartDate;
     }
 
     public String getTransactionDescription() {
-        return transactionDescription;
+        return this.transactionDescription;
     }
 
-    public String getRecurrence() {
-        return recurrence;
+    public String getTransactionEndDate() {
+        return this.transactionEndDate;
+    }
+
+    public String getTransactionPeriod() {
+        return this.transactionPeriod;
     }
 
 }

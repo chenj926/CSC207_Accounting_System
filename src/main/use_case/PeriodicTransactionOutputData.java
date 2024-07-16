@@ -1,39 +1,54 @@
 package use_case;
 
-public class PeriodicTransactionOutputData {
-    private boolean success;
-    private String message;  // output msg
-    private float transactionAmount;
-    private String transactionDate;
-    private String transactionDescription;
-    private String recurrence;
+import java.time.LocalDate;
 
-    public PeriodicTransactionOutputData(boolean success, String message, float transactionAmount,
-                                         String transactionDate, String transactionDescription, String recurrence) {
-        this.success = success;
-        this.message = message;
+public class PeriodicTransactionOutputData {
+    private float transactionAmount;
+    private LocalDate transactionStartDate;
+    private LocalDate transactionEndDate;
+    private int transactionPeriod;
+    private String transactionDescription;
+
+    public PeriodicTransactionOutputData(float transactionAmount,
+                                         LocalDate transactionStartDate, String transactionDescription,
+                                         int transactionPeriod, LocalDate transactionEndDate) {
+
         this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
+        this.transactionStartDate = transactionStartDate;
         this.transactionDescription = transactionDescription;
-        this.recurrence = recurrence;
+        this.transactionEndDate = transactionEndDate;
+        this.transactionPeriod = transactionPeriod;
     }
 
     // getters
     public float getTransactionAmount() {
-        return transactionAmount;
+        return this.transactionAmount;
     }
-    public String getTransactionDate() {
-        return transactionDate;
+    public LocalDate getTransactionStartDate() {
+        return this.transactionStartDate;
     }
     public String getTransactionDescription() {
         return transactionDescription;
     }
-    public String getRecurrence() {
-        return recurrence;
+    public LocalDate getTransactionEndDate() {
+        return this.transactionEndDate;
+    }
+    public int getTransactionPeriod() {
+        return this.transactionPeriod;
     }
 
     // setters
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+    public void setTransactionStartDate(LocalDate transactionStartDate) {
+        this. transactionStartDate = transactionStartDate;
     }
+    public void setTransactionEndDate(LocalDate transactionEndDate) {
+        this. transactionEndDate = transactionEndDate;
+    }
+    public void setTransactionAmount(float transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+    public void setTransactionDescription(String transactionDescription) {
+        this.transactionDescription = transactionDescription;
+    }
+    public void setTransactionPeriod(int transactionPeriod) {this.transactionPeriod = transactionPeriod; }
 }

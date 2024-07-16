@@ -1,29 +1,33 @@
-package main.entity;
+package entity;
 
-import util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class SharedAccount extends UserAccount {
-    private String[] userIdentifications;
-    private float[] userShares;
+    private Set<String> sharedUserIdentifications;
 
-    public SharedAccount(float balance, float income, float outflow, String identification, String[] userIdentifications, float[] userShares) {
-        super(balance, income, outflow, identification);
-        this.userIdentifications = userIdentifications;
-        this.userShares = userShares;
+    // adds first id to account
+    public SharedAccount(String shareAccountIdentification) {
+        super(null, null, shareAccountIdentification); // SharedAccount have own shared account id
+        this.sharedUserIdentifications = new HashSet<>();
     }
 
-    @Override
-    public void RecordTransaction(float amount) {
-        super.RecordTransaction(amount);
-
-        for (int i = 0; i < userShares.length; i++) {
-            float userAmount = amount * userShares[i];
-            UserAccount userAccount = getUserAccount(userIdentifications[i]);
-            userAccount.RecordTransaction(userAmount);
-        }
+    public Set<String> getSharedUserIdentifications() {
+        return this.sharedUserIdentifications;
     }
 
-    private UserAccount getUserAccount(String userIdentification) {
-        return new UserAccount(0.0f, 0.0f, 0.0f, userIdentification);
+    public void addUserIdentification(String identification) {
+        sharedUserIdentifications.add(identification);
     }
+
+    public void removeUserIdentification(String identification) {
+        sharedUserIdentifications.remove(identification);
+    }
+
+//    @Override
+//    public String getIdentification() {
+//        System.out.println("Please use getSharedUserIdentifications method.");
+//        return null;
+//    }
 }

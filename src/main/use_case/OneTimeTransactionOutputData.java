@@ -1,31 +1,41 @@
 package use_case;
 
+import entity.OneTimeOutflow;
+import entity.OneTimeInflow;
+
+import java.time.LocalDate;
+
 public class OneTimeTransactionOutputData {
 
-    private float transactionAmount;
-    private String transactionDate;
+    private float newBalance;
+    private LocalDate transactionDate;
     private String transactionDescription;
     private String transactionCategory;
-    private String transactionNotes;
 
     private boolean useCaseFailed;
 
-    public OneTimeTransactionOutputData(float transactionAmount, String transactionDate, String transactionDescription,
-                                        String transactionCategory, String transactionNotes) {
-
-        this.transactionAmount = transactionAmount;
-        this.transactionDate = transactionDate;
-        this.transactionDescription = transactionDescription;
-        this.transactionCategory = transactionCategory;
-        this.transactionNotes = transactionNotes;
+    // Constructor for outflow
+    public OneTimeTransactionOutputData(OneTimeOutflow oneTimeOutflow, float newBalance) {
+        this.newBalance = newBalance;
+        this.transactionDate = oneTimeOutflow.getDate();
+        this.transactionDescription = oneTimeOutflow.getDescription();
+        this.transactionCategory = oneTimeOutflow.getCategory();
         this.useCaseFailed = false;
-
     }
-    public float getTransactionAmount() {
-            return transactionAmount;
+    // Constructor for inflow
+    public OneTimeTransactionOutputData(OneTimeInflow oneTimeInflow, float newBalance) {
+        this.newBalance = newBalance;
+        this.transactionDate = oneTimeInflow.getDate();
+        this.transactionDescription = oneTimeInflow.getDescription();
+        this.transactionCategory = oneTimeInflow.getCategory();
+        this.useCaseFailed = false;
+    }
+
+    public float getNewBalance() {
+            return newBalance;
         }
 
-    public String getTransactionDate() {
+    public LocalDate getTransactionDate() {
         return transactionDate;
         }
 
@@ -37,11 +47,13 @@ public class OneTimeTransactionOutputData {
             return transactionCategory;
         }
 
-    public String getTransactionNotes() {
-            return transactionNotes;
-        }
+    public boolean isUseCaseFailed() {
+        return useCaseFailed;
+    }
 
-    public void setTransactionDate(String transactionDate) {
+    public void setUseCaseFailed(boolean useCaseFailed) {}
+
+    public void setTransactionDate(LocalDate transactionDate) {
             this.transactionDate = transactionDate;
         }
 }
