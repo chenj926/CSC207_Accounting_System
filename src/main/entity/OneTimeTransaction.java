@@ -40,8 +40,9 @@ public abstract class OneTimeTransaction implements Transaction {
     public boolean isInflow() {
         return this.inflow;
     }
-    public String getCategory() {
-        return this.category;
+    public String getCategory() {return this.category;}
+    public String getTransactionType() {
+        return this.transactionType;
     }
 
     // Setter
