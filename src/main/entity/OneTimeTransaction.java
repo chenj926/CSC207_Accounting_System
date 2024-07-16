@@ -41,9 +41,6 @@ public abstract class OneTimeTransaction implements Transaction {
         return this.inflow;
     }
     public String getCategory() {return this.category;}
-    public String getTransactionType() {
-        return this.transactionType;
-    }
 
     // Setter
     @Override
