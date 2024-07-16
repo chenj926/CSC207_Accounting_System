@@ -1,22 +1,16 @@
-package main.interface_adaptors;
-
-import main.interface_adaptors.TransactionViewModel;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
+package interface_adaptors;
 
 public class PeriodicTransactionViewModel extends TransactionViewModel {
-    public static final String TITLE_LABEL = "Periodic Transaction";
-    public static final String TRANSACTION_AMOUNT_LABEL = "Transaction Amount";
-    public static final String TRANSACTION_DATE_LABEL = "Transaction Date";
-    public static final String TRANSACTION_DESCRIPTION_LABEL = "Transaction Description";
-    public static final String RECURRENCE_LABEL = "Recurrence";
+    public final String TITLE_LABEL = "Periodic Transaction";
+    public final String TRANSACTION_AMOUNT_LABEL = "Transaction Amount";
+    public final String TRANSACTION_DATE_LABEL = "Transaction Date";
+    public final String TRANSACTION_DESCRIPTION_LABEL = "Transaction Description";
+    public final String RECURRENCE_LABEL = "Recurrence";
 
     private float transactionAmount;
     private String transactionDate;
     private String transactionDescription;
     private String recurrence;
-
 
     public PeriodicTransactionViewModel() {
         super("Periodic Transaction");
@@ -27,7 +21,6 @@ public class PeriodicTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionAmount(float transactionAmount) {
-        float oldTransactionAmount = this.transactionAmount;
         this.transactionAmount = transactionAmount;
     }
 
@@ -36,7 +29,6 @@ public class PeriodicTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionDate(String transactionDate) {
-        String oldTransactionDate = this.transactionDate;
         this.transactionDate = transactionDate;
     }
 
@@ -45,7 +37,6 @@ public class PeriodicTransactionViewModel extends TransactionViewModel {
     }
 
     public void setTransactionDescription(String transactionDescription) {
-        String oldTransactionDescription = this.transactionDescription;
         this.transactionDescription = transactionDescription;
     }
 
@@ -54,7 +45,7 @@ public class PeriodicTransactionViewModel extends TransactionViewModel {
     }
 
     public void setRecurrence(String recurrence) {
-        String oldRecurrence = this.recurrence;
         this.recurrence = recurrence;
     }
 }
+
