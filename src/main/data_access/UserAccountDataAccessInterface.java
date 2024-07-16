@@ -5,6 +5,10 @@ import entity.UserAccount;
 public interface UserAccountDataAccessInterface {
     boolean existById(String identification);
     UserAccount getById(String identification);
+    void update(UserAccount userAccount);
+    void deleteById(String identifier);
+    void save(UserAccount suerAccount);
+
 
     // void updateId(UserAccount userAccount);
     //account balance

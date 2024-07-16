@@ -131,7 +131,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 PeriodicTransactionOutputData outputData;  //这里period output要改成利用periodic inflow和outflow的地方 明天醒来再说
                 // 放在什么位置也很不好说，感觉这是一个很容易出bug的地方
                 //  = new PeriodicTransactionOutputData();
-                presenter.prepareSuccessView(outputData);
+                // presenter.prepareSuccessView(outputData);
 
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
