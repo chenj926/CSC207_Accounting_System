@@ -5,12 +5,29 @@ import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel extends ViewModel {
 
-    public final String TITLE_LABEL = "Log In View";
-    public final String USERNAME_LABEL = "Enter username";
-    public final String PASSWORD_LABEL = "Enter password";
+    private final String TITLE_LABEL = "Log In View";
+    private final String USERNAME_LABEL = "Enter username";
+    private final String PASSWORD_LABEL = "Enter password";
 
-    public final String LOGIN_BUTTON_LABEL = "Log in";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
+    private final String LOGIN_BUTTON_LABEL = "Log in";
+    private final String CANCEL_BUTTON_LABEL = "Cancel";
+
+    // label getters
+    public String getTitleLabel(){
+        return TITLE_LABEL;
+    }
+    public String getUsernameLabel(){
+        return USERNAME_LABEL;
+    }
+    public String getPasswordLabel(){
+        return PASSWORD_LABEL;
+    }
+    public String getLoginButtonLabel(){
+        return LOGIN_BUTTON_LABEL;
+    }
+    public String getCancelButtonLabel(){
+        return CANCEL_BUTTON_LABEL;
+    }
 
     private LoginState state = new LoginState();
 

@@ -20,12 +20,12 @@ public class SignupViewModel extends ViewModel {
         super("sign up");
     }
 
-    // getters
-    public String getTITLE_LABEL() { return this.TITLE_LABEL; }
-    public String getUSERNAME_LABEL() {return this.USERNAME_LABEL; }
-    public String getPASSWORD_LABEL() {return this.PASSWORD_LABEL; }
-    public String getSIGNUP_BUTTON_LABEL(){return this.SIGNUP_BUTTON_LABEL; }
-    public String getCANCEL_BUTTON_LABEL() {return this.CANCEL_BUTTON_LABEL; }
+    // label getters
+    public String getTitleLabel() {return this.TITLE_LABEL; }
+    public String getUsernameLabel() {return this.USERNAME_LABEL; }
+    public String getPasswordLabel() {return this.PASSWORD_LABEL; }
+    public String getSignupButtonLabel(){return this.SIGNUP_BUTTON_LABEL; }
+    public String getCancelButtonLabel() {return this.CANCEL_BUTTON_LABEL; }
 
     // setters
     public void setState(SignupState state) {
