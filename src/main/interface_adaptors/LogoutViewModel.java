@@ -1,2 +1,4 @@
-package interface_adaptors;public class LogoutViewModel {
+package interface_adaptors;
+
+public class LogoutViewModel {
 }
