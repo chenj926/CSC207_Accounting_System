@@ -1,32 +1,21 @@
 package use_case;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginInputDataTest {
 
-    private LoginInputData loginInputData;
-
-    @Before
-    public void setUp() {
-        loginInputData = new LoginInputData("testUser", "testPass", "testID");
-    }
-
     @Test
-    public void testGetUsername() {
-        assertEquals("Username doesn't match", "testUser", loginInputData.getUsername());
-    }
+    public void testConstructorAndGetters() {
+        String password = "password123";
+        String identification = "user123";
 
-    @Test
-    public void testGetPassword() {
-        assertEquals("Password doesn't match", "testPass", loginInputData.getPassword());
-    }
+        LoginInputData inputData = new LoginInputData(password, identification);
 
-    @Test
-    public void testGetIdentification() {
-        assertEquals("Identification doesn't match", "testID", loginInputData.getIdentification());
+        assertEquals(password, inputData.getPassword());
+        assertEquals(identification, inputData.getIdentification());
     }
 }
+
 
