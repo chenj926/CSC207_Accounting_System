@@ -7,8 +7,6 @@ public class SignupState {
     private String usernameError;
     private String password;
     private String passwordError;
-    private String repeatPassword;
-    private String repeatPasswordError;
 
     public SignupState() {
         this.identification = "";
@@ -17,8 +15,6 @@ public class SignupState {
         this.usernameError = null;
         this.password = "";
         this.passwordError = null;
-        this.repeatPassword = "";
-        this.repeatPasswordError = null;
     }
 
     public String getIdentification() { return this.identification; }
@@ -39,14 +35,6 @@ public class SignupState {
 
     public String getPasswordError() {
         return this.passwordError;
-    }
-
-    public String getRepeatPassword() {
-        return this.repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return this.repeatPasswordError;
     }
 
     public void setUsername(String username) {
@@ -71,41 +59,25 @@ public class SignupState {
         this.passwordError = passwordError;
     }
 
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-        validatePassword();
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
-    }
-
     private void validatePassword() {
         if (password == null || password.isEmpty()) {
             this.passwordError = "Password cannot be empty";
         } else {
             this.passwordError = null;
         }
-
-        if (repeatPassword == null || repeatPassword.isEmpty()) {
-            this.repeatPasswordError = "Repeat password cannot be empty";
-        } else if (!repeatPassword.equals(password)) {
-            this.repeatPasswordError = "Passwords do not match";
-        } else {
-            this.repeatPasswordError = null;
-        }
     }
 
     public boolean isValid() {
-        return usernameError == null && passwordError == null && repeatPasswordError == null;
+        return usernameError == null && passwordError == null;
     }
 
     public void reset() {
+        this.identification = "";
+        this.identificationError = null;
         this.username = "";
         this.usernameError = null;
         this.password = "";
         this.passwordError = null;
-        this.repeatPassword = "";
-        this.repeatPasswordError = null;
+
     }
 }
