@@ -50,12 +50,12 @@ public class SignupState {
     }
 
     public void setUsername(String username) {
-        this.username = username;
         if (username == null || username.isEmpty()) {
             this.usernameError = "Username cannot be empty";
         } else {
             this.usernameError = null;
         }
+        this.username = username;
     }
 
     public void setUsernameError(String usernameError) {
