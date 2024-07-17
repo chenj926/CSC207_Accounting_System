@@ -32,26 +32,26 @@ public class OneTimeTransactionOutputData {
     }
 
     public float getNewBalance() {
-            return newBalance;
+            return this.newBalance;
         }
 
     public LocalDate getTransactionDate() {
-        return transactionDate;
+        return this.transactionDate;
         }
 
     public String getTransactionDescription() {
-            return transactionDescription;
+            return this.transactionDescription;
         }
 
     public String getTransactionCategory() {
-            return transactionCategory;
+            return this.transactionCategory;
         }
 
     public boolean isUseCaseFailed() {
-        return useCaseFailed;
+        return this.useCaseFailed;
     }
 
-    public void setUseCaseFailed(boolean useCaseFailed) {}
+    public void setUseCaseFailed(boolean useCaseFailed) { this.useCaseFailed = useCaseFailed; }
 
     public void setTransactionDate(LocalDate transactionDate) {
             this.transactionDate = transactionDate;
