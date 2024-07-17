@@ -20,6 +20,7 @@ public class TransactionViewModel extends ViewModel {
         return transactionState;
     }
 
+
     // Method to handle button click for one-time transaction
     public void selectOneTimeTransaction() {
         transactionState.setOneTimeSelected(true);
