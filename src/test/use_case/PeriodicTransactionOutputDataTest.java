@@ -46,6 +46,39 @@ public class PeriodicTransactionOutputDataTest {
         assertEquals(30, data.getTransactionPeriod());
         assertEquals(newBalance, data.getNewBalance());
     }
+
+    @Test
+    public void testSetters() {
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow, newBalance);
+
+        data.setTransactionAmount(200.0f);
+        assertEquals(200.0f, data.getTransactionAmount());
+
+        LocalDate newStartDate = LocalDate.of(2025, 1, 1);
+        data.setTransactionStartDate(newStartDate);
+        assertEquals(newStartDate, data.getTransactionStartDate());
+
+        String newDescription = "Bonus";
+        data.setTransactionDescription(newDescription);
+        assertEquals(newDescription, data.getTransactionDescription());
+
+        LocalDate newEndDate = LocalDate.of(2025, 12, 31);
+        data.setTransactionEndDate(newEndDate);
+        assertEquals(newEndDate, data.getTransactionEndDate());
+
+        int newPeriod = 15;
+        data.setTransactionPeriod(newPeriod);
+        assertEquals(newPeriod, data.getTransactionPeriod());
+
+        LocalDate newDate = LocalDate.of(2024, 7, 17);
+        data.setDate(newDate);
+        assertEquals(newDate, data.getDate());
+
+        float newNewBalance = 1500.0f;
+        data.setNewBalance(newNewBalance);
+        assertEquals(newNewBalance, data.getNewBalance());
+    }
 }
+
 
 
