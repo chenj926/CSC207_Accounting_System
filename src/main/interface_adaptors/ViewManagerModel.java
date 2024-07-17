@@ -9,21 +9,22 @@ public class ViewManagerModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public String getActiveView() {
+    public String getActiveViewName() {
         return activeViewName;
     }
 
-    public void setActiveView(String activeView) {
-        this.activeViewName = activeView;
-    }
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
-    public void firePropertyChanged() {
-        support.firePropertyChange("view", null, this.activeViewName);
+    public void setActiveViewName(String activeViewName) {
+        String oldActiveViewName = this.activeViewName;
+        this.activeViewName = activeViewName;
+        support.firePropertyChange(activeViewName, oldActiveViewName, this.activeViewName);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
+    }
+
+    // remove
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
