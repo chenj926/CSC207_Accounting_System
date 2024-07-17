@@ -5,7 +5,7 @@ public class LoginInputData {
     private final String identification;
 
     // Constructor
-    public LoginInputData(String username, String password, String identification){
+    public LoginInputData(String password, String identification){
         this.password = password;
         this.identification = identification;
     }
