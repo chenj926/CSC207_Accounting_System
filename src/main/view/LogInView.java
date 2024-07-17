@@ -91,7 +91,7 @@ public class LogInView extends JFrame implements PropertyChangeListener {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new LogInView(new LoginViewModel()));
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new LogInView(new LoginViewModel()));
+//    }
 }
