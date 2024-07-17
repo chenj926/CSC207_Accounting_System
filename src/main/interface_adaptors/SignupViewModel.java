@@ -21,7 +21,7 @@ public class SignupViewModel extends ViewModel {
     }
 
     // getters
-    public String getTITLE_LABEL() { return this.TITLE_LABEL; }
+    public String getTITLE_LABEL() {return this.TITLE_LABEL; }
     public String getUSERNAME_LABEL() {return this.USERNAME_LABEL; }
     public String getPASSWORD_LABEL() {return this.PASSWORD_LABEL; }
     public String getSIGNUP_BUTTON_LABEL(){return this.SIGNUP_BUTTON_LABEL; }
