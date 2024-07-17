@@ -5,35 +5,32 @@ import java.beans.PropertyChangeSupport;
 
 public class OneTimeTransactionViewModel extends TransactionViewModel {
     private OneTimeTransactionState transactionState;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public OneTimeTransactionViewModel() {
         super("One-Time Transaction");
         this.transactionState = new OneTimeTransactionState();
     }
 
-    private OneTimeTransactionState state = new OneTimeTransactionState();
-
-    public OneTimeTransactionViewModel() {
-        super("One-Time Transaction");
+    public OneTimeTransactionState getState() {
+        return transactionState;
     }
 
-    public void setState(OneTimeTransactionState state) {
-        this.state = state;
+    public void notifyPropertyChange() {
+        support.firePropertyChange("transaction", null, this);
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
-    public void firePropertyChanged() {
-        support.firePropertyChange("transaction", null, this.state);
+    @Override
+    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
+        this.support.firePropertyChange(propertyName, oldValue, newValue);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
-    public OneTimeTransactionState getState() {
-        return state;
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
+
