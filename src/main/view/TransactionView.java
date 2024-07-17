@@ -80,8 +80,13 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
         panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), new JTextField(10)));
         panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
         panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
-        panel.add(new JButton(viewModel.getRecordButtonLabel()));
-        panel.add(new JButton(viewModel.getCancelButtonLabel()));
+        JButton recordButton = new JButton(viewModel.getRecordButtonLabel());
+        JButton cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        panel.add(recordButton);
+        panel.add(cancelButton);
+
+        cancelButton.addActionListener(e -> transactionViewModel.cancelTransaction());
+
         return panel;
     }
 
@@ -91,14 +96,22 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
         panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
         panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
         panel.add(new LabelTextPanel(new JLabel(viewModel.getRecurrencePeriodLabel()), new JTextField(10)));
-        panel.add(new JButton(viewModel.getRecordButtonLabel()));
-        panel.add(new JButton(viewModel.getCancelButtonLabel()));
+        JButton recordButton = new JButton(viewModel.getRecordButtonLabel());
+        JButton cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        panel.add(recordButton);
+        panel.add(cancelButton);
+
+        cancelButton.addActionListener(e -> transactionViewModel.cancelTransaction());
+
         return panel;
     }
+}
 
 //    public static void main(String[] args) {
-//        TransactionViewModel viewModel = new TransactionViewModel("Transaction");
-//        new TransactionView(viewModel);
+//        SwingUtilities.invokeLater(() -> {
+//            TransactionViewModel transactionViewModel = new TransactionViewModel("Transaction System");
+//            new TransactionView(transactionViewModel).setVisible(true);
+//        });
 //    }
-}
+
 
