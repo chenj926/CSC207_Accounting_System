@@ -28,14 +28,37 @@ public class SignupInteractor implements SignupInputBoundary{
             presenter.prepareFailView("User already exist!!!");
         }
         else {
-            // create new user
-            UserAccount newUser = accountFactory.createUserAccount(signupInputData.getUsername(),
-                    signupInputData.getPassword(), signupInputData.getIdentification());
-            userDataAccessObject.save(newUser);  // save this user
+            // check if username or password is valid
+            boolean validUsername = this.checkUsername(signupInputData.getUsername());
+            boolean validPassword = this.checkPassword(signupInputData.getPassword());
+            if(!validUsername) {
+                presenter.prepareFailView("Username can not be empty!");
+            } else if (!validPassword){
+                presenter.prepareFailView("Password can not be empty!");
+            } else {
+                // create new user
+                UserAccount newUser = accountFactory.createUserAccount(signupInputData.getUsername(),
+                        signupInputData.getPassword(), signupInputData.getIdentification());
+                userDataAccessObject.save(newUser);  // save this user
 
-            // prepare output to presenter
-            SignupOutputData signupOutputData = new SignupOutputData(newUser.getUsername(), false);
-            presenter.prepareSuccessView(signupOutputData);
+                // prepare output to presenter
+                SignupOutputData signupOutputData = new SignupOutputData(newUser.getUsername(), false);
+                presenter.prepareSuccessView(signupOutputData);
+            }
         }
+    }
+
+    public boolean checkUsername(String username) {
+        if (username == null || username.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }
