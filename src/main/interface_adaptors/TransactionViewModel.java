@@ -84,6 +84,11 @@ public class TransactionViewModel extends ViewModel {
         this.currentViewModel = newViewModel;
         firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
     }
+
+    public void cancelTransaction() {
+        setCurrentViewModel(null); // This can be adjusted based on how you want to clear the view
+        firePropertyChanged("currentViewModel", null, this);
+    }
 }
 
 
