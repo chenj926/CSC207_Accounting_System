@@ -152,13 +152,13 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
         }
     }
 
-}
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> {
-//            TransactionViewModel transactionViewModel = new TransactionViewModel("Transaction System");
-//            new TransactionView(transactionViewModel).setVisible(true);
-//        });
-//    }
-//}
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            TransactionViewModel transactionViewModel = new TransactionViewModel("Transaction System");
+            new TransactionView(transactionViewModel).setVisible(true);
+        });
+    }
+}
 
