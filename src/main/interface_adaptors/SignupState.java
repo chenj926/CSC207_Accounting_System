@@ -39,9 +39,10 @@ public class SignupState {
 
     public void setUsername(String username) {
         if (username == null || username.isEmpty()) {
-            this.usernameError = "Username cannot be empty";
+            this.setUsernameError("Username cannot be empty");
+            return;  // if the username is wrong, don't let it be assigned to username
         } else {
-            this.usernameError = null;
+            this.setUsernameError(null);
         }
         this.username = username;
     }
@@ -51,21 +52,22 @@ public class SignupState {
     }
 
     public void setPassword(String password) {
+        // !!!!!!!都tmd应该交给interactor来管！！！！改改改！md
+
+        if (password == null || password.isEmpty()) {
+            this.setPasswordError("Password cannot be empty");
+            return;  // if the password is wrong, don't let it be assigned to username
+        } else {
+            this.setPasswordError(null);
+        }
         this.password = password;
-        validatePassword();
     }
 
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
 
-    private void validatePassword() {
-        if (password == null || password.isEmpty()) {
-            this.passwordError = "Password cannot be empty";
-        } else {
-            this.passwordError = null;
-        }
-    }
+    public void setIdentificationError(String identificationError) { this.identificationError = identificationError; }
 
     public boolean isValid() {
         return usernameError == null && passwordError == null;
