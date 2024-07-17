@@ -12,21 +12,21 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
 
     @Override
     public void prepareSuccessView(PeriodicTransactionOutputData data) {
-        viewModel.setTransactionAmount(data.getTransactionAmount());
-        viewModel.setTransactionStartDate(data.getTransactionStartDate().toString());
-        viewModel.setTransactionEndDate(data.getTransactionEndDate().toString());
-        viewModel.setTransactionPeriod(data.getTransactionPeriod());
-        viewModel.setTransactionDescription(data.getTransactionDescription());
-        viewModel.setSuccessMessage("Periodic transaction recorded successfully!");
+        PeriodicTransactionState state = viewModel.getState();
+        state.setTransactionAmount(data.getTransactionAmount());
+        state.setTransactionStartDate(data.getTransactionStartDate().toString());
+        state.setTransactionDescription(data.getTransactionDescription());
+        state.setTransactionPeriod(data.getTransactionPeriod());
+        state.setTransactionEndDate(data.getTransactionEndDate().toString());
+        state.setSuccessMessage("Periodic transaction recorded successfully!");
         viewModel.notifyPropertyChange();
     }
 
     @Override
     public void prepareFailView(String error) {
-        viewModel.setError(error);
-        viewModel.setSuccessMessage(null); // Clear success message on failure
+        PeriodicTransactionState state = viewModel.getState();
+        state.setError(error);
+        state.setSuccessMessage(null); // Clear success message on failure
         viewModel.notifyPropertyChange();
     }
 }
-
-
