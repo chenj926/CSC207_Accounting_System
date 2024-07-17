@@ -5,13 +5,14 @@ import java.beans.PropertyChangeSupport;
 
 public class SignupViewModel extends ViewModel {
 
-    public final String TITLE_LABEL = "Sign Up View";
-    public final String USERNAME_LABEL = "Choose username";
-    public final String PASSWORD_LABEL = "Choose password";
-    public final String REPEAT_PASSWORD_LABEL = "Enter password again";
+    private final String TITLE_LABEL = "Sign Up View";
+    private final String USERNAME_LABEL = "Choose username";
+    private final String PASSWORD_LABEL = "Choose password";
+    // do not need repeat_password for now
+//    private final String REPEAT_PASSWORD_LABEL = "Enter password again";
 
-    public final String SIGNUP_BUTTON_LABEL = "Sign up";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
+    private final String SIGNUP_BUTTON_LABEL = "Sign up";
+    private final String CANCEL_BUTTON_LABEL = "Cancel";
 
     private SignupState state = new SignupState();
 
@@ -19,6 +20,14 @@ public class SignupViewModel extends ViewModel {
         super("sign up");
     }
 
+    // getters
+    public String getTITLE_LABEL() {return this.TITLE_LABEL; }
+    public String getUSERNAME_LABEL() {return this.USERNAME_LABEL; }
+    public String getPASSWORD_LABEL() {return this.PASSWORD_LABEL; }
+    public String getSIGNUP_BUTTON_LABEL(){return this.SIGNUP_BUTTON_LABEL; }
+    public String getCANCEL_BUTTON_LABEL() {return this.CANCEL_BUTTON_LABEL; }
+
+    // setters
     public void setState(SignupState state) {
         this.state = state;
     }
