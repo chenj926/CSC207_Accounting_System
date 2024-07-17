@@ -1,19 +1,24 @@
 package entity;
 
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
-public class PeriodicTransactionTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    public static void main(String[] args) {
+class PeriodicTransactionTest {
+
+    @Test
+    void testPeriodicTransaction() {
         PeriodicTransaction transaction = new PeriodicInflow("testID", 100.0f, LocalDate.of(2024, 7, 16), "Test description", LocalDate.of(2024, 12, 31), 30);
 
-        assert "testID".equals(transaction.getIdentification()) : "Identification doesn't match";
-        assert transaction.getAmount() == 100.0f : "Amount doesn't match";
-        assert LocalDate.of(2024, 7, 16).equals(transaction.getStartDate()) : "Start date doesn't match";
-        assert LocalDate.of(2024, 12, 31).equals(transaction.getEndDate()) : "End date doesn't match";
-        assert transaction.getPeriod() == 30 : "Period doesn't match";
-        assert "Test description".equals(transaction.getDescription()) : "Description doesn't match";
-        assert transaction.isInflow() : "Inflow should be true";
+        assertEquals("testID", transaction.getIdentification(), "Identification doesn't match");
+        assertEquals(100.0f, transaction.getAmount(), "Amount doesn't match");
+        assertEquals(LocalDate.of(2024, 7, 16), transaction.getStartDate(), "Start date doesn't match");
+        assertEquals(LocalDate.of(2024, 12, 31), transaction.getEndDate(), "End date doesn't match");
+        assertEquals(30, transaction.getPeriod(), "Period doesn't match");
+        assertEquals("Test description", transaction.getDescription(), "Description doesn't match");
+        assertTrue(transaction.isInflow(), "Inflow should be true");
 
         transaction.setIdentification("newID");
         transaction.setAmount(-200.0f);
@@ -22,14 +27,12 @@ public class PeriodicTransactionTest {
         transaction.setPeriod(15);
         transaction.setDescription("New description");
 
-        assert "newID".equals(transaction.getIdentification()) : "Identification doesn't match after set";
-        assert transaction.getAmount() == -200.0f : "Amount doesn't match after set";
-        assert LocalDate.of(2024, 8, 16).equals(transaction.getStartDate()) : "Start date doesn't match after set";
-        assert LocalDate.of(2024, 11, 30).equals(transaction.getEndDate()) : "End date doesn't match after set";
-        assert transaction.getPeriod() == 15 : "Period doesn't match after set";
-        assert "New description".equals(transaction.getDescription()) : "Description doesn't match after set";
-        assert !transaction.isInflow() : "Inflow should be false after setting negative amount";
-
-        System.out.println("All tests for PeriodicTransaction passed.");
+        assertEquals("newID", transaction.getIdentification(), "Identification doesn't match after set");
+        assertEquals(-200.0f, transaction.getAmount(), "Amount doesn't match after set");
+        assertEquals(LocalDate.of(2024, 8, 16), transaction.getStartDate(), "Start date doesn't match after set");
+        assertEquals(LocalDate.of(2024, 11, 30), transaction.getEndDate(), "End date doesn't match after set");
+        assertEquals(15, transaction.getPeriod(), "Period doesn't match after set");
+        assertEquals("New description", transaction.getDescription(), "Description doesn't match after set");
+        assertFalse(transaction.isInflow(), "Inflow should be false after setting negative amount");
     }
 }

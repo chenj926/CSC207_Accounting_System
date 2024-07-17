@@ -62,7 +62,6 @@ public class UserAccountTest {
     }
 }
 
-// Dummy Transaction class renamed to UserAccountTestHelper for testing purposes
 class UserAccountTestHelper implements Transaction {
     private float amount;
 
@@ -111,7 +110,6 @@ class UserAccountTestHelper implements Transaction {
     }
 }
 
-// Dummy TransactionComparator class for testing purposes
 class TransactionComparator implements java.util.Comparator<Transaction> {
     @Override
     public int compare(Transaction t1, Transaction t2) {

@@ -1,30 +1,34 @@
 package entity;
 
+import org.junit.jupiter.api.Test;
+
 import java.time.LocalDate;
 
-public class OneTimeOutflowTest {
+import static org.junit.jupiter.api.Assertions.*;
 
-    public static void main(String[] args) {
+class OneTimeOutflowTest {
+
+    @Test
+    void testOneTimeOutflow() {
         OneTimeOutflow outflow = new OneTimeOutflow("testID", -100.0f, LocalDate.of(2024, 7, 16), "Test description", "Test category");
 
-        assert "testID".equals(outflow.getIdentification()) : "Identification doesn't match";
-        assert outflow.getAmount() == -100.0f : "Amount doesn't match";
-        assert LocalDate.of(2024, 7, 16).equals(outflow.getDate()) : "Date doesn't match";
-        assert "Test description".equals(outflow.getDescription()) : "Description doesn't match";
-        assert "Test category".equals(outflow.getCategory()) : "Category doesn't match";
-        assert !outflow.isInflow() : "Inflow should be false";
+        assertEquals("testID", outflow.getIdentification(), "Identification doesn't match");
+        assertEquals(-100.0f, outflow.getAmount(), "Amount doesn't match");
+        assertEquals(LocalDate.of(2024, 7, 16), outflow.getDate(), "Date doesn't match");
+        assertEquals("Test description", outflow.getDescription(), "Description doesn't match");
+        assertEquals("Test category", outflow.getCategory(), "Category doesn't match");
+        assertFalse(outflow.isInflow(), "Inflow should be false");
 
         outflow.setIdentification("newID");
         outflow.setAmount(-200.0f);
         outflow.setDate(LocalDate.of(2024, 8, 16));
         outflow.setDescription("New description");
 
-        assert "newID".equals(outflow.getIdentification()) : "Identification doesn't match after set";
-        assert outflow.getAmount() == -200.0f : "Amount doesn't match after set";
-        assert LocalDate.of(2024, 8, 16).equals(outflow.getDate()) : "Date doesn't match after set";
-        assert "New description".equals(outflow.getDescription()) : "Description doesn't match after set";
-        assert !outflow.isInflow() : "Inflow should be false after setting negative amount";
-
-        System.out.println("All tests for OneTimeOutflow passed.");
+        assertEquals("newID", outflow.getIdentification(), "Identification doesn't match after set");
+        assertEquals(-200.0f, outflow.getAmount(), "Amount doesn't match after set");
+        assertEquals(LocalDate.of(2024, 8, 16), outflow.getDate(), "Date doesn't match after set");
+        assertEquals("New description", outflow.getDescription(), "Description doesn't match after set");
+        assertFalse(outflow.isInflow(), "Inflow should be false after setting negative amount");
     }
 }
+
