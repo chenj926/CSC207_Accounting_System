@@ -28,8 +28,8 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
     private void initializeComponents() {
         mainPanel = new JPanel(new BorderLayout());
         dynamicPanel = new JPanel();
-        oneTimeButton = new JButton(transactionViewModel.ONE_TIME_BUTTON_LABEL);
-        periodicButton = new JButton(transactionViewModel.PERIODIC_BUTTON_LABEL);
+        oneTimeButton = new JButton(transactionViewModel.getOneTimeButtonLabel());
+        periodicButton = new JButton(transactionViewModel.getPeriodicButtonLabel());
     }
 
     private void setupLayout() {
@@ -77,28 +77,28 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
 
     private JPanel createOneTimeTransactionPanel(OneTimeTransactionViewModel viewModel) {
         JPanel panel = new JPanel(new GridLayout(4, 2));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.AMOUNT_LABEL), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.DATE_LABEL), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.DESCRIPTION_LABEL), new JTextField(10)));
-        panel.add(new JButton(viewModel.RECORD_BUTTON_LABEL));
-        panel.add(new JButton(viewModel.CANCEL_BUTTON_LABEL));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), new JTextField(10)));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
+        panel.add(new JButton(viewModel.getRecordButtonLabel()));
+        panel.add(new JButton(viewModel.getCancelButtonLabel()));
         return panel;
     }
 
     private JPanel createPeriodicTransactionPanel(PeriodicTransactionViewModel viewModel) {
         JPanel panel = new JPanel(new GridLayout(5, 2));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.TRANSACTION_AMOUNT_LABEL), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.TRANSACTION_DATE_LABEL), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.TRANSACTION_DESCRIPTION_LABEL), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.RECURRENCE_LABEL), new JTextField(10)));
-        panel.add(new JButton("Record"));
-        panel.add(new JButton("Cancel"));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), new JTextField(10)));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
+        panel.add(new LabelTextPanel(new JLabel(viewModel.getRecurrencePeriodLabel()), new JTextField(10)));
+        panel.add(new JButton(viewModel.getRecordButtonLabel()));
+        panel.add(new JButton(viewModel.getCancelButtonLabel()));
         return panel;
     }
 
-    public static void main(String[] args) {
-        TransactionViewModel viewModel = new TransactionViewModel("Transaction View");
-        new TransactionView(viewModel);
-    }
+//    public static void main(String[] args) {
+//        TransactionViewModel viewModel = new TransactionViewModel("Transaction");
+//        new TransactionView(viewModel);
+//    }
 }
 
