@@ -5,9 +5,11 @@ import use_case.PeriodicTransactionOutputData;
 
 public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBoundary {
     private final PeriodicTransactionViewModel viewModel;
+    private final TransactionViewModel transactionViewModel;
 
-    public PeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel) {
+    public PeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel, TransactionViewModel transactionViewModel) {
         this.viewModel = viewModel;
+        this.transactionViewModel = transactionViewModel;
     }
 
     @Override
@@ -28,5 +30,10 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
         state.setError(error);
         state.setSuccessMessage(null); // Clear success message on failure
         viewModel.notifyPropertyChange();
+    }
+
+
+    public void handleCancel() {
+        transactionViewModel.selectPeriodicTransaction();
     }
 }
