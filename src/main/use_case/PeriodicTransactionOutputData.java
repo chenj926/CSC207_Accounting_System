@@ -1,5 +1,8 @@
 package use_case;
 
+import entity.PeriodicInflow;
+import entity.PeriodicOutflow;
+
 import java.time.LocalDate;
 
 public class PeriodicTransactionOutputData {
@@ -9,17 +12,28 @@ public class PeriodicTransactionOutputData {
     private int transactionPeriod;
     private String transactionDescription;
     private LocalDate date;
+    private float newBalance;
 
-    public PeriodicTransactionOutputData(float transactionAmount,
-                                         LocalDate transactionStartDate, String transactionDescription,
-                                         int transactionPeriod, LocalDate transactionEndDate, LocalDate date) {
+    public PeriodicTransactionOutputData(PeriodicInflow periodicInflow, float newBalance) {
 
-        this.transactionAmount = transactionAmount;
-        this.transactionStartDate = transactionStartDate;
-        this.transactionDescription = transactionDescription;
-        this.transactionEndDate = transactionEndDate;
-        this.transactionPeriod = transactionPeriod;
-        this.date = date;
+        this.transactionAmount = periodicInflow.getAmount();
+        this.transactionStartDate = periodicInflow.getStartDate();
+        this.transactionDescription = periodicInflow.getDescription();
+        this.transactionEndDate = periodicInflow.getEndDate();
+        this.transactionPeriod = periodicInflow.getPeriod();
+//        this.date = date;
+        this.newBalance = newBalance;
+    }
+
+    public PeriodicTransactionOutputData(PeriodicOutflow periodicOutflow, float newBalance) {
+
+        this.transactionAmount = periodicOutflow.getAmount();
+        this.transactionStartDate = periodicOutflow.getStartDate();
+        this.transactionDescription = periodicOutflow.getDescription();
+        this.transactionEndDate = periodicOutflow.getEndDate();
+        this.transactionPeriod = periodicOutflow.getPeriod();
+//        this.date = date;
+        this.newBalance = newBalance;
     }
 
     // getters
@@ -39,6 +53,7 @@ public class PeriodicTransactionOutputData {
         return this.transactionPeriod;
     }
     public LocalDate getDate() {return this.date; }
+    public float getNewBalance() {return this.newBalance;}
 
     // setters
     public void setTransactionStartDate(LocalDate transactionStartDate) {
@@ -55,4 +70,5 @@ public class PeriodicTransactionOutputData {
     }
     public void setTransactionPeriod(int transactionPeriod) {this.transactionPeriod = transactionPeriod; }
     public void setDate (LocalDate date) { this.date = date;}
+    public void setNewBalance(float newBalance) {this.newBalance = newBalance;}
 }
