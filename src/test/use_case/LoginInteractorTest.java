@@ -68,7 +68,6 @@ public class LoginInteractorTest {
 
         @Override
         public void login(UserAccount userAccount) {
-            // For this test, we'll assume login is a no-op
         }
 
         public void addUser(UserAccount userAccount) {
