@@ -31,7 +31,7 @@ class LoginInteractorTest {
         String username = "testUser";
         String password = "password";
         String userId = "nonexistentUser";
-        LoginInputData inputData = new LoginInputData(username, password, userId);
+        LoginInputData inputData = new LoginInputData(password, userId);
 
         loginInteractor.execute(inputData);
 
@@ -43,7 +43,7 @@ class LoginInteractorTest {
         String username = "testUser";
         String password = "password";
         String userId = "existentUser";
-        LoginInputData inputData = new LoginInputData(username, password, userId);
+        LoginInputData inputData = new LoginInputData(password, userId);
         ((SimpleLoginDataAccess) userDataAccessObject).addUser(new UserAccount(username, password, userId));
 
         loginInteractor.execute(inputData);
