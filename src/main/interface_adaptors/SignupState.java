@@ -1,6 +1,8 @@
 package interface_adaptors;
 
 public class SignupState {
+    private String identification;
+    private String identificationError;
     private String username;
     private String usernameError;
     private String password;
@@ -9,6 +11,8 @@ public class SignupState {
     private String repeatPasswordError;
 
     public SignupState() {
+        this.identification = "";
+        this.identificationError = null;
         this.username = "";
         this.usernameError = null;
         this.password = "";
@@ -17,28 +21,32 @@ public class SignupState {
         this.repeatPasswordError = null;
     }
 
+    public String getIdentification() { return this.identification; }
+
+    public String getIdentificationError() { return this.identificationError; }
+
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getUsernameError() {
-        return usernameError;
+        return this.usernameError;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getPasswordError() {
-        return passwordError;
+        return this.passwordError;
     }
 
     public String getRepeatPassword() {
-        return repeatPassword;
+        return this.repeatPassword;
     }
 
     public String getRepeatPasswordError() {
-        return repeatPasswordError;
+        return this.repeatPasswordError;
     }
 
     public void setUsername(String username) {
