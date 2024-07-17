@@ -1,4 +1,4 @@
-package interface_adapters;
+package interface_adaptors;
 
 public class LoginState {
     private String username;

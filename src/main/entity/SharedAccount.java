@@ -24,6 +24,9 @@ public class SharedAccount extends UserAccount {
     public void removeUserIdentification(String identification) {
         sharedUserIdentifications.remove(identification);
     }
+    public void setSharedUserIdentifications(Set<String> sharedUserIdentifications) {
+        this.sharedUserIdentifications = sharedUserIdentifications;
+    }
 
 //    @Override
 //    public String getIdentification() {

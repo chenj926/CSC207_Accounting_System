@@ -1,51 +1,36 @@
 package interface_adaptors;
 
-public class PeriodicTransactionViewModel extends TransactionViewModel {
-    public final String TITLE_LABEL = "Periodic Transaction";
-    public final String TRANSACTION_AMOUNT_LABEL = "Transaction Amount";
-    public final String TRANSACTION_DATE_LABEL = "Transaction Date";
-    public final String TRANSACTION_DESCRIPTION_LABEL = "Transaction Description";
-    public final String RECURRENCE_LABEL = "Recurrence";
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-    private float transactionAmount;
-    private String transactionDate;
-    private String transactionDescription;
-    private String recurrence;
+public class PeriodicTransactionViewModel extends TransactionViewModel {
+    private PeriodicTransactionState transactionState;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public PeriodicTransactionViewModel() {
         super("Periodic Transaction");
+        this.transactionState = new PeriodicTransactionState();
     }
 
-    public float getTransactionAmount() {
-        return transactionAmount;
+    public PeriodicTransactionState getState() {
+        return transactionState;
     }
 
-    public void setTransactionAmount(float transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void notifyPropertyChange() {
+        support.firePropertyChange("transaction", null, this);
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
+    @Override
+    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
+        this.support.firePropertyChange(propertyName, oldValue, newValue);
     }
 
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 
-    public String getTransactionDescription() {
-        return transactionDescription;
-    }
-
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
-    }
-
-    public String getRecurrence() {
-        return recurrence;
-    }
-
-    public void setRecurrence(String recurrence) {
-        this.recurrence = recurrence;
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
 

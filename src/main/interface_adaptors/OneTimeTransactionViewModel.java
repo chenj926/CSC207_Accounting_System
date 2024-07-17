@@ -1,47 +1,36 @@
 package interface_adaptors;
 
-public class OneTimeTransactionViewModel extends TransactionViewModel {
-    public final String TITLE_LABEL = "One-Time Transaction";
-    public final String AMOUNT_LABEL = "Transaction Amount";
-    public final String DATE_LABEL = "Transaction Date";
-    public final String DESCRIPTION_LABEL = "Transaction Description";
-    public final String CATEGORY_LABEL = "Transaction Category";
-    public final String NOTES_LABEL = "Transaction Notes";
-    public final String RECORD_BUTTON_LABEL = "Record Transaction";
-    public final String CANCEL_BUTTON_LABEL = "Cancel";
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 
-    private float transactionAmount;
-    private String transactionDate;
-    private String transactionDescription;
+public class OneTimeTransactionViewModel extends TransactionViewModel {
+    private OneTimeTransactionState transactionState;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public OneTimeTransactionViewModel() {
         super("One-Time Transaction");
+        this.transactionState = new OneTimeTransactionState();
     }
 
-    public float getTransactionAmount() {
-        return transactionAmount;
+    public OneTimeTransactionState getState() {
+        return transactionState;
     }
 
-    public void setTransactionAmount(float transactionAmount) {
-        this.transactionAmount = transactionAmount;
+    public void notifyPropertyChange() {
+        support.firePropertyChange("transaction", null, this);
     }
 
-    public String getTransactionDate() {
-        return transactionDate;
+    @Override
+    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
+        this.support.firePropertyChange(propertyName, oldValue, newValue);
     }
 
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 
-    public String getTransactionDescription() {
-        return transactionDescription;
-    }
-
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
-
-
 

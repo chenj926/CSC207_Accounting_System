@@ -7,6 +7,7 @@ public abstract class PeriodicTransaction implements Transaction {
     private float amount;
     private LocalDate startDate;
     private LocalDate endDate;
+    private LocalDate date;
     private int period;
     private String description;
 //    private int recurrencePeriodInDays;
@@ -23,16 +24,17 @@ public abstract class PeriodicTransaction implements Transaction {
         this.description = description;
 //        this.recurrencePeriodInDays = recurrencePeriodInDays;
         this.inflow = (amount>=0);
+        this.date = startDate;
     }
 
     // Getter
     @Override
     public String getIdentification() {
-        return identification;
+        return this.identification;
     }
     @Override
     public float getAmount() {
-        return amount;
+        return this.amount;
     }
     @Override
     public String getDescription() {
@@ -52,6 +54,10 @@ public abstract class PeriodicTransaction implements Transaction {
     }
     public int getPeriod() {
         return this.period;
+    }
+
+    public LocalDate getDate() {
+        return this.date;
     }
 
     // Setter
@@ -81,7 +87,11 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
-//    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
+    @Override
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+    //    public void setRecurrencePeriodInDays(int recurrencePeriodInDays) {
 //        this.recurrencePeriodInDays = recurrencePeriodInDays;
 //    }
 }
