@@ -7,7 +7,7 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class LogInView extends JFrame implements PropertyChangeListener {
+public class LoginView extends JFrame implements PropertyChangeListener {
     private LoginViewModel viewModel;
 
     private JLabel titleLabel;
@@ -16,7 +16,7 @@ public class LogInView extends JFrame implements PropertyChangeListener {
     private JButton loginButton;
     private JButton cancelButton;
 
-    public LogInView(LoginViewModel viewModel) {
+    public LoginView(LoginViewModel viewModel) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
