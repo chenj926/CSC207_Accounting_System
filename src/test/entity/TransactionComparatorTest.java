@@ -44,7 +44,6 @@ public class TransactionComparatorTest {
     }
 }
 
-// Dummy Transaction class renamed to TransactionComparatorTestHelper for testing purposes
 class TransactionComparatorTestHelper implements Transaction {
     private String id;
     private double amount;
