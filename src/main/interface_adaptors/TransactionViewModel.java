@@ -85,6 +85,12 @@ public class TransactionViewModel extends ViewModel {
         firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
     }
 
+    public void resetTransactionView() {
+        transactionState.setOneTimeSelected(false);
+        transactionState.setPeriodicSelected(false);
+        setCurrentViewModel(null);
+    }
+
     public void cancelTransaction() {
         setCurrentViewModel(null); // This can be adjusted based on how you want to clear the view
         firePropertyChanged("currentViewModel", null, this);
