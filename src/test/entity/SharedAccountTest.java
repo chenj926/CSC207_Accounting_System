@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Set;
+import java.util.HashSet;
 
 import static org.junit.Assert.*;
 
@@ -45,4 +46,19 @@ public class SharedAccountTest {
         assertFalse("Shared user identifications should not contain 'user1'", sharedUsers.contains("user1"));
         assertTrue("Shared user identifications should contain 'user2'", sharedUsers.contains("user2"));
     }
+
+    @Test
+    public void testSetSharedUserIdentifications() {
+        Set<String> newSharedUsers = new HashSet<>();
+        newSharedUsers.add("user1");
+        newSharedUsers.add("user2");
+
+        sharedAccount.setSharedUserIdentifications(newSharedUsers);
+
+        Set<String> sharedUsers = sharedAccount.getSharedUserIdentifications();
+        assertEquals("There should be 2 shared user identifications", 2, sharedUsers.size());
+        assertTrue("Shared user identifications should contain 'user1'", sharedUsers.contains("user1"));
+        assertTrue("Shared user identifications should contain 'user2'", sharedUsers.contains("user2"));
+    }
 }
+
