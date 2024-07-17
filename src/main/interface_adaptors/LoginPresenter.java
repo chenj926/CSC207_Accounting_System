@@ -1,2 +1,4 @@
-package interface_adaptors;public class LoginPresenter {
+package interface_adaptors;
+
+public class LoginPresenter {
 }
