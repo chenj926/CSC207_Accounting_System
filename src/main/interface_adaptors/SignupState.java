@@ -1,53 +1,50 @@
 package interface_adaptors;
 
 public class SignupState {
+    private String identification;
+    private String identificationError;
     private String username;
     private String usernameError;
     private String password;
     private String passwordError;
-    private String repeatPassword;
-    private String repeatPasswordError;
 
     public SignupState() {
+        this.identification = "";
+        this.identificationError = null;
         this.username = "";
         this.usernameError = null;
         this.password = "";
         this.passwordError = null;
-        this.repeatPassword = "";
-        this.repeatPasswordError = null;
     }
 
+    public String getIdentification() { return this.identification; }
+
+    public String getIdentificationError() { return this.identificationError; }
+
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public String getUsernameError() {
-        return usernameError;
+        return this.usernameError;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public String getPasswordError() {
-        return passwordError;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public String getRepeatPasswordError() {
-        return repeatPasswordError;
+        return this.passwordError;
     }
 
     public void setUsername(String username) {
-        this.username = username;
         if (username == null || username.isEmpty()) {
-            this.usernameError = "Username cannot be empty";
+            this.setUsernameError("Username cannot be empty");
+            return;  // if the username is wrong, don't let it be assigned to username
         } else {
-            this.usernameError = null;
+            this.setUsernameError(null);
         }
+        this.username = username;
     }
 
     public void setUsernameError(String usernameError) {
@@ -55,49 +52,34 @@ public class SignupState {
     }
 
     public void setPassword(String password) {
+        // !!!!!!!都tmd应该交给interactor来管！！！！改改改！md
+
+        if (password == null || password.isEmpty()) {
+            this.setPasswordError("Password cannot be empty");
+            return;  // if the password is wrong, don't let it be assigned to username
+        } else {
+            this.setPasswordError(null);
+        }
         this.password = password;
-        validatePassword();
     }
 
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
 
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
-        validatePassword();
-    }
-
-    public void setRepeatPasswordError(String repeatPasswordError) {
-        this.repeatPasswordError = repeatPasswordError;
-    }
-
-    private void validatePassword() {
-        if (password == null || password.isEmpty()) {
-            this.passwordError = "Password cannot be empty";
-        } else {
-            this.passwordError = null;
-        }
-
-        if (repeatPassword == null || repeatPassword.isEmpty()) {
-            this.repeatPasswordError = "Repeat password cannot be empty";
-        } else if (!repeatPassword.equals(password)) {
-            this.repeatPasswordError = "Passwords do not match";
-        } else {
-            this.repeatPasswordError = null;
-        }
-    }
+    public void setIdentificationError(String identificationError) { this.identificationError = identificationError; }
 
     public boolean isValid() {
-        return usernameError == null && passwordError == null && repeatPasswordError == null;
+        return usernameError == null && passwordError == null;
     }
 
     public void reset() {
+        this.identification = "";
+        this.identificationError = null;
         this.username = "";
         this.usernameError = null;
         this.password = "";
         this.passwordError = null;
-        this.repeatPassword = "";
-        this.repeatPasswordError = null;
+
     }
 }

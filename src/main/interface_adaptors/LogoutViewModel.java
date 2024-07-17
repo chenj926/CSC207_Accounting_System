@@ -35,5 +35,9 @@ public class LogoutViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);
     }
+    // Getter
+    public LogoutState getState() {
+        return state;
+    }
 
 }
