@@ -9,9 +9,10 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class LoginInteractorTest {
+public class LoginInteractorTest {
 
     private LoginDataAccessInterface userDataAccessObject;
     private SimplePresenter presenter;
@@ -19,17 +20,16 @@ class LoginInteractorTest {
     private LoginInteractor loginInteractor;
 
     @BeforeEach
-    void setUp() {
-        userDataAccessObject = new SimpleLoginDataAccess();
+    public void setUp() {
+        userDataAccessObject = new InMemoryLoginDataAccess();
         presenter = new SimplePresenter();
         accountFactory = new AccountFactory();
         loginInteractor = new LoginInteractor(userDataAccessObject, presenter, accountFactory);
     }
 
     @Test
-    void testUserNotFound() {
-        String username = "testUser";
-        String password = "password";
+    public void testUserNotFound() {
+        String password = "password123";
         String userId = "nonexistentUser";
         LoginInputData inputData = new LoginInputData(password, userId);
 
@@ -39,12 +39,13 @@ class LoginInteractorTest {
     }
 
     @Test
-    void testUserFoundAndLoggedIn() {
+    public void testUserFoundAndLoggedIn() {
         String username = "testUser";
-        String password = "password";
+        String password = "password123";
         String userId = "existentUser";
+        UserAccount user = new UserAccount(username, password, userId);
+        ((InMemoryLoginDataAccess) userDataAccessObject).addUser(user);
         LoginInputData inputData = new LoginInputData(password, userId);
-        ((SimpleLoginDataAccess) userDataAccessObject).addUser(new UserAccount(username, password, userId));
 
         loginInteractor.execute(inputData);
 
@@ -52,7 +53,7 @@ class LoginInteractorTest {
         assertEquals(username, presenter.getData().getUsername());
     }
 
-    private static class SimpleLoginDataAccess implements LoginDataAccessInterface {
+    private static class InMemoryLoginDataAccess implements LoginDataAccessInterface {
         private final Map<String, UserAccount> userDatabase = new HashMap<>();
 
         @Override
@@ -67,6 +68,7 @@ class LoginInteractorTest {
 
         @Override
         public void login(UserAccount userAccount) {
+            // For this test, we'll assume login is a no-op
         }
 
         public void addUser(UserAccount userAccount) {
@@ -77,15 +79,18 @@ class LoginInteractorTest {
     private static class SimplePresenter implements LogInOutputBoundary {
         private String message;
         private LogInOutputData data;
+        private boolean success;
 
         @Override
         public void prepareFailView(String message) {
             this.message = message;
+            this.success = false;
         }
 
         @Override
         public void prepareSuccessView(LogInOutputData data) {
             this.data = data;
+            this.success = true;
         }
 
         public String getMessage() {
@@ -93,7 +98,7 @@ class LoginInteractorTest {
         }
 
         public boolean isSuccess() {
-            return data != null;
+            return success;
         }
 
         public LogInOutputData getData() {
@@ -101,6 +106,7 @@ class LoginInteractorTest {
         }
     }
 }
+
 
 
 
