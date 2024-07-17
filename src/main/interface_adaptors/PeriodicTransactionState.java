@@ -6,9 +6,8 @@ public class PeriodicTransactionState {
     private String transactionEndDate;
     private int transactionPeriod;
     private String transactionDescription;
-    private String error;
     private String successMessage;
-
+    private String error;
 
     public float getTransactionAmount() {
         return transactionAmount;
@@ -50,14 +49,6 @@ public class PeriodicTransactionState {
         this.transactionDescription = transactionDescription;
     }
 
-    public String getError() {
-        return error;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
     public String getSuccessMessage() {
         return successMessage;
     }
@@ -65,4 +56,13 @@ public class PeriodicTransactionState {
     public void setSuccessMessage(String successMessage) {
         this.successMessage = successMessage;
     }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
+    }
 }
+
