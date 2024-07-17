@@ -11,22 +11,22 @@ import java.beans.PropertyChangeListener;
 public class SignupView extends JFrame implements PropertyChangeListener {
     private SignupViewModel viewModel;
 
-    // title
-    private JLabel titleLabel = new JLabel(viewModel.getTitleLabel());
-
-    // text size
+    // Declare UI components without initializing them yet
+    private JLabel titleLabel;
     private JTextField usernameTextField = new JTextField(20);
     private JPasswordField passwordField = new JPasswordField(20);
-    private JPasswordField repeatPasswordField = new JPasswordField(20);
-
-    // buttons
-    private JButton signupButton = new JButton(viewModel.getSignupButtonLabel());
-    private JButton cancelButton = new JButton(viewModel.getCancelButtonLabel());
+    private JButton signupButton;
+    private JButton cancelButton;
 
     public SignupView(SignupViewModel viewModel) {
-        super(viewModel.getSignupButtonLabel());
+        super("Signup Form");
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
+
+        // Initialize dependent components here
+        titleLabel = new JLabel(viewModel.getTitleLabel());
+        signupButton = new JButton(viewModel.getSignupButtonLabel());
+        cancelButton = new JButton(viewModel.getCancelButtonLabel());
 
         setupUI();
         setupListeners();
@@ -39,25 +39,37 @@ public class SignupView extends JFrame implements PropertyChangeListener {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(2, 5, 2, 5);  // pad
 
         constraints.gridx = 0;
         constraints.gridy = 0;
-        panel.add(titleLabel, constraints);
-
-        constraints.gridy++;
         panel.add(new JLabel(viewModel.getUsernameLabel()), constraints);
+
+        constraints.gridx = 1;
+        usernameTextField = new JTextField(20);
         panel.add(usernameTextField, constraints);
 
+        constraints.gridx = 0;
         constraints.gridy++;
         panel.add(new JLabel(viewModel.getPasswordLabel()), constraints);
+
+        constraints.gridx = 1;
+        passwordField = new JPasswordField(20);
         panel.add(passwordField, constraints);
 
+        constraints.gridx = 0;
         constraints.gridy++;
+        constraints.gridwidth = 2;
+        signupButton = new JButton(viewModel.getSignupButtonLabel());
         panel.add(signupButton, constraints);
+
+        cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        constraints.gridy++;
         panel.add(cancelButton, constraints);
 
         this.getContentPane().add(panel, BorderLayout.CENTER);
     }
+
 
     private void setupListeners() {
         signupButton.addActionListener(e -> {
@@ -67,19 +79,18 @@ public class SignupView extends JFrame implements PropertyChangeListener {
         });
 
         cancelButton.addActionListener(e -> {
-            dispose(); // close window
+            dispose();
         });
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if ("state".equals(evt.getPropertyName())) {
-            // Here you can handle changes to the state, such as updating UI components based on new data
-            // For example, handle error messages or updates
+            // Respond to state change
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new SignupView(new SignupViewModel()));
-    }
+//    public static void main(String[] args) {
+//        SwingUtilities.invokeLater(() -> new SignupView(new SignupViewModel()));
+//    }
 }
