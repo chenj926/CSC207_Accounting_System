@@ -5,35 +5,32 @@ import java.beans.PropertyChangeSupport;
 
 public class PeriodicTransactionViewModel extends TransactionViewModel {
     private PeriodicTransactionState transactionState;
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public PeriodicTransactionViewModel() {
         super("Periodic Transaction");
         this.transactionState = new PeriodicTransactionState();
     }
 
-    private PeriodicTransactionState state = new PeriodicTransactionState();
-
-    public PeriodicTransactionViewModel() {
-        super("Periodic Transaction");
+    public PeriodicTransactionState getState() {
+        return transactionState;
     }
 
-    public void setState(PeriodicTransactionState state) {
-        this.state = state;
+    public void notifyPropertyChange() {
+        support.firePropertyChange("transaction", null, this);
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    // This is what the Signup Presenter will call to let the ViewModel know
-    // to alert the View
-    public void firePropertyChanged() {
-        support.firePropertyChange("transaction", null, this.state);
+    @Override
+    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
+        this.support.firePropertyChange(propertyName, oldValue, newValue);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
-    public OneTimeTransactionState getState() {
-        return state;
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
     }
 }
+
