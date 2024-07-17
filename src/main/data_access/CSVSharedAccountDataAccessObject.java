@@ -5,6 +5,8 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+import java.time.LocalDate;
+
 public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessObject implements ShareAccountDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "data/sharedAccounts.csv";
     private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "data/sharedAccountUsers.csv";
@@ -46,6 +48,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         return sharedAccounts.get(sharedAccountIdentification);
     }
 
+    // read
     private Map<String, SharedAccount> readAllSharedAccounts() {
         Map<String, SharedAccount> sharedAccounts = new HashMap<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
@@ -56,9 +59,11 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
                     SharedAccount sharedAccount = new SharedAccount(values[0]);
                     sharedAccount.setUsername(values[1]);
                     sharedAccount.setPassword(values[2]);
+
                     sharedAccount.setTotalIncome(Float.parseFloat(values[3]));
                     sharedAccount.setTotalOutflow(Float.parseFloat(values[4]));
                     sharedAccount.setTotalBalance(Float.parseFloat(values[5]));
+
                     sharedAccount.setSharedUserIdentifications(readSharedAccountUsers(sharedAccount.getIdentification()));
                     sharedAccount.setTransactions(readSharedAccountTransactions(sharedAccount.getIdentification()));
                     sharedAccounts.put(sharedAccount.getIdentification(), sharedAccount);
@@ -103,6 +108,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         return transactions;
     }
 
+    // write
     private void writeAllSharedAccounts(Map<String, SharedAccount> sharedAccounts) {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
             for (SharedAccount sharedAccount : sharedAccounts.values()) {
@@ -171,10 +177,20 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
             LocalDate startDate = LocalDate.parse(values[4]);
             LocalDate endDate = LocalDate.parse(values[8]);
             int period = Integer.parseInt(values[9]);
-            return new PeriodicTransactionImpl(identification, amount, startDate, description, endDate, period, isInflow);
+
+            if(isInflow){
+                return new PeriodicInflow(identification, amount, startDate, description, endDate, period);
+            }else{
+                return new PeriodicOutflow(identification, amount, startDate, description, endDate, period);
+            }
+
         } else if (type.equals("onetime")) {
             String category = values[6];
-            return new OneTimeTransactionImpl(identification, amount, date, description, category, isInflow);
+            if(isInflow){
+                return new OneTimeInflow(identification, amount, date, description, category);
+            }else{
+                return new OneTimeOutflow(identification, amount, date, description, category);
+            }
         }
         return null;
     }

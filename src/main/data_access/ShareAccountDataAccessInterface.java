@@ -7,4 +7,6 @@ public interface ShareAccountDataAccessInterface {
     boolean existById(String identification);
 
     void save(SharedAccount sharedAccount);
+
+    void update(SharedAccount sharedAccount);
 }
