@@ -38,6 +38,7 @@ public class SignupViewModel extends ViewModel {
 
     // This is what the Signup Presenter will call to let the ViewModel know
     // to alert the View
+    // 我觉得应该用abstract 的method
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
     }
