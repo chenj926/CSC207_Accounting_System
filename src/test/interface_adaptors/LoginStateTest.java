@@ -51,4 +51,11 @@ class LoginStateTest {
         assertEquals("Invalid username", loginState.getUsernameError());
     }
 
+    @Test
+    void testSetPasswordError() {
+        LoginState loginState = new LoginState();
+
+        loginState.setPasswordError("Invalid password");
+        assertEquals("Invalid password", loginState.getPasswordError());
+    }
 }
