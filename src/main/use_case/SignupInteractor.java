@@ -28,13 +28,26 @@ public class SignupInteractor implements SignupInputBoundary{
             presenter.prepareFailView("User already exist!!!");
         }
         else {
-            // check if username or password is valid
+            // check if username or password or id is valid (not empty)
             boolean validUsername = this.checkUsername(signupInputData.getUsername());
             boolean validPassword = this.checkPassword(signupInputData.getPassword());
-            if(!validUsername) {
+            boolean validIdentificaiton = this.checkIdentification(signupInputData.getIdentification());
+
+
+            if (!validUsername && !validPassword && !validIdentificaiton) {
+                presenter.prepareFailView("Username AND Password AND Identification can not be empty!");
+            } else if (!validUsername && !validPassword) {
+                presenter.prepareFailView("Username AND Password can not be empty!");
+            } else if (!validUsername && !validIdentificaiton) {
+                presenter.prepareFailView("Username AND Identification can not be empty!");
+            } else if (!validPassword && !validIdentificaiton) {
+                presenter.prepareFailView("Password AND Identification can not be empty!");
+            } else if(!validUsername) {
                 presenter.prepareFailView("Username can not be empty!");
             } else if (!validPassword){
                 presenter.prepareFailView("Password can not be empty!");
+            } else if (!validIdentificaiton) {
+                presenter.prepareFailView("Identification can not be empty!");
             } else {
                 // create new user
                 UserAccount newUser = accountFactory.createUserAccount(signupInputData.getUsername(),
@@ -57,6 +70,13 @@ public class SignupInteractor implements SignupInputBoundary{
 
     public boolean checkPassword(String password) {
         if (password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean checkIdentification(String id) {
+        if (id == null || id.isEmpty()) {
             return false;
         }
         return true;
