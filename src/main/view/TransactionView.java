@@ -16,7 +16,7 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
     private JButton periodicButton;
     private JLabel messageLabel;
 
-    public TransactionView(TransactionViewModel transactionViewModel) {
+    public TransactionView(TransactionViewModel transactionViewModel, TransactionController transactionController) {
         this.transactionViewModel = transactionViewModel;
         transactionViewModel.addPropertyChangeListener(this);
         initializeComponents();
