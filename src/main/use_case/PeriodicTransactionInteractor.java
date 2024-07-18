@@ -51,10 +51,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         // update the inflow and outflow
         // for inflow
         if (isInflow) {
-            float totalIncome = userAccount.getTotalIncome();
-            income = totalIncome + amount;
-            userAccount.setTotalIncome(income);  // update the total income
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
@@ -120,6 +116,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
                             description, localEndDate, (int) unit.getDuration().toDays());
+
+                    float totalIncome = userAccount.getTotalIncome();
+                    income = totalIncome + amount;
+                    userAccount.setTotalIncome(income);  // update the total income
+
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
                     float totalBalance = balance + income;
@@ -131,6 +132,12 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // inflow transaction
                     PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
                             description, localEndDate, customPeriod);
+
+                    // update the total income
+                    float totalIncome = userAccount.getTotalIncome();
+                    income = totalIncome + amount;
+                    userAccount.setTotalIncome(income);
+
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
                     float totalBalance = balance + income;
@@ -153,10 +160,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         // for outflow
         else {
-            float totalOutFlow = userAccount.getTotalOutflow();
-            outFlow = totalOutFlow + amount;
-            userAccount.setTotalIncome(outFlow);  // update the total income
-
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
@@ -222,6 +225,12 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // inflow transaction
                     PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, localStartDate,
                             description, localEndDate, (int) unit.getDuration().toDays());
+
+                    // update the total outFlow
+                    float totalOutFlow = userAccount.getTotalOutflow();
+                    outFlow = totalOutFlow + amount;
+                    userAccount.setTotalIncome(outFlow);
+
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
                     float totalBalance = balance + outFlow;
@@ -233,6 +242,12 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // inflow transaction
                     PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, localStartDate,
                             description, localEndDate, customPeriod);
+
+                    // update the total outFlow
+                    float totalOutFlow = userAccount.getTotalOutflow();
+                    outFlow = totalOutFlow + amount;
+                    userAccount.setTotalIncome(outFlow);
+
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
                     float totalBalance = balance + outFlow;
