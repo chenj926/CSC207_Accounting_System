@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 class SignupViewModelTest {
 
@@ -35,4 +37,25 @@ class SignupViewModelTest {
         Assertions.assertEquals(state, signupViewModel.getState());
     }
 
+    @Test
+    void testPropertyChangeSupport() {
+        SignupState oldState = signupViewModel.getState();
+        SignupState newState = new SignupState();
+        newState.setUsername("testUsername");
+
+        PropertyChangeListener listener = this::propertyChangedHandler;
+        signupViewModel.addPropertyChangeListener(listener);
+
+        signupViewModel.setState(newState);
+        signupViewModel.firePropertyChanged();
+
+        Assertions.assertNotEquals(oldState, signupViewModel.getState());
+        Assertions.assertEquals(newState, signupViewModel.getState());
+    }
+
+    private void propertyChangedHandler(PropertyChangeEvent event) {
+        Assertions.assertEquals("state", event.getPropertyName());
+        Assertions.assertNotNull(event.getNewValue());
+        Assertions.assertInstanceOf(SignupState.class, event.getNewValue());
+    }
 }
