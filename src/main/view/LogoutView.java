@@ -11,7 +11,7 @@ public class LogoutView extends JFrame implements PropertyChangeListener {
     private final LogoutViewModel viewModel;
     private final LogoutPanel logoutPanel;
 
-    public LogoutView(LogoutViewModel viewModel) {
+    public LogoutView(LogoutViewModel viewModel, LogoutController controller) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
