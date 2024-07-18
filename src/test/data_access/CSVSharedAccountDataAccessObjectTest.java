@@ -28,7 +28,6 @@ public class CSVSharedAccountDataAccessObjectTest {
         testAccount.addUserIdentification("user1");
         testAccount.addUserIdentification("user2");
 
-        // Clean up files before each test
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH));
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_USERS_CSV_FILE_PATH));
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH));
@@ -36,7 +35,6 @@ public class CSVSharedAccountDataAccessObjectTest {
 
     @AfterEach
     public void tearDown() throws Exception {
-        // Clean up the files after each test
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH));
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_USERS_CSV_FILE_PATH));
         Files.deleteIfExists(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH));
