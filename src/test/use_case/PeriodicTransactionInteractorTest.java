@@ -4,7 +4,6 @@ import data_access.UserAccountDataAccessInterface;
 import entity.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -75,8 +74,7 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Monthly salary", "month", "01-12-2024"
         );
         interactor.execute(inputData);
-        System.out.println(userAccount.getTotalIncome());
-        System.out.println(userAccount.getTotalBalance());
+
         assertEquals(1200.0f, userAccount.getTotalIncome());
         assertEquals(1200.0f, userAccount.getTotalBalance());
     }
@@ -87,8 +85,7 @@ public class PeriodicTransactionInteractorTest {
                 "id123", -50.0f, "01-01-2024", "Monthly expense", "month", "01-12-2024"
         );
         interactor.execute(inputData);
-        System.out.println(userAccount.getTotalOutflow());
-        System.out.println(userAccount.getTotalBalance());
+
         assertEquals(-600.0f, userAccount.getTotalOutflow());
         assertEquals(-600.0f, userAccount.getTotalBalance());
     }
@@ -126,7 +123,7 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Salary", "10", "01-02-2024"
         );
         interactor.execute(inputData);
-        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalIncome());
         System.out.println(userAccount.getTotalBalance());
         assertEquals(1000.0f, userAccount.getTotalIncome());
         assertEquals(1000.0f, userAccount.getTotalBalance());
@@ -139,8 +136,8 @@ public class PeriodicTransactionInteractorTest {
         );
         interactor.execute(inputData);
 
-        assertEquals(-150.0f, userAccount.getTotalOutflow());
-        assertEquals(-150.0f, userAccount.getTotalBalance());
+        assertEquals(-300.0f, userAccount.getTotalOutflow());
+        assertEquals(-300.0f, userAccount.getTotalBalance());
     }
 
     @Test
@@ -150,6 +147,51 @@ public class PeriodicTransactionInteractorTest {
         );
 
         assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testExactPeriodEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Salary", "month", "01-01-2025"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(1200.0f, userAccount.getTotalIncome());
+        assertEquals(1200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testSingleDayPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Daily allowance", "day", "05-01-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(500.0f, userAccount.getTotalIncome());
+        assertEquals(500.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testLeapYearPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Leap year test", "month", "01-03-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(300.0f, userAccount.getTotalIncome());
+        assertEquals(300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testNoTransactions() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 0.0f, "01-01-2024", "No transactions", "month", "01-12-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(0.0f, userAccount.getTotalIncome());
+        assertEquals(0.0f, userAccount.getTotalOutflow());
+        assertEquals(0.0f, userAccount.getTotalBalance());
     }
 }
 
