@@ -24,4 +24,15 @@ class SignupViewModelTest {
         Assertions.assertEquals("Cancel", signupViewModel.getCancelButtonLabel());
     }
 
+    @Test
+    void testState() {
+        SignupState state = new SignupState();
+        state.setUsername("testUsername");
+        state.setPassword("testPassword");
+        state.setIdentification("testIdentification");
+
+        signupViewModel.setState(state);
+        Assertions.assertEquals(state, signupViewModel.getState());
+    }
+
 }
