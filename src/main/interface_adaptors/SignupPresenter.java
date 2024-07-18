@@ -26,7 +26,7 @@ public class SignupPresenter implements SignupOutputBoundary {
         signupState.setUsername(response.getUsername());
         this.signupViewModel.setState(signupState);
         signupState.setSuccessMsg("Sign up Success");
-        signupViewModel.firePropertyChanged();
+//        signupViewModel.firePropertyChanged();
         viewManagerModel.setActiveViewName(signupViewModel.getViewName());
     }
 
