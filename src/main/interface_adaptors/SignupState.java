@@ -2,72 +2,56 @@ package interface_adaptors;
 
 public class SignupState {
     private String identification;
-    private String identificationError;
     private String username;
-    private String usernameError;
     private String password;
-    private String passwordError;
+    private String stateError;
+    private String successMsg;
 
     public SignupState() {
         this.identification = "";
-        this.identificationError = null;
         this.username = "";
-        this.usernameError = null;
         this.password = "";
-        this.passwordError = null;
+        this.stateError = null;
+        this.successMsg = null;
     }
 
     // getters
     public String getIdentification() { return this.identification; }
 
-    public String getIdentificationError() { return this.identificationError; }
-
     public String getUsername() {
         return this.username;
-    }
-
-    public String getUsernameError() {
-        return this.usernameError;
     }
 
     public String getPassword() {
         return this.password;
     }
 
-    public String getPasswordError() {
-        return this.passwordError;
-    }
+    public String getStateError() { return this.stateError; }
+
+    public String getSuccessMsg() { return this.successMsg; }
 
     // setters
     public void setUsername(String username) { this.username = username;}
-
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
-    }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
-    }
-
     public void setIdentification(String identification) { this.identification = identification; }
 
-    public void setIdentificationError(String identificationError) { this.identificationError = identificationError; }
+    public void setStateError(String err) { this.stateError = err; }
+
+    public void setSuccessMsg(String msg) { this.successMsg = msg; }
 
     public boolean isValid() {
-        return usernameError == null && passwordError == null;
+        return this.stateError != null && this.successMsg != null;
     }
 
     public void reset() {
         this.identification = "";
-        this.setIdentificationError(null);
         this.setUsername("");
-        this.setUsernameError(null);
         this.setPassword("");
-        this.setPasswordError(null);
-
+        this.setStateError(null);
+        this.setSuccessMsg(null);
     }
 }
