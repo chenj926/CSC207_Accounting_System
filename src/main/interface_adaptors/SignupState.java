@@ -17,6 +17,7 @@ public class SignupState {
         this.passwordError = null;
     }
 
+    // getters
     public String getIdentification() { return this.identification; }
 
     public String getIdentificationError() { return this.identificationError; }
@@ -37,9 +38,8 @@ public class SignupState {
         return this.passwordError;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+    // setters
+    public void setUsername(String username) { this.username = username;}
 
     public void setUsernameError(String usernameError) {
         this.usernameError = usernameError;
@@ -52,6 +52,8 @@ public class SignupState {
     public void setPasswordError(String passwordError) {
         this.passwordError = passwordError;
     }
+
+    public void setIdentification(String identification) { this.identification = identification; }
 
     public void setIdentificationError(String identificationError) { this.identificationError = identificationError; }
 
