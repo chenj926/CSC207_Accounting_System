@@ -27,4 +27,20 @@ class LogoutStateTest {
         Assertions.assertEquals(originalState.isLoggedOut(), copiedState.isLoggedOut());
     }
 
+    @Test
+    void testSetters() {
+        LogoutState logoutState = new LogoutState();
+
+        String userId = "testUser";
+        String logoutMessage = "Logout successful";
+        boolean isLoggedOut = true;
+
+        logoutState.setUserId(userId);
+        logoutState.setLogoutMessage(logoutMessage);
+        logoutState.setLoggedOut(isLoggedOut);
+
+        Assertions.assertEquals(userId, logoutState.getUserId());
+        Assertions.assertEquals(logoutMessage, logoutState.getLogoutMessage());
+        Assertions.assertTrue(logoutState.isLoggedOut());
+    }
 }
