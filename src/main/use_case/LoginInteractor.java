@@ -8,9 +8,9 @@ import data_access.LoginDataAccessInterface;
 public class LoginInteractor implements LoginInputBoundary {
     final AccountFactory accountFactory;
     final LoginDataAccessInterface userDataAccessObject;
-    final LogInOutputBoundary presenter;
+    final LoginOutputBoundary presenter;
 
-    public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LogInOutputBoundary logInOutputBoundary,
+    public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary,
                            AccountFactory accountFactory) {
         this.accountFactory = accountFactory;
         this.userDataAccessObject = LoginDataAccessInterface;

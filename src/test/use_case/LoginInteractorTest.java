@@ -75,7 +75,7 @@ public class LoginInteractorTest {
         }
     }
 
-    private static class SimplePresenter implements LogInOutputBoundary {
+    private static class SimplePresenter implements LoginOutputBoundary {
         private String message;
         private LogInOutputData data;
         private boolean success;

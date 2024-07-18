@@ -1,9 +1,9 @@
 package interface_adaptors;
 
-import use_case.LogInOutputBoundary;
+import use_case.LoginOutputBoundary;
 import use_case.LogInOutputData;
 
-public class LoginPresenter implements LogInOutputBoundary {
+public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
     private ViewManagerModel viewManagerModel;
 
