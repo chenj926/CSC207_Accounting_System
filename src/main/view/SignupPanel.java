@@ -1,6 +1,7 @@
 package view;
 
 import interface_adaptors.*;
+import use_case.SignupInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.event.KeyListener;
 
 public class SignupPanel extends JPanel {
     private final SignupViewModel viewModel;
+    private SignupController signupController;
 
     private JLabel titleLabel;
     private JTextField usernameTextField;
@@ -19,9 +21,8 @@ public class SignupPanel extends JPanel {
     private JButton signupButton;
     private JButton cancelButton;
 
-    private SignupController signupController;
-
-    public SignupPanel(SignupViewModel viewModel) {
+    public SignupPanel(SignupViewModel viewModel, SignupController signupController) {
+        this.signupController = signupController;
         this.viewModel = viewModel;
         initializeComponents();
         setupUI();
@@ -29,7 +30,6 @@ public class SignupPanel extends JPanel {
     }
 
     private void initializeComponents() {
-
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.usernameTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
@@ -89,11 +89,6 @@ public class SignupPanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        // debug
-                        System.out.println(evt.getSource());
-                        System.out.println(signupButton);
-                        System.out.println(evt.getSource().equals(signupButton));
-
                         if (evt.getSource().equals(signupButton)) {
 //                            SignupState currentState = viewModel.getState();
                             signupController.execute(
@@ -126,7 +121,6 @@ public class SignupPanel extends JPanel {
                         currentState.setUsername(usernameTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
 
-                        System.out.println(usernameTextField.getText());  //  debug
                         System.out.println("username: " + currentState.getUsername());  //  debug
                     }
                     @Override
@@ -145,7 +139,6 @@ public class SignupPanel extends JPanel {
                         currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                         viewModel.setState(currentState);
 
-                        System.out.println(String.valueOf(passwordField.getPassword()));  //  debug
                         System.out.println("pass: " + currentState.getPassword());  //  debug
                     }
                     @Override
@@ -163,7 +156,6 @@ public class SignupPanel extends JPanel {
                         currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
 
-                        System.out.println(idenficationField.getText());  //  debug
                         System.out.println("id: " + currentState.getIdentification());  //  debug
                     }
                     @Override
