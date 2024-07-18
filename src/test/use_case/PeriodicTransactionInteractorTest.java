@@ -162,17 +162,17 @@ public class PeriodicTransactionInteractorTest {
     }
 
     @Test
-//    void testSingleDayPeriod() {
-//        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
-//                "id123", 100.0f, "01-01-2024", "Daily allowance", "day", "05-01-2024"
-//        );
-//        interactor.execute(inputData);
-//
-//        assertEquals(500.0f, userAccount.getTotalIncome());
-//        assertEquals(500.0f, userAccount.getTotalBalance());
-//    }
-//
-//    @Test loop foeever
+    void testSingleDayPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Daily allowance", "day", "05-01-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(500.0f, userAccount.getTotalIncome());
+        assertEquals(500.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
     void testLeapYearPeriod() {
         PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
                 "id123", 100.0f, "01-01-2024", "Leap year test", "month", "01-03-2024"
@@ -194,6 +194,67 @@ public class PeriodicTransactionInteractorTest {
         assertEquals(0.0f, userAccount.getTotalOutflow());
         assertEquals(0.0f, userAccount.getTotalBalance());
     }
+    @Test
+    void testLargeTransactions() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 1000000.0f, "01-01-2024", "Large Inflow", "month", "01-01-2025"
+        );
+        interactor.execute(inputData);
+        assertEquals(13000000.0f, userAccount.getTotalIncome());
+        assertEquals(13000000.0f, userAccount.getTotalBalance());
+
+        inputData = new PeriodicTransactionInputData(
+                "id123", -500000.0f, "01-01-2024", "Large Outflow", "month", "01-01-2025"
+        );
+        interactor.execute(inputData);
+        assertEquals(-6500000.0f, userAccount.getTotalOutflow());
+        assertEquals(6500000.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testMultipleTransactions() {
+        PeriodicTransactionInputData inputData1 = new PeriodicTransactionInputData(
+                "id123", 200.0f, "01-01-2024", "Salary", "month", "01-01-2025"
+        );
+        interactor.execute(inputData1);
+
+        PeriodicTransactionInputData inputData2 = new PeriodicTransactionInputData(
+                "id123", -100.0f, "01-01-2024", "Rent", "month", "01-01-2025"
+        );
+        interactor.execute(inputData2);
+
+        assertEquals(2600.0f, userAccount.getTotalIncome());
+        assertEquals(-1300.0f, userAccount.getTotalOutflow());
+        assertEquals(1300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testOverlappingPeriods() {
+        PeriodicTransactionInputData inputData1 = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Salary", "month", "01-06-2024"
+        );
+        interactor.execute(inputData1);
+
+        PeriodicTransactionInputData inputData2 = new PeriodicTransactionInputData(
+                "id123", 50.0f, "01-04-2024", "Bonus", "month", "01-09-2024"
+        );
+        interactor.execute(inputData2);
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(900.0f, userAccount.getTotalIncome());
+        assertEquals(900.0f, userAccount.getTotalBalance());
+    }
+
+
+    @Test
+    void testInvalidPeriodTypes() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid Period", "bi-monthly", "01-01-2025"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
 }
 
 
