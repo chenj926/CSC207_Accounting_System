@@ -255,6 +255,259 @@ public class PeriodicTransactionInteractorTest {
         assertThrows(AssertionError.class, () -> interactor.execute(inputData));
     }
 
+    @Test
+    void testCustomPeriodZero() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid Custom Period", "0", "01-01-2025"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testEndDateBeforeStartDateWithDayPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "05-01-2024", "Daily Expense", "day", "01-01-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInflowAndOutflowSamePeriod() {
+        PeriodicTransactionInputData inflowData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Salary", "month", "01-01-2025"
+        );
+        interactor.execute(inflowData);
+
+        PeriodicTransactionInputData outflowData = new PeriodicTransactionInputData(
+                "id123", -50.0f, "01-01-2024", "Expense", "month", "01-01-2025"
+        );
+        interactor.execute(outflowData);
+
+        assertEquals(1300.0f, userAccount.getTotalIncome());
+        assertEquals(-650.0f, userAccount.getTotalOutflow());
+        assertEquals(650.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testLargeCustomPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Salary", "366", "01-01-2025"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(200.0f, userAccount.getTotalIncome());
+        assertEquals(200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testStartDateAndEndDateSameDay() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "One-day Transaction", "day", "01-01-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(100.0f, userAccount.getTotalIncome());
+        assertEquals(100.0f, userAccount.getTotalBalance());
+    }
+    @Test
+    void testInvalidAmountZero() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 0.0f, "01-01-2024", "Zero Period", "0", "01-01-2025"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testSingleTransactionInThePast() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2023", "Past Salary", "month", "01-01-2024"
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(1300.0f, userAccount.getTotalIncome());
+        assertEquals(1300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testSameStartAndEndDateWithNonDayPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Same Date", "month", "01-01-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+
+    void testNegativeTransactionAmount() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", -200.0f, "01-01-2024", "Negative Transaction", "month", "01-01-2025"
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(-2600.0f, userAccount.getTotalOutflow());
+        assertEquals(-2600.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testInvalidPeriodValue() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid Period", "9999", "01-01-2025"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testBoundaryPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Boundary Period", "365", "01-01-2025"
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(200.0f, userAccount.getTotalIncome());
+        assertEquals(200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testMultipleDifferentTransactions() {
+        PeriodicTransactionInputData inputData1 = new PeriodicTransactionInputData(
+                "id123", 200.0f, "01-01-2024", "Job Salary", "month", "01-01-2025"
+        );
+        interactor.execute(inputData1);
+
+        PeriodicTransactionInputData inputData2 = new PeriodicTransactionInputData(
+                "id123", 150.0f, "01-01-2024", "Freelance", "week", "01-01-2025"
+        );
+        interactor.execute(inputData2);
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(10550.0f, userAccount.getTotalIncome());
+        assertEquals(10550.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testTransactionWithoutEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Salary", "month", null
+        );
+
+        assertThrows(NullPointerException.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testSingleTransactionExactPeriod() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Exact Period Transaction", "year", "01-01-2025"
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(200.0f, userAccount.getTotalIncome());
+        assertEquals(200.0f, userAccount.getTotalBalance());
+    }
+    @Test
+    void testValidWeeklyInflow() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Weekly Allowance", "week", "01-12-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(500.0f, userAccount.getTotalIncome()); // Assuming 5 weeks between the given dates
+        assertEquals(500.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testValidWeeklyOutflow() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", -50.0f, "01-01-2024", "Weekly Expense", "week", "01-12-2024"
+        );
+        interactor.execute(inputData);
+
+        assertEquals(-250.0f, userAccount.getTotalOutflow()); // Assuming 5 weeks between the given dates
+        assertEquals(-250.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testInvalidDateFormatInStartDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "32-01-2024", "Invalid Start Date", "week", "01-12-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDateFormatInEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid End Date", "week", "32-12-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInStartDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-13-2024", "Invalid Month Start Date", "week", "01-12-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid Month End Date", "week", "01-13-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInStartDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "31-04-2024", "Invalid Day Start Date", "week", "01-12-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-01-2024", "Invalid Day End Date", "week", "31-11-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testNonLeapYearDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "29-02-2023", "Non-Leap Year Date", "week", "01-12-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testWeeklyTransactionWithStartDateAfterEndDate() {
+        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                "id123", 100.0f, "01-12-2024", "Weekly Transaction", "week", "01-01-2024"
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+
+
 }
 
 
