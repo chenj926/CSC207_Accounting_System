@@ -5,9 +5,11 @@ import use_case.OneTimeTransactionOutputData;
 
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
+    private final TransactionViewModel transactionViewModel;
 
-    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel) {
+    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, TransactionViewModel transactionViewModel) {
         this.viewModel = viewModel;
+        this.transactionViewModel = transactionViewModel;
     }
 
     @Override
@@ -29,6 +31,11 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         state.setError(error);
         state.setSuccessMessage(null); // Clear success message on failure
         viewModel.notifyPropertyChange();
+    }
+
+
+    public void handleCancel() {
+        transactionViewModel.selectOneTimeTransaction();
     }
 }
 

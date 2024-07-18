@@ -1,8 +1,6 @@
 package view;
 
-import interface_adaptors.OneTimeTransactionViewModel;
-import interface_adaptors.PeriodicTransactionViewModel;
-import interface_adaptors.TransactionViewModel;
+import interface_adaptors.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +14,7 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
     private JPanel dynamicPanel;
     private JButton oneTimeButton;
     private JButton periodicButton;
+    private JLabel messageLabel;
 
     public TransactionView(TransactionViewModel transactionViewModel) {
         this.transactionViewModel = transactionViewModel;
@@ -30,6 +29,7 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
         dynamicPanel = new JPanel();
         oneTimeButton = new JButton(transactionViewModel.getOneTimeButtonLabel());
         periodicButton = new JButton(transactionViewModel.getPeriodicButtonLabel());
+        messageLabel = new JLabel();
     }
 
     private void setupLayout() {
@@ -39,6 +39,7 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
 
         mainPanel.add(buttonPanel, BorderLayout.NORTH);
         mainPanel.add(dynamicPanel, BorderLayout.CENTER);
+        mainPanel.add(messageLabel, BorderLayout.SOUTH);
 
         updateDynamicPanel();
 
@@ -64,41 +65,26 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
         dynamicPanel.removeAll();
         TransactionViewModel currentViewModel = transactionViewModel.getCurrentViewModel();
 
-        if (currentViewModel instanceof OneTimeTransactionViewModel) {
-            dynamicPanel.add(createOneTimeTransactionPanel((OneTimeTransactionViewModel) currentViewModel));
+        if (currentViewModel == null) {
+            JPanel buttonPanel = new JPanel();
+            buttonPanel.add(oneTimeButton);
+            buttonPanel.add(periodicButton);
+            dynamicPanel.add(buttonPanel);
+        } else if (currentViewModel instanceof OneTimeTransactionViewModel) {
+            dynamicPanel.add(new OneTimeTransactionPanel((OneTimeTransactionViewModel) currentViewModel));
         } else if (currentViewModel instanceof PeriodicTransactionViewModel) {
-            dynamicPanel.add(createPeriodicTransactionPanel((PeriodicTransactionViewModel) currentViewModel));
+            dynamicPanel.add(new PeriodicTransactionPanel((PeriodicTransactionViewModel) currentViewModel));
         }
 
         dynamicPanel.revalidate();
         dynamicPanel.repaint();
         this.pack();
     }
-
-    private JPanel createOneTimeTransactionPanel(OneTimeTransactionViewModel viewModel) {
-        JPanel panel = new JPanel(new GridLayout(4, 2));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
-        panel.add(new JButton(viewModel.getRecordButtonLabel()));
-        panel.add(new JButton(viewModel.getCancelButtonLabel()));
-        return panel;
-    }
-
-    private JPanel createPeriodicTransactionPanel(PeriodicTransactionViewModel viewModel) {
-        JPanel panel = new JPanel(new GridLayout(5, 2));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), new JTextField(10)));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getRecurrencePeriodLabel()), new JTextField(10)));
-        panel.add(new JButton(viewModel.getRecordButtonLabel()));
-        panel.add(new JButton(viewModel.getCancelButtonLabel()));
-        return panel;
-    }
-
 //    public static void main(String[] args) {
-//        TransactionViewModel viewModel = new TransactionViewModel("Transaction");
-//        new TransactionView(viewModel);
+//        SwingUtilities.invokeLater(() -> {
+//            TransactionViewModel transactionViewModel = new TransactionViewModel("Transaction System");
+//            new TransactionView(transactionViewModel).setVisible(true);
+//        });
 //    }
 }
 
