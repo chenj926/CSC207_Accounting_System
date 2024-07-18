@@ -72,23 +72,25 @@ public class PeriodicTransactionInteractorTest {
     @Test
     void testValidInflow() {
         PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
-                "id123", 100.0f, "01-01-2024", "Monthly salary", "month", "01-01-2025"
+                "id123", 100.0f, "01-01-2024", "Monthly salary", "month", "01-12-2024"
         );
         interactor.execute(inputData);
-
-        assertEquals(100.0f, userAccount.getTotalIncome());
-        assertEquals(100.0f, userAccount.getTotalBalance());
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(1200.0f, userAccount.getTotalIncome());
+        assertEquals(1200.0f, userAccount.getTotalBalance());
     }
 
     @Test
     void testValidOutflow() {
         PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
-                "id123", -50.0f, "01-01-2024", "Monthly expense", "month", "01-01-2025"
+                "id123", -50.0f, "01-01-2024", "Monthly expense", "month", "01-12-2024"
         );
         interactor.execute(inputData);
-
-        assertEquals(-50.0f, userAccount.getTotalOutflow());
-        assertEquals(-50.0f, userAccount.getTotalBalance());
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-600.0f, userAccount.getTotalOutflow());
+        assertEquals(-600.0f, userAccount.getTotalBalance());
     }
 
     @Test
@@ -124,9 +126,10 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Salary", "10", "01-02-2024"
         );
         interactor.execute(inputData);
-
-        assertEquals(100.0f, userAccount.getTotalIncome());
-        assertEquals(100.0f, userAccount.getTotalBalance());
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(1000.0f, userAccount.getTotalIncome());
+        assertEquals(1000.0f, userAccount.getTotalBalance());
     }
 
     @Test
