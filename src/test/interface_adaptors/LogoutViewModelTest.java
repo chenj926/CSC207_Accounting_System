@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 class LogoutViewModelTest {
 
@@ -32,5 +34,25 @@ class LogoutViewModelTest {
         logoutViewModel.setState(newState);
 
         Assertions.assertEquals(newState, logoutViewModel.getState());
+    }
+
+    @Test
+    void testFirePropertyChanged() {
+        LogoutState newState = new LogoutState();
+        newState.setUserId("testUser");
+        newState.setLogoutMessage("Logout successful");
+        newState.setLoggedOut(true);
+
+        PropertyChangeListener listener = this::propertyChangeHandler;
+        logoutViewModel.addPropertyChangeListener(listener);
+
+        logoutViewModel.setState(newState);
+        logoutViewModel.firePropertyChanged();
+    }
+
+    private void propertyChangeHandler(PropertyChangeEvent event) {
+        Assertions.assertEquals("state", event.getPropertyName());
+        Assertions.assertNotNull(event.getNewValue());
+        Assertions.assertTrue(event.getNewValue() instanceof LogoutState);
     }
 }
