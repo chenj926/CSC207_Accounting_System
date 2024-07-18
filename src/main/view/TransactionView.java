@@ -1,8 +1,6 @@
 package view;
 
-import interface_adaptors.OneTimeTransactionViewModel;
-import interface_adaptors.PeriodicTransactionViewModel;
-import interface_adaptors.TransactionViewModel;
+import interface_adaptors.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,9 +14,6 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
     private JPanel dynamicPanel;
     private JButton oneTimeButton;
     private JButton periodicButton;
-    private JTextField amountField;
-    private JTextField dateField;
-    private JTextField descriptionField;
     private JLabel messageLabel;
 
     public TransactionView(TransactionViewModel transactionViewModel) {
@@ -76,84 +71,15 @@ public class TransactionView extends JFrame implements PropertyChangeListener {
             buttonPanel.add(periodicButton);
             dynamicPanel.add(buttonPanel);
         } else if (currentViewModel instanceof OneTimeTransactionViewModel) {
-            dynamicPanel.add(createOneTimeTransactionPanel((OneTimeTransactionViewModel) currentViewModel));
+            dynamicPanel.add(new OneTimeTransactionPanel((OneTimeTransactionViewModel) currentViewModel));
         } else if (currentViewModel instanceof PeriodicTransactionViewModel) {
-            dynamicPanel.add(createPeriodicTransactionPanel((PeriodicTransactionViewModel) currentViewModel));
+            dynamicPanel.add(new PeriodicTransactionPanel((PeriodicTransactionViewModel) currentViewModel));
         }
 
         dynamicPanel.revalidate();
         dynamicPanel.repaint();
         this.pack();
     }
-
-    private JPanel createOneTimeTransactionPanel(OneTimeTransactionViewModel viewModel) {
-        JPanel panel = new JPanel(new GridLayout(5, 2));
-        amountField = new JTextField(10);
-        dateField = new JTextField(10);
-        descriptionField = new JTextField(10);
-        JButton recordButton = new JButton(viewModel.getRecordButtonLabel());
-        JButton cancelButton = new JButton(viewModel.getCancelButtonLabel());
-
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), amountField));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), dateField));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), descriptionField));
-        panel.add(recordButton);
-        panel.add(cancelButton);
-
-        recordButton.addActionListener(e -> handleRecordButtonClick(viewModel));
-        cancelButton.addActionListener(e -> transactionViewModel.resetTransactionView());
-
-        return panel;
-    }
-
-    private void handleRecordButtonClick(OneTimeTransactionViewModel viewModel) {
-        viewModel.getState().setTransactionAmount(Float.parseFloat(amountField.getText()));
-        viewModel.getState().setTransactionDate(dateField.getText());
-        viewModel.getState().setTransactionDescription(descriptionField.getText());
-
-        if (viewModel.validateOneTimeTransaction()) {
-            messageLabel.setText("Transaction recorded successfully!");
-        } else {
-            messageLabel.setText(viewModel.getState().getError());
-        }
-    }
-
-    private JPanel createPeriodicTransactionPanel(PeriodicTransactionViewModel viewModel) {
-        JPanel panel = new JPanel(new GridLayout(6, 2));
-        amountField = new JTextField(10);
-        dateField = new JTextField(10);
-        descriptionField = new JTextField(10);
-        JTextField periodField = new JTextField(10);
-        JButton recordButton = new JButton(viewModel.getRecordButtonLabel());
-        JButton cancelButton = new JButton(viewModel.getCancelButtonLabel());
-
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getAmountLabel()), amountField));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDateLabel()), dateField));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getDescriptionLabel()), descriptionField));
-        panel.add(new LabelTextPanel(new JLabel(viewModel.getRecurrencePeriodLabel()), periodField));
-        panel.add(recordButton);
-        panel.add(cancelButton);
-
-        recordButton.addActionListener(e -> handleRecordButtonClick(viewModel));
-        cancelButton.addActionListener(e -> transactionViewModel.resetTransactionView());
-
-        return panel;
-    }
-
-    private void handleRecordButtonClick(PeriodicTransactionViewModel viewModel) {
-        viewModel.getState().setTransactionAmount(Float.parseFloat(amountField.getText()));
-        viewModel.getState().setTransactionEndDate(dateField.getText());
-        viewModel.getState().setTransactionDescription(descriptionField.getText());
-
-        if (viewModel.validatePeriodicTransaction()) {
-            messageLabel.setText("Transaction recorded successfully!");
-        } else {
-            messageLabel.setText(viewModel.getState().getError());
-        }
-    }
-
-
-
 //    public static void main(String[] args) {
 //        SwingUtilities.invokeLater(() -> {
 //            TransactionViewModel transactionViewModel = new TransactionViewModel("Transaction System");
