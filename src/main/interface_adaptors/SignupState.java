@@ -38,12 +38,6 @@ public class SignupState {
     }
 
     public void setUsername(String username) {
-        if (username == null || username.isEmpty()) {
-            this.setUsernameError("Username cannot be empty");
-            return;  // if the username is wrong, don't let it be assigned to username
-        } else {
-            this.setUsernameError(null);
-        }
         this.username = username;
     }
 
@@ -52,14 +46,6 @@ public class SignupState {
     }
 
     public void setPassword(String password) {
-        // !!!!!!!都tmd应该交给interactor来管！！！！改改改！md
-
-        if (password == null || password.isEmpty()) {
-            this.setPasswordError("Password cannot be empty");
-            return;  // if the password is wrong, don't let it be assigned to username
-        } else {
-            this.setPasswordError(null);
-        }
         this.password = password;
     }
 
@@ -75,11 +61,11 @@ public class SignupState {
 
     public void reset() {
         this.identification = "";
-        this.identificationError = null;
-        this.username = "";
-        this.usernameError = null;
-        this.password = "";
-        this.passwordError = null;
+        this.setIdentificationError(null);
+        this.setUsername("");
+        this.setUsernameError(null);
+        this.setPassword("");
+        this.setPasswordError(null);
 
     }
 }

@@ -8,8 +8,6 @@ public class SignupViewModel extends ViewModel {
     private final String TITLE_LABEL = "Sign Up View";
     private final String USERNAME_LABEL = "Choose username";
     private final String PASSWORD_LABEL = "Choose password";
-    // do not need repeat_password for now
-//    private final String REPEAT_PASSWORD_LABEL = "Enter password again";
 
     private final String SIGNUP_BUTTON_LABEL = "Sign up";
     private final String CANCEL_BUTTON_LABEL = "Cancel";
@@ -21,16 +19,18 @@ public class SignupViewModel extends ViewModel {
     }
 
     // label getters
-    public String getTitleLabel() {return this.TITLE_LABEL; }
-    public String getUsernameLabel() {return this.USERNAME_LABEL; }
-    public String getPasswordLabel() {return this.PASSWORD_LABEL; }
-    public String getSignupButtonLabel(){return this.SIGNUP_BUTTON_LABEL; }
-    public String getCancelButtonLabel() {return this.CANCEL_BUTTON_LABEL; }
+    public String getTitleLabel() { return this.TITLE_LABEL; }
+    public String getUsernameLabel() { return this.USERNAME_LABEL; }
+    public String getPasswordLabel() { return this.PASSWORD_LABEL; }
+    public String getSignupButtonLabel(){ return this.SIGNUP_BUTTON_LABEL; }
+    public String getCancelButtonLabel() { return this.CANCEL_BUTTON_LABEL; }
+    public SignupState getState() { return state; }
 
     // setters
     public void setState(SignupState state) {
         this.state = state;
     }
+
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
@@ -42,9 +42,5 @@ public class SignupViewModel extends ViewModel {
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
-    }
-
-    public SignupState getState() {
-        return state;
     }
 }
