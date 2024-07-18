@@ -56,18 +56,25 @@ public class InMemoryShareAccountDataAccessObjectTest {
     @Test
     public void testGetById() {
         dao.save(sharedAccount);
-        SharedAccount retrievedAccount = dao.getById("shared123");
-        assertNotNull(retrievedAccount);
-        assertEquals("shared123", retrievedAccount.getIdentification());
+        SharedAccount fetchedAccount = dao.getById("shared123");
+        assertNotNull(fetchedAccount);
+        assertEquals("shared123", fetchedAccount.getIdentification());
+        assertTrue(fetchedAccount.getSharedUserIdentifications().contains("user1"));
     }
 
     @Test
     public void testGetAllShareAcc() {
         dao.save(sharedAccount);
+        SharedAccount anotherSharedAccount = new SharedAccount("shared456");
+        anotherSharedAccount.addUserIdentification("user2");
+        dao.save(anotherSharedAccount);
+
         Map<String, SharedAccount> allAccounts = dao.getAllShareAcc();
-        assertEquals(1, allAccounts.size());
+        assertEquals(2, allAccounts.size());
         assertTrue(allAccounts.containsKey("shared123"));
+        assertTrue(allAccounts.containsKey("shared456"));
     }
 }
+
 
 
