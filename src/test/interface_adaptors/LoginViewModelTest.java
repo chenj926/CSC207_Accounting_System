@@ -37,4 +37,22 @@ class LoginViewModelTest {
         assertEquals(loginState, loginViewModel.getState());
     }
 
+    @Test
+    void testFirePropertyChanged() {
+        LoginState loginState = new LoginState();
+        loginState.setUsername("testuser");
+        loginState.setPassword("testpassword");
+
+        loginViewModel.setState(loginState);
+
+        PropertyChangeListener listener = this::propertyChangeHandler;
+        loginViewModel.addPropertyChangeListener(listener);
+
+        loginViewModel.firePropertyChanged();
+    }
+
+    private void propertyChangeHandler(PropertyChangeEvent event) {
+        assertEquals("state", event.getPropertyName());
+        assertSame(loginViewModel.getState(), event.getNewValue());
+    }
 }
