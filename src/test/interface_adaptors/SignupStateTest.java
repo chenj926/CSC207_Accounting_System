@@ -39,4 +39,21 @@ class SignupStateTest {
         Assertions.assertEquals("testPassword", signupState.getPassword());
         Assertions.assertEquals("testPasswordError", signupState.getPasswordError());
     }
+
+    @Test
+    void testIsValid() {
+        signupState.setUsername("testUsername");
+        signupState.setUsernameError(null);
+        signupState.setPassword("testPassword");
+        signupState.setPasswordError(null);
+        Assertions.assertTrue(signupState.isValid());
+
+        signupState.setUsernameError("testUsernameError");
+        Assertions.assertFalse(signupState.isValid());
+
+        signupState.setUsernameError(null);
+        signupState.setPasswordError("testPasswordError");
+        Assertions.assertFalse(signupState.isValid());
+    }
+
 }
