@@ -26,4 +26,15 @@ class LoginViewModelTest {
         assertEquals("Log in", loginViewModel.getLoginButtonLabel());
         assertEquals("Cancel", loginViewModel.getCancelButtonLabel());
     }
+
+    @Test
+    void testSetState() {
+        LoginState loginState = new LoginState();
+        loginState.setUsername("testuser");
+        loginState.setPassword("testpassword");
+
+        loginViewModel.setState(loginState);
+        assertEquals(loginState, loginViewModel.getState());
+    }
+
 }
