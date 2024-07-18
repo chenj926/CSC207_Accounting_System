@@ -9,7 +9,7 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
-public abstract class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
+public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
     protected static final String USER_CSV_FILE_PATH = "data/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "data/userAccountTransactions.csv";
 
