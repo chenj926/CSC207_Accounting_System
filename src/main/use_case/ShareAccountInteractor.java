@@ -21,7 +21,7 @@ public class ShareAccountInteractor implements ShareAccountInputBoundary{
     }
 
     @Override
-    public void excute(ShareAccountInputData shareAccountInputData) {
+    public void execute(ShareAccountInputData shareAccountInputData) {
         boolean allIdExist = true;
         // if all the entered share account id exist
         for (String id : shareAccountInputData.getSharedUserIdentifications()){
