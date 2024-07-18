@@ -24,4 +24,16 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     public void save(SharedAccount newSharedAcc) {
         shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
     }
+
+    public void deleteById(String sharedAccountId) {
+        shareAcc.remove(sharedAccountId);
+    }
+
+    public SharedAccount getById(String sharedAccountId) {
+        return shareAcc.get(sharedAccountId);
+    }
+
+    public Map<String, SharedAccount> getAllShareAcc() {
+        return shareAcc;
+    }
 }
