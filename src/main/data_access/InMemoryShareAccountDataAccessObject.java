@@ -15,18 +15,25 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
      */
     @Override
     public boolean existById(String sharedAccountId) {
-        return this.shareAcc.containsKey(sharedAccountId);
+        return shareAcc.containsKey(sharedAccountId);
     }
 
     /**
      * @param newSharedAcc the data to save
      */
-    @Override
     public void save(SharedAccount newSharedAcc) {
-        this.shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
+        shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
     }
 
-    @Override
-    public void update(SharedAccount sharedAcc) { this.shareAcc.put(sharedAcc.getIdentification(), sharedAcc); }
+    public void deleteById(String sharedAccountId) {
+        shareAcc.remove(sharedAccountId);
+    }
 
+    public SharedAccount getById(String sharedAccountId) {
+        return shareAcc.get(sharedAccountId);
+    }
+
+    public Map<String, SharedAccount> getAllShareAcc() {
+        return shareAcc;
+    }
 }

@@ -5,7 +5,7 @@ import entity.UserAccount;
 import java.util.*;
 
 // in memory DAO for test purposes
-public class InMemoryUserDataAccessObject implements UserSignupDataAccessInterface{
+public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccessInterface{
     private final Map<String, UserAccount> users = new HashMap<>();
 
     /**
@@ -22,5 +22,17 @@ public class InMemoryUserDataAccessObject implements UserSignupDataAccessInterfa
      */
     public void save(UserAccount newUser) {
         users.put(newUser.getIdentification(), newUser);
+    }
+
+    public void deleteById(String identifier) {
+        users.remove(identifier);
+    }
+
+    public UserAccount getById(String identifier) {
+        return users.get(identifier);
+    }
+
+    public Map<String, UserAccount> getAllUserAcc() {
+        return users;
     }
 }
