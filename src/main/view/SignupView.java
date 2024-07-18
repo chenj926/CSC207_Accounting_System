@@ -52,7 +52,7 @@ public class SignupView extends JFrame implements PropertyChangeListener {
             SignupViewModel signupViewModel = new SignupViewModel();
 
             // Create data access object
-            UserSignupDataAccessInterface dataAccessObject = new InMemoryUserDataAccessObject();
+            UserSignupDataAccessInterface dataAccessObject = new InMemoryUserAccountDataAccessObject();
 
             // Create presenter
             SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);
