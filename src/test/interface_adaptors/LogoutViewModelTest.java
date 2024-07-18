@@ -21,4 +21,16 @@ class LogoutViewModelTest {
         Assertions.assertEquals("Cancel", logoutViewModel.getCancelButtonText());
         Assertions.assertNotNull(logoutViewModel.getState());
     }
+
+    @Test
+    void testSetState() {
+        LogoutState newState = new LogoutState();
+        newState.setUserId("testUser");
+        newState.setLogoutMessage("Logout successful");
+        newState.setLoggedOut(true);
+
+        logoutViewModel.setState(newState);
+
+        Assertions.assertEquals(newState, logoutViewModel.getState());
+    }
 }
