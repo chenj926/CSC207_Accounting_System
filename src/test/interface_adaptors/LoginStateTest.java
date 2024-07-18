@@ -43,4 +43,12 @@ class LoginStateTest {
         assertEquals("Password cannot be empty", loginState.getPasswordError());
     }
 
+    @Test
+    void testSetUsernameError() {
+        LoginState loginState = new LoginState();
+
+        loginState.setUsernameError("Invalid username");
+        assertEquals("Invalid username", loginState.getUsernameError());
+    }
+
 }
