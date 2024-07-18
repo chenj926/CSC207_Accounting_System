@@ -79,7 +79,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
 
             // update the balance accordingly
             float balance = userAccount.getTotalBalance();
-            float totalBalance = balance - outFlow;
+            float totalBalance = balance + outFlow;
             userAccount.setTotalBalance(totalBalance);
             // Prepare output data
             OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow, userAccount.getTotalBalance());
