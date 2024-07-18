@@ -4,6 +4,8 @@ import interface_adaptors.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SignupPanel extends JPanel {
     private final SignupViewModel viewModel;
@@ -14,6 +16,8 @@ public class SignupPanel extends JPanel {
     private JButton signupButton;
     private JButton cancelButton;
 
+    private SignupController signupController;
+
     public SignupPanel(SignupViewModel viewModel) {
         this.viewModel = viewModel;
         initializeComponents();
@@ -22,11 +26,14 @@ public class SignupPanel extends JPanel {
     }
 
     private void initializeComponents() {
+        JPanel buttons = new JPanel();
         titleLabel = new JLabel(viewModel.getTitleLabel());
         usernameTextField = new JTextField(20);
         passwordField = new JPasswordField(20);
         signupButton = new JButton(viewModel.getSignupButtonLabel());
+        buttons.add(signupButton);
         cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        buttons.add(cancelButton);
     }
 
     private void setupUI() {
@@ -59,12 +66,24 @@ public class SignupPanel extends JPanel {
     }
 
     private void setupListeners() {
-        signupButton.addActionListener(e -> {
-            viewModel.getState().setUsername(usernameTextField.getText());
-            viewModel.getState().setPassword(new String(passwordField.getPassword()));
-            viewModel.firePropertyChanged();
-        });
+        // sign up button response action
+        signupButton.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        if (evt.getSource().equals(signupButton)) {
+                            SignupState currentState = viewModel.getState();
+                            signupController.execute(
+                                    currentState.getUsername(),
+                                    currentState.getPassword(),
+                                    currentState.getIdentification()
+                            );
+                        }
+                    }
+                }
+        );
 
+        // cancel button response action
         cancelButton.addActionListener(e -> {
             Window window = SwingUtilities.getWindowAncestor(this);
             if (window != null) {
