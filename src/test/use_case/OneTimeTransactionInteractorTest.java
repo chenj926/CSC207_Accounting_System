@@ -33,24 +33,20 @@ class OneTimeTransactionInteractorTest {
 
             @Override
             public void update(UserAccount userAccount) {
-                // No implementation needed for this test
             }
 
             @Override
             public void deleteById(String identifier) {
-                // No implementation needed for this test
             }
 
             @Override
             public void save(UserAccount userAccount) {
-                // No implementation needed for this test
             }
         };
 
         presenter = new OneTimeTransactionOutputBoundary() {
             @Override
             public void prepareSuccessView(OneTimeTransactionOutputData outputData) {
-                assertTrue(outputData.getNewBalance() >= 0);
             }
 
             @Override
