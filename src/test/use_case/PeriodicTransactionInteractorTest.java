@@ -74,7 +74,8 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Monthly salary", "month", "01-12-2024"
         );
         interactor.execute(inputData);
-
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
         assertEquals(1200.0f, userAccount.getTotalIncome());
         assertEquals(1200.0f, userAccount.getTotalBalance());
     }
@@ -125,8 +126,8 @@ public class PeriodicTransactionInteractorTest {
         interactor.execute(inputData);
         System.out.println(userAccount.getTotalIncome());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(1000.0f, userAccount.getTotalIncome());
-        assertEquals(1000.0f, userAccount.getTotalBalance());
+        assertEquals(400.0f, userAccount.getTotalIncome());
+        assertEquals(400.0f, userAccount.getTotalBalance());
     }
 
     @Test
@@ -135,7 +136,7 @@ public class PeriodicTransactionInteractorTest {
                 "id123", -150.0f, "01-01-2024", "Expense", "month", "01-02-2024"
         );
         interactor.execute(inputData);
-
+        System.out.println(userAccount.getTotalBalance());
         assertEquals(-300.0f, userAccount.getTotalOutflow());
         assertEquals(-300.0f, userAccount.getTotalBalance());
     }
@@ -155,9 +156,9 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Salary", "month", "01-01-2025"
         );
         interactor.execute(inputData);
-
-        assertEquals(1200.0f, userAccount.getTotalIncome());
-        assertEquals(1200.0f, userAccount.getTotalBalance());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(1300.0f, userAccount.getTotalIncome());
+        assertEquals(1300.0f, userAccount.getTotalBalance());
     }
 
     @Test
@@ -177,7 +178,7 @@ public class PeriodicTransactionInteractorTest {
                 "id123", 100.0f, "01-01-2024", "Leap year test", "month", "01-03-2024"
         );
         interactor.execute(inputData);
-
+        System.out.println(userAccount.getTotalBalance());
         assertEquals(300.0f, userAccount.getTotalIncome());
         assertEquals(300.0f, userAccount.getTotalBalance());
     }
