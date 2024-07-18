@@ -75,7 +75,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     customPeriod = Integer.parseInt(period);
                 } catch (NumberFormatException e) {
                     presenter.prepareFailView("The custom period is not in correct format, please enter again!");
-                    return;  // fail than do not excute the rest of the code
+                    return;  // fail then do not excute the rest of the code
+                }
+                if (Integer.parseInt(period) == 0) {
+                    presenter.prepareFailView("The custom period can not be 0, please enter again!");
+                    return;  // custom days can not be 0
                 }
             }
 
@@ -123,7 +127,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + income;
+                    float totalBalance = balance + amount;
                     userAccount.setTotalBalance(totalBalance);
 
                     outputData = new PeriodicTransactionOutputData(periodicInflow,
@@ -140,7 +144,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + income;
+                    float totalBalance = balance + amount;
                     userAccount.setTotalBalance(totalBalance);
 
                     outputData = new PeriodicTransactionOutputData(periodicInflow,
@@ -150,6 +154,9 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
+                    outputData.setDate(currentDate);
+                } else if (customPeriod == 0) {
+                    currentDate = currentDate.plus(1, unit);  // plus the custom days
                     outputData.setDate(currentDate);
                 } else {
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
@@ -185,6 +192,10 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 } catch (NumberFormatException e) {
                     presenter.prepareFailView("The custom period is not in correct format, please enter again!");
                     return;  // fail than do not excute the rest of the code
+                }
+                if (Integer.parseInt(period) == 0) {
+                    presenter.prepareFailView("The custom period can not be 0, please enter again!");
+                    return;  // custom days can not be 0
                 }
             }
 
@@ -229,11 +240,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // update the total outFlow
                     float totalOutFlow = userAccount.getTotalOutflow();
                     outFlow = totalOutFlow + amount;
-                    userAccount.setTotalIncome(outFlow);
+                    userAccount.setTotalOutflow(outFlow);
 
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + outFlow;
+                    float totalBalance = balance + amount;
                     userAccount.setTotalBalance(totalBalance);
 
                     outputData = new PeriodicTransactionOutputData(periodicOutflow,
@@ -246,11 +257,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     // update the total outFlow
                     float totalOutFlow = userAccount.getTotalOutflow();
                     outFlow = totalOutFlow + amount;
-                    userAccount.setTotalIncome(outFlow);
+                    userAccount.setTotalOutflow(outFlow);
 
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + outFlow;
+                    float totalBalance = balance + amount;
                     userAccount.setTotalBalance(totalBalance);
 
                     outputData = new PeriodicTransactionOutputData(periodicOutflow,
@@ -260,6 +271,9 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
+                    outputData.setDate(currentDate);
+                } else if (customPeriod == 0) {
+                    currentDate = currentDate.plus(1, unit);  // plus the custom days
                     outputData.setDate(currentDate);
                 } else {
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
