@@ -153,9 +153,9 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         // for outflow
         else {
-            float totalIncome = userAccount.getTotalIncome();
-            income = totalIncome + amount;
-            userAccount.setTotalIncome(income);  // update the total income
+            float totalOutFlow = userAccount.getTotalOutflow();
+            outFlow = totalOutFlow + amount;
+            userAccount.setTotalIncome(outFlow);  // update the total income
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
             LocalDate localStartDate = null;
@@ -224,21 +224,21 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                             description, localEndDate, (int) unit.getDuration().toDays());
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + income;
+                    float totalBalance = balance + outFlow;
                     userAccount.setTotalBalance(totalBalance);
 
                     outputData = new PeriodicTransactionOutputData(periodicOutflow,
                             userAccount.getTotalBalance());
                 } else {
                     // inflow transaction
-                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
+                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, localStartDate,
                             description, localEndDate, customPeriod);
                     // update the balance accordingly
                     float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + income;
+                    float totalBalance = balance + outFlow;
                     userAccount.setTotalBalance(totalBalance);
 
-                    outputData = new PeriodicTransactionOutputData(periodicInflow,
+                    outputData = new PeriodicTransactionOutputData(periodicOutflow,
                             userAccount.getTotalBalance());
                 }
 

@@ -44,28 +44,28 @@ public class UserAccount implements Account {
     // getters
     @Override
     public String getIdentification() {
-        return identification;
+        return this.identification;
     }
     @Override
     public String getUsername() {
-        return username;
+        return this.username;
     }
     @Override
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     @Override
     public float getTotalIncome() {
-        return totalIncome;
+        return this.totalIncome;
     }
     @Override
     public float getTotalOutflow() {
-        return totalOutflow;
+        return this.totalOutflow;
     }
     @Override
     public float getTotalBalance() {
-        return totalBalance;
+        return this.totalBalance;
     }
 
     @Override
