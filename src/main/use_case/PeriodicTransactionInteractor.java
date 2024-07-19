@@ -9,6 +9,7 @@ import entity.UserAccount;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
 
@@ -51,7 +52,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         // update the inflow and outflow
         // for inflow
         if (isInflow) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
@@ -167,7 +168,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         // for outflow
         else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
