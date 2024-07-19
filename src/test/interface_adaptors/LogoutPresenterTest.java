@@ -23,4 +23,16 @@ class LogoutPresenterTest {
         logoutPresenter = new LogoutPresenter(logoutViewModel, viewManagerModel);
     }
 
+    @Test
+    void testPrepareSuccessView() {
+        // Arrange
+        LogoutOutputData response = new LogoutOutputData("success");
+
+        // Act
+        logoutPresenter.prepareSuccessView(response);
+
+        // Assert
+        assertEquals(logoutViewModel.getViewName(), viewManagerModel.getActiveViewName());
+    }
+
 }
