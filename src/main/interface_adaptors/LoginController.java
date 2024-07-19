@@ -4,14 +4,14 @@ import use_case.LoginInputBoundary;
 import use_case.LoginInputData;
 
 public class LoginController {
-    final LoginInputBoundary loginInputBoundary;
+    final LoginInputBoundary loginInputInteractor;
 
-    public LoginController(LoginInputBoundary loginInputBoundary) {
-        this.loginInputBoundary = loginInputBoundary;
+    public LoginController(LoginInputBoundary loginInputInteractor) {
+        this.loginInputInteractor = loginInputInteractor;
     }
 
     public void execute(String password, String id) {
         LoginInputData loginInputDate = new LoginInputData(password, id);
-        loginInputBoundary.execute(loginInputDate);
+        loginInputInteractor.execute(loginInputDate);
     }
 }

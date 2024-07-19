@@ -16,7 +16,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData userInfo){
         LoginState loginState = loginViewModel.getState();
-        loginState.setUsername(userInfo.getUsername());
+        loginState.setIdentification(userInfo.getIdentification());
         this.loginViewModel.setState(loginState);
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveViewName(loginViewModel.getViewName());
@@ -25,7 +25,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareFailView(String err) {
         LoginState loginState = loginViewModel.getState();
-        loginState.setUsernameError(err);
+        loginState.setStateError(err);
         loginViewModel.firePropertyChanged();
     }
 

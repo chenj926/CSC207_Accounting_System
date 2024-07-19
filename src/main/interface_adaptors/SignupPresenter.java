@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class SignupPresenter implements SignupOutputBoundary {
-
     private final SignupViewModel signupViewModel;
     private ViewManagerModel viewManagerModel;
 
