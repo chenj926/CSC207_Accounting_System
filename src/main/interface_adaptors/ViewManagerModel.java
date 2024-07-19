@@ -57,14 +57,12 @@ public class ViewManagerModel {
         switch (viewName) {
             case "sign up":
                 SignupViewModel signupViewModel = new SignupViewModel();
-                SignupController signupController = SignupUseCaseFactory.create(this, signupViewModel);
-                SignupView signupView = new SignupView(signupViewModel, signupController);
+                SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
-                LoginController loginController = LoginUseCaseFactory.create(this, loginViewModel);
-                LoginView loginView = new LoginView(loginViewModel, loginController);
+                LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
