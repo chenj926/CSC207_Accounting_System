@@ -1,18 +1,18 @@
 package use_case;
 
 public class LoginOutputData {
-    private final String username;
+    private final String identification;
     private final boolean success;
 
     // Constructor
     public LoginOutputData(String username, boolean success) {
-        this.username = username;
+        this.identification = username;
         this.success = success;
     }
 
     // Getters
-    public String getUsername() {
-        return this.username;
+    public String getIdentification() {
+        return this.identification;
     }
 
     public boolean isSuccess() {

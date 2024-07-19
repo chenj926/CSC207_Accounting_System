@@ -48,9 +48,22 @@ public class SignupPanel extends JPanel {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(2, 5, 2, 5);  // pad
 
-        // username
+        // title Label
         constraints.gridx = 0;
         constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
+        add(titleLabel, constraints);
+
+        // reset gridwidth and anchor for other components
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+
+        // username
+        constraints.gridx = 0;
+        constraints.gridy = 1;
         add(new JLabel(this.viewModel.getUsernameLabel()), constraints);
         // input username
         constraints.gridx = 1;

@@ -34,8 +34,12 @@ public class SignupView extends JFrame implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("state".equals(evt.getPropertyName())) {
-            // Respond to state change
+        SignupState state = (SignupState) evt.getNewValue();
+        if (!state.isValid()) {
+            JOptionPane.showMessageDialog(this, state.getStateError());
+        }
+        else {
+            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
         }
     }
 

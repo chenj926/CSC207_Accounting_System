@@ -2,7 +2,9 @@ package interface_adaptors;
 
 import view.LoginView;
 import app.*;
+import view.LogoutView;
 import view.SignupView;
+import view.TransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -66,11 +68,32 @@ public class ViewManagerModel {
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
-            case "one time":
+//            case "transaction":
+//                TransactionViewModel transactionViewModel = new TransactionViewModel();
+//                TransactionView transactionView = TransactionUseCaseFactory.createTransactionView(this,
+//                        transactionViewModel);
+//                views.put("transaction", transactionView);
+//                currentView = transactionView;
+//                break;
+            case "One-Time Transaction":
+                TransactionViewModel oneTimeTransactionViewModel = new TransactionViewModel("One-Time Transaction");
+                TransactionView oneTimeTransactionView = TransactionUseCaseFactory.createTransactionView(this,
+                        oneTimeTransactionViewModel);
+                views.put("One-Time Transaction", oneTimeTransactionView);
+                currentView = oneTimeTransactionView;
                 break;
-            case "periodic":
+            case "Periodic Transaction":
+                TransactionViewModel periodicTransactionViewModel = new TransactionViewModel("Periodic Transaction");
+                TransactionView periodicTransactionView = TransactionUseCaseFactory.createTransactionView(this,
+                        periodicTransactionViewModel);
+                views.put("Periodic Transaction", periodicTransactionView);
+                currentView = periodicTransactionView;
                 break;
             case "log out":
+                LogoutViewModel logoutViewModel = new LogoutViewModel();
+                LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
+                views.put("log out", logoutView);
+                currentView = logoutView;
                 break;
         }
         if (currentView != null) {

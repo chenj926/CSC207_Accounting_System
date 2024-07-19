@@ -1,20 +1,29 @@
 package view;
 
+import interface_adaptors.LoginController;
+import interface_adaptors.LoginState;
 import interface_adaptors.LoginViewModel;
+import interface_adaptors.SignupState;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class LoginPanel extends JPanel {
-    private LoginViewModel viewModel;
+    private final LoginViewModel viewModel;
+    private LoginController loginController;
 
     private JLabel titleLabel;
-    private JTextField usernameTextField;
+    private JTextField identificationTextField;
     private JPasswordField passwordField;
     private JButton loginButton;
     private JButton cancelButton;
 
-    public LoginPanel(LoginViewModel viewModel) {
+    public LoginPanel(LoginViewModel viewModel, LoginController loginController) {
+        this.loginController = loginController;
         this.viewModel = viewModel;
         initializeComponents();
         setupUI();
@@ -22,11 +31,15 @@ public class LoginPanel extends JPanel {
     }
 
     private void initializeComponents() {
-        titleLabel = new JLabel(viewModel.getTitleLabel());
-        usernameTextField = new JTextField(20);
-        passwordField = new JPasswordField(20);
-        loginButton = new JButton(viewModel.getLoginButtonLabel());
-        cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        this.titleLabel = new JLabel(viewModel.getTitleLabel());
+        this.identificationTextField = new JTextField(20);
+        this.passwordField = new JPasswordField(20);
+
+        JPanel buttons = new JPanel();
+        this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
+        buttons.add(this.loginButton);
+        this.cancelButton = new JButton(this.viewModel.getCancelButtonLabel());
+        buttons.add(this.cancelButton);
     }
 
     private void setupUI() {
@@ -35,48 +48,106 @@ public class LoginPanel extends JPanel {
         constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(2, 5, 2, 5);  // pad
 
+        // title label
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
         add(titleLabel, constraints);
 
+        // reset gridwidth and anchor for other components
         constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
 
+        // identification
         constraints.gridx = 0;
-        constraints.gridy = 1;
-        add(new JLabel(viewModel.getUsernameLabel()), constraints);
-
+        constraints.gridy++;
+        add(new JLabel(viewModel.getIdentificationLabel()), constraints);
+        // input identification
         constraints.gridx = 1;
-        add(usernameTextField, constraints);
+        add(identificationTextField, constraints);
 
+        // password
         constraints.gridx = 0;
-        constraints.gridy = 2;
+        constraints.gridy++;
         add(new JLabel(viewModel.getPasswordLabel()), constraints);
-
+        // input password
         constraints.gridx = 1;
         add(passwordField, constraints);
 
+        // login button
         constraints.gridx = 0;
-        constraints.gridy = 3;
+        constraints.gridy++;
         constraints.gridwidth = 2;
         add(loginButton, constraints);
 
+        // cancel button
         constraints.gridy = 4;
         add(cancelButton, constraints);
     }
 
     private void setupListeners() {
-        loginButton.addActionListener(e -> {
-            viewModel.getState().setUsername(usernameTextField.getText());
-            viewModel.getState().setPassword(new String(passwordField.getPassword()));
-            viewModel.firePropertyChanged();
+        // login in button response action
+        loginButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (evt.getSource().equals(loginButton)) {
+//                            SignupState currentState = viewModel.getState();
+                    loginController.execute(
+                            identificationTextField.getText(),
+                            String.valueOf(passwordField.getPassword())
+                    );
+
+                    // debug
+                    System.out.println(loginController);
+                }
+            }
         });
 
+        // cancel button response action
         cancelButton.addActionListener(e -> {
             Window window = SwingUtilities.getWindowAncestor(this);
             if (window != null) {
                 window.dispose();
             }
         });
+
+        // get typed identification
+        this.identificationTextField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent evt) {
+                        LoginState currentState = viewModel.getState();
+                        currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
+                        viewModel.setState(currentState);
+
+                        System.out.println("username: " + currentState.getIdentification());  //  debug
+                    }
+                    @Override
+                    public void keyPressed(KeyEvent e) {}
+                    @Override
+                    public void keyReleased(KeyEvent e) {}
+                }
+        );
+
+        // get typed password
+        this.passwordField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent evt) {
+                        LoginState currentState = viewModel.getState();
+                        currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
+                        viewModel.setState(currentState);
+
+                        System.out.println("pass: " + currentState.getPassword());  //  debug
+                    }
+                    @Override
+                    public void keyPressed(KeyEvent e) {}
+                    @Override
+                    public void keyReleased(KeyEvent e) {}
+                }
+        );
     }
 }
