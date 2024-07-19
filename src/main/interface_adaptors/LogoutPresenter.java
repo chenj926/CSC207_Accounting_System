@@ -1,9 +1,6 @@
 package interface_adaptors;
 
-import use_case.LogoutOutputBoundary;
-import use_case.LogoutOutputData;
-import use_case.SignupOutputBoundary;
-import use_case.SignupOutputData;
+import use_case.*;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -28,6 +25,11 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         LogoutState logoutState = logoutViewModel.getState();
         logoutState.setLogoutMessage(message);
         logoutViewModel.firePropertyChanged();
+    }
+
+    @Override
+    public void execute(LogoutInputData logoutInputData) {
+
     }
 }
 
