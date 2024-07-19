@@ -20,10 +20,9 @@ public class LogoutUseCaseFactory {
 
     private static LogoutController createLogoutUseCase(ViewManagerModel viewManagerModel, LogoutViewModel logoutViewModel) {
 
-        LogoutDataAccessInterface dataAccessObject = (LogoutDataAccessInterface) DAOFactory.getUserSignupDataAccessObject();
-        AccountFactory accountFactory = new AccountFactory();
+        LogoutDataAccessInterface dataAccessObject = DAOFactory.getLogoutDataAccessObject();
         LogoutOutputBoundary logoutOutputBoundary = new LogoutPresenter(logoutViewModel, viewManagerModel);
-        LogoutInputBoundary logoutInteractor = new LogoutInteractor((LogoutDataAccessInterface) accountFactory, logoutOutputBoundary);
+        LogoutInputBoundary logoutInteractor = new LogoutInteractor(dataAccessObject, logoutOutputBoundary);
 
         return new LogoutController(logoutInteractor);
     }
