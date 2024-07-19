@@ -8,9 +8,9 @@ import java.util.*;
 import java.time.LocalDate;
 
 public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessObject implements ShareAccountDataAccessInterface {
-    private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "data/sharedAccounts.csv";
-    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "data/sharedAccountUsers.csv";
-    private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "data/sharedAccountTransactions.csv";
+    private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "./main/data/sharedAccounts.csv";
+    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "./main/data/sharedAccountUsers.csv";
+    private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "./main/data/sharedAccountTransactions.csv";
 
     public CSVSharedAccountDataAccessObject() {
         super();
