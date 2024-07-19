@@ -66,6 +66,66 @@ public class SignupInteractorTest {
     }
 
     @Test
+    public void testInvalidIdentification() {
+        String username = "testUser";
+        String password = "1234";
+        String userId = "";
+        SignupInputData inputData = new SignupInputData(username, password, userId);
+
+        signupInteractor.execute(inputData);
+
+        assertEquals("Identification can not be empty!", presenter.getMessage());
+    }
+
+    @Test
+    public void testInvalidUsernameAndPassword() {
+        String username = "";
+        String password = "";
+        String userId = "newUser";
+        SignupInputData inputData = new SignupInputData(username, password, userId);
+
+        signupInteractor.execute(inputData);
+
+        assertEquals("Username AND Password can not be empty!", presenter.getMessage());
+    }
+
+    @Test
+    public void testInvalidUsernameAndIdentification() {
+        String username = "";
+        String password = "1234";
+        String userId = "";
+        SignupInputData inputData = new SignupInputData(username, password, userId);
+
+        signupInteractor.execute(inputData);
+
+        assertEquals("Username AND Identification can not be empty!", presenter.getMessage());
+    }
+
+    @Test
+    public void testInvalidPasswordAndIdentification() {
+        String username = "testUser";
+        String password = "";
+        String userId = "";
+        SignupInputData inputData = new SignupInputData(username, password, userId);
+
+        signupInteractor.execute(inputData);
+
+        assertEquals("Password AND Identification can not be empty!", presenter.getMessage());
+    }
+
+    @Test
+    public void testInvalidUsernameAndPasswordAndIdentification() {
+        String username = "";
+        String password = "";
+        String userId = "";
+        SignupInputData inputData = new SignupInputData(username, password, userId);
+
+        signupInteractor.execute(inputData);
+
+        assertEquals("Username AND Password AND Identification can not be empty!", presenter.getMessage());
+    }
+
+    @Test
     public void testUserCreatedSuccessfully() {
 
         String username = "testUser";

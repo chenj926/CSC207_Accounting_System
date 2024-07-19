@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 
 public class PeriodicTransactionInteractor implements PeriodicTransactionInputBoundary {
@@ -52,7 +53,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         // update the inflow and outflow
         // for inflow
         if (isInflow) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
@@ -60,6 +61,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // now we have to convert both start and end date
                 localStartDate = LocalDate.parse(startDate, formatter);
                 localEndDate = LocalDate.parse(endDate, formatter);
+
+                // if start date is after end date
                 if (localStartDate.isAfter(localEndDate)) {
                     presenter.prepareFailView("Start date after end day, Plz enter again");
                     return;
@@ -168,7 +171,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         // for outflow
         else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
@@ -176,6 +179,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // now we have to convert both start and end date
                 localStartDate = LocalDate.parse(startDate, formatter);
                 localEndDate = LocalDate.parse(endDate, formatter);
+
+                // if start date is after end date
                 if (localStartDate.isAfter(localEndDate)) {
                     presenter.prepareFailView("Start date after end day, Plz enter again");
                     return;
