@@ -7,7 +7,7 @@ public class LogInOutputDataTest {
 
     @Test
     public void testLogInOutputData() {
-        LogInOutputData logInOutputData = new LogInOutputData("testUser", true);
+        LoginOutputData logInOutputData = new LoginOutputData("testUser", true);
 
         assertEquals("Username doesn't match", "testUser", logInOutputData.getUsername());
         assertTrue("Success flag doesn't match", logInOutputData.isSuccess());
@@ -15,7 +15,7 @@ public class LogInOutputDataTest {
 
     @Test
     public void testLogInOutputDataFailure() {
-        LogInOutputData logInOutputData = new LogInOutputData("testUser", false);
+        LoginOutputData logInOutputData = new LoginOutputData("testUser", false);
 
         assertEquals("Username doesn't match", "testUser", logInOutputData.getUsername());
         assertFalse("Success flag doesn't match", logInOutputData.isSuccess());
