@@ -12,6 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 
 public class PeriodicTransactionInteractor implements PeriodicTransactionInputBoundary {
@@ -52,35 +53,21 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         // update the inflow and outflow
         // for inflow
         if (isInflow) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
             try {
-                // Print debug info
-                System.out.println("Start date string: " + startDate);
-                System.out.println("End date string: " + endDate);
-                // Print each character code to check for hidden characters
-                for (int i = 0; i < startDate.length(); i++) {
-                    System.out.println("Character " + i + ": " + startDate.charAt(i) + " (code: " + (int) startDate.charAt(i) + ")");
-                }
-                for (int i = 0; i < endDate.length(); i++) {
-                    System.out.println("Character " + i + ": " + endDate.charAt(i) + " (code: " + (int) endDate.charAt(i) + ")");
-
                 // now we have to convert both start and end date
                 localStartDate = LocalDate.parse(startDate, formatter);
-                System.out.println("Parsed start date: " + localStartDate);
                 localEndDate = LocalDate.parse(endDate, formatter);
-                System.out.println("Parsed end date: " + localEndDate);
+
+                // if start date is after end date
                 if (localStartDate.isAfter(localEndDate)) {
                     presenter.prepareFailView("Start date after end day, Plz enter again");
                     return;
                 }
             } catch (DateTimeParseException e) {  // if anyone of the start end has issue, catch!
-                // debug
-                System.out.println("Failed to parse start or end date:");
-                e.printStackTrace(); // Print stack trace for detailed debugging
-
                 presenter.prepareFailView("Invalid date format! Plz enter again");
                 return;
             }
@@ -184,7 +171,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         // for outflow
         else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy").withResolverStyle(ResolverStyle.STRICT);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localStartDate = null;
             LocalDate localEndDate = null;
 
@@ -192,6 +179,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // now we have to convert both start and end date
                 localStartDate = LocalDate.parse(startDate, formatter);
                 localEndDate = LocalDate.parse(endDate, formatter);
+
+                // if start date is after end date
                 if (localStartDate.isAfter(localEndDate)) {
                     presenter.prepareFailView("Start date after end day, Plz enter again");
                     return;
