@@ -11,4 +11,16 @@ class LogoutPresenterTest {
     private ViewManagerModel viewManagerModel;
     private LogoutPresenter logoutPresenter;
 
+    @BeforeEach
+    void setUp() {
+        logoutViewModel = new LogoutViewModel();
+        viewManagerModel = new ViewManagerModel() {
+            @Override
+            public void setActiveView(String viewName) {
+
+            }
+        };
+        logoutPresenter = new LogoutPresenter(logoutViewModel, viewManagerModel);
+    }
+
 }
