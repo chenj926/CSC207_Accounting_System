@@ -2,6 +2,7 @@ package interface_adaptors;
 
 import view.LoginView;
 import app.*;
+import view.SignupView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -55,6 +56,10 @@ public class ViewManagerModel {
     private void createView(String viewName) {
         switch (viewName) {
             case "sign up":
+                SignupViewModel signupViewModel = new SignupViewModel();
+                SignupController signupController = SignupUseCaseFactory.create(this, signupViewModel);
+                SignupView signupView = new SignupView(signupViewModel, signupController);
+                views.put("sign up", signupView);
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
