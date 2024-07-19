@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class LoginUseCaseFactory {
 
-    LoginUseCaseFactory() {}
+    private LoginUseCaseFactory() {}
 
     public static LoginView create(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
         try {
@@ -23,7 +23,7 @@ public class LoginUseCaseFactory {
         return null;
     }
 
-    public static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
+    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
         LoginDataAccessInterface dataAccessObject = (LoginDataAccessInterface) DAOFactory.getUserSignupDataAccessObject();
         AccountFactory accountFactory = new AccountFactory();
         LoginOutputBoundary presenter = new LoginPresenter(viewManagerModel, loginViewModel);
