@@ -4,8 +4,8 @@ import use_case.SignupInputBoundary;
 import use_case.SignupInputData;
 
 public class SignupController {
-
     final SignupInputBoundary userSignupUseCaseInteractor;
+
     public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
         this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
     }
