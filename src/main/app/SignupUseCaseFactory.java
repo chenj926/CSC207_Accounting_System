@@ -23,7 +23,7 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
+    public static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
 
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
         SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);

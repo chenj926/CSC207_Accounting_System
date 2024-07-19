@@ -23,7 +23,7 @@ public class LoginUseCaseFactory {
         return null;
     }
 
-    static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
+    public static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
         LoginDataAccessInterface dataAccessObject = (LoginDataAccessInterface) DAOFactory.getUserSignupDataAccessObject();
         AccountFactory accountFactory = new AccountFactory();
         LoginOutputBoundary presenter = new LoginPresenter(viewManagerModel, loginViewModel);
