@@ -6,18 +6,24 @@ import java.beans.PropertyChangeSupport;
 public class LoginViewModel extends ViewModel {
 
     private final String titleLabel = "Log In View";
-    private final String usernameLabel = "Enter username";
+    private final String identificationLabel = "Enter identification";
     private final String passwordLabel = "Enter password";
 
     private final String loginButtonLabel = "Log in";
     private final String cancelButtonLabel = "Cancel";
 
-    // label getters
+    private LoginState state = new LoginState();
+
+    public LoginViewModel() {
+        super("log in");
+    }
+
+    // getters
     public String getTitleLabel(){
         return this.titleLabel;
     }
-    public String getUsernameLabel(){
-        return usernameLabel;
+    public String getIdentificationLabel(){
+        return identificationLabel;
     }
     public String getPasswordLabel(){
         return passwordLabel;
@@ -28,13 +34,10 @@ public class LoginViewModel extends ViewModel {
     public String getCancelButtonLabel(){
         return cancelButtonLabel;
     }
-
-    private LoginState state = new LoginState();
-
-    public LoginViewModel() {
-        super("log in");
+    public LoginState getState() {
+        return state;
     }
-
+    // setters
     public void setState(LoginState state) {
         this.state = state;
     }
@@ -51,7 +54,5 @@ public class LoginViewModel extends ViewModel {
         support.addPropertyChangeListener(listener);
     }
 
-    public LoginState getState() {
-        return state;
-    }
+
 }
