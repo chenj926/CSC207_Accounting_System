@@ -1,6 +1,7 @@
 package interface_adaptors;
 
 import view.LoginView;
+import app.*;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -47,7 +48,7 @@ public class ViewManagerModel {
         if (currentView != null) {
             currentView.setVisible(true);
         } else {
-            creatView(viewName);
+            this.createView(viewName);
         }
     }
 
@@ -57,7 +58,7 @@ public class ViewManagerModel {
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
-                LoginController loginController = LoginUseCaseFactory.createLoginController(this, loginViewModel);
+                LoginController loginController = LoginUseCaseFactory.create(this, loginViewModel);
                 LoginView loginView = new LoginView(loginViewModel, loginController);
                 views.put("log in", loginView);
                 currentView = loginView;
