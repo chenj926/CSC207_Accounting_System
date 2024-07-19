@@ -1,11 +1,11 @@
 package use_case;
 
-public class LogInOutputData {
+public class LoginOutputData {
     private final String username;
     private final boolean success;
 
     // Constructor
-    public LogInOutputData(String username, boolean success) {
+    public LoginOutputData(String username, boolean success) {
         this.username = username;
         this.success = success;
     }
