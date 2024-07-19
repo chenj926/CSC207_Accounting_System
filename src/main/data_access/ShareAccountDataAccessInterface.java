@@ -8,5 +8,4 @@ public interface ShareAccountDataAccessInterface {
 
     void save(SharedAccount sharedAccount);
 
-    void update(SharedAccount sharedAccount);
 }
