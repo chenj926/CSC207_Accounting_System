@@ -15,11 +15,15 @@ public class LoginPresenter implements LoginOutputBoundary {
 
     @Override
     public void prepareSuccessView(LoginOutputData userInfo){
+        // update the current login state
         LoginState loginState = loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());
         this.loginViewModel.setState(loginState);
+        loginState.setSuccessMsg("Successfully Logged In!!!");
         loginViewModel.firePropertyChanged();
         viewManagerModel.setActiveViewName(loginViewModel.getViewName());
+
+        // should change to next view
     }
 
     @Override
