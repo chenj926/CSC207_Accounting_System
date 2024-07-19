@@ -77,7 +77,7 @@ public class LoginInteractorTest {
 
     private static class SimplePresenter implements LoginOutputBoundary {
         private String message;
-        private LogInOutputData data;
+        private LoginOutputData data;
         private boolean success;
 
         @Override
@@ -87,7 +87,7 @@ public class LoginInteractorTest {
         }
 
         @Override
-        public void prepareSuccessView(LogInOutputData data) {
+        public void prepareSuccessView(LoginOutputData data) {
             this.data = data;
             this.success = true;
         }
@@ -100,7 +100,7 @@ public class LoginInteractorTest {
             return success;
         }
 
-        public LogInOutputData getData() {
+        public LoginOutputData getData() {
             return data;
         }
     }

@@ -1,7 +1,7 @@
 package interface_adaptors;
 
 import use_case.LoginOutputBoundary;
-import use_case.LogInOutputData;
+import use_case.LoginOutputData;
 
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
@@ -14,7 +14,7 @@ public class LoginPresenter implements LoginOutputBoundary {
     }
 
     @Override
-    public void prepareSuccessView(LogInOutputData userInfo){
+    public void prepareSuccessView(LoginOutputData userInfo){
         LoginState loginState = loginViewModel.getState();
         loginState.setUsername(userInfo.getUsername());
         this.loginViewModel.setState(loginState);
