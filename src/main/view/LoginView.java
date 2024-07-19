@@ -16,7 +16,7 @@ public class LoginView extends JFrame implements PropertyChangeListener {
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        loginPanel = new LoginPanel(viewModel);
+        loginPanel = new LoginPanel(viewModel, loginController);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,8 +30,11 @@ public class LoginView extends JFrame implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        if ("state".equals(evt.getPropertyName())) {
-            // Handle state changes if needed
+        LoginState state = (LoginState) evt.getNewValue();
+        if (state.getStateError() != null) {
+            JOptionPane.showMessageDialog(this, state.getStateError());
+        } else {
+            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
         }
     }
 
