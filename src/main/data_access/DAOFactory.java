@@ -3,9 +3,11 @@ package data_access;
 public class DAOFactory {
     private static CSVUserAccountDataAccessObject csvUserAccountDAO;
     private static CSVSharedAccountDataAccessObject csvSharedAccountDAO;
+    private static CSVUserLoginoutDataAccessObject csvUserLoginoutDAO;
 
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
     private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
+    private static InMemoryLoginoutDataAccessObject inMemoryLoginoutDAO;
 
     private static boolean useInMemory = false; // Flag to determine which DAO to use
 
@@ -39,6 +41,34 @@ public class DAOFactory {
                 csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
             }
             return csvSharedAccountDAO;
+        }
+    }
+
+    public static synchronized LoginDataAccessInterface getLoginDataAccessObject() {
+        if (useInMemory) {
+            if (inMemoryLoginoutDAO == null) {
+                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
+            }
+            return inMemoryLoginoutDAO;
+        } else {
+            if (csvUserLoginoutDAO == null) {
+                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            }
+        }
+        return csvUserLoginoutDAO;
+    }
+
+    public static synchronized LogoutDataAccessInterface getLogoutDataAccessObject() {
+        if (useInMemory) {
+            if (inMemoryLoginoutDAO == null) {
+                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
+            }
+            return inMemoryLoginoutDAO;
+        } else {
+            if (csvUserLoginoutDAO == null) {
+                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            }
+            return csvUserLoginoutDAO;
         }
     }
 }
