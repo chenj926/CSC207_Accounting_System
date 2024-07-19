@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class SignupUseCaseFactory {
 
-    private SignupUseCaseFactory() {}
+    SignupUseCaseFactory() {}
 
     public static SignupView create(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         try {
@@ -23,7 +23,7 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
+    static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
 
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
         SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);
