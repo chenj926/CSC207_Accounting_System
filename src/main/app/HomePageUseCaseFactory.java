@@ -14,8 +14,12 @@ public class HomePageUseCaseFactory {
     private HomePageUseCaseFactory() {}
 
     public static HomePageView create(ViewManagerModel viewManagerModel, HomePageViewModel homePageViewModel){
-        try {
+        HomePageView homePageView = new HomePageView(homePageViewModel, viewManagerModel);
 
-        }catch ()
+        homePageView.addPropertyChangeListener(evt -> viewManagerModel.changeView("log in"));
+        homePageView.addPropertyChangeListener(evt -> viewManagerModel.changeView("sign in"));
+
+        return homePageView;
+
     }
 }
