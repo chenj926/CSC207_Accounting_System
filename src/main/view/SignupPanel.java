@@ -46,7 +46,7 @@ public class SignupPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(2, 5, 2, 5);  // pad
+        constraints.insets = new Insets(5, 10, 5, 10);  // pad
 
         // title Label
         constraints.gridx = 0;

@@ -24,7 +24,7 @@ public class SignupView extends JFrame implements PropertyChangeListener {
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
+        setSize(600, 520);
         setVisible(true);
     }
 
