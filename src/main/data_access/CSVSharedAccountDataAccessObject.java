@@ -12,7 +12,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
     private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
 
-    public CSVSharedAccountDataAccessObject() throws IOException {
+    public CSVSharedAccountDataAccessObject() {
         super();
     }
 

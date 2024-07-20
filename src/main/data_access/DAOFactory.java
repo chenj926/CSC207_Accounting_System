@@ -54,11 +54,12 @@ public class DAOFactory {
             if (csvUserLoginoutDAO == null) {
                 csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
             }
+            return csvUserLoginoutDAO;
         }
-        return csvUserLoginoutDAO;
     }
 
     public static synchronized LogoutDataAccessInterface getLogoutDataAccessObject() {
+        // 先不管
         if (useInMemory) {
             if (inMemoryLoginoutDAO == null) {
                 inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
