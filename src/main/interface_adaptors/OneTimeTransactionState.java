@@ -7,70 +7,59 @@ public class OneTimeTransactionState {
     private String transactionCategory;
     private float newBalance;
     private boolean useCaseFailed;
-    private String error;
+    private String errorMessage;
     private String successMessage;
 
-
+    // getters
     public float getTransactionAmount() {
-        return transactionAmount;
+        return this.transactionAmount;
+    }
+    public String getTransactionDate() {
+        return this.transactionDate;
+    }
+    public String getTransactionDescription() {
+        return this.transactionDescription;
+    }
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
+    public float getNewBalance() {
+        return this.newBalance;
+    }
+    public boolean isUseCaseFailed() {
+        return this.useCaseFailed;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
+    }
+    public String getSuccessMessage() {
+        return this.successMessage;
     }
 
+
+
+    // setters
     public void setTransactionAmount(float transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
-
-    public String getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(String transactionDate) {
-        this.transactionDate = transactionDate;
-    }
-
-    public String getTransactionDescription() {
-        return transactionDescription;
-    }
-
     public void setTransactionDescription(String transactionDescription) {
         this.transactionDescription = transactionDescription;
     }
-
-    public String getTransactionCategory() {
-        return transactionCategory;
-    }
-
     public void setTransactionCategory(String transactionCategory) {
         this.transactionCategory = transactionCategory;
     }
-
-    public float getNewBalance() {
-        return newBalance;
-    }
-
     public void setNewBalance(float newBalance) {
         this.newBalance = newBalance;
     }
-
-    public boolean isUseCaseFailed() {
-        return useCaseFailed;
-    }
-
     public void setUseCaseFailed(boolean useCaseFailed) {
         this.useCaseFailed = useCaseFailed;
     }
-
-    public String getError() {
-        return error;
+    public void setTransactionDate(String transactionDate) {
+        this.transactionDate = transactionDate;
     }
-
-    public void setError(String error) {
-        this.error = error;
+    public void setErrorMessage(String error) {
+        this.errorMessage = error;
     }
-
-    public String getSuccessMessage() {
-        return successMessage;
-    }
-
     public void setSuccessMessage(String successMessage) {
         this.successMessage = successMessage;
     }

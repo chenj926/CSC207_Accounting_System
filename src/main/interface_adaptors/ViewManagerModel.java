@@ -72,23 +72,23 @@ public class ViewManagerModel {
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
-//            case "transaction":
-//                TransactionViewModel transactionViewModel = new TransactionViewModel();
-//                TransactionView transactionView = TransactionUseCaseFactory.createTransactionView(this,
-//                        transactionViewModel);
-//                views.put("transaction", transactionView);
-//                currentView = transactionView;
-//                break;
-            case "One-Time Transaction":
-                TransactionViewModel oneTimeTransactionViewModel = new TransactionViewModel("One-Time Transaction");
-                TransactionView oneTimeTransactionView = TransactionUseCaseFactory.createTransactionView(this,
+            case "Transaction":
+                TransactionViewModel transactionViewModel = new TransactionViewModel();
+                TransactionView transactionView = TransactionUseCaseFactory.createTransactionView(this,
+                        transactionViewModel);
+                views.put("Transaction", transactionView);
+                currentView = transactionView;
+                break;
+            case "One Time Transaction":
+                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
+                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.createTransactionView(this,
                         oneTimeTransactionViewModel);
-                views.put("One-Time Transaction", oneTimeTransactionView);
+                views.put("One Time Transaction", oneTimeTransactionView);
                 currentView = oneTimeTransactionView;
                 break;
             case "Periodic Transaction":
-                TransactionViewModel periodicTransactionViewModel = new TransactionViewModel("Periodic Transaction");
-                TransactionView periodicTransactionView = TransactionUseCaseFactory.createTransactionView(this,
+                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
+                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.createTransactionView(this,
                         periodicTransactionViewModel);
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
