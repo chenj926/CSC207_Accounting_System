@@ -1,2 +1,4 @@
-package view;public class OneTimeTransactionView {
+package view;
+
+public class OneTimeTransactionView {
 }

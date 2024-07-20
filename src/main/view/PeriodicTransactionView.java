@@ -1,2 +1,4 @@
-package view;public class PeriodicTransactionView {
+package view;
+
+public class PeriodicTransactionView {
 }
