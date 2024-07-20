@@ -6,13 +6,12 @@ import use_case.OneTimeTransactionOutputData;
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
-    private final TransactionViewModel transactionViewModel;
+//    private final TransactionViewModel transactionViewModel;
 
-    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, TransactionViewModel transactionViewModel,
-                                       ViewManagerModel viewManager) {
+    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
-        this.transactionViewModel = transactionViewModel;
+//        this.transactionViewModel = transactionViewModel;
     }
 
     @Override

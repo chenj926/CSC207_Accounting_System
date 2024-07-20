@@ -22,8 +22,10 @@ public class TransactionViewModel extends ViewModel {
     private final TransactionState transactionState = new TransactionState();
     protected TransactionViewModel currentViewModel;
 
-    public TransactionViewModel(String transaction) {
-        super(transaction);
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    public TransactionViewModel() {
+        super("Transaction");
     }
 
     // label getters
@@ -62,36 +64,36 @@ public class TransactionViewModel extends ViewModel {
     }
 
 
-    // Method to handle button click for one-time transaction
-    public void selectOneTimeTransaction() {
-        transactionState.setOneTimeSelected(true);
-        transactionState.setPeriodicSelected(false);
-        setCurrentViewModel(new OneTimeTransactionViewModel());
-    }
-
-    // Method to handle button click for periodic transaction
-    public void selectPeriodicTransaction() {
-        transactionState.setOneTimeSelected(false);
-        transactionState.setPeriodicSelected(true);
-        setCurrentViewModel(new PeriodicTransactionViewModel());
-    }
-
-    public void setCurrentViewModel(TransactionViewModel newViewModel) {
-        TransactionViewModel oldViewModel = this.currentViewModel;
-        this.currentViewModel = newViewModel;
-        firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
-    }
-
-    public void resetTransactionView() {
-        transactionState.setOneTimeSelected(false);
-        transactionState.setPeriodicSelected(false);
-        setCurrentViewModel(null);
-    }
-
-    public void cancelTransaction() {
-        setCurrentViewModel(null); // This can be adjusted based on how you want to clear the view
-        firePropertyChanged("currentViewModel", null, this);
-    }
+//    // Method to handle button click for one-time transaction
+//    public void selectOneTimeTransaction() {
+//        transactionState.setOneTimeSelected(true);
+//        transactionState.setPeriodicSelected(false);
+//        setCurrentViewModel(new OneTimeTransactionViewModel());
+//    }
+//
+//    // Method to handle button click for periodic transaction
+//    public void selectPeriodicTransaction() {
+//        transactionState.setOneTimeSelected(false);
+//        transactionState.setPeriodicSelected(true);
+//        setCurrentViewModel(new PeriodicTransactionViewModel());
+//    }
+//
+//    public void setCurrentViewModel(TransactionViewModel newViewModel) {
+//        TransactionViewModel oldViewModel = this.currentViewModel;
+//        this.currentViewModel = newViewModel;
+//        firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
+//    }
+//
+//    public void resetTransactionView() {
+//        transactionState.setOneTimeSelected(false);
+//        transactionState.setPeriodicSelected(false);
+//        setCurrentViewModel(null);
+//    }
+//
+//    public void cancelTransaction() {
+//        setCurrentViewModel(null); // This can be adjusted based on how you want to clear the view
+//        firePropertyChanged("currentViewModel", null, this);
+//    }
 }
 
 

@@ -10,6 +10,7 @@ public class HomePageViewModel extends ViewModel{
     private final String loginButtonLabel = "Login";
     private final String exitButtonLabel = "Exit";
 
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     // private HomePageState state = new HomePageState();
 
     public HomePageViewModel() {
@@ -36,7 +37,7 @@ public class HomePageViewModel extends ViewModel{
     // setter
     // public void setState(HomePageState state) { this.state = state; }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
 
 
     //
