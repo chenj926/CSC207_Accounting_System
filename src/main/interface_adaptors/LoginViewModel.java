@@ -5,17 +5,17 @@ import java.beans.PropertyChangeSupport;
 
 public class LoginViewModel extends ViewModel {
 
-    private final String titleLabel = "Log In";
+    private final String titleLabel = "LOGIN";
     private final String identificationLabel = "Enter identification";
     private final String passwordLabel = "Enter password";
 
-    private final String loginButtonLabel = "Log in";
+    private final String loginButtonLabel = "Login";
     private final String cancelButtonLabel = "Cancel";
 
     private LoginState state = new LoginState();
 
     public LoginViewModel() {
-        super("log in");
+        super("login");
     }
 
     // getters
