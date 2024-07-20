@@ -13,8 +13,8 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";
     private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance";
 
-    private final Path userCsvPath;
-    private final Path transactionCsvPath;
+    protected final Path userCsvPath;
+    protected final Path transactionCsvPath;
 
     public CSVUserAccountDataAccessObject() {
         // Determine the base directory dynamically
@@ -230,14 +230,31 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
             String line;
+            boolean isFirstLine = true;
+
             while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
                 String[] values = line.split(",");
 
+                // Debugging: Print values to ensure they are correct
+                System.out.println("Read line: " + Arrays.toString(values));
+
                 // we only compare the id
-                String id = values[0];
-                if (id.equals(identification)) {
+                //String id = values[0];
+                String id = values[0].trim().toLowerCase();
+                System.out.println("id" + id); // debug
+                System.out.println("iden: "+ identification);
+
+                System.out.println("compare: " + id.equals(identification.trim().toLowerCase()));
+                if (id.equals(identification.trim().toLowerCase())) {
+
                     userExist = true;
+                    System.out.println("exist: " + userExist);
                     return userExist;
                 }
             }
