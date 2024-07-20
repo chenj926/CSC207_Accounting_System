@@ -10,7 +10,7 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
 
             ViewManagerModel viewManagerModel = new ViewManagerModel();
-            viewManagerModel.changeView("sign up");
+            viewManagerModel.changeView("home page");
 
 
             viewManagerModel.addPropertyChangeListener(evt -> {
