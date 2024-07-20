@@ -2,7 +2,6 @@ package interface_adaptors;
 
 import use_case.LogoutInputBoundary;
 import use_case.LogoutInputData;
-import use_case.LogoutInteractor;
 
 public class LogoutController {
     final LogoutInputBoundary logoutInteractor;
@@ -10,8 +9,8 @@ public class LogoutController {
         this.logoutInteractor = logoutInteractor;
     }
 
-    public void execute(String userId) {
-        LogoutInputData logoutInputData = new LogoutInputData(userId);
+    public void execute(String logout) {
+        LogoutInputData logoutInputData = new LogoutInputData(logout);
 
         logoutInteractor.execute(logoutInputData);
     }
