@@ -94,14 +94,13 @@ public class LoginPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
-//                            SignupState currentState = viewModel.getState();
                     loginController.execute(
-                            identificationTextField.getText(),
-                            String.valueOf(passwordField.getPassword())
+                            String.valueOf(passwordField.getPassword()),
+                            identificationTextField.getText()
                     );
 
                     // debug
-                    System.out.println(loginController);
+                    System.out.println("login controller: " + loginController.toString());
                 }
             }
         });
@@ -123,7 +122,7 @@ public class LoginPanel extends JPanel {
                         currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
 
-                        System.out.println("username: " + currentState.getIdentification());  //  debug
+                        System.out.println("id: " + currentState.getIdentification());  //  debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}

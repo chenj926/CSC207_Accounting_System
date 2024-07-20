@@ -8,18 +8,76 @@ import java.nio.file.*;
 import java.util.*;
 
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
-    protected final File userCsvFile;
     private Map<String, UserAccount> userAccounts;
-    // temp path
-    protected static final String USER_CSV_FILE_PATH = "D:\\CSC207\\CSC207_Accounting_System\\src\\main\\data\\userAccounts.csv";
-    //protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
+    protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";
+    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance";
+
+    protected final Path userCsvPath;
+    protected final Path transactionCsvPath;
 
     public CSVUserAccountDataAccessObject() {
-        this.userCsvFile = new File(USER_CSV_FILE_PATH);
-//        this.accountFactory = accountFactory;
-        // new File("data").mkdirs(); // 有问题
+        // Determine the base directory dynamically
+        String baseDir = System.getProperty("user.dir");
+        this.userCsvPath = Paths.get(baseDir, USER_CSV_FILE_PATH);
+        this.transactionCsvPath = Paths.get(baseDir, TRANSACTION_CSV_FILE_PATH);
+
+        // define the header for csvfile
+        try {
+            initializeCsvFile(userCsvPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to initialize CSV file: " + e.getMessage());
+        }
     }
+
+    private void initializeCsvFile(Path csvPath) throws IOException {
+        // Get the parent directory of the CSV file path
+        Path parentDir = csvPath.getParent();
+
+        // If the parent directory does not exist, create it
+        if (parentDir != null && !Files.exists(parentDir)) {
+            Files.createDirectories(parentDir);
+        }
+
+        // If the CSV file does not exist, create it and write the header
+        if (!Files.exists(csvPath)) {
+            Files.createFile(csvPath);
+            try (BufferedWriter bout = Files.newBufferedWriter(csvPath, StandardOpenOption.APPEND)) {
+                bout.write(CSV_HEADER);
+                bout.newLine();
+            }
+        } else {
+            // If the CSV file exists, check if the header is correct
+            try (BufferedReader bin = Files.newBufferedReader(csvPath)) {
+                String firstLine = bin.readLine();
+                List<String> lines = new ArrayList<>();
+
+                // If the first line is null or incorrect, rewrite the file with the correct header
+                if (firstLine == null || !firstLine.equals(CSV_HEADER)) {
+
+                    // If the first line is not the header, add it to the lines to be written back
+                    if (firstLine != null && !firstLine.isEmpty()) {
+                        lines.add(firstLine);
+                    }
+
+                    // Read the rest of the file
+                    String line;
+                    while ((line = bin.readLine()) != null) {
+                        lines.add(line);
+                    }
+
+                    // Rewrite the file with the correct header and existing data
+                    List<String> allLines = new ArrayList<>();
+                    allLines.add(CSV_HEADER);
+                    allLines.addAll(lines);
+
+                    Files.write(csvPath, allLines, StandardOpenOption.TRUNCATE_EXISTING);
+                }
+            }
+        }
+    }
+
     @Override
     public boolean existById(String identification) {
         return readAllUsers(identification);
@@ -27,13 +85,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
     @Override
     public void save(UserAccount newUser) {
-        // debug
-        System.out.println("Is saving");
-        System.out.println("not exist" + !existById(newUser.getIdentification()));
-
         if (!existById(newUser.getIdentification())) {
-            System.out.println("Is in if: tring to save");  // debug
-
             // user info
             String id = newUser.getIdentification();
             String username = newUser.getUsername();
@@ -46,12 +98,22 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
                     totalOutflow, totalBalance);
 
-            System.out.println("user info: " +userInfo);  // debug
+            // if csv not created, create it
+            try {
+                Path parentDir = userCsvPath.getParent();
 
-            try (BufferedWriter bout = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH), StandardOpenOption.APPEND)) {
-                bout.write(userInfo);
-                bout.newLine();
-                System.out.println("Is writing...");  //  debug
+                if (parentDir != null && !Files.exists(parentDir)) {
+                    Files.createDirectories(parentDir);
+                }
+
+                if (!Files.exists(userCsvPath)) {
+                    Files.createFile(userCsvPath);
+                }
+
+                try (BufferedWriter bout = Files.newBufferedWriter(userCsvPath, StandardOpenOption.APPEND)) {
+                    bout.write(userInfo);
+                    bout.newLine();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
                 System.err.println("Failed to write to file: " + e.getMessage());
@@ -168,14 +230,31 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
             String line;
+            boolean isFirstLine = true;
+
             while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
                 String[] values = line.split(",");
 
+                // Debugging: Print values to ensure they are correct
+                System.out.println("Read line: " + Arrays.toString(values));
+
                 // we only compare the id
-                String id = values[0];
-                if (id.equals(identification)) {
+                //String id = values[0];
+                String id = values[0].trim().toLowerCase();
+                System.out.println("id" + id); // debug
+                System.out.println("iden: "+ identification);
+
+                System.out.println("compare: " + id.equals(identification.trim().toLowerCase()));
+                if (id.equals(identification.trim().toLowerCase())) {
+
                     userExist = true;
+                    System.out.println("exist: " + userExist);
                     return userExist;
                 }
             }

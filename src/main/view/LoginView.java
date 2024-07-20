@@ -31,7 +31,7 @@ public class LoginView extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         LoginState state = (LoginState) evt.getNewValue();
-        if (state.getStateError() != null) {
+        if (state.getSuccessMsg() == null) {
             JOptionPane.showMessageDialog(this, state.getStateError());
         } else {
             JOptionPane.showMessageDialog(this, state.getSuccessMsg());

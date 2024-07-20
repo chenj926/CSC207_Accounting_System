@@ -57,10 +57,17 @@ public class ViewManagerModel {
 
     private void createView(String viewName) {
         switch (viewName) {
+            case "home page":
+                HomePageViewModel homePageViewModel = new HomePageViewModel();
+                HomePageView homePageView = homePageUseCaseFactory.create(this, homePageViewModel);
+                views.put("home page", homePageView);
+                currentView = homePageView;
+                break;
             case "sign up":
                 SignupViewModel signupViewModel = new SignupViewModel();
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
+                currentView = signupView;
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
