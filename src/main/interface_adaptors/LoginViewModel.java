@@ -23,19 +23,19 @@ public class LoginViewModel extends ViewModel {
         return this.titleLabel;
     }
     public String getIdentificationLabel(){
-        return identificationLabel;
+        return this.identificationLabel;
     }
     public String getPasswordLabel(){
-        return passwordLabel;
+        return this.passwordLabel;
     }
     public String getLoginButtonLabel(){
-        return loginButtonLabel;
+        return this.loginButtonLabel;
     }
     public String getCancelButtonLabel(){
-        return cancelButtonLabel;
+        return this.cancelButtonLabel;
     }
     public LoginState getState() {
-        return state;
+        return this.state;
     }
     // setters
     public void setState(LoginState state) {
