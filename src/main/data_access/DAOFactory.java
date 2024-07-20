@@ -3,7 +3,7 @@ package data_access;
 public class DAOFactory {
     private static CSVUserAccountDataAccessObject csvUserAccountDAO;
     private static CSVSharedAccountDataAccessObject csvSharedAccountDAO;
-    private static CSVUserLoginoutDataAccessObject csvUserLoginoutDAO;
+//    private static CSVUserLoginoutDataAccessObject csvUserLoginoutDAO;
 
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
     private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
