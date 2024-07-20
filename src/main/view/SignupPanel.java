@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 public class SignupPanel extends JPanel {
     private final SignupViewModel viewModel;
     private SignupController signupController;
+    private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField usernameTextField;
@@ -21,8 +22,9 @@ public class SignupPanel extends JPanel {
     private JButton signupButton;
     private JButton cancelButton;
 
-    public SignupPanel(SignupViewModel viewModel, SignupController signupController) {
+    public SignupPanel(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
         this.signupController = signupController;
+        this.viewManager = viewManager;
         this.viewModel = viewModel;
         initializeComponents();
         setupUI();
@@ -119,10 +121,7 @@ public class SignupPanel extends JPanel {
 
         // cancel button response action
         this.cancelButton.addActionListener(e -> {
-            Window window = SwingUtilities.getWindowAncestor(this);
-            if (window != null) {
-                window.dispose();
-            }
+            viewManager.setActiveViewName("home page");
         });
 
         // get typed username

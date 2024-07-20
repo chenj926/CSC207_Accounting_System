@@ -11,12 +11,12 @@ public class LoginView extends JFrame implements PropertyChangeListener {
     private LoginViewModel viewModel;
     private LoginPanel loginPanel;
 
-    public LoginView(LoginViewModel viewModel, LoginController loginController) {
+    public LoginView(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        loginPanel = new LoginPanel(viewModel, loginController);
+        loginPanel = new LoginPanel(viewModel, loginController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
