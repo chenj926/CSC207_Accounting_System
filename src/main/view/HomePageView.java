@@ -11,16 +11,16 @@ public class HomePageView extends JFrame implements PropertyChangeListener {
     private HomePageViewModel viewModel;
     private HomePagePanel homePagePanel;
 
-    public HomePageView(HomePageViewModel viewModel) {
+    public HomePageView(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        // homePagePanel = new HomePagePanel(viewModel, homePageController);
+        this.homePagePanel = new HomePagePanel(viewModel, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        pack();
+        setSize(300, 520);
         setVisible(true);
 
     }
@@ -29,15 +29,16 @@ public class HomePageView extends JFrame implements PropertyChangeListener {
         this.getContentPane().add(homePagePanel, BorderLayout.CENTER);
     }
 
-//    @Override
-//    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
 //        HomePageState state = (HomePageState) evt.getNewValue();
 //        if (state.getStateError() != null) {
 //            JOptionPane.showMessageDialog(this, state.getStateError());
 //        } else {
 //            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
 //        }
-//    }
-//    }
+        // do something with the propertyChange
+    }
 }
+
 
