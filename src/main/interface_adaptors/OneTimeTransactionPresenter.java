@@ -5,38 +5,47 @@ import use_case.OneTimeTransactionOutputData;
 
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
+    private final ViewManagerModel viewManager;
     private final TransactionViewModel transactionViewModel;
 
-    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, TransactionViewModel transactionViewModel) {
+    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, TransactionViewModel transactionViewModel,
+                                       ViewManagerModel viewManager) {
         this.viewModel = viewModel;
+        this.viewManager = viewManager;
         this.transactionViewModel = transactionViewModel;
     }
 
     @Override
     public void prepareSuccessView(OneTimeTransactionOutputData data) {
-        OneTimeTransactionState state = viewModel.getState();
-        state.setNewBalance(data.getNewBalance());
-        state.setTransactionDate(data.getTransactionDate().toString());
-        state.setTransactionDescription(data.getTransactionDescription());
-        state.setTransactionCategory(data.getTransactionCategory());
-        state.setUseCaseFailed(data.isUseCaseFailed());
-        state.setSuccessMessage("One-time transaction recorded successfully!");
-        viewModel.notifyPropertyChange();
+        // update the current transaction sate
+        OneTimeTransactionState oneTimeState = viewModel.getState();
+
+        // set info
+        oneTimeState.setNewBalance(data.getNewBalance());
+        oneTimeState.setTransactionDate(data.getTransactionDate().toString());
+        oneTimeState.setTransactionDescription(data.getTransactionDescription());
+        oneTimeState.setTransactionCategory(data.getTransactionCategory());
+        oneTimeState.setUseCaseFailed(data.isUseCaseFailed());
+        this.viewModel.setState(oneTimeState);
+        oneTimeState.setSuccessMessage("One-time transaction recorded successfully!");
+        viewModel.firePropertyChanged();
+        viewManager.setActiveViewName(viewModel.getViewName());
+
+        // go back to home page 2
     }
 
 
     @Override
     public void prepareFailView(String error) {
         OneTimeTransactionState state = viewModel.getState();
-        state.setError(error);
-        state.setSuccessMessage(null); // Clear success message on failure
-        viewModel.notifyPropertyChange();
+        state.setErrorMessage(error);
+        viewModel.firePropertyChanged();
     }
 
-
-    public void handleCancel() {
-        transactionViewModel.selectOneTimeTransaction();
-    }
+//
+//    public void handleCancel() {
+//        transactionViewModel.selectOneTimeTransaction();
+//    }
 }
 
 

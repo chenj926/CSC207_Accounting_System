@@ -19,6 +19,13 @@ public class TransactionViewModel extends ViewModel {
     private final String RECORD_BUTTON_LABEL = "Record Transaction";
     private final String CANCEL_BUTTON_LABEL = "Cancel";
 
+    private final TransactionState transactionState = new TransactionState();
+    protected TransactionViewModel currentViewModel;
+
+    public TransactionViewModel(String transaction) {
+        super(transaction);
+    }
+
     // label getters
     public String getTransactionViewLabel() {
         return TRANSACTION_VIEW_LABEL;
@@ -47,19 +54,9 @@ public class TransactionViewModel extends ViewModel {
     public String getCancelButtonLabel() {
         return CANCEL_BUTTON_LABEL;
     }
-
-
-    private final TransactionState transactionState = new TransactionState();
-    protected TransactionViewModel currentViewModel;
-
-    public TransactionViewModel(String title) {
-        super(title);
-    }
-
     public TransactionViewModel getCurrentViewModel() {
         return currentViewModel;
     }
-
     public TransactionState getTransactionState() {
         return transactionState;
     }
