@@ -49,7 +49,7 @@ public class LogoutInteractorTest {
             return userDatabase.get(identification);
         }
 
-        @Override
+
         public void logout(UserAccount user) {
             loggedOutUsers.add(user.getIdentification());
         }
