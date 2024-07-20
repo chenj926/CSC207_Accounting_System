@@ -2,30 +2,28 @@ package interface_adaptors;
 
 public class LogoutState {
     private String logoutMessage;
-    private boolean isLoggedOut = false;
+    private String stateError;
 
     public LogoutState() {
         this.logoutMessage = null;
-        this.isLoggedOut =  false;
+        this.stateError = null;
     }
 
     //the default constructor
 
-
+// getter
     public String getLogoutMessage() {
-        return logoutMessage;
+        return this.logoutMessage;
     }
 
-    public boolean isLoggedOut() {
-        return isLoggedOut;
+    public String getStateError() {
+        return this.stateError;
     }
 
-
+// setter
     public void setLogoutMessage(String logoutMessage) {
         this.logoutMessage = logoutMessage;
     }
 
-    public void setLoggedOut(boolean isLoggedOut) {
-        this.isLoggedOut = isLoggedOut;
-    }
+    public void setStateError(String stateError) { this.stateError = stateError; }
 }

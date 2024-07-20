@@ -29,9 +29,10 @@ public class LogoutPresenter implements LogoutOutputBoundary {
         viewManagerModel.changeView("Sign up");
     }
 
-    @Override public void prepareFailView(String message) {
+    @Override
+    public void prepareFailView(String stateError) {
         LogoutState logoutState = logoutViewModel.getState();
-        logoutState.setLogoutMessage(message);
+        logoutState.setStateError(stateError);
         logoutViewModel.firePropertyChanged();
     }
 }
