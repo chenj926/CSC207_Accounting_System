@@ -1,8 +1,6 @@
 package data_access;
 
-import entity.SharedAccount;
-import entity.UserAccount;
-import entity.Transaction;
+import entity.*;
 
 import java.util.Map;
 import java.io.*;
@@ -10,77 +8,161 @@ import java.nio.file.*;
 import java.util.*;
 
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
+    protected final File userCsvFile;
+    private Map<String, UserAccount> userAccounts;
     protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";
 
-    public CSVUserAccountDataAccessObject() {
-        new File("data").mkdirs();
+    public CSVUserAccountDataAccessObject() throws IOException {
+        this.userCsvFile = new File(USER_CSV_FILE_PATH);
+//        this.accountFactory = accountFactory;
+        // new File("data").mkdirs(); // 有问题
     }
     @Override
-    public boolean existById(String identifier) {
-        return getById(identifier) != null;
+    public boolean existById(String identification) {
+        return readAllUsers(identification);
     }
 
     @Override
     public void save(UserAccount newUser) {
-        Map<String, UserAccount> users = readAllUsers();
-        users.put(newUser.getIdentification(), newUser);
-        writeAllUsers(users);
+        if (!existById(newUser.getIdentification())) {
+            // user info
+            String id = newUser.getIdentification();
+            String username = newUser.getUsername();
+            String password = newUser.getPassword();
+            float totalIncome = newUser.getTotalIncome();
+            float totalOutflow = newUser.getTotalOutflow();
+            float totalBalance = newUser.getTotalBalance();
+
+            // create csv line with the user info
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
+                    totalOutflow, totalBalance);
+
+            try (BufferedWriter bout = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH))) {
+                bout.write(userInfo);
+                bout.newLine();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
     @Override
     public void update(UserAccount userAccount) {
-        Map<String, UserAccount> users = readAllUsers();
-        users.put(userAccount.getIdentification(), userAccount);
-        writeAllUsers(users);
-    }
-
-    @Override
-    public void deleteById(String identifier) {
-        Map<String, UserAccount> users = readAllUsers();
-        users.remove(identifier);
-        writeAllUsers(users);
-    }
-
-    public UserAccount getById(String identifier){
-        Map<String, UserAccount> users = readAllUsers();
-        return users.get(identifier);
-    }
-
-    private Map<String, UserAccount> readAllUsers() {
-        Map<String, UserAccount> users = new HashMap<>();
-        try (BufferedReader br = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+        String identification = userAccount.getIdentification();
+        List<String> lines = new ArrayList<>();
+        String updatedLine = null;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
             String line;
-            while ((line = br.readLine()) != null) {
+            while ((line = bin.readLine()) != null) {
+//                line = bin.readLine();
                 String[] values = line.split(",");
-                if (values.length == 6) {
-                    UserAccount user = new UserAccount(
-                            values[1], values[2], values[0]); // username, password, identification
-                    user.setTotalIncome(Float.parseFloat(values[3]));
-                    user.setTotalOutflow(Float.parseFloat(values[4]));
-                    user.setTotalBalance(Float.parseFloat(values[5]));
-                    users.put(user.getIdentification(), user);
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    // user info
+                    String username = userAccount.getUsername();
+                    String password = userAccount.getPassword();
+                    float income = userAccount.getTotalIncome();
+                    float outflow = userAccount.getTotalOutflow();
+                    float balance = userAccount.getTotalBalance();
+
+                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password,
+                            income, outflow, balance);
+                    lines.add(updatedLine);
+                } else {
+                    lines.add(line);
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
-        return users;
+
+        // updateLine is updated, pass in all the info back
+        if (updatedLine != null) {
+            // open while csv, delete every thing
+            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH),
+                    StandardOpenOption.TRUNCATE_EXISTING)) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
+        }
     }
 
-    private void writeAllUsers(Map<String, UserAccount> users) {
-        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH))) {
-            for (UserAccount user : users.values()) {
-                bw.write(String.format("%s,%s,%s,%f,%f,%f",
-                        user.getIdentification(), user.getUsername(), user.getPassword(),
-                        user.getTotalIncome(), user.getTotalOutflow(), user.getTotalBalance()));
-                bw.newLine();
+    @Override
+    public void deleteById(String identification) {
+        List<String> lines = new ArrayList<>();
+
+        // Read all lines from the CSV file
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+                String[] values = line.split(",");
+                String id = values[0];
+                if (!id.equals(identification)) {
+                    lines.add(line);
+                }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
-        writeAllTransactions(users);
+
+        // Write all lines back to the CSV file, excluding the deleted user
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH), StandardOpenOption.TRUNCATE_EXISTING)) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
     }
+
+//    public UserAccount getById(String identifier){
+//        Map<String, UserAccount> users = readAllUsers();
+//        return users.get(identifier);
+//    }
+
+    private boolean readAllUsers(String identification) {
+//        this.userAccounts = new HashMap<>();
+        boolean userExist = false;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+//                line = bin.readLine();
+                String[] values = line.split(",");
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    userExist = true;
+                    return userExist;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return userExist;
+    }
+
+//    private void writeAllUsers(Map<String, UserAccount> users) {
+//        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH))) {
+//            for (UserAccount user : users.values()) {
+//                bw.write(String.format("%s,%s,%s,%f,%f,%f",
+//                        user.getIdentification(), user.getUsername(), user.getPassword(),
+//                        user.getTotalIncome(), user.getTotalOutflow(), user.getTotalBalance()));
+//                bw.newLine();
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        writeAllTransactions(users);
+//    }
 
     private List<Transaction> readTransactions(String userIdentification){
         // need implementation

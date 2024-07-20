@@ -4,12 +4,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class LogoutViewModel extends ViewModel {
-    private final String titleLabel = "LogoutView";
+    private final String titleLabel = "LOGOUT";
     private final String logoutButtonText = "Logout";
     private final String cancelButtonText = "Cancel";
+
     private LogoutState state = new LogoutState();
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    public LogoutViewModel() {
+        super("logout");
+    }
 
     // label getters
     public String getTitleLabel() {
@@ -21,23 +24,23 @@ public class LogoutViewModel extends ViewModel {
     public String getCancelButtonText() {
         return cancelButtonText;
     }
-
-    public LogoutViewModel() {
-        super("logout");
+    public LogoutState getState() {
+        return state;
     }
+
+    // setters
     public void setState(LogoutState state) {
         this.state = state;
     }
+
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
 
     public void firePropertyChanged(){
         support.firePropertyChange("state", null, this.state);
     }
     public void addPropertyChangeListener(PropertyChangeListener listener){
         support.addPropertyChangeListener(listener);
-    }
-    // Getter
-    public LogoutState getState() {
-        return state;
     }
 
 }
