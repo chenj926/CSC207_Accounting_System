@@ -10,10 +10,12 @@ import java.util.*;
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
     protected final File userCsvFile;
     private Map<String, UserAccount> userAccounts;
-    protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
+    // temp path
+    protected static final String USER_CSV_FILE_PATH = "D:\\CSC207\\CSC207_Accounting_System\\src\\main\\data\\userAccounts.csv";
+    //protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";
 
-    public CSVUserAccountDataAccessObject() throws IOException {
+    public CSVUserAccountDataAccessObject() {
         this.userCsvFile = new File(USER_CSV_FILE_PATH);
 //        this.accountFactory = accountFactory;
         // new File("data").mkdirs(); // 有问题
@@ -25,7 +27,13 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
     @Override
     public void save(UserAccount newUser) {
+        // debug
+        System.out.println("Is saving");
+        System.out.println("not exist" + !existById(newUser.getIdentification()));
+
         if (!existById(newUser.getIdentification())) {
+            System.out.println("Is in if: tring to save");  // debug
+
             // user info
             String id = newUser.getIdentification();
             String username = newUser.getUsername();
@@ -38,11 +46,15 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
                     totalOutflow, totalBalance);
 
-            try (BufferedWriter bout = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH))) {
+            System.out.println("user info: " +userInfo);  // debug
+
+            try (BufferedWriter bout = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH), StandardOpenOption.APPEND)) {
                 bout.write(userInfo);
                 bout.newLine();
+                System.out.println("Is writing...");  //  debug
             } catch (IOException e) {
-                System.err.println(e.getMessage());
+                e.printStackTrace();
+                System.err.println("Failed to write to file: " + e.getMessage());
             }
         }
     }
@@ -123,10 +135,33 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
-//    public UserAccount getById(String identifier){
-//        Map<String, UserAccount> users = readAllUsers();
-//        return users.get(identifier);
-//    }
+    public UserAccount getById(String identification){
+        UserAccount userAccount = null;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+//                line = bin.readLine();
+                String[] values = line.split(",");
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    // user info
+                    String username = values[1];
+                    String password = values[2];
+                    float income = Float.parseFloat(values[3]);
+                    float outflow = Float.parseFloat(values[4]);
+                    float balance = Float.parseFloat(values[5]);
+
+                    userAccount = new UserAccount(username, password, id, income, outflow, balance);
+                    return userAccount;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return userAccount;
+    }
 
     private boolean readAllUsers(String identification) {
 //        this.userAccounts = new HashMap<>();
