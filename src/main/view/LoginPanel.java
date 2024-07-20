@@ -1,9 +1,6 @@
 package view;
 
-import interface_adaptors.LoginController;
-import interface_adaptors.LoginState;
-import interface_adaptors.LoginViewModel;
-import interface_adaptors.SignupState;
+import interface_adaptors.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +12,7 @@ import java.awt.event.KeyListener;
 public class LoginPanel extends JPanel {
     private final LoginViewModel viewModel;
     private LoginController loginController;
+    private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField identificationTextField;
@@ -22,9 +20,10 @@ public class LoginPanel extends JPanel {
     private JButton loginButton;
     private JButton cancelButton;
 
-    public LoginPanel(LoginViewModel viewModel, LoginController loginController) {
+    public LoginPanel(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
+        this.viewManager = viewManager;
         initializeComponents();
         setupUI();
         setupListeners();
@@ -46,7 +45,7 @@ public class LoginPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(2, 5, 2, 5);  // pad
+        constraints.insets = new Insets(5, 10, 5, 10);  // pad
 
         // title label
         constraints.gridx = 0;
@@ -107,10 +106,7 @@ public class LoginPanel extends JPanel {
 
         // cancel button response action
         cancelButton.addActionListener(e -> {
-            Window window = SwingUtilities.getWindowAncestor(this);
-            if (window != null) {
-                window.dispose();
-            }
+            viewManager.setActiveViewName("home page");
         });
 
         // get typed identification

@@ -17,11 +17,11 @@ public class HomePagePanel extends JPanel {
     private JButton signupButton;
     private JButton exitButton;
 
-    public HomePagePanel(HomePageViewModel viewModel) {
+    public HomePagePanel(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         initializeComponents();
         setupUI();
-        setupListeners();
+        setupListeners(viewManager);
     }
 
     private void initializeComponents(){
@@ -34,6 +34,12 @@ public class HomePagePanel extends JPanel {
         buttons.add(this.signupButton);
         this.exitButton = new JButton(this.viewModel.getExitButtonLabel());
         buttons.add(this.exitButton);
+
+        // Set sizes for the buttons
+        Dimension buttonSize = new Dimension(150, 50);
+        loginButton.setPreferredSize(buttonSize);
+        signupButton.setPreferredSize(buttonSize);
+        exitButton.setPreferredSize(buttonSize);
 
     }
     private void setupUI(){
@@ -71,14 +77,14 @@ public class HomePagePanel extends JPanel {
         constraints.gridy++;
         add(this.exitButton, constraints);
     }
-    private void setupListeners(){
-        // signup button response action
-        signupButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
 
-            }
-        });
+    private void setupListeners(ViewManagerModel viewManager){
+        // login button response action
+        loginButton.addActionListener(e -> viewManager.setActiveViewName("log in"));
+
+        // signup button response action
+        signupButton.addActionListener(e -> viewManager.setActiveViewName("sign up"));
+
         // exit button response action
         this.exitButton.addActionListener(e -> {
             Window window = SwingUtilities.getWindowAncestor(this);

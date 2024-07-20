@@ -1,10 +1,7 @@
 package interface_adaptors;
 
-import view.LoginView;
+import view.*;
 import app.*;
-import view.LogoutView;
-import view.SignupView;
-import view.TransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -59,7 +56,7 @@ public class ViewManagerModel {
         switch (viewName) {
             case "home page":
                 HomePageViewModel homePageViewModel = new HomePageViewModel();
-                HomePageView homePageView = homePageUseCaseFactory.create(this, homePageViewModel);
+                HomePageView homePageView = HomePageUseCaseFactory.create(this, homePageViewModel);
                 views.put("home page", homePageView);
                 currentView = homePageView;
                 break;

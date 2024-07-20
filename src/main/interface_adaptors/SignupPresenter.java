@@ -27,7 +27,7 @@ public class SignupPresenter implements SignupOutputBoundary {
         viewManagerModel.setActiveViewName(signupViewModel.getViewName());
 
         // change to log in view
-        viewManagerModel.changeView("log in");
+        viewManagerModel.changeView("home page");
     }
 
     @Override
