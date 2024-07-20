@@ -1,2 +1,4 @@
-package app;public class PeriodicTransactionUseCaseFactory {
+package app;
+
+public class PeriodicTransactionUseCaseFactory {
 }
