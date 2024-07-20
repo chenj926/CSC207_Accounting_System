@@ -2,8 +2,6 @@ package interface_adaptors;
 
 import use_case.LogoutOutputBoundary;
 import use_case.LogoutOutputData;
-import use_case.SignupOutputBoundary;
-import use_case.SignupOutputData;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,16 +18,15 @@ public class LogoutPresenter implements LogoutOutputBoundary {
 
     @Override
     public void prepareSuccessView(LogoutOutputData response) {
-        // update the current signup state
-//        LogoutState logoutState = logoutViewModel.getState();
-//        logoutState.setIdentification();
-//        this.logoutViewModel.setState(logoutState);
-//        logoutState.setSuccessMsg("Sign up Success");
-//        logoutViewModel.firePropertyChanged();
-//        viewManagerModel.setActiveViewName(logoutViewModel.getViewName());
-//
-//        // change to log in view
-//        viewManagerModel.changeView("log in");
+        // update the current  state
+        LogoutState logoutState = logoutViewModel.getState();
+        this.logoutViewModel.setState(logoutState);
+        logoutState.setLogoutMessage("Successfully logged out");
+        logoutViewModel.firePropertyChanged();
+        viewManagerModel.setActiveViewName(logoutViewModel.getViewName());
+
+        // change to signup view
+        viewManagerModel.changeView("Sign up");
     }
 
     @Override public void prepareFailView(String message) {
