@@ -1,6 +1,9 @@
 package data_access;
 
 import entity.UserAccount;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.io.*;
 
@@ -47,9 +50,26 @@ public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObj
 //        return userLogin.containsKey(identification);
 //    }
 
+
     @Override
     public boolean login(UserAccount userAccount) {
-        return super.existById(userAccount.getIdentification());
+
+        try (BufferedReader bin = Files.newBufferedReader(userCsvPath)) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+                String[] values = line.split(",");
+
+                // Check if the ID and password match
+                if (values[0].equals(userAccount.getIdentification()) && values[2].equals(userAccount.getPassword())) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the CSV file: " + e.getMessage());
+        }
+
+        // If no match is found, return false
+        return false;
     }
 
     @Override
