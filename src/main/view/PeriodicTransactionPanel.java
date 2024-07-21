@@ -132,8 +132,6 @@ public class PeriodicTransactionPanel extends JPanel {
                             periodField.getText(),
                             endDateField.getText()
                     );
-
-                    System.out.println("periodic transaction controller: " + periodicTransactionController.toString());
                 }
             }
         });
@@ -147,7 +145,6 @@ public class PeriodicTransactionPanel extends JPanel {
             public void keyTyped(KeyEvent evt) {
                 PeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
-                System.out.println("amount: " + currentState.getTransactionAmount());
             }
 
             @Override
@@ -162,7 +159,6 @@ public class PeriodicTransactionPanel extends JPanel {
                 PeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionStartDate(startDateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
-                System.out.println("start date: " + currentState.getTransactionStartDate());
             }
 
             @Override
@@ -177,7 +173,6 @@ public class PeriodicTransactionPanel extends JPanel {
                 PeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionEndDate(endDateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
-                System.out.println("end date: " + currentState.getTransactionEndDate());
             }
 
             @Override
@@ -192,7 +187,6 @@ public class PeriodicTransactionPanel extends JPanel {
                 PeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
-                System.out.println("description: " + currentState.getTransactionDescription());
             }
 
             @Override
@@ -207,7 +201,6 @@ public class PeriodicTransactionPanel extends JPanel {
                 PeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionPeriod(periodField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
-                System.out.println("period: " + currentState.getTransactionPeriod());
             }
 
             @Override

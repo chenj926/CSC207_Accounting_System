@@ -374,21 +374,11 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 }
 
                 String[] values = line.split(",");
-
-                // Debugging: Print values to ensure they are correct
-                System.out.println("Read line: " + Arrays.toString(values));
-
                 // we only compare the id
-                //String id = values[0];
                 String id = values[0].trim().toLowerCase();
-                System.out.println("id" + id); // debug
-                System.out.println("iden: "+ identification);
 
-                System.out.println("compare: " + id.equals(identification.trim().toLowerCase()));
                 if (id.equals(identification.trim().toLowerCase())) {
-
                     userExist = true;
-                    System.out.println("exist: " + userExist);
                     return userExist;
                 }
             }
