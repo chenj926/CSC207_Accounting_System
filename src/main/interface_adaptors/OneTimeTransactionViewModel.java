@@ -67,5 +67,10 @@ public class OneTimeTransactionViewModel extends ViewModel {
         support.removePropertyChangeListener(listener);
     }
 
+    public void resetState() {
+        OneTimeTransactionState newState = new OneTimeTransactionState();
+        setState(newState);
+    }
+
 }
 

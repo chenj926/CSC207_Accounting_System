@@ -37,7 +37,7 @@ public class OneTimeTransactionUseCaseFactory {
         OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
         OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
-        return new OneTimeTransactionController(interactor);
+        return new OneTimeTransactionController(interactor, oneTimeTransactionViewModel);
     }
 
 }

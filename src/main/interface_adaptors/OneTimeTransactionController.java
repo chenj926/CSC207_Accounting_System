@@ -6,9 +6,12 @@ import use_case.OneTimeTransactionInputData;
 public class OneTimeTransactionController {
 
     final OneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor;
+    final OneTimeTransactionViewModel viewModel;
 
-    public OneTimeTransactionController(OneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor) {
+    public OneTimeTransactionController(OneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
+                                        OneTimeTransactionViewModel viewModel) {
         this.userOneTimeTransactionUseCaseInteractor = userOneTimeTransactionUseCaseInteractor;
+        this.viewModel = viewModel;
     }
 
     public void execute(String amount, String transactionDate, String transactionDescription, String transactionCategory) {
@@ -16,5 +19,6 @@ public class OneTimeTransactionController {
                 amount, transactionDate, transactionDescription, transactionCategory
         );
         userOneTimeTransactionUseCaseInteractor.execute(oneTimeTransactionInputData);
+        this.viewModel.resetState();
     }
 }

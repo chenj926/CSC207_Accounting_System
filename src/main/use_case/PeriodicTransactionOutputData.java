@@ -7,6 +7,7 @@ import java.time.LocalDate;
 
 public class PeriodicTransactionOutputData {
     private float transactionAmount;
+    private String id;
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
     private int transactionPeriod;
@@ -21,7 +22,7 @@ public class PeriodicTransactionOutputData {
         this.transactionDescription = periodicInflow.getDescription();
         this.transactionEndDate = periodicInflow.getEndDate();
         this.transactionPeriod = periodicInflow.getPeriod();
-//        this.date = date;
+        this.id = periodicInflow.getIdentification();
         this.newBalance = newBalance;
     }
 
@@ -32,7 +33,7 @@ public class PeriodicTransactionOutputData {
         this.transactionDescription = periodicOutflow.getDescription();
         this.transactionEndDate = periodicOutflow.getEndDate();
         this.transactionPeriod = periodicOutflow.getPeriod();
-//        this.date = date;
+        this.id = periodicOutflow.getIdentification();
         this.newBalance = newBalance;
     }
 
@@ -54,6 +55,9 @@ public class PeriodicTransactionOutputData {
     }
     public LocalDate getDate() {return this.date; }
     public float getNewBalance() {return this.newBalance;}
+    public String getId() {
+        return this.id;
+    }
 
     // setters
     public void setTransactionStartDate(LocalDate transactionStartDate) {

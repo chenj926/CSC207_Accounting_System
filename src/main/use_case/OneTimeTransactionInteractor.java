@@ -7,6 +7,7 @@ import entity.OneTimeOutflow;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
 public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
@@ -61,7 +62,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             income = totalIncome + amount;
             userAccount.setTotalIncome(income);  // update the total income
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localDate = null;
             try {
                 localDate = LocalDate.parse(date, formatter);
@@ -75,8 +76,12 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance + income;
             userAccount.setTotalBalance(totalBalance);
+
             // Prepare output data
             OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow, userAccount.getTotalBalance());
+
+            // save this transaction
+            userDataAccessObject.saveTransaction(outputData, null,false);
             presenter.prepareSuccessView(outputData);
         }
         else {
@@ -84,7 +89,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             outFlow = totalOutflow + amount;
             userAccount.setTotalOutflow(outFlow);  // update the total outflow
 
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
             LocalDate localDate = null;
             try {
                 localDate = LocalDate.parse(date, formatter);
@@ -98,8 +103,12 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance + outFlow;
             userAccount.setTotalBalance(totalBalance);
+
             // Prepare output data
             OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow, userAccount.getTotalBalance());
+
+            // save this transaction
+            userDataAccessObject.saveTransaction(outputData, null,false);
             presenter.prepareSuccessView(outputData);
         }
     }
