@@ -43,4 +43,12 @@ public class SignupView extends JFrame implements PropertyChangeListener {
         }
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            signupPanel.clearFields(); // Clear the fields when the view becomes visible
+        }
+    }
+
 }

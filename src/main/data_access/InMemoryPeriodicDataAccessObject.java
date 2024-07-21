@@ -1,6 +1,8 @@
 package data_access;
 
 import entity.UserAccount;
+import use_case.OneTimeTransactionOutputData;
+import use_case.PeriodicTransactionOutputData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,5 +37,11 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
     @Override
     public void save(UserAccount userAccount) {
         System.out.println("id");
+    }
+
+    @Override
+    public void saveTransaction(OneTimeTransactionOutputData outputData,
+                                PeriodicTransactionOutputData periodicTransactionOutputData, boolean isPeriodic) {
+        System.out.println("not implemented yet");
     }
 }

@@ -38,7 +38,11 @@ public class LoginView extends JFrame implements PropertyChangeListener {
         }
     }
 
-//    public static void main(String[] args) {
-//        SwingUtilities.invokeLater(() -> new LogInView(new LoginViewModel()));
-//    }
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            loginPanel.clearFields(); // Clear the fields when the view becomes visible
+        }
+    }
 }

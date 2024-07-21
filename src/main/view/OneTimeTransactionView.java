@@ -40,4 +40,12 @@ public class OneTimeTransactionView extends JFrame implements PropertyChangeList
         }
     }
 
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+            oneTimeTransactionPanel.clearFields(); // Clear the fields when the view becomes visible
+        }
+    }
+
 }
