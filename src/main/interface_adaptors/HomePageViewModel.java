@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 public class HomePageViewModel extends ViewModel{
 
-    private final String titleLabel = "Home Page";
+    private final String titleLabel = "Welcome to Accounting System";
     private final String signupButtonLabel = "Sign up";
     private final String loginButtonLabel = "Login";
     private final String exitButtonLabel = "Exit";

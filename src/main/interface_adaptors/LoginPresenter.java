@@ -24,6 +24,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         viewManagerModel.setActiveViewName(loginViewModel.getViewName());
 
         // should change to next view
+        viewManagerModel.changeView("Transaction");
     }
 
     @Override

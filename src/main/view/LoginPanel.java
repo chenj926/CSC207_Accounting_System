@@ -30,51 +30,65 @@ public class LoginPanel extends JPanel {
     }
 
     private void initializeComponents() {
+        // title layout
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
+        this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+
         this.identificationTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
 
+        // add buttons
         JPanel buttons = new JPanel();
         this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
         buttons.add(this.loginButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButtonLabel());
         buttons.add(this.cancelButton);
+
+        // Style buttons
+        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.loginButton.setBackground(new Color(100, 150, 200));
+        this.cancelButton.setBackground(new Color(200, 100, 100));
+        this.loginButton.setForeground(Color.WHITE);
+        this.cancelButton.setForeground(Color.WHITE);
     }
 
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(5, 10, 5, 10);  // pad
+//        constraints.fill = GridBagConstraints.HORIZONTAL;
+        constraints.insets = new Insets(10, 10, 10, 10);  // pad
 
         // title label
         constraints.gridx = 0;
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
-        add(titleLabel, constraints);
+//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
+        add(this.titleLabel, constraints);
 
         // reset gridwidth and anchor for other components
-        constraints.gridwidth = 1;
+//        constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.WEST;
-        constraints.fill = GridBagConstraints.HORIZONTAL;
+//        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // identification
-        constraints.gridx = 0;
+//        constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getIdentificationLabel()), constraints);
+        constraints.gridwidth = 1;
+        add(new JLabel(this.viewModel.getIdentificationLabel()), constraints);
         // input identification
         constraints.gridx = 1;
-        add(identificationTextField, constraints);
+        add(this.identificationTextField, constraints);
 
         // password
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getPasswordLabel()), constraints);
+        add(new JLabel(this.viewModel.getPasswordLabel()), constraints);
         // input password
         constraints.gridx = 1;
-        add(passwordField, constraints);
+        add(this.passwordField, constraints);
 
         // login button
         constraints.gridx = 0;
@@ -83,7 +97,7 @@ public class LoginPanel extends JPanel {
         add(loginButton, constraints);
 
         // cancel button
-        constraints.gridy = 4;
+        constraints.gridy++;
         add(cancelButton, constraints);
     }
 

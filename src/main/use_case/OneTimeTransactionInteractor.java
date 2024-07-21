@@ -11,14 +11,12 @@ import java.time.format.DateTimeParseException;
 public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
     final OneTimeTransactionOutputBoundary presenter;
-    final UserAccount userAccount;
+    private UserAccount userAccount;
 
     public OneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                        OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
-                                        UserAccount userAccount) {
+                                        OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary) {
         this.userDataAccessObject = userAccountDataAccessInterface;
         this.presenter = oneTimeTransactionOutputBoundary;
-        this.userAccount = userAccount;
     }
 
     @Override
@@ -32,7 +30,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
 
         // Fetch user account based on identification
-        UserAccount userAccount = userDataAccessObject.getById(identification);
+        this.userAccount = userDataAccessObject.getById(identification);
 
 
         float income = 0.0f;

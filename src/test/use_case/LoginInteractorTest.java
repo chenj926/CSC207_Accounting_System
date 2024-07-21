@@ -23,8 +23,8 @@ public class LoginInteractorTest {
     public void setUp() {
         userDataAccessObject = new InMemoryLoginDataAccess();
         presenter = new SimplePresenter();
-        accountFactory = new AccountFactory();
-        loginInteractor = new LoginInteractor(userDataAccessObject, presenter, accountFactory);
+//        accountFactory = new AccountFactory();
+        loginInteractor = new LoginInteractor(userDataAccessObject, presenter);
     }
 
     @Test

@@ -3,13 +3,12 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class PeriodicTransactionViewModel extends TransactionViewModel {
+public class PeriodicTransactionViewModel extends ViewModel {
     private PeriodicTransactionState transactionState;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public PeriodicTransactionViewModel() {
         super("Periodic Transaction");
-        this.transactionState = new PeriodicTransactionState();
     }
 
     public PeriodicTransactionState getState() {
