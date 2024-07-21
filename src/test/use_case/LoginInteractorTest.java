@@ -50,7 +50,7 @@ public class LoginInteractorTest {
         loginInteractor.execute(inputData);
 
         assertTrue(presenter.isSuccess());
-        assertEquals(username, presenter.getData().getIdentification());
+        assertEquals(userId, presenter.getData().getIdentification());
     }
 
     private static class InMemoryLoginDataAccess implements LoginDataAccessInterface {
