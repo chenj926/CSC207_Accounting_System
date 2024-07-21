@@ -84,10 +84,10 @@ public class DAOFactory {
             }
             return inMemoryOneTimeDataAccessObject;
         } else {
-            if (csvUserLoginoutDAO == null) {
-                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            if (csvUserAccountDAO == null) {
+                csvUserAccountDAO = new CSVUserAccountDataAccessObject();
             }
-            return csvUserLoginoutDAO;
+            return csvUserAccountDAO;
         }
     }
 
@@ -98,10 +98,10 @@ public class DAOFactory {
             }
             return inMemoryPeriodicDataAccessObject;
         } else {
-            if (csvUserLoginoutDAO == null) {
-                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            if (csvUserAccountDAO == null) {
+                csvUserAccountDAO = new CSVUserLoginoutDataAccessObject();
             }
-            return csvUserLoginoutDAO;
+            return csvUserAccountDAO;
         }
     }
 }
