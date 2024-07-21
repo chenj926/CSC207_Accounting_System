@@ -31,7 +31,7 @@ public class PeriodicTransactionUseCaseFactory {
 
     private static PeriodicTransactionController createUserPeriodicUseCase(ViewManagerModel viewManager,
                                                                            PeriodicTransactionViewModel viewModel) throws IOException {
-        UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
+        UserAccountDataAccessInterface dataAccessObject = DAOFactory.getPeriodicTransactionDAO();
         PeriodicTransactionOutputBoundary presenter = new PeriodicTransactionPresenter(viewModel, viewManager);
         UserAccount userAccount = dataAccessObject.getById(viewManager.getUserId());
         PeriodicTransactionInteractor interactor = new PeriodicTransactionInteractor(dataAccessObject, presenter, userAccount);
