@@ -11,9 +11,9 @@ public class OneTimeTransactionController {
         this.userOneTimeTransactionUseCaseInteractor = userOneTimeTransactionUseCaseInteractor;
     }
 
-    public void execute(float amount, String identification, String transactionDate, String transactionDescription, String transactionCategory) {
+    public void execute(String amount, String transactionDate, String transactionDescription, String transactionCategory) {
         OneTimeTransactionInputData oneTimeTransactionInputData = new OneTimeTransactionInputData(
-                amount, identification, transactionDate, transactionDescription, transactionCategory
+                amount, transactionDate, transactionDescription, transactionCategory
         );
         userOneTimeTransactionUseCaseInteractor.execute(oneTimeTransactionInputData);
     }
