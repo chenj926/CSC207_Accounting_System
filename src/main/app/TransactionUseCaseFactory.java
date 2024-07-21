@@ -21,7 +21,7 @@ public class TransactionUseCaseFactory {
             UserAccount mockUserAccount = new UserAccount("mockUsername", "mockPassword", "mockId");
 
             // Create One-Time Transaction Components
-            OneTimeTransactionOutputBoundary oneTimePresenter = new OneTimeTransactionPresenter(new OneTimeTransactionViewModel(), transactionViewModel);
+            OneTimeTransactionOutputBoundary oneTimePresenter = new OneTimeTransactionPresenter(new OneTimeTransactionViewModel(), viewManagerModel);
             OneTimeTransactionInputBoundary oneTimeInteractor = new OneTimeTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (OneTimeTransactionOutputBoundary) oneTimePresenter, mockUserAccount);
             OneTimeTransactionController oneTimeController = new OneTimeTransactionController(oneTimeInteractor);
 

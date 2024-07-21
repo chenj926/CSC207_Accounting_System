@@ -5,7 +5,7 @@ import java.beans.PropertyChangeSupport;
 
 public class SignupViewModel extends ViewModel {
 
-    private final String TITLE_LABEL = "Sign Up View";
+    private final String TITLE_LABEL = "Sign Up";
     private final String USERNAME_LABEL = "Set username";
     private final String PASSWORD_LABEL = "Set password";
     private final String ID_LABEL = "Set identification";

@@ -1,8 +1,7 @@
 package interface_adaptors;
 
-import view.LoginView;
+import view.*;
 import app.*;
-import view.SignupView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -55,10 +54,17 @@ public class ViewManagerModel {
 
     private void createView(String viewName) {
         switch (viewName) {
+            case "home page":
+                HomePageViewModel homePageViewModel = new HomePageViewModel();
+                HomePageView homePageView = HomePageUseCaseFactory.create(this, homePageViewModel);
+                views.put("home page", homePageView);
+                currentView = homePageView;
+                break;
             case "sign up":
                 SignupViewModel signupViewModel = new SignupViewModel();
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
+                currentView = signupView;
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
@@ -66,11 +72,32 @@ public class ViewManagerModel {
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
-            case "one time":
+            case "Transaction":
+                TransactionViewModel transactionViewModel = new TransactionViewModel();
+                TransactionView transactionView = TransactionUseCaseFactory.createTransactionView(this,
+                        transactionViewModel);
+                views.put("Transaction", transactionView);
+                currentView = transactionView;
                 break;
-            case "periodic":
+            case "One Time Transaction":
+                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
+                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.createTransactionView(this,
+                        oneTimeTransactionViewModel);
+                views.put("One Time Transaction", oneTimeTransactionView);
+                currentView = oneTimeTransactionView;
+                break;
+            case "Periodic Transaction":
+                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
+                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.createTransactionView(this,
+                        periodicTransactionViewModel);
+                views.put("Periodic Transaction", periodicTransactionView);
+                currentView = periodicTransactionView;
                 break;
             case "log out":
+                LogoutViewModel logoutViewModel = new LogoutViewModel();
+                LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
+                views.put("log out", logoutView);
+                currentView = logoutView;
                 break;
         }
         if (currentView != null) {

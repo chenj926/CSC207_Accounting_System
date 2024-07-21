@@ -1,63 +1,49 @@
 package interface_adaptors;
 
 public class LoginState {
-    private String username;
-    private String usernameError;
+    private String identification;
     private String password;
-    private String passwordError;
+    private String stateError;
+    private String successMsg;
 
     public LoginState() {
-        this.username = "";
-        this.usernameError = null;
+        this.identification = "";
         this.password = "";
-        this.passwordError = null;
+        this.stateError = null;
+        this.successMsg = null;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public String getUsernameError() {
-        return usernameError;
+    // getters
+    public String getIdentification() {
+        return this.identification;
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
-    public String getPasswordError() {
-        return passwordError;
+    public String getStateError() {
+        return this.stateError;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-        validate();
+    public String getSuccessMsg() {
+        return this.successMsg;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.usernameError = usernameError;
+    // setters
+    public void setIdentification(String id) {
+        this.identification = id;
     }
 
     public void setPassword(String password) {
         this.password = password;
-        validate();
     }
 
-    public void setPasswordError(String passwordError) {
-        this.passwordError = passwordError;
+    public void setStateError(String err) {
+        this.stateError = err;
     }
 
-    private void validate() {
-        if (username == null || username.isEmpty()) {
-            usernameError = "Username cannot be empty";
-        } else {
-            usernameError = null;
-        }
-
-        if (password == null || password.isEmpty()) {
-            passwordError = "Password cannot be empty";
-        } else {
-            passwordError = null;
-        }
+    public void setSuccessMsg(String msg) {
+        this.successMsg = msg;
     }
 }

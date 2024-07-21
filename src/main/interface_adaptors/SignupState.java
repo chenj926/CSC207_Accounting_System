@@ -44,7 +44,7 @@ public class SignupState {
     public void setSuccessMsg(String msg) { this.successMsg = msg; }
 
     public boolean isValid() {
-        return this.stateError != null && this.successMsg != null;
+        return this.successMsg != null;
     }
 
     public void reset() {

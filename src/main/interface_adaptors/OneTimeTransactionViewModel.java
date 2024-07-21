@@ -4,28 +4,25 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class OneTimeTransactionViewModel extends TransactionViewModel {
-    private String successMessage;
-    private String errorMessage;
-
-    private OneTimeTransactionState transactionState;
+    private OneTimeTransactionState state = new OneTimeTransactionState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public OneTimeTransactionViewModel() {
         super("One-Time Transaction");
-        this.transactionState = new OneTimeTransactionState();
     }
 
+    // getters
     public OneTimeTransactionState getState() {
-        return transactionState;
+        return this.state;
     }
 
-    public void notifyPropertyChange() {
-        support.firePropertyChange("transaction", null, this);
+    // setters
+    public void setState(OneTimeTransactionState state) {
+        this.state = state;
     }
 
-    @Override
-    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
-        this.support.firePropertyChange(propertyName, oldValue, newValue);
+    public void firePropertyChanged() {
+        support.firePropertyChange("transaction", null, this.state);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -36,21 +33,5 @@ public class OneTimeTransactionViewModel extends TransactionViewModel {
         support.removePropertyChangeListener(listener);
     }
 
-    public boolean validateOneTimeTransaction() {
-        if (transactionState.getTransactionAmount() <= 0) {
-            transactionState.setError("Transaction amount must be greater than 0");
-            return false;
-        }
-        if (!transactionState.getTransactionDate().matches("\\d{4}-\\d{2}-\\d{2}")) {
-            transactionState.setError("Transaction date must be in the format YYYY-MM-DD");
-            return false;
-        }
-        if (transactionState.getTransactionDescription().isEmpty()) {
-            transactionState.setError("Transaction description cannot be empty");
-            return false;
-        }
-        transactionState.setError(null);
-        return true;
-    }
 }
 

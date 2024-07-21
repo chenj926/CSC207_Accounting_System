@@ -1,40 +1,29 @@
 package interface_adaptors;
 
 public class LogoutState {
-    private String userId = "";
-    private String logoutMessage = "confirm to logout";
-    private boolean isLoggedOut = false;
+    private String logoutMessage;
+    private String stateError;
 
-    public LogoutState(LogoutState copy) {
-        userId = copy.userId;
-        logoutMessage = copy.logoutMessage;
-        isLoggedOut = copy.isLoggedOut;
+    public LogoutState() {
+        this.logoutMessage = null;
+        this.stateError = null;
     }
 
     //the default constructor
-    public LogoutState() {}
 
-    public String getUserId() {
-        return userId;
-    }
-
+// getter
     public String getLogoutMessage() {
-        return logoutMessage;
+        return this.logoutMessage;
     }
 
-    public boolean isLoggedOut() {
-        return isLoggedOut;
+    public String getStateError() {
+        return this.stateError;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
+// setter
     public void setLogoutMessage(String logoutMessage) {
         this.logoutMessage = logoutMessage;
     }
 
-    public void setLoggedOut(boolean isLoggedOut) {
-        this.isLoggedOut = isLoggedOut;
-    }
+    public void setStateError(String stateError) { this.stateError = stateError; }
 }

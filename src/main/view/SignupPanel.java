@@ -13,6 +13,7 @@ import java.awt.event.KeyListener;
 public class SignupPanel extends JPanel {
     private final SignupViewModel viewModel;
     private SignupController signupController;
+    private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField usernameTextField;
@@ -21,8 +22,9 @@ public class SignupPanel extends JPanel {
     private JButton signupButton;
     private JButton cancelButton;
 
-    public SignupPanel(SignupViewModel viewModel, SignupController signupController) {
+    public SignupPanel(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
         this.signupController = signupController;
+        this.viewManager = viewManager;
         this.viewModel = viewModel;
         initializeComponents();
         setupUI();
@@ -46,11 +48,24 @@ public class SignupPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(2, 5, 2, 5);  // pad
+        constraints.insets = new Insets(5, 10, 5, 10);  // pad
+
+        // title Label
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
+        add(titleLabel, constraints);
+
+        // reset gridwidth and anchor for other components
+        constraints.gridwidth = 1;
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // username
         constraints.gridx = 0;
-        constraints.gridy = 0;
+        constraints.gridy = 1;
         add(new JLabel(this.viewModel.getUsernameLabel()), constraints);
         // input username
         constraints.gridx = 1;
@@ -106,10 +121,7 @@ public class SignupPanel extends JPanel {
 
         // cancel button response action
         this.cancelButton.addActionListener(e -> {
-            Window window = SwingUtilities.getWindowAncestor(this);
-            if (window != null) {
-                window.dispose();
-            }
+            viewManager.setActiveViewName("home page");
         });
 
         // get typed username

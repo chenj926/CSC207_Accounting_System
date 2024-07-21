@@ -16,8 +16,9 @@ public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAcc
     }
 
     @Override
-    public void login(UserAccount userAccount) {
+    public boolean login(UserAccount userAccount) {
         userLogin.put(userAccount.getIdentification(), true);
+        return false;
     }
 
     @Override
