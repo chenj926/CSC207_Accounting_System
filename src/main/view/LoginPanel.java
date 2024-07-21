@@ -111,9 +111,6 @@ public class LoginPanel extends JPanel {
                             String.valueOf(passwordField.getPassword()),
                             identificationTextField.getText()
                     );
-
-                    // debug
-                    System.out.println("login controller: " + loginController.toString());
                 }
             }
         });
@@ -132,9 +129,6 @@ public class LoginPanel extends JPanel {
                         currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
                         viewManager.setUserId(identificationTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("id: " + currentState.getIdentification());  //  debug
-                        System.out.println("vmr id: " + viewManager.getUserId());
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -151,8 +145,6 @@ public class LoginPanel extends JPanel {
                         LoginState currentState = viewModel.getState();
                         currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("pass: " + currentState.getPassword());  //  debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}

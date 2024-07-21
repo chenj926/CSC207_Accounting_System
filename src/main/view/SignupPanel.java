@@ -124,9 +124,6 @@ public class SignupPanel extends JPanel {
                                     String.valueOf(passwordField.getPassword()),
                                     idenficationField.getText()
                             );
-
-                            // debug
-                            System.out.println(signupController);
                         }
                     }
                 }
@@ -145,8 +142,6 @@ public class SignupPanel extends JPanel {
                         SignupState currentState = viewModel.getState();
                         currentState.setUsername(usernameTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("username: " + currentState.getUsername());  //  debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -163,8 +158,6 @@ public class SignupPanel extends JPanel {
                         SignupState currentState = viewModel.getState();
                         currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("pass: " + currentState.getPassword());  //  debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -180,8 +173,6 @@ public class SignupPanel extends JPanel {
                         SignupState currentState = viewModel.getState();
                         currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("id: " + currentState.getIdentification());  //  debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
