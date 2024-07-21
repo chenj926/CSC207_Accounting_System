@@ -15,7 +15,7 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
     @Override
     public void prepareSuccessView(PeriodicTransactionOutputData data) {
         // update the current transaction sate
-        PeriodicTransactionState periodicState = viewModel.getState();
+        PeriodicTransactionState periodicState = this.viewModel.getState();
 
         // set info
         periodicState.setTransactionAmount(String.valueOf(data.getTransactionAmount()));
@@ -23,20 +23,24 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
         periodicState.setTransactionDescription(data.getTransactionDescription());
         periodicState.setTransactionPeriod(String.valueOf(data.getTransactionPeriod()));
         periodicState.setTransactionEndDate(data.getTransactionEndDate().toString());
+        periodicState.setSuccessMessage("Period Transaction Recorded successfully!");
+
+        // fire property change
         this.viewModel.setState(periodicState);
-        periodicState.setSuccessMessage("Periodic transaction recorded successfully!");
-        viewModel.firePropertyChanged();
-        viewManager.setActiveViewName(viewModel.getViewName());
+        this.viewModel.firePropertyChanged();
+
+        this.viewManager.setActiveViewName(viewModel.getViewName());
 
         // go back to home page 2
-        viewManager.changeView("Transaction");
+        this.viewManager.changeView("Transaction");
     }
 
     @Override
     public void prepareFailView(String error) {
-        PeriodicTransactionState periodicState = viewModel.getState();
+        PeriodicTransactionState periodicState = this.viewModel.getState();
         periodicState.setError(error);
         periodicState.setSuccessMessage(null); // Clear success message on failure
-        viewModel.firePropertyChanged();
+        this.viewModel.setState(periodicState);
+        this.viewModel.firePropertyChanged();
     }
 }

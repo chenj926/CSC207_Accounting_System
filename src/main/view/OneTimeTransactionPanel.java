@@ -130,9 +130,6 @@ public class OneTimeTransactionPanel extends JPanel {
                             descriptionField.getText(),
                             categoryField.getText()
                     );
-
-                    // debug
-                    System.out.println("one time transaction controller: " + oneTimeTransactionController.toString());
                 }
             }
         });
@@ -149,9 +146,6 @@ public class OneTimeTransactionPanel extends JPanel {
                     public void keyTyped(KeyEvent evt) {
                         OneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
-
-                        System.out.println("amount: " + currentState.getTransactionAmount());  // debug
-
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -168,8 +162,6 @@ public class OneTimeTransactionPanel extends JPanel {
                         OneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("date: " + currentState.getTransactionDate());  // debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -186,8 +178,6 @@ public class OneTimeTransactionPanel extends JPanel {
                         OneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("description: " + currentState.getTransactionDescription());  // debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -204,8 +194,6 @@ public class OneTimeTransactionPanel extends JPanel {
                         OneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionCategory(categoryField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
-
-                        System.out.println("category: " + currentState.getTransactionCategory());  // debug
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}

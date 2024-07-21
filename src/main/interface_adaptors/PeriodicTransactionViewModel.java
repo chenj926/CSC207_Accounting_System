@@ -60,7 +60,7 @@ public class PeriodicTransactionViewModel extends ViewModel {
     }
 
     public void firePropertyChanged() {
-        support.firePropertyChange("transaction", null, this.transactionState);
+        support.firePropertyChange("state", null, this.transactionState);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

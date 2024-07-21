@@ -56,7 +56,7 @@ public class OneTimeTransactionViewModel extends ViewModel {
     }
 
     public void firePropertyChanged() {
-        support.firePropertyChange("transaction", null, this.state);
+        support.firePropertyChange("state", null, this.state);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {

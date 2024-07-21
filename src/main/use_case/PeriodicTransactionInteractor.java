@@ -134,14 +134,14 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 return;
             }
 
+            // init data
+            PeriodicTransactionOutputData outputData = null;
             LocalDate currentDate = localStartDate;
-            while (!currentDate.isAfter(localEndDate)) {
-                // Add the transaction for the current date
-                PeriodicTransactionOutputData outputData;
 
+            while (!currentDate.isAfter(localEndDate)) {
                 if (periodTypes.contains(period)) {
                     // inflow transaction
-                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
+                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate,
                             description, localEndDate, (int) unit.getDuration().toDays());
 
                     float totalIncome = userAccount.getTotalIncome();
@@ -157,7 +157,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                             userAccount.getTotalBalance());
                 } else {
                     // inflow transaction
-                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, localStartDate,
+                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate,
                             description, localEndDate, customPeriod);
 
                     // update the total income
@@ -180,20 +180,17 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
-                    System.out.println(currentDate);  //debug
                     outputData.setDate(currentDate);
+
                 } else if (customPeriod == 0) {
                     currentDate = currentDate.plus(1, unit);  // plus the custom days
-                    System.out.println(currentDate);  //debug
-
                     outputData.setDate(currentDate);
                 } else {
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
-                    System.out.println(currentDate);  //debug
-
                     outputData.setDate(currentDate);
                 }
             }
+            presenter.prepareSuccessView(outputData);
         }
 
         // for outflow
@@ -260,14 +257,14 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 return;
             }
 
+            // init data
+            PeriodicTransactionOutputData outputData = null;
             LocalDate currentDate = localStartDate;
-            while (!currentDate.isAfter(localEndDate)) {
-                // Add the transaction for the current date
 
-                PeriodicTransactionOutputData outputData;
+            while (!currentDate.isAfter(localEndDate)) {
                 if (periodTypes.contains(period)) {
                     // inflow transaction
-                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, localStartDate,
+                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate,
                             description, localEndDate, (int) unit.getDuration().toDays());
 
                     // update the total outFlow
@@ -284,7 +281,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                             userAccount.getTotalBalance());
                 } else {
                     // inflow transaction
-                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, localStartDate,
+                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate,
                             description, localEndDate, customPeriod);
 
                     // update the total outFlow
@@ -308,6 +305,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
                     outputData.setDate(currentDate);
+                    System.out.println("outputdata:" + outputData);
                 } else if (customPeriod == 0) {
                     currentDate = currentDate.plus(1, unit);  // plus the custom days
                     outputData.setDate(currentDate);
