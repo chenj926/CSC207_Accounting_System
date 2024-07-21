@@ -1,6 +1,8 @@
 package data_access;
 
 import entity.UserAccount;
+import use_case.OneTimeTransactionOutputData;
+import use_case.PeriodicTransactionOutputData;
 
 public interface UserAccountDataAccessInterface {
     boolean existById(String identification);
@@ -8,6 +10,8 @@ public interface UserAccountDataAccessInterface {
     void update(UserAccount userAccount);
     void deleteById(String identifier);
     void save(UserAccount suerAccount);
+    void saveTransaction(OneTimeTransactionOutputData outputData,
+                         PeriodicTransactionOutputData periodicTransactionOutputData, boolean isPeriodic);
 
 
     // void updateId(UserAccount userAccount);
