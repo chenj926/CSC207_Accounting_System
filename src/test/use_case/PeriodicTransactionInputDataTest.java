@@ -23,7 +23,7 @@ public class PeriodicTransactionInputDataTest {
                 transactionEndDate
         );
 
-        assertEquals(transactionAmount, inputData.getTransactionAmount());
+        assertEquals(transactionAmountString, inputData.getTransactionAmount());
         assertEquals(transactionStartDate, inputData.getTransactionStartDate());
         assertEquals(transactionDescription, inputData.getTransactionDescription());
         assertEquals(transactionPeriod, inputData.getTransactionPeriod());
