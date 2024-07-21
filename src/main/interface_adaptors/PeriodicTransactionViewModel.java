@@ -4,24 +4,63 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class PeriodicTransactionViewModel extends ViewModel {
-    private PeriodicTransactionState transactionState;
+    // labels
+    private final String TITLE_LABEL = "Periodic Transaction";
+    private final String AMOUNT = "Transaction Amount";
+    private final String ID = "Identification";
+    private final String STARTDATE = "Transaction Start Date";
+    private final String ENDDATE = "Transaction End Date";
+    private final String DESCRIPTION = "Description";
+    private final String PERIOD = "Period";
+
+    private final String SUBMIT_BUTTON = "Submit Transaction";
+    private final String CANCEL_BUTTON = "Cancel";
+
+    private PeriodicTransactionState transactionState = new PeriodicTransactionState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public PeriodicTransactionViewModel() {
         super("Periodic Transaction");
     }
 
+    // getters
+    public String getTitleLabel() {
+        return this.TITLE_LABEL;
+    }
+    public String getAmount() {
+        return this.AMOUNT;
+    }
+    public String getId() {
+        return this.ID;
+    }
+    public String getStartDate() {
+        return this.STARTDATE;
+    }
+    public String getEndDate() {
+        return this.ENDDATE; }
+    public String getDescription() {
+        return this.DESCRIPTION;
+    }
+    public String getSubmitButton() {
+        return this.SUBMIT_BUTTON;
+    }
+    public String getCancelButton() {
+        return this.CANCEL_BUTTON;
+    }
+    public String getPeriod() {
+        return this.PERIOD;
+    }
     public PeriodicTransactionState getState() {
-        return transactionState;
+        return this.transactionState;
     }
 
-    public void notifyPropertyChange() {
-        support.firePropertyChange("transaction", null, this);
+    // setters
+    public void setState(PeriodicTransactionState state) {
+        this.transactionState = state;
     }
 
-    @Override
-    protected void firePropertyChanged(String propertyName, Object oldValue, Object newValue) {
-        this.support.firePropertyChange(propertyName, oldValue, newValue);
+    public void firePropertyChanged() {
+        support.firePropertyChange("transaction", null, this.transactionState);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -32,21 +71,9 @@ public class PeriodicTransactionViewModel extends ViewModel {
         support.removePropertyChangeListener(listener);
     }
 
-    public boolean validatePeriodicTransaction() {
-        if (transactionState.getTransactionAmount() <= 0) {
-            transactionState.setError("Transaction amount must be greater than 0");
-            return false;
-        }
-        if (!transactionState.getTransactionEndDate().matches("\\d{4}-\\d{2}-\\d{2}")) {
-            transactionState.setError("Transaction date must be in the format YYYY-MM-DD");
-            return false;
-        }
-        if (transactionState.getTransactionDescription().isEmpty()) {
-            transactionState.setError("Transaction description cannot be empty");
-            return false;
-        }
-        transactionState.setError(null);
-        return true;
+    public void resetState() {
+        PeriodicTransactionState newState = new PeriodicTransactionState();
+        setState(newState);
     }
 }
 

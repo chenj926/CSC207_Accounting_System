@@ -6,7 +6,6 @@ import use_case.OneTimeTransactionOutputData;
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
-//    private final TransactionViewModel transactionViewModel;
 
     public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
@@ -26,7 +25,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         oneTimeState.setTransactionCategory(data.getTransactionCategory());
         oneTimeState.setUseCaseFailed(data.isUseCaseFailed());
         this.viewModel.setState(oneTimeState);
-        oneTimeState.setSuccessMessage("One-time transaction recorded successfully!");
+        oneTimeState.setSuccessMessage("One time transaction recorded successfully!");
         viewModel.firePropertyChanged();
         viewManager.setActiveViewName(viewModel.getViewName());
 
@@ -37,15 +36,11 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
 
     @Override
     public void prepareFailView(String error) {
-        OneTimeTransactionState state = viewModel.getState();
-        state.setErrorMessage(error);
+        OneTimeTransactionState oneTimeState = viewModel.getState();
+        oneTimeState.setErrorMessage(error);
+        oneTimeState.setSuccessMessage(null); // Clear success message on failure
         viewModel.firePropertyChanged();
     }
-
-//
-//    public void handleCancel() {
-//        transactionViewModel.selectOneTimeTransaction();
-//    }
 }
 
 

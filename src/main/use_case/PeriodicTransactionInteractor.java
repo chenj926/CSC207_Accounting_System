@@ -30,15 +30,34 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
     @Override
     public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
-        String identification = periodicTransactionInputData.getIdentification();
-        float amount = periodicTransactionInputData.getTransactionAmount();
+        String identification = userAccount.getIdentification();
+        String stringAmount = periodicTransactionInputData.getTransactionAmount();
         String endDate = periodicTransactionInputData.getTransactionEndDate();
         String description = periodicTransactionInputData.getTransactionDescription();
         String startDate = periodicTransactionInputData.getTransactionStartDate();
         String period = periodicTransactionInputData.getTransactionPeriod();
 
-        // Fetch user account based on identification
-        UserAccount userAccount = userDataAccessObject.getById(identification);
+        // if user entered empty input in one or more of the input fields
+        if(!checkValid(stringAmount) || !checkValid(startDate) || !checkValid(endDate) ||
+                !checkValid(description) || !checkValid(period)) {
+            presenter.prepareFailView("Please do NOT have any empty inputs!");
+            return;
+        }
+
+        // check if the entered amount is correct
+        float amount = 0.00f;
+        // to see if amount is proper float
+        try {
+            amount = Float.parseFloat(stringAmount);
+        } catch (NumberFormatException e) {
+            presenter.prepareFailView("Incorrect amount! please ONLY enter number");
+            return;
+        }
+
+        // format the input to .2 decimal place
+        String formattedAmount = String.format("%.2f", amount);
+        amount = Float.parseFloat(formattedAmount);
+
 
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
         float income = 0.0f;
@@ -166,6 +185,10 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
                     outputData.setDate(currentDate);
                 }
+
+                // save transaction
+                userDataAccessObject.saveTransaction(null, outputData, true);
+
             }
         }
 
@@ -285,7 +308,17 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
                     outputData.setDate(currentDate);
                 }
+
+                // save transaction
+                userDataAccessObject.saveTransaction(null, outputData, true);
             }
         }
+    }
+
+    public boolean checkValid(String userInfo) {
+        if (userInfo == null || userInfo.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 }

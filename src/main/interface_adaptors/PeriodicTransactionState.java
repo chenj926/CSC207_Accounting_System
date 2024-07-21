@@ -1,24 +1,24 @@
 package interface_adaptors;
 
 public class PeriodicTransactionState {
-    private float transactionAmount;
+    private String transactionAmount;
     private String transactionStartDate;
     private String transactionEndDate;
-    private int transactionPeriod;
+    private String transactionPeriod;
     private String transactionDescription;
     private String successMessage;
-    private String error;
+    private String errorMsg;
 
-    public float getTransactionAmount() {
-        return transactionAmount;
+    public String getTransactionAmount() {
+        return this.transactionAmount;
     }
 
-    public void setTransactionAmount(float transactionAmount) {
+    public void setTransactionAmount(String transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
 
     public String getTransactionStartDate() {
-        return transactionStartDate;
+        return this.transactionStartDate;
     }
 
     public void setTransactionStartDate(String transactionStartDate) {
@@ -26,23 +26,23 @@ public class PeriodicTransactionState {
     }
 
     public String getTransactionEndDate() {
-        return transactionEndDate;
+        return this.transactionEndDate;
     }
 
     public void setTransactionEndDate(String transactionEndDate) {
         this.transactionEndDate = transactionEndDate;
     }
 
-    public int getTransactionPeriod() {
-        return transactionPeriod;
+    public String getTransactionPeriod() {
+        return this.transactionPeriod;
     }
 
-    public void setTransactionPeriod(int transactionPeriod) {
+    public void setTransactionPeriod(String transactionPeriod) {
         this.transactionPeriod = transactionPeriod;
     }
 
     public String getTransactionDescription() {
-        return transactionDescription;
+        return this.transactionDescription;
     }
 
     public void setTransactionDescription(String transactionDescription) {
@@ -50,19 +50,19 @@ public class PeriodicTransactionState {
     }
 
     public String getSuccessMessage() {
-        return successMessage;
+        return this.successMessage;
     }
 
     public void setSuccessMessage(String successMessage) {
         this.successMessage = successMessage;
     }
 
-    public String getError() {
-        return error;
+    public String getErrorMsg() {
+        return this.errorMsg;
     }
 
     public void setError(String error) {
-        this.error = error;
+        this.errorMsg = error;
     }
 }
 

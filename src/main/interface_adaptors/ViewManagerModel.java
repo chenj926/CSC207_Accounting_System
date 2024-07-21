@@ -50,13 +50,13 @@ public class ViewManagerModel {
         if (currentView != null) {
             currentView.dispose();
         }
-
         currentView = views.get(viewName);
         if (currentView != null) {
             currentView.setVisible(true);
         } else {
             this.createView(viewName);
         }
+        this.setActiveViewName(viewName);
     }
 
     private void createView(String viewName) {
@@ -93,13 +93,13 @@ public class ViewManagerModel {
                 views.put("One Time Transaction", oneTimeTransactionView);
                 currentView = oneTimeTransactionView;
                 break;
-//            case "Periodic Transaction":
-//                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-//                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(this,
-//                        periodicTransactionViewModel);
-//                views.put("Periodic Transaction", periodicTransactionView);
-//                currentView = periodicTransactionView;
-//                break;
+            case "Periodic Transaction":
+                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
+                PeriodicTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(this,
+                        periodicTransactionViewModel);
+                views.put("Periodic Transaction", periodicTransactionView);
+                currentView = periodicTransactionView;
+                break;
             case "log out":
                 LogoutViewModel logoutViewModel = new LogoutViewModel();
                 LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);

@@ -6,16 +6,20 @@ import use_case.PeriodicTransactionInputData;
 public class PeriodicTransactionController {
 
     final PeriodicTransactionInputBoundary periodicTransactionInputBoundary;
+    final PeriodicTransactionViewModel viewModel;
 
-    public PeriodicTransactionController(PeriodicTransactionInputBoundary periodicTransactionInputBoundary) {
+    public PeriodicTransactionController(PeriodicTransactionInputBoundary periodicTransactionInputBoundary,
+                                         PeriodicTransactionViewModel viewModel) {
         this.periodicTransactionInputBoundary = periodicTransactionInputBoundary;
+        this.viewModel = viewModel;
     }
 
-    public void execute(String identification, float amount, String startDate, String description, String period, String endDate) {
+    public void execute(String amount, String startDate, String description, String period, String endDate) {
         PeriodicTransactionInputData periodicTransactionInputData = new PeriodicTransactionInputData(
-                identification, amount, startDate, description, period, endDate
+                amount, startDate, description, period, endDate
         );
         periodicTransactionInputBoundary.execute(periodicTransactionInputData);
+        this.viewModel.resetState();
     }
 }
 
