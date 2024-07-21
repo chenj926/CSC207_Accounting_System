@@ -9,7 +9,7 @@ public class LogInOutputDataTest {
     public void testLogInOutputData() {
         LoginOutputData logInOutputData = new LoginOutputData("testUser", true);
 
-        assertEquals("Username doesn't match", "testUser", logInOutputData.getUsername());
+        assertEquals("Username doesn't match", "testUser", logInOutputData.getIdentification());
         assertTrue("Success flag doesn't match", logInOutputData.isSuccess());
     }
 
@@ -17,7 +17,7 @@ public class LogInOutputDataTest {
     public void testLogInOutputDataFailure() {
         LoginOutputData logInOutputData = new LoginOutputData("testUser", false);
 
-        assertEquals("Username doesn't match", "testUser", logInOutputData.getUsername());
+        assertEquals("Username doesn't match", "testUser", logInOutputData.getIdentification());
         assertFalse("Success flag doesn't match", logInOutputData.isSuccess());
     }
 }
