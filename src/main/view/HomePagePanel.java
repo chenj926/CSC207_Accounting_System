@@ -97,6 +97,8 @@ public class HomePagePanel extends JPanel {
             if (window != null) {
                 window.dispose();
             }
+            // Explicitly terminate the application
+            System.exit(0);
         });
 
     }

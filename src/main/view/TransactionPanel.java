@@ -127,7 +127,11 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
 
         // exit button response action
-        this.logoutButton.addActionListener(e -> this.viewManager.setActiveViewName("home page"));
+        this.logoutButton.addActionListener(e -> {
+
+            viewManager.setUserId(null); // reset the userid before log out
+            this.viewManager.setActiveViewName("home page"); // go back to home page
+        });
 
     }
 }
