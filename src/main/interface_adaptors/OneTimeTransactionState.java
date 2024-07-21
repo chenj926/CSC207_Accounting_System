@@ -1,7 +1,8 @@
 package interface_adaptors;
 
 public class OneTimeTransactionState {
-    private float transactionAmount;
+    private String id;
+    private String transactionAmount;
     private String transactionDate;
     private String transactionDescription;
     private String transactionCategory;
@@ -10,8 +11,21 @@ public class OneTimeTransactionState {
     private String errorMessage;
     private String successMessage;
 
+    public OneTimeTransactionState() {
+        this.id = "";
+        this.transactionAmount = "0";
+        this.transactionDate = null;
+        this.transactionDescription = "";
+        this.transactionCategory = "";
+        this.errorMessage = null;
+        this.successMessage = null;
+    }
+
     // getters
-    public float getTransactionAmount() {
+    public String getId() {
+        return this.id;
+    }
+    public String getTransactionAmount() {
         return this.transactionAmount;
     }
     public String getTransactionDate() {
@@ -39,7 +53,10 @@ public class OneTimeTransactionState {
 
 
     // setters
-    public void setTransactionAmount(float transactionAmount) {
+    public void setId(String id) {
+        this.id = id;
+    }
+    public void setTransactionAmount(String transactionAmount) {
         this.transactionAmount = transactionAmount;
     }
     public void setTransactionDescription(String transactionDescription) {

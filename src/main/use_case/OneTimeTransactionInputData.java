@@ -2,26 +2,26 @@ package use_case;
 
 public class OneTimeTransactionInputData {
 
-    private float transactionAmount;
-    private final String identification;
+    private String transactionAmount;
+//    private final String identification;
     private String transactionDate;
     private String transactionDescription;
     private String transactionCategory;
 
-    public OneTimeTransactionInputData(float transactionAmount, String identification,String transactionDate, String transactionDescription,
+    public OneTimeTransactionInputData(String transactionAmount, String transactionDate, String transactionDescription,
                                        String transactionCategory) {
         this.transactionAmount = transactionAmount;
-        this.identification = identification;
+//        this.identification = identification;
         this.transactionDate = transactionDate;
         this.transactionDescription = transactionDescription;
         this.transactionCategory = transactionCategory;
     }
 
-    public String getIdentification() {
-        return identification;
-    }
+//    public String getIdentification() {
+//        return identification;
+//    }
 
-    public float getTransactionAmount() {
+    public String getTransactionAmount() {
         return transactionAmount;
     }
 

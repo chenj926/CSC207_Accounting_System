@@ -55,12 +55,12 @@ class OneTimeTransactionInteractorTest {
             }
         };
 
-        interactor = new OneTimeTransactionInteractor(userAccountDataAccessObject, presenter);
+        interactor = new OneTimeTransactionInteractor(userAccountDataAccessObject, presenter, userAccount);
     }
 
     @Test
     void testExecuteInflow() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(100.0f, "id1", "01-01-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0", "01-01-2024", "Salary", "Income");
         interactor.execute(inputData);
         assertEquals(100.0f, userAccount.getTotalIncome());
         assertEquals(100.0f, userAccount.getTotalBalance());
@@ -68,7 +68,7 @@ class OneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteOutflow() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(-50.0f, "id2", "01-01-2024", "Rent", "Expense");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("-50.0", "01-01-2024", "Rent", "Expense");
         interactor.execute(inputData);
         assertEquals(-50.0f, userAccount.getTotalOutflow());
         assertEquals(-50.0f, userAccount.getTotalBalance());
@@ -76,7 +76,7 @@ class OneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteInvalidDate() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(100.0f, "id3", "invalid-date", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "invalid-date", "Salary", "Income");
         interactor.execute(inputData);
     }
 }

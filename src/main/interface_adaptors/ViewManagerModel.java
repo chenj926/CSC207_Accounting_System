@@ -10,6 +10,7 @@ import java.util.*;
 
 public class ViewManagerModel {
 
+    private String userId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
@@ -23,11 +24,17 @@ public class ViewManagerModel {
     public String getActiveViewName() {
         return activeViewName;
     }
+    public String getUserId() {
+        return this.userId;
+    }
 
     public void setActiveViewName(String activeViewName) {
         String oldActiveViewName = this.activeViewName;
         this.activeViewName = activeViewName;
         support.firePropertyChange("activeViewName", oldActiveViewName, this.activeViewName);
+    }
+    public void setUserId(String id) {
+        this.userId = id;
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
@@ -79,16 +86,16 @@ public class ViewManagerModel {
                 views.put("Transaction", transactionView);
                 currentView = transactionView;
                 break;
-//            case "One Time Transaction":
-//                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
-//                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.createTransactionView(this,
-//                        oneTimeTransactionViewModel);
-//                views.put("One Time Transaction", oneTimeTransactionView);
-//                currentView = oneTimeTransactionView;
-//                break;
+            case "One Time Transaction":
+                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
+                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this,
+                        oneTimeTransactionViewModel);
+                views.put("One Time Transaction", oneTimeTransactionView);
+                currentView = oneTimeTransactionView;
+                break;
 //            case "Periodic Transaction":
 //                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-//                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.createTransactionView(this,
+//                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(this,
 //                        periodicTransactionViewModel);
 //                views.put("Periodic Transaction", periodicTransactionView);
 //                currentView = periodicTransactionView;
