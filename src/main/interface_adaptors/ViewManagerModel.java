@@ -79,20 +79,20 @@ public class ViewManagerModel {
                 views.put("Transaction", transactionView);
                 currentView = transactionView;
                 break;
-            case "One Time Transaction":
-                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
-                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.createTransactionView(this,
-                        oneTimeTransactionViewModel);
-                views.put("One Time Transaction", oneTimeTransactionView);
-                currentView = oneTimeTransactionView;
-                break;
-            case "Periodic Transaction":
-                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.createTransactionView(this,
-                        periodicTransactionViewModel);
-                views.put("Periodic Transaction", periodicTransactionView);
-                currentView = periodicTransactionView;
-                break;
+//            case "One Time Transaction":
+//                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
+//                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.createTransactionView(this,
+//                        oneTimeTransactionViewModel);
+//                views.put("One Time Transaction", oneTimeTransactionView);
+//                currentView = oneTimeTransactionView;
+//                break;
+//            case "Periodic Transaction":
+//                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
+//                PeriodcTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.createTransactionView(this,
+//                        periodicTransactionViewModel);
+//                views.put("Periodic Transaction", periodicTransactionView);
+//                currentView = periodicTransactionView;
+//                break;
             case "log out":
                 LogoutViewModel logoutViewModel = new LogoutViewModel();
                 LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);

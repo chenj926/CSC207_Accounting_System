@@ -55,7 +55,7 @@ class OneTimeTransactionInteractorTest {
             }
         };
 
-        interactor = new OneTimeTransactionInteractor(userAccountDataAccessObject, presenter, userAccount);
+        interactor = new OneTimeTransactionInteractor(userAccountDataAccessObject, presenter);
     }
 
     @Test

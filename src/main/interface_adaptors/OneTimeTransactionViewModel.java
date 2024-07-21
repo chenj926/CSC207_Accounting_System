@@ -3,12 +3,12 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class OneTimeTransactionViewModel extends TransactionViewModel {
+public class OneTimeTransactionViewModel extends ViewModel {
     private OneTimeTransactionState state = new OneTimeTransactionState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     public OneTimeTransactionViewModel() {
-        super("One-Time Transaction");
+        super("One Time Transaction");
     }
 
     // getters

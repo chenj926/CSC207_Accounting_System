@@ -33,7 +33,7 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
     }
 
 
-    public void handleCancel() {
-        transactionViewModel.selectPeriodicTransaction();
-    }
+//    public void handleCancel() {
+//        transactionViewModel.selectPeriodicTransaction();
+//    }
 }

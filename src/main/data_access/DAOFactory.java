@@ -1,5 +1,7 @@
 package data_access;
 
+import interface_adaptors.OneTimeTransactionPresenter;
+
 public class DAOFactory {
     private static CSVUserAccountDataAccessObject csvUserAccountDAO;
     private static CSVSharedAccountDataAccessObject csvSharedAccountDAO;
@@ -8,6 +10,8 @@ public class DAOFactory {
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
     private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
     private static InMemoryLoginoutDataAccessObject inMemoryLoginoutDAO;
+    private static InMemoryOneTimeDataAccessObject inMemoryOneTimeDataAccessObject;
+    private static InMemoryPeriodicDataAccessObject inMemoryPeriodicDataAccessObject;
 
     private static boolean useInMemory = false; // Flag to determine which DAO to use
 
@@ -65,6 +69,34 @@ public class DAOFactory {
                 inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
             }
             return inMemoryLoginoutDAO;
+        } else {
+            if (csvUserLoginoutDAO == null) {
+                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            }
+            return csvUserLoginoutDAO;
+        }
+    }
+
+    public static synchronized UserAccountDataAccessInterface getOneTimeTransactionDAO() {
+        if (useInMemory) {
+            if (inMemoryOneTimeDataAccessObject == null) {
+                inMemoryOneTimeDataAccessObject = new InMemoryOneTimeDataAccessObject();
+            }
+            return inMemoryOneTimeDataAccessObject;
+        } else {
+            if (csvUserLoginoutDAO == null) {
+                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            }
+            return csvUserLoginoutDAO;
+        }
+    }
+
+    public static synchronized UserAccountDataAccessInterface getPeriodicTransactionDAO() {
+        if (useInMemory) {
+            if (inMemoryPeriodicDataAccessObject == null) {
+                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+            }
+            return inMemoryPeriodicDataAccessObject;
         } else {
             if (csvUserLoginoutDAO == null) {
                 csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();

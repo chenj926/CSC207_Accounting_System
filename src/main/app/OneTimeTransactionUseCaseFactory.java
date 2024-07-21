@@ -2,12 +2,15 @@ package app;
 
 import data_access.DAOFactory;
 import data_access.LoginDataAccessInterface;
+import data_access.UserAccountDataAccessInterface;
 import entity.AccountFactory;
+import entity.UserAccount;
 import interface_adaptors.*;
 import use_case.LoginInteractor;
 import use_case.LoginOutputBoundary;
 import use_case.OneTimeTransactionInteractor;
 import use_case.OneTimeTransactionOutputBoundary;
+import data_access.*;
 import view.*;
 
 import javax.swing.*;
@@ -30,10 +33,9 @@ public class OneTimeTransactionUseCaseFactory {
 
     private static OneTimeTransactionController createUserOneTimeUseCase(ViewManagerModel viewManagerModel,
                                                             OneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
-        OneTimeTransactionDataAccessInterface dataAccessObject = DAOFactory.getLoginDataAccessObject();
-        AccountFactory accountFactory = new AccountFactory();
+        UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
         OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
-        OneTimeTransactionInteractor interactor = new LoginInteractor(dataAccessObject, presenter, accountFactory);
+        OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter);
         return new OneTimeTransactionController(interactor);
     }
 
