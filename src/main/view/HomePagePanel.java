@@ -2,12 +2,17 @@ package view;
 
 import interface_adaptors.*;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
@@ -17,71 +22,77 @@ public class HomePagePanel extends JPanel {
     private JButton loginButton;
     private JButton signupButton;
     private JButton exitButton;
+    private Image backgroundImage;
 
     public HomePagePanel(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
+
+        String baseDir = System.getProperty("user.dir");
+        Path imgPath = Paths.get(baseDir, "src/main/UI_img/homePage3.png");
+        loadBackgroundImage(String.valueOf(imgPath));
         initializeComponents();
         setupUI();
         setupListeners();
     }
 
+    private void loadBackgroundImage(String path) {
+        try {
+            this.backgroundImage = ImageIO.read(new File(path));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        if (backgroundImage != null) {
+            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+        }
+    }
+
     private void initializeComponents(){
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
-        this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        this.titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        titleLabel.setForeground(Color.BLACK);
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JPanel buttons = new JPanel();
-        this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
-        buttons.add(this.loginButton);
         this.signupButton = new JButton(this.viewModel.getSignupButtonLabel());
-        buttons.add(this.signupButton);
+        this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
         this.exitButton = new JButton(this.viewModel.getExitButtonLabel());
-        buttons.add(this.exitButton);
 
         // Style buttons
         this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.exitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.loginButton.setBackground(new Color(100, 150, 200));
-        this.signupButton.setBackground(new Color(100, 150, 200));
-        this.exitButton.setBackground(new Color(100, 150, 200));
-        this.loginButton.setForeground(Color.WHITE);
-        this.signupButton.setForeground(Color.WHITE);
-        this.exitButton.setForeground(Color.WHITE);
+        this.loginButton.setBackground(new Color(255, 255, 255));
+        this.signupButton.setBackground(new Color(255, 255, 255));
+        this.exitButton.setBackground(new Color(255, 255, 255));
+        this.loginButton.setForeground(Color.BLACK);
+        this.signupButton.setForeground(Color.BLACK);
+        this.exitButton.setForeground(Color.BLACK);
     }
 
     private void setupUI(){
-        setLayout(new GridBagLayout());
-        GridBagConstraints constraints = new GridBagConstraints();
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
-        constraints.insets = new Insets(10, 10, 10, 10);
+        setLayout(new BorderLayout());
 
-        // title Label
+        JPanel centerPanel = new JPanel(new GridBagLayout());
+        centerPanel.setOpaque(false);  // Make the panel transparent
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(10, 10, 10, 10);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
-        add(titleLabel, constraints);
+        centerPanel.add(loginButton, constraints);
 
-        // reset gridwidth and anchor for other components
-//        constraints.gridwidth = 1;
-//        constraints.anchor = GridBagConstraints.WEST;
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
-
-        // login button
         constraints.gridy++;
-        constraints.gridwidth = 1;
-        add(loginButton, constraints);
+        centerPanel.add(signupButton, constraints);
 
-        // sign up button
         constraints.gridy++;
-        add(this.signupButton, constraints);
+        centerPanel.add(exitButton, constraints);
 
-        // exit button
-        constraints.gridy++;
-        add(this.exitButton, constraints);
+        add(titleLabel, BorderLayout.NORTH);
+        add(centerPanel, BorderLayout.CENTER);
     }
 
     private void setupListeners(){

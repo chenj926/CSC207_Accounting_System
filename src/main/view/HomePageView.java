@@ -31,12 +31,6 @@ public class HomePageView extends JFrame implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-//        HomePageState state = (HomePageState) evt.getNewValue();
-//        if (state.getStateError() != null) {
-//            JOptionPane.showMessageDialog(this, state.getStateError());
-//        } else {
-//            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
-//        }
         // do something with the propertyChange
     }
 }
