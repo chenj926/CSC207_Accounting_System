@@ -130,9 +130,11 @@ public class LoginPanel extends JPanel {
                     public void keyTyped(KeyEvent evt) {
                         LoginState currentState = viewModel.getState();
                         currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
+                        viewManager.setUserId(identificationTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
 
                         System.out.println("id: " + currentState.getIdentification());  //  debug
+                        System.out.println("vmr id: " + viewManager.getUserId());
                     }
                     @Override
                     public void keyPressed(KeyEvent e) {}
@@ -158,5 +160,10 @@ public class LoginPanel extends JPanel {
                     public void keyReleased(KeyEvent e) {}
                 }
         );
+    }
+
+    public void clearFields() {
+        passwordField.setText("");
+        identificationTextField.setText("");
     }
 }

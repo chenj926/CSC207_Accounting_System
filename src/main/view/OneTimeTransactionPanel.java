@@ -215,28 +215,10 @@ public class OneTimeTransactionPanel extends JPanel {
         );
     }
 
-//    @Override
-//    protected void handleRecordButtonClick(TransactionViewModel viewModel) {
-//        OneTimeTransactionViewModel oneTimeViewModel = (OneTimeTransactionViewModel) viewModel;
-//        oneTimeViewModel.getState().setTransactionAmount(Float.parseFloat(amountField.getText()));
-//        oneTimeViewModel.getState().setTransactionDate(dateField.getText());
-//        oneTimeViewModel.getState().setTransactionDescription(descriptionField.getText());
-//
-//        // move logic to use case
-//        if (oneTimeViewModel.validateOneTimeTransaction()) {
-//            messageLabel.setText("Transaction recorded successfully!");
-//        } else {
-//            messageLabel.setText(oneTimeViewModel.getState().getError());
-//        }
-//    }
-//
-//    @Override
-//    protected void updateMessage(TransactionViewModel viewModel) {
-//        OneTimeTransactionViewModel oneTimeViewModel = (OneTimeTransactionViewModel) viewModel;
-//        if (oneTimeViewModel.validateOneTimeTransaction()) {
-//            messageLabel.setText("Transaction recorded successfully!");
-//        } else {
-//            messageLabel.setText(oneTimeViewModel.getState().getError());
-//        }
-//    }
+    public void clearFields() {
+        amountField.setText("");
+        dateField.setText("");
+        descriptionField.setText("");
+        categoryField.setText("");
+    }
 }

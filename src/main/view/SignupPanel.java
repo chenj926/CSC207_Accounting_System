@@ -191,4 +191,10 @@ public class SignupPanel extends JPanel {
         );
 
     }
+
+    public void clearFields() {
+        usernameTextField.setText("");
+        passwordField.setText("");
+        idenficationField.setText("");
+    }
 }
