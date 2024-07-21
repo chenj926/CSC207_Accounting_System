@@ -42,6 +42,11 @@ class OneTimeTransactionInteractorTest {
             @Override
             public void save(UserAccount userAccount) {
             }
+
+            @Override
+            public void saveTransaction(OneTimeTransactionOutputData oneTimeTransactionOutputData, PeriodicTransactionOutputData periodicTransactionOutputData, boolean isOneTimeTransaction) {
+                // Implementation for saveTransaction
+            }
         };
 
         presenter = new OneTimeTransactionOutputBoundary() {
