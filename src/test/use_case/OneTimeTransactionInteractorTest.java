@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OneTimeTransactionInteractorTest {
 
@@ -83,5 +82,25 @@ class OneTimeTransactionInteractorTest {
     void testExecuteInvalidDate() {
         OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "invalid-date", "Salary", "Income");
         interactor.execute(inputData);
+
     }
+
+    @Test
+    void testExecuteInvalidDate1() {
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "29-02-2023", "Salary", "Income");
+        interactor.execute(inputData);
+    }
+    @Test
+    void testExecuteInvalidDate2() {
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "32-12-2024", "Salary", "Income");
+        interactor.execute(inputData);
+    }
+    @Test
+    void testExecuteInvalidDate3() {
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "00-02-2024", "Salary", "Income");
+        interactor.execute(inputData);
+    }
+
+
+
 }

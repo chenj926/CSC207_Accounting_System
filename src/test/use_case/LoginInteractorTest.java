@@ -10,20 +10,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginInteractorTest {
 
     private LoginDataAccessInterface userDataAccessObject;
     private SimplePresenter presenter;
-    private AccountFactory accountFactory;
     private LoginInteractor loginInteractor;
 
     @BeforeEach
     public void setUp() {
         userDataAccessObject = new InMemoryLoginDataAccess();
         presenter = new SimplePresenter();
-//        accountFactory = new AccountFactory();
         loginInteractor = new LoginInteractor(userDataAccessObject, presenter);
     }
 
@@ -36,6 +35,7 @@ public class LoginInteractorTest {
         loginInteractor.execute(inputData);
 
         assertEquals("User not found", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
     }
 
     @Test
@@ -53,8 +53,77 @@ public class LoginInteractorTest {
         assertEquals(userId, presenter.getData().getIdentification());
     }
 
+    @Test
+    public void testEmptyPassword() {
+        String password = "";
+        String userId = "existentUser";
+        LoginInputData inputData = new LoginInputData(password, userId);
+
+        loginInteractor.execute(inputData);
+
+        assertEquals("Password can not be empty!", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
+    }
+
+    @Test
+    public void testEmptyIdentification() {
+        String password = "password123";
+        String userId = "";
+        LoginInputData inputData = new LoginInputData(password, userId);
+
+        loginInteractor.execute(inputData);
+
+        assertEquals("Identification can not be empty!", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
+    }
+
+    @Test
+    public void testEmptyPasswordAndIdentification() {
+        String password = "";
+        String userId = "";
+        LoginInputData inputData = new LoginInputData(password, userId);
+
+        loginInteractor.execute(inputData);
+
+        assertEquals("Identification AND Password can not be empty!", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
+    }
+
+    @Test
+    public void testIncorrectPassword() {
+        String username = "testUser";
+        String password = "password123";
+        String userId = "existentUser";
+        UserAccount user = new UserAccount(username, password, userId);
+        ((InMemoryLoginDataAccess) userDataAccessObject).addUser(user);
+        LoginInputData inputData = new LoginInputData("wrongPassword", userId);
+
+        loginInteractor.execute(inputData);
+
+        assertEquals("Incorrect Password!", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
+    }
+
+    @Test
+    public void testLoginFailure() {
+        String username = "testUser";
+        String password = "password123";
+        String userId = "existentUser";
+        UserAccount user = new UserAccount(username, password, userId);
+        ((InMemoryLoginDataAccess) userDataAccessObject).addUser(user);
+        LoginInputData inputData = new LoginInputData(password, userId);
+
+        ((InMemoryLoginDataAccess) userDataAccessObject).setLoginSuccess(false);
+
+        loginInteractor.execute(inputData);
+
+        assertEquals("Incorrect Password!", presenter.getMessage());
+        assertFalse(presenter.isSuccess());
+    }
+
     private static class InMemoryLoginDataAccess implements LoginDataAccessInterface {
         private final Map<String, UserAccount> userDatabase = new HashMap<>();
+        private boolean loginSuccess = true;
 
         @Override
         public boolean existById(String identification) {
@@ -68,11 +137,15 @@ public class LoginInteractorTest {
 
         @Override
         public boolean login(UserAccount userAccount) {
-            return true;
+            return loginSuccess;
         }
 
         public void addUser(UserAccount userAccount) {
             userDatabase.put(userAccount.getIdentification(), userAccount);
+        }
+
+        public void setLoginSuccess(boolean success) {
+            this.loginSuccess = success;
         }
     }
 
