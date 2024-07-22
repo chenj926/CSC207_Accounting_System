@@ -11,6 +11,30 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+/**
+ * CSVUserAccountDataAccessObject provides methods to store and retrieve user account and transaction information from CSV files.
+ * <p>
+ * This class implements UserAccountDataAccessInterface and UserSignupDataAccessInterface for
+ * CSV-based implementations of DAOs. It is responsible for saving new user accounts and their transactions
+ * into userAccounts.csv and userAccountTransactions.csv, respectively. It can also read the stored CSV files
+ * to verify login information and perform various CRUD operations on user accounts and transactions.
+ * </p>
+ * <p>
+ * It handles initialization of CSV files, ensuring headers are correctly set, and provides methods for
+ * checking the existence of users, saving and updating user accounts, saving transactions, and retrieving
+ * user accounts by their unique identifiers.
+ * </p>
+ *
+ * <p>The class is authored by Jessica and Eric.</p>
+ * @author Jessica
+ * @author Eric
+ *
+ * @see entity.UserAccount
+ * @see entity.Transaction
+ * @see use_case.OneTimeTransactionOutputData
+ * @see use_case.PeriodicTransactionOutputData
+ *
+ */
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
     private Map<String, UserAccount> userAccounts;
     protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
@@ -21,6 +45,11 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     protected final Path userCsvPath;
     protected final Path transactionCsvPath;
 
+    /**
+     * Constructs a CSVUserAccountDataAccessObject object and initializes the CSV file paths.
+     * The constructor dynamically determines the base directory and initializes the CSV files
+     * with correct headers if they do not exist.
+     */
     public CSVUserAccountDataAccessObject() {
         // Determine the base directory dynamically
         String baseDir = System.getProperty("user.dir");
@@ -37,6 +66,14 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Initializes the user accounts CSV file with the correct header.
+     * If the file does not exist, it creates the file and writes the header.
+     * If the file exists, it ensures the header is correct.
+     *
+     * @param csvPath the path to the CSV file to be initialized
+     * @throws IOException if an I/O error occurs
+     */
     private void initializeCsvFile(Path csvPath) throws IOException {
         // Get the parent directory of the CSV file path
         Path parentDir = csvPath.getParent();
@@ -84,6 +121,14 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Initializes the transactions CSV file with the correct header.
+     * If the file does not exist, it creates the file and writes the header.
+     * If the file exists, it ensures the header is correct.
+     *
+     * @param transactionPath the path to the transactions CSV file to be initialized
+     * @throws IOException if an I/O error occurs
+     */
     private void initializeTransactionFile(Path transactionPath) throws IOException {
         // Get the parent directory of the CSV file path
         Path parentDir = transactionPath.getParent();
@@ -131,11 +176,23 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Checks whether a user with the specified identification exists.
+     *
+     * @param identification the user's unique identification
+     * @return true if the user exists, false otherwise
+     */
     @Override
     public boolean existById(String identification) {
         return readAllUsers(identification);
     }
 
+    /**
+     * Saves a new user account to the user accounts CSV file.
+     * If the user does not already exist, their information is appended to the file.
+     *
+     * @param userAccount the user account to be saved
+     */
     @Override
     public void save(UserAccount userAccount) {
         if (!existById(userAccount.getIdentification())) {
@@ -175,6 +232,13 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Saves a transaction (either one-time or periodic) to the transactions CSV file.
+     *
+     * @param oneTimeOutputData the one-time transaction data to be saved
+     * @param periodicOutputData the periodic transaction data to be saved
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     */
     @Override
     public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
                                 PeriodicTransactionOutputData periodicOutputData,
@@ -255,6 +319,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Updates an existing user account in the user accounts CSV file.
+     * The method reads the file, updates the relevant user's information, and writes the updated content back to the file.
+     *
+     * @param userAccount the user account with updated information
+     */
     @Override
     public void update(UserAccount userAccount) {
         String identification = userAccount.getIdentification();
@@ -302,6 +372,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Deletes a user account by its identification from the user accounts CSV file.
+     * The method reads the file, excludes the user to be deleted, and writes the remaining data back to the file.
+     *
+     * @param identification the unique identification of the user to be deleted
+     */
     @Override
     public void deleteById(String identification) {
         List<String> lines = new ArrayList<>();
@@ -331,6 +407,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
+    /**
+     * Retrieves a user account by its identification from the user accounts CSV file.
+     *
+     * @param identification the unique identification of the user to be retrieved
+     * @return the user account if found, or null if not found
+     */
     public UserAccount getById(String identification){
         UserAccount userAccount = null;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
@@ -359,8 +441,13 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         return userAccount;
     }
 
+    /**
+     * Reads all users from the user accounts CSV file and checks if a user with the specified identification exists.
+     *
+     * @param identification the unique identification of the user to be checked
+     * @return true if the user exists, false otherwise
+     */
     private boolean readAllUsers(String identification) {
-//        this.userAccounts = new HashMap<>();
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
             String line;
@@ -388,26 +475,24 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         return userExist;
     }
 
-//    private void writeAllUsers(Map<String, UserAccount> users) {
-//        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH))) {
-//            for (UserAccount user : users.values()) {
-//                bw.write(String.format("%s,%s,%s,%f,%f,%f",
-//                        user.getIdentification(), user.getUsername(), user.getPassword(),
-//                        user.getTotalIncome(), user.getTotalOutflow(), user.getTotalBalance()));
-//                bw.newLine();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        writeAllTransactions(users);
-//    }
-
+    /**
+     * Reads all transactions for a specific user from the transactions CSV file.
+     * This method is currently a placeholder and needs to be implemented.
+     *
+     * @param userIdentification the unique identification of the user whose transactions are to be read
+     * @return a list of transactions associated with the specified user
+     */
     private List<Transaction> readTransactions(String userIdentification){
         // need implementation
         List<Transaction> transactions = new ArrayList<>();
         return transactions;
     }
 
+    /**
+     * Writes all transactions of all users to the transactions CSV file.
+     *
+     * @param users a map of user accounts and their associated transactions to be written to the file
+     */
     private void writeAllTransactions(Map<String, UserAccount> users) {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(TRANSACTION_CSV_FILE_PATH))) {
             for (UserAccount user : users.values()) {
