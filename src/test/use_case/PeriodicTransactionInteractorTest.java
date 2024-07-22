@@ -50,7 +50,7 @@ public class PeriodicTransactionInteractorTest {
             }
 
             @Override
-            public void saveTransaction(OneTimeTransactionOutputData oneTimeTransactionOutputData, PeriodicTransactionOutputData periodicTransactionOutputData, boolean isOneTimeTransaction) {
+            public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isOneTimeTransaction) {
                 // Implementation for saveTransaction
             }
         };

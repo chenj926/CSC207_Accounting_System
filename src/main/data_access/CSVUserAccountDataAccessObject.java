@@ -137,15 +137,15 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     }
 
     @Override
-    public void save(UserAccount newUser) {
-        if (!existById(newUser.getIdentification())) {
+    public void save(UserAccount userAccount) {
+        if (!existById(userAccount.getIdentification())) {
             // user info
-            String id = newUser.getIdentification();
-            String username = newUser.getUsername();
-            String password = newUser.getPassword();
-            float totalIncome = newUser.getTotalIncome();
-            float totalOutflow = newUser.getTotalOutflow();
-            float totalBalance = newUser.getTotalBalance();
+            String id = userAccount.getIdentification();
+            String username = userAccount.getUsername();
+            String password = userAccount.getPassword();
+            float totalIncome = userAccount.getTotalIncome();
+            float totalOutflow = userAccount.getTotalOutflow();
+            float totalBalance = userAccount.getTotalBalance();
 
             // create csv line with the user info
             String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
@@ -176,16 +176,16 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     }
 
     @Override
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeTransactionOutputData,
-                                PeriodicTransactionOutputData periodicTransactionOutputData,
+    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
+                                PeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
         System.out.println();
         if (!isPeriodic) {
-            String id = oneTimeTransactionOutputData.getId();
-            float amount = oneTimeTransactionOutputData.getAmount();
-            LocalDate date = oneTimeTransactionOutputData.getTransactionDate();
-            String description = oneTimeTransactionOutputData.getTransactionDescription();
-            String category = oneTimeTransactionOutputData.getTransactionCategory();
+            String id = oneTimeOutputData.getId();
+            float amount = oneTimeOutputData.getAmount();
+            LocalDate date = oneTimeOutputData.getTransactionDate();
+            String description = oneTimeOutputData.getTransactionDescription();
+            String category = oneTimeOutputData.getTransactionCategory();
             // convert localdate to string
             String dateString = String.valueOf(date);
 
@@ -215,12 +215,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 System.err.println("Failed to write to file: " + e.getMessage());
             }
         } else{
-            String id = periodicTransactionOutputData.getId();
-            float amount = periodicTransactionOutputData.getTransactionAmount();
-            LocalDate startDate = periodicTransactionOutputData.getTransactionStartDate();
-            LocalDate endDate = periodicTransactionOutputData.getTransactionEndDate();
-            String description = periodicTransactionOutputData.getTransactionDescription();
-            int period = periodicTransactionOutputData.getTransactionPeriod();
+            String id = periodicOutputData.getId();
+            float amount = periodicOutputData.getTransactionAmount();
+            LocalDate startDate = periodicOutputData.getTransactionStartDate();
+            LocalDate endDate = periodicOutputData.getTransactionEndDate();
+            String description = periodicOutputData.getTransactionDescription();
+            int period = periodicOutputData.getTransactionPeriod();
 
             // convert Localdate to string
             String startDateString = String.valueOf(startDate);
