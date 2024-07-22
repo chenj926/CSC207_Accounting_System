@@ -3,15 +3,34 @@ package interface_adaptors;
 import use_case.PeriodicTransactionOutputBoundary;
 import use_case.PeriodicTransactionOutputData;
 
+/**
+ * The PeriodicTransactionPresenter class implements the PeriodicTransactionOutputBoundary interface.
+ * It handles the presentation logic for periodic transactions, updating the view model and managing view transitions.
+ *
+ * @author Eric
+ * @author Xile
+ */
 public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBoundary {
     private final PeriodicTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
 
+    /**
+     * Constructs a PeriodicTransactionPresenter object with the specified view model and view manager model.
+     *
+     * @param viewModel  the view model to update the periodic transaction state
+     * @param viewManager the view manager model to manage view transitions
+     */
     public PeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }
 
+    /**
+     * Prepares the success view with the given periodic transaction output data.
+     * Updates the transaction state and changes the view to the transaction view.
+     *
+     * @param data the periodic transaction output data containing transaction details and success status
+     */
     @Override
     public void prepareSuccessView(PeriodicTransactionOutputData data) {
         // update the current transaction sate
@@ -35,6 +54,12 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
         this.viewManager.changeView("Transaction");
     }
 
+    /**
+     * Prepares the fail view with the given error message.
+     * Updates the transaction state with the error message and clears the success message.
+     *
+     * @param error the error message to be presented in case of a failed periodic transaction attempt
+     */
     @Override
     public void prepareFailView(String error) {
         PeriodicTransactionState periodicState = this.viewModel.getState();

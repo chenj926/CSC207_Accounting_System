@@ -3,16 +3,35 @@ package interface_adaptors;
 import use_case.OneTimeTransactionOutputBoundary;
 import use_case.OneTimeTransactionOutputData;
 
+/**
+ * The OneTimeTransactionPresenter class implements the OneTimeTransactionOutputBoundary interface.
+ * It handles the presentation logic for one-time transactions, updating the view model and managing view transitions.
+ *
+ * @author Xile
+ * @author Eric
+ */
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
 
+    /**
+     * Constructs a OneTimeTransactionPresenter object with the specified view model and view manager model.
+     *
+     * @param viewModel   the view model to update the one-time transaction state
+     * @param viewManager the view manager model to manage view transitions
+     */
     public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
 //        this.transactionViewModel = transactionViewModel;
     }
 
+    /**
+     * Prepares the success view with the given one-time transaction output data.
+     * Updates the transaction state and changes the view to the transaction view.
+     *
+     * @param data the one-time transaction output data containing transaction details and success status
+     */
     @Override
     public void prepareSuccessView(OneTimeTransactionOutputData data) {
         // update the current transaction sate
@@ -34,6 +53,12 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
     }
 
 
+    /**
+     * Prepares the fail view with the given error message.
+     * Updates the transaction state with the error message and clears the success message.
+     *
+     * @param error the error message to be presented in case of a failed one-time transaction attempt
+     */
     @Override
     public void prepareFailView(String error) {
         OneTimeTransactionState oneTimeState = viewModel.getState();
