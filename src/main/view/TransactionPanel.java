@@ -6,6 +6,18 @@ import interface_adaptors.ViewManagerModel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The TransactionPanel class represents the panel used for displaying and managing transactions.
+ * It provides buttons to navigate to different transaction views and displays current balance,
+ * income, and outflow information.
+ * <p>
+ * This class extends JPanel and is responsible for setting up the user interface components
+ * and handling user interactions.
+ * </p>
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class TransactionPanel extends JPanel {
     private final TransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
@@ -24,6 +36,12 @@ public class TransactionPanel extends JPanel {
     private JButton periodicButton;
     private JButton logoutButton;
 
+    /**
+     * Constructs a TransactionPanel with the specified view model and view manager.
+     *
+     * @param viewModel  the view model for the transaction view
+     * @param viewManager the view manager for handling view transitions
+     */
     public TransactionPanel(TransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
@@ -32,7 +50,10 @@ public class TransactionPanel extends JPanel {
         setupListeners();
     }
 
-
+    /**
+     * Initializes the UI components for the panel.
+     * This includes labels for title, balance, income, and outflow, and buttons for navigation.
+     */
     private void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(this.viewModel.getTITLE_LABEL());
@@ -67,6 +88,9 @@ public class TransactionPanel extends JPanel {
         this.logoutButton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Sets up the user interface by arranging the components in a GridBagLayout.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -119,6 +143,14 @@ public class TransactionPanel extends JPanel {
         add(logoutButton, constraints);
     }
 
+    /**
+     * Sets up the listeners for the buttons to handle user actions.
+     * <ul>
+     * <li>The one-time button navigates to the one-time transaction view.</li>
+     * <li>The periodic button navigates to the periodic transaction view.</li>
+     * <li>The logout button resets the user ID and navigates back to the home page.</li>
+     * </ul>
+     */
     private void setupListeners() {
         // login button response action
         this.oneTimeButton.addActionListener(e -> this.viewManager.setActiveViewName("One Time Transaction"));

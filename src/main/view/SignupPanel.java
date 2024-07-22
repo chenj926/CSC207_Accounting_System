@@ -10,6 +10,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The SignupPanel class represents the panel for user signup. It contains fields for user input and buttons for signup and cancel actions.
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class SignupPanel extends JPanel {
     private final SignupViewModel viewModel;
     private SignupController signupController;
@@ -22,6 +28,13 @@ public class SignupPanel extends JPanel {
     private JButton signupButton;
     private JButton cancelButton;
 
+    /**
+     * Constructs a SignupPanel object with the specified view model, controller, and view manager.
+     *
+     * @param viewModel        the view model for the signup panel
+     * @param signupController the controller for handling signup actions
+     * @param viewManager      the view manager for managing view transitions
+     */
     public SignupPanel(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
         this.signupController = signupController;
         this.viewManager = viewManager;
@@ -31,6 +44,9 @@ public class SignupPanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Initializes the UI components for the signup panel.
+     */
     private void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
@@ -57,6 +73,9 @@ public class SignupPanel extends JPanel {
         this.cancelButton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Sets up the UI layout for the signup panel.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -111,6 +130,9 @@ public class SignupPanel extends JPanel {
         add(this.cancelButton, constraints);
     }
 
+    /**
+     * Sets up listeners for the signup and cancel buttons, and for key events in the text fields.
+     */
     private void setupListeners() {
         // sign up button response action
         signupButton.addActionListener(
@@ -183,6 +205,9 @@ public class SignupPanel extends JPanel {
 
     }
 
+    /**
+     * Clears the text fields in the signup panel.
+     */
     public void clearFields() {
         usernameTextField.setText("");
         passwordField.setText("");

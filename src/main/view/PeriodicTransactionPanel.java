@@ -9,6 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The PeriodicTransactionPanel class represents the panel used to input and manage periodic transactions.
+ * It includes fields for transaction amount, start and end dates, description, and period, along with
+ * submit and cancel buttons.
+ *
+ * @author Eric
+ * @author Jessica
+ */
 public class PeriodicTransactionPanel extends JPanel {
     private final PeriodicTransactionViewModel viewModel;
     private final PeriodicTransactionController periodicTransactionController;
@@ -23,6 +31,13 @@ public class PeriodicTransactionPanel extends JPanel {
     private JButton submitButton;
     private JButton cancelButton;
 
+    /**
+     * Constructs a PeriodicTransactionPanel with the specified view model, controller, and view manager.
+     *
+     * @param viewModel                   the view model for the periodic transaction panel
+     * @param periodicTransactionController the controller handling periodic transaction actions
+     * @param viewManager                 the view manager for handling view transitions
+     */
     public PeriodicTransactionPanel(PeriodicTransactionViewModel viewModel,
                                     PeriodicTransactionController periodicTransactionController,
                                     ViewManagerModel viewManager) {
@@ -34,6 +49,9 @@ public class PeriodicTransactionPanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Initializes the components for the panel, including labels, text fields, and buttons.
+     */
     private void initializeComponents() {
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -59,6 +77,9 @@ public class PeriodicTransactionPanel extends JPanel {
         this.cancelButton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Sets up the layout and UI components of the panel using GridBagLayout.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -120,6 +141,9 @@ public class PeriodicTransactionPanel extends JPanel {
         add(cancelButton, constraints);
     }
 
+    /**
+     * Sets up the action listeners for the buttons and fields.
+     */
     private void setupListeners() {
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -210,6 +234,9 @@ public class PeriodicTransactionPanel extends JPanel {
         });
     }
 
+    /**
+     * Clears all text fields in the panel.
+     */
     public void clearFields() {
         amountField.setText("");
         startDateField.setText("");

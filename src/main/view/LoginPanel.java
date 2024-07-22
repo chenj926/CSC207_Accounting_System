@@ -9,6 +9,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The LoginPanel class represents the panel used for user login.
+ * It includes fields for user identification and password, as well as buttons for login and cancel actions.
+ * It also handles setting up the user interface and listening to user inputs.
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class LoginPanel extends JPanel {
     private final LoginViewModel viewModel;
     private LoginController loginController;
@@ -20,6 +28,13 @@ public class LoginPanel extends JPanel {
     private JButton loginButton;
     private JButton cancelButton;
 
+    /**
+     * Constructs a LoginPanel object with the specified view model, login controller, and view manager.
+     *
+     * @param viewModel        the view model for the login panel
+     * @param loginController  the controller handling login actions
+     * @param viewManager      the view manager for managing view transitions
+     */
     public LoginPanel(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
@@ -29,6 +44,10 @@ public class LoginPanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Initializes the components of the login panel, including labels, text fields, and buttons.
+     * Styles the buttons with specific fonts and colors.
+     */
     private void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
@@ -54,6 +73,10 @@ public class LoginPanel extends JPanel {
         this.cancelButton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Sets up the user interface for the login panel, arranging components using a GridBagLayout.
+     * Adds components such as labels, text fields, and buttons to the panel.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -101,6 +124,10 @@ public class LoginPanel extends JPanel {
         add(cancelButton, constraints);
     }
 
+    /**
+     * Sets up listeners for user interactions, including button clicks and key presses.
+     * Updates the view model based on user input and handles actions for login and cancel buttons.
+     */
     private void setupListeners() {
         // login in button response action
         loginButton.addActionListener(new ActionListener() {
@@ -154,6 +181,9 @@ public class LoginPanel extends JPanel {
         );
     }
 
+    /**
+     * Clears the text fields for identification and password.
+     */
     public void clearFields() {
         passwordField.setText("");
         identificationTextField.setText("");

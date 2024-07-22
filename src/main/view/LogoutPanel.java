@@ -11,6 +11,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * The LogoutPanel class represents the user interface for the logout functionality.
+ * It provides buttons for logging out and canceling the logout action.
+ *
+ * @author Jessica
+ * @author Dana
+ */
 public class LogoutPanel extends JPanel {
     private final LogoutViewModel viewModel;
     private LogoutController logoutController;
@@ -19,6 +26,12 @@ public class LogoutPanel extends JPanel {
     private JButton logoutButton;
     private JButton cancelButton;
 
+    /**
+     * Constructs a LogoutPanel object with the specified view model and logout controller.
+     *
+     * @param viewModel       the view model for the logout panel
+     * @param logoutController the controller handling logout actions
+     */
     public LogoutPanel(LogoutViewModel viewModel, LogoutController logoutController) {
         this.viewModel = viewModel;
         this.logoutController = logoutController;
@@ -27,6 +40,9 @@ public class LogoutPanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Initializes the components of the logout panel, including labels and buttons.
+     */
     private void initializeComponents() {
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
 
@@ -37,6 +53,9 @@ public class LogoutPanel extends JPanel {
         buttons.add(this.cancelButton);
     }
 
+    /**
+     * Sets up the user interface of the panel by arranging components using a GridBagLayout.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -67,6 +86,10 @@ public class LogoutPanel extends JPanel {
         add(cancelButton, constraints);
     }
 
+    /**
+     * Sets up listeners for button actions.
+     * Handles logout and cancel button actions.
+     */
     private void setupListeners() {
         //logout button response action
         logoutButton.addActionListener(new ActionListener() {

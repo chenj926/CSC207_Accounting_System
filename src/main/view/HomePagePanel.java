@@ -14,6 +14,14 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * The HomePagePanel class represents the panel for the home page in the application.
+ * It extends JPanel and is responsible for displaying the home page interface, including
+ * buttons for login, signup, and exit, along with a background image.
+ *
+ * @author Dana
+ * @author Eric
+ */
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
     private final ViewManagerModel viewManager;
@@ -24,6 +32,12 @@ public class HomePagePanel extends JPanel {
     private JButton exitButton;
     private Image backgroundImage;
 
+    /**
+     * Constructs a HomePagePanel object with the specified view model and view manager.
+     *
+     * @param viewModel   the view model for the home page panel
+     * @param viewManager the view manager for managing view transitions
+     */
     public HomePagePanel(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
@@ -36,6 +50,11 @@ public class HomePagePanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Loads the background image from the specified path.
+     *
+     * @param path the path to the image file
+     */
     private void loadBackgroundImage(String path) {
         try {
             this.backgroundImage = ImageIO.read(new File(path));
@@ -44,6 +63,11 @@ public class HomePagePanel extends JPanel {
         }
     }
 
+    /**
+     * Paints the component, including the background image.
+     *
+     * @param g the Graphics context to use for painting
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -52,6 +76,9 @@ public class HomePagePanel extends JPanel {
         }
     }
 
+    /**
+     * Initializes the components used in the home page panel.
+     */
     private void initializeComponents(){
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
@@ -74,6 +101,9 @@ public class HomePagePanel extends JPanel {
         this.exitButton.setForeground(Color.BLACK);
     }
 
+    /**
+     * Sets up the UI layout for the home page panel.
+     */
     private void setupUI(){
         setLayout(new BorderLayout());
 
@@ -95,6 +125,9 @@ public class HomePagePanel extends JPanel {
         add(centerPanel, BorderLayout.CENTER);
     }
 
+    /**
+     * Sets up listeners for the buttons in the home page panel.
+     */
     private void setupListeners(){
         // login button response action
         loginButton.addActionListener(e -> this.viewManager.setActiveViewName("log in"));
