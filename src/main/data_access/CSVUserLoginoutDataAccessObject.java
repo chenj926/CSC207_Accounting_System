@@ -7,10 +7,25 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.io.*;
 
+/**
+ * A CSV-based implementation of data access for user login and logout operations.
+ * <p>
+ * This class extends {@link CSVUserAccountDataAccessObject} and implements both {@link LogoutDataAccessInterface}
+ * and {@link LoginDataAccessInterface}. It provides methods to check user login status and handle user logout,
+ * utilizing a CSV file for data storage.
+ * </p>
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObject implements LogoutDataAccessInterface, LoginDataAccessInterface {
     private static final String FILE_PATH = CSVUserAccountDataAccessObject.USER_CSV_FILE_PATH;
 //    private Map<String, Boolean> userLogin;
 
+    /**
+     * Constructs a new instance of {@code CSVUserLoginoutDataAccessObject}.
+     * Initializes the CSV-based data access object for user login and logout operations.
+     */
     public CSVUserLoginoutDataAccessObject() {
         super();
 
@@ -51,6 +66,16 @@ public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObj
 //    }
 
 
+    /**
+     * Logs in a user by verifying their identification and password against the CSV data.
+     * <p>
+     * This method reads user data from a CSV file and checks if the provided user account's identification
+     * and password match any entry in the file.
+     * </p>
+     *
+     * @param userAccount the {@link UserAccount} object containing the user's identification and password
+     * @return {@code true} if the user is successfully logged in; {@code false} otherwise
+     */
     @Override
     public boolean login(UserAccount userAccount) {
 
@@ -72,6 +97,15 @@ public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObj
         return false;
     }
 
+    /**
+     * Handles the logout operation for the specified user.
+     * <p>
+     * This method is a placeholder in the CSV implementation and does not currently persist logout information
+     * to the CSV file.
+     * </p>
+     *
+     * @param user the {@link UserAccount} object representing the user who is logging out
+     */
     @Override
     public void logout(UserAccount user) {
         System.out.println(user);

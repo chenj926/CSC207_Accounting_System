@@ -7,20 +7,53 @@ import java.util.*;
 
 import java.time.LocalDate;
 
+/**
+ * A CSV-based implementation of data access for shared accounts.
+ * <p>
+ * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link ShareAccountDataAccessInterface}.
+ * It provides methods to manage shared accounts, including saving, updating, deleting, and retrieving shared account
+ * information from CSV files.
+ * </p>
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessObject implements ShareAccountDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
     private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
 
+    /**
+     * Constructs a new instance of {@code CSVSharedAccountDataAccessObject}.
+     * Initializes the CSV-based data access object for shared accounts.
+     */
     public CSVSharedAccountDataAccessObject() {
         super();
     }
 
+    /**
+     * Checks if a shared account exists by its identification.
+     * <p>
+     * This method retrieves the shared account by its identification from the CSV file.
+     * </p>
+     *
+     * @param sharedAccountIdentification the identification of the shared account
+     * @return {@code true} if the shared account exists; {@code false} otherwise
+     */
     @Override
     public boolean existById(String sharedAccountIdentification) {
         return getById(sharedAccountIdentification) != null;
     }
 
+    /**
+     * Saves a new shared account to the CSV file.
+     * <p>
+     * This method reads the existing shared accounts from the CSV file, adds the new shared account,
+     * and writes all shared accounts back to the file.
+     * </p>
+     *
+     * @param newSharedAccount the {@link SharedAccount} to be saved
+     */
     @Override
     public void save(SharedAccount newSharedAccount) {
         Map<String, SharedAccount> sharedAccounts = readAllSharedAccounts();
@@ -28,13 +61,30 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         writeAllSharedAccounts(sharedAccounts);
     }
 
-
+    /**
+     * Updates an existing shared account in the CSV file.
+     * <p>
+     * This method reads the existing shared accounts from the CSV file, updates the shared account,
+     * and writes all shared accounts back to the file.
+     * </p>
+     *
+     * @param sharedAccount the {@link SharedAccount} to be updated
+     */
     public void update(SharedAccount sharedAccount) {
         Map<String, SharedAccount> sharedAccounts = readAllSharedAccounts();
         sharedAccounts.put(sharedAccount.getIdentification(), sharedAccount);
         writeAllSharedAccounts(sharedAccounts);
     }
 
+    /**
+     * Deletes a shared account by its identification.
+     * <p>
+     * This method reads the existing shared accounts from the CSV file, removes the specified shared account,
+     * and writes the updated list of shared accounts back to the file.
+     * </p>
+     *
+     * @param sharedAccountIdentification the identification of the shared account to be deleted
+     */
     @Override
     public void deleteById(String sharedAccountIdentification) {
         Map<String, SharedAccount> sharedAccounts = readAllSharedAccounts();
@@ -42,13 +92,30 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         writeAllSharedAccounts(sharedAccounts);
     }
 
+    /**
+     * Retrieves a shared account by its identification.
+     * <p>
+     * This method reads all shared accounts from the CSV file and returns the shared account that matches the given
+     * identification.
+     * </p>
+     *
+     * @param sharedAccountIdentification the identification of the shared account to retrieve
+     * @return the {@link SharedAccount} with the given identification, or {@code null} if not found
+     */
     @Override
     public SharedAccount getById(String sharedAccountIdentification) {
         Map<String, SharedAccount> sharedAccounts = readAllSharedAccounts();
         return sharedAccounts.get(sharedAccountIdentification);
     }
 
-    // read
+    /**
+     * Reads all shared accounts from the CSV file.
+     * <p>
+     * This method parses the CSV file and creates {@link SharedAccount} objects for each record.
+     * </p>
+     *
+     * @return a map of shared accounts with their identification as keys
+     */
     private Map<String, SharedAccount> readAllSharedAccounts() {
         Map<String, SharedAccount> sharedAccounts = new HashMap<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
@@ -75,6 +142,15 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         return sharedAccounts;
     }
 
+    /**
+     * Reads the users associated with a shared account from the CSV file.
+     * <p>
+     * This method parses the CSV file and returns a set of user IDs associated with the given shared account identification.
+     * </p>
+     *
+     * @param sharedAccountIdentification the identification of the shared account
+     * @return a set of user IDs associated with the shared account
+     */
     private Set<String> readSharedAccountUsers(String sharedAccountIdentification) {
         Set<String> userIds = new HashSet<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_USERS_CSV_FILE_PATH))) {
@@ -91,6 +167,16 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         return userIds;
     }
 
+    /**
+     * Reads the transactions associated with a shared account from the CSV file.
+     * <p>
+     * This method parses the CSV file and returns a list of {@link Transaction} objects associated with the given
+     * shared account identification.
+     * </p>
+     *
+     * @param sharedAccountIdentification the identification of the shared account
+     * @return a list of transactions associated with the shared account
+     */
     private List<Transaction> readSharedAccountTransactions(String sharedAccountIdentification) {
         List<Transaction> transactions = new ArrayList<>();
         try (BufferedReader br = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH))) {
@@ -108,7 +194,14 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         return transactions;
     }
 
-    // write
+    /**
+     * Writes all shared accounts to the CSV file.
+     * <p>
+     * This method serializes the shared accounts and their associated users and transactions to CSV files.
+     * </p>
+     *
+     * @param sharedAccounts a map of shared accounts with their identification as keys
+     */
     private void writeAllSharedAccounts(Map<String, SharedAccount> sharedAccounts) {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
             for (SharedAccount sharedAccount : sharedAccounts.values()) {
@@ -128,6 +221,14 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         writeAllSharedAccountTransactions(sharedAccounts);
     }
 
+    /**
+     * Writes the users associated with shared accounts to the CSV file.
+     * <p>
+     * This method serializes the user IDs associated with each shared account to the CSV file.
+     * </p>
+     *
+     * @param sharedAccounts a map of shared accounts with their identification as keys
+     */
     private void writeAllSharedAccountUsers(Map<String, SharedAccount> sharedAccounts) {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_USERS_CSV_FILE_PATH))) {
             for (SharedAccount sharedAccount : sharedAccounts.values()) {
@@ -142,6 +243,14 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         }
     }
 
+    /**
+     * Writes the transactions associated with shared accounts to the CSV file.
+     * <p>
+     * This method serializes the transactions associated with each shared account to the CSV file.
+     * </p>
+     *
+     * @param sharedAccounts a map of shared accounts with their identification as keys
+     */
     private void writeAllSharedAccountTransactions(Map<String, SharedAccount> sharedAccounts) {
         try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH))) {
             for (SharedAccount sharedAccount : sharedAccounts.values()) {
@@ -165,6 +274,16 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         }
     }
 
+    /**
+     * Creates a {@link Transaction} object from a CSV record.
+     * <p>
+     * This method parses the CSV record and constructs the appropriate type of transaction based on the provided
+     * type and other details.
+     * </p>
+     *
+     * @param values an array of values from the CSV record
+     * @return a {@link Transaction} object created from the CSV record, or {@code null} if the type is unknown
+     */
     private Transaction createTransaction(String[] values) {
         String type = values[1];
         String identification = values[2];
