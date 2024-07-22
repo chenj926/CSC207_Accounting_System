@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * The PeriodicTransaction abstract class implements the Transaction interface.
  * It represents a recurring transaction with additional details such as start date, end date, period, and inflow status.
  *
- * @author Zella
+ * @author Xile
  * @author Chi Fong
  * @author Dana
  * @author Jessica

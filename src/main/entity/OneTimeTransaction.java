@@ -6,7 +6,7 @@ import java.time.LocalDate;
  * The OneTimeTransaction abstract class implements the Transaction interface.
  * It represents a single, non-recurring transaction with additional details such as category and inflow status.
  *
- * @author Zella
+ * @author Xile
  * @author Chi Fong
  * @author Jessica
  * @author Eric

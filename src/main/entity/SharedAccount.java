@@ -9,8 +9,8 @@ import java.util.Set;
  * It includes additional functionality to manage user identifications associated with the shared account.
  *
  * @author Rita
- * @author Jessica Chen
- * @author Eric Chen
+ * @author Jessica
+ * @author Eric
  */
 public class SharedAccount extends UserAccount {
     private Set<String> sharedUserIdentifications;

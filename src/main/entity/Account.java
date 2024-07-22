@@ -6,8 +6,8 @@ import java.util.List;
  * The Account interface provides a blueprint for an account entity.
  * It includes methods to get and set account details, and to manage user accounts.
  *
- * @author Jessica Chen
- * @author Eric Chen
+ * @author Jessica
+ * @author Eric
  */
 public interface Account {
     /**

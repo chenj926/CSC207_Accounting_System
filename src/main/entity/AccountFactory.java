@@ -4,7 +4,7 @@ package entity;
  * The AccountFactory class is responsible for creating different types of account objects.
  * It provides methods to create user accounts and shared accounts.
  *
- * @author Jessica Chen
+ * @author Jessica
  */
 public class AccountFactory {
 

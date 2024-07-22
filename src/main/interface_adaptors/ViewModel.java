@@ -3,6 +3,13 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The ViewModel class serves as a base class for view models in the application.
+ * It provides support for property change notifications and stores the name of the view.
+ *
+ * @author Rita
+ * @author Xile
+ */
 public abstract class ViewModel {
     protected String viewName;
     private final PropertyChangeSupport propertyChangeSupport;
