@@ -3,6 +3,14 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The TransactionViewModel class extends the ViewModel class and manages the state and labels for transaction-related views.
+ * It provides getters for various labels used in the transaction view and supports property change notifications.
+ *
+ * @author Xile
+ * @author Jessica
+ * @author Eric
+ */
 public class TransactionViewModel extends ViewModel {
     // labels
     private final String TITLE_LABEL = "Account";
@@ -20,29 +28,72 @@ public class TransactionViewModel extends ViewModel {
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
+    /**
+     * Constructs a TransactionViewModel object with the view name set to "Transaction".
+     */
     public TransactionViewModel() {
         super("Transaction");
     }
 
-    // label getters
+    /**
+     * Gets the title label.
+     *
+     * @return the title label
+     */
     public String getTITLE_LABEL() {
             return this.TITLE_LABEL;
         }
+
+    /**
+     * Gets the balance label.
+     *
+     * @return the balance label
+     */
     public String getBALANCE_LABEL() {
         return this.BALANCE_LABEL;
     }
+
+    /**
+     * Gets the income label.
+     *
+     * @return the income label
+     */
     public String getINCOME_LABEL() {
         return this.INCOME_LABEL;
     }
+
+    /**
+     * Gets the outflow label.
+     *
+     * @return the outflow label
+     */
     public String getOUTFLOW_LABEL() {
         return this.OUTFLOW_LABEL;
     }
+
+    /**
+     * Gets the label for the one-time transaction button.
+     *
+     * @return the label for the one-time transaction button
+     */
     public String getONE_TIME_BUTTON_LABEL() {
         return this.ONE_TIME_BUTTON_LABEL;
     }
+
+    /**
+     * Gets the label for the periodic transaction button.
+     *
+     * @return the label for the periodic transaction button
+     */
     public String getPERIODIC_BUTTON_LABEL() {
         return this.PERIODIC_BUTTON_LABEL;
     }
+
+    /**
+     * Gets the label for the cancel button.
+     *
+     * @return the label for the cancel button
+     */
     public String getCANCEL_BUTTON_LABEL() {
         return this.CANCEL_BUTTON_LABEL;
     }

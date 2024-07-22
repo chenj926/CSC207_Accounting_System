@@ -8,6 +8,15 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.*;
 
+/**
+ * The ViewManagerModel class manages the views in the application.
+ * It keeps track of the current view and handles the switching between different views.
+ *
+ * @author Xile
+ * @author Rita
+ * @author Eric
+ * @author Dana
+ */
 public class ViewManagerModel {
 
     private String userId;
@@ -16,36 +25,74 @@ public class ViewManagerModel {
     private JFrame currentView;
     private Map<String, JFrame> views;
 
-
+    /**
+     * Constructs a ViewManagerModel object with no initial views.
+     */
     public ViewManagerModel() {
         this.views = new HashMap<>();
     }
 
+    /**
+     * Gets the name of the active view.
+     *
+     * @return the name of the active view
+     */
     public String getActiveViewName() {
         return activeViewName;
     }
+
+    /**
+     * Gets the user ID.
+     *
+     * @return the user ID
+     */
     public String getUserId() {
         return this.userId;
     }
 
+    /**
+     * Sets the name of the active view and notifies listeners of the change.
+     *
+     * @param activeViewName the name of the new active view
+     */
     public void setActiveViewName(String activeViewName) {
         String oldActiveViewName = this.activeViewName;
         this.activeViewName = activeViewName;
         support.firePropertyChange("activeViewName", oldActiveViewName, this.activeViewName);
     }
+
+    /**
+     * Sets the user ID.
+     *
+     * @param id the new user ID
+     */
     public void setUserId(String id) {
         this.userId = id;
     }
 
+    /**
+     * Adds a property change listener to the listener list.
+     *
+     * @param listener the PropertyChangeListener to be added
+     */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
 
-    // remove
+    /**
+     * Removes a property change listener from the listener list.
+     *
+     * @param listener the PropertyChangeListener to be removed
+     */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
     }
 
+    /**
+     * Changes the current view to the specified view.
+     *
+     * @param viewName the name of the view to change to
+     */
     public void changeView(String viewName) {
         if (currentView != null) {
             currentView.dispose();
@@ -59,6 +106,11 @@ public class ViewManagerModel {
         this.setActiveViewName(viewName);
     }
 
+    /**
+     * Creates a new view based on the specified view name.
+     *
+     * @param viewName the name of the view to create
+     */
     private void createView(String viewName) {
         switch (viewName) {
             case "home page":

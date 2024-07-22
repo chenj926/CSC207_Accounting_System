@@ -1,21 +1,35 @@
 package use_case;
 
 import entity.UserAccount;
-import entity.AccountFactory;
 import data_access.LoginDataAccessInterface;
 
-
+/**
+ * The LoginInteractor class implements the LoginInputBoundary interface.
+ * It handles the login process by validating the input data and interacting with the data access layer and the presenter.
+ *
+ * @author Dana
+ * @author Eric
+ */
 public class LoginInteractor implements LoginInputBoundary {
-//    final AccountFactory accountFactory;
     final LoginDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary presenter;
 
+    /**
+     * Constructs a LoginInteractor object with the specified data access interface and output boundary.
+     *
+     * @param LoginDataAccessInterface the data access interface for user data
+     * @param logInOutputBoundary      the output boundary for presenting the login results
+     */
     public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary) {
-//        this.accountFactory = accountFactory;
         this.userDataAccessObject = LoginDataAccessInterface;
         this.presenter = logInOutputBoundary;
     }
 
+    /**
+     * Executes the login process with the given input data.
+     *
+     * @param loginInputData the input data required for the login process
+     */
     @Override
     public void execute(LoginInputData loginInputData) {
 
@@ -61,7 +75,12 @@ public class LoginInteractor implements LoginInputBoundary {
 
         }
 
-
+    /**
+     * Checks if the provided password is valid (not null or empty).
+     *
+     * @param password the password to check
+     * @return true if the password is valid, false otherwise
+     */
     public boolean checkPassword(String password) {
         if (password == null || password.isEmpty()) {
             return false;
@@ -69,6 +88,12 @@ public class LoginInteractor implements LoginInputBoundary {
         return true;
     }
 
+    /**
+     * Checks if the provided identification is valid (not null or empty).
+     *
+     * @param id the identification to check
+     * @return true if the identification is valid, false otherwise
+     */
     public boolean checkIdentification(String id) {
         if (id == null || id.isEmpty()) {
             return false;

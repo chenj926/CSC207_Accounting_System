@@ -1,9 +1,16 @@
 package use_case;
 
+/**
+ * The PeriodicTransactionInputData class represents the input data required for a periodic transaction operation.
+ * It includes details such as the transaction amount, start date, end date, period, and description.
+ *
+ * @author Dana
+ * @author Eric
+ * @author Jessica
+ */
 public class PeriodicTransactionInputData {
 
     private String transactionAmount;
-//    private final String identification;
     private String transactionStartDate;
     private String transactionEndDate;
     private String transactionPeriod;

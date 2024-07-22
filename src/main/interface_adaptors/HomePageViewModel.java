@@ -3,6 +3,13 @@ package interface_adaptors;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The HomePageViewModel class extends the ViewModel class and manages the labels for the home page view.
+ * It provides getters for various labels used in the home page view and supports property change notifications.
+ *
+ * @author Dana
+ * @author Eric
+ */
 public class HomePageViewModel extends ViewModel{
 
     private final String titleLabel = "Welcome to Accounting System";
@@ -13,20 +20,45 @@ public class HomePageViewModel extends ViewModel{
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     // private HomePageState state = new HomePageState();
 
+    /**
+     * Constructs a HomePageViewModel object with the view name set to "Home Page".
+     */
     public HomePageViewModel() {
         super("Home Page");
     }
 
-    // getters
+    /**
+     * Gets the title label.
+     *
+     * @return the title label
+     */
     public String getTitleLabel() {
         return this.titleLabel;
     }
+
+    /**
+     * Gets the signup button label.
+     *
+     * @return the signup button label
+     */
     public String getSignupButtonLabel() {
         return this.signupButtonLabel;
     }
+
+    /**
+     * Gets the login button label.
+     *
+     * @return the login button label
+     */
     public String getLoginButtonLabel() {
         return this.loginButtonLabel;
     }
+
+    /**
+     * Gets the exit button label.
+     *
+     * @return the exit button label
+     */
     public String getExitButtonLabel() {
         return this.exitButtonLabel;
     }

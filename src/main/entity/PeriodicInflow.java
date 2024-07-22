@@ -2,6 +2,14 @@ package entity;
 
 import java.time.LocalDate;
 
+/**
+ * The PeriodicInflow class represents a recurring inflow transaction.
+ * It extends the PeriodicTransaction class.
+ *
+ * @author Chi Fong
+ * @author Jessica
+ * @author Eric
+ */
 public class PeriodicInflow extends PeriodicTransaction {
     public PeriodicInflow(String identification, float amount, LocalDate startDate, String description,
                           LocalDate endDate, int period) {

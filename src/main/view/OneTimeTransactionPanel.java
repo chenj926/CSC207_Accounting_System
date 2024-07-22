@@ -10,6 +10,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.NumberFormat;
 
+/**
+ * The OneTimeTransactionPanel class represents the user interface for a one-time transaction form.
+ * It extends JPanel and handles user inputs and interactions related to one-time transactions.
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class OneTimeTransactionPanel extends JPanel {
     private final OneTimeTransactionViewModel viewModel;
     private final OneTimeTransactionController oneTimeTransactionController;
@@ -24,6 +31,13 @@ public class OneTimeTransactionPanel extends JPanel {
     private JButton submitButton;
     private JButton cancelButton;
 
+    /**
+     * Constructs a OneTimeTransactionPanel object with the specified view model, controller, and view manager.
+     *
+     * @param viewModel                  the view model for the one-time transaction panel
+     * @param oneTimeTransactionController the controller handling one-time transaction actions
+     * @param viewManager                the view manager for handling view transitions
+     */
     public OneTimeTransactionPanel(OneTimeTransactionViewModel viewModel,
                                    OneTimeTransactionController oneTimeTransactionController,
                                    ViewManagerModel viewManager) {
@@ -35,6 +49,9 @@ public class OneTimeTransactionPanel extends JPanel {
         setupListeners();
     }
 
+    /**
+     * Initializes the components for the one-time transaction panel, including labels, text fields, and buttons.
+     */
     private void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
@@ -63,6 +80,9 @@ public class OneTimeTransactionPanel extends JPanel {
         this.cancelButton.setForeground(Color.WHITE);
     }
 
+    /**
+     * Sets up the user interface layout for the one-time transaction panel.
+     */
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
@@ -118,6 +138,9 @@ public class OneTimeTransactionPanel extends JPanel {
         add(cancelButton, constraints);
     }
 
+    /**
+     * Sets up listeners for user interactions, including submit and cancel actions.
+     */
     private void setupListeners() {
         // submit button response action
         submitButton.addActionListener(new ActionListener() {
@@ -203,6 +226,9 @@ public class OneTimeTransactionPanel extends JPanel {
         );
     }
 
+    /**
+     * Clears all input fields in the one-time transaction panel.
+     */
     public void clearFields() {
         amountField.setText("");
         dateField.setText("");
