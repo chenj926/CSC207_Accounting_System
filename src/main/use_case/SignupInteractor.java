@@ -6,12 +6,27 @@ import data_access.UserSignupDataAccessInterface;
 import entity.UserAccount;
 import entity.AccountFactory;
 
+/**
+ * The SignupInteractor class implements the SignupInputBoundary interface.
+ * It handles the signup process by validating the input data, interacting with the data access layer,
+ * and using the presenter to prepare the output views.
+ *
+ * @author Eric
+ * @author Dana
+ * @author Jessica
+ */
 public class SignupInteractor implements SignupInputBoundary{
     final AccountFactory accountFactory;
     final SignupOutputBoundary presenter;
     final UserSignupDataAccessInterface userDataAccessObject;
 
-    // Constructor
+    /**
+     * Constructs a SignupInteractor object with the specified data access interface, output boundary, and account factory.
+     *
+     * @param userSignupDataAccessInterface the data access interface for user data
+     * @param signupOutputBoundary          the output boundary for presenting the signup results
+     * @param accountFactory                the factory for creating user accounts
+     */
     public SignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
                             SignupOutputBoundary signupOutputBoundary,
                             AccountFactory accountFactory) {
@@ -21,6 +36,11 @@ public class SignupInteractor implements SignupInputBoundary{
 
     }
 
+    /**
+     * Executes the signup process with the given input data.
+     *
+     * @param signupInputData the input data required for the signup process
+     */
     @Override
     public void execute(SignupInputData signupInputData) {
         if (userDataAccessObject.existById(signupInputData.getIdentification())) {
@@ -61,21 +81,39 @@ public class SignupInteractor implements SignupInputBoundary{
         }
     }
 
-    public boolean checkUsername(String username) {
+    /**
+     * Checks if the provided username is valid (not null or empty).
+     *
+     * @param username the username to check
+     * @return true if the username is valid, false otherwise
+     */
+    private boolean checkUsername(String username) {
         if (username == null || username.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    public boolean checkPassword(String password) {
+    /**
+     * Checks if the provided password is valid (not null or empty).
+     *
+     * @param password the password to check
+     * @return true if the password is valid, false otherwise
+     */
+    private boolean checkPassword(String password) {
         if (password == null || password.isEmpty()) {
             return false;
         }
         return true;
     }
 
-    public boolean checkIdentification(String id) {
+    /**
+     * Checks if the provided identification is valid (not null or empty).
+     *
+     * @param id the identification to check
+     * @return true if the identification is valid, false otherwise
+     */
+    private boolean checkIdentification(String id) {
         if (id == null || id.isEmpty()) {
             return false;
         }

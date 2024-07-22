@@ -9,11 +9,27 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
+/**
+ * The OneTimeTransactionInteractor class implements the OneTimeTransactionInputBoundary interface.
+ * It handles the process of creating a one-time transaction by validating the input data,
+ * interacting with the data access layer, and using the presenter to prepare the output views.
+ *
+ * @author Dana
+ * @author Eric
+ */
 public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
     final OneTimeTransactionOutputBoundary presenter;
     private UserAccount userAccount;
 
+    /**
+     * Constructs a OneTimeTransactionInteractor object with the specified data access interface,
+     * output boundary, and user account.
+     *
+     * @param userAccountDataAccessInterface the data access interface for user data
+     * @param oneTimeTransactionOutputBoundary the output boundary for presenting the one-time transaction results
+     * @param userAccount the user account associated with the transaction
+     */
     public OneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                         OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
                                         UserAccount userAccount) {
@@ -22,6 +38,11 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         this.userAccount = userAccount;
     }
 
+    /**
+     * Executes the one-time transaction process with the given input data.
+     *
+     * @param oneTimeTransactionInputData the input data required for the one-time transaction process
+     */
     @Override
     public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
         String identification = userAccount.getIdentification();
@@ -37,7 +58,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             return;
         }
 
-        // check if the entered amount is correct
+        // Check if the entered amount is correct
         float amount = 0.00f;
         // to see if amount is proper float
         try {
@@ -47,7 +68,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             return;
         }
 
-        // format the input to .2 decimal place
+        // Format the input to .2 decimal place
         String formattedAmount = String.format("%.2f", amount);
         amount = Float.parseFloat(formattedAmount);
 
@@ -56,7 +77,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         float income = 0.0f;
         float outFlow = 0.0f;
 
-        // update the inflow and outflow
+        // Update the inflow and outflow
         if (isInflow) {
             float totalIncome = userAccount.getTotalIncome();
             income = totalIncome + amount;
@@ -72,7 +93,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             }
             OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, localDate, description, category);
 
-            // update the balance accordingly
+            // Update the balance accordingly
             float balance = userAccount.getTotalBalance();
             float totalBalance = balance + income;
             userAccount.setTotalBalance(totalBalance);
@@ -80,7 +101,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
             // Prepare output data
             OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow, userAccount.getTotalBalance());
 
-            // save this transaction
+            // Save this transaction
             userDataAccessObject.saveTransaction(outputData, null,false);
             presenter.prepareSuccessView(outputData);
         }
@@ -113,6 +134,12 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         }
     }
 
+    /**
+     * Checks if the provided user input is valid (not null or empty).
+     *
+     * @param userInfo the user input to check
+     * @return true if the user input is valid, false otherwise
+     */
     public boolean checkValid(String userInfo) {
         if (userInfo == null || userInfo.isEmpty()) {
             return false;

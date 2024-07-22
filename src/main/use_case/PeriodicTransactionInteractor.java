@@ -14,12 +14,27 @@ import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
-
+/**
+ * The PeriodicTransactionInteractor class implements the PeriodicTransactionInputBoundary interface.
+ * It handles the process of creating a periodic transaction by validating the input data,
+ * interacting with the data access layer, and using the presenter to prepare the output views.
+ *
+ * @author Eric
+ * @author Dana
+ */
 public class PeriodicTransactionInteractor implements PeriodicTransactionInputBoundary {
     final UserAccountDataAccessInterface userDataAccessObject;
     final PeriodicTransactionOutputBoundary presenter;
     final UserAccount userAccount;
 
+    /**
+     * Constructs a PeriodicTransactionInteractor object with the specified data access interface,
+     * output boundary, and user account.
+     *
+     * @param userAccountDataAccessInterface the data access interface for user data
+     * @param periodicTransactionOutputBoundary the output boundary for presenting the periodic transaction results
+     * @param userAccount the user account associated with the transaction
+     */
     public PeriodicTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                          PeriodicTransactionOutputBoundary periodicTransactionOutputBoundary,
                                          UserAccount userAccount) {
@@ -28,6 +43,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         this.userAccount = userAccount;
     }
 
+    /**
+     * Executes the periodic transaction process with the given input data.
+     *
+     * @param periodicTransactionInputData the input data required for the periodic transaction process
+     */
     @Override
     public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
         String identification = userAccount.getIdentification();
@@ -317,6 +337,12 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         }
     }
 
+    /**
+     * Checks if the provided user input is valid (not null or empty).
+     *
+     * @param userInfo the user input to check
+     * @return true if the user input is valid, false otherwise
+     */
     public boolean checkValid(String userInfo) {
         if (userInfo == null || userInfo.isEmpty()) {
             return false;
