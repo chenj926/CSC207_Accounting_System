@@ -63,7 +63,8 @@ public class PeriodicTransactionView extends JFrame implements PropertyChangeLis
             String successMsg = state.getSuccessMessage();
             JOptionPane.showMessageDialog(this, successMsg, "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, state.getSuccessMessage());
+            String errMsg = state.getErrorMsg();
+            JOptionPane.showMessageDialog(this, errMsg, "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
