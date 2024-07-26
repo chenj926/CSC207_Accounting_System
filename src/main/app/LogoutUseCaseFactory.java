@@ -2,7 +2,9 @@ package app;
 
 import data_access.*;
 import interface_adaptors.*;
-import use_case.*;
+import use_case.Logout.LogoutInputBoundary;
+import use_case.Logout.LogoutInteractor;
+import use_case.Logout.LogoutOutputBoundary;
 import view.Logout.LogoutView;
 
 public class LogoutUseCaseFactory {

@@ -1,8 +1,8 @@
 package data_access;
 
 import entity.UserAccount;
-import use_case.OneTimeTransactionOutputData;
-import use_case.PeriodicTransactionOutputData;
+import use_case.Transaction.OneTimeTransactionOutputData;
+import use_case.Transaction.PeriodicTransactionOutputData;
 
 import java.util.*;
 

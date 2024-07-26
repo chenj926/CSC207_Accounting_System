@@ -2,7 +2,8 @@ package app;
 
 import data_access.*;
 import interface_adaptors.*;
-import use_case.*;
+import use_case.Login.LoginInteractor;
+import use_case.Login.LoginOutputBoundary;
 import view.Login.LoginView;
 
 import javax.swing.*;

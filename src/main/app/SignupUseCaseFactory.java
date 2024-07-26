@@ -3,7 +3,8 @@ package app;
 import data_access.*;
 import entity.*;
 import interface_adaptors.*;
-import use_case.*;
+import use_case.Transaction.SignupInteractor;
+import use_case.Transaction.SignupOutputBoundary;
 import view.Signup.SignupView;
 
 import javax.swing.*;

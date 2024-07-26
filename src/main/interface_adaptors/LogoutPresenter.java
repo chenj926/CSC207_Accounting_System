@@ -1,10 +1,7 @@
 package interface_adaptors;
 
-import use_case.LogoutOutputBoundary;
-import use_case.LogoutOutputData;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import use_case.Logout.LogoutOutputBoundary;
+import use_case.Logout.LogoutOutputData;
 
 /**
  * The LogoutPresenter class implements the LogoutOutputBoundary interface.

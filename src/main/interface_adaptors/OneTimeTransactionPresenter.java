@@ -1,7 +1,7 @@
 package interface_adaptors;
 
-import use_case.OneTimeTransactionOutputBoundary;
-import use_case.OneTimeTransactionOutputData;
+import use_case.Transaction.OneTimeTransactionOutputBoundary;
+import use_case.Transaction.OneTimeTransactionOutputData;
 
 /**
  * The OneTimeTransactionPresenter class implements the OneTimeTransactionOutputBoundary interface.

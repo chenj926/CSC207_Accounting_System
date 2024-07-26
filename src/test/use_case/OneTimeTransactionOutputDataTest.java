@@ -3,6 +3,7 @@ package use_case;
 import entity.OneTimeInflow;
 import entity.OneTimeOutflow;
 import org.junit.jupiter.api.Test;
+import use_case.Transaction.OneTimeTransactionOutputData;
 
 import java.time.LocalDate;
 

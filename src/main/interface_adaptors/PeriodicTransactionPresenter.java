@@ -1,7 +1,7 @@
 package interface_adaptors;
 
-import use_case.PeriodicTransactionOutputBoundary;
-import use_case.PeriodicTransactionOutputData;
+import use_case.Transaction.PeriodicTransactionOutputBoundary;
+import use_case.Transaction.PeriodicTransactionOutputData;
 
 /**
  * The PeriodicTransactionPresenter class implements the PeriodicTransactionOutputBoundary interface.

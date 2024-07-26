@@ -4,8 +4,8 @@ import data_access.DAOFactory;
 import data_access.UserAccountDataAccessInterface;
 import entity.UserAccount;
 import interface_adaptors.*;
-import use_case.PeriodicTransactionInteractor;
-import use_case.PeriodicTransactionOutputBoundary;
+import use_case.Transaction.PeriodicTransactionInteractor;
+import use_case.Transaction.PeriodicTransactionOutputBoundary;
 import view.Transaction.PeriodicTransactionView;
 
 import javax.swing.*;

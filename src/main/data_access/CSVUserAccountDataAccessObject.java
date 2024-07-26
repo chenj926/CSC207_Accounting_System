@@ -2,8 +2,8 @@ package data_access;
 
 import entity.*;
 
-import use_case.OneTimeTransactionOutputData;
-import use_case.PeriodicTransactionOutputData;
+import use_case.Transaction.OneTimeTransactionOutputData;
+import use_case.Transaction.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -31,8 +31,8 @@ import java.util.*;
  *
  * @see entity.UserAccount
  * @see entity.Transaction
- * @see use_case.OneTimeTransactionOutputData
- * @see use_case.PeriodicTransactionOutputData
+ * @see OneTimeTransactionOutputData
+ * @see PeriodicTransactionOutputData
  *
  */
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{

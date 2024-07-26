@@ -1,7 +1,7 @@
 package interface_adaptors;
 
-import use_case.LoginInputBoundary;
-import use_case.LoginInputData;
+import use_case.Login.LoginInputBoundary;
+import use_case.Login.LoginInputData;
 
 /**
  * The LoginController class is responsible for handling user interactions related to the login process.

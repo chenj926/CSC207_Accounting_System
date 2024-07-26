@@ -1,10 +1,7 @@
 package interface_adaptors;
 
-import use_case.SignupOutputBoundary;
-import use_case.SignupOutputData;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import use_case.Transaction.SignupOutputBoundary;
+import use_case.Transaction.SignupOutputData;
 
 /**
  * The SignupPresenter class implements the SignupOutputBoundary interface.

@@ -1,10 +1,13 @@
 package use_case;
 
 import entity.UserAccount;
-import entity.AccountFactory;
 import data_access.LoginDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.Login.LoginInputData;
+import use_case.Login.LoginInteractor;
+import use_case.Login.LoginOutputBoundary;
+import use_case.Login.LoginOutputData;
 
 import java.util.HashMap;
 import java.util.Map;

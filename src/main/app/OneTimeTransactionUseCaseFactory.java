@@ -4,8 +4,8 @@ import data_access.DAOFactory;
 import data_access.UserAccountDataAccessInterface;
 import entity.UserAccount;
 import interface_adaptors.*;
-import use_case.OneTimeTransactionInteractor;
-import use_case.OneTimeTransactionOutputBoundary;
+import use_case.Transaction.OneTimeTransactionInteractor;
+import use_case.Transaction.OneTimeTransactionOutputBoundary;
 import view.Transaction.OneTimeTransactionView;
 
 import javax.swing.*;

@@ -1,7 +1,7 @@
 package interface_adaptors;
 
-import use_case.SignupInputBoundary;
-import use_case.SignupInputData;
+import use_case.Signup.SignupInputBoundary;
+import use_case.Signup.SignupInputData;
 
 
 /**

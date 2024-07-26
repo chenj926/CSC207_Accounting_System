@@ -1,7 +1,7 @@
 package interface_adaptors;
 
-import use_case.LoginOutputBoundary;
-import use_case.LoginOutputData;
+import use_case.Login.LoginOutputBoundary;
+import use_case.Login.LoginOutputData;
 
 /**
  * The LoginPresenter class implements the LoginOutputBoundary interface.
