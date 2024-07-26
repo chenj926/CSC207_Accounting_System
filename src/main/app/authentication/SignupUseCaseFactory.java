@@ -1,4 +1,4 @@
-package app;
+package app.authentication;
 
 import data_access.*;
 import entity.*;

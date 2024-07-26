@@ -1,4 +1,4 @@
-package app;
+package app.transaction;
 
 import interface_adaptors.*;
 import interface_adaptors.transaction.TransactionViewModel;

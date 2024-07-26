@@ -1,4 +1,4 @@
-package app;
+package app.transaction;
 
 import data_access.DAOFactory;
 import data_access.UserAccountDataAccessInterface;

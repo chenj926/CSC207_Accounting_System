@@ -1,4 +1,4 @@
-package app;
+package app.home_page;
 
 import interface_adaptors.*;
 import view.home_page.HomePageView;
