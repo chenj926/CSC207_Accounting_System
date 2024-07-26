@@ -9,7 +9,7 @@ import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import use_case.transaction.OneTimeTransactionInteractor;
 import use_case.transaction.OneTimeTransactionOutputBoundary;
-import view.Transaction.OneTimeTransactionView;
+import view.transaction.one_time.OneTimeTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;

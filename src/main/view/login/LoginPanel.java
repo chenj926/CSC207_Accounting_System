@@ -1,4 +1,4 @@
-package view.Login;
+package view.login;
 
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;

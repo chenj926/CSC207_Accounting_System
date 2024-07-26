@@ -8,12 +8,12 @@ import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 import view.home_page.HomePageView;
-import view.Login.LoginView;
-import view.Logout.LogoutView;
-import view.Signup.SignupView;
-import view.Transaction.OneTimeTransactionView;
-import view.Transaction.PeriodicTransactionView;
-import view.Transaction.TransactionView;
+import view.login.LoginView;
+import view.logout.LogoutView;
+import view.signup.SignupView;
+import view.transaction.one_time.OneTimeTransactionView;
+import view.transaction.periodic.PeriodicTransactionView;
+import view.transaction.TransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;

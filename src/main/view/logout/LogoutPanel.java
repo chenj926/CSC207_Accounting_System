@@ -1,4 +1,4 @@
-package view.Logout;
+package view.logout;
 
 import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.logout.LogoutController;

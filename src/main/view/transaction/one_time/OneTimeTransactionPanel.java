@@ -1,4 +1,4 @@
-package view.Transaction;
+package view.transaction.one_time;
 
 import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;

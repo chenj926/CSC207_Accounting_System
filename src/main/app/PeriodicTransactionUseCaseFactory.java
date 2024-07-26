@@ -9,7 +9,7 @@ import interface_adaptors.transaction.periodic.PeriodicTransactionPresenter;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 import use_case.transaction.PeriodicTransactionInteractor;
 import use_case.transaction.PeriodicTransactionOutputBoundary;
-import view.Transaction.PeriodicTransactionView;
+import view.transaction.periodic.PeriodicTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;

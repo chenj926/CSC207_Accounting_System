@@ -2,7 +2,7 @@ package app;
 
 import interface_adaptors.*;
 import interface_adaptors.transaction.TransactionViewModel;
-import view.Transaction.TransactionView;
+import view.transaction.TransactionView;
 
 public class TransactionUseCaseFactory {
 

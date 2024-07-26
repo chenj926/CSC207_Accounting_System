@@ -7,7 +7,7 @@ import interface_adaptors.login.LoginPresenter;
 import interface_adaptors.login.LoginViewModel;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
-import view.Login.LoginView;
+import view.login.LoginView;
 
 import javax.swing.*;
 import java.io.IOException;

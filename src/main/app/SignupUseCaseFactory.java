@@ -8,7 +8,7 @@ import interface_adaptors.signup.SignupPresenter;
 import interface_adaptors.signup.SignupViewModel;
 import use_case.transaction.SignupInteractor;
 import use_case.transaction.SignupOutputBoundary;
-import view.Signup.SignupView;
+import view.signup.SignupView;
 
 import javax.swing.*;
 import java.io.IOException;

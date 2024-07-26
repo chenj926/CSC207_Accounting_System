@@ -1,4 +1,4 @@
-package view.Signup;
+package view.signup;
 
 import interface_adaptors.*;
 import interface_adaptors.signup.SignupController;

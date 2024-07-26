@@ -8,7 +8,7 @@ import interface_adaptors.logout.LogoutViewModel;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
-import view.Logout.LogoutView;
+import view.logout.LogoutView;
 
 public class LogoutUseCaseFactory {
 

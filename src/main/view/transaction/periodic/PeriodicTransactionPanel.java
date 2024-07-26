@@ -1,4 +1,4 @@
-package view.Transaction;
+package view.transaction.periodic;
 
 import interface_adaptors.*;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;
