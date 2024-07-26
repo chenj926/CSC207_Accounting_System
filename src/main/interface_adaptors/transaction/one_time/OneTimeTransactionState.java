@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction.one_time;
 
 /**
  * The OneTimeTransactionState class represents the state of a one-time transaction,

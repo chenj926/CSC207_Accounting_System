@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction.periodic;
 
 import use_case.Transaction.PeriodicTransactionInputBoundary;
 import use_case.Transaction.PeriodicTransactionInputData;

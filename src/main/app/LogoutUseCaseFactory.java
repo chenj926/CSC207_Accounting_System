@@ -2,6 +2,9 @@ package app;
 
 import data_access.*;
 import interface_adaptors.*;
+import interface_adaptors.logout.LogoutController;
+import interface_adaptors.logout.LogoutPresenter;
+import interface_adaptors.logout.LogoutViewModel;
 import use_case.Logout.LogoutInputBoundary;
 import use_case.Logout.LogoutInteractor;
 import use_case.Logout.LogoutOutputBoundary;

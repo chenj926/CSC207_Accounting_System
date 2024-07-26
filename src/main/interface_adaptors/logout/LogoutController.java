@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.logout;
 
 import use_case.Logout.LogoutInputBoundary;
 import use_case.Logout.LogoutInputData;

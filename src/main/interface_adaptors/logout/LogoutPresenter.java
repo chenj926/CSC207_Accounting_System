@@ -1,5 +1,6 @@
-package interface_adaptors;
+package interface_adaptors.logout;
 
+import interface_adaptors.ViewManagerModel;
 import use_case.Logout.LogoutOutputBoundary;
 import use_case.Logout.LogoutOutputData;
 

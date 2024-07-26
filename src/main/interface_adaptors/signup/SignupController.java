@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.signup;
 
 import use_case.Signup.SignupInputBoundary;
 import use_case.Signup.SignupInputData;

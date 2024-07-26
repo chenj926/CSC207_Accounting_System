@@ -1,6 +1,7 @@
-package interface_adaptors;
+package interface_adaptors.transaction;
 
-import java.beans.PropertyChangeListener;
+import interface_adaptors.ViewModel;
+
 import java.beans.PropertyChangeSupport;
 
 /**

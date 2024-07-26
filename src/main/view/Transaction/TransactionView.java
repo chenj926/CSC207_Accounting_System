@@ -1,6 +1,7 @@
 package view.Transaction;
 
 import interface_adaptors.*;
+import interface_adaptors.transaction.TransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;

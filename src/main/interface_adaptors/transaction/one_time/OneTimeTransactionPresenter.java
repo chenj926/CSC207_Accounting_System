@@ -1,5 +1,6 @@
-package interface_adaptors;
+package interface_adaptors.transaction.one_time;
 
+import interface_adaptors.ViewManagerModel;
 import use_case.Transaction.OneTimeTransactionOutputBoundary;
 import use_case.Transaction.OneTimeTransactionOutputData;
 

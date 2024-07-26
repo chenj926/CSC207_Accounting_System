@@ -1,35 +1,40 @@
-package interface_adaptors;
+package interface_adaptors.transaction.periodic;
+
+import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 /**
- * The OneTimeTransactionViewModel class extends the ViewModel class and manages the state and labels for the one-time transaction view.
- * It provides getters for various labels used in the one-time transaction view and supports property change notifications.
+ * The PeriodicTransactionViewModel class extends the ViewModel class and manages the state and labels for the periodic transaction view.
+ * It provides getters for various labels used in the periodic transaction view and supports property change notifications.
  *
+ * @author Rita
  * @author Xile
  * @author Jessica
  * @author Eric
  */
-public class OneTimeTransactionViewModel extends ViewModel {
+public class PeriodicTransactionViewModel extends ViewModel {
     // labels
-    private final String TITLE_LABEL = "One Time Transaction";
+    private final String TITLE_LABEL = "Periodic Transaction";
     private final String AMOUNT = "Transaction Amount";
     private final String ID = "Identification";
-    private final String DATE = "Transaction Date";
+    private final String STARTDATE = "Transaction Start Date";
+    private final String ENDDATE = "Transaction End Date";
     private final String DESCRIPTION = "Description";
-    private final String CATEGORY = "Transaction Category";
+    private final String PERIOD = "Period";
+
     private final String SUBMIT_BUTTON = "Submit Transaction";
     private final String CANCEL_BUTTON = "Cancel";
 
-    private OneTimeTransactionState state = new OneTimeTransactionState();
+    private PeriodicTransactionState transactionState = new PeriodicTransactionState();
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a OneTimeTransactionViewModel object with the view name set to "One Time Transaction".
+     * Constructs a PeriodicTransactionViewModel object with the view name set to "Periodic Transaction".
      */
-    public OneTimeTransactionViewModel() {
-        super("One Time Transaction");
+    public PeriodicTransactionViewModel() {
+        super("Periodic Transaction");
     }
 
     /**
@@ -60,13 +65,21 @@ public class OneTimeTransactionViewModel extends ViewModel {
     }
 
     /**
-     * Gets the date label.
+     * Gets the start date label.
      *
-     * @return the date label
+     * @return the start date label
      */
-    public String getDate() {
-        return this.DATE;
+    public String getStartDate() {
+        return this.STARTDATE;
     }
+
+    /**
+     * Gets the end date label.
+     *
+     * @return the end date label
+     */
+    public String getEndDate() {
+        return this.ENDDATE; }
 
     /**
      * Gets the description label.
@@ -75,15 +88,6 @@ public class OneTimeTransactionViewModel extends ViewModel {
      */
     public String getDescription() {
         return this.DESCRIPTION;
-    }
-
-    /**
-     * Gets the category label.
-     *
-     * @return the category label
-     */
-    public String getCategory() {
-        return this.CATEGORY;
     }
 
     /**
@@ -105,28 +109,37 @@ public class OneTimeTransactionViewModel extends ViewModel {
     }
 
     /**
-     * Gets the current one-time transaction state.
+     * Gets the period label.
      *
-     * @return the current one-time transaction state
+     * @return the period label
      */
-    public OneTimeTransactionState getState() {
-        return this.state;
+    public String getPeriod() {
+        return this.PERIOD;
     }
 
     /**
-     * Sets the current one-time transaction state.
+     * Gets the current periodic transaction state.
      *
-     * @param state the new one-time transaction state
+     * @return the current periodic transaction state
      */
-    public void setState(OneTimeTransactionState state) {
-        this.state = state;
+    public PeriodicTransactionState getState() {
+        return this.transactionState;
     }
 
     /**
-     * Notifies listeners that the one-time transaction state has changed.
+     * Sets the current periodic transaction state.
+     *
+     * @param state the new periodic transaction state
+     */
+    public void setState(PeriodicTransactionState state) {
+        this.transactionState = state;
+    }
+
+    /**
+     * Notifies listeners that the periodic transaction state has changed.
      */
     public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
+        support.firePropertyChange("state", null, this.transactionState);
     }
 
     /**
@@ -148,12 +161,11 @@ public class OneTimeTransactionViewModel extends ViewModel {
     }
 
     /**
-     * Resets the one-time transaction state to default values.
+     * Resets the periodic transaction state to default values.
      */
     public void resetState() {
-        OneTimeTransactionState newState = new OneTimeTransactionState();
+        PeriodicTransactionState newState = new PeriodicTransactionState();
         setState(newState);
     }
-
 }
 

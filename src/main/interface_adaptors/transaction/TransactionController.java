@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction;
 
 /**
  * The TransactionController class is responsible for handling user interactions related to transactions.

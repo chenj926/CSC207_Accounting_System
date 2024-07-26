@@ -1,6 +1,10 @@
 package view.Transaction;
 
 import interface_adaptors.*;
+import interface_adaptors.transaction.one_time.OneTimeTransactionController;
+import interface_adaptors.transaction.one_time.OneTimeTransactionState;
+import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

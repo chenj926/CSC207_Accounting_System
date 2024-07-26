@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.login;
 
 /**
  * The LoginState class represents the state of the login process,

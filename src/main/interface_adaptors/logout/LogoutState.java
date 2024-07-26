@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.logout;
 
 /**
  * The LogoutState class represents the state of the logout process,

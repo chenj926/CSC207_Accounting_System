@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.signup;
 
 /**
  * The SignupState class represents the state of the signup process,

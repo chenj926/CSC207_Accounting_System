@@ -1,6 +1,8 @@
 package view.Logout;
 
-import interface_adaptors.*;
+import interface_adaptors.logout.LogoutController;
+import interface_adaptors.logout.LogoutState;
+import interface_adaptors.logout.LogoutViewModel;
 
 import javax.swing.*;
 import java.awt.*;

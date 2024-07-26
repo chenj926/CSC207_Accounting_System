@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction.one_time;
 
 import use_case.Transaction.OneTimeTransactionInputBoundary;
 import use_case.Transaction.OneTimeTransactionInputData;

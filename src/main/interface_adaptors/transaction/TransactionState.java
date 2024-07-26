@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction;
 
 /**
  * The TransactionState class represents the state of a transaction,

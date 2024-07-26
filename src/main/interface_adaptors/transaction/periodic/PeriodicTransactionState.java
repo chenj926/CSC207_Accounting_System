@@ -1,4 +1,4 @@
-package interface_adaptors;
+package interface_adaptors.transaction.periodic;
 
 /**
  * The PeriodicTransactionState class represents the state of a periodic transaction,

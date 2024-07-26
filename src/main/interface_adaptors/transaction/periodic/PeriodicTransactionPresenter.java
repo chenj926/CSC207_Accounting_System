@@ -1,5 +1,6 @@
-package interface_adaptors;
+package interface_adaptors.transaction.periodic;
 
+import interface_adaptors.ViewManagerModel;
 import use_case.Transaction.PeriodicTransactionOutputBoundary;
 import use_case.Transaction.PeriodicTransactionOutputData;
 

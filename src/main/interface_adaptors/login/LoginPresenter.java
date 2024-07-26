@@ -1,5 +1,6 @@
-package interface_adaptors;
+package interface_adaptors.login;
 
+import interface_adaptors.ViewManagerModel;
 import use_case.Login.LoginOutputBoundary;
 import use_case.Login.LoginOutputData;
 
