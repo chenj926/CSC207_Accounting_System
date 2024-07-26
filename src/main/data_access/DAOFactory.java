@@ -1,5 +1,9 @@
 package data_access;
 
+import data_access.account.*;
+import data_access.authentication.*;
+import data_access.transaction.*;
+
 /**
  * Factory class to provide access to different types of data access objects (DAOs).
  * <p>

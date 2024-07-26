@@ -1,7 +1,7 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.UserAccountDataAccessInterface;
+import data_access.account.UserAccountDataAccessInterface;
 import entity.UserAccount;
 import interface_adaptors.*;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;

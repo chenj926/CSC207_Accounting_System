@@ -1,6 +1,6 @@
 package use_case.transaction;
 
-import data_access.UserSignupDataAccessInterface;
+import data_access.authentication.UserSignupDataAccessInterface;
 import entity.UserAccount;
 import entity.AccountFactory;
 import use_case.signup.SignupInputBoundary;

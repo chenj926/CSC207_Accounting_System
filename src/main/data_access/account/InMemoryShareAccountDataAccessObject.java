@@ -1,6 +1,5 @@
-package data_access;
+package data_access.account;
 
-import data_access.ShareAccountDataAccessInterface;
 import entity.SharedAccount;
 
 import java.util.*;

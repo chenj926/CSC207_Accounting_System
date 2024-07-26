@@ -1,6 +1,7 @@
 package app.authentication;
 
 import data_access.*;
+import data_access.authentication.LogoutDataAccessInterface;
 import interface_adaptors.*;
 import interface_adaptors.logout.LogoutController;
 import interface_adaptors.logout.LogoutPresenter;

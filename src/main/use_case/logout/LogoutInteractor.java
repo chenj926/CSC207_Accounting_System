@@ -1,7 +1,7 @@
 package use_case.logout;
 
 import entity.UserAccount;
-import data_access.LogoutDataAccessInterface;
+import data_access.authentication.LogoutDataAccessInterface;
 
 /**
  * The LogoutInteractor class implements the LogoutInputBoundary interface.

@@ -1,5 +1,6 @@
-package data_access;
+package data_access.account;
 
+import data_access.authentication.UserSignupDataAccessInterface;
 import entity.UserAccount;
 
 import java.util.*;

@@ -1,6 +1,7 @@
 package app.authentication;
 
 import data_access.*;
+import data_access.authentication.LoginDataAccessInterface;
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginPresenter;

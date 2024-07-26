@@ -1,6 +1,6 @@
 package use_case.transaction;
 
-import data_access.UserAccountDataAccessInterface;
+import data_access.account.UserAccountDataAccessInterface;
 
 
 /**

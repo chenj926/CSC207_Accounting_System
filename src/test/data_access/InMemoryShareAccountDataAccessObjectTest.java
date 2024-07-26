@@ -1,5 +1,6 @@
 package data_access;
 
+import data_access.account.InMemoryShareAccountDataAccessObject;
 import entity.SharedAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

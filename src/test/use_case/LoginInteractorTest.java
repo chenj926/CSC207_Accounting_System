@@ -1,7 +1,7 @@
 package use_case;
 
 import entity.UserAccount;
-import data_access.LoginDataAccessInterface;
+import data_access.authentication.LoginDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.login.LoginInputData;

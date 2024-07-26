@@ -1,6 +1,6 @@
 package use_case.share_account;
 
-import data_access.ShareAccountDataAccessInterface;
+import data_access.account.ShareAccountDataAccessInterface;
 import entity.SharedAccount;
 import entity.AccountFactory;
 

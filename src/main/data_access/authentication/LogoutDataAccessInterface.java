@@ -1,4 +1,4 @@
-package data_access;
+package data_access.authentication;
 import entity.UserAccount;
 
 /**

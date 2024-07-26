@@ -1,5 +1,6 @@
-package data_access;
+package data_access.transaction;
 
+import data_access.account.UserAccountDataAccessInterface;
 import entity.UserAccount;
 import use_case.transaction.OneTimeTransactionOutputData;
 import use_case.transaction.PeriodicTransactionOutputData;

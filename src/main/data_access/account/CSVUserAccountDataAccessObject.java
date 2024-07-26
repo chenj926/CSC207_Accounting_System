@@ -1,5 +1,6 @@
-package data_access;
+package data_access.account;
 
+import data_access.authentication.UserSignupDataAccessInterface;
 import entity.*;
 
 import use_case.transaction.OneTimeTransactionOutputData;
@@ -35,7 +36,7 @@ import java.util.*;
  * @see PeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface{
+public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
     private Map<String, UserAccount> userAccounts;
     protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";

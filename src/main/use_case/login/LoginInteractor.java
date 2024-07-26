@@ -1,7 +1,7 @@
 package use_case.login;
 
 import entity.UserAccount;
-import data_access.LoginDataAccessInterface;
+import data_access.authentication.LoginDataAccessInterface;
 
 /**
  * The LoginInteractor class implements the LoginInputBoundary interface.

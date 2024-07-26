@@ -1,4 +1,4 @@
-package data_access;
+package data_access.account;
 
 import entity.UserAccount;
 import use_case.transaction.OneTimeTransactionOutputData;

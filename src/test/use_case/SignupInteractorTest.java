@@ -2,7 +2,7 @@ package use_case;
 
 import entity.UserAccount;
 import entity.AccountFactory;
-import data_access.UserSignupDataAccessInterface;
+import data_access.authentication.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.signup.SignupInputData;
