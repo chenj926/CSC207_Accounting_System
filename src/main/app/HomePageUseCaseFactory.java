@@ -1,7 +1,7 @@
 package app;
 
 import interface_adaptors.*;
-import view.HomePage.HomePageView;
+import view.home_page.HomePageView;
 
 public class HomePageUseCaseFactory {
 

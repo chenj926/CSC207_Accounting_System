@@ -4,7 +4,7 @@ import entity.PeriodicInflow;
 import entity.PeriodicOutflow;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.Transaction.PeriodicTransactionOutputData;
+import use_case.transaction.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 

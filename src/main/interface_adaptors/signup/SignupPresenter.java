@@ -1,8 +1,8 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.Transaction.SignupOutputBoundary;
-import use_case.Transaction.SignupOutputData;
+import use_case.transaction.SignupOutputBoundary;
+import use_case.transaction.SignupOutputData;
 
 /**
  * The SignupPresenter class implements the SignupOutputBoundary interface.

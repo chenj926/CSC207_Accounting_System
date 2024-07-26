@@ -5,8 +5,8 @@ import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginPresenter;
 import interface_adaptors.login.LoginViewModel;
-import use_case.Login.LoginInteractor;
-import use_case.Login.LoginOutputBoundary;
+import use_case.login.LoginInteractor;
+import use_case.login.LoginOutputBoundary;
 import view.Login.LoginView;
 
 import javax.swing.*;

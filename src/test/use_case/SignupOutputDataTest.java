@@ -1,7 +1,7 @@
 package use_case;
 
 import org.junit.Test;
-import use_case.Transaction.SignupOutputData;
+import use_case.transaction.SignupOutputData;
 
 import static org.junit.Assert.*;
 

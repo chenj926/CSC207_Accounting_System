@@ -1,7 +1,7 @@
 package interface_adaptors.logout;
 
-import use_case.Logout.LogoutInputBoundary;
-import use_case.Logout.LogoutInputData;
+import use_case.logout.LogoutInputBoundary;
+import use_case.logout.LogoutInputData;
 
 /**
  * The LogoutController class is responsible for handling user interactions related to the logout process.

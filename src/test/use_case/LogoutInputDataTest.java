@@ -1,7 +1,7 @@
 package use_case;
 
 import org.junit.Test;
-import use_case.Logout.LogoutInputData;
+import use_case.logout.LogoutInputData;
 
 import static org.junit.Assert.*;
 

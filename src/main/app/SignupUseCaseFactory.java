@@ -6,8 +6,8 @@ import interface_adaptors.*;
 import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SignupPresenter;
 import interface_adaptors.signup.SignupViewModel;
-import use_case.Transaction.SignupInteractor;
-import use_case.Transaction.SignupOutputBoundary;
+import use_case.transaction.SignupInteractor;
+import use_case.transaction.SignupOutputBoundary;
 import view.Signup.SignupView;
 
 import javax.swing.*;

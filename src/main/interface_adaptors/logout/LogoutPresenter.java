@@ -1,8 +1,8 @@
 package interface_adaptors.logout;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.Logout.LogoutOutputBoundary;
-import use_case.Logout.LogoutOutputData;
+import use_case.logout.LogoutOutputBoundary;
+import use_case.logout.LogoutOutputData;
 
 /**
  * The LogoutPresenter class implements the LogoutOutputBoundary interface.

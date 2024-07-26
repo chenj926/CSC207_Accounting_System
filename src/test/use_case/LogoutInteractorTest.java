@@ -4,10 +4,10 @@ import entity.UserAccount;
 import data_access.LogoutDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.Logout.LogoutInputData;
-import use_case.Logout.LogoutInteractor;
-import use_case.Logout.LogoutOutputBoundary;
-import use_case.Logout.LogoutOutputData;
+import use_case.logout.LogoutInputData;
+import use_case.logout.LogoutInteractor;
+import use_case.logout.LogoutOutputBoundary;
+import use_case.logout.LogoutOutputData;
 
 import java.util.HashMap;
 import java.util.HashSet;

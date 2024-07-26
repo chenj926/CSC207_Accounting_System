@@ -1,7 +1,7 @@
 package use_case;
 
 import org.junit.Test;
-import use_case.ShareAccount.ShareAccountInputData;
+import use_case.share_account.ShareAccountInputData;
 
 import static org.junit.Assert.*;
 import java.util.HashSet;

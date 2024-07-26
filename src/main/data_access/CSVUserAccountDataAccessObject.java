@@ -2,8 +2,8 @@ package data_access;
 
 import entity.*;
 
-import use_case.Transaction.OneTimeTransactionOutputData;
-import use_case.Transaction.PeriodicTransactionOutputData;
+import use_case.transaction.OneTimeTransactionOutputData;
+import use_case.transaction.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.Map;

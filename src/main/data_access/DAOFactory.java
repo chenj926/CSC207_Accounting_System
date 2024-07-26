@@ -1,7 +1,5 @@
 package data_access;
 
-import interface_adaptors.OneTimeTransactionPresenter;
-
 /**
  * Factory class to provide access to different types of data access objects (DAOs).
  * <p>
