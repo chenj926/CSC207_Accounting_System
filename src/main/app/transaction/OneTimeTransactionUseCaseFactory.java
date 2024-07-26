@@ -7,8 +7,8 @@ import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;
 import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
-import use_case.transaction.OneTimeTransactionInteractor;
-import use_case.transaction.OneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.OneTimeTransactionInteractor;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 import view.transaction.one_time.OneTimeTransactionView;
 
 import javax.swing.*;

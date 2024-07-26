@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.one_time;
 
 import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeInflow;

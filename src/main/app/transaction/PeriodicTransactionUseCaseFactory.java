@@ -7,8 +7,8 @@ import interface_adaptors.*;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;
 import interface_adaptors.transaction.periodic.PeriodicTransactionPresenter;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import use_case.transaction.PeriodicTransactionInteractor;
-import use_case.transaction.PeriodicTransactionOutputBoundary;
+import use_case.transaction.periodic.PeriodicTransactionInteractor;
+import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
 import view.transaction.periodic.PeriodicTransactionView;
 
 import javax.swing.*;

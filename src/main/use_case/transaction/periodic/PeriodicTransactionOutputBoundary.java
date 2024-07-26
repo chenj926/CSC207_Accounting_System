@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.periodic;
 
 /**
  * The PeriodicTransactionOutputBoundary interface provides methods for preparing the view based on the outcome of a periodic transaction operation.

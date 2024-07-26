@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.signup;
 
 /**
  * The SignupOutputData class represents the output data of a signup operation.

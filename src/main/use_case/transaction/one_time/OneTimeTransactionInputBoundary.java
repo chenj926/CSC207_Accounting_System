@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.one_time;
 
 /**
  * The OneTimeTransactionInputBoundary interface provides a method for executing one-time transaction operations.

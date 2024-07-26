@@ -1,8 +1,8 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.transaction.OneTimeTransactionOutputBoundary;
-import use_case.transaction.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
 
 /**
  * The OneTimeTransactionPresenter class implements the OneTimeTransactionOutputBoundary interface.

@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
-import use_case.transaction.PeriodicTransactionInputBoundary;
-import use_case.transaction.PeriodicTransactionInputData;
+import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.PeriodicTransactionInputData;
 
 /**
  * The PeriodicTransactionController class is responsible for handling user interactions related to periodic transactions.

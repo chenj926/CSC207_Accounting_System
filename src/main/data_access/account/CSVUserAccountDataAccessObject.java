@@ -4,8 +4,8 @@ import data_access.authentication.UserSignupDataAccessInterface;
 
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import use_case.transaction.OneTimeTransactionOutputData;
-import use_case.transaction.PeriodicTransactionOutputData;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.Map;

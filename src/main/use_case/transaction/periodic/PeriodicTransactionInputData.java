@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.periodic;
 
 /**
  * The PeriodicTransactionInputData class represents the input data required for a periodic transaction operation.

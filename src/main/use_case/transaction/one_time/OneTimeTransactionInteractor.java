@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.one_time;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;

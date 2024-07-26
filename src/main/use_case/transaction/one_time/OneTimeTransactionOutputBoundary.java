@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.one_time;
 
 /**
  * The OneTimeTransactionOutputBoundary interface provides methods for preparing the view based on the outcome of a one-time transaction operation.

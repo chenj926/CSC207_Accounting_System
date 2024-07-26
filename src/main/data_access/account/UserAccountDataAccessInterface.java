@@ -1,8 +1,8 @@
 package data_access.account;
 
 import entity.account.UserAccount;
-import use_case.transaction.OneTimeTransactionOutputData;
-import use_case.transaction.PeriodicTransactionOutputData;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 /**
  * Interface for data access operations related to user accounts.

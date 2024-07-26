@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.one_time;
 
-import use_case.transaction.OneTimeTransactionInputBoundary;
-import use_case.transaction.OneTimeTransactionInputData;
+import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
+import use_case.transaction.one_time.OneTimeTransactionInputData;
 
 /**
  * The OneTimeTransactionController class is responsible for handling user interactions related to one-time transactions.

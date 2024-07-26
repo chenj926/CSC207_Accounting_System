@@ -6,9 +6,9 @@ import data_access.authentication.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.signup.SignupInputData;
-import use_case.transaction.SignupInteractor;
-import use_case.transaction.SignupOutputBoundary;
-import use_case.transaction.SignupOutputData;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupOutputData;
 
 import java.util.HashMap;
 import java.util.Map;

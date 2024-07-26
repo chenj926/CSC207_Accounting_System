@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.periodic;
 
 import data_access.account.UserAccountDataAccessInterface;
 

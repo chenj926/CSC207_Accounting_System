@@ -1,4 +1,4 @@
-package use_case.transaction;
+package use_case.transaction.one_time;
 
 /**
  * The OneTimeTransactionInputData class represents the input data required for a one-time transaction operation.

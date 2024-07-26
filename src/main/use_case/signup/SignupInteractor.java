@@ -1,10 +1,8 @@
-package use_case.transaction;
+package use_case.signup;
 
 import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.UserAccount;
 import entity.account.AccountFactory;
-import use_case.signup.SignupInputBoundary;
-import use_case.signup.SignupInputData;
 
 /**
  * The SignupInteractor class implements the SignupInputBoundary interface.
