@@ -1,6 +1,8 @@
-package entity;
+package entity.account;
 
-import java.util.Collections;
+import entity.transaction.Transaction;
+import entity.transaction.TransactionComparator;
+
 import java.util.List;
 import java.util.ArrayList;
 

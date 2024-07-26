@@ -2,9 +2,9 @@ package use_case.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 
-import entity.PeriodicInflow;
-import entity.PeriodicOutflow;
-import entity.UserAccount;
+import entity.transaction.periodic.PeriodicInflow;
+import entity.transaction.periodic.PeriodicOutflow;
+import entity.account.UserAccount;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

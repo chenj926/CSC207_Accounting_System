@@ -1,6 +1,6 @@
 package use_case;
 
-import entity.UserAccount;
+import entity.account.UserAccount;
 import data_access.authentication.LogoutDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

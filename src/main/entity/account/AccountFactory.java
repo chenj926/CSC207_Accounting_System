@@ -1,4 +1,4 @@
-package entity;
+package entity.account;
 
 /**
  * The AccountFactory class is responsible for creating different types of account objects.

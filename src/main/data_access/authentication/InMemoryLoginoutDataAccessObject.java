@@ -1,7 +1,8 @@
 package data_access.authentication;
 
 import data_access.account.InMemoryUserAccountDataAccessObject;
-import entity.*;
+import entity.account.UserAccount;
+
 import java.util.*;
 /**
  * In-memory data access object (DAO) for user login and logout operations.

@@ -2,7 +2,7 @@ package app.transaction;
 
 import data_access.DAOFactory;
 import data_access.account.UserAccountDataAccessInterface;
-import entity.UserAccount;
+import entity.account.UserAccount;
 import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;
 import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;

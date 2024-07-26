@@ -1,8 +1,9 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
-import entity.*;
 
+import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import use_case.transaction.OneTimeTransactionOutputData;
 import use_case.transaction.PeriodicTransactionOutputData;
 
@@ -30,8 +31,8 @@ import java.util.*;
  * @author Jessica
  * @author Eric
  *
- * @see entity.UserAccount
- * @see entity.Transaction
+ * @see UserAccount
+ * @see Transaction
  * @see OneTimeTransactionOutputData
  * @see PeriodicTransactionOutputData
  *

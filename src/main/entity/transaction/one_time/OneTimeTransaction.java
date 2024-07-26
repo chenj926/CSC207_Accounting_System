@@ -1,4 +1,6 @@
-package entity;
+package entity.transaction.one_time;
+
+import entity.transaction.Transaction;
 
 import java.time.LocalDate;
 

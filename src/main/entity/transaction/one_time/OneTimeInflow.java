@@ -1,19 +1,19 @@
-package entity;
+package entity.transaction.one_time;
 
 import java.time.LocalDate;
 
 /**
- * The OneTimeOutflow class represents a single, non-recurring outflow transaction.
+ * The OneTimeInflow class represents a single, non-recurring inflow transaction.
  * It extends the OneTimeTransaction class.
  *
  * @author Dana
  * @author Jessica
  * @author Eric
  */
-public class OneTimeOutflow extends OneTimeTransaction {
+public class OneTimeInflow extends OneTimeTransaction {
 
     /**
-     * Constructs a OneTimeOutflow object with the specified details.
+     * Constructs a OneTimeInflow object with the specified details.
      *
      * @param identification the identification of the transaction
      * @param amount         the amount of the transaction
@@ -21,7 +21,7 @@ public class OneTimeOutflow extends OneTimeTransaction {
      * @param description    the description of the transaction
      * @param category       the category of the transaction
      */
-    public OneTimeOutflow(String identification, float amount, LocalDate date, String description, String category) {
+    public OneTimeInflow(String identification, float amount, LocalDate date, String description, String category) {
         super(identification, amount, date, description, category);
     }
 }

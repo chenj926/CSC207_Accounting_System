@@ -2,7 +2,7 @@ package app.authentication;
 
 import data_access.*;
 import data_access.authentication.UserSignupDataAccessInterface;
-import entity.*;
+import entity.account.AccountFactory;
 import interface_adaptors.*;
 import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SignupPresenter;

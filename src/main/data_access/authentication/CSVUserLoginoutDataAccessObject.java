@@ -1,7 +1,7 @@
 package data_access.authentication;
 
 import data_access.account.CSVUserAccountDataAccessObject;
-import entity.UserAccount;
+import entity.account.UserAccount;
 
 import java.nio.file.Files;
 import java.io.*;

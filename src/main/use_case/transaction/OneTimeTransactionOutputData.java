@@ -1,7 +1,7 @@
 package use_case.transaction;
 
-import entity.OneTimeOutflow;
-import entity.OneTimeInflow;
+import entity.transaction.one_time.OneTimeOutflow;
+import entity.transaction.one_time.OneTimeInflow;
 
 import java.time.LocalDate;
 

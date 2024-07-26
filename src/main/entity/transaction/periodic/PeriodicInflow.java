@@ -1,4 +1,4 @@
-package entity;
+package entity.transaction.periodic;
 
 import java.time.LocalDate;
 

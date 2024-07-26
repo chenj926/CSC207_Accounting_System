@@ -1,7 +1,7 @@
 package data_access;
 
 import data_access.account.CSVSharedAccountDataAccessObject;
-import entity.*;
+import entity.account.SharedAccount;
 import org.junit.jupiter.api.*;
 import java.nio.file.*;
 

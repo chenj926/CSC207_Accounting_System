@@ -1,7 +1,7 @@
 package use_case;
 
 import data_access.account.UserAccountDataAccessInterface;
-import entity.*;
+import entity.account.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.*;

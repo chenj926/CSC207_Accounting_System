@@ -1,6 +1,6 @@
 package data_access.account;
 
-import entity.SharedAccount;
+import entity.account.SharedAccount;
 
 /**
  * Interface for data access operations related to shared accounts.

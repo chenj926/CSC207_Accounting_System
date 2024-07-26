@@ -1,6 +1,6 @@
 package use_case.login;
 
-import entity.UserAccount;
+import entity.account.UserAccount;
 import data_access.authentication.LoginDataAccessInterface;
 
 /**

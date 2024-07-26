@@ -1,4 +1,4 @@
-package entity;
+package entity.transaction;
 
 import java.time.LocalDate;
 

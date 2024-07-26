@@ -1,7 +1,7 @@
 package use_case.transaction;
 
-import entity.PeriodicInflow;
-import entity.PeriodicOutflow;
+import entity.transaction.periodic.PeriodicInflow;
+import entity.transaction.periodic.PeriodicOutflow;
 
 import java.time.LocalDate;
 
@@ -16,8 +16,8 @@ import java.time.LocalDate;
  *
  * <p>The class is authored by Eric, Dana, and Jessica.</p>
  *
- * @see entity.PeriodicInflow
- * @see entity.PeriodicOutflow
+ * @see PeriodicInflow
+ * @see PeriodicOutflow
  * @see LocalDate
  *
  */

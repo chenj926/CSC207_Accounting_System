@@ -1,4 +1,6 @@
-package entity;
+package entity.account;
+
+import entity.transaction.Transaction;
 
 import java.util.List;
 

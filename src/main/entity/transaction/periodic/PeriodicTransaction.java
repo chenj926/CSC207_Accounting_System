@@ -1,4 +1,6 @@
-package entity;
+package entity.transaction.periodic;
+
+import entity.transaction.Transaction;
 
 import java.time.LocalDate;
 

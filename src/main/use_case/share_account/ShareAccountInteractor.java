@@ -1,8 +1,8 @@
 package use_case.share_account;
 
 import data_access.account.ShareAccountDataAccessInterface;
-import entity.SharedAccount;
-import entity.AccountFactory;
+import entity.account.SharedAccount;
+import entity.account.AccountFactory;
 
 /**
  * The ShareAccountInteractor class implements the ShareAccountInputBoundary interface.

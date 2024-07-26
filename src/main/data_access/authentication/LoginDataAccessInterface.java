@@ -1,6 +1,6 @@
 package data_access.authentication;
 
-import entity.UserAccount;
+import entity.account.UserAccount;
 
 /**
  * Interface for data access operations related to user login functionality.

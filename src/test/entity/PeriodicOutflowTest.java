@@ -1,5 +1,6 @@
 package entity;
 
+import entity.transaction.periodic.PeriodicOutflow;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

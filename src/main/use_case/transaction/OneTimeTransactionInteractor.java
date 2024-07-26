@@ -1,9 +1,9 @@
 package use_case.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
-import entity.UserAccount;
-import entity.OneTimeInflow;
-import entity.OneTimeOutflow;
+import entity.account.UserAccount;
+import entity.transaction.one_time.OneTimeInflow;
+import entity.transaction.one_time.OneTimeOutflow;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
