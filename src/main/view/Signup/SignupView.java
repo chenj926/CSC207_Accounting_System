@@ -1,10 +1,6 @@
-package view;
+package view.Signup;
 
 import interface_adaptors.*;
-import use_case.SignupInteractor;
-import data_access.*;
-import entity.*;
-import use_case.SignupOutputBoundary;
 
 import javax.swing.*;
 import java.awt.*;

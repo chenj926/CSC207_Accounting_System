@@ -1,15 +1,12 @@
-package view;
+package view.Logout;
 
 import interface_adaptors.LogoutViewModel;
-import interface_adaptors.LogoutState;
 import interface_adaptors.LogoutController;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
 /**
  * The LogoutPanel class represents the user interface for the logout functionality.

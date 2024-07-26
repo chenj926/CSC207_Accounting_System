@@ -1,17 +1,12 @@
 package app;
 
 import data_access.DAOFactory;
-import data_access.LoginDataAccessInterface;
 import data_access.UserAccountDataAccessInterface;
-import entity.AccountFactory;
 import entity.UserAccount;
 import interface_adaptors.*;
-import use_case.LoginInteractor;
-import use_case.LoginOutputBoundary;
 import use_case.OneTimeTransactionInteractor;
 import use_case.OneTimeTransactionOutputBoundary;
-import data_access.*;
-import view.*;
+import view.Transaction.OneTimeTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;

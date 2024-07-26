@@ -1,4 +1,4 @@
-package view;
+package view.Transaction;
 
 import interface_adaptors.TransactionViewModel;
 import interface_adaptors.ViewManagerModel;

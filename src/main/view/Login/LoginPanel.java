@@ -1,4 +1,4 @@
-package view;
+package view.Login;
 
 import interface_adaptors.*;
 

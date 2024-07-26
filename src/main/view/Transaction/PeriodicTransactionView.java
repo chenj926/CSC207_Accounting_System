@@ -1,4 +1,4 @@
-package view;
+package view.Transaction;
 
 import interface_adaptors.PeriodicTransactionController;
 import interface_adaptors.PeriodicTransactionState;

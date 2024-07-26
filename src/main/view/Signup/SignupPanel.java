@@ -1,7 +1,6 @@
-package view;
+package view.Signup;
 
 import interface_adaptors.*;
-import use_case.SignupInputBoundary;
 
 import javax.swing.*;
 import java.awt.*;

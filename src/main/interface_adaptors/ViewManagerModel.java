@@ -1,7 +1,13 @@
 package interface_adaptors;
 
-import view.*;
 import app.*;
+import view.HomePage.HomePageView;
+import view.Login.LoginView;
+import view.Logout.LogoutView;
+import view.Signup.SignupView;
+import view.Transaction.OneTimeTransactionView;
+import view.Transaction.PeriodicTransactionView;
+import view.Transaction.TransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;

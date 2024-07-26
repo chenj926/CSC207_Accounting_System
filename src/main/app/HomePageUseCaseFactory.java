@@ -1,13 +1,7 @@
 package app;
 
-import data_access.*;
-import entity.*;
 import interface_adaptors.*;
-import use_case.*;
-import view.*;
-
-import javax.swing.*;
-import java.io.IOException;
+import view.HomePage.HomePageView;
 
 public class HomePageUseCaseFactory {
 
