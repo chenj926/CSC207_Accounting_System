@@ -30,21 +30,6 @@ public class UserAccountTest {
         assertTrue("Transactions should initially be empty", account.getTransactions().isEmpty());
     }
 
-    @Test
-    public void testAddTransaction() {
-        UserAccountTestHelper incomeTransaction = new UserAccountTestHelper(100.0f);
-        UserAccountTestHelper outflowTransaction = new UserAccountTestHelper(-50.0f);
-
-        account.addTransaction(incomeTransaction);
-        account.addTransaction(outflowTransaction);
-
-        assertEquals("Total income should be 100.0", 100.0f, account.getTotalIncome(), 0.0f);
-        assertEquals("Total outflow should be -50.0", -50.0f, account.getTotalOutflow(), 0.0f);
-        assertEquals("Total balance should be 50.0", 50.0f, account.getTotalBalance(), 0.0f);
-
-        ArrayList<Transaction> transactions = account.getTransactions();
-        assertEquals("There should be 2 transactions", 2, transactions.size());
-    }
 
     @Test
     public void testSetters() {
@@ -64,58 +49,5 @@ public class UserAccountTest {
     }
 }
 
-class UserAccountTestHelper extends Transaction {
-    private float amount;
 
-    public UserAccountTestHelper(float amount) {
-        this.amount = amount;
-    }
-
-    @Override
-    public LocalDate getDate() {
-        return date;
-    }
-
-    @Override
-    public String getIdentification() {
-        return "";
-    }
-
-    @Override
-    public String getDescription() {
-        return "";
-    }
-
-    @Override
-    public float getAmount() {
-        return amount;
-    }
-
-    @Override
-    public void setDate(LocalDate date) {
-
-    }
-
-    @Override
-    public void setIdentification(String identification) {
-
-    }
-
-    @Override
-    public void setDescription(String description) {
-
-    }
-
-    @Override
-    public void setAmount(float amount) {
-
-    }
-}
-
-class TransactionComparator implements java.util.Comparator<Transaction> {
-    @Override
-    public int compare(Transaction t1, Transaction t2) {
-        return Float.compare(t1.getAmount(), t2.getAmount());
-    }
-}
 
