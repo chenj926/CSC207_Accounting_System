@@ -2,6 +2,11 @@ package use_case.FinancialReport;
 
 import java.util.Date;
 
+/**
+ * Input data for generating financial reports.
+ *
+ * Author: Chi Fong Huang
+ */
 public class FinancialReportInputData {
     private final String accountId;
     private final Date startDate;
@@ -18,3 +23,4 @@ public class FinancialReportInputData {
     public Date getStartDate() { return startDate; }
     public Date getEndDate() { return endDate; }
 }
+

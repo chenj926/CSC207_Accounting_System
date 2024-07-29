@@ -1,12 +1,18 @@
 package use_case.FinancialReport;
 
+/**
+ * Output data for presenting financial reports.
+ *
+ * Author: Chi Fong Huang
+ */
 public class FinancialReportOutputData {
-    private String reportContent = "";
+    private final String reportContent;
 
-    public FinancialReportOutputData() {
+    public FinancialReportOutputData(String reportContent) {
         this.reportContent = reportContent;
     }
 
     // Getter
     public String getReportContent() { return reportContent; }
 }
+
