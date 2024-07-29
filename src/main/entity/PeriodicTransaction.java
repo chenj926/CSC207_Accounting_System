@@ -2,17 +2,16 @@ package entity;
 
 import java.time.LocalDate;
 
-public abstract class PeriodicTransaction implements Transaction {
+public abstract class PeriodicTransaction extends Transaction {
     private String identification;
     private float amount;
+    private LocalDate date;
+    private String description;
+    private boolean inflow;
+
     private LocalDate startDate;
     private LocalDate endDate;
-    private LocalDate date;
     private int period;
-    private String description;
-//    private int recurrencePeriodInDays;
-
-    private boolean inflow;
 
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
                                LocalDate endDate, int period) {
@@ -27,22 +26,6 @@ public abstract class PeriodicTransaction implements Transaction {
         this.date = startDate;
     }
 
-    // Getter
-    @Override
-    public String getIdentification() {
-        return identification;
-    }
-    @Override
-    public float getAmount() {
-        return amount;
-    }
-    @Override
-    public String getDescription() {
-        return this.description;
-    }
-//    public int getRecurrencePeriodInDays() {
-//        return recurrencePeriodInDays;
-//    }
     public boolean isInflow() {
         return this.inflow;
     }

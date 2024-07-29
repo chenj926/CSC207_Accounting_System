@@ -2,7 +2,7 @@ package entity;
 
 import java.time.LocalDate;
 
-public abstract class OneTimeTransaction implements Transaction {
+public abstract class OneTimeTransaction extends Transaction {
     private String identification;
     private float amount;
     private LocalDate date;

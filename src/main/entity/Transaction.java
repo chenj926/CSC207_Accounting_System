@@ -6,12 +6,26 @@ import java.time.LocalDate;
 // dateTimes.add(LocalDateTime.now());
 
 
-public interface Transaction {
+public class Transaction {
     // getters
+
+    String identification;
+    private float amount;
+    private LocalDate date;
+    private String description;
+
+    private boolean inflow;
+
     LocalDate getDate();
-    String getIdentification();
-    String getDescription();
-    float getAmount();
+    public String getIdentification() {
+        return identification;
+    }
+    public String getDescription() {
+        return this.description;
+    }
+    public float getAmount() {
+        return amount;
+    }
 
     // setters
     void setDate(LocalDate date);
