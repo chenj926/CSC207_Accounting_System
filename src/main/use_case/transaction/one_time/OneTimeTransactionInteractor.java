@@ -104,6 +104,8 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
 
             // Save this transaction
             userDataAccessObject.saveTransaction(outputData, null,false);
+            // update the transaction info to user acc database as well
+            userDataAccessObject.update(userAccount);
             presenter.prepareSuccessView(outputData);
         }
         else {
@@ -131,6 +133,8 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
 
             // save this transaction
             userDataAccessObject.saveTransaction(outputData, null,false);
+            // update the transaction info to user acc database as well
+            userDataAccessObject.update(userAccount);
             presenter.prepareSuccessView(outputData);
         }
     }

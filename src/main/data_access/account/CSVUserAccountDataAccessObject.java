@@ -39,8 +39,8 @@ import java.util.*;
  */
 public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
     private Map<String, UserAccount> userAccounts;
-    protected static final String USER_CSV_FILE_PATH = "src/main/data/userAccounts.csv";
-    protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/userAccountTransactions.csv";
+    protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
+    protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
     private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance";
     private static final String TRANSACTION_HEADER = "id,amount,date,description,category,start date, period, end date";
 
