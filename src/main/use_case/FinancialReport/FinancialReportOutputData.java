@@ -1,7 +1,7 @@
 package use_case.FinancialReport;
 
 public class FinancialReportOutputData {
-    private final String reportContent;
+    private String reportContent = "";
 
     public FinancialReportOutputData() {
         this.reportContent = reportContent;
