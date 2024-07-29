@@ -23,7 +23,7 @@ class PeriodicInflowTest {
 
         inflow.setIdentification("newID");
         inflow.setAmount(200.0f);
-        inflow.setStartDateDate(LocalDate.of(2024, 8, 16));
+        inflow.setStartDate(LocalDate.of(2024, 8, 16));
         inflow.setEndDate(LocalDate.of(2024, 11, 30));
         inflow.setPeriod(15);
         inflow.setDescription("New description");

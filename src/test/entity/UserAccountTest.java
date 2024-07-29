@@ -64,7 +64,7 @@ public class UserAccountTest {
     }
 }
 
-class UserAccountTestHelper implements Transaction {
+class UserAccountTestHelper extends Transaction {
     private float amount;
 
     public UserAccountTestHelper(float amount) {
@@ -73,7 +73,7 @@ class UserAccountTestHelper implements Transaction {
 
     @Override
     public LocalDate getDate() {
-        return null;
+        return date;
     }
 
     @Override
