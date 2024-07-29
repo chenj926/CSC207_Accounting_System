@@ -195,6 +195,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
                 // save transaction
                 userDataAccessObject.saveTransaction(null, outputData, true);
+                // update the transaction info to user acc database as well
+                userDataAccessObject.update(userAccount);
 
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
@@ -319,12 +321,13 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
                 // save transaction
                 userDataAccessObject.saveTransaction(null, outputData, true);
+                // update the transaction info to user acc database as well
+                userDataAccessObject.update(userAccount);
 
                 // Move to the next date based on the period
                 if (unit != ChronoUnit.DAYS) {
                     currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
                     outputData.setDate(currentDate);
-                    System.out.println("outputdata:" + outputData);
                 } else if (customPeriod == 0) {
                     currentDate = currentDate.plus(1, unit);  // plus the custom days
                     outputData.setDate(currentDate);
@@ -333,6 +336,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                     outputData.setDate(currentDate);
                 }
             }
+            presenter.prepareSuccessView(outputData);
         }
     }
 
