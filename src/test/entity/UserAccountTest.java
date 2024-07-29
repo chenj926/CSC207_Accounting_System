@@ -1,5 +1,7 @@
 package entity;
 
+import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 

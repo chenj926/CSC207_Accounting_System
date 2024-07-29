@@ -1,6 +1,7 @@
 package data_access;
 
-import entity.UserAccount;
+import data_access.account.InMemoryUserAccountDataAccessObject;
+import entity.account.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

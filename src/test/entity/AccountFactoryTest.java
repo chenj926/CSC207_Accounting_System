@@ -1,5 +1,8 @@
 package entity;
 
+import entity.account.AccountFactory;
+import entity.account.SharedAccount;
+import entity.account.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
 

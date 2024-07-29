@@ -1,16 +1,16 @@
 package data_access;
 
-import entity.*;
+import data_access.account.CSVSharedAccountDataAccessObject;
+import entity.account.SharedAccount;
 import org.junit.jupiter.api.*;
 import java.nio.file.*;
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CSVSharedAccountDataAccessObjectTest {
 
-    private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "data/sharedAccounts.csv";
-    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "data/sharedAccountUsers.csv";
+    private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "data/accounts/sharedAccounts.csv";
+    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "data/accounts/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "data/sharedAccountTransactions.csv";
 
     private CSVSharedAccountDataAccessObject dao;

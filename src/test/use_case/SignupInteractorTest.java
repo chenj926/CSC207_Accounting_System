@@ -1,10 +1,14 @@
 package use_case;
 
-import entity.UserAccount;
-import entity.AccountFactory;
-import data_access.UserSignupDataAccessInterface;
+import entity.account.UserAccount;
+import entity.account.AccountFactory;
+import data_access.authentication.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.signup.SignupInputData;
+import use_case.signup.SignupInteractor;
+import use_case.signup.SignupOutputBoundary;
+import use_case.signup.SignupOutputData;
 
 import java.util.HashMap;
 import java.util.Map;

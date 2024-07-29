@@ -1,5 +1,7 @@
 package entity;
 
+import entity.transaction.Transaction;
+import entity.transaction.TransactionComparator;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +11,7 @@ import static org.junit.Assert.*;
 
 public class TransactionComparatorTest {
 
-    private TransactionComparator comparator;
+    private entity.transaction.TransactionComparator comparator;
     private Transaction t1;
     private Transaction t2;
     private Transaction t3;

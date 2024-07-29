@@ -1,6 +1,8 @@
 package use_case;
 
 import org.junit.Test;
+import use_case.signup.SignupInputData;
+
 import static org.junit.Assert.*;
 
 public class SignupInputDataTest {

@@ -1,9 +1,13 @@
 package use_case;
 
-import entity.UserAccount;
-import data_access.LogoutDataAccessInterface;
+import entity.account.UserAccount;
+import data_access.authentication.LogoutDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import use_case.logout.LogoutInputData;
+import use_case.logout.LogoutInteractor;
+import use_case.logout.LogoutOutputBoundary;
+import use_case.logout.LogoutOutputData;
 
 import java.util.HashMap;
 import java.util.HashSet;

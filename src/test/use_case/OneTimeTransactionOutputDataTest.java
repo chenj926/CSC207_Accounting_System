@@ -1,8 +1,9 @@
 package use_case;
 
-import entity.OneTimeInflow;
-import entity.OneTimeOutflow;
+import entity.transaction.one_time.OneTimeInflow;
+import entity.transaction.one_time.OneTimeOutflow;
 import org.junit.jupiter.api.Test;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
 
 import java.time.LocalDate;
 
