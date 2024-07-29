@@ -31,6 +31,8 @@ public class PeriodicTransactionPanel extends JPanel {
     private JTextField endDateField;
     private JTextField descriptionField;
     private JTextField periodField;
+    // add drop down manu for user to choose period units(day, month, year)
+    private JComboBox<String> periodComb;
     private JButton submitButton;
     private JButton cancelButton;
 
@@ -65,6 +67,10 @@ public class PeriodicTransactionPanel extends JPanel {
         this.endDateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
         this.periodField = new JTextField(20);
+
+        // initialize period drop downs
+        String[] periods = {"Day", "Month", "Year"};
+        this.periodComb = new JComboBox<>(periods);
 
         JPanel buttons = new JPanel();
         this.submitButton = new JButton(this.viewModel.getSubmitButton());
@@ -133,6 +139,13 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.periodField, constraints);
 
+        // period drop down
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add (new JLabel("Period Unit: "), constraints);
+        constraints.gridx = 1;
+        add(this.periodComb, constraints);
+
         // submit button
         constraints.gridx = 0;
         constraints.gridy++;
@@ -156,7 +169,8 @@ public class PeriodicTransactionPanel extends JPanel {
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
-                            periodField.getText(),
+                            periodField.getText() + " " + periodComb.getSelectedItem(),
+                            // append selected period unit
                             endDateField.getText()
                     );
                 }
