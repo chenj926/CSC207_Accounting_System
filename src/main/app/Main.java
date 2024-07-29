@@ -1,9 +1,8 @@
 package app;
 
 import interface_adaptors.*;
-        import view.*;
-
-        import javax.swing.*;
+import view.*;
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
