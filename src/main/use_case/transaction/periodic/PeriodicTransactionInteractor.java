@@ -63,50 +63,41 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             return;
         }
 
-        // check if the entered amount is correct
-        float amount = 0.00f;
-        // to see if amount is proper float
-        try {
-            amount = Float.parseFloat(stringAmount);
-        } catch (NumberFormatException e) {
+        // Parse and validate the amount
+        float amount = parseAmount(stringAmount);
+        // we set float.MIN VAL to be the false output of the helper
+        if (amount == Float.MIN_VALUE) {
             presenter.prepareFailView("Incorrect amount! please ONLY enter number");
             return;
         }
 
-        // format the input to .2 decimal place
-        String formattedAmount = String.format("%.2f", amount);
-        amount = Float.parseFloat(formattedAmount);
-
-
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
+
         float income = 0.0f;
         float outFlow = 0.0f;
-        ArrayList<String> periodTypes = new ArrayList<>();
-        periodTypes.add("day");
-        periodTypes.add("week");
-        periodTypes.add("month");
-        periodTypes.add("year");
+
+        // list of period types
+        ArrayList<String> periodTypes = createPeriodTypes();
+
         int customPeriod = 0;
 
         // update the inflow and outflow
-        // for inflow
+        // inflow
         if (isInflow) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
-            LocalDate localStartDate = null;
-            LocalDate localEndDate = null;
+            LocalDate localStartDate = parseDate(startDate);
+            LocalDate localEndDate = parseDate(endDate);
 
-            try {
-                // now we have to convert both start and end date
-                localStartDate = LocalDate.parse(startDate, formatter);
-                localEndDate = LocalDate.parse(endDate, formatter);
-
-                // if start date is after end date
-                if (localStartDate.isAfter(localEndDate)) {
-                    presenter.prepareFailView("Start date after end day, Plz enter again");
-                    return;
-                }
-            } catch (DateTimeParseException e) {  // if anyone of the start end has issue, catch!
-                presenter.prepareFailView("Invalid date format! Plz enter again");
+            // if any of the start end has issue
+            if (localStartDate == null) {
+                presenter.prepareFailView("Invalid date format for start date! Please enter again.");
+                return;
+            }
+            if (localEndDate == null) {
+                presenter.prepareFailView("Invalid date format for end date! Please enter again.");
+                return;
+            }
+            if (localStartDate.isAfter(localEndDate)) {
+                presenter.prepareFailView("Start date after end day, Plz enter again");
                 return;
             }
 
@@ -341,15 +332,52 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
     }
 
     /**
+     * Parses and formats the transaction amount to two decimal places.
+     * <p>
+     * This method tries to parse the input string to a float and formats it to two decimal places.
+     * If the parsing fails, it returns Float.MIN_VALUE as an indication of failure.
+     * </p>
+     *
+     * @param stringAmount the transaction amount as a string
+     * @return the parsed and formatted amount as a float, or Float.MIN_VALUE if parsing fails
+     */
+    private float parseAmount(String stringAmount) {
+        try {
+            float amount = Float.parseFloat(stringAmount);
+            return Float.parseFloat(String.format("%.2f", amount));
+        } catch (NumberFormatException e) {
+            return Float.MIN_VALUE; // Return a sentinel value indicating failure
+        }
+    }
+
+    /**
      * Checks if the provided user input is valid (not null or empty).
      *
      * @param userInfo the user input to check
      * @return true if the user input is valid, false otherwise
      */
-    public boolean checkValid(String userInfo) {
+    private boolean checkValid(String userInfo) {
         if (userInfo == null || userInfo.isEmpty()) {
             return false;
         }
         return true;
+    }
+
+    private ArrayList<String> createPeriodTypes(){
+        ArrayList<String> periodTypes = new ArrayList<>();
+        periodTypes.add("day");
+        periodTypes.add("week");
+        periodTypes.add("month");
+        periodTypes.add("year");
+        return periodTypes;
+    }
+
+    private LocalDate parseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
+        try {
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            return null; // Return null indicating failure
+        }
     }
 }
