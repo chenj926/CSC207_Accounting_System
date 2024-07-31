@@ -63,281 +63,39 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             return;
         }
 
-        // check if the entered amount is correct
-        float amount = 0.00f;
-        // to see if amount is proper float
-        try {
-            amount = Float.parseFloat(stringAmount);
-        } catch (NumberFormatException e) {
+        // Parse and validate the amount
+        float amount = parseAmount(stringAmount);
+        // we set float.MIN VAL to be the false output of the helper
+        if (amount == Float.MIN_VALUE) {
             presenter.prepareFailView("Incorrect amount! please ONLY enter number");
             return;
         }
 
-        // format the input to .2 decimal place
-        String formattedAmount = String.format("%.2f", amount);
-        amount = Float.parseFloat(formattedAmount);
+        // Parse and validate the dates
+        LocalDate localStartDate = parseDate(startDate);
+        LocalDate localEndDate = parseDate(endDate);
+        // null is returned or period is longer than the days between start and end
+        if (localStartDate == null || localEndDate == null || localStartDate.isAfter(localEndDate)) {
+            presenter.prepareFailView("Invalid date format or start date after end date! Please enter again");
+            return;
+        }
 
+        // Validate and parse the period
+        int customPeriod = validateAndParsePeriod(period);
+        if (customPeriod == -1) {
+            presenter.prepareFailView("The custom period is not in correct format or is 0, please enter again!");
+            return;
+        }
+
+        // Determine the ChronoUnit for the period
+        ChronoUnit unit = getChronoUnit(period);
+        if (!validatePeriod(unit, customPeriod, localStartDate, localEndDate)) {
+            presenter.prepareFailView("Period is longer than the period between start and end date!");
+            return;
+        }
 
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
-        float income = 0.0f;
-        float outFlow = 0.0f;
-        ArrayList<String> periodTypes = new ArrayList<>();
-        periodTypes.add("day");
-        periodTypes.add("week");
-        periodTypes.add("month");
-        periodTypes.add("year");
-        int customPeriod = 0;
-
-        // update the inflow and outflow
-        // for inflow
-        if (isInflow) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
-            LocalDate localStartDate = null;
-            LocalDate localEndDate = null;
-
-            try {
-                // now we have to convert both start and end date
-                localStartDate = LocalDate.parse(startDate, formatter);
-                localEndDate = LocalDate.parse(endDate, formatter);
-
-                // if start date is after end date
-                if (localStartDate.isAfter(localEndDate)) {
-                    presenter.prepareFailView("Start date after end day, Plz enter again");
-                    return;
-                }
-            } catch (DateTimeParseException e) {  // if anyone of the start end has issue, catch!
-                presenter.prepareFailView("Invalid date format! Plz enter again");
-                return;
-            }
-
-            // if the user did not choose the pre-determined period
-            if (!periodTypes.contains(period)) {
-                try {
-                    // assume the custom period is in days
-                    customPeriod = Integer.parseInt(period);
-                } catch (NumberFormatException e) {
-                    presenter.prepareFailView("The custom period is not in correct format, please enter again!");
-                    return;  // fail then do not excute the rest of the code
-                }
-                if (Integer.parseInt(period) == 0) {
-                    presenter.prepareFailView("The custom period can not be 0, please enter again!");
-                    return;  // custom days can not be 0
-                }
-            }
-
-            ChronoUnit unit;
-            switch (period) {
-                case "day":
-                    unit = ChronoUnit.DAYS;
-                    break;
-                case "week":
-                    unit = ChronoUnit.WEEKS;
-                    break;
-                case "month":
-                    unit = ChronoUnit.MONTHS;
-                    break;
-                case "year":
-                    unit = ChronoUnit.YEARS;
-                    break;
-                default:
-                    unit = ChronoUnit.DAYS; // default to days if a custom period is provided
-                    break;
-            }
-
-            // Calculate the total number of days between start and end dates
-            long totalDaysBetween = ChronoUnit.DAYS.between(localStartDate, localEndDate);
-            // period is longer than the days between start and end
-            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) ||
-                    (unit == ChronoUnit.DAYS && totalDaysBetween < customPeriod)) {
-                presenter.prepareFailView("Period is longer than the period between start and end date!");
-                return;
-            }
-
-            // init data
-            PeriodicTransactionOutputData outputData = null;
-            LocalDate currentDate = localStartDate;
-
-            while (!currentDate.isAfter(localEndDate)) {
-                if (periodTypes.contains(period)) {
-                    // inflow transaction
-                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate,
-                            description, localEndDate, (int) unit.getDuration().toDays());
-
-                    float totalIncome = userAccount.getTotalIncome();
-                    income = totalIncome + amount;
-                    userAccount.setTotalIncome(income);  // update the total income
-
-                    // update the balance accordingly
-                    float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + amount;
-                    userAccount.setTotalBalance(totalBalance);
-
-                    outputData = new PeriodicTransactionOutputData(periodicInflow,
-                            userAccount.getTotalBalance());
-                } else {
-                    // inflow transaction
-                    PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate,
-                            description, localEndDate, customPeriod);
-
-                    // update the total income
-                    float totalIncome = userAccount.getTotalIncome();
-                    income = totalIncome + amount;
-                    userAccount.setTotalIncome(income);
-
-                    // update the balance accordingly
-                    float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + amount;
-                    userAccount.setTotalBalance(totalBalance);
-
-                    outputData = new PeriodicTransactionOutputData(periodicInflow,
-                            userAccount.getTotalBalance());
-                }
-
-                // save transaction
-                userDataAccessObject.saveTransaction(null, outputData, true);
-                // update the transaction info to user acc database as well
-                userDataAccessObject.update(userAccount);
-
-                // Move to the next date based on the period
-                if (unit != ChronoUnit.DAYS) {
-                    currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
-                    outputData.setDate(currentDate);
-
-                } else if (customPeriod == 0) {
-                    currentDate = currentDate.plus(1, unit);  // plus the custom days
-                    outputData.setDate(currentDate);
-                } else {
-                    currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
-                    outputData.setDate(currentDate);
-                }
-            }
-            presenter.prepareSuccessView(outputData);
-        }
-
-        // for outflow
-        else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
-            LocalDate localStartDate = null;
-            LocalDate localEndDate = null;
-
-            try {
-                // now we have to convert both start and end date
-                localStartDate = LocalDate.parse(startDate, formatter);
-                localEndDate = LocalDate.parse(endDate, formatter);
-
-                // if start date is after end date
-                if (localStartDate.isAfter(localEndDate)) {
-                    presenter.prepareFailView("Start date after end day, Plz enter again");
-                    return;
-                }
-            } catch (DateTimeParseException e) {  // if anyone of the start end has issue, catch!
-                presenter.prepareFailView("Invalid date format! Plz enter again");
-                return;
-            }
-
-            // if the user did not choose the pre-determined period
-            if (!periodTypes.contains(period)) {
-                try {
-                    // assume the custom period is in days
-                    customPeriod = Integer.parseInt(period);
-                } catch (NumberFormatException e) {
-                    presenter.prepareFailView("The custom period is not in correct format, please enter again!");
-                    return;  // fail than do not excute the rest of the code
-                }
-                if (Integer.parseInt(period) == 0) {
-                    presenter.prepareFailView("The custom period can not be 0, please enter again!");
-                    return;  // custom days can not be 0
-                }
-            }
-
-            ChronoUnit unit;
-            switch (period) {
-                case "day":
-                    unit = ChronoUnit.DAYS;
-                    break;
-                case "week":
-                    unit = ChronoUnit.WEEKS;
-                    break;
-                case "month":
-                    unit = ChronoUnit.MONTHS;
-                    break;
-                case "year":
-                    unit = ChronoUnit.YEARS;
-                    break;
-                default:
-                    unit = ChronoUnit.DAYS; // default to days if a custom period is provided
-                    break;
-            }
-
-            // Calculate the total number of days between start and end dates
-            long totalDaysBetween = ChronoUnit.DAYS.between(localStartDate, localEndDate);
-            // period is longer than the days between start and end
-            if ((unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) ||
-                    (unit == ChronoUnit.DAYS && totalDaysBetween < customPeriod)) {
-                presenter.prepareFailView("Period is longer than the period between start and end date!");
-                return;
-            }
-
-            // init data
-            PeriodicTransactionOutputData outputData = null;
-            LocalDate currentDate = localStartDate;
-
-            while (!currentDate.isAfter(localEndDate)) {
-                if (periodTypes.contains(period)) {
-                    // inflow transaction
-                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate,
-                            description, localEndDate, (int) unit.getDuration().toDays());
-
-                    // update the total outFlow
-                    float totalOutFlow = userAccount.getTotalOutflow();
-                    outFlow = totalOutFlow + amount;
-                    userAccount.setTotalOutflow(outFlow);
-
-                    // update the balance accordingly
-                    float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + amount;
-                    userAccount.setTotalBalance(totalBalance);
-
-                    outputData = new PeriodicTransactionOutputData(periodicOutflow,
-                            userAccount.getTotalBalance());
-                } else {
-                    // inflow transaction
-                    PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate,
-                            description, localEndDate, customPeriod);
-
-                    // update the total outFlow
-                    float totalOutFlow = userAccount.getTotalOutflow();
-                    outFlow = totalOutFlow + amount;
-                    userAccount.setTotalOutflow(outFlow);
-
-                    // update the balance accordingly
-                    float balance = userAccount.getTotalBalance();
-                    float totalBalance = balance + amount;
-                    userAccount.setTotalBalance(totalBalance);
-
-                    outputData = new PeriodicTransactionOutputData(periodicOutflow,
-                            userAccount.getTotalBalance());
-                }
-
-                // save transaction
-                userDataAccessObject.saveTransaction(null, outputData, true);
-                // update the transaction info to user acc database as well
-                userDataAccessObject.update(userAccount);
-
-                // Move to the next date based on the period
-                if (unit != ChronoUnit.DAYS) {
-                    currentDate = currentDate.plus(1, unit);  // increments currentDate by 1 unit
-                    outputData.setDate(currentDate);
-                } else if (customPeriod == 0) {
-                    currentDate = currentDate.plus(1, unit);  // plus the custom days
-                    outputData.setDate(currentDate);
-                } else {
-                    currentDate = currentDate.plusDays(customPeriod);  // plus the custom days
-                    outputData.setDate(currentDate);
-                }
-            }
-            presenter.prepareSuccessView(outputData);
-        }
+        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit);
     }
 
     /**
@@ -351,5 +109,241 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
             return false;
         }
         return true;
+    }
+
+    /**
+     * Parses and formats the transaction amount to two decimal places.
+     * <p>
+     * This method tries to parse the input string to a float and formats it to two decimal places.
+     * If the parsing fails, it returns Float.MIN_VALUE as an indication of failure.
+     * </p>
+     *
+     * @param stringAmount the transaction amount as a string
+     * @return the parsed and formatted amount as a float, or Float.MIN_VALUE if parsing fails
+     */
+    private float parseAmount(String stringAmount) {
+        try {
+            float amount = Float.parseFloat(stringAmount);
+            return Float.parseFloat(String.format("%.2f", amount));
+        } catch (NumberFormatException e) {
+            return Float.MIN_VALUE;
+        }
+    }
+
+    /**
+     * Parses and validates the transaction date.
+     * <p>
+     * This method tries to parse the input date string to a LocalDate object using a strict date format.
+     * If the parsing fails, it returns null as an indication of failure.
+     * </p>
+     *
+     * @param date the transaction date as a string
+     * @return the parsed date as a LocalDate object, or null if parsing fails
+     */
+    private LocalDate parseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
+        try {
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
+    }
+
+    /**
+     * Validates and parses the transaction period.
+     * <p>
+     * This method checks if the period is one of the predefined period types (day, week, month, year).
+     * If not, it tries to parse the period as an integer representing a custom period in days.
+     * If parsing fails or the custom period is 0, it returns -1 as an indication of failure.
+     * </p>
+     *
+     * @param period the transaction period as a string
+     * @return the custom period as an integer, or 0 if it's a predefined period, or -1 if parsing fails
+     */
+    private int validateAndParsePeriod(String period) {
+        ArrayList<String> periodTypes = new ArrayList<>();
+        periodTypes.add("day");
+        periodTypes.add("week");
+        periodTypes.add("month");
+        periodTypes.add("year");
+
+        if (periodTypes.contains(period)) {
+            return 0;
+        }
+
+        try {
+            int customPeriod = Integer.parseInt(period);
+            if (customPeriod == 0) {
+                return -1;
+            }
+            return customPeriod;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    /**
+     * Returns the ChronoUnit corresponding to the given period string.
+     * <p>
+     * If the period is not one of the predefined types, it defaults to ChronoUnit.DAYS.
+     * </p>
+     *
+     * @param period the transaction period as a string
+     * @return the corresponding ChronoUnit
+     */
+    private ChronoUnit getChronoUnit(String period) {
+        switch (period) {
+            case "day":
+                return ChronoUnit.DAYS;
+            case "week":
+                return ChronoUnit.WEEKS;
+            case "month":
+                return ChronoUnit.MONTHS;
+            case "year":
+                return ChronoUnit.YEARS;
+            default:
+                return ChronoUnit.DAYS;
+        }
+    }
+
+    /**
+     * Validates if the period is shorter than the duration between the start and end dates.
+     *
+     * @param unit the ChronoUnit of the period
+     * @param customPeriod the custom period in days
+     * @param startDate the start date
+     * @param endDate the end date
+     * @return true if the period is valid, false otherwise
+     */
+    private boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
+        long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
+
+        if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
+            return false;
+        }
+
+        return unit == ChronoUnit.DAYS || totalDaysBetween >= customPeriod;
+    }
+
+    /**
+     * Processes the transactions based on whether they are inflow or outflow.
+     * <p>
+     * This method iterates over the period between the start and end dates, creating and saving
+     * inflow or outflow transactions at each step. It updates the user account's balance and
+     * interacts with the data access object to save the transactions.
+     * </p>
+     *
+     * @param isInflow boolean indicating if the transaction is an inflow
+     * @param identification the user's identification
+     * @param amount the transaction amount
+     * @param startDate the transaction start date
+     * @param endDate the transaction end date
+     * @param description the transaction description
+     * @param period the transaction period
+     * @param customPeriod the custom period in days
+     * @param unit the ChronoUnit of the period
+     */
+    private void processTransactions(boolean isInflow, String identification, float amount, LocalDate startDate,
+                                     LocalDate endDate, String description, String period, int customPeriod, ChronoUnit unit) {
+        LocalDate currentDate = startDate;
+        PeriodicTransactionOutputData finalOutputData = null;
+
+        while (!currentDate.isAfter(endDate)) {
+            if (isInflow) {
+                finalOutputData = processInflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit);
+            } else {
+                finalOutputData = processOutflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit);
+            }
+
+            // update current date
+            if (unit != ChronoUnit.DAYS) {
+                currentDate = currentDate.plus(1, unit);
+            } else if (customPeriod == 0) {
+                currentDate = currentDate.plus(1, unit);
+            } else {
+                currentDate = currentDate.plusDays(customPeriod);
+            }
+        }
+
+        // update the success view only after all transactions are done
+        if (finalOutputData != null) {
+            presenter.prepareSuccessView(finalOutputData);
+        }
+    }
+
+    /**
+     * Processes an inflow transaction.
+     * <p>
+     * This method creates and saves a periodic inflow transaction, updates the user's total income
+     * and balance, and interacts with the data access object to save the transaction.
+     * </p>
+     *
+     * @param identification the user's identification
+     * @param amount the transaction amount
+     * @param currentDate the current transaction date
+     * @param description the transaction description
+     * @param endDate the transaction end date
+     * @param period the transaction period
+     * @param customPeriod the custom period in days
+     * @param unit the ChronoUnit of the period
+     */
+    private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate currentDate, String description,
+                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit) {
+        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate, description, endDate,
+                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod);
+        // ?: if true (int) it, false, remain it as custom period
+
+        // Create a new PeriodicInflow object
+        float totalIncome = userAccount.getTotalIncome() + amount;
+        userAccount.setTotalIncome(totalIncome);
+
+        // Update the user's total income and balance
+        float totalBalance = userAccount.getTotalBalance() + amount;
+        userAccount.setTotalBalance(totalBalance);
+
+        // Prepare the output data
+        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, totalBalance);
+        userDataAccessObject.saveTransaction(null, outputData, true);
+        userDataAccessObject.update(userAccount);
+
+        return outputData;
+    }
+
+    /**
+     * Processes an outflow transaction.
+     * <p>
+     * This method creates and saves a periodic outflow transaction, updates the user's total outflow
+     * and balance, and interacts with the data access object to save the transaction.
+     * </p>
+     *
+     * @param identification the user's identification
+     * @param amount the transaction amount
+     * @param currentDate the current transaction date
+     * @param description the transaction description
+     * @param endDate the transaction end date
+     * @param period the transaction period
+     * @param customPeriod the custom period in days
+     * @param unit the ChronoUnit of the period
+     */
+    private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
+                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit) {
+        // Create a new PeriodicOutflow object
+        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
+                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod);
+        // ?: if true (int) it, false, remain it as custom period
+
+        // Update the user's total outflow and balance
+        float totalOutflow = userAccount.getTotalOutflow() + amount;
+        userAccount.setTotalOutflow(totalOutflow);
+
+        float totalBalance = userAccount.getTotalBalance() + amount;
+        userAccount.setTotalBalance(totalBalance);
+
+        // Prepare the output data
+        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicOutflow, totalBalance);
+        userDataAccessObject.saveTransaction(null, outputData, true);
+        userDataAccessObject.update(userAccount);
+
+        return outputData;
     }
 }
