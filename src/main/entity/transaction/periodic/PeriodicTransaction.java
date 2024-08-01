@@ -72,6 +72,12 @@ public abstract class PeriodicTransaction extends Transaction {
         return this.period;
     }
 
+
+    /**
+     * Gets the category of the transaction in days.
+     *
+     * @return the category of the transaction
+     */
     public String getTransactionCategory() {
         return this.transactionCategory;
     }
@@ -103,5 +109,12 @@ public abstract class PeriodicTransaction extends Transaction {
     public void setPeriod(int period) {
         this.period = period;
     }
+
+    /**
+     * Gets the period of the transaction in days.
+     *
+     * @param transactionCategory of the transaction
+     */
+    public void setTransactionCategory(String transactionCategory) {this.transactionCategory = transactionCategory;}
 
 }
