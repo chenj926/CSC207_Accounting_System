@@ -219,6 +219,11 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
     private boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
         long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
+        // if the start day and end day is the same day
+        if (totalDaysBetween == 0) {
+            totalDaysBetween++;
+        }
+
         if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
             return false;
         } else if (totalDaysBetween < unit.getDuration().toDays()) {
