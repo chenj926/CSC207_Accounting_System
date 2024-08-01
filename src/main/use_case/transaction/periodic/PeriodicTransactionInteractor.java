@@ -55,6 +55,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         String description = periodicTransactionInputData.getTransactionDescription();
         String startDate = periodicTransactionInputData.getTransactionStartDate();
         String period = periodicTransactionInputData.getTransactionPeriod();
+        String category = periodicTransactionInputData.getTransactionCategory();
 
         // if user entered empty input in one or more of the input fields
         if(!checkValid(stringAmount) || !checkValid(startDate) || !checkValid(endDate) ||
@@ -95,7 +96,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         }
 
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
-        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit);
+        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit, category);
     }
 
     /**
@@ -244,15 +245,18 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
      * @param unit the ChronoUnit of the period
      */
     private void processTransactions(boolean isInflow, String identification, float amount, LocalDate startDate,
-                                     LocalDate endDate, String description, String period, int customPeriod, ChronoUnit unit) {
+                                     LocalDate endDate, String description, String period, int customPeriod,
+                                     ChronoUnit unit, String category) {
         LocalDate currentDate = startDate;
         PeriodicTransactionOutputData finalOutputData = null;
 
         while (!currentDate.isAfter(endDate)) {
             if (isInflow) {
-                finalOutputData = processInflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit);
+                finalOutputData = processInflowTransaction(identification, amount, currentDate, description, endDate,
+                        period, customPeriod, unit, category);
             } else {
-                finalOutputData = processOutflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit);
+                finalOutputData = processOutflowTransaction(identification, amount, currentDate, description, endDate,
+                        period, customPeriod, unit, category);
             }
 
             // update current date
@@ -288,9 +292,9 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
      * @param unit the ChronoUnit of the period
      */
     private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit) {
+                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category) {
         PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod);
+                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
 
         // Create a new PeriodicInflow object
@@ -326,10 +330,10 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
      * @param unit the ChronoUnit of the period
      */
     private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit) {
+                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category) {
         // Create a new PeriodicOutflow object
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod);
+                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
 
         // Update the user's total outflow and balance
