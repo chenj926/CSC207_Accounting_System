@@ -11,7 +11,7 @@ class PeriodicInflowTest {
 
     @Test
     void testPeriodicInflow() {
-        PeriodicInflow inflow = new PeriodicInflow("testID", 100.0f, LocalDate.of(2024, 7, 16), "Test description", LocalDate.of(2024, 12, 31), 30);
+        PeriodicInflow inflow = new PeriodicInflow("testID", 100.0f, LocalDate.of(2024, 7, 16), "Test description", LocalDate.of(2024, 12, 31), 30, "Auto");
 
         assertEquals("testID", inflow.getIdentification(), "Identification doesn't match");
         assertEquals(100.0f, inflow.getAmount(), "Amount doesn't match");

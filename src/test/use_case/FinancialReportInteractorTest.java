@@ -39,7 +39,7 @@ public class FinancialReportInteractorTest {
         account.addTransaction(t2);
 
         // test Periodic transactions
-        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2024, 7, 1), "Rent", LocalDate.of(2025, 7, 1), 30) {};
+        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2024, 7, 1), "Rent", LocalDate.of(2025, 7, 1), 30, "food") {};
         account.addTransaction(p1);
     }
 
