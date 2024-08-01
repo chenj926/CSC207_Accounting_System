@@ -5,161 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d71aba2-2d5d-49bc-ba43-dcd17294d632" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/data_access/FinancialReport/CSVReader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/interface_adaptors/FinancialReport/FinancialReportController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/interface_adaptors/FinancialReport/FinancialReportPresenter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/use_case/FinancialReport/FinancialReportInputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/use_case/FinancialReport/FinancialReportInputData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/use_case/FinancialReport/FinancialReportInteractor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/use_case/FinancialReport/FinancialReportOutputBoundary.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/use_case/FinancialReport/FinancialReportOutputData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/use_case/FinancialReportInteractorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/entity/transaction/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/entity/transaction/Transaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/entity/transaction/one_time/OneTimeTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/entity/transaction/one_time/OneTimeTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/entity/transaction/periodic/PeriodicTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/entity/transaction/periodic/PeriodicTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/entity/PeriodicInflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/entity/PeriodicInflowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/entity/PeriodicOutflowTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/entity/PeriodicOutflowTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/entity/PeriodicTransactionTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/entity/PeriodicTransactionTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/entity/TransactionComparatorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/entity/TransactionComparatorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/entity/UserAccountTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/entity/UserAccountTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UI_img/homePage0.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UI_img/homePage1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UI_img/homePage2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/UI_img/homePage3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/authentication/LoginUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/authentication/LogoutUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/authentication/SignupUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/home_page/HomePageUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/main/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/transaction/OneTimeTransactionUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/transaction/PeriodicTransactionUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/app/transaction/TransactionUseCaseFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/accounts/sharedAccountUsers.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/accounts/sharedAccounts.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/authentication/loginStatus.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data/transaction/sharedAccountTransactions" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/DAOFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/CSVSharedAccountDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/CSVUserAccountDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/InMemoryShareAccountDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/InMemoryUserAccountDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/ShareAccountDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/account/UserAccountDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/authentication/CSVUserLoginoutDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/authentication/InMemoryLoginoutDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/authentication/LoginDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/authentication/LogoutDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/authentication/UserSignupDataAccessInterface.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/transaction/InMemoryOneTimeDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/data_access/transaction/InMemoryPeriodicDataAccessObject.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/account/Account.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/account/AccountFactory.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/account/SharedAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/account/UserAccount.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/Transaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/TransactionComparator.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/one_time/OneTimeInflow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/one_time/OneTimeOutflow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/one_time/OneTimeTransaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/periodic/PeriodicInflow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/periodic/PeriodicOutflow.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/entity/transaction/periodic/PeriodicTransaction.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/HomePageViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/UserCreationFailed.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/ViewManagerModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/ViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/login/LoginController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/login/LoginPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/login/LoginState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/login/LoginViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/logout/LogoutController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/logout/LogoutPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/logout/LogoutState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/logout/LogoutViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/signup/SignupController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/signup/SignupPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/signup/SignupState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/signup/SignupViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/TransactionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/TransactionState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/TransactionViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/one_time/OneTimeTransactionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/one_time/OneTimeTransactionPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/one_time/OneTimeTransactionState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/one_time/OneTimeTransactionViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/periodic/PeriodicTransactionController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/periodic/PeriodicTransactionPresenter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/periodic/PeriodicTransactionState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/interface_adaptors/transaction/periodic/PeriodicTransactionViewModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/login/LoginInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/login/LoginInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/login/LoginInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/login/LoginOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/login/LoginOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/logout/LogoutInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/logout/LogoutInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/logout/LogoutInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/logout/LogoutOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/logout/LogoutOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/share_account/ShareAccountInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/share_account/ShareAccountInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/share_account/ShareAccountInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/share_account/ShareAccountOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/share_account/ShareAccountOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/signup/SignupInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/signup/SignupInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/signup/SignupInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/signup/SignupOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/signup/SignupOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/TransactionInteractor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionInputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionInputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionOutputBoundary.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionOutputData.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/home_page/HomePagePanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/home_page/HomePageView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login/LoginPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login/LoginPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login/LoginPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login/LoginPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/login/LoginView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/logout/LogoutPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/logout/LogoutPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/logout/LogoutView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupPanel$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/signup/SignupView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/TransactionPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/TransactionView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/one_time/OneTimeTransactionView.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel$6.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionPanel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/view/transaction/periodic/PeriodicTransactionView.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/data/accounts/userAccounts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/data/accounts/userAccounts.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/data/transaction/userAccountTransactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/data/transaction/userAccountTransactions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/view/transaction/one_time/OneTimeTransactionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/view/transaction/one_time/OneTimeTransactionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/view/transaction/periodic/PeriodicTransactionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/view/transaction/periodic/PeriodicTransactionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/accounts/userAccounts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/accounts/userAccounts.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/data/transaction/userAccountTransactions.csv" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/data/transaction/userAccountTransactions.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/transaction/one_time/OneTimeTransactionInteractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/use_case/transaction/periodic/PeriodicTransactionInteractor.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,12 +58,29 @@
   "keyToString": {
     "Application.Main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "#56 on Merging use-case",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "view",
     "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "SDKs",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "reference.settings.project.maven.importing"
   }
 }]]></component>
   <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.main.Main" />
+      <module name="my-project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.main.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JetRunConfigurationType">
       <module name="CSC207_Accounting_System" />
       <method v="2">
@@ -289,6 +162,11 @@
       <option name="docutils_open_in_browser" value="false" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
