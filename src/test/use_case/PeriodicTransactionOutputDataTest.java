@@ -26,31 +26,29 @@ public class PeriodicTransactionOutputDataTest {
 
     @Test
     public void testPeriodicTransactionOutputDataInflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
         assertNotNull(data);
         assertEquals(100.0f, data.getTransactionAmount());
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
         assertEquals("Salary", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
         assertEquals(30, data.getTransactionPeriod());
-        assertEquals(newBalance, data.getNewBalance());
     }
 
     @Test
     public void testPeriodicTransactionOutputDataOutflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicOutflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicOutflow);
         assertNotNull(data);
         assertEquals(50.0f, data.getTransactionAmount());
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
         assertEquals("Rent", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
         assertEquals(30, data.getTransactionPeriod());
-        assertEquals(newBalance, data.getNewBalance());
     }
 
     @Test
     public void testSetters() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
 
         data.setTransactionAmount(200.0f);
         assertEquals(200.0f, data.getTransactionAmount());
@@ -72,12 +70,8 @@ public class PeriodicTransactionOutputDataTest {
         assertEquals(newPeriod, data.getTransactionPeriod());
 
         LocalDate newDate = LocalDate.of(2024, 7, 17);
-        data.setDate(newDate);
-        assertEquals(newDate, data.getDate());
-
-        float newNewBalance = 1500.0f;
-        data.setNewBalance(newNewBalance);
-        assertEquals(newNewBalance, data.getNewBalance());
+        data.setTransactionDate(newDate);
+        assertEquals(newDate, data.getTransactionDate());
     }
 }
 

@@ -39,7 +39,7 @@ public class FinancialReportInteractorTest {
         account.addTransaction(t2);
 
         // test Periodic transactions
-        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2024, 7, 1), "Rent", LocalDate.of(2025, 7, 1), 30) {};
+        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2023, 7, 1), "Rent", LocalDate.of(2024, 7, 1), 30, "food") {};
         account.addTransaction(p1);
     }
 
@@ -57,6 +57,8 @@ public class FinancialReportInteractorTest {
         assertTrue(reportContent.contains("Total Balance: 550.0"));
         assertTrue(reportContent.contains("Salary"));
         assertTrue(reportContent.contains("Groceries"));
+        assertTrue(reportContent.contains("food"));
+        assertTrue(reportContent.contains("Income"));
 
         // Assert that the report contains the data for Periodic transactions
         assertTrue(reportContent.contains("Rent"));
