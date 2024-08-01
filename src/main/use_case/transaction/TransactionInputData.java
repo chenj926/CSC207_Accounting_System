@@ -1,14 +1,18 @@
 package use_case.transaction;
 
-import java.time.LocalDate;
-
+/**
+ * The TransactionInputData class represents the input data required for a general transaction operation.
+ * It includes details such as the transaction amount, description, and category.
+ *
+ * @author Jessica
+ */
 public abstract class TransactionInputData {
     protected String transactionAmount;
     protected String transactionDescription;
     protected String transactionCategory;
 
     /**
-     * Co   nstructs a TransactionInputData object with the specified details.
+     * Constructs a TransactionInputData object with the specified details.
      *
      * @param transactionAmount      the amount of the transaction
      * @param transactionDescription the description of the transaction
