@@ -130,7 +130,7 @@ public class OneTimeTransactionPanel extends JPanel {
         // Category
         constraints.gridx = 0;
         constraints.gridy++;
-        add (new JLabel("Category Select"), constraints);
+        add (new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
         add(this.cancelButton, constraints);
 
