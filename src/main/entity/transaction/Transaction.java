@@ -16,6 +16,7 @@ public abstract class Transaction {
     protected LocalDate date;
     protected String description;
     protected boolean inflow;
+    protected String transactionCategory;
 
     // getters
     /**
@@ -53,6 +54,13 @@ public abstract class Transaction {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Gets the category of the transaction.
+     *
+     * @return transactionCategory of the transaction
+     */
+    public String getTransactionCategory() {return this.transactionCategory;}
 
     /**
      * Checks if the transaction is an inflow.
@@ -100,5 +108,12 @@ public abstract class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * Sets the category of the transaction.
+     *
+     * @param transactionCategory of the transaction
+     */
+    public void setTransactionCategory(String transactionCategory) {this.transactionCategory = transactionCategory;}
 
 }
