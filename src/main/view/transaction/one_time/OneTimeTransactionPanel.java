@@ -85,6 +85,11 @@ public class OneTimeTransactionPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.submitButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        this.submitButton.setOpaque(true);
+        this.submitButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -132,7 +137,7 @@ public class OneTimeTransactionPanel extends JPanel {
         constraints.gridy++;
         add (new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
-        add(this.cancelButton, constraints);
+        add(this.categoryButton, constraints);
 
         // Submit button
         constraints.gridx = 0;
