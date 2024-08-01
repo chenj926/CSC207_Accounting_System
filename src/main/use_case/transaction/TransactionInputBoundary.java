@@ -5,6 +5,7 @@ package use_case.transaction;
  * Implementations of this interface will handle the process of creating a transaction using the provided input data.
  *
  * @param <TransactionInputData> the type of the transaction input data
+ * @author Jessica
  */
 public interface TransactionInputBoundary<TransactionInputData> {
 
