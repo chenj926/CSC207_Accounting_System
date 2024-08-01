@@ -3,9 +3,9 @@ package use_case.transaction;
 import java.time.LocalDate;
 
 public abstract class TransactionInputData {
-    private String transactionAmount;
-    private String transactionDescription;
-    private String transactionCategory;
+    protected String transactionAmount;
+    protected String transactionDescription;
+    protected String transactionCategory;
 
     /**
      * Co   nstructs a TransactionInputData object with the specified details.
