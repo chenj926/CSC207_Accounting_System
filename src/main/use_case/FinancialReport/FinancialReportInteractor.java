@@ -6,14 +6,12 @@ import entity.transaction.Transaction;
 import java.util.List;
 
 /**
- * The FinancialReportInteractor class handles the logic for generating financial reports.
- * It uses the input and output boundaries to perform the required actions.
+ * Handles the logic for generating financial reports.
  *
- * This class is responsible for creating a financial report based on the account's
- * transactions, income, outflow, and balance. It formats the report and sends it to
- * the output boundary for presentation.
+ * Creates a financial report based on account transactions, income, outflow, and balance.
+ * Formats the report and sends it to the output boundary for presentation.
  *
- * Author: Chi Fong Huang
+ * @author :Chi Fong
  */
 public class FinancialReportInteractor implements FinancialReportInputBoundary {
     private final FinancialReportOutputBoundary outputBoundary;
