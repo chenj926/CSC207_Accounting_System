@@ -149,16 +149,19 @@ public class OneTimeTransactionPanel extends JPanel {
      * Sets up listeners for user interactions, including submit and cancel actions.
      */
     private void setupListeners() {
-        // submit button response action
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
+                    String category = (String) categoryButton.getSelectedItem();
+                    if ("custom".equals(category)) {
+                        category = viewModel.getState().getTransactionCategory();
+                    }
                     oneTimeTransactionController.execute(
                             amountField.getText(),
                             dateField.getText(),
                             descriptionField.getText(),
-                            (String) categoryButton.getSelectedItem()
+                            category
                     );
                 }
             }
@@ -231,9 +234,9 @@ public class OneTimeTransactionPanel extends JPanel {
 //                    public void keyReleased(KeyEvent e) {}
 //                }
 //        );
-        this.categoryButton.addKeyListener(new KeyListener() {
+        this.categoryButton.addActionListener(new ActionListener() {
             @Override
-            public void keyTyped(KeyEvent evt) {
+            public void actionPerformed(ActionEvent evt) {
                 OneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
@@ -244,24 +247,13 @@ public class OneTimeTransactionPanel extends JPanel {
                             "Custom category", JOptionPane.PLAIN_MESSAGE);
 
                     // set the custom category
-                    currentState.setTransactionCategory(input + evt.getKeyChar());
+                    currentState.setTransactionCategory(input);
                     viewModel.setState(currentState);
-
-                    // Reset the combo box selection to avoid multiple prompts
-                    categoryButton.setSelectedIndex(0);
                 } else {
                     //set the selected period
-                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem() + evt.getKeyChar());
+                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
                     viewModel.setState(currentState);
                 }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
             }
         });
     }
