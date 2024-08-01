@@ -23,7 +23,7 @@ class PeriodicOutflowTest {
 
         outflow.setIdentification("newID");
         outflow.setAmount(-200.0f);
-        outflow.setStartDateDate(LocalDate.of(2024, 8, 16));
+        outflow.setStartDate(LocalDate.of(2024, 8, 16));
         outflow.setEndDate(LocalDate.of(2024, 11, 30));
         outflow.setPeriod(15);
         outflow.setDescription("New description");
