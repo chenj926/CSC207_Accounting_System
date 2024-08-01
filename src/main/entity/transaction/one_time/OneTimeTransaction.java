@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @author Eric
  */
 public abstract class OneTimeTransaction extends Transaction {
-    private String category;
+//    private String transactionCategory;
 
     /**
      * Constructs a OneTimeTransaction object with the specified details.
@@ -30,15 +30,7 @@ public abstract class OneTimeTransaction extends Transaction {
         this.amount = amount;
         this.date = date;
         this.description = description;
-        this.category = category;
+        this.transactionCategory = category;
         this.inflow = (amount>=0);
     }
-
-    /**
-     * Gets the category of the transaction.
-     *
-     * @return the category of the transaction
-     */
-    public String getCategory() {return this.category;}
-
 }
