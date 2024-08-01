@@ -2,6 +2,12 @@ package use_case.transaction;
 
 import java.time.LocalDate;
 
+/**
+ * The TransactionOutputData class represents the output data of a general transaction operation.
+ * It includes details such as the transaction amount, date, description, category, identification, and.
+ *
+ * @author Jessica
+ */
 public abstract class TransactionOutputData {
     protected float transactionAmount;
     protected String id;
