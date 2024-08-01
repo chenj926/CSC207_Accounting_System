@@ -23,6 +23,7 @@ public class PeriodicTransactionViewModel extends ViewModel {
     private final String ENDDATE = "Transaction End Date";
     private final String DESCRIPTION = "Description";
     private final String PERIOD = "Period";
+    private final String CATEGORY_BUTTON = "Transaction Category";
 
     private final String SUBMIT_BUTTON = "Submit Transaction";
     private final String CANCEL_BUTTON = "Cancel";
@@ -37,6 +38,7 @@ public class PeriodicTransactionViewModel extends ViewModel {
         super("Periodic Transaction");
     }
 
+    // getters
     /**
      * Gets the title label.
      *
@@ -126,6 +128,11 @@ public class PeriodicTransactionViewModel extends ViewModel {
         return this.transactionState;
     }
 
+    public String getCategoryButton() {
+        return this.CATEGORY_BUTTON;
+    }
+
+    // setters
     /**
      * Sets the current periodic transaction state.
      *

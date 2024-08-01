@@ -1,6 +1,7 @@
 package view.transaction.periodic;
 
 import interface_adaptors.*;
+import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;
 import interface_adaptors.transaction.periodic.PeriodicTransactionState;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
@@ -30,9 +31,8 @@ public class PeriodicTransactionPanel extends JPanel {
     private JTextField startDateField;
     private JTextField endDateField;
     private JTextField descriptionField;
-//    private JTextField periodField;
-    // add drop down manu for user to choose period units(day, month, year)
     private JComboBox<String> periodComb;
+    private JComboBox<String> categoryButton;
     private JButton submitButton;
     private JButton cancelButton;
 
@@ -67,16 +67,21 @@ public class PeriodicTransactionPanel extends JPanel {
         this.endDateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
 
-        // initialize period drop downs
+        // initialize drop downs
         String[] periods = {"day", "week", "month", "year", "custom"};
         this.periodComb = new JComboBox<>(periods);
+        String[] category = {"Auto", "Personal item", "Food", "Transport", "Income", "entertainment", "Travel",
+                "Utilities", "Medical", "Home", "Custom"};
+        this.categoryButton = new JComboBox<>(category);
 
+        // add buttons
         JPanel buttons = new JPanel();
         this.submitButton = new JButton(this.viewModel.getSubmitButton());
         buttons.add(this.submitButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButton());
         buttons.add(this.cancelButton);
 
+        // Style buttons
         this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.submitButton.setBackground(new Color(100, 150, 200));
@@ -144,6 +149,13 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.periodComb, constraints);
 
+        // Category
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add (new JLabel(viewModel.getCategoryButton()), constraints);
+        constraints.gridx = 1;
+        add(this.categoryButton, constraints);
+
         // button panel for submit and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
         buttonsPanel.add(this.submitButton);
@@ -166,17 +178,26 @@ public class PeriodicTransactionPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
+                    // check if is custom period
                     String period = (String) periodComb.getSelectedItem();
                     if ("custom".equals(period)) {
                         period = viewModel.getState().getTransactionPeriod();
                     }
+
+                    // check if is custom category
+                    String category = (String) categoryButton.getSelectedItem();
+                    if ("custom".equals(category)) {
+                        category = viewModel.getState().getTransactionCategory();
+                    }
+
+                    // execute to controller
                     periodicTransactionController.execute(
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
                             period,
                             endDateField.getText(),
-                            "period"
+                            category
                     );
                 }
             }
@@ -260,6 +281,29 @@ public class PeriodicTransactionPanel extends JPanel {
                 } else {
                     //set the selected period
                     currentState.setTransactionPeriod((String) periodComb.getSelectedItem());
+                    viewModel.setState(currentState);
+                }
+            }
+        });
+
+        this.categoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                PeriodicTransactionState currentState = viewModel.getState();
+
+                // Check if the selected item is "custom"
+                if ("Custom".equals(categoryButton.getSelectedItem())) {
+                    // Prompt the user to enter the number of custom days
+                    String input = JOptionPane.showInputDialog(
+                            null, "Enter the category type",
+                            "Custom category", JOptionPane.PLAIN_MESSAGE);
+
+                    // set the custom category
+                    currentState.setTransactionCategory(input);
+                    viewModel.setState(currentState);
+                } else {
+                    //set the selected period
+                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
                     viewModel.setState(currentState);
                 }
             }
