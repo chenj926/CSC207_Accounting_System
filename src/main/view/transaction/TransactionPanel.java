@@ -35,6 +35,8 @@ public class TransactionPanel extends JPanel {
     private JButton oneTimeButton;
     private JButton periodicButton;
     private JButton logoutButton;
+    //history added
+    private JButton historyButton;
 
     /**
      * Constructs a TransactionPanel with the specified view model and view manager.
@@ -75,17 +77,23 @@ public class TransactionPanel extends JPanel {
         buttons.add(this.periodicButton);
         this.logoutButton = new JButton(this.viewModel.getCANCEL_BUTTON_LABEL());
         buttons.add(this.logoutButton);
+        this.historyButton = new JButton(this.viewModel.getHISTORY_BUTTON_LABEL());
+        buttons.add(this.historyButton);
 
         // Style buttons
         this.oneTimeButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.periodicButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.historyButton.setFont(new Font("Arial", Font.PLAIN, 16));
+
         this.oneTimeButton.setBackground(new Color(100, 150, 200));
         this.periodicButton.setBackground(new Color(100, 150, 200));
         this.logoutButton.setBackground(new Color(200, 100, 100));
+        this.historyButton.setBackground(new Color(100, 150, 200));
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
+        this.historyButton.setForeground(Color.WHITE);
 
         // adjust environment to compile MAC
         this.oneTimeButton.setOpaque(true);
@@ -94,6 +102,8 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.setBorderPainted(false);
         this.logoutButton.setOpaque(true);
         this.logoutButton.setBorderPainted(false);
+        this.historyButton.setOpaque(true);
+        this.historyButton.setBorderPainted(false);
     }
 
     /**
@@ -109,6 +119,7 @@ public class TransactionPanel extends JPanel {
         this.oneTimeButton.setPreferredSize(buttonSize);
         this.periodicButton.setPreferredSize(buttonSize);
         this.logoutButton.setPreferredSize(buttonSize);
+        this.historyButton.setPreferredSize(buttonSize);
 
         // Title Label
         constraints.gridx = 0;
@@ -149,6 +160,10 @@ public class TransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.periodicButton, constraints);
 
+        // history button
+        constraints.gridx = 1;
+        add(this.logoutButton, constraints);
+
         // Logout Button
         constraints.gridx = 0;
         constraints.gridy++;
@@ -171,6 +186,9 @@ public class TransactionPanel extends JPanel {
 
         // signup button response action
         this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
+
+        // history button response action
+        this.historyButton.addActionListener(e -> this.viewManager.setActiveViewName("History Transaction"));
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {
