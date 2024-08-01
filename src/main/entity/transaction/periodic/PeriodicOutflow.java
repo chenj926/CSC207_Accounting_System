@@ -23,7 +23,7 @@ public class PeriodicOutflow extends PeriodicTransaction {
      * @param period         the period of the transaction in days
      */
     public PeriodicOutflow(String identification, float amount, LocalDate startDate, String description,
-                           LocalDate endDate, int period) {
-        super(identification, amount, startDate, description, endDate, period);
+                           LocalDate endDate, int period, String category) {
+        super(identification, amount, startDate, description, endDate, period, category);
     }
 }
