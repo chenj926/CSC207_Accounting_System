@@ -30,7 +30,7 @@ public class PeriodicTransactionPanel extends JPanel {
     private JTextField startDateField;
     private JTextField endDateField;
     private JTextField descriptionField;
-    private JTextField periodField;
+//    private JTextField periodField;
     // add drop down manu for user to choose period units(day, month, year)
     private JComboBox<String> periodComb;
     private JButton submitButton;
@@ -66,7 +66,6 @@ public class PeriodicTransactionPanel extends JPanel {
         this.startDateField = new JTextField(20);
         this.endDateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
-//        this.periodField = new JTextField(20);
 
         // initialize period drop downs
         String[] periods = {"day", "week", "month", "year", "custom"};
@@ -132,13 +131,6 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.descriptionField, constraints);
 
-//        // period
-//        constraints.gridx = 0;
-//        constraints.gridy++;
-//        add(new JLabel(viewModel.getPeriod()), constraints);
-//        constraints.gridx = 1;
-//        add(this.periodField, constraints);
-
         // period drop down
         constraints.gridx = 0;
         constraints.gridy++;
@@ -165,12 +157,15 @@ public class PeriodicTransactionPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
+                    String period = (String) periodComb.getSelectedItem();
+                    if ("custom".equals(period)) {
+                        period = viewModel.getState().getTransactionPeriod();
+                    }
                     periodicTransactionController.execute(
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
-                            (String) periodComb.getSelectedItem(),
-                            // append selected period unit
+                            period,
                             endDateField.getText(),
                             "period"
                     );
@@ -237,23 +232,10 @@ public class PeriodicTransactionPanel extends JPanel {
             public void keyReleased(KeyEvent e) {}
         });
 
-//        this.periodField.addKeyListener(new KeyListener() {
-//            @Override
-//            public void keyTyped(KeyEvent evt) {
-//                PeriodicTransactionState currentState = viewModel.getState();
-//                currentState.setTransactionPeriod(periodField.getText() + evt.getKeyChar());
-//                viewModel.setState(currentState);
-//            }
-//
-//            @Override
-//            public void keyPressed(KeyEvent e) {}
-//            @Override
-//            public void keyReleased(KeyEvent e) {}
-//        });
 
-        this.periodComb.addKeyListener(new KeyListener() {
+        this.periodComb.addActionListener(new ActionListener() {
             @Override
-            public void keyTyped(KeyEvent evt) {
+            public void actionPerformed(ActionEvent  evt) {
                 PeriodicTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
@@ -264,24 +246,13 @@ public class PeriodicTransactionPanel extends JPanel {
                             "Custom Period", JOptionPane.PLAIN_MESSAGE);
 
                     // set the custom period
-                    currentState.setTransactionPeriod(input + evt.getKeyChar());
+                    currentState.setTransactionPeriod(input);
                     viewModel.setState(currentState);
-
-                    // Reset the combo box selection to avoid multiple prompts
-                    periodComb.setSelectedIndex(0);
                 } else {
                     //set the selected period
-                    currentState.setTransactionPeriod((String) periodComb.getSelectedItem() + evt.getKeyChar());
+                    currentState.setTransactionPeriod((String) periodComb.getSelectedItem());
                     viewModel.setState(currentState);
                 }
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
             }
         });
     }
