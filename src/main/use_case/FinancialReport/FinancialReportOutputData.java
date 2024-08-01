@@ -12,7 +12,6 @@ public class FinancialReportOutputData {
         this.reportContent = reportContent;
     }
 
-    // Getter
     public String getReportContent() { return reportContent; }
 }
 

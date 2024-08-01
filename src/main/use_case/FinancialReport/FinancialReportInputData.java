@@ -18,7 +18,6 @@ public class FinancialReportInputData {
         this.endDate = endDate;
     }
 
-    // Getters
     public String getAccountId() { return accountId; }
     public Date getStartDate() { return startDate; }
     public Date getEndDate() { return endDate; }
