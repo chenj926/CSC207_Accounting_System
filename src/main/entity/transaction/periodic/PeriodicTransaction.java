@@ -22,6 +22,7 @@ public abstract class PeriodicTransaction implements Transaction {
     private LocalDate date;
     private int period;
     private String description;
+    private String transactionCategory;
 
     private boolean inflow;
 
@@ -34,9 +35,10 @@ public abstract class PeriodicTransaction implements Transaction {
      * @param description    the description of the transaction
      * @param endDate        the end date of the transaction
      * @param period         the period of the transaction in days
+     * @param transactionCategory         the category of the transaction
      */
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
-                               LocalDate endDate, int period) {
+                               LocalDate endDate, int period, String transactionCategory) {
         this.identification = identification;
         this.amount = amount;
         this.startDate = startDate;
@@ -45,6 +47,7 @@ public abstract class PeriodicTransaction implements Transaction {
         this.description = description;
         this.inflow = (amount>=0);
         this.date = startDate;
+        this.transactionCategory = "";
     }
 
     /**
@@ -123,6 +126,11 @@ public abstract class PeriodicTransaction implements Transaction {
         return this.date;
     }
 
+
+    public String getTransactionCategory(){
+        return this.transactionCategory;
+    }
+
     /**
      * Sets the identification of the transaction.
      *
@@ -190,4 +198,11 @@ public abstract class PeriodicTransaction implements Transaction {
     public void setDate(LocalDate date) {
         this.date = date;
     }
+
+    /**
+     * Sets the category of the transaction.
+     *
+     * @param transactionCategory of the transaction
+     */
+    public void setTransactionCategory(String transactionCategory){this.transactionCategory = transactionCategory;}
 }
