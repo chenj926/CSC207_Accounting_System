@@ -4,6 +4,7 @@ import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;
 import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.periodic.PeriodicTransactionState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,7 +30,7 @@ public class OneTimeTransactionPanel extends JPanel {
     private JTextField amountField;
     private JTextField dateField;
     private JTextField descriptionField;
-    private JTextField categoryField;
+    private JComboBox<String> categoryButton;
     private JButton submitButton;
     private JButton cancelButton;
 
@@ -64,7 +65,6 @@ public class OneTimeTransactionPanel extends JPanel {
         this.amountField = new JTextField(20);
         this.dateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
-        this.categoryField = new JTextField(20);
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -73,6 +73,11 @@ public class OneTimeTransactionPanel extends JPanel {
         this.cancelButton = new JButton(this.viewModel.getCancelButton());
         buttons.add(this.cancelButton);
 
+        // add ComboBox for category
+        String[] category = {"Auto", "Personal item", "Food", "Transport", "Income", "entertainment", "Travel",
+                "Utilities", "Medical", "Home", "Custom"};
+        this.categoryButton = new JComboBox<>(category);
+
         // Style buttons
         this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -80,6 +85,12 @@ public class OneTimeTransactionPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.submitButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.submitButton.setOpaque(true);
+        this.submitButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -125,35 +136,41 @@ public class OneTimeTransactionPanel extends JPanel {
         // Category
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getCategory()), constraints);
+        add (new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
-        add(this.categoryField, constraints);
+        add(this.categoryButton, constraints);
 
-        // Submit button
+        // button panel for submit and cancel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.add(this.submitButton);
+        buttonsPanel.add(this.cancelButton);
+
+        // Add Buttons Panel
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
-        add(submitButton, constraints);
-
-        // Cancel button
-        constraints.gridy++;
-        add(cancelButton, constraints);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsPanel, constraints);
     }
 
     /**
      * Sets up listeners for user interactions, including submit and cancel actions.
      */
     private void setupListeners() {
-        // submit button response action
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
+                    String category = (String) categoryButton.getSelectedItem();
+                    if ("custom".equals(category)) {
+                        category = viewModel.getState().getTransactionCategory();
+                    }
                     oneTimeTransactionController.execute(
                             amountField.getText(),
                             dateField.getText(),
                             descriptionField.getText(),
-                            categoryField.getText()
+                            category
                     );
                 }
             }
@@ -212,20 +229,42 @@ public class OneTimeTransactionPanel extends JPanel {
         );
 
         // get typed category
-        this.categoryField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent evt) {
-                        OneTimeTransactionState currentState = viewModel.getState();
-                        currentState.setTransactionCategory(categoryField.getText() + evt.getKeyChar());
-                        viewModel.setState(currentState);
-                    }
-                    @Override
-                    public void keyPressed(KeyEvent e) {}
-                    @Override
-                    public void keyReleased(KeyEvent e) {}
+//        this.categoryButton.addKeyListener(
+//                new KeyListener() {
+//                    @Override
+//                    public void keyTyped(KeyEvent evt) {
+//                        OneTimeTransactionState currentState = viewModel.getState();
+////                        currentState.setTransactionCategory(categoryField.getText() + evt.getKeyChar());
+//                        viewModel.setState(currentState);
+//                    }
+//                    @Override
+//                    public void keyPressed(KeyEvent e) {}
+//                    @Override
+//                    public void keyReleased(KeyEvent e) {}
+//                }
+//        );
+        this.categoryButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                OneTimeTransactionState currentState = viewModel.getState();
+
+                // Check if the selected item is "custom"
+                if ("Custom".equals(categoryButton.getSelectedItem())) {
+                    // Prompt the user to enter the number of custom days
+                    String input = JOptionPane.showInputDialog(
+                            null, "Enter the category type",
+                            "Custom category", JOptionPane.PLAIN_MESSAGE);
+
+                    // set the custom category
+                    currentState.setTransactionCategory(input);
+                    viewModel.setState(currentState);
+                } else {
+                    //set the selected period
+                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
+                    viewModel.setState(currentState);
                 }
-        );
+            }
+        });
     }
 
     /**
@@ -235,6 +274,6 @@ public class OneTimeTransactionPanel extends JPanel {
         amountField.setText("");
         dateField.setText("");
         descriptionField.setText("");
-        categoryField.setText("");
+//        categoryField.setSelectedIndex(0);
     }
 }

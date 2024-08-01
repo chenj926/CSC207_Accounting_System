@@ -4,23 +4,34 @@ import use_case.FinancialReport.FinancialReportOutputBoundary;
 import use_case.FinancialReport.FinancialReportOutputData;
 
 /**
- * The FinancialReportPresenter class implements the output boundary to present the report.
+ * Implements the output boundary to present the financial report.
  *
- * Author: Chi Fong Huang
+ * @author :Chi Fong
  */
 public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     private String reportContent;
 
+    /**
+     * Presents the financial report by storing and printing its content.
+     *
+     * @param outputData the output data containing the report content
+     */
     @Override
     public void presentReport(FinancialReportOutputData outputData) {
         this.reportContent = outputData.getReportContent();
         System.out.println(reportContent);
     }
-    // test purpose
+
+    /**
+     * Returns the report content.
+     *
+     * @return the report content
+     */
     public String getReportContent() {
         return reportContent;
     }
 }
+
 
 
 

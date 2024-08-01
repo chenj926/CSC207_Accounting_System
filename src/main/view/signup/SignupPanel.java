@@ -73,6 +73,12 @@ public class SignupPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.signupButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.signupButton.setOpaque(true);
+        this.signupButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -121,15 +127,18 @@ public class SignupPanel extends JPanel {
         constraints.gridx = 1;
         add(this.idenficationField, constraints);
 
-        // sign up button
+        // button panel for sign-up and cancel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.add(this.signupButton);
+        buttonsPanel.add(this.cancelButton);
+
+        // Add Buttons Panel
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
-        add(this.signupButton, constraints);
-
-        // cancel button
-        constraints.gridy++;
-        add(this.cancelButton, constraints);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsPanel, constraints);
     }
 
     /**
