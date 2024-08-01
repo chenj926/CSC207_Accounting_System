@@ -1,14 +1,16 @@
 package app.authentication;
 
-import data_access.*;
+import data_access.DAOFactory;
 import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.AccountFactory;
-import interface_adaptors.*;
+import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SignupPresenter;
 import interface_adaptors.signup.SignupViewModel;
-import use_case.signup.SignupInteractor;
+import use_case.signup.SharedAccountSignupInteractor;
 import use_case.signup.SignupOutputBoundary;
+import use_case.signup.StandardSignupInteractor;
+import view.signup.SignupPanel;
 import view.signup.SignupView;
 
 import javax.swing.*;
@@ -29,12 +31,17 @@ public class SignupUseCaseFactory {
     }
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
-
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
         SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);
         AccountFactory accountFactory = new AccountFactory();
-        SignupInteractor interactor = new SignupInteractor(dataAccessObject, presenter, accountFactory);
 
-        return new SignupController(interactor);
+        // Create the interactors for standard and shared account signups
+        StandardSignupInteractor standardInteractor = new StandardSignupInteractor(dataAccessObject, presenter, accountFactory);
+        SharedAccountSignupInteractor sharedInteractor = new SharedAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
+
+        // Return the controller that can handle both types of signups
+        return new SignupController(standardInteractor, sharedInteractor);
     }
 }
+
+
