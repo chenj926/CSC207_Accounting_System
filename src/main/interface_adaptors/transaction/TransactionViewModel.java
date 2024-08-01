@@ -23,7 +23,7 @@ public class TransactionViewModel extends ViewModel {
     private final String ONE_TIME_BUTTON_LABEL = "One Time Transaction";
     private final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
     private final String CANCEL_BUTTON_LABEL = "Log out";
-    private final String TRANSACTION_REPORT_BUTTON_LABEL = "Transaction Report";
+    private final String FINANCIAL_REPORT_BUTTON_LABEL = "Transaction Report";
 
 //    private final TransactionState transactionState = new TransactionState();
 //    protected TransactionViewModel currentViewModel;
@@ -105,7 +105,7 @@ public class TransactionViewModel extends ViewModel {
      *
      * @return the label for the history button
      */
-    public String getTRANSACTION_REPORT_BUTTON_LABEL() {return this.TRANSACTION_REPORT_BUTTON_LABEL;}
+    public String getFINANCIAL_REPORT_BUTTON_LABEL() {return this.FINANCIAL_REPORT_BUTTON_LABEL;}
 
 //    // Method to handle button click for one-time transaction
 //    public void selectOneTimeTransaction() {

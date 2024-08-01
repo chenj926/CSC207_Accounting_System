@@ -36,7 +36,7 @@ public class TransactionPanel extends JPanel {
     private JButton periodicButton;
     private JButton logoutButton;
     //history added
-    private JButton transactionReportButton;
+    private JButton financialReportButton;
 
     /**
      * Constructs a TransactionPanel with the specified view model and view manager.
@@ -77,23 +77,23 @@ public class TransactionPanel extends JPanel {
         buttons.add(this.periodicButton);
         this.logoutButton = new JButton(this.viewModel.getCANCEL_BUTTON_LABEL());
         buttons.add(this.logoutButton);
-        this.transactionReportButton = new JButton(this.viewModel.getTRANSACTION_REPORT_BUTTON_LABEL());
-        buttons.add(this.transactionReportButton);
+        this.financialReportButton = new JButton(this.viewModel.getFINANCIAL_REPORT_BUTTON_LABEL());
+        buttons.add(this.financialReportButton);
 
         // Style buttons
         this.oneTimeButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.periodicButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.transactionReportButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.financialReportButton.setFont(new Font("Arial", Font.PLAIN, 16));
 
         this.oneTimeButton.setBackground(new Color(100, 150, 200));
         this.periodicButton.setBackground(new Color(100, 150, 200));
         this.logoutButton.setBackground(new Color(200, 100, 100));
-        this.transactionReportButton.setBackground(new Color(100, 150, 200));
+        this.financialReportButton.setBackground(new Color(100, 150, 200));
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
-        this.transactionReportButton.setForeground(Color.WHITE);
+        this.financialReportButton.setForeground(Color.WHITE);
 
         // adjust environment to compile MAC
         this.oneTimeButton.setOpaque(true);
@@ -102,8 +102,8 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.setBorderPainted(false);
         this.logoutButton.setOpaque(true);
         this.logoutButton.setBorderPainted(false);
-        this.transactionReportButton.setOpaque(true);
-        this.transactionReportButton.setBorderPainted(false);
+        this.financialReportButton.setOpaque(true);
+        this.financialReportButton.setBorderPainted(false);
     }
 
     /**
@@ -119,7 +119,7 @@ public class TransactionPanel extends JPanel {
         this.oneTimeButton.setPreferredSize(buttonSize);
         this.periodicButton.setPreferredSize(buttonSize);
         this.logoutButton.setPreferredSize(buttonSize);
-        this.transactionReportButton.setPreferredSize(buttonSize);
+        this.financialReportButton.setPreferredSize(buttonSize);
 
         // Title Label
         constraints.gridx = 0;
@@ -188,7 +188,7 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
 
         // transactionReport button response action
-        this.transactionReportButton.addActionListener(e -> this.viewManager.setActiveViewName("History Transaction"));
+        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("History Transaction"));
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {
