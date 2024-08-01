@@ -294,6 +294,5 @@ public class PeriodicTransactionPanel extends JPanel {
         startDateField.setText("");
         endDateField.setText("");
         descriptionField.setText("");
-        periodField.setText("");
     }
 }

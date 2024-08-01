@@ -72,6 +72,10 @@ public abstract class PeriodicTransaction extends Transaction {
         return this.period;
     }
 
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
+
 
     /**
      * Sets the start date of the transaction.
@@ -99,4 +103,5 @@ public abstract class PeriodicTransaction extends Transaction {
     public void setPeriod(int period) {
         this.period = period;
     }
+
 }
