@@ -1,5 +1,7 @@
 package use_case.transaction.one_time;
 
+import use_case.transaction.TransactionInputData;
+
 /**
  * The OneTimeTransactionInputData class represents the input data required for a one-time transaction operation.
  * It includes details such as the transaction amount, date, description, and category.
@@ -7,12 +9,8 @@ package use_case.transaction.one_time;
  * @author Dana
  * @author Eric
  */
-public class OneTimeTransactionInputData {
-
-    private String transactionAmount;
+public class OneTimeTransactionInputData extends TransactionInputData {
     private String transactionDate;
-    private String transactionDescription;
-    private String transactionCategory;
 
     /**
      * Constructs a OneTimeTransactionInputData object with the specified details.
@@ -24,19 +22,8 @@ public class OneTimeTransactionInputData {
      */
     public OneTimeTransactionInputData(String transactionAmount, String transactionDate, String transactionDescription,
                                        String transactionCategory) {
-        this.transactionAmount = transactionAmount;
+        super(transactionAmount, transactionDescription, transactionCategory);
         this.transactionDate = transactionDate;
-        this.transactionDescription = transactionDescription;
-        this.transactionCategory = transactionCategory;
-    }
-
-    /**
-     * Gets the amount of the transaction.
-     *
-     * @return the amount of the transaction
-     */
-    public String getTransactionAmount() {
-        return transactionAmount;
     }
 
     /**
@@ -46,23 +33,5 @@ public class OneTimeTransactionInputData {
      */
     public String getTransactionDate() {
         return transactionDate;
-    }
-
-    /**
-     * Gets the description of the transaction.
-     *
-     * @return the description of the transaction
-     */
-    public String getTransactionDescription() {
-        return transactionDescription;
-    }
-
-    /**
-     * Gets the category of the transaction.
-     *
-     * @return the category of the transaction
-     */
-    public String getTransactionCategory() {
-        return transactionCategory;
     }
 }

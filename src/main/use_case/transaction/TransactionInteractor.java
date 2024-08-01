@@ -1,13 +1,8 @@
 package use_case.transaction;
 
-import data_access.account.UserAccountDataAccessInterface;
-import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionInputData;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionInputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
-
+import data_access.account.*;
+import use_case.transaction.one_time.*;
+import use_case.transaction.periodic.*;
 
 /**
  * The TransactionInteractor class implements both OneTimeTransactionInputBoundary and PeriodicTransactionInputBoundary interfaces.
@@ -15,7 +10,7 @@ import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
  *
  * @author Jessica
  */
-public class TransactionInteractor implements OneTimeTransactionInputBoundary, PeriodicTransactionInputBoundary {
+public class TransactionInteractor{
     private final UserAccountDataAccessInterface userDataAccessObject;
 
     private final OneTimeTransactionOutputBoundary oneTimePresenter;
@@ -53,7 +48,6 @@ public class TransactionInteractor implements OneTimeTransactionInputBoundary, P
      *
      * @param oneTimeTransactionInputData the input data required for the one-time transaction process
      */
-    @Override
     public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
         oneTimeTransactionInteractor.execute(oneTimeTransactionInputData);
     }
@@ -63,7 +57,6 @@ public class TransactionInteractor implements OneTimeTransactionInputBoundary, P
      *
      * @param periodicTransactionInputData the input data required for the periodic transaction process
      */
-    @Override
     public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
         periodicTransactionInteractor.execute(periodicTransactionInputData);
     }

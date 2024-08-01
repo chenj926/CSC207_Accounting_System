@@ -20,6 +20,9 @@ import java.time.LocalDate;
  * @see PeriodicOutflow
  * @see LocalDate
  *
+ * @author Eric
+ * @author Dana
+ * @author Jessica
  */
 public class PeriodicTransactionOutputData {
     private float transactionAmount;
