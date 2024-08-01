@@ -221,7 +221,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
             return false;
-        } else if (unit == ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
+        } else if (totalDaysBetween < unit.getDuration().toDays()) {
             return false;
         }
 
