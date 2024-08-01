@@ -308,7 +308,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         userAccount.setTotalBalance(totalBalance);
 
         // Prepare the output data
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow, totalBalance);
+        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
         userDataAccessObject.update(userAccount);
 

@@ -171,7 +171,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         userAccount.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow, userAccount.getTotalBalance());
+        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow);
 
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null,false);
@@ -204,7 +204,7 @@ public class OneTimeTransactionInteractor implements OneTimeTransactionInputBoun
         userAccount.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow, totalBalance);
+        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow);
 
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null, false);
