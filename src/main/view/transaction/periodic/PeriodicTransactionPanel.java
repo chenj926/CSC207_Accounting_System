@@ -66,10 +66,10 @@ public class PeriodicTransactionPanel extends JPanel {
         this.startDateField = new JTextField(20);
         this.endDateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
-        this.periodField = new JTextField(20);
+//        this.periodField = new JTextField(20);
 
         // initialize period drop downs
-        String[] periods = {"Day", "Month", "Year"};
+        String[] periods = {"day", "week", "month", "year", "custom"};
         this.periodComb = new JComboBox<>(periods);
 
         JPanel buttons = new JPanel();
@@ -132,17 +132,17 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.descriptionField, constraints);
 
-        // period
-        constraints.gridx = 0;
-        constraints.gridy++;
-        add(new JLabel(viewModel.getPeriod()), constraints);
-        constraints.gridx = 1;
-        add(this.periodField, constraints);
+//        // period
+//        constraints.gridx = 0;
+//        constraints.gridy++;
+//        add(new JLabel(viewModel.getPeriod()), constraints);
+//        constraints.gridx = 1;
+//        add(this.periodField, constraints);
 
         // period drop down
         constraints.gridx = 0;
         constraints.gridy++;
-        add (new JLabel("Period Unit: "), constraints);
+        add (new JLabel(viewModel.getPeriod()), constraints);
         constraints.gridx = 1;
         add(this.periodComb, constraints);
 
@@ -169,9 +169,10 @@ public class PeriodicTransactionPanel extends JPanel {
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
-                            periodField.getText() + " " + periodComb.getSelectedItem(),
+                            (String) periodComb.getSelectedItem(),
                             // append selected period unit
-                            endDateField.getText()
+                            endDateField.getText(),
+                            "period"
                     );
                 }
             }
@@ -236,18 +237,52 @@ public class PeriodicTransactionPanel extends JPanel {
             public void keyReleased(KeyEvent e) {}
         });
 
-        this.periodField.addKeyListener(new KeyListener() {
+//        this.periodField.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent evt) {
+//                PeriodicTransactionState currentState = viewModel.getState();
+//                currentState.setTransactionPeriod(periodField.getText() + evt.getKeyChar());
+//                viewModel.setState(currentState);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {}
+//            @Override
+//            public void keyReleased(KeyEvent e) {}
+//        });
+
+        this.periodComb.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 PeriodicTransactionState currentState = viewModel.getState();
-                currentState.setTransactionPeriod(periodField.getText() + evt.getKeyChar());
-                viewModel.setState(currentState);
+
+                // Check if the selected item is "custom"
+                if ("custom".equals(periodComb.getSelectedItem())) {
+                    // Prompt the user to enter the number of custom days
+                    String input = JOptionPane.showInputDialog(
+                            null, "Enter the number of custom days:",
+                            "Custom Period", JOptionPane.PLAIN_MESSAGE);
+
+                    // set the custom period
+                    currentState.setTransactionPeriod(input + evt.getKeyChar());
+                    viewModel.setState(currentState);
+
+                    // Reset the combo box selection to avoid multiple prompts
+                    periodComb.setSelectedIndex(0);
+                } else {
+                    //set the selected period
+                    currentState.setTransactionPeriod((String) periodComb.getSelectedItem() + evt.getKeyChar());
+                    viewModel.setState(currentState);
+                }
             }
 
             @Override
-            public void keyPressed(KeyEvent e) {}
+            public void keyPressed(KeyEvent e) {
+            }
+
             @Override
-            public void keyReleased(KeyEvent e) {}
+            public void keyReleased(KeyEvent e) {
+            }
         });
     }
 
@@ -261,51 +296,4 @@ public class PeriodicTransactionPanel extends JPanel {
         descriptionField.setText("");
         periodField.setText("");
     }
-
-
-
-//    private JTextField periodField;
-//
-//    public PeriodicTransactionPanel(PeriodicTransactionViewModel viewModel) {
-//        super(viewModel);
-//        initializeAdditionalComponents(viewModel);
-//        setupLayout(viewModel);
-//    }
-//
-//    private void initializeAdditionalComponents(PeriodicTransactionViewModel viewModel) {
-//        periodField = new JTextField(10);
-//    }
-//
-//    @Override
-//    protected void setupLayout(TransactionViewModel viewModel) {
-//        super.setupLayout(viewModel);
-//        PeriodicTransactionViewModel periodicViewModel = (PeriodicTransactionViewModel) viewModel;
-//        add(new JLabel(periodicViewModel.getRecurrencePeriodLabel()));
-//        add(periodField);
-//    }
-//
-//    @Override
-//    protected void handleRecordButtonClick(TransactionViewModel viewModel) {
-//        PeriodicTransactionViewModel periodicViewModel = (PeriodicTransactionViewModel) viewModel;
-//        periodicViewModel.getState().setTransactionAmount(Float.parseFloat(amountField.getText()));
-//        periodicViewModel.getState().setTransactionEndDate(dateField.getText());
-//        periodicViewModel.getState().setTransactionDescription(descriptionField.getText());
-//        periodicViewModel.getState().setTransactionPeriod(Integer.parseInt(periodField.getText()));
-//
-//        if (periodicViewModel.validatePeriodicTransaction()) {
-//            messageLabel.setText("Transaction recorded successfully!");
-//        } else {
-//            messageLabel.setText(periodicViewModel.getState().getError());
-//        }
-//    }
-//
-//    @Override
-//    protected void updateMessage(TransactionViewModel viewModel) {
-//        PeriodicTransactionViewModel periodicViewModel = (PeriodicTransactionViewModel) viewModel;
-//        if (periodicViewModel.validatePeriodicTransaction()) {
-//            messageLabel.setText("Transaction recorded successfully!");
-//        } else {
-//            messageLabel.setText(periodicViewModel.getState().getError());
-//        }
-//    }
 }
