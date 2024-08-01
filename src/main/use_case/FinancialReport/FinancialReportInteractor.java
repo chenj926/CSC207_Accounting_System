@@ -9,17 +9,32 @@ import java.util.List;
  * The FinancialReportInteractor class handles the logic for generating financial reports.
  * It uses the input and output boundaries to perform the required actions.
  *
+ * This class is responsible for creating a financial report based on the account's
+ * transactions, income, outflow, and balance. It formats the report and sends it to
+ * the output boundary for presentation.
+ *
  * Author: Chi Fong Huang
  */
 public class FinancialReportInteractor implements FinancialReportInputBoundary {
     private final FinancialReportOutputBoundary outputBoundary;
     private final Account account;
 
+    /**
+     * Constructs a FinancialReportInteractor with the specified account and output boundary.
+     *
+     * @param account the account for which the financial report is to be generated
+     * @param outputBoundary the output boundary to which the generated report will be presented
+     */
     public FinancialReportInteractor(Account account, FinancialReportOutputBoundary outputBoundary) {
         this.account = account;
         this.outputBoundary = outputBoundary;
     }
 
+    /**
+     * Generates a financial report based on the provided input data and sends it to the output boundary.
+     *
+     * @param inputData the input data required to generate the financial report
+     */
     @Override
     public void generateReport(FinancialReportInputData inputData) {
         String reportContent = generateReportContent();
@@ -27,6 +42,14 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
         outputBoundary.presentReport(outputData);
     }
 
+    /**
+     * Generates the content of the financial report as a string.
+     *
+     * This method collects the account's username, total income, total outflow, total balance,
+     * and all transactions to create a comprehensive financial report.
+     *
+     * @return the content of the financial report
+     */
     private String generateReportContent() {
         StringBuilder report = new StringBuilder();
         report.append("Financial Report for Account: ").append(account.getUsername()).append("\n");
@@ -45,6 +68,7 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
         return report.toString();
     }
 }
+
 
 
 
