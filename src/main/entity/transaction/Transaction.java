@@ -10,16 +10,95 @@ import java.time.LocalDate;
  * @author Jessica
  * @author Eric
  */
-public interface Transaction {
+public abstract class Transaction {
+    protected String identification;
+    protected float amount;
+    protected LocalDate date;
+    protected String description;
+    protected boolean inflow;
+
     // getters
-    LocalDate getDate();
-    String getIdentification();
-    String getDescription();
-    float getAmount();
+    /**
+     * Gets the identification of the transaction.
+     *
+     * @return the identification of the transaction
+     */
+    public String getIdentification() {
+        return this.identification;
+    }
+
+    /**
+     * Gets the amount of the transaction.
+     *
+     * @return the amount of the transaction
+     */
+    public float getAmount() {
+        return this.amount;
+    }
+
+    /**
+     * Gets the date of the transaction.
+     *
+     * @return the date of the transaction
+     */
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    /**
+     * Gets the description of the transaction.
+     *
+     * @return the description of the transaction
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Checks if the transaction is an inflow.
+     *
+     * @return true if the transaction is an inflow, false otherwise
+     */
+    public boolean isInflow() {
+        return this.inflow;
+    }
 
     // setters
-    void setDate(LocalDate date);
-    void setIdentification(String identification);
-    void setDescription(String description);
-    void setAmount(float amount);
+    /**
+     * Sets the identification of the transaction.
+     *
+     * @param identification the new identification of the transaction
+     */
+    public void setIdentification(String identification) {
+        this.identification = identification;
+    }
+
+    /**
+     * Sets the amount of the transaction and updates the inflow status.
+     *
+     * @param amount the new amount of the transaction
+     */
+    public void setAmount(float amount) {
+        this.amount = amount;
+        this.inflow = (amount>=0);
+    }
+
+    /**
+     * Sets the date of the transaction.
+     *
+     * @param date the new date of the transaction
+     */
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
+     * Sets the description of the transaction.
+     *
+     * @param description the new description of the transaction
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
 }

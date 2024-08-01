@@ -30,6 +30,7 @@ public class PeriodicTransactionOutputData {
     private String transactionDescription;
     private LocalDate date;
     private float newBalance;
+    private String transactionCategory;
 
     /**
      * Constructs a PeriodicTransactionOutputData object for an inflow transaction with the specified details.
@@ -46,6 +47,7 @@ public class PeriodicTransactionOutputData {
         this.transactionPeriod = periodicInflow.getPeriod();
         this.id = periodicInflow.getIdentification();
         this.newBalance = newBalance;
+        this.transactionCategory = periodicInflow.getTransactionCategory();
     }
 
     /**
@@ -63,6 +65,7 @@ public class PeriodicTransactionOutputData {
         this.transactionPeriod = periodicOutflow.getPeriod();
         this.id = periodicOutflow.getIdentification();
         this.newBalance = newBalance;
+        this.transactionCategory = periodicOutflow.getTransactionCategory();
     }
 
     /**
@@ -138,8 +141,14 @@ public class PeriodicTransactionOutputData {
      *
      * @param transactionStartDate the new start date of the transaction
      */
+
     public void setTransactionStartDate(LocalDate transactionStartDate) {
         this. transactionStartDate = transactionStartDate;
+    }
+
+
+    public String getTransactionCategory() {
+        return this.transactionCategory;
     }
 
     /**
@@ -189,4 +198,12 @@ public class PeriodicTransactionOutputData {
      * @param newBalance the new balance after the transaction
      */
     public void setNewBalance(float newBalance) {this.newBalance = newBalance;}
+
+    /**
+     * Sets the new category of the transaction.
+     *
+     * @param transactionCategory the new category of the transaction
+     */
+    public void setTransactionCategory(String transactionCategory) {this.transactionCategory = transactionCategory;}
 }
+

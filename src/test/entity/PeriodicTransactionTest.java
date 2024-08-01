@@ -24,7 +24,7 @@ class PeriodicTransactionTest {
 
         transaction.setIdentification("newID");
         transaction.setAmount(-200.0f);
-        transaction.setStartDateDate(LocalDate.of(2024, 8, 16));
+        transaction.setStartDate(LocalDate.of(2024, 8, 16));
         transaction.setEndDate(LocalDate.of(2024, 11, 30));
         transaction.setPeriod(15);
         transaction.setDescription("New description");

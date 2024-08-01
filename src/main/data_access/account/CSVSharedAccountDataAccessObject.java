@@ -306,9 +306,9 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
             int period = Integer.parseInt(values[9]);
 
             if(isInflow){
-                return new PeriodicInflow(identification, amount, startDate, description, endDate, period);
+                return new PeriodicInflow(identification, amount, startDate, description, endDate, period, "Auto");
             }else{
-                return new PeriodicOutflow(identification, amount, startDate, description, endDate, period);
+                return new PeriodicOutflow(identification, amount, startDate, description, endDate, period, "Auto");
             }
 
         } else if (type.equals("onetime")) {
