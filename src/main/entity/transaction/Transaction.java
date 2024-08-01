@@ -13,9 +13,10 @@ import java.time.LocalDate;
 public abstract class Transaction {
     protected String identification;
     protected float amount;
-    protected LocalDate date;
+//    protected LocalDate date;
     protected String description;
     protected boolean inflow;
+    protected String transactionCategory;
 
     // getters
     /**
@@ -37,15 +38,6 @@ public abstract class Transaction {
     }
 
     /**
-     * Gets the date of the transaction.
-     *
-     * @return the date of the transaction
-     */
-    public LocalDate getDate() {
-        return this.date;
-    }
-
-    /**
      * Gets the description of the transaction.
      *
      * @return the description of the transaction
@@ -53,6 +45,13 @@ public abstract class Transaction {
     public String getDescription() {
         return this.description;
     }
+
+    /**
+     * Gets the category of the transaction.
+     *
+     * @return transactionCategory of the transaction
+     */
+    public String getTransactionCategory() {return this.transactionCategory;}
 
     /**
      * Checks if the transaction is an inflow.
@@ -84,15 +83,6 @@ public abstract class Transaction {
     }
 
     /**
-     * Sets the date of the transaction.
-     *
-     * @param date the new date of the transaction
-     */
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    /**
      * Sets the description of the transaction.
      *
      * @param description the new description of the transaction
@@ -100,5 +90,12 @@ public abstract class Transaction {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * Sets the category of the transaction.
+     *
+     * @param transactionCategory of the transaction
+     */
+    public void setTransactionCategory(String transactionCategory) {this.transactionCategory = transactionCategory;}
 
 }
