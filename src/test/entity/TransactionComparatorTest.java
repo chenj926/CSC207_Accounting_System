@@ -46,7 +46,7 @@ public class TransactionComparatorTest {
     }
 }
 
-class TransactionComparatorTestHelper implements Transaction {
+class TransactionComparatorTestHelper extends Transaction {
     private String id;
     private double amount;
     private LocalDate date;
