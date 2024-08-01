@@ -83,6 +83,12 @@ public class PeriodicTransactionPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.submitButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.submitButton.setOpaque(true);
+        this.submitButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -138,15 +144,18 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.periodComb, constraints);
 
-        // submit button
+        // button panel for submit and cancel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.add(this.submitButton);
+        buttonsPanel.add(this.cancelButton);
+
+        // Add Buttons Panel
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
-        add(submitButton, constraints);
-
-        // cancel button
-        constraints.gridy++;
-        add(cancelButton, constraints);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsPanel, constraints);
     }
 
     /**
