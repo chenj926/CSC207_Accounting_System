@@ -59,6 +59,7 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
         List<Transaction> transactions = account.getTransactions();
         for (Transaction transaction : transactions) {
             report.append(transaction.getDate()).append(" - ")
+                    .append(transaction.getTransactionCategory()).append(" : ")
                     .append(transaction.getDescription()).append(" - ")
                     .append(transaction.getAmount()).append("\n");
         }
