@@ -1,5 +1,7 @@
 package use_case.transaction.periodic;
 
+import use_case.transaction.TransactionInputData;
+
 /**
  * The PeriodicTransactionInputData class represents the input data required for a periodic transaction operation.
  * It includes details such as the transaction amount, start date, end date, period, and description.
@@ -8,15 +10,10 @@ package use_case.transaction.periodic;
  * @author Eric
  * @author Jessica
  */
-public class PeriodicTransactionInputData {
-
-    private String transactionAmount;
+public class PeriodicTransactionInputData extends TransactionInputData {
     private String transactionStartDate;
     private String transactionEndDate;
     private String transactionPeriod;
-    private String transactionDescription;
-    private String transactionCategory;
-
 
     /**
      * Constructs a OneTimeTransactionInputData object with the specified details.
@@ -31,22 +28,11 @@ public class PeriodicTransactionInputData {
     public PeriodicTransactionInputData(String transactionAmount, String transactionStartDate,
                                         String transactionDescription, String transactionPeriod,
                                         String transactionEndDate, String transactionCategory) {
-        this.transactionAmount = transactionAmount;
+        super(transactionAmount, transactionDescription, transactionCategory);
         this.transactionStartDate = transactionStartDate;
-        this.transactionDescription = transactionDescription;
         this.transactionEndDate = transactionEndDate;
         this.transactionPeriod = transactionPeriod;
-        this.transactionCategory = transactionCategory;
 
-    }
-
-    /**
-     * Gets the amount of the transaction.
-     *
-     * @return the amount of the transaction
-     */
-    public String getTransactionAmount() {
-        return this.transactionAmount;
     }
 
     /**
@@ -56,15 +42,6 @@ public class PeriodicTransactionInputData {
      */
     public String getTransactionStartDate() {
         return this.transactionStartDate;
-    }
-
-    /**
-     * Gets the description of the transaction.
-     *
-     * @return the description of the transaction
-     */
-    public String getTransactionDescription() {
-        return this.transactionDescription;
     }
 
     /**
@@ -84,14 +61,4 @@ public class PeriodicTransactionInputData {
     public String getTransactionPeriod() {
         return this.transactionPeriod;
     }
-
-    /**
-     * Gets the category of the transaction.
-     *
-     * @return the category of the transaction
-     */
-    public String getTransactionCategory() {
-        return this.transactionCategory;
-    }
-
 }

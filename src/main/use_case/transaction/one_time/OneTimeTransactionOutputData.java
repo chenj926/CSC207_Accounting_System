@@ -21,7 +21,7 @@ public class OneTimeTransactionOutputData {
     private String transactionDescription;
     private String transactionCategory;
 
-    private boolean useCaseFailed;
+    // private boolean useCaseFailed;
 
     /**
      * Constructs a OneTimeTransactionOutputData object for an outflow transaction with the specified details.
@@ -36,7 +36,7 @@ public class OneTimeTransactionOutputData {
         this.transactionDate = oneTimeOutflow.getDate();
         this.transactionDescription = oneTimeOutflow.getDescription();
         this.transactionCategory = oneTimeOutflow.getCategory();
-        this.useCaseFailed = false;
+        // this.useCaseFailed = false;
     }
 
     /**
@@ -52,7 +52,7 @@ public class OneTimeTransactionOutputData {
         this.transactionDate = oneTimeInflow.getDate();
         this.transactionDescription = oneTimeInflow.getDescription();
         this.transactionCategory = oneTimeInflow.getCategory();
-        this.useCaseFailed = false;
+        // this.useCaseFailed = false;
     }
 
     /**
@@ -106,27 +106,27 @@ public class OneTimeTransactionOutputData {
     }
 
     /**
-     * Checks if the use case has failed.
-     *
-     * @return true if the use case has failed, false otherwise
-     */
-    public boolean isUseCaseFailed() {
-        return this.useCaseFailed;
-    }
-
-    /**
-     * Sets the status of the use case failure.
-     *
-     * @param useCaseFailed the new status of the use case failure
-     */
-    public void setUseCaseFailed(boolean useCaseFailed) { this.useCaseFailed = useCaseFailed; }
-
-    /**
      * Sets the date of the transaction.
      *
      * @param transactionDate the new date of the transaction
      */
     public void setTransactionDate(LocalDate transactionDate) {
-            this.transactionDate = transactionDate;
+        this.transactionDate = transactionDate;
     }
+
+//    /**
+//     * Checks if the use case has failed.
+//     *
+//     * @return true if the use case has failed, false otherwise
+//     */
+//    public boolean isUseCaseFailed() {
+//        return this.useCaseFailed;
+//    }
+//
+//    /**
+//     * Sets the status of the use case failure.
+//     *
+//     * @param useCaseFailed the new status of the use case failure
+//     */
+//    public void setUseCaseFailed(boolean useCaseFailed) { this.useCaseFailed = useCaseFailed; }
 }

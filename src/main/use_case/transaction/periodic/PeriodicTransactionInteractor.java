@@ -77,7 +77,7 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         LocalDate localEndDate = parseDate(endDate);
         // null is returned or period is longer than the days between start and end
         if (localStartDate == null || localEndDate == null || localStartDate.isAfter(localEndDate)) {
-            presenter.prepareFailView("Invalid date format or start date after end date! Please enter again");
+            presenter.prepareFailView("Invalid date format or start date after end date! Please enter again!");
             return;
         }
 
@@ -220,6 +220,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
         long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
         if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
+            return false;
+        } else if (unit == ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
             return false;
         }
 
