@@ -1,5 +1,7 @@
 package use_case.transaction;
 
+import entity.transaction.Transaction;
+
 import java.time.LocalDate;
 
 /**
@@ -8,13 +10,20 @@ import java.time.LocalDate;
  *
  * @author Jessica
  */
-public abstract class TransactionOutputData {
+public abstract class TransactionOutputData<TransactionType>{
     protected float transactionAmount;
     protected String id;
     protected String transactionDescription;
     protected LocalDate transactionDate;
     protected String transactionCategory;
 
+    public TransactionOutputData(Transaction transaction){
+        this.transactionAmount = transaction.getAmount();
+        this.transactionDescription = transaction.getDescription();
+        this.transactionDate = transaction.getDate();
+        this.transactionCategory = transaction.getTransactionCategory();
+        this.id = transaction.getIdentification();
+    }
     /**
      * Gets the transaction amount.
      *
