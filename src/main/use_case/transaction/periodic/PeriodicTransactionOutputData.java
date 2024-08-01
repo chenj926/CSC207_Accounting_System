@@ -146,14 +146,10 @@ public class PeriodicTransactionOutputData {
         this. transactionStartDate = transactionStartDate;
     }
 
-//    /**
-//     * Sets the category of the transaction.
-//     *
-//     * @param transactionCategory of the transaction
-//     */
-//    public String getTransactionCategory() {
-//        return this.transactionCategory;
-//    }
+
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
 
     /**
      * Sets the end date of the transaction.

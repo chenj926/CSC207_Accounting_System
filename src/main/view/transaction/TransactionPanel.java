@@ -86,6 +86,14 @@ public class TransactionPanel extends JPanel {
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.oneTimeButton.setOpaque(true);
+        this.oneTimeButton.setBorderPainted(false);
+        this.periodicButton.setOpaque(true);
+        this.periodicButton.setBorderPainted(false);
+        this.logoutButton.setOpaque(true);
+        this.logoutButton.setBorderPainted(false);
     }
 
     /**
@@ -95,6 +103,12 @@ public class TransactionPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
+
+        // Set the preferred size for buttons
+        Dimension buttonSize = new Dimension(200, 30);  // Adjust size as needed
+        this.oneTimeButton.setPreferredSize(buttonSize);
+        this.periodicButton.setPreferredSize(buttonSize);
+        this.logoutButton.setPreferredSize(buttonSize);
 
         // Title Label
         constraints.gridx = 0;
@@ -129,18 +143,18 @@ public class TransactionPanel extends JPanel {
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
-        add(oneTimeButton, constraints);
+        add(this.oneTimeButton, constraints);
 
         // Periodic Button
         constraints.gridx = 1;
-        add(periodicButton, constraints);
+        add(this.periodicButton, constraints);
 
         // Logout Button
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        add(logoutButton, constraints);
+        add(this.logoutButton, constraints);
     }
 
     /**

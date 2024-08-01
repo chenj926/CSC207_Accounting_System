@@ -13,6 +13,7 @@ public class PeriodicTransactionState {
     private String transactionEndDate;
     private String transactionPeriod;
     private String transactionDescription;
+    private String transactionCategory;
     private String successMessage;
     private String errorMsg;
 
@@ -141,6 +142,14 @@ public class PeriodicTransactionState {
      */
     public void setError(String error) {
         this.errorMsg = error;
+    }
+
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
+
+    public void setTransactionCategory(String category) {
+        this.transactionCategory = category;
     }
 }
 

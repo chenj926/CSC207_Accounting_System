@@ -20,7 +20,7 @@ public class OneTimeTransactionViewModel extends ViewModel {
     private final String ID = "Identification";
     private final String DATE = "Transaction Date";
     private final String DESCRIPTION = "Description";
-    private final String CATEGORY = "Transaction Category";
+    private final String CATEGORY_BUTTON = "Transaction Category";
     private final String SUBMIT_BUTTON = "Submit Transaction";
     private final String CANCEL_BUTTON = "Cancel";
 
@@ -84,8 +84,8 @@ public class OneTimeTransactionViewModel extends ViewModel {
      *
      * @return the category label
      */
-    public String getCategory() {
-        return this.CATEGORY;
+    public String getCategoryButton() {
+        return this.CATEGORY_BUTTON;
     }
 
     /**

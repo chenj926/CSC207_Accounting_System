@@ -287,14 +287,16 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             LocalDate endDate = periodicOutputData.getTransactionEndDate();
             String description = periodicOutputData.getTransactionDescription();
             int period = periodicOutputData.getTransactionPeriod();
+            String category = periodicOutputData.getTransactionCategory();
 
+            System.out.println("cate"+category);
             // convert Localdate to string
             String startDateString = String.valueOf(startDate);
             String endDateString = String.valueOf(endDate);
 
             // create csv line with the user info
             String userInfo = String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, "", description,
-                    "", startDateString, period, endDateString);
+                    category, startDateString, period, endDateString);
 
             // if csv not created, create it
             try {
