@@ -42,7 +42,7 @@ public abstract class PeriodicTransaction extends Transaction {
         this.description = description;
         this.inflow = (amount>=0);
         this.date = startDate;
-        this.transactionCategory = "";
+        this.transactionCategory = transactionCategory;
     }
 
     /**
