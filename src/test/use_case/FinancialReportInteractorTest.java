@@ -57,7 +57,8 @@ public class FinancialReportInteractorTest {
         assertTrue(reportContent.contains("Total Balance: 550.0"));
         assertTrue(reportContent.contains("Salary"));
         assertTrue(reportContent.contains("Groceries"));
-        assertTrue(reportContent.contains("Food"));
+        assertTrue(reportContent.contains("food"));
+        assertTrue(reportContent.contains("Income"));
 
         // Assert that the report contains the data for Periodic transactions
         assertTrue(reportContent.contains("Rent"));
