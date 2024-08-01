@@ -2,6 +2,8 @@ package use_case.transaction.one_time;
 
 import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeInflow;
+import entity.transaction.one_time.OneTimeTransaction;
+import use_case.transaction.TransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -11,107 +13,21 @@ import java.time.LocalDate;
  *
  * @author Dana
  * @author Eric
+ * @author Jessica
  */
-public class OneTimeTransactionOutputData {
+public class OneTimeTransactionOutputData extends TransactionOutputData<OneTimeTransaction> {
 
-    private float newBalance;
-    private String id;
-    private float amount;
-    private LocalDate transactionDate;
-    private String transactionDescription;
-    private String transactionCategory;
-
+    // private float newBalance;
     // private boolean useCaseFailed;
 
     /**
      * Constructs a OneTimeTransactionOutputData object for an outflow transaction with the specified details.
      *
-     * @param oneTimeOutflow the outflow transaction entity
-     * @param newBalance     the new balance after the transaction
+     * @param oneTimeTransaction the outflow transaction entity
      */
-    public OneTimeTransactionOutputData(OneTimeOutflow oneTimeOutflow, float newBalance) {
-        this.newBalance = newBalance;
-        this.amount = oneTimeOutflow.getAmount();
-        this.id = oneTimeOutflow.getIdentification();
-        this.transactionDate = oneTimeOutflow.getDate();
-        this.transactionDescription = oneTimeOutflow.getDescription();
-        this.transactionCategory = oneTimeOutflow.getCategory();
+    public OneTimeTransactionOutputData(OneTimeTransaction oneTimeTransaction) {
+        super(oneTimeTransaction);
         // this.useCaseFailed = false;
-    }
-
-    /**
-     * Constructs a OneTimeTransactionOutputData object for an inflow transaction with the specified details.
-     *
-     * @param oneTimeInflow the inflow transaction entity
-     * @param newBalance    the new balance after the transaction
-     */
-    public OneTimeTransactionOutputData(OneTimeInflow oneTimeInflow, float newBalance) {
-        this.newBalance = newBalance;
-        this.amount = oneTimeInflow.getAmount();
-        this.id = oneTimeInflow.getIdentification();
-        this.transactionDate = oneTimeInflow.getDate();
-        this.transactionDescription = oneTimeInflow.getDescription();
-        this.transactionCategory = oneTimeInflow.getCategory();
-        // this.useCaseFailed = false;
-    }
-
-    /**
-     * Gets the new balance after the transaction.
-     *
-     * @return the new balance after the transaction
-     */
-    public float getNewBalance() {
-            return this.newBalance;
-        }
-
-    /**
-     * Gets the identification of the transaction.
-     *
-     * @return the identification of the transaction
-     */
-    public String getId() { return this.id; }
-
-    /**
-     * Gets the amount of the transaction.
-     *
-     * @return the amount of the transaction
-     */
-    public float getAmount() { return this.amount; }
-
-    /**
-     * Gets the date of the transaction.
-     *
-     * @return the date of the transaction
-     */
-    public LocalDate getTransactionDate() {
-        return this.transactionDate;
-    }
-
-    /**
-     * Gets the description of the transaction.
-     *
-     * @return the description of the transaction
-     */
-    public String getTransactionDescription() {
-            return this.transactionDescription;
-    }
-
-    /**
-     * Gets the category of the transaction.
-     *
-     * @return the category of the transaction
-     */
-    public String getTransactionCategory() {
-            return this.transactionCategory;
-    }
-
-    /**
-     * Sets the date of the transaction.
-     *
-     * @param transactionDate the new date of the transaction
-     */
-    public void setTransactionDate(LocalDate transactionDate) {
-        this.transactionDate = transactionDate;
     }
 
 //    /**
