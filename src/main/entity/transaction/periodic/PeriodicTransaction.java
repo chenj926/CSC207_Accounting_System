@@ -19,7 +19,6 @@ public abstract class PeriodicTransaction extends Transaction {
     private LocalDate startDate;
     private LocalDate endDate;
     private int period;
-    private String transactionCategory;
 
     /**
      * Constructs a PeriodicTransaction object with the specified details.
@@ -30,7 +29,6 @@ public abstract class PeriodicTransaction extends Transaction {
      * @param description    the description of the transaction
      * @param endDate        the end date of the transaction
      * @param period         the period of the transaction in days
-     * @param transactionCategory         the category of the transaction
      */
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
                                LocalDate endDate, int period, String transactionCategory) {
@@ -41,7 +39,7 @@ public abstract class PeriodicTransaction extends Transaction {
         this.period = period;
         this.description = description;
         this.inflow = (amount>=0);
-        this.date = startDate;
+//0       this.date = startDate;
         this.transactionCategory = transactionCategory;
     }
 
@@ -74,16 +72,6 @@ public abstract class PeriodicTransaction extends Transaction {
 
 
     /**
-     * Gets the category of the transaction in days.
-     *
-     * @return the category of the transaction
-     */
-    public String getTransactionCategory() {
-        return this.transactionCategory;
-    }
-
-
-    /**
      * Sets the start date of the transaction.
      *
      * @param startDate the new start date of the transaction
@@ -109,12 +97,4 @@ public abstract class PeriodicTransaction extends Transaction {
     public void setPeriod(int period) {
         this.period = period;
     }
-
-    /**
-     * Gets the period of the transaction in days.
-     *
-     * @param transactionCategory of the transaction
-     */
-    public void setTransactionCategory(String transactionCategory) {this.transactionCategory = transactionCategory;}
-
 }
