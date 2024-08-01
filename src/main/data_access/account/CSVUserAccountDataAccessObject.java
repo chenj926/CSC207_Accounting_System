@@ -248,7 +248,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         System.out.println();
         if (!isPeriodic) {
             String id = oneTimeOutputData.getId();
-            float amount = oneTimeOutputData.getAmount();
+            float amount = oneTimeOutputData.getTransactionAmount();
             LocalDate date = oneTimeOutputData.getTransactionDate();
             String description = oneTimeOutputData.getTransactionDescription();
             String category = oneTimeOutputData.getTransactionCategory();

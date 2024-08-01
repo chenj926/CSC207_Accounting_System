@@ -272,7 +272,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
                         OneTimeTransaction ot = (OneTimeTransaction) transaction;
                         bw.write(String.format("%s,onetime,%s,%f,%s,%s,%s,,,%b",
                                 sharedAccount.getIdentification(), ot.getIdentification(), ot.getAmount(), ot.getDate(),
-                                ot.getDescription(), ot.getCategory(), ot.isInflow()));
+                                ot.getDescription(), ot.getTransactionCategory(), ot.isInflow()));
                     }
                     bw.newLine();
                 }

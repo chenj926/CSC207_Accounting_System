@@ -39,7 +39,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         OneTimeTransactionState oneTimeState = viewModel.getState();
 
         // set info
-        oneTimeState.setNewBalance(data.getNewBalance());
+//        oneTimeState.setNewBalance(data.getNewBalance());
         oneTimeState.setTransactionDate(data.getTransactionDate().toString());
         oneTimeState.setTransactionDescription(data.getTransactionDescription());
         oneTimeState.setTransactionCategory(data.getTransactionCategory());
