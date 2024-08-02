@@ -21,6 +21,8 @@ public interface UserSignupDataAccessInterface {
      */
     boolean existById(String identification);
 
+    UserAccount getById(String identification);
+
     /**
      * Saves a new user account to the data store.
      *

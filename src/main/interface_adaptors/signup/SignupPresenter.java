@@ -3,6 +3,8 @@ package interface_adaptors.signup;
 import interface_adaptors.ViewManagerModel;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
+import use_case.signup.SharedAccountSignupOutputData;
+import use_case.signup.StandardSignupOutputData;
 
 /**
  * The SignupPresenter class implements the SignupOutputBoundary interface.
@@ -31,20 +33,34 @@ public class SignupPresenter implements SignupOutputBoundary {
      * Prepares the success view with the given signup output data.
      * Updates the signup state and changes the view to the home page.
      *
-     * @param response the signup output data containing user information and success status
+     * @param data the signup output data containing user information and success status
      */
     @Override
-    public void prepareSuccessView(SignupOutputData response) {
-        // update the current signup state
+    public void prepareSuccessView(SignupOutputData data) {
         SignupState signupState = signupViewModel.getState();
-        signupState.setUsername(response.getUsername());
-        this.signupViewModel.setState(signupState);
-        signupState.setSuccessMsg("Sign up Successfully");
-        signupViewModel.firePropertyChanged();
-        viewManagerModel.setActiveViewName(signupViewModel.getViewName());
 
-        // change to home page view
+        if (data instanceof SharedAccountSignupOutputData) {
+            SharedAccountSignupOutputData sharedData = (SharedAccountSignupOutputData) data;
+
+            // Check if the shared account already exists
+            if (sharedData.isSharedAccountExists()) {
+                // Set a specific success message indicating user input is needed
+                signupState.setSuccessMsg("Shared account already exists. Prompt user for action.");
+            } else {
+                // If shared account doesn't exist, mark success
+                signupState.setSuccessMsg("Shared account signed up successfully.");
+            }
+        } else {
+            // For StandardSignupOutputData
+            if (!data.isUseCaseFailed()) {
+                signupState.setSuccessMsg("User account signed up successfully.");
+            }
+        }
+
+        signupViewModel.firePropertyChanged();
+        // After success, navigate back to the main menu
         viewManagerModel.changeView("home page");
+
     }
 
     /**
