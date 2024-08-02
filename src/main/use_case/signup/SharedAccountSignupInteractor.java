@@ -1,36 +1,36 @@
 package use_case.signup;
 
+import data_access.account.ShareAccountDataAccessInterface;
 import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.UserAccount;
 import entity.account.SharedAccount;
 import entity.account.AccountFactory;
 
 /**
- * The SharedAccountSignupInteractor class implements the SignupInputBoundary interface.
+ * The SharedAccountSignupInteractor class extends SignupInteractor to add shared account signup logic.
  * It handles the signup process for shared accounts by validating the input data,
  * interacting with the data access layer, and using the presenter to prepare the output views.
- * This class extends the functionality of the standard signup to include shared account logic.
  * This class assumes that it will receive a SharedAccountSignupInputData type as input.
  */
-public class SharedAccountSignupInteractor implements SignupInputBoundary {
-    final AccountFactory accountFactory;
-    final SignupOutputBoundary presenter;
-    final UserSignupDataAccessInterface userDataAccessObject;
+public class SharedAccountSignupInteractor extends SignupInteractor {
+
+    private final ShareAccountDataAccessInterface sharedDataAccessObject; // Interface for shared accounts
 
     /**
      * Constructs a SharedAccountSignupInteractor object with the specified data access interface,
      * output boundary, and account factory.
      *
      * @param userSignupDataAccessInterface the data access interface for user data
+     * @param sharedDataAccessObject        the data access interface for shared accounts
      * @param signupOutputBoundary          the output boundary for presenting the signup results
      * @param accountFactory                the factory for creating user accounts
      */
     public SharedAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
+                                         ShareAccountDataAccessInterface sharedDataAccessObject, // Added sharedDataAccessObject
                                          SignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
-        this.userDataAccessObject = userSignupDataAccessInterface;
-        this.presenter = signupOutputBoundary;
+        super(userSignupDataAccessInterface, signupOutputBoundary, accountFactory);
+        this.sharedDataAccessObject = sharedDataAccessObject; // Initialize sharedDataAccessObject
     }
 
     /**
@@ -40,36 +40,21 @@ public class SharedAccountSignupInteractor implements SignupInputBoundary {
      */
     @Override
     public void execute(SignupInputData signupInputData) {
-        SharedAccountSignupInputData sharedSignupData = (SharedAccountSignupInputData) signupInputData;
-
-        boolean userExists = userDataAccessObject.existById(sharedSignupData.getIdentification());
-        boolean sharedAccountExists = userDataAccessObject.existById(sharedSignupData.getSharedAccountId());
-
-        boolean validUsername = this.checkUsername(sharedSignupData.getUsername());
-        boolean validPassword = this.checkPassword(sharedSignupData.getPassword());
-        boolean validIdentification = this.checkIdentification(sharedSignupData.getIdentification());
-        boolean validSharedAccountId = this.checkIdentification(sharedSignupData.getSharedAccountId());
-
-        if (!validUsername || !validPassword || !validIdentification || !validSharedAccountId) {
-            // Simplified the error messages using a single check for all fields
-            if (!validUsername) {
-                presenter.prepareFailView("Username cannot be empty!");
-            }
-            if (!validPassword) {
-                presenter.prepareFailView("Password cannot be empty!");
-            }
-            if (!validIdentification) {
-                presenter.prepareFailView("Identification cannot be empty!");
-            }
-            if (!validSharedAccountId) {
-                presenter.prepareFailView("Shared Account ID cannot be empty!");
-            }
-            return;
+        if (!(signupInputData instanceof SharedAccountSignupInputData)) {
+            throw new IllegalArgumentException("Invalid input data type for SharedAccountSignupInteractor");
         }
 
-        if (userExists) {
-            UserAccount userAccount = userDataAccessObject.getById(sharedSignupData.getIdentification());
+        SharedAccountSignupInputData sharedSignupData = (SharedAccountSignupInputData) signupInputData;
 
+        // Use userDataAccessObject for user accounts
+        boolean userExists = userDataAccessObject.existById(sharedSignupData.getIdentification());
+
+        // Use sharedDataAccessObject for shared accounts
+        boolean sharedAccountExists = sharedDataAccessObject.existById(sharedSignupData.getSharedAccountId());
+
+        if (userExists) {
+            // Ensure user password matches before proceeding
+            UserAccount userAccount = userDataAccessObject.getById(sharedSignupData.getIdentification());
             if (userAccount.getPassword().equals(sharedSignupData.getPassword())) {
                 if (sharedAccountExists) {
                     // If both user and shared account exist, handle the user choice in the view
@@ -79,7 +64,8 @@ public class SharedAccountSignupInteractor implements SignupInputBoundary {
                 } else {
                     // Shared account does not exist, create it
                     SharedAccount newSharedAccount = accountFactory.createSharedAccount(sharedSignupData.getSharedAccountId());
-                    userDataAccessObject.save(newSharedAccount);
+                    newSharedAccount.addUserIdentification(sharedSignupData.getIdentification()); // Add user to shared account
+                    sharedDataAccessObject.save(newSharedAccount); // Use sharedDataAccessObject to save shared account
 
                     // Prepare success view for shared account creation
                     SignupOutputData signupOutputData = new SharedAccountSignupOutputData(
@@ -94,37 +80,6 @@ public class SharedAccountSignupInteractor implements SignupInputBoundary {
             // User does not exist, prepare fail view
             presenter.prepareFailView("Please sign up an individual user account first.");
         }
-    }
-
-
-    /**
-     * Checks if the provided username is valid (not null or empty).
-     *
-     * @param username the username to check
-     * @return true if the username is valid, false otherwise
-     */
-    private boolean checkUsername(String username) {
-        return username != null && !username.isEmpty();
-    }
-
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    private boolean checkPassword(String password) {
-        return password != null && !password.isEmpty();
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    private boolean checkIdentification(String id) {
-        return id != null && !id.isEmpty();
     }
 }
 
