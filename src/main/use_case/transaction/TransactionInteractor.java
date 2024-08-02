@@ -1,64 +1,80 @@
 package use_case.transaction;
 
-import data_access.account.*;
-import use_case.transaction.one_time.*;
-import use_case.transaction.periodic.*;
+import data_access.account.UserAccountDataAccessInterface;
+import entity.account.UserAccount;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 
-/**
- * The TransactionInteractor class implements both OneTimeTransactionInputBoundary and PeriodicTransactionInputBoundary interfaces.
- * It acts as a mediator for handling both one-time and periodic transaction operations by delegating them to the respective interactors.
- *
- * @author Jessica
- */
-public class TransactionInteractor{
-    private final UserAccountDataAccessInterface userDataAccessObject;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 
-    private final OneTimeTransactionOutputBoundary oneTimePresenter;
-    private final PeriodicTransactionOutputBoundary periodicPresenter;
-
-    private final OneTimeTransactionInputBoundary oneTimeTransactionInteractor;
-    private final PeriodicTransactionInputBoundary periodicTransactionInteractor;
+public abstract class TransactionInteractor{
+    protected final UserAccountDataAccessInterface userDataAccessObject;
+    protected final UserAccount userAccount;
 
     /**
-     * Constructs a TransactionInteractor object with the specified data access interface, output boundaries, and transaction interactors.
+     * Constructs a TransactionInteractor object with data access object,
+     * and user account.
      *
      * @param userAccountDataAccessInterface the data access interface for user data
-     * @param oneTimeTransactionOutputBoundary the output boundary for presenting one-time transaction results
-     * @param periodicTransactionOutputBoundary the output boundary for presenting periodic transaction results
-     * @param oneTimeTransactionInteractor the interactor for handling one-time transactions
-     * @param periodicTransactionInteractor the interactor for handling periodic transactions
+     * @param userAccount the user account associated with the transaction
      */
     public TransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                 OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
-                                 PeriodicTransactionOutputBoundary periodicTransactionOutputBoundary,
-                                 OneTimeTransactionInputBoundary oneTimeTransactionInteractor,
-                                 PeriodicTransactionInputBoundary periodicTransactionInteractor) {
-
+                                 UserAccount userAccount) {
         this.userDataAccessObject = userAccountDataAccessInterface;
-
-        this.oneTimePresenter = oneTimeTransactionOutputBoundary;
-        this.periodicPresenter = periodicTransactionOutputBoundary;
-
-        this.oneTimeTransactionInteractor = oneTimeTransactionInteractor;
-        this.periodicTransactionInteractor = periodicTransactionInteractor;
+        this.userAccount = userAccount;
     }
 
     /**
-     * Executes the one-time transaction process with the given input data by delegating to the respective interactor.
+     * Checks if the provided user input is valid (not null or empty).
      *
-     * @param oneTimeTransactionInputData the input data required for the one-time transaction process
+     * @param userInfo the user input to check
+     * @return true if the user input is valid, false otherwise
      */
-    public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
-        oneTimeTransactionInteractor.execute(oneTimeTransactionInputData);
+    protected boolean checkValid(String userInfo) {
+        if (userInfo == null || userInfo.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
     /**
-     * Executes the periodic transaction process with the given input data by delegating to the respective interactor.
+     * Parses and formats the transaction amount to two decimal places.
+     * <p>
+     * This method tries to parse the input string to a float and formats it to two decimal places.
+     * If the parsing fails, it returns Float.MIN_VALUE as an indication of failure.
+     * </p>
      *
-     * @param periodicTransactionInputData the input data required for the periodic transaction process
+     * @param stringAmount the transaction amount as a string
+     * @return the parsed and formatted amount as a float, or Float.MIN_VALUE if parsing fails
      */
-    public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
-        periodicTransactionInteractor.execute(periodicTransactionInputData);
+    protected float parseAmount(String stringAmount) {
+        try {
+            float amount = Float.parseFloat(stringAmount);
+            return Float.parseFloat(String.format("%.2f", amount));
+        } catch (NumberFormatException e) {
+            return Float.MIN_VALUE; // Return a sentinel value indicating failure
+        }
+    }
+
+    /**
+     * Parses and validates the transaction date.
+     * <p>
+     * This method tries to parse the input date string to a LocalDate object using a strict date format.
+     * If the parsing fails, it returns null as an indication of failure.
+     * </p>
+     *
+     * @param date the transaction date as a string
+     * @return the parsed date as a LocalDate object, or null if parsing fails
+     */
+    protected LocalDate parseDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
+        try {
+            return LocalDate.parse(date, formatter);
+        } catch (DateTimeParseException e) {
+            return null; // Return null indicating failure
+        }
     }
 }
 
