@@ -5,6 +5,7 @@ import data_access.account.UserAccountDataAccessInterface;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import entity.account.UserAccount;
+import use_case.transaction.TransactionInteractor;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -21,10 +22,8 @@ import java.time.temporal.ChronoUnit;
  * @author Eric
  * @author Dana
  */
-public class PeriodicTransactionInteractor implements PeriodicTransactionInputBoundary {
-    final UserAccountDataAccessInterface userDataAccessObject;
-    final PeriodicTransactionOutputBoundary presenter;
-    final UserAccount userAccount;
+public class PeriodicTransactionInteractor extends TransactionInteractor implements PeriodicTransactionInputBoundary {
+    private final PeriodicTransactionOutputBoundary presenter;
 
     /**
      * Constructs a PeriodicTransactionInteractor object with the specified data access interface,
@@ -37,9 +36,8 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
     public PeriodicTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                          PeriodicTransactionOutputBoundary periodicTransactionOutputBoundary,
                                          UserAccount userAccount) {
-        this.userDataAccessObject = userAccountDataAccessInterface;
+        super(userAccountDataAccessInterface, userAccount);
         this.presenter = periodicTransactionOutputBoundary;
-        this.userAccount = userAccount;
     }
 
     /**
@@ -97,57 +95,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
 
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
         processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit, category);
-    }
-
-    /**
-     * Checks if the provided user input is valid (not null or empty).
-     *
-     * @param userInfo the user input to check
-     * @return true if the user input is valid, false otherwise
-     */
-    public boolean checkValid(String userInfo) {
-        if (userInfo == null || userInfo.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Parses and formats the transaction amount to two decimal places.
-     * <p>
-     * This method tries to parse the input string to a float and formats it to two decimal places.
-     * If the parsing fails, it returns Float.MIN_VALUE as an indication of failure.
-     * </p>
-     *
-     * @param stringAmount the transaction amount as a string
-     * @return the parsed and formatted amount as a float, or Float.MIN_VALUE if parsing fails
-     */
-    private float parseAmount(String stringAmount) {
-        try {
-            float amount = Float.parseFloat(stringAmount);
-            return Float.parseFloat(String.format("%.2f", amount));
-        } catch (NumberFormatException e) {
-            return Float.MIN_VALUE;
-        }
-    }
-
-    /**
-     * Parses and validates the transaction date.
-     * <p>
-     * This method tries to parse the input date string to a LocalDate object using a strict date format.
-     * If the parsing fails, it returns null as an indication of failure.
-     * </p>
-     *
-     * @param date the transaction date as a string
-     * @return the parsed date as a LocalDate object, or null if parsing fails
-     */
-    private LocalDate parseDate(String date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-uuuu").withResolverStyle(ResolverStyle.STRICT);
-        try {
-            return LocalDate.parse(date, formatter);
-        } catch (DateTimeParseException e) {
-            return null;
-        }
     }
 
     /**
