@@ -513,7 +513,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      * @param identification the unique identification of the user whose transactions are to be read
      * @return a list of transactions associated with the specified user
      */
-    private List<Transaction> readTransactions(String identification){
+    public List<Transaction> readTransactions(String identification){
         // need implementation
         List<Transaction> transactions = new ArrayList<>();
 
