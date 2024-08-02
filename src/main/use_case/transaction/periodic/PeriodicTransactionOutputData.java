@@ -28,8 +28,6 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
     private int transactionPeriod;
-    // private float newBalance;
-    private String transactionCategory;
 
     /**
      * Constructs a PeriodicTransactionOutputData object for an inflow transaction with the specified details.
@@ -42,6 +40,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
         this.transactionPeriod = periodicTransaction.getPeriod();
         this.id = periodicTransaction.getIdentification();
         this.transactionCategory = periodicTransaction.getTransactionCategory();
+        this.transactionStartDate = periodicTransaction.getStartDate();
     }
 
     /**

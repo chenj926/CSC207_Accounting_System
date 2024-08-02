@@ -304,8 +304,6 @@ public class PeriodicTransactionInteractor implements PeriodicTransactionInputBo
                 period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
 
-        System.out.println("start date"+periodicInflow.getStartDate());
-
         // Create a new PeriodicInflow object
         float totalIncome = userAccount.getTotalIncome() + amount;
         userAccount.setTotalIncome(totalIncome);
