@@ -10,6 +10,7 @@ import app.transaction.TransactionUseCaseFactory;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
@@ -17,6 +18,7 @@ import view.home_page.HomePageView;
 import view.login.LoginView;
 import view.logout.LogoutView;
 import view.signup.SignupView;
+import view.signup.SharedAccountSignupView;
 import view.transaction.one_time.OneTimeTransactionView;
 import view.transaction.periodic.PeriodicTransactionView;
 import view.transaction.TransactionView;
@@ -138,10 +140,16 @@ public class ViewManagerModel {
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel = new SignupViewModel();
+                SignupViewModel signupViewModel = new SignupViewModel("sign up");
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
+                break;
+            case "shared account sign up":
+                SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel("shared account sign up");
+                SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this, sharedSignupViewModel);
+                views.put("shared account sign up", sharedSignupView);
+                currentView = sharedSignupView;
                 break;
             case "log in":
                 LoginViewModel loginViewModel = new LoginViewModel();
