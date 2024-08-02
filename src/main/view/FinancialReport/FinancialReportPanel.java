@@ -1,0 +1,53 @@
+package view.FinancialReport;
+
+import interface_adaptors.FinancialReport.FinancialReportController;
+import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.periodic.PeriodicTransactionController;
+import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+
+import javax.swing.*;
+
+public class FinancialReportPanel {
+    private final FinancialReportViewModel viewModel;
+    private final FinancialReportController financialReportController;
+    private final ViewManagerModel viewManager;
+
+    private JLabel titleLabel;
+    private JTextField amountField;
+    private JTextField startDateField;
+    private JTextField endDateField;
+    private JTextField descriptionField;
+    private JComboBox<String> periodComb;
+    private JComboBox<String> categoryButton;
+    private JButton submitButton;
+    private JButton cancelButton;
+
+    public FinancialReportPanel(FinancialReportViewModel viewModel,
+                                FinancialReportController financialReportController,
+                                ViewManagerModel viewManager) {
+        this.viewModel = viewModel;
+        this.financialReportController = financialReportController;
+        this.viewManager = viewManager;
+        initializeComponents();
+        setupUI();
+        setupListeners();
+    }
+
+    private void initializeComponents() {
+
+
+    }
+
+    private void setupUI() {
+
+    }
+
+    private void setupListeners() {
+
+    }
+
+    public void clearFields() {
+
+    }
+}
