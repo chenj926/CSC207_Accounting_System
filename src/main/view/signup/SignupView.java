@@ -11,7 +11,9 @@ import java.awt.*;
  * The SignupView class represents the GUI for user signup. It extends JFrame and manages the signup panel.
  */
 public class SignupView extends JFrame {
-    private final SignupViewModel viewModel;
+    protected final SignupViewModel viewModel;
+    protected final SignupController signupController;
+    protected final ViewManagerModel viewManager;
     private final SignupPanel signupPanel;
 
     /**
@@ -24,7 +26,9 @@ public class SignupView extends JFrame {
     public SignupView(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
-        signupPanel = new SignupPanel(viewModel, signupController, viewManager);
+        this.signupController = signupController;
+        this.viewManager = viewManager;
+        this.signupPanel = new SignupPanel(viewModel, signupController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +39,7 @@ public class SignupView extends JFrame {
     /**
      * Sets up the UI components for the signup view.
      */
-    private void setupUI() {
+    protected void setupUI() {
         this.getContentPane().add(signupPanel, BorderLayout.CENTER);
     }
 
