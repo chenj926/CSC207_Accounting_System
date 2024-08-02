@@ -6,7 +6,7 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
-import org.w3c.dom.css.CSSStyleSheet;
+//import org.w3c.dom.css.CSSStyleSheet;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -513,6 +513,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      * @param identification the unique identification of the user whose transactions are to be read
      * @return a list of transactions associated with the specified user
      */
+    @Override
     public List<Transaction> readTransactions(String identification){
         // need implementation
         List<Transaction> transactions = new ArrayList<>();
@@ -549,7 +550,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         Transaction transaction;
 
         // if it is onetime
-        if (values[5].equals("")) {
+        if (values.length <= 5) {
             String id = values[0];
             float amount = Float.parseFloat(values[1]);
             LocalDate date = LocalDate.parse(values[2]);
