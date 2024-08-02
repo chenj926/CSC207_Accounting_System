@@ -4,6 +4,9 @@ import data_access.authentication.UserSignupDataAccessInterface;
 
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import entity.transaction.one_time.OneTimeTransaction;
+import entity.transaction.periodic.PeriodicTransaction;
+import org.w3c.dom.css.CSSStyleSheet;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -247,17 +250,16 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                                 boolean isPeriodic) {
         System.out.println();
         if (!isPeriodic) {
-            String id = oneTimeOutputData.getId();
-            float amount = oneTimeOutputData.getTransactionAmount();
-            LocalDate date = oneTimeOutputData.getTransactionDate();
-            String description = oneTimeOutputData.getTransactionDescription();
-            String category = oneTimeOutputData.getTransactionCategory();
-            // convert localdate to string
-            String dateString = String.valueOf(date);
+//            String id = oneTimeOutputData.getId();
+//            float amount = oneTimeOutputData.getTransactionAmount();
+//            LocalDate date = oneTimeOutputData.getTransactionDate();
+//            String description = oneTimeOutputData.getTransactionDescription();
+//            String category = oneTimeOutputData.getTransactionCategory();
+//            // convert localdate to string
+//            String dateString = String.valueOf(date);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%.2f,%s,%s,%s", id, amount, dateString, description,
-                    category);
+            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
 
             // if csv not created, create it
             try {
@@ -281,22 +283,20 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 System.err.println("Failed to write to file: " + e.getMessage());
             }
         } else{
-            String id = periodicOutputData.getId();
-            float amount = periodicOutputData.getTransactionAmount();
-            LocalDate startDate = periodicOutputData.getTransactionStartDate();
-            LocalDate endDate = periodicOutputData.getTransactionEndDate();
-            String description = periodicOutputData.getTransactionDescription();
-            int period = periodicOutputData.getTransactionPeriod();
-            String category = periodicOutputData.getTransactionCategory();
-
-            System.out.println("cate"+category);
-            // convert Localdate to string
-            String startDateString = String.valueOf(startDate);
-            String endDateString = String.valueOf(endDate);
+//            String id = periodicOutputData.getId();
+//            float amount = periodicOutputData.getTransactionAmount();
+//            LocalDate startDate = periodicOutputData.getTransactionStartDate();
+//            LocalDate endDate = periodicOutputData.getTransactionEndDate();
+//            String description = periodicOutputData.getTransactionDescription();
+//            int period = periodicOutputData.getTransactionPeriod();
+//            String category = periodicOutputData.getTransactionCategory();
+//
+//            // convert Localdate to string
+//            String startDateString = String.valueOf(startDate);
+//            String endDateString = String.valueOf(endDate);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, "", description,
-                    category, startDateString, period, endDateString);
+            String userInfo = this.getTransactionInfo(null, periodicOutputData, true);
 
             // if csv not created, create it
             try {
@@ -320,6 +320,33 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 System.err.println("Failed to write to file: " + e.getMessage());
             }
 
+        }
+    }
+
+    private String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
+                                      PeriodicTransactionOutputData periodicOutputData,
+                                      boolean isPeriodic) {
+        if (!isPeriodic) {
+            String id = oneTimeOutputData.getId();
+            float amount = oneTimeOutputData.getTransactionAmount();
+            LocalDate date = oneTimeOutputData.getTransactionDate();
+            String description = oneTimeOutputData.getTransactionDescription();
+            String category = oneTimeOutputData.getTransactionCategory();
+            String dateString = String.valueOf(date);
+
+            return String.format("%s,%.2f,%s,%s,%s", id, amount, dateString, description, category);
+        } else {
+            String id = periodicOutputData.getId();
+            float amount = periodicOutputData.getTransactionAmount();
+            LocalDate startDate = periodicOutputData.getTransactionStartDate();
+            LocalDate endDate = periodicOutputData.getTransactionEndDate();
+            String description = periodicOutputData.getTransactionDescription();
+            int period = periodicOutputData.getTransactionPeriod();
+            String category = periodicOutputData.getTransactionCategory();
+            String startDateString = String.valueOf(startDate);
+            String endDateString = String.valueOf(endDate);
+
+            return String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, "", description, category, startDateString, period, endDateString);
         }
     }
 
@@ -483,13 +510,69 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      * Reads all transactions for a specific user from the transactions CSV file.
      * This method is currently a placeholder and needs to be implemented.
      *
-     * @param userIdentification the unique identification of the user whose transactions are to be read
+     * @param identification the unique identification of the user whose transactions are to be read
      * @return a list of transactions associated with the specified user
      */
-    private List<Transaction> readTransactions(String userIdentification){
+    private List<Transaction> readTransactions(String identification){
         // need implementation
         List<Transaction> transactions = new ArrayList<>();
+
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(TRANSACTION_CSV_FILE_PATH))) {
+            String line;
+            boolean isFirstLine = true;
+
+            while ((line = bin.readLine()) != null) {
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
+                String[] values = line.split(",");
+                // we only compare the id
+                String id = values[0].trim().toLowerCase();
+
+                if (id.equals(identification.trim().toLowerCase())) {
+                    Transaction transaction = getTransactions(values);
+                    transactions.add(transaction);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+
         return transactions;
+    }
+
+    // helper method
+    private Transaction getTransactions(String[] values) {
+        Transaction transaction;
+
+        // if it is onetime
+        if (values[5].equals("")) {
+            String id = values[0];
+            float amount = Float.parseFloat(values[1]);
+            LocalDate date = LocalDate.parse(values[2]);
+            String description = values[3];
+            String category = values[4];
+
+            transaction = new OneTimeTransaction(id, amount, date, description, category);
+
+            // if it is periodc
+        } else {
+            String id = values[0];
+            float amount = Float.parseFloat(values[1]);
+
+            String description = values[3];
+            String category = values[4];
+            LocalDate startDate = LocalDate.parse(values[5]);
+            int period = Integer.parseInt(values[6]);
+            LocalDate endDate = LocalDate.parse(values[7]);
+
+            transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);
+        }
+
+        return transaction;
     }
 
     /**

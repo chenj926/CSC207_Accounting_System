@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * @author Jessica
  * @author Eric
  */
-public abstract class PeriodicTransaction extends Transaction {
+public class PeriodicTransaction extends Transaction {
 
     private LocalDate startDate;
     private LocalDate endDate;

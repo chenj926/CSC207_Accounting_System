@@ -13,7 +13,7 @@ import java.time.LocalDate;
  * @author Jessica
  * @author Eric
  */
-public abstract class OneTimeTransaction extends Transaction {
+public class OneTimeTransaction extends Transaction {
 //    private String transactionCategory;
 
     /**
