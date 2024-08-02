@@ -89,7 +89,7 @@ public class TransactionPanel extends JPanel {
         this.oneTimeButton.setBackground(new Color(100, 150, 200));
         this.periodicButton.setBackground(new Color(100, 150, 200));
         this.logoutButton.setBackground(new Color(200, 100, 100));
-        this.financialReportButton.setBackground(new Color(100, 150, 200));
+        this.financialReportButton.setBackground(new Color(150, 200, 100));
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
@@ -161,8 +161,11 @@ public class TransactionPanel extends JPanel {
         add(this.periodicButton, constraints);
 
         // history button
-        constraints.gridx = 1;
-        add(this.logoutButton, constraints);
+        constraints.gridx = 0;
+        constraints.gridy++;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        add(this.financialReportButton, constraints);
 
         // Logout Button
         constraints.gridx = 0;
@@ -188,11 +191,10 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
 
         // transactionReport button response action
-        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("History Transaction"));
+        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("Financial Report"));
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {
-
             viewManager.setUserId(null); // reset the userid before log out
             this.viewManager.setActiveViewName("home page"); // go back to home page
         });
