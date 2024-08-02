@@ -2,6 +2,7 @@ package use_case;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.one_time.OneTimeTransactionInputData;
@@ -9,6 +10,9 @@ import use_case.transaction.one_time.OneTimeTransactionInteractor;
 import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -48,6 +52,12 @@ class OneTimeTransactionInteractorTest {
             @Override
             public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isOneTimeTransaction) {
                 // Implementation for saveTransaction
+            }
+
+            @Override
+            public List<Transaction> readTransactions(String identification) {
+                List<Transaction> transactions = new ArrayList<>();
+                return transactions;
             }
         };
 
