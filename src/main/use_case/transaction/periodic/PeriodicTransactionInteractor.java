@@ -173,7 +173,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
 
         if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
             return false;
-        } else if (totalDaysBetween < unit.getDuration().toDays()) {
+        } else if (totalDaysBetween < customPeriod) {
             return false;
         }
 
@@ -250,6 +250,8 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate, description, endDate,
                 period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
+
+        System.out.println("start date"+periodicInflow.getStartDate());
 
         // Create a new PeriodicInflow object
         float totalIncome = userAccount.getTotalIncome() + amount;
