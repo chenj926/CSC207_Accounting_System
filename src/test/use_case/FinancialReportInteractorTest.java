@@ -46,7 +46,7 @@ public class FinancialReportInteractorTest {
     @Test
     public void testGenerateReport() {
         FinancialReportInputData inputData = new FinancialReportInputData("id123", new Date(), new Date());
-        interactor.generateReport(inputData);
+        interactor.execute(inputData);
 
         String reportContent = presenter.getReportContent();
 

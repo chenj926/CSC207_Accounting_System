@@ -34,10 +34,10 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
      * @param inputData the input data required to generate the financial report
      */
     @Override
-    public void generateReport(FinancialReportInputData inputData) {
+    public void execute(FinancialReportInputData inputData) {
         String reportContent = generateReportContent();
         FinancialReportOutputData outputData = new FinancialReportOutputData(reportContent);
-        outputBoundary.presentReport(outputData);
+        outputBoundary.prepareSuccessView(outputData);
     }
 
     /**

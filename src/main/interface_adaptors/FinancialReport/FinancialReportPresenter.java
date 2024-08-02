@@ -17,9 +17,14 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
      * @param outputData the output data containing the report content
      */
     @Override
-    public void presentReport(FinancialReportOutputData outputData) {
+    public void prepareSuccessView(FinancialReportOutputData outputData) {
         this.reportContent = outputData.getReportContent();
         System.out.println(reportContent);
+    }
+
+    @Override
+    public void prepareFailView(String error) {
+
     }
 
     /**
