@@ -18,7 +18,7 @@ class OneTimeTransactionTest {
         assertEquals(-100.0f, transaction.getAmount(), "Amount doesn't match");
         assertEquals(LocalDate.of(2024, 7, 16), transaction.getDate(), "Date doesn't match");
         assertEquals("Test description", transaction.getDescription(), "Description doesn't match");
-        assertEquals("Test category", transaction.getCategory(), "Category doesn't match");
+        assertEquals("Test category", transaction.getTransactionCategory(), "Category doesn't match");
         assertFalse(transaction.isInflow(), "Inflow should be false");
 
         transaction.setIdentification("newID");

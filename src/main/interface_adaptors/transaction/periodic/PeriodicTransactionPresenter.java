@@ -44,6 +44,7 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
         periodicState.setTransactionPeriod(String.valueOf(data.getTransactionPeriod()));
         periodicState.setTransactionEndDate(data.getTransactionEndDate().toString());
         periodicState.setSuccessMessage("Period Transaction Recorded successfully!");
+        periodicState.setError(null); // Clear err message on failure
 
         // fire property change
         this.viewModel.setState(periodicState);

@@ -1,8 +1,7 @@
 package interface_adaptors.signup;
 
-import use_case.signup.SignupInputBoundary;
-import use_case.signup.SignupInputData;
-
+import use_case.signup.*;
+//import use_case.signup.StandardSignupInteractor;
 
 /**
  * The SignupController class is responsible for handling user interactions related to the signup process.
@@ -12,28 +11,37 @@ import use_case.signup.SignupInputData;
  * @author Eric
  */
 public class SignupController {
-    final SignupInputBoundary userSignupUseCaseInteractor;
+    final SignupInteractor signupInteractor;
+    final SharedAccountSignupInteractor sharedAccountSignupInteractor;
 
     /**
-     * Constructs a SignupController object with the specified use case interactor.
+     * Constructs a SignupController object with the specified use case interactors.
      *
-     * @param userSignupUseCaseInteractor the use case interactor for user signup
+     * @param standardSignupInteractor     the use case interactor for standard user signup
+     * @param sharedAccountSignupInteractor the use case interactor for shared account signup
      */
-    public SignupController(SignupInputBoundary userSignupUseCaseInteractor) {
-        this.userSignupUseCaseInteractor = userSignupUseCaseInteractor;
+    public SignupController(SignupInteractor standardSignupInteractor, SharedAccountSignupInteractor sharedAccountSignupInteractor) {
+        this.signupInteractor = standardSignupInteractor;
+        this.sharedAccountSignupInteractor = sharedAccountSignupInteractor;
     }
 
     /**
      * Executes the signup process with the given user details.
      *
-     * @param username       the username of the user
-     * @param password       the password of the user
-     * @param identification the identification of the user
+     * @param username        the username of the user
+     * @param password        the password of the user
+     * @param identification  the identification of the user
+     * @param sharedAccountId the shared account ID (optional, can be null)
      */
-    public void execute(String username, String password, String identification) {
-        SignupInputData signupInputData = new SignupInputData(
-                username, password, identification);
-
-        userSignupUseCaseInteractor.execute(signupInputData);
+    public void execute(String username, String password, String identification, String sharedAccountId) {
+        if (sharedAccountId != null && !sharedAccountId.isEmpty()) {
+            SharedAccountSignupInputData signupInputData = new SharedAccountSignupInputData(
+                    username, password, identification, sharedAccountId);
+            sharedAccountSignupInteractor.execute(signupInputData);
+        } else {
+            SignupInputData signupInputData = new SignupInputData(
+                    username, password, identification);
+            signupInteractor.execute(signupInputData);
+        }
     }
 }

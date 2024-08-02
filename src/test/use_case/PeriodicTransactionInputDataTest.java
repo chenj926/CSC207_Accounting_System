@@ -15,13 +15,15 @@ public class PeriodicTransactionInputDataTest {
         String transactionDescription = "Monthly Subscription";
         String transactionPeriod = "Monthly";
         String transactionEndDate = "2024-12-31";
+        String transactionCategory = "Auto";
 
         PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
                 transactionAmountString,
                 transactionStartDate,
                 transactionDescription,
                 transactionPeriod,
-                transactionEndDate
+                transactionEndDate,
+                transactionCategory
         );
 
         assertEquals(transactionAmountString, inputData.getTransactionAmount());

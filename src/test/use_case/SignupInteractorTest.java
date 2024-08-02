@@ -152,6 +152,11 @@ public class SignupInteractorTest {
         }
 
         @Override
+        public UserAccount getById(String identification) {
+            return null;
+        }
+
+        @Override
         public void save(UserAccount user) {
             userDatabase.put(user.getIdentification(), user);
         }
@@ -159,6 +164,7 @@ public class SignupInteractorTest {
         public void addUser(UserAccount user) {
             userDatabase.put(user.getIdentification(), user);
         }
+
     }
 
     private static class SimplePresenter implements SignupOutputBoundary {

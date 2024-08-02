@@ -19,38 +19,36 @@ public class PeriodicTransactionOutputDataTest {
 
     @BeforeEach
     public void setUp() {
-        periodicInflow = new PeriodicInflow("inflow1", 100.0f, LocalDate.of(2024, 1, 1), "Salary", LocalDate.of(2024, 12, 31), 30);
-        periodicOutflow = new PeriodicOutflow("outflow1", 50.0f, LocalDate.of(2024, 1, 1), "Rent", LocalDate.of(2024, 12, 31), 30);
+        periodicInflow = new PeriodicInflow("inflow1", 100.0f, LocalDate.of(2024, 1, 1), "Salary", LocalDate.of(2024, 12, 31), 30, "Auto");
+        periodicOutflow = new PeriodicOutflow("outflow1", 50.0f, LocalDate.of(2024, 1, 1), "Rent", LocalDate.of(2024, 12, 31), 30, "Auto");
         newBalance = 1000.0f;
     }
 
     @Test
     public void testPeriodicTransactionOutputDataInflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
         assertNotNull(data);
         assertEquals(100.0f, data.getTransactionAmount());
-        assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
+        assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionDate());
         assertEquals("Salary", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
         assertEquals(30, data.getTransactionPeriod());
-        assertEquals(newBalance, data.getNewBalance());
     }
 
     @Test
     public void testPeriodicTransactionOutputDataOutflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicOutflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicOutflow);
         assertNotNull(data);
         assertEquals(50.0f, data.getTransactionAmount());
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
         assertEquals("Rent", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
         assertEquals(30, data.getTransactionPeriod());
-        assertEquals(newBalance, data.getNewBalance());
     }
 
     @Test
     public void testSetters() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow, newBalance);
+        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
 
         data.setTransactionAmount(200.0f);
         assertEquals(200.0f, data.getTransactionAmount());
@@ -72,12 +70,8 @@ public class PeriodicTransactionOutputDataTest {
         assertEquals(newPeriod, data.getTransactionPeriod());
 
         LocalDate newDate = LocalDate.of(2024, 7, 17);
-        data.setDate(newDate);
-        assertEquals(newDate, data.getDate());
-
-        float newNewBalance = 1500.0f;
-        data.setNewBalance(newNewBalance);
-        assertEquals(newNewBalance, data.getNewBalance());
+        data.setTransactionDate(newDate);
+        assertEquals(newDate, data.getTransactionDate());
     }
 }
 

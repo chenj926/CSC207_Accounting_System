@@ -20,6 +20,7 @@ public class SignupViewModel extends ViewModel {
     private final String USERNAME_LABEL = "Set username";
     private final String PASSWORD_LABEL = "Set password";
     private final String ID_LABEL = "Set identification";
+    private final String SHARED_ACCOUNT_ID_LABEL = "Set shared account id";
 
     private final String SIGNUP_BUTTON_LABEL = "Sign up";
     private final String CANCEL_BUTTON_LABEL = "Cancel";
@@ -60,6 +61,10 @@ public class SignupViewModel extends ViewModel {
      * @return the identification label
      */
     public String getID_LABEL() { return this.ID_LABEL; }
+
+    public String getSHARED_ACCOUNT_ID_LABEL() {
+        return SHARED_ACCOUNT_ID_LABEL;
+    }
 
     /**
      * Gets the signup button label.

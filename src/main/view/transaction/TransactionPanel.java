@@ -35,6 +35,8 @@ public class TransactionPanel extends JPanel {
     private JButton oneTimeButton;
     private JButton periodicButton;
     private JButton logoutButton;
+    //history added
+    private JButton financialReportButton;
 
     /**
      * Constructs a TransactionPanel with the specified view model and view manager.
@@ -75,17 +77,33 @@ public class TransactionPanel extends JPanel {
         buttons.add(this.periodicButton);
         this.logoutButton = new JButton(this.viewModel.getCANCEL_BUTTON_LABEL());
         buttons.add(this.logoutButton);
+        this.financialReportButton = new JButton(this.viewModel.getFINANCIAL_REPORT_BUTTON_LABEL());
+        buttons.add(this.financialReportButton);
 
         // Style buttons
         this.oneTimeButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.periodicButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.financialReportButton.setFont(new Font("Arial", Font.PLAIN, 16));
+
         this.oneTimeButton.setBackground(new Color(100, 150, 200));
         this.periodicButton.setBackground(new Color(100, 150, 200));
         this.logoutButton.setBackground(new Color(200, 100, 100));
+        this.financialReportButton.setBackground(new Color(100, 150, 200));
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
+        this.financialReportButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.oneTimeButton.setOpaque(true);
+        this.oneTimeButton.setBorderPainted(false);
+        this.periodicButton.setOpaque(true);
+        this.periodicButton.setBorderPainted(false);
+        this.logoutButton.setOpaque(true);
+        this.logoutButton.setBorderPainted(false);
+        this.financialReportButton.setOpaque(true);
+        this.financialReportButton.setBorderPainted(false);
     }
 
     /**
@@ -95,6 +113,13 @@ public class TransactionPanel extends JPanel {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);
+
+        // Set the preferred size for buttons
+        Dimension buttonSize = new Dimension(200, 30);  // Adjust size as needed
+        this.oneTimeButton.setPreferredSize(buttonSize);
+        this.periodicButton.setPreferredSize(buttonSize);
+        this.logoutButton.setPreferredSize(buttonSize);
+        this.financialReportButton.setPreferredSize(buttonSize);
 
         // Title Label
         constraints.gridx = 0;
@@ -129,18 +154,22 @@ public class TransactionPanel extends JPanel {
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
-        add(oneTimeButton, constraints);
+        add(this.oneTimeButton, constraints);
 
         // Periodic Button
         constraints.gridx = 1;
-        add(periodicButton, constraints);
+        add(this.periodicButton, constraints);
+
+        // history button
+        constraints.gridx = 1;
+        add(this.logoutButton, constraints);
 
         // Logout Button
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        add(logoutButton, constraints);
+        add(this.logoutButton, constraints);
     }
 
     /**
@@ -157,6 +186,9 @@ public class TransactionPanel extends JPanel {
 
         // signup button response action
         this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
+
+        // transactionReport button response action
+        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("History Transaction"));
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {

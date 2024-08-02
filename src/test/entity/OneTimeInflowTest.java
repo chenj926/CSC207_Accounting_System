@@ -17,7 +17,7 @@ class OneTimeInflowTest {
         assertEquals(100.0f, inflow.getAmount(), "Amount doesn't match");
         assertEquals(LocalDate.of(2024, 7, 16), inflow.getDate(), "Date doesn't match");
         assertEquals("Test description", inflow.getDescription(), "Description doesn't match");
-        assertEquals("Test category", inflow.getCategory(), "Category doesn't match");
+        assertEquals("Test category", inflow.getTransactionCategory(), "Category doesn't match");
         assertTrue(inflow.isInflow(), "Inflow should be true");
 
         inflow.setIdentification("newID");

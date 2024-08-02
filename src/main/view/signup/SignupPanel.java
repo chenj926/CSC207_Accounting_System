@@ -11,14 +11,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 /**
  * The SignupPanel class represents the panel for user signup. It contains fields for user input and buttons for signup and cancel actions.
- *
- * @author Jessica
- * @author Eric
  */
-public class SignupPanel extends JPanel {
+public class SignupPanel extends JPanel implements PropertyChangeListener {
     private final SignupViewModel viewModel;
     private SignupController signupController;
     private final ViewManagerModel viewManager;
@@ -27,6 +26,7 @@ public class SignupPanel extends JPanel {
     private JTextField usernameTextField;
     private JPasswordField passwordField;
     private JTextField idenficationField;
+    private JTextField sharedAccountIdField;
     private JButton signupButton;
     private JButton cancelButton;
 
@@ -41,6 +41,8 @@ public class SignupPanel extends JPanel {
         this.signupController = signupController;
         this.viewManager = viewManager;
         this.viewModel = viewModel;
+        this.viewModel.addPropertyChangeListener(this); // Listen for property changes
+
         initializeComponents();
         setupUI();
         setupListeners();
@@ -58,6 +60,7 @@ public class SignupPanel extends JPanel {
         this.usernameTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
         this.idenficationField = new JTextField(20);
+        this.sharedAccountIdField = new JTextField(20);  // Added field for shared account ID
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -73,6 +76,12 @@ public class SignupPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.signupButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.signupButton.setOpaque(true);
+        this.signupButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -81,7 +90,6 @@ public class SignupPanel extends JPanel {
     private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
         constraints.insets = new Insets(10, 10, 10, 10);  // pad
 
         // title Label
@@ -89,19 +97,15 @@ public class SignupPanel extends JPanel {
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
         add(titleLabel, constraints);
 
         // reset gridwidth and anchor for other components
         constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.WEST;
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // username
-//        constraints.gridx = 0;
         constraints.gridy = 1;
         add(new JLabel(this.viewModel.getUsernameLabel()), constraints);
-        // input username
         constraints.gridx = 1;
         add(this.usernameTextField, constraints);
 
@@ -109,7 +113,6 @@ public class SignupPanel extends JPanel {
         constraints.gridx = 0;
         constraints.gridy++;
         add(new JLabel(this.viewModel.getPasswordLabel()), constraints);
-        // input password
         constraints.gridx = 1;
         add(this.passwordField, constraints);
 
@@ -117,19 +120,28 @@ public class SignupPanel extends JPanel {
         constraints.gridx = 0;
         constraints.gridy++;
         add(new JLabel(this.viewModel.getID_LABEL()), constraints);
-        // input identification
         constraints.gridx = 1;
         add(this.idenficationField, constraints);
 
-        // sign up button
+        // shared account ID
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(this.viewModel.getSHARED_ACCOUNT_ID_LABEL()), constraints);
+        constraints.gridx = 1;
+        add(this.sharedAccountIdField, constraints);
+
+        // button panel for sign-up and cancel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.add(this.signupButton);
+        buttonsPanel.add(this.cancelButton);
+
+        // Add Buttons Panel
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
-        add(this.signupButton, constraints);
-
-        // cancel button
-        constraints.gridy++;
-        add(this.cancelButton, constraints);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsPanel, constraints);
     }
 
     /**
@@ -141,14 +153,12 @@ public class SignupPanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        if (evt.getSource().equals(signupButton)) {
-//                            SignupState currentState = viewModel.getState();
-                            signupController.execute(
-                                    usernameTextField.getText(),
-                                    String.valueOf(passwordField.getPassword()),
-                                    idenficationField.getText()
-                            );
-                        }
+                        signupController.execute(
+                                usernameTextField.getText(),
+                                String.valueOf(passwordField.getPassword()),
+                                idenficationField.getText(),
+                                sharedAccountIdField.getText()
+                        );
                     }
                 }
         );
@@ -159,52 +169,110 @@ public class SignupPanel extends JPanel {
         });
 
         // get typed username
-        this.usernameTextField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent evt) {
-                        SignupState currentState = viewModel.getState();
-                        currentState.setUsername(usernameTextField.getText() + evt.getKeyChar());
-                        viewModel.setState(currentState);
-                    }
-                    @Override
-                    public void keyPressed(KeyEvent e) {}
-                    @Override
-                    public void keyReleased(KeyEvent e) {}
-                }
-        );
+        this.usernameTextField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                SignupState currentState = viewModel.getState();
+                currentState.setUsername(usernameTextField.getText() + evt.getKeyChar());
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
 
         // get typed password
-        this.passwordField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent evt) {
-                        SignupState currentState = viewModel.getState();
-                        currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
-                        viewModel.setState(currentState);
-                    }
-                    @Override
-                    public void keyPressed(KeyEvent e) {}
-                    @Override
-                    public void keyReleased(KeyEvent e) {}
-                }
-        );
+        this.passwordField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                SignupState currentState = viewModel.getState();
+                currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
+                viewModel.setState(currentState);
+            }
 
-        this.idenficationField.addKeyListener(
-                new KeyListener() {
-                    @Override
-                    public void keyTyped(KeyEvent evt) {
-                        SignupState currentState = viewModel.getState();
-                        currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
-                        viewModel.setState(currentState);
-                    }
-                    @Override
-                    public void keyPressed(KeyEvent e) {}
-                    @Override
-                    public void keyReleased(KeyEvent e) {}
-                }
-        );
+            @Override
+            public void keyPressed(KeyEvent e) {}
 
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+        this.idenficationField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                SignupState currentState = viewModel.getState();
+                currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+        // get typed shared account ID
+        this.sharedAccountIdField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                SignupState currentState = viewModel.getState();
+                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
+    }
+
+    /**
+     * Property change event handling for signup results.
+     *
+     * @param evt the property change event
+     */
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        SignupState state = (SignupState) evt.getNewValue();
+
+        if (!state.isValid()) {
+            JOptionPane.showMessageDialog(this, state.getStateError());
+        } else {
+            String successMsg = state.getSuccessMsg();
+
+            if (successMsg.contains("Shared account already exists")) {
+                // Show choice dialog for shared account existing case
+                int choice = JOptionPane.showOptionDialog(
+                        this,
+                        "Shared account already exists. Would you like to add to it or create a new shared account?",
+                        "Choose Action",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Add to Existing", "Create New"},
+                        "Add to Existing"
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Added to shared account successfully.");
+                    // Handle adding logic here
+                } else {
+                    JOptionPane.showMessageDialog(this, "Create a new shared account.");
+                    // Handle creation logic here
+                }
+            } else {
+                // Normal success message
+                JOptionPane.showMessageDialog(this, successMsg);
+                viewManager.setActiveViewName("home page");
+            }
+        }
     }
 
     /**
@@ -214,5 +282,7 @@ public class SignupPanel extends JPanel {
         usernameTextField.setText("");
         passwordField.setText("");
         idenficationField.setText("");
+        sharedAccountIdField.setText("");
     }
 }
+

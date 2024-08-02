@@ -1,24 +1,16 @@
 package view.signup;
 
-import interface_adaptors.*;
+import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SignupController;
-import interface_adaptors.signup.SignupState;
 import interface_adaptors.signup.SignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 
 /**
- * The SignupView class represents the GUI for user signup. It extends JFrame and implements PropertyChangeListener
- * to update the view based on changes in the view model.
- *
- * @author Jessica
- * @author Eric
+ * The SignupView class represents the GUI for user signup. It extends JFrame and manages the signup panel.
  */
-public class SignupView extends JFrame implements PropertyChangeListener {
+public class SignupView extends JFrame {
     private final SignupViewModel viewModel;
     private final SignupPanel signupPanel;
 
@@ -32,8 +24,6 @@ public class SignupView extends JFrame implements PropertyChangeListener {
     public SignupView(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
-        this.viewModel.addPropertyChangeListener(this);
-
         signupPanel = new SignupPanel(viewModel, signupController, viewManager);
 
         setupUI();
@@ -50,22 +40,6 @@ public class SignupView extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Called when a bound property is changed. Displays a message dialog with the error or success message.
-     *
-     * @param evt the event that characterizes the change.
-     */
-    @Override
-    public void propertyChange(PropertyChangeEvent evt) {
-        SignupState state = (SignupState) evt.getNewValue();
-        if (!state.isValid()) {
-            JOptionPane.showMessageDialog(this, state.getStateError());
-        }
-        else {
-            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
-        }
-    }
-
-    /**
      * Overrides the setVisible method to clear fields when the view becomes visible.
      *
      * @param visible true to make the view visible, false to make it invisible
@@ -77,5 +51,5 @@ public class SignupView extends JFrame implements PropertyChangeListener {
             signupPanel.clearFields(); // Clear the fields when the view becomes visible
         }
     }
-
 }
+

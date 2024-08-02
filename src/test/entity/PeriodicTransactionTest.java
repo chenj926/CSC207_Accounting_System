@@ -12,7 +12,7 @@ class PeriodicTransactionTest {
 
     @Test
     void testPeriodicTransaction() {
-        PeriodicTransaction transaction = new PeriodicInflow("testID", 100.0f, LocalDate.of(2024, 7, 16), "Test description", LocalDate.of(2024, 12, 31), 30);
+        PeriodicTransaction transaction = new PeriodicInflow("testID", 100.0f, LocalDate.of(2024, 7, 16), "Test description", LocalDate.of(2024, 12, 31), 30, "Home");
 
         assertEquals("testID", transaction.getIdentification(), "Identification doesn't match");
         assertEquals(100.0f, transaction.getAmount(), "Amount doesn't match");
@@ -24,7 +24,7 @@ class PeriodicTransactionTest {
 
         transaction.setIdentification("newID");
         transaction.setAmount(-200.0f);
-        transaction.setStartDateDate(LocalDate.of(2024, 8, 16));
+        transaction.setStartDate(LocalDate.of(2024, 8, 16));
         transaction.setEndDate(LocalDate.of(2024, 11, 30));
         transaction.setPeriod(15);
         transaction.setDescription("New description");

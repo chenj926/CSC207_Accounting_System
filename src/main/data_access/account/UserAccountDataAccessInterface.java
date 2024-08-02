@@ -1,8 +1,11 @@
 package data_access.account;
 
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
+
+import java.util.List;
 
 /**
  * Interface for data access operations related to user accounts.
@@ -65,6 +68,7 @@ public interface UserAccountDataAccessInterface {
                          PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
 
 
+    List<Transaction> readTransactions(String identification);
     // void updateId(UserAccount userAccount);
     //account balance
 //    void updateBalance(float balance);

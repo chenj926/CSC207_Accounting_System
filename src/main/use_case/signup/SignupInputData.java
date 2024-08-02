@@ -1,10 +1,9 @@
 package use_case.signup;
 
 /**
- * The SignupInputData class represents the input data required for a signup operation.
+ * The SignupInputData class represents the base input data required for a signup operation.
  * It includes the username, password, and identification of the user.
- *
- * @author Eric
+ * This class serves as a superclass for specific signup types.
  */
 public class SignupInputData {
     private final String username;
@@ -18,7 +17,7 @@ public class SignupInputData {
      * @param password       the password of the user
      * @param identification the identification of the user
      */
-    public SignupInputData(String username, String password, String identification){
+    public SignupInputData(String username, String password, String identification) {
         this.username = username;
         this.password = password;
         this.identification = identification;

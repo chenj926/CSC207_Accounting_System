@@ -39,11 +39,11 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         OneTimeTransactionState oneTimeState = viewModel.getState();
 
         // set info
-        oneTimeState.setNewBalance(data.getNewBalance());
+//        oneTimeState.setNewBalance(data.getNewBalance());
         oneTimeState.setTransactionDate(data.getTransactionDate().toString());
         oneTimeState.setTransactionDescription(data.getTransactionDescription());
         oneTimeState.setTransactionCategory(data.getTransactionCategory());
-        oneTimeState.setUseCaseFailed(data.isUseCaseFailed());
+//        oneTimeState.setUseCaseFailed(data.isUseCaseFailed());
         this.viewModel.setState(oneTimeState);
         oneTimeState.setSuccessMessage("One time transaction recorded successfully!");
         viewModel.firePropertyChanged();

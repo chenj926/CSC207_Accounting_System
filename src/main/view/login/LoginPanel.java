@@ -74,6 +74,12 @@ public class LoginPanel extends JPanel {
         this.cancelButton.setBackground(new Color(200, 100, 100));
         this.loginButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.loginButton.setOpaque(true);
+        this.loginButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
     }
 
     /**
@@ -116,15 +122,19 @@ public class LoginPanel extends JPanel {
         constraints.gridx = 1;
         add(this.passwordField, constraints);
 
-        // login button
+
+        // button panel for login and cancel
+        JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
+        buttonsPanel.add(this.loginButton);
+        buttonsPanel.add(this.cancelButton);
+
+        // Add Buttons Panel
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
-        add(loginButton, constraints);
-
-        // cancel button
-        constraints.gridy++;
-        add(cancelButton, constraints);
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.fill = GridBagConstraints.HORIZONTAL;
+        add(buttonsPanel, constraints);
     }
 
     /**
