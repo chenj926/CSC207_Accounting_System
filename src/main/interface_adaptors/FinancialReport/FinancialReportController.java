@@ -10,27 +10,30 @@ import java.util.Date;
  * @author :Chi Fong
  */
 public class FinancialReportController {
-    private final FinancialReportInputBoundary interactor;
+    private final FinancialReportInputBoundary financialReportInputBoundary;
+    private final FinancialReportViewModel viewModel;
+
 
     /**
      * Constructs a FinancialReportController with the specified interactor.
      *
-     * @param interactor the interactor for generating financial reports
+     * @param financialReportInputBoundary the use case interactor for generating financial reports
      */
-    public FinancialReportController(FinancialReportInputBoundary interactor) {
-        this.interactor = interactor;
+    public FinancialReportController(FinancialReportInputBoundary financialReportInputBoundary, FinancialReportViewModel viewModel) {
+        this.financialReportInputBoundary = financialReportInputBoundary;
+        this.viewModel = viewModel;
     }
 
     /**
      * Generates a financial report for the specified account and date range.
      *
-     * @param accountId the account ID
+     * @param userName the account ID
      * @param startDate the start date of the report period
      * @param endDate the end date of the report period
      */
-    public void generateReport(String accountId, Date startDate, Date endDate) {
-        FinancialReportInputData inputData = new FinancialReportInputData(accountId, startDate, endDate);
-        interactor.generateReport(inputData);
+    public void execute(String userName, Date startDate, Date endDate) {
+        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, startDate, endDate);
+        financialReportInputBoundary.execute(financialReportInputData);
     }
 }
 

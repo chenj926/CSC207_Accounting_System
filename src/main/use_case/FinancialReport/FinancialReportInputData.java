@@ -8,19 +8,20 @@ import java.util.Date;
  * @author :Chi Fong
  */
 public class FinancialReportInputData {
-    private final String accountId;
+    private final String userName;
+
     private final Date startDate;
     private final Date endDate;
 
     /**
      * Constructs a FinancialReportInputData object.
      *
-     * @param accountId the account ID
+     * @param userName the account ID
      * @param startDate the start date of the report period
      * @param endDate the end date of the report period
      */
-    public FinancialReportInputData(String accountId, Date startDate, Date endDate) {
-        this.accountId = accountId;
+    public FinancialReportInputData(String userName, Date startDate, Date endDate) {
+        this.userName = userName;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -30,7 +31,7 @@ public class FinancialReportInputData {
      *
      * @return the account ID
      */
-    public String getAccountId() { return accountId; }
+    public String getUserName() { return userName; }
 
     /**
      * Returns the start date of the report period.

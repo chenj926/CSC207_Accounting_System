@@ -11,7 +11,7 @@ public interface FinancialReportInputBoundary {
      *
      * @param inputData the input data for the report
      */
-    void generateReport(FinancialReportInputData inputData);
+    void execute(FinancialReportInputData inputData);
 }
 
 
