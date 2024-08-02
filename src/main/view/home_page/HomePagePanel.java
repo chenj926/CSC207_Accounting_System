@@ -81,21 +81,31 @@ public class HomePagePanel extends JPanel {
         titleLabel.setForeground(Color.BLACK);
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.signupButton = new JButton(this.viewModel.getSignupButtonLabel());
-        this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
-        this.exitButton = new JButton(this.viewModel.getExitButtonLabel());
-
-        // Style buttons
-        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.exitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.loginButton.setBackground(new Color(255, 255, 255));
-        this.signupButton.setBackground(new Color(255, 255, 255));
-        this.exitButton.setBackground(new Color(255, 255, 255));
-        this.loginButton.setForeground(Color.BLACK);
-        this.signupButton.setForeground(Color.BLACK);
-        this.exitButton.setForeground(Color.BLACK);
+        this.signupButton = createButton(this.viewModel.getSignupButtonLabel());
+        this.loginButton = createButton(this.viewModel.getLoginButtonLabel());
+        this.exitButton = createButton(this.viewModel.getExitButtonLabel());
+//
+//        // Style buttons
+//        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
+//        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
+//        this.exitButton.setFont(new Font("Arial", Font.PLAIN, 16));
+//        this.loginButton.setBackground(new Color(255, 255, 255));
+//        this.signupButton.setBackground(new Color(255, 255, 255));
+//        this.exitButton.setBackground(new Color(255, 255, 255));
+//        this.loginButton.setForeground(Color.BLACK);
+//        this.signupButton.setForeground(Color.BLACK);
+//        this.exitButton.setForeground(Color.BLACK);
     }
+
+    private JButton createButton(String text) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setPreferredSize(new Dimension(100, 30)); // Ensure all buttons have the same size
+        button.setBackground(new Color(255, 255, 255));
+        button.setForeground(Color.BLACK);
+        return button;
+    }
+
 
     /**
      * Sets up the UI layout for the home page panel.
