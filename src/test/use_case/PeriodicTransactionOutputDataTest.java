@@ -29,7 +29,7 @@ public class PeriodicTransactionOutputDataTest {
         PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
         assertNotNull(data);
         assertEquals(100.0f, data.getTransactionAmount());
-        assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
+        assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionDate());
         assertEquals("Salary", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
         assertEquals(30, data.getTransactionPeriod());
