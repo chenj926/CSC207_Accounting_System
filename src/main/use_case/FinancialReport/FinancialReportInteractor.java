@@ -1,7 +1,9 @@
 package use_case.FinancialReport;
 
+import data_access.account.CSVUserAccountDataAccessObject;
 import entity.account.Account;
 import entity.transaction.Transaction;
+
 
 import java.util.List;
 
@@ -56,7 +58,9 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
         report.append("Total Balance: ").append(account.getTotalBalance()).append("\n");
         report.append("Transactions: \n");
 
-        List<Transaction> transactions = account.getTransactions();
+        CSVUserAccountDataAccessObject DAO = new CSVUserAccountDataAccessObject();
+
+        List<Transaction> transactions = DAO.readTransactions(account.getIdentification());
         for (Transaction transaction : transactions) {
             report.append(transaction.getDate()).append(" - ")
                     .append(transaction.getTransactionCategory()).append(" : ")
