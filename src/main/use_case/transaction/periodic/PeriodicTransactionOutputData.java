@@ -77,7 +77,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
      */
 
     public void setTransactionStartDate(LocalDate transactionStartDate) {
-        this. transactionStartDate = transactionStartDate;
+        this.transactionStartDate = transactionStartDate;
     }
 
     /**
