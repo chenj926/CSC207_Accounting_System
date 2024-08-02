@@ -7,14 +7,18 @@ import java.beans.PropertyChangeSupport;
  * The HomePageViewModel class extends the ViewModel class and manages the labels for the home page view.
  * It provides getters for various labels used in the home page view and supports property change notifications.
  *
+ * This class also manages the view transitions and supports new view options such as Shared Account Sign Up and Shared Account Log In.
+ *
  * @author Dana
  * @author Eric
  */
-public class HomePageViewModel extends ViewModel{
+public class HomePageViewModel extends ViewModel {
 
     private final String titleLabel = "Welcome to Accounting System";
-    private final String signupButtonLabel = "Sign up";
-    private final String loginButtonLabel = "Login";
+    private final String signupButtonLabel = "Sign Up";
+    private final String sharedAccountSignupButtonLabel = "Shared Account Sign Up";
+    private final String loginButtonLabel = "Log In";
+    private final String sharedAccountLoginButtonLabel = "Shared Account Log In";
     private final String exitButtonLabel = "Exit";
 
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -46,12 +50,30 @@ public class HomePageViewModel extends ViewModel{
     }
 
     /**
+     * Gets the shared account signup button label.
+     *
+     * @return the shared account signup button label
+     */
+    public String getSharedAccountSignupButtonLabel() {
+        return this.sharedAccountSignupButtonLabel;
+    }
+
+    /**
      * Gets the login button label.
      *
      * @return the login button label
      */
     public String getLoginButtonLabel() {
         return this.loginButtonLabel;
+    }
+
+    /**
+     * Gets the shared account login button label.
+     *
+     * @return the shared account login button label
+     */
+    public String getSharedAccountLoginButtonLabel() {
+        return this.sharedAccountLoginButtonLabel;
     }
 
     /**
@@ -62,20 +84,4 @@ public class HomePageViewModel extends ViewModel{
     public String getExitButtonLabel() {
         return this.exitButtonLabel;
     }
-
-    // public HomePageState getState() {
-      //   return this.state;}
-
-    // setter
-    // public void setState(HomePageState state) { this.state = state; }
-
-
-
-
-    //
-    // public void firePropertyChanged() {
-    //    support.firePropertyChange("state", null);}
-
-    // public void addPropertyChangeListener(PropertyChangeListener listener) {
-    //    support.addPropertyChangeListener(listener);
-    }
+}
