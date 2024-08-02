@@ -1,10 +1,7 @@
 package interface_adaptors.signup;
 
-import use_case.signup.SharedAccountSignupInputData;
-import use_case.signup.SignupInputBoundary;
-import use_case.signup.SignupInputData;
-import use_case.signup.SharedAccountSignupInteractor;
-import use_case.signup.StandardSignupInteractor;
+import use_case.signup.*;
+//import use_case.signup.StandardSignupInteractor;
 
 /**
  * The SignupController class is responsible for handling user interactions related to the signup process.
@@ -14,7 +11,7 @@ import use_case.signup.StandardSignupInteractor;
  * @author Eric
  */
 public class SignupController {
-    final StandardSignupInteractor standardSignupInteractor;
+    final SignupInteractor signupInteractor;
     final SharedAccountSignupInteractor sharedAccountSignupInteractor;
 
     /**
@@ -23,8 +20,8 @@ public class SignupController {
      * @param standardSignupInteractor     the use case interactor for standard user signup
      * @param sharedAccountSignupInteractor the use case interactor for shared account signup
      */
-    public SignupController(StandardSignupInteractor standardSignupInteractor, SharedAccountSignupInteractor sharedAccountSignupInteractor) {
-        this.standardSignupInteractor = standardSignupInteractor;
+    public SignupController(SignupInteractor standardSignupInteractor, SharedAccountSignupInteractor sharedAccountSignupInteractor) {
+        this.signupInteractor = standardSignupInteractor;
         this.sharedAccountSignupInteractor = sharedAccountSignupInteractor;
     }
 
@@ -44,7 +41,7 @@ public class SignupController {
         } else {
             SignupInputData signupInputData = new SignupInputData(
                     username, password, identification);
-            standardSignupInteractor.execute(signupInputData);
+            signupInteractor.execute(signupInputData);
         }
     }
 }

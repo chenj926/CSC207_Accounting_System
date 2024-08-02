@@ -4,7 +4,7 @@ import interface_adaptors.ViewManagerModel;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
 import use_case.signup.SharedAccountSignupOutputData;
-import use_case.signup.StandardSignupOutputData;
+//import use_case.signup.StandardSignupOutputData;
 
 /**
  * The SignupPresenter class implements the SignupOutputBoundary interface.
