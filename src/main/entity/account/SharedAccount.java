@@ -13,6 +13,7 @@ import java.util.Set;
  */
 public class SharedAccount extends UserAccount {
     private Set<String> sharedUserIdentifications;
+    private String sharedAccountPassword;
 
     /**
      * Constructs a SharedAccount object with the specified shared account identification.
@@ -20,9 +21,10 @@ public class SharedAccount extends UserAccount {
      *
      * @param shareAccountIdentification the identification for the shared account
      */
-    public SharedAccount(String shareAccountIdentification) {
+    public SharedAccount(String shareAccountIdentification, String sharedAccountPassword) {
         super(null, null, shareAccountIdentification); // SharedAccount have own shared account id
         this.sharedUserIdentifications = new HashSet<>();
+        this.sharedAccountPassword = sharedAccountPassword;
     }
 
     /**
@@ -60,4 +62,23 @@ public class SharedAccount extends UserAccount {
     public void setSharedUserIdentifications(Set<String> sharedUserIdentifications) {
         this.sharedUserIdentifications = sharedUserIdentifications;
     }
+
+    /**
+     * Gets the shared password for this shared account.
+     *
+     * @return the shared account password
+     */
+    public String getSharedAccountPassword() {
+        return this.sharedAccountPassword;
+    }
+
+    /**
+     * Sets a new shared password for this shared account.
+     *
+     * @param sharedAccountPassword the new password for the shared account
+     */
+    public void setSharedAccountPassword(String sharedAccountPassword) {
+        this.sharedAccountPassword = sharedAccountPassword;
+    }
+
 }
