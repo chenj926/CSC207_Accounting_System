@@ -5,6 +5,7 @@ import data_access.account.UserAccountDataAccessInterface;
 import entity.account.Account;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
  */
 public class FinancialReportInteractor implements FinancialReportInputBoundary {
     private final UserAccountDataAccessInterface userDataAccessObject;
-    private final FinancialReportOutputBoundary outputBoundary;
+    private final FinancialReportOutputBoundary presenter;
     private final UserAccount account;
 
     /**
@@ -39,20 +40,24 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
                                      FinancialReportOutputBoundary outputBoundary,
                                      UserAccountDataAccessInterface userAccountDataAccessInterface) {
         this.account = account;
-        this.outputBoundary = outputBoundary;
+        this.presenter = outputBoundary;
         this.userDataAccessObject = userAccountDataAccessInterface;
     }
 
     /**
      * Generates a financial report based on the provided input data and sends it to the output boundary.
      *
-     * @param inputData the input data required to generate the financial report
+     *
      */
     @Override
-    public void execute(FinancialReportInputData inputData) {
+    public void execute() {
         String reportContent = generateReportContent();
-        FinancialReportOutputData outputData = new FinancialReportOutputData(reportContent);
-        outputBoundary.prepareSuccessView(outputData);
+        // if there is at least 1 transaction
+        if (!reportContent.equals("No transactions yet!")) {
+            FinancialReportOutputData outputData = new FinancialReportOutputData(reportContent);
+            this.presenter.prepareSuccessView(outputData);
+        }
+
     }
 
     /**
@@ -72,6 +77,11 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
         report.append("Transactions: \n");
 
         List<Transaction> transactions = userDataAccessObject.readTransactions(account.getIdentification());
+        if (transactions.isEmpty()) {
+            this.presenter.prepareFailView(report.toString()+"\nNo transactions yet!");
+            return "No transactions yet!";
+        }
+
         for (Transaction transaction : transactions) {
             report.append(transaction.getDate()).append(" - ")
                     .append(transaction.getTransactionCategory()).append(" : ")
