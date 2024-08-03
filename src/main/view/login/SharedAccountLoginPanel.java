@@ -21,6 +21,7 @@ public class SharedAccountLoginPanel extends LoginPanel {
     private final SharedAccountLoginViewModel sharedViewModel;
     private final SharedAccountLoginController sharedLoginController;
     private final ViewManagerModel viewManager;
+    private final JTextField sharedAccountIdField;
 
     protected JTextField sharedAccountIdField;
     protected JPasswordField sharedAccountPasswordField;
@@ -36,6 +37,7 @@ public class SharedAccountLoginPanel extends LoginPanel {
         this.sharedViewModel = sharedViewModel;
         this.sharedLoginController = sharedLoginController;
         this.viewManager = viewManager;
+        this.sharedAccountIdField = new JTextField(20);
 
         initializeComponents();
         setupUI();
@@ -48,9 +50,7 @@ public class SharedAccountLoginPanel extends LoginPanel {
     @Override
     protected void initializeComponents() {
         super.initializeComponents();
-
-        this.sharedAccountIdField = new JTextField(20);
-//        sharedAccountIdField.setToolTipText("Enter Shared Account ID");
+        sharedAccountIdField.setToolTipText("Enter Shared Account ID");
     }
 
     /**
@@ -65,9 +65,8 @@ public class SharedAccountLoginPanel extends LoginPanel {
         constraints.insets = new Insets(10, 10, 10, 10);  // Padding
 
         // Add shared account ID field
-//        constraints.gridx = 0;
-        constraints.gridy++;
-        constraints.gridy = 1; // Place below password field
+        constraints.gridx = 0;
+        constraints.gridy = 3; // Place below password field
         constraints.anchor = GridBagConstraints.WEST;
         add(new JLabel(sharedViewModel.getSharedAccountIdLabel()), constraints); // Label for shared account ID
         constraints.gridx = 1;

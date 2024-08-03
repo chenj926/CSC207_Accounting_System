@@ -13,7 +13,7 @@ public interface SharedAccountLoginOutputBoundary {
      *
      * @param user the login output data containing user information and success status
      */
-    void prepareSuccessView(SharedAccountLoginInputData user);
+    void prepareSuccessView(SharedAccountLoginOutputData user);
 
     /**
      * Prepares the fail view with the given error message.

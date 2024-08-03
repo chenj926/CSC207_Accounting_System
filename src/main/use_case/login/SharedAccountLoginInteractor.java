@@ -13,7 +13,7 @@ import use_case.signup.SharedAccountSignupOutputData;
  * The SharedAccountLoginInteractor class extends the LoginInteractor to handle login for shared accounts.
  * It includes additional validation for the shared account ID and ensures that the user is part of the shared account.
  */
-public class SharedAccountLoginInteractor extends LoginInteractor implements SharedAccountLoginInputBoundary{
+public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoundary{
     final SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessObject;
     final SharedAccountLoginOutputBoundary sharedPresenter;
 
@@ -25,7 +25,6 @@ public class SharedAccountLoginInteractor extends LoginInteractor implements Sha
      */
     public SharedAccountLoginInteractor(SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessInterface,
                                         SharedAccountLoginOutputBoundary sharedLoginOutputBoundary) {
-        super(sharedAccountLoginDataAccessInterface, sharedLoginOutputBoundary);
         this.sharedPresenter = sharedLoginOutputBoundary;
         this.sharedAccountLoginDataAccessObject = sharedAccountLoginDataAccessInterface;
     }
@@ -38,45 +37,59 @@ public class SharedAccountLoginInteractor extends LoginInteractor implements Sha
     @Override
     public void execute(SharedAccountLoginInputData sharedLoginInputData) {
 
-        boolean validPassword = this.checkPassword(sharedLoginInputData.getPassword());
-        boolean validIdentification = this.checkIdentification(sharedLoginInputData.getIdentification());
         boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getSharedAccountId());
+        boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getSharedPassword());
 
-        if (!validPassword || !validIdentification || !validSharedAccountId) {
-            presenter.prepareFailView("Identification, Password, and Shared Account ID cannot be empty!");
-            return;
-        }
-
-        if (!userDataAccessObject.existById(sharedLoginInputData.getIdentification())) {
-            presenter.prepareFailView("User not found");
-            return;
-        }
-
-        UserAccount userAccount = userDataAccessObject.getById(sharedLoginInputData.getIdentification());
-        if (userAccount == null || !userAccount.getPassword().equals(sharedLoginInputData.getPassword())) {
-            presenter.prepareFailView("Incorrect Password!");
+        if (!validSharedAccountId || !validSharedAccountPassword) {
+            sharedPresenter.prepareFailView("Shared Account ID and Shared Account Password cannot be empty!");
             return;
         }
 
         if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getSharedAccountId())) {
-            presenter.prepareFailView("Shared account not found");
+            sharedPresenter.prepareFailView("Shared Account not found");
             return;
         }
 
         SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getSharedAccountId());
-        if (!sharedAccount.getSharedUserIdentifications().contains(userAccount.getIdentification())) {
-            presenter.prepareFailView("User account and shared account do not match");
+        if (sharedAccount == null || !sharedAccount.getSharedAccountPassword().equals(sharedLoginInputData.getSharedPassword())) {
+            sharedPresenter.prepareFailView("Incorrect Shared Account Password!");
             return;
         }
 
-        boolean isLogin = userDataAccessObject.login(userAccount);
+        boolean isLogin = sharedAccountLoginDataAccessObject.login(sharedAccount);
 
         if (!isLogin) {
-            presenter.prepareFailView("Incorrect Password!");
+            sharedPresenter.prepareFailView("Incorrect Shared Account Password!");
         } else {
-            LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
-            presenter.prepareSuccessView(loginOutputData);
+            SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getSharedAccountId(), true);
+            sharedPresenter.prepareSuccessView(sharedLoginOutputData);
         }
+    }
+
+    /**
+     * Checks if the provided password is valid (not null or empty).
+     *
+     * @param password the password to check
+     * @return true if the password is valid, false otherwise
+     */
+    public boolean checkPassword(String password) {
+        if (password == null || password.isEmpty()) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the provided identification is valid (not null or empty).
+     *
+     * @param id the identification to check
+     * @return true if the identification is valid, false otherwise
+     */
+    public boolean checkIdentification(String id) {
+        if (id == null || id.isEmpty()) {
+            return false;
+        }
+        return true;
     }
 
 }
