@@ -1,11 +1,8 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
-import data_access.account.CSVUserAccountDataAccessObject;
 import data_access.account.UserAccountDataAccessInterface;
-import entity.account.Account;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 
 
 import java.util.List;

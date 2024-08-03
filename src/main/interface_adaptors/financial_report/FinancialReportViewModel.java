@@ -1,9 +1,6 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financial_report;
 
 import interface_adaptors.ViewModel;
-import interface_adaptors.signup.SignupState;
-import interface_adaptors.transaction.periodic.PeriodicTransactionState;
-import view.FinancialReport.FinancialReportView;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;

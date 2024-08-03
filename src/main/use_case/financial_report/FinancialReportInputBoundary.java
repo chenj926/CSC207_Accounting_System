@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 /**
  * Input boundary for generating financial reports.

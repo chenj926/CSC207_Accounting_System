@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 /**
  * Output data for presenting financial reports.
