@@ -47,7 +47,7 @@ public class LoginController {
 //    public void execute(String password, String id, String sharedAccountId) {
 //        if (sharedAccountId != null && !sharedAccountId.isEmpty()) {
 //            SharedAccountLoginInputData loginInputData = new SharedAccountLoginInputData(password, id, sharedAccountId);
-//            sharedAccountLoginInteractor.execute(loginInputData);
+//            sh aredAccountLoginInteractor.execute(loginInputData);
 //        } else {
 //            execute(password, id); // Calls the method for standard login
 //        }
