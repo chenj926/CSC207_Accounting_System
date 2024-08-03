@@ -67,4 +67,15 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     public Map<String, SharedAccount> getAllShareAcc() {
         return shareAcc;
     }
+
+    @Override
+    public void update(SharedAccount sharedAccount) {
+        // Check if the account exists before updating
+        if (shareAcc.containsKey(sharedAccount.getIdentification())) {
+            shareAcc.put(sharedAccount.getIdentification(), sharedAccount);
+        } else {
+            // Handle the case where the account doesn't exist, if needed
+            throw new IllegalArgumentException("Shared account does not exist: " + sharedAccount.getIdentification());
+        }
+    }
 }
