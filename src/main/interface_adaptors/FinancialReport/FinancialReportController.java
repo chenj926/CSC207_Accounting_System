@@ -31,8 +31,9 @@ public class FinancialReportController {
      * @param startDate the start date of the report period
      * @param endDate the end date of the report period
      */
-    public void execute(String userName, Date startDate, Date endDate) {
-        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, startDate, endDate);
+    public void execute(String userName, String identification, Date startDate, Date endDate) {
+        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, identification,
+                startDate, endDate);
         financialReportInputBoundary.execute(financialReportInputData);
     }
 }

@@ -2,6 +2,7 @@ package data_access.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -91,5 +92,12 @@ public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInt
                                 PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         System.out.println("not implemented yet");
     }
+
+    @Override
+    public List<Transaction> readTransactions(String identification) {
+        List<Transaction> transactions= new ArrayList<>();
+        return transactions;
+    }
+
 
 }

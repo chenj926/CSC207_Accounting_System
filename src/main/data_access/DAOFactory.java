@@ -170,7 +170,21 @@ public class DAOFactory {
             return inMemoryPeriodicDataAccessObject;
         } else {
             if (csvUserAccountDAO == null) {
-                csvUserAccountDAO = new CSVUserLoginoutDataAccessObject();
+                csvUserAccountDAO = new CSVUserAccountDataAccessObject();
+            }
+            return csvUserAccountDAO;
+        }
+    }
+
+    public static synchronized UserAccountDataAccessInterface getFinancialReportDAO() {
+        if (useInMemory) {
+//            if (inMemoryPeriodicDataAccessObject == null) {
+//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+//            }
+            return inMemoryPeriodicDataAccessObject;
+        } else {
+            if (csvUserAccountDAO == null) {
+                csvUserAccountDAO = new CSVUserAccountDataAccessObject();
             }
             return csvUserAccountDAO;
         }
