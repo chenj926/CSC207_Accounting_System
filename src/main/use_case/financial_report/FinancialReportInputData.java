@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 import java.util.Date;
 

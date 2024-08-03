@@ -1,13 +1,11 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financial_report;
 
-import use_case.FinancialReport.FinancialReportInputBoundary;
-import use_case.FinancialReport.FinancialReportInputData;
-import java.util.Date;
+import use_case.financial_report.FinancialReportInputBoundary;
 
 /**
  * Controller for handling financial report generation requests.
  *
- * @author :Chi Fong
+ * @author :Chi Fong Dana Eric
  */
 public class FinancialReportController {
     private final FinancialReportInputBoundary financialReportInputBoundary;

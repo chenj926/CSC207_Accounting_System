@@ -8,7 +8,7 @@ import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 import app.transaction.TransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;

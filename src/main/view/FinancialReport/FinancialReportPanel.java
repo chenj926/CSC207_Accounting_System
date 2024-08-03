@@ -1,15 +1,11 @@
 package view.FinancialReport;
 
-import interface_adaptors.FinancialReport.FinancialReportController;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportController;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.periodic.PeriodicTransactionController;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class FinancialReportPanel extends JPanel {
     private final FinancialReportViewModel viewModel;

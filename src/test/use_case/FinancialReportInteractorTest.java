@@ -5,13 +5,13 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
-import interface_adaptors.FinancialReport.FinancialReportPresenter;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportPresenter;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.FinancialReport.FinancialReportInputData;
-import use_case.FinancialReport.FinancialReportInteractor;
+import use_case.financial_report.FinancialReportInputData;
+import use_case.financial_report.FinancialReportInteractor;
 
 import java.time.LocalDate;
 import java.util.Date;

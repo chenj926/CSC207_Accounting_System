@@ -1,15 +1,13 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financial_report;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.periodic.PeriodicTransactionState;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import use_case.FinancialReport.FinancialReportOutputBoundary;
-import use_case.FinancialReport.FinancialReportOutputData;
+import use_case.financial_report.FinancialReportOutputBoundary;
+import use_case.financial_report.FinancialReportOutputData;
 
 /**
  * Implements the output boundary to present the financial report.
  *
- * @author :Chi Fong
+ * @author :Chi Fong Eric
  */
 public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     private String reportContent;
