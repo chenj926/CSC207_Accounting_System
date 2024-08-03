@@ -1,5 +1,7 @@
 package interface_adaptors.FinancialReport;
 
+import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 import use_case.FinancialReport.FinancialReportOutputBoundary;
 import use_case.FinancialReport.FinancialReportOutputData;
 
@@ -10,6 +12,13 @@ import use_case.FinancialReport.FinancialReportOutputData;
  */
 public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     private String reportContent;
+    private final FinancialReportViewModel viewModel;
+    private final ViewManagerModel viewManager;
+
+    public FinancialReportPresenter(FinancialReportViewModel viewModel, ViewManagerModel viewManager) {
+        this.viewModel = viewModel;
+        this.viewManager = viewManager;
+    }
 
     /**
      * Presents the financial report by storing and printing its content.
