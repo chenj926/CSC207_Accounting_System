@@ -27,14 +27,15 @@ public class FinancialReportController {
     /**
      * Generates a financial report for the specified account and date range.
      *
-     * @param userName the account ID
-     * @param startDate the start date of the report period
-     * @param endDate the end date of the report period
+//     * @param userName the account ID
+//     * @param startDate the start date of the report period
+//     * @param endDate the end date of the report period
      */
-    public void execute(String userName, String identification, Date startDate, Date endDate) {
-        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, identification,
-                startDate, endDate);
-        financialReportInputBoundary.execute(financialReportInputData);
+    public void execute() {
+//        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, identification,
+//                startDate, endDate);
+        financialReportInputBoundary.execute();
+//        this.viewModel.resetState();
     }
 }
 

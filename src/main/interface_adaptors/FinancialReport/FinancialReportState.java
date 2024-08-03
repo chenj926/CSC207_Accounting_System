@@ -5,7 +5,8 @@ public class FinancialReportState {
     private String identification;
     private String startDate;
     private String endDate;
-
+    private String reportContent;
+    private String noTransaction;
 
     /**
      * Gets the identification
@@ -35,6 +36,13 @@ public class FinancialReportState {
      */
     public String getEndDate() { return this.endDate; }
 
+    public String getReportContent() {
+        return this.reportContent;
+    }
+    public String getNoTransaction() {
+        return this.noTransaction;
+    }
+
     /**
      * set the identification
      *
@@ -63,4 +71,10 @@ public class FinancialReportState {
      */
     public void setEndDate(String endDate) { this.endDate = endDate; }
 
+    public void setReportContent(String reportContent) {
+        this.reportContent = reportContent;
+    }
+    public void setNoTransaction(String noTransaction) {
+        this.noTransaction = noTransaction;
+    }
 }

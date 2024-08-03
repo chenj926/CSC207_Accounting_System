@@ -8,6 +8,8 @@ import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class FinancialReportPanel extends JPanel {
     private final FinancialReportViewModel viewModel;
@@ -15,8 +17,15 @@ public class FinancialReportPanel extends JPanel {
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
-    private JComboBox<String> periodComb;
-    private JComboBox<String> categoryButton;
+    private JLabel incomeLabel;
+    private JLabel outflowLabel;
+    private JLabel balanceLabel;
+
+    private JTextArea reportTextArea;
+    private JButton backButton;
+    private JScrollPane scrollPane;
+
+//    private JButton refreshButton;
 
     public FinancialReportPanel(FinancialReportViewModel viewModel,
                                 FinancialReportController financialReportController,
@@ -24,29 +33,91 @@ public class FinancialReportPanel extends JPanel {
         this.viewModel = viewModel;
         this.financialReportController = financialReportController;
         this.viewManager = viewManager;
+
+        financialReportController.execute();  // get the financial report content first
+
+//        setupListeners();
         initializeComponents();
         setupUI();
         setupListeners();
     }
 
     private void initializeComponents() {
-        this.titleLabel = new JLabel(viewModel.getTitleLabel());
+//        financialReportController.execute();
+        this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
 
+//        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
 
+
+//        this.reportTextArea.setSelectionColor(Color.BLUE);
+//        this.reportTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+//        this.reportTextArea.setEditable(false);
+
+//        this.scrollPane = new JScrollPane(new JTextArea(this.viewModel.getReportContent()));
+////        this.scrollPane = new JScrollPane(reportTextArea);
+//
+//
+//        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
+        this.reportTextArea.setSelectionColor(Color.BLUE);
+        this.reportTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
+        this.reportTextArea.setEditable(false);
+
+        this.scrollPane = new JScrollPane(this.reportTextArea);
+        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        this.backButton = new JButton("Back");
+        this.backButton.setFont(new Font("Arial", Font.PLAIN, 16));
     }
 
     private void setupUI() {
+        setLayout(new BorderLayout());
+        setBackground(new Color(255, 255, 255));
 
+        add(this.titleLabel, BorderLayout.NORTH);
+
+
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        centerPanel.add(this.scrollPane, BorderLayout.CENTER);
+
+//        centerPanel.add(this.scrollPane);
+        add(centerPanel, BorderLayout.CENTER);
+
+        JPanel southPanel = new JPanel();
+        southPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        southPanel.add(this.backButton);
+        add(southPanel, BorderLayout.SOUTH);
     }
 
     private void setupListeners() {
+        this.backButton.addActionListener(e -> {
+            viewManager.setActiveViewName("Transaction");
+        });
 
+//        financialReportController.execute();
+//        refreshButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+////                refreshReport();
+//            }
+//        });
+    }
+
+//    public void refreshReport() {
+//        financialReportController.refreshReport();
+//    }
+
+    public void displayReport(String reportContent) {
+        reportTextArea.setText(reportContent);
     }
 
     public void clearFields() {
-
+//        reportTextArea.setText("");
     }
+
 }
