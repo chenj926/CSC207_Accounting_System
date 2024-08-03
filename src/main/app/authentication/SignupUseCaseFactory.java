@@ -7,6 +7,7 @@ import entity.account.AccountFactory;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SignupPresenter;
+import interface_adaptors.signup.SharedAccountSignupPresenter;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import use_case.signup.SharedAccountSignupInteractor;
@@ -32,33 +33,41 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel signupViewModel) {
+    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) {
         try {
-            SignupController signupController = createUserSignupUseCase(viewManagerModel, signupViewModel);
-            return new SharedAccountSignupView(signupViewModel, signupController, viewManagerModel);
+            SignupController signupController = createSharedAccountSignupUseCase(viewManagerModel, sharedSignupViewModel);
+            return new SharedAccountSignupView(sharedSignupViewModel, signupController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-
-
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
-        ShareAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
         SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);
         AccountFactory accountFactory = new AccountFactory();
 
         // Create the general signup interactor
         SignupInteractor signupInteractor = new SignupInteractor(dataAccessObject, presenter, accountFactory);
 
-        // Create the shared account signup interactor extending the general one
-        SharedAccountSignupInteractor sharedInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, presenter, accountFactory);
+        // Return the controller for standard signup
+        return new SignupController(signupInteractor, null); // Pass null for sharedInteractor
+    }
 
-        // Return the controller that can handle both types of signups
-        return new SignupController(signupInteractor, sharedInteractor);
+    private static SignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
+        UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
+        ShareAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        SignupOutputBoundary sharedPresenter = new SharedAccountSignupPresenter(viewManagerModel, sharedSignupViewModel);
+        AccountFactory accountFactory = new AccountFactory();
+
+        // Create the shared account signup interactor
+        SharedAccountSignupInteractor sharedInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, sharedPresenter, accountFactory);
+
+        // Return the controller for shared account signup
+        return new SignupController(null, sharedInteractor); // Pass null for standardInteractor
     }
 }
+
 
 
