@@ -1,9 +1,7 @@
 package view.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.SharedAccountLoginController;
-import interface_adaptors.login.SharedAccountLoginViewModel;
-import interface_adaptors.login.SharedAccountLoginState;
+import interface_adaptors.login.*;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -21,10 +19,9 @@ public class SharedAccountLoginPanel extends LoginPanel {
     private final SharedAccountLoginViewModel sharedViewModel;
     private final SharedAccountLoginController sharedLoginController;
     private final ViewManagerModel viewManager;
-    private final JTextField sharedAccountIdField;
+//    private final JTextField sharedAccountIdField;
 
     protected JTextField sharedAccountIdField;
-    protected JPasswordField sharedAccountPasswordField;
     /**
      * Constructs a SharedAccountLoginPanel object with the specified view model, login controller, and view manager.
      *
@@ -32,8 +29,10 @@ public class SharedAccountLoginPanel extends LoginPanel {
      * @param sharedLoginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SharedAccountLoginPanel(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
-        super(sharedViewModel, sharedLoginController, viewManager);
+    public SharedAccountLoginPanel(LoginViewModel loginViewModel, LoginController loginController,
+                                   SharedAccountLoginViewModel sharedViewModel,
+                                   SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
+        super(loginViewModel, loginController, viewManager);
         this.sharedViewModel = sharedViewModel;
         this.sharedLoginController = sharedLoginController;
         this.viewManager = viewManager;
@@ -105,7 +104,7 @@ public class SharedAccountLoginPanel extends LoginPanel {
             @Override
             public void keyTyped(KeyEvent evt) {
                 SharedAccountLoginState currentState = sharedViewModel.getState();
-                currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
+                currentState.setSharedAccountId(identificationTextField.getText() + evt.getKeyChar());
                 viewManager.setUserId(sharedAccountIdField.getText() +evt.getKeyChar());
                 sharedViewModel.setState(currentState);
 //                sharedViewModel.firePropertyChanged();
