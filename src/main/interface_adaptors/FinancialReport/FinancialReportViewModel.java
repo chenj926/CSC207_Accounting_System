@@ -2,17 +2,21 @@ package interface_adaptors.FinancialReport;
 
 import interface_adaptors.ViewModel;
 import interface_adaptors.signup.SignupState;
+import interface_adaptors.transaction.periodic.PeriodicTransactionState;
+import view.FinancialReport.FinancialReportView;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public class FinancialReportViewModel extends ViewModel {
     private final String TITLE_LABEL = "Financial Report";
+    private String reportContent;
 
     private FinancialReportState state = new FinancialReportState();
 
     public FinancialReportViewModel() {
         super("Financial Report");
+        this.reportContent = state.getReportContent();
     }
 
     // getters
@@ -20,11 +24,27 @@ public class FinancialReportViewModel extends ViewModel {
         return this.TITLE_LABEL;
     }
     public FinancialReportState getState() {
-        return this.state; }
+        return this.state;
+    }
+    public String getReportContent() {
+        return this.reportContent;
+    }
 
     // setters
     public void setState(FinancialReportState state) {
         this.state = state;
+        //
+        this.reportContent = state.getReportContent();
+        System.out.println("view model"+this.reportContent);
+
+    }
+    public void setReportContent(String reportContent) {
+        this.reportContent = reportContent;
+    }
+
+    public void resetState() {
+        FinancialReportState newState = new FinancialReportState();
+        setState(newState);
     }
 
     /**
