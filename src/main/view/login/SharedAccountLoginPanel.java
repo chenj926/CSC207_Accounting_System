@@ -1,10 +1,11 @@
 package view.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.LoginController;
+import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginViewModel;
 
 import javax.swing.*;
+import javax.swing.text.View;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,20 +17,28 @@ import java.awt.event.KeyListener;
  * It adds a field for entering the shared account ID and handles additional logic for shared account scenarios.
  */
 public class SharedAccountLoginPanel extends LoginPanel {
-    private final SharedAccountLoginViewModel viewModel;
+    private final SharedAccountLoginViewModel sharedViewModel;
+    private final SharedAccountLoginController sharedLoginController;
+    private final ViewManagerModel viewManager;
     private final JTextField sharedAccountIdField;
 
     /**
      * Constructs a SharedAccountLoginPanel object with the specified view model, login controller, and view manager.
      *
-     * @param viewModel        the view model for the shared account login panel
-     * @param loginController  the controller handling login actions
+     * @param sharedViewModel        the view model for the shared account login panel
+     * @param sharedLoginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SharedAccountLoginPanel(SharedAccountLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
-        super(viewModel, loginController, viewManager);
-        this.viewModel = viewModel;
-        this.sharedAccountIdField = new JTextField(20); // Field for shared account ID
+    public SharedAccountLoginPanel(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
+        super(sharedViewModel, sharedLoginController, viewManager);
+        this.sharedViewModel = sharedViewModel;
+        this.sharedLoginController = sharedLoginController;
+        this.viewManager = viewManager;
+        this.sharedAccountIdField = new JTextField(20);
+
+        initializeComponents();
+        setupUI();
+        setupListeners();
     }
 
     /**
@@ -56,7 +65,7 @@ public class SharedAccountLoginPanel extends LoginPanel {
         constraints.gridx = 0;
         constraints.gridy = 3; // Place below password field
         constraints.anchor = GridBagConstraints.WEST;
-        add(new JLabel(viewModel.getSharedAccountIdLabel()), constraints); // Label for shared account ID
+        add(new JLabel(sharedViewModel.getSharedAccountIdLabel()), constraints); // Label for shared account ID
         constraints.gridx = 1;
         add(this.sharedAccountIdField, constraints); // Text field for shared account ID
     }
@@ -74,10 +83,10 @@ public class SharedAccountLoginPanel extends LoginPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
-                    loginController.execute(
+                    sharedLoginController.execute(
                             String.valueOf(passwordField.getPassword()),
                             identificationTextField.getText(),
-                            sharedAccountIdField.getText() // Include shared account ID
+                            sharedAccountIdField.getText()
                     );
                 }
             }
@@ -87,8 +96,8 @@ public class SharedAccountLoginPanel extends LoginPanel {
         this.sharedAccountIdField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                viewModel.getState().setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
-                viewModel.firePropertyChanged();
+                sharedViewModel.getState().setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+                sharedViewModel.firePropertyChanged();
             }
 
             @Override

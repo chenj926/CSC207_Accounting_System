@@ -2,6 +2,7 @@ package view.login;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.LoginController;
+import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginState;
 import interface_adaptors.login.SharedAccountLoginViewModel;
 
@@ -15,22 +16,24 @@ import java.beans.PropertyChangeListener;
  * It displays the user interface for logging into a shared account.
  */
 public class SharedAccountLoginView extends JFrame implements PropertyChangeListener {
-    private SharedAccountLoginViewModel viewModel;
+    private SharedAccountLoginViewModel sharedViewModel;
+    private SharedAccountLoginController sharedLoginController;
     private SharedAccountLoginPanel sharedAccountLoginPanel;
 
     /**
      * Constructs a SharedAccountLoginView object with the specified view model, login controller, and view manager.
      *
-     * @param viewModel       the shared account login view model
-     * @param loginController the controller handling login actions
+     * @param sharedViewModel       the shared account login view model
+     * @param sharedLoginController the controller handling login actions
      * @param viewManager     the view manager for managing view transitions
      */
-    public SharedAccountLoginView(SharedAccountLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
-        super(viewModel.getTitleLabel());
-        this.viewModel = viewModel;
-        this.viewModel.addPropertyChangeListener(this);
+    public SharedAccountLoginView(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
+        super(sharedViewModel.getTitleLabel());
+        this.sharedViewModel = sharedViewModel;
+        this.sharedLoginController = sharedLoginController;
+        this.sharedViewModel.addPropertyChangeListener(this);
 
-        sharedAccountLoginPanel = new SharedAccountLoginPanel(viewModel, loginController, viewManager);
+        sharedAccountLoginPanel = new SharedAccountLoginPanel(sharedViewModel, sharedLoginController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
