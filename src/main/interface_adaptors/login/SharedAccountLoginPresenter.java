@@ -2,6 +2,7 @@ package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
 import use_case.login.LoginOutputBoundary;
+import use_case.login.SharedAccountLoginOutputBoundary;
 import use_case.login.LoginOutputData;
 import use_case.login.SharedAccountLoginOutputData;
 
@@ -9,7 +10,7 @@ import use_case.login.SharedAccountLoginOutputData;
  * The SharedAccountLoginPresenter class implements the LoginOutputBoundary interface.
  * It handles the presentation logic specifically for shared account login.
  */
-public class SharedAccountLoginPresenter implements LoginOutputBoundary {
+public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoundary {
     private final SharedAccountLoginViewModel sharedAccountLoginViewModel;
     private final ViewManagerModel viewManagerModel;
 
@@ -31,13 +32,12 @@ public class SharedAccountLoginPresenter implements LoginOutputBoundary {
      * @param userInfo the login output data containing user information and success status
      */
     @Override
-    public void prepareSuccessView(LoginOutputData userInfo) {
-        if (userInfo instanceof SharedAccountLoginOutputData) {
-            SharedAccountLoginOutputData sharedUserInfo = (SharedAccountLoginOutputData) userInfo;
+    public void prepareSuccessView(SharedAccountLoginOutputData userInfo) {
+            SharedAccountLoginOutputData sharedUserInfo =  userInfo;
 
             // Handle shared account login
             SharedAccountLoginState sharedAccountLoginState = sharedAccountLoginViewModel.getState();
-            sharedAccountLoginState.setIdentification(sharedUserInfo.getIdentification());
+            sharedAccountLoginState.setSharedAccountId(sharedUserInfo.getSharedAccountId());
             sharedAccountLoginState.setSuccessMsg("Successfully Logged In to Shared Account!!!");
             sharedAccountLoginViewModel.setState(sharedAccountLoginState);
             sharedAccountLoginViewModel.firePropertyChanged();
@@ -45,10 +45,6 @@ public class SharedAccountLoginPresenter implements LoginOutputBoundary {
 
             // Change to the next view
             viewManagerModel.changeView("Transaction");
-        } else {
-            // Handle error if the type is not as expected
-            prepareFailView("Unexpected data type for shared account login.");
-        }
     }
 
     /**

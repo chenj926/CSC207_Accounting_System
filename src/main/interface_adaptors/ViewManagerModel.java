@@ -40,6 +40,7 @@ import java.util.*;
 public class ViewManagerModel {
 
     private String userId;
+    private String sharedAccountId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
@@ -70,6 +71,10 @@ public class ViewManagerModel {
         return this.userId;
     }
 
+    public String getSharedAccountId() {
+        return this.sharedAccountId;
+    }
+
     /**
      * Sets the name of the active view and notifies listeners of the change.
      *
@@ -88,6 +93,10 @@ public class ViewManagerModel {
      */
     public void setUserId(String id) {
         this.userId = id;
+    }
+
+    public void setSharedAccountId(String sharedAccountId) {
+        this.sharedAccountId = sharedAccountId;
     }
 
     /**

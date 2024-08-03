@@ -5,19 +5,19 @@ package use_case.login;
  * It includes the identification of the user, the shared account ID, and the success status of the login attempt.
  *
  */
-public class SharedAccountLoginOutputData extends LoginOutputData {
+public class SharedAccountLoginOutputData {
     private final String sharedAccountId;
+    private final boolean success;
 
     /**
      * Constructs a SharedAccountLoginOutputData object with the specified identification, shared account ID, and success status.
      *
-     * @param identification the identification of the user
      * @param sharedAccountId the identification of the shared account
      * @param success        the success status of the login attempt
      */
-    public SharedAccountLoginOutputData(String identification, String sharedAccountId, boolean success) {
-        super(identification, success);
+    public SharedAccountLoginOutputData(String sharedAccountId, boolean success) {
         this.sharedAccountId = sharedAccountId;
+        this.success = success;
     }
 
     /**
@@ -27,6 +27,15 @@ public class SharedAccountLoginOutputData extends LoginOutputData {
      */
     public String getSharedAccountId() {
         return this.sharedAccountId;
+    }
+
+    /**
+     * Checks if the login attempt was successful.
+     *
+     * @return true if the login attempt was successful, false otherwise
+     */
+    public boolean isSuccess() {
+        return this.success;
     }
 }
 
