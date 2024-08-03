@@ -3,6 +3,7 @@ package view.login;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginViewModel;
+import interface_adaptors.login.SharedAccountLoginState;
 
 import javax.swing.*;
 import javax.swing.text.View;
@@ -20,8 +21,9 @@ public class SharedAccountLoginPanel extends LoginPanel {
     private final SharedAccountLoginViewModel sharedViewModel;
     private final SharedAccountLoginController sharedLoginController;
     private final ViewManagerModel viewManager;
-    private final JTextField sharedAccountIdField;
 
+    protected JTextField sharedAccountIdField;
+    protected JPasswordField sharedAccountPasswordField;
     /**
      * Constructs a SharedAccountLoginPanel object with the specified view model, login controller, and view manager.
      *
@@ -34,7 +36,6 @@ public class SharedAccountLoginPanel extends LoginPanel {
         this.sharedViewModel = sharedViewModel;
         this.sharedLoginController = sharedLoginController;
         this.viewManager = viewManager;
-        this.sharedAccountIdField = new JTextField(20);
 
         initializeComponents();
         setupUI();
@@ -47,7 +48,9 @@ public class SharedAccountLoginPanel extends LoginPanel {
     @Override
     protected void initializeComponents() {
         super.initializeComponents();
-        sharedAccountIdField.setToolTipText("Enter Shared Account ID");
+
+        this.sharedAccountIdField = new JTextField(20);
+//        sharedAccountIdField.setToolTipText("Enter Shared Account ID");
     }
 
     /**
@@ -62,8 +65,9 @@ public class SharedAccountLoginPanel extends LoginPanel {
         constraints.insets = new Insets(10, 10, 10, 10);  // Padding
 
         // Add shared account ID field
-        constraints.gridx = 0;
-        constraints.gridy = 3; // Place below password field
+//        constraints.gridx = 0;
+        constraints.gridy++;
+        constraints.gridy = 1; // Place below password field
         constraints.anchor = GridBagConstraints.WEST;
         add(new JLabel(sharedViewModel.getSharedAccountIdLabel()), constraints); // Label for shared account ID
         constraints.gridx = 1;
@@ -85,19 +89,27 @@ public class SharedAccountLoginPanel extends LoginPanel {
                 if (evt.getSource().equals(loginButton)) {
                     sharedLoginController.execute(
                             String.valueOf(passwordField.getPassword()),
-                            identificationTextField.getText(),
+//                            identificationTextField.getText(),
                             sharedAccountIdField.getText()
                     );
                 }
             }
         });
 
+        // cancel button response action
+        cancelButton.addActionListener(e -> {
+            viewManager.setActiveViewName("home page");
+        });
+
         // Listen for shared account ID field changes
         this.sharedAccountIdField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                sharedViewModel.getState().setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
-                sharedViewModel.firePropertyChanged();
+                SharedAccountLoginState currentState = sharedViewModel.getState();
+                currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
+                viewManager.setUserId(sharedAccountIdField.getText() +evt.getKeyChar());
+                sharedViewModel.setState(currentState);
+//                sharedViewModel.firePropertyChanged();
             }
 
             @Override
