@@ -1,6 +1,7 @@
 package view.signup;
 
 import interface_adaptors.signup.SignupController;
+import interface_adaptors.signup.SharedAccountSignupController;
 import interface_adaptors.signup.SharedAccountSignupState;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.ViewManagerModel;
@@ -20,17 +21,18 @@ import java.beans.PropertyChangeEvent;
 public class SharedAccountSignupPanel extends SignupPanel {
 
     private JTextField sharedAccountIdField;
+    private SharedAccountSignupController sharedSignupController;
     private SharedAccountSignupViewModel viewModel; // Specific view model for shared accounts
 
     /**
      * Constructs a SharedAccountSignupPanel object with the specified view model, controller, and view manager.
      *
      * @param viewModel        the view model for the signup panel
-     * @param signupController the controller for handling signup actions
+     * @param sharedSignupController the controller for handling signup actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SharedAccountSignupPanel(SharedAccountSignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
-        super(viewModel, signupController, viewManager);
+    public SharedAccountSignupPanel(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
+        super(viewModel, sharedSignupController, viewManager);
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);// Initialize the specific shared account view model
 
@@ -80,7 +82,7 @@ public class SharedAccountSignupPanel extends SignupPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        signupController.execute(
+                        sharedSignupController.execute(
                                 usernameTextField.getText(),
                                 String.valueOf(passwordField.getPassword()),
                                 identificationField.getText(),

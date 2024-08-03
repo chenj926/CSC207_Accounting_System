@@ -3,6 +3,7 @@ package view.signup;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel; // Use specific ViewModel for shared accounts
 import interface_adaptors.signup.SignupController;
+import interface_adaptors.signup.SharedAccountSignupController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,13 +21,13 @@ public class SharedAccountSignupView extends SignupView {
      * Constructs a SharedAccountSignupView object with the specified view model, controller, and view manager.
      *
      * @param viewModel        the view model for the shared account signup view
-     * @param signupController the controller for handling signup actions
+     * @param sharedSignupController the controller for handling signup actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SharedAccountSignupView(SharedAccountSignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
-        super(viewModel, signupController, viewManager);  // Ensure correct super constructor call
+    public SharedAccountSignupView(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
+        super(viewModel, sharedSignupController, viewManager);  // Ensure correct super constructor call
         this.sharedViewModel = viewModel;
-        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(sharedViewModel, signupController, viewManager);  // Ensure initialization
+        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(sharedViewModel, sharedSignupController, viewManager);  // Ensure initialization
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 520);
