@@ -23,7 +23,7 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
                                 ViewManagerModel viewManager) {
         super("Financial Report");
         this.viewModel = viewModel;
-//        this.viewModel.addPropertyChangeListener(this);
+        this.viewModel.addPropertyChangeListener(this);
 
         financialReportPanel = new FinancialReportPanel(viewModel, financialReportController, viewManager);
 
@@ -34,20 +34,12 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
     }
 
     private void setupUI() {
-//        this.getContentPane().add(financialReportPanel, BorderLayout.CENTER);
+        this.getContentPane().add(financialReportPanel, BorderLayout.CENTER);
     }
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         FinancialReportState state = (FinancialReportState) evt.getNewValue();
-//        if (state.getErrorMsg() == null) {
-//            String successMsg = state.getSuccessMessage();
-//            System.out.println(successMsg);
-//            JOptionPane.showMessageDialog(this, successMsg, "Success", JOptionPane.INFORMATION_MESSAGE);
-//        } else {
-//            String errMsg = state.getErrorMsg();
-//            JOptionPane.showMessageDialog(this, errMsg, "Error", JOptionPane.INFORMATION_MESSAGE);
-//        }
     }
 
     /**
