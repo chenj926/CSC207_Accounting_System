@@ -7,12 +7,15 @@ import app.home_page.HomePageUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 import app.transaction.TransactionUseCaseFactory;
+import app.FinancialReport.FinancialReportUseCaseFactory;
+import interface_adaptors.FinancialReport.FinancialReportViewModel;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import view.FinancialReport.FinancialReportView;
 import view.home_page.HomePageView;
 import view.login.LoginView;
 import view.logout.LogoutView;
@@ -175,6 +178,13 @@ public class ViewManagerModel {
                 LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
                 views.put("log out", logoutView);
                 currentView = logoutView;
+                break;
+            case "Financial Report":
+                FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
+                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
+                        financialReportViewModel);
+                views.put("Financial Report", financialReportView);
+                currentView = financialReportView;
                 break;
         }
         if (currentView != null) {
