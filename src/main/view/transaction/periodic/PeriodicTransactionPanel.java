@@ -37,6 +37,7 @@ public class PeriodicTransactionPanel extends JPanel {
     private JButton submitButton;
     private JButton cancelButton;
 
+
     /**
      * Constructs a PeriodicTransactionPanel with the specified view model, controller, and view manager.
      *
@@ -199,7 +200,7 @@ public class PeriodicTransactionPanel extends JPanel {
                             descriptionField.getText(),
                             period,
                             endDateField.getText(),
-                            category
+                            category, startDateField.getText()
                     );
                 }
             }
