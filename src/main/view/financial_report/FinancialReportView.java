@@ -1,13 +1,13 @@
-package view.FinancialReport;
+package view.financial_report;
 
-import interface_adaptors.FinancialReport.FinancialReportController;
-import interface_adaptors.FinancialReport.FinancialReportState;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportController;
+import interface_adaptors.financial_report.FinancialReportState;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;
 import interface_adaptors.transaction.periodic.PeriodicTransactionState;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import use_case.FinancialReport.FinancialReportInputData;
+import use_case.financial_report.FinancialReportInputData;
 import view.transaction.periodic.PeriodicTransactionPanel;
 
 import javax.swing.*;

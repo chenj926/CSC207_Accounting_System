@@ -1,6 +1,7 @@
 package interface_adaptors.financial_report;
 
 import use_case.financial_report.FinancialReportInputBoundary;
+import use_case.financial_report.FinancialReportInputData;
 
 /**
  * Controller for handling financial report generation requests.

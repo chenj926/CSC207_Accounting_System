@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 import data_access.DAOFactory;
 import data_access.account.CSVUserAccountDataAccessObject;

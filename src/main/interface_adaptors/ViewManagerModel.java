@@ -15,7 +15,7 @@ import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import view.FinancialReport.FinancialReportView;
+import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
 import view.login.LoginView;
 import view.logout.LogoutView;

@@ -9,7 +9,7 @@ import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.FinancialReportInteractor;
 import use_case.financial_report.FinancialReportOutputBoundary;
-import view.FinancialReport.FinancialReportView;
+import view.financial_report.FinancialReportView;
 
 import javax.swing.*;
 import java.io.IOException;

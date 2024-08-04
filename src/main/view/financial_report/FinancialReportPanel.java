@@ -1,4 +1,4 @@
-package view.FinancialReport;
+package view.financial_report;
 
 import interface_adaptors.financial_report.FinancialReportController;
 import interface_adaptors.financial_report.FinancialReportViewModel;
