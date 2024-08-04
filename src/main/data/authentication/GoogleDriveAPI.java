@@ -6,6 +6,8 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
+import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -47,10 +49,22 @@ public class GoogleDriveAPI {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    private static void downloadFile(Drive service, String fileId, String destinationPath) throws IOException {
-        try (OutputStream outputStream = new FileOutputStream(destinationPath)) {
-            service.files().get(fileId).executeMediaAndDownloadTo(outputStream);
+    private static void uploadFile(Drive service) throws IOException {
+        File fileMetadata = new File();
+        fileMetadata.setName("userAccountTransactions.csv");
+        java.io.File filePath = new java.io.File("src/main/data/transaction/userAccountTransactions.csv");
+        FileContent mediaContent = new FileContent("text/csv", filePath);
+
+        try {
+            File file = service.files().create(fileMetadata, mediaContent)
+                    .setFields("id")
+                    .execute();
+            System.out.println("File ID: " + file.getId());
+        } catch (GoogleJsonResponseException e) {
+            System.err.println("Unable to upload file: " + e.getDetails());
+            throw e;
         }
+
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
@@ -71,18 +85,9 @@ public class GoogleDriveAPI {
             for (File file : files) {
                 System.out.printf("%s (%s)\n", file.getName(), file.getId());
             }
-            // Replace 'your_file_id' with the actual file ID of your CSV file
-            String fileId = "your_file_id";
-            String destinationPath = "transactions.csv";
-            downloadFile(service, fileId, destinationPath);
 
-            // Process the CSV file
-            try (BufferedReader br = new BufferedReader(new FileReader(destinationPath))) {
-                String line;
-                while ((line = br.readLine()) != null) {
-                    System.out.println(line);
-                }
-            }
+            uploadFile(service);
         }
     }
 }
+
