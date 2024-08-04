@@ -2,9 +2,11 @@ package use_case.transaction.periodic;
 
 import data_access.account.UserAccountDataAccessInterface;
 
+import entity.transaction.Transaction;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import entity.account.UserAccount;
+import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.TransactionInteractor;
 
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 
 /**
  * The PeriodicTransactionInteractor class implements the PeriodicTransactionInputBoundary interface.
@@ -55,6 +58,9 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         String period = periodicTransactionInputData.getTransactionPeriod();
         String category = periodicTransactionInputData.getTransactionCategory();
 
+        //Set currentDate to today
+        LocalDate currentDate = LocalDate.now();
+
         // if user entered empty input in one or more of the input fields
         if(!checkValid(stringAmount) || !checkValid(startDate) || !checkValid(endDate) ||
                 !checkValid(description) || !checkValid(period)) {
@@ -73,28 +79,29 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         // Parse and validate the dates
         LocalDate localStartDate = parseDate(startDate);
         LocalDate localEndDate = parseDate(endDate);
+
         // null is returned or period is longer than the days between start and end
         if (localStartDate == null || localEndDate == null || localStartDate.isAfter(localEndDate)) {
-            presenter.prepareFailView("Invalid date format or start date after end date! Please enter again!");
+            presenter.prepareFailView("Invalid date format or start date after end date! Please enter again in dd-MM-yyyy!");
             return;
         }
 
         // Validate and parse the period
         int customPeriod = validateAndParsePeriod(period);
         if (customPeriod == -1) {
-            presenter.prepareFailView("The custom period is not in correct format or is 0, please enter again!");
+            presenter.prepareFailView("The custom period is not in correct format or is 0, please enter again in dd-MM-yyyy!");
             return;
         }
 
         // Determine the ChronoUnit for the period
         ChronoUnit unit = getChronoUnit(period);
         if (!validatePeriod(unit, customPeriod, localStartDate, localEndDate)) {
-            presenter.prepareFailView("Period is longer than the period between start and end date!");
+            presenter.prepareFailView("Period is longer than the time between start and end date!");
             return;
         }
 
         boolean isInflow = amount >= 0.0;  // if amount < 0 then inflow = false
-        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit, category);
+        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit, category, currentDate);
     }
 
     /**
@@ -197,29 +204,31 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param period the transaction period
      * @param customPeriod the custom period in days
      * @param unit the ChronoUnit of the period
+     * @param category the category of the transaction
      */
     private void processTransactions(boolean isInflow, String identification, float amount, LocalDate startDate,
                                      LocalDate endDate, String description, String period, int customPeriod,
-                                     ChronoUnit unit, String category) {
-        LocalDate currentDate = startDate;
+                                     ChronoUnit unit, String category, LocalDate currentDate) {
+        LocalDate date = startDate;
         PeriodicTransactionOutputData finalOutputData = null;
 
-        while (!currentDate.isAfter(endDate)) {
+        // add transactions while from start to current date and not after end date
+        while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
             if (isInflow) {
-                finalOutputData = processInflowTransaction(identification, amount, currentDate, description, endDate,
-                        period, customPeriod, unit, category);
+                finalOutputData = processInflowTransaction(identification, amount, startDate, description, endDate,
+                        period, customPeriod, unit, category, date);
             } else {
-                finalOutputData = processOutflowTransaction(identification, amount, currentDate, description, endDate,
-                        period, customPeriod, unit, category);
+                finalOutputData = processOutflowTransaction(identification, amount, startDate, description, endDate,
+                        period, customPeriod, unit, category, date);
             }
 
-            // update current date
+            // update date
             if (unit != ChronoUnit.DAYS) {
-                currentDate = currentDate.plus(1, unit);
+                date = date.plus(1, unit);
             } else if (customPeriod == 0) {
-                currentDate = currentDate.plus(1, unit);
+                date = date.plus(1, unit);
             } else {
-                currentDate = currentDate.plusDays(customPeriod);
+                date = date.plusDays(customPeriod);
             }
         }
 
@@ -238,18 +247,21 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      *
      * @param identification the user's identification
      * @param amount the transaction amount
-     * @param currentDate the current transaction date
+     * @param startDate the current transaction date
      * @param description the transaction description
      * @param endDate the transaction end date
      * @param period the transaction period
      * @param customPeriod the custom period in days
      * @param unit the ChronoUnit of the period
      */
-    private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category) {
-        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate, description, endDate,
+    private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
+                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
+        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
                 period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
+
+        // Update transaction date
+        periodicInflow.setDate(transactionDate);
 
         // Create a new PeriodicInflow object
         float totalIncome = userAccount.getTotalIncome() + amount;
@@ -284,11 +296,14 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param unit the ChronoUnit of the period
      */
     private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category) {
+                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
         // Create a new PeriodicOutflow object
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
                 period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
+
+        // Update transaction date
+        periodicOutflow.setDate(transactionDate);
 
         // Update the user's total outflow and balance
         float totalOutflow = userAccount.getTotalOutflow() + amount;
@@ -305,7 +320,49 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         return outputData;
     }
 
-    public void updateTransactionsBasedOnDate(String userId, LocalDate currentDate){
-        //
+    public void updateTransactionsBasedOnDate(String userId, LocalDate currentDate) {
+        UserAccount userAccount = userDataAccessObject.getById(userId);
+        List<Transaction> transactions = userDataAccessObject.readTransactions(userId);
+
+        for (Transaction transaction : transactions) {
+            if (transaction instanceof PeriodicTransaction) {
+                PeriodicTransaction periodicTransaction = (PeriodicTransaction) transaction;
+                LocalDate startDate = periodicTransaction.getStartDate();
+                LocalDate endDate = periodicTransaction.getEndDate();
+                LocalDate lastRecordedDate = periodicTransaction.getDate();
+                LocalDate date = lastRecordedDate.plusDays(1); // start from the day after the last recorded date
+            }
+//                // Ensure we do not go beyond currentDate or endDate
+//                while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
+//                    if (periodicTransaction.getAmount() >= 0) {
+//                        processInflowTransaction(
+//                                transaction.getIdentification(),
+//                                periodicTransaction.getAmount(),
+//                                startDate,
+//                                periodicTransaction.getDescription(),
+//                                endDate,
+//                                String.valueOf(periodicTransaction.getPeriod()),
+//                                periodicTransaction.getPeriod(),
+//                                getChronoUnit(String.valueOf(periodicTransaction.getPeriod())),
+//                                periodicTransaction.getTransactionCategory(),
+//                                date
+//                        );
+//                    } else {
+//                        processOutflowTransaction(
+//                                transaction.getIdentification(),
+//                                periodicTransaction.getAmount(),
+//                                startDate,
+//                                periodicTransaction.getDescription(),
+//                                endDate,
+//                                String.valueOf(periodicTransaction.getPeriod()),
+//                                periodicTransaction.getPeriod(),
+//                                getChronoUnit(String.valueOf(periodicTransaction.getPeriod())),
+//                                periodicTransaction.getTransactionCategory(),
+//                                date
+//                        );
+//                    }
+
+
+            }
+        }
     }
-}

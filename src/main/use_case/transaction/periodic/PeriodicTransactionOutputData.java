@@ -27,6 +27,7 @@ import java.time.LocalDate;
 public class PeriodicTransactionOutputData extends TransactionOutputData<PeriodicTransaction> {
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
+    private LocalDate transactionDate;
     private int transactionPeriod;
 
     /**
@@ -41,6 +42,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
         this.id = periodicTransaction.getIdentification();
         this.transactionCategory = periodicTransaction.getTransactionCategory();
         this.transactionStartDate = periodicTransaction.getStartDate();
+        this.transactionDate = periodicTransaction.getDate();
     }
 
     /**
@@ -59,6 +61,15 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
      */
     public LocalDate getTransactionEndDate() {
         return this.transactionEndDate;
+    }
+
+    /**
+     * Gets the date of the transaction.
+     *
+     * @return the date of the transaction
+     */
+    public LocalDate getTransactionDate() {
+        return this.transactionDate;
     }
 
     /**
@@ -87,6 +98,15 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
      */
     public void setTransactionEndDate(LocalDate transactionEndDate) {
         this. transactionEndDate = transactionEndDate;
+    }
+
+    /**
+     * Sets the date of the transaction.
+     *
+     * @param transactionDate the new date of the transaction
+     */
+    public void setTransactionDate(LocalDate transactionDate) {
+        this. transactionDate = transactionDate;
     }
 
     /**
