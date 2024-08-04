@@ -304,4 +304,8 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
 
         return outputData;
     }
+
+    public void updateTransactionsBasedOnDate(String userId, LocalDate currentDate){
+        //
+    }
 }

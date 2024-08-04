@@ -37,7 +37,7 @@ public class LoginMediator {
             LocalDate currentDate = LocalDate.now();
             UserAccount userAccount = periodicTransactionDataAccessObject.getById(userId);
             PeriodicTransactionInteractor periodicTransactionInteractor = new PeriodicTransactionInteractor(periodicTransactionDataAccessObject, null, userAccount); // Assuming presenter is null for this context
-            // periodicTransactionInteractor.updateTransactionsBasedOnDate(userId, currentDate);
+            periodicTransactionInteractor.updateTransactionsBasedOnDate(userId, currentDate);
         }
     }
 }
