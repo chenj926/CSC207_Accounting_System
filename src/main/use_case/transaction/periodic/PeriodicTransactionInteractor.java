@@ -47,7 +47,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      */
     @Override
     public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
-        String identification = userAccount.getIdentification();
+        String identification = periodicTransactionInputData.getId();
         String stringAmount = periodicTransactionInputData.getTransactionAmount();
         String endDate = periodicTransactionInputData.getTransactionEndDate();
         String description = periodicTransactionInputData.getTransactionDescription();

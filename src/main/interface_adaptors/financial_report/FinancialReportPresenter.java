@@ -12,7 +12,8 @@ import use_case.financial_report.FinancialReportOutputData;
 public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     private String reportContent;
     private final FinancialReportViewModel viewModel;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     public FinancialReportPresenter(FinancialReportViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;

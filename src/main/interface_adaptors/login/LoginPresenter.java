@@ -1,6 +1,7 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -37,6 +38,7 @@ public class LoginPresenter implements LoginOutputBoundary {
         // update the current login state
         LoginState loginState = loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());
+        this.viewManagerModel.setUserId(userInfo.getIdentification());
         this.loginViewModel.setState(loginState);
         loginState.setSuccessMsg("Successfully Logged In!!!");
         loginViewModel.firePropertyChanged();

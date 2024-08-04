@@ -11,7 +11,7 @@ import java.time.format.ResolverStyle;
 
 public abstract class TransactionInteractor{
     protected final UserAccountDataAccessInterface userDataAccessObject;
-    protected final UserAccount userAccount;
+    protected UserAccount userAccount;
 
     /**
      * Constructs a TransactionInteractor object with data access object,

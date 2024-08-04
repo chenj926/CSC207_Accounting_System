@@ -10,7 +10,8 @@ import java.awt.*;
 public class FinancialReportPanel extends JPanel {
     private final FinancialReportViewModel viewModel;
     private final FinancialReportController financialReportController;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JLabel incomeLabel;
@@ -30,7 +31,9 @@ public class FinancialReportPanel extends JPanel {
         this.financialReportController = financialReportController;
         this.viewManager = viewManager;
 
-        financialReportController.execute();  // get the financial report content first
+//        // debug
+        System.out.println("id in finan panel!!:\n看我！\n"+viewManager.getUserId());
+        financialReportController.execute(viewManager.getUserId());  // get the financial report content first
 
 //        setupListeners();
         initializeComponents();
@@ -57,6 +60,9 @@ public class FinancialReportPanel extends JPanel {
 //
 //
 //        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+        // debug
+        System.out.println("in panel report:\n"+this.viewModel.getReportContent());
 
         this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
         this.reportTextArea.setSelectionColor(Color.BLUE);
@@ -108,12 +114,14 @@ public class FinancialReportPanel extends JPanel {
 //        financialReportController.refreshReport();
 //    }
 
-    public void displayReport(String reportContent) {
-        reportTextArea.setText(reportContent);
+    public void refreshData() {
+        // debug
+        System.out.println("id in finan panel!!:\n看我！\n" + viewManager.getUserId());
+        financialReportController.execute(viewManager.getUserId());
     }
 
     public void clearFields() {
-//        reportTextArea.setText("");
+        reportTextArea.setText("");
     }
 
 }

@@ -36,9 +36,9 @@ public class PeriodicTransactionController {
      * @param period      the period of the transaction
      * @param endDate     the end date of the transaction
      */
-    public void execute(String amount, String startDate, String description, String period, String endDate, String category) {
+    public void execute(String id, String amount, String startDate, String description, String period, String endDate, String category) {
         PeriodicTransactionInputData periodicTransactionInputData = new PeriodicTransactionInputData(
-                amount, startDate, description, period, endDate, category);
+                id, amount, startDate, description, period, endDate, category);
         periodicTransactionInputBoundary.execute(periodicTransactionInputData);
         this.viewModel.resetState();
     }
