@@ -30,6 +30,14 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
         this.viewModel.addPropertyChangeListener(this);
         this.financialReportController = financialReportController;
 
+//        this.viewModel.addPropertyChangeListener(evt -> {
+//            if ("state".equals(evt.getPropertyName())){
+//
+//            }
+//        });
+
+
+
         this.financialReportPanel = new FinancialReportPanel(this.viewModel, this.financialReportController,
                 this.viewManager);
 
