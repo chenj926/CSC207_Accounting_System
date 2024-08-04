@@ -13,6 +13,7 @@ import data_access.authentication.LoginDataAccessInterface;
 public class LoginInteractor implements LoginInputBoundary {
     final LoginDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary presenter;
+    private final LoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
@@ -20,9 +21,10 @@ public class LoginInteractor implements LoginInputBoundary {
      * @param LoginDataAccessInterface the data access interface for user data
      * @param logInOutputBoundary      the output boundary for presenting the login results
      */
-    public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary) {
+    public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary, LoginMediator mediator) {
         this.userDataAccessObject = LoginDataAccessInterface;
         this.presenter = logInOutputBoundary;
+        this.mediator = mediator;
     }
 
     /**
@@ -70,6 +72,8 @@ public class LoginInteractor implements LoginInputBoundary {
                     // prepare output to presenter
                     LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
                     presenter.prepareSuccessView(loginOutputData);
+                    // Notify mediator on successful login
+                    mediator.notifyLoginResult(true, userAccount.getIdentification());
                     }
                 }
 
