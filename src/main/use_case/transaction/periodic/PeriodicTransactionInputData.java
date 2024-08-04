@@ -25,10 +25,10 @@ public class PeriodicTransactionInputData extends TransactionInputData {
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
      */
-    public PeriodicTransactionInputData(String transactionAmount, String transactionStartDate,
+    public PeriodicTransactionInputData(String id, String transactionAmount, String transactionStartDate,
                                         String transactionDescription, String transactionPeriod,
                                         String transactionEndDate, String transactionCategory) {
-        super(transactionAmount, transactionDescription, transactionCategory);
+        super(id, transactionAmount, transactionDescription, transactionCategory);
         this.transactionStartDate = transactionStartDate;
         this.transactionEndDate = transactionEndDate;
         this.transactionPeriod = transactionPeriod;

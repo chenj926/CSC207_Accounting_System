@@ -13,7 +13,8 @@ import use_case.transaction.periodic.PeriodicTransactionOutputData;
  */
 public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBoundary {
     private final PeriodicTransactionViewModel viewModel;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     /**
      * Constructs a PeriodicTransactionPresenter object with the specified view model and view manager model.

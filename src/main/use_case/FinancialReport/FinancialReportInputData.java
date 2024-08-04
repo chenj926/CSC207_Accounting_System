@@ -28,6 +28,15 @@ public class FinancialReportInputData {
         this.endDate = endDate;
     }
 
+    public FinancialReportInputData(String id) {
+        this.identification = id;
+
+        // unused in this constructor
+        this.userName = "";
+        this.startDate = null;
+        this.endDate = null;
+    }
+
     /**
      * Returns the account ID.
      *

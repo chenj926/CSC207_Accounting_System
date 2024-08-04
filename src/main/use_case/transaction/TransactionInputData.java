@@ -7,6 +7,7 @@ package use_case.transaction;
  * @author Jessica
  */
 public abstract class TransactionInputData {
+    protected String id;
     protected String transactionAmount;
     protected String transactionDescription;
     protected String transactionCategory;
@@ -18,13 +19,19 @@ public abstract class TransactionInputData {
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
      */
-    public TransactionInputData(String transactionAmount,
+    public TransactionInputData(String id,
+                                String transactionAmount,
                                 String transactionDescription,
                                 String transactionCategory) {
+        this.id = id;
         this.transactionAmount = transactionAmount;
         this.transactionDescription = transactionDescription;
         this.transactionCategory = transactionCategory;
 
+    }
+
+    public String getId() {
+        return this.id;
     }
 
     /**

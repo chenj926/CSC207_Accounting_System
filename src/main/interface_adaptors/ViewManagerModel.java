@@ -85,10 +85,12 @@ public class ViewManagerModel {
     /**
      * Sets the user ID.
      *
-     * @param id the new user ID
+     * @param userId the new user ID
      */
-    public void setUserId(String id) {
-        this.userId = id;
+    public void setUserId(String userId) {
+//        String oldUserId = this.userId;
+        this.userId = userId;
+//        support.firePropertyChange("userId", oldUserId, userId);
     }
 
     /**
@@ -107,6 +109,13 @@ public class ViewManagerModel {
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
+    }
+
+    // Reset method to clear all state
+    public void reset() {
+        this.userId = null;
+//        this.activeViewName = "home page"; // Reset to home page view
+//        support.firePropertyChange("reset", null, null); // Notify listeners of reset
     }
 
     /**
@@ -164,6 +173,7 @@ public class ViewManagerModel {
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this,
                         oneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
+                System.out.println("manger: update once"); // debug
                 currentView = oneTimeTransactionView;
                 break;
             case "Periodic Transaction":

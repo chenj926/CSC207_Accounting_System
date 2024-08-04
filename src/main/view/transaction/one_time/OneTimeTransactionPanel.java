@@ -23,7 +23,8 @@ import java.awt.event.KeyListener;
 public class OneTimeTransactionPanel extends JPanel {
     private final OneTimeTransactionViewModel viewModel;
     private final OneTimeTransactionController oneTimeTransactionController;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
 //    private JTextField idField;
@@ -166,7 +167,9 @@ public class OneTimeTransactionPanel extends JPanel {
                     if ("custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
+                    System.out.println("in panel: \n"+viewManager.getUserId());
                     oneTimeTransactionController.execute(
+                            viewManager.getUserId(),
                             amountField.getText(),
                             dateField.getText(),
                             descriptionField.getText(),

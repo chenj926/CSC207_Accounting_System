@@ -20,7 +20,9 @@ import java.awt.*;
  */
 public class TransactionPanel extends JPanel {
     private final TransactionViewModel viewModel;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
+
 
     // text
     private JLabel titleLabel;
@@ -195,7 +197,8 @@ public class TransactionPanel extends JPanel {
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {
-            viewManager.setUserId(null); // reset the userid before log out
+//            this.viewManager.setUserId(null); // reset the userid before log out
+            this.viewManager.reset(); // reset the userid before log out
             this.viewManager.setActiveViewName("home page"); // go back to home page
         });
 

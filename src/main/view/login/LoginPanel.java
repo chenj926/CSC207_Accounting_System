@@ -23,7 +23,8 @@ import java.awt.event.KeyListener;
 public class LoginPanel extends JPanel {
     private final LoginViewModel viewModel;
     private LoginController loginController;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField identificationTextField;

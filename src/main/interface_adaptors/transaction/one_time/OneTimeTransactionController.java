@@ -35,9 +35,10 @@ public class OneTimeTransactionController {
      * @param transactionDescription the description of the transaction
      * @param transactionCategory  the category of the transaction
      */
-    public void execute(String amount, String transactionDate, String transactionDescription, String transactionCategory) {
+    public void execute(String id, String amount, String transactionDate, String transactionDescription,
+                        String transactionCategory) {
         OneTimeTransactionInputData oneTimeTransactionInputData = new OneTimeTransactionInputData(
-                amount, transactionDate, transactionDescription, transactionCategory
+                id, amount, transactionDate, transactionDescription, transactionCategory
         );
         userOneTimeTransactionUseCaseInteractor.execute(oneTimeTransactionInputData);
         this.viewModel.resetState();

@@ -24,7 +24,8 @@ import java.awt.event.KeyListener;
 public class PeriodicTransactionPanel extends JPanel {
     private final PeriodicTransactionViewModel viewModel;
     private final PeriodicTransactionController periodicTransactionController;
-    private final ViewManagerModel viewManager;
+//    private final ViewManagerModel viewManager;
+    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField amountField;
@@ -192,6 +193,7 @@ public class PeriodicTransactionPanel extends JPanel {
 
                     // execute to controller
                     periodicTransactionController.execute(
+                            viewManager.getUserId(),
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
