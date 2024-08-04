@@ -30,10 +30,17 @@ public class FinancialReportPanel extends JPanel {
         this.viewModel = viewModel;
         this.financialReportController = financialReportController;
         this.viewManager = viewManager;
+        this.reportTextArea = new JTextArea();
 
 //        // debug
         System.out.println("id in finan panel!!:\n看我！\n"+viewManager.getUserId());
         financialReportController.execute(viewManager.getUserId());  // get the financial report content first
+
+        this.viewModel.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())){
+                this.reportTextArea.setText(viewModel.getReportContent());
+            }
+        });
 
 //        setupListeners();
         initializeComponents();
@@ -64,7 +71,7 @@ public class FinancialReportPanel extends JPanel {
         // debug
         System.out.println("in panel report:\n"+this.viewModel.getReportContent());
 
-        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
+//        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
         this.reportTextArea.setSelectionColor(Color.BLUE);
         this.reportTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
         this.reportTextArea.setEditable(false);
