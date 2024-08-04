@@ -1,7 +1,7 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.signup.SignupOutputData;
+import use_case.signup.SharedAccountSignupOutputBoundary;
 import use_case.signup.SharedAccountSignupOutputData;
 
 /**
@@ -11,7 +11,8 @@ import use_case.signup.SharedAccountSignupOutputData;
  * - Xile
  * - Eric
  */
-public class SharedAccountSignupPresenter extends SignupPresenter {
+public class SharedAccountSignupPresenter implements SharedAccountSignupOutputBoundary{
+    private final ViewManagerModel viewManagerModel;
     private final SharedAccountSignupViewModel sharedAccountSignupViewModel;
 
     /**
@@ -20,8 +21,8 @@ public class SharedAccountSignupPresenter extends SignupPresenter {
      * @param viewManagerModel             the view manager model to manage view transitions
      * @param sharedAccountSignupViewModel the shared account signup view model to update the shared account signup state
      */
-    public SharedAccountSignupPresenter(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) {
-        super(viewManagerModel, sharedAccountSignupViewModel); // Call parent constructor
+    public SharedAccountSignupPresenter(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) {// Call parent constructor
+        this.viewManagerModel = viewManagerModel;
         this.sharedAccountSignupViewModel = sharedAccountSignupViewModel;
     }
 
@@ -32,21 +33,14 @@ public class SharedAccountSignupPresenter extends SignupPresenter {
      * @param data the shared account signup output data
      */
     @Override
-    public void prepareSuccessView(SignupOutputData data) {
-        if (data instanceof SharedAccountSignupOutputData) {
-            SharedAccountSignupOutputData sharedData = (SharedAccountSignupOutputData) data;
-
-            SignupState signupState = sharedAccountSignupViewModel.getState();
-
-            if (sharedData.isSharedAccountExists()) {
-                signupState.setSuccessMsg("Shared account already exists. Prompt user for further actions.");
-            } else {
-                signupState.setSuccessMsg("Shared account signed up successfully.");
-            }
+    public void prepareSuccessView(SharedAccountSignupOutputData data) {
+        if (!data.isSharedAccountExists()) {
+            SharedAccountSignupState signupState = sharedAccountSignupViewModel.getState();
+            signupState.setSuccessMsg("Shared account signed up successfully.");
             sharedAccountSignupViewModel.firePropertyChanged();
         }
 
-        // Navigate to the home page or another view specific for shared accounts after successful signup
+        // Navigate to the home page after successful signup
         viewManagerModel.changeView("home page");
     }
 
@@ -58,7 +52,7 @@ public class SharedAccountSignupPresenter extends SignupPresenter {
      */
     @Override
     public void prepareFailView(String error) {
-        SignupState signupState = sharedAccountSignupViewModel.getState();
+        SharedAccountSignupState signupState = sharedAccountSignupViewModel.getState();
         signupState.setStateError(error);
         signupState.setSuccessMsg(null); // Clear success message on failure
         sharedAccountSignupViewModel.firePropertyChanged();

@@ -13,7 +13,7 @@ public interface SharedAccountSignupOutputBoundary {
      *
      * @param user the signup output data containing user information and success status
      */
-    void prepareSuccessView(SharedAccountSignupInputData user);
+    void prepareSuccessView(SharedAccountSignupOutputData user);
 
     /**
      * Prepares the fail view with the given error message.

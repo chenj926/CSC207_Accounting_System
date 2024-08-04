@@ -12,10 +12,11 @@ import java.awt.*;
  * The SharedAccountSignupView class represents the GUI for shared account signup.
  * It extends SignupView and manages the shared account signup panel.
  */
-public class SharedAccountSignupView extends SignupView {
+public class SharedAccountSignupView extends JFrame{
 
     private final SharedAccountSignupViewModel sharedViewModel; // Specific view model for shared accounts
-    private final SharedAccountSignupPanel sharedAccountSignupPanel; // Panel for shared account signup
+    private final SharedAccountSignupPanel sharedAccountSignupPanel;
+    private final ViewManagerModel viewManager;
 
     /**
      * Constructs a SharedAccountSignupView object with the specified view model, controller, and view manager.
@@ -25,25 +26,20 @@ public class SharedAccountSignupView extends SignupView {
      * @param viewManager      the view manager for managing view transitions
      */
     public SharedAccountSignupView(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
-        super(viewModel, sharedSignupController, viewManager);  // Ensure correct super constructor call
+        super(viewModel.getTitleLabel());
         this.sharedViewModel = viewModel;
-        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(sharedViewModel, sharedSignupController, viewManager);  // Ensure initialization
+        this.viewManager = viewManager;
+        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(sharedViewModel, sharedSignupController, viewManager);
+
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(600, 520);
         setVisible(true);
     }
 
-    @Override
+
     protected void setupUI() {
-        this.getContentPane().removeAll(); // Clear previous components
-
-        if (sharedAccountSignupPanel != null) { // Check for null
-            this.getContentPane().add(sharedAccountSignupPanel, BorderLayout.CENTER); // Add panel
-        }
-
-        this.revalidate(); // Refresh layout
-        this.repaint(); // Repaint frame
+         this.getContentPane().add(sharedAccountSignupPanel, BorderLayout.CENTER); // Add panel
     }
 
 

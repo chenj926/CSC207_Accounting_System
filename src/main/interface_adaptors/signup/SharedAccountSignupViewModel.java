@@ -1,13 +1,30 @@
 package interface_adaptors.signup;
 
+import interface_adaptors.ViewModel;
+
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The SharedAccountSignupViewModel class extends SignupViewModel to add properties and methods specific to shared account signup.
  * It provides additional labels and state management for the shared account signup view.
  */
-public class SharedAccountSignupViewModel extends SignupViewModel {
+public class SharedAccountSignupViewModel extends ViewModel {
 
-    private final String SHARED_ACCOUNT_ID_LABEL = "Set shared account ID";
+    private final String TITLE_LABEL = "Shared Account Sign Up";
+    private final String SHARED_ACCOUNT_LABEL = "Set shared account id";
+    private final String PASSWORD_LABEL = "Set shared account password";
+    private final String USER1_ID_LABEL = "Add user1 id";
+    private final String USER2_ID_LABEL = "Add user2 id";
+
+    private final String SIGNUP_BUTTON_LABEL = "Sign up";
+    private final String CANCEL_BUTTON_LABEL = "Cancel";
+
+    // List to hold additional user labels
+    private final List<String> additionalUserLabels;
+
 
     private SharedAccountSignupState state = new SharedAccountSignupState();
 
@@ -16,41 +33,112 @@ public class SharedAccountSignupViewModel extends SignupViewModel {
      */
     public SharedAccountSignupViewModel(String viewname) {
         super("shared account sign up");
+        this.additionalUserLabels = new ArrayList<>();
     }
 
     /**
-     * Gets the shared account ID label.
+     * Gets the title label.
      *
-     * @return the shared account ID label
+     * @return the title label
      */
-    public String getSharedAccountIdLabel() {
-        return this.SHARED_ACCOUNT_ID_LABEL;
-    }
+    public String getTitleLabel() { return this.TITLE_LABEL; }
 
     /**
-     * Gets the current shared account signup state.
+     * Gets the username label.
      *
-     * @return the current shared account signup state
+     * @return the username label
      */
-    @Override
-    public SharedAccountSignupState getState() {
-        return state;
-    }
+    public String getSHARED_ACCOUNT_LABEL() { return this.SHARED_ACCOUNT_LABEL; }
 
     /**
-     * Sets the current shared account signup state.
+     * Gets the password label.
      *
-     * @param state the new shared account signup state
+     * @return the password label
+     */
+    public String getPasswordLabel() { return this.PASSWORD_LABEL; }
+
+    /**
+     * Gets the identification label.
+     *
+     * @return the identification label
+     */
+    public String getUser1IdLabel() { return this.USER1_ID_LABEL; }
+
+    public String getUser2IdLabel() { return this.USER2_ID_LABEL; }
+
+
+    /**
+     * Gets the signup button label.
+     *
+     * @return the signup button label
+     */
+    public String getSignupButtonLabel(){ return this.SIGNUP_BUTTON_LABEL; }
+
+    /**
+     * Gets the cancel button label.
+     *
+     * @return the cancel button label
+     */
+    public String getCancelButtonLabel() { return this.CANCEL_BUTTON_LABEL; }
+
+    /**
+     * Gets the current signup state.
+     *
+     * @return the current signup state
+     */
+    public SharedAccountSignupState getState() { return state; }
+
+    /**
+     * Sets the current signup state.
+     *
+     * @param state the new signup state
      */
     public void setState(SharedAccountSignupState state) {
         this.state = state;
     }
 
+    public void addMoreUserLabel() {
+        int nextUserNumber = additionalUserLabels.size() + 3; // Start counting from user3
+        String newLabel = "Add user" + nextUserNumber + " ID";
+        additionalUserLabels.add(newLabel);
+    }
+
     /**
-     * Notifies listeners that the shared account signup state has changed.
+     * Removes the last additional user label if there are any.
      */
-    @Override
+    public void removeLastUserLabel() {
+        if (!additionalUserLabels.isEmpty()) {
+            additionalUserLabels.remove(additionalUserLabels.size() - 1);
+        }
+    }
+
+    /**
+     * Gets the list of additional user labels.
+     *
+     * @return the list of additional user labels
+     */
+    public List<String> getAdditionalUserLabels() {
+        return new ArrayList<>(additionalUserLabels);
+    }
+
+    /**
+     * Notifies listeners that the signup state has changed.
+     */
+    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    /**
+     * Notifies listeners that the signup state has changed.
+     */
     public void firePropertyChanged() {
-        super.firePropertyChanged();
+        support.firePropertyChange("state", null, this.state);
+    }
+
+    /**
+     * Adds a property change listener to the listener list.
+     *
+     * @param listener the PropertyChangeListener to be added
+     */
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 }

@@ -1,10 +1,9 @@
 package view.signup;
 
-import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SharedAccountSignupController;
-import interface_adaptors.signup.SharedAccountSignupState;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.signup.SharedAccountSignupState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,86 +12,181 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
- * The SharedAccountSignupPanel class extends SignupPanel to add additional fields and logic
- * specific to shared account signup.
+ * The SharedAccountSignupPanel class handles UI for shared account signup, allowing for dynamic user field addition.
  */
-public class SharedAccountSignupPanel extends SignupPanel {
+public class SharedAccountSignupPanel extends JPanel implements PropertyChangeListener {
+    protected final SharedAccountSignupViewModel viewModel;
+    protected final SharedAccountSignupController signupController;
+    protected final ViewManagerModel viewManager;
 
-    private JTextField sharedAccountIdField;
-    private SharedAccountSignupController sharedSignupController;
-    private SharedAccountSignupViewModel viewModel; // Specific view model for shared accounts
+    protected JLabel titleLabel;
+    protected JTextField sharedAccountIdField;
+    protected JPasswordField sharedAccountPasswordField;
+    protected JTextField user1IdField;
+    protected JTextField user2IdField;
+    protected JButton signupButton;
+    protected JButton cancelButton;
+    protected JButton addUserButton;
+    protected JButton deleteUserButton;
+
+    protected JPanel additionalUsersPanel;
+    protected Set<JTextField> additionalUserFields;
 
     /**
      * Constructs a SharedAccountSignupPanel object with the specified view model, controller, and view manager.
      *
-     * @param viewModel        the view model for the signup panel
+     * @param viewModel              the view model for the signup panel
      * @param sharedSignupController the controller for handling signup actions
-     * @param viewManager      the view manager for managing view transitions
+     * @param viewManager            the view manager for managing view transitions
      */
     public SharedAccountSignupPanel(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
-        super(viewModel, sharedSignupController, viewManager);
         this.viewModel = viewModel;
-        this.viewModel.addPropertyChangeListener(this);// Initialize the specific shared account view model
+        this.signupController = sharedSignupController;
+        this.viewManager = viewManager;
+        this.viewModel.addPropertyChangeListener(this);
 
         initializeComponents();  // Ensure components are initialized
         setupUI();  // Set up the UI
-        setupListeners();
+        setupListeners();  // Set up event listeners
     }
 
     /**
      * Initializes the UI components for the shared account signup panel.
      */
-    @Override
     protected void initializeComponents() {
-        super.initializeComponents();
-        this.sharedAccountIdField = new JTextField(20); // Field for shared account ID
+        titleLabel = new JLabel(viewModel.getTitleLabel());
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+
+        sharedAccountIdField = new JTextField(20);
+        sharedAccountPasswordField = new JPasswordField(20);
+        user1IdField = new JTextField(20);
+        user2IdField = new JTextField(20);
+
+        signupButton = new JButton(viewModel.getSignupButtonLabel());
+        cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        addUserButton = new JButton("Add User");
+        deleteUserButton = new JButton("Delete User");
+
+        additionalUsersPanel = new JPanel(new GridBagLayout());
+        additionalUserFields = new LinkedHashSet<>();  // Use LinkedHashSet to maintain insertion order
     }
 
     /**
      * Sets up the UI layout for the shared account signup panel.
      */
-    @Override
     protected void setupUI() {
-        super.setupUI(); // Call the parent setupUI to ensure base components are added
-
+        setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);  // Padding
+
+        // Title
         constraints.gridx = 0;
-        constraints.gridy = 3; // Row index
+        constraints.gridy = 0;
+        constraints.gridwidth = 2;
+        add(titleLabel, constraints);
 
-        // Label for Shared Account ID
-        JLabel sharedAccountLabel = new JLabel(this.viewModel.getSharedAccountIdLabel());
-        sharedAccountLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-        add(sharedAccountLabel, constraints);
+        // Shared Account ID
+        constraints.gridy++;
+        constraints.gridwidth = 1;
+        add(new JLabel(viewModel.getSHARED_ACCOUNT_LABEL()), constraints);
+        constraints.gridx = 1;
+        add(sharedAccountIdField, constraints);
 
-        constraints.gridx = 1; // Column index
-        add(this.sharedAccountIdField, constraints);
+        // Shared Account Password
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(viewModel.getPasswordLabel()), constraints);
+        constraints.gridx = 1;
+        add(sharedAccountPasswordField, constraints);
+
+        // User 1 ID
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(viewModel.getUser1IdLabel()), constraints);
+        constraints.gridx = 1;
+        add(user1IdField, constraints);
+
+        // User 2 ID
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(viewModel.getUser2IdLabel()), constraints);
+        constraints.gridx = 1;
+        add(user2IdField, constraints);
+
+        // Additional Users Panel
+        constraints.gridx = 0;
+        constraints.gridy++;
+        constraints.gridwidth = 2;
+        add(additionalUsersPanel, constraints);
+
+        // Buttons
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
+        buttonsPanel.add(addUserButton);
+        buttonsPanel.add(deleteUserButton);
+        buttonsPanel.add(signupButton);
+        buttonsPanel.add(cancelButton);
+
+        constraints.gridy++;
+        add(buttonsPanel, constraints);
+
+        updateAdditionalUsersPanel();  // Initial panel update
     }
 
-
     /**
-     * Sets up listeners for the signup and cancel buttons, and for key events in the text fields.
+     * Sets up listeners for the signup, add user, and delete user buttons, and for key events in the text fields.
      */
-    @Override
     protected void setupListeners() {
-        super.setupListeners();
-        signupButton.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent evt) {
-                        sharedSignupController.execute(
-                                usernameTextField.getText(),
-                                String.valueOf(passwordField.getPassword()),
-                                identificationField.getText(),
-                                sharedAccountIdField.getText()
-                        );
+        signupButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                Set<String> additionalUserIds = new LinkedHashSet<>();
+                for (JTextField userField : additionalUserFields) {
+                    additionalUserIds.add(userField.getText());
+                }
+
+                signupController.execute(
+                        sharedAccountIdField.getText(),
+                        String.valueOf(sharedAccountPasswordField.getPassword()),
+                        user1IdField.getText(),
+                        user2IdField.getText(),
+                        additionalUserIds
+                );
+            }
+        });
+
+        addUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                viewModel.addMoreUserLabel();
+                JTextField newUserField = new JTextField(20);
+                additionalUserFields.add(newUserField);
+                updateAdditionalUsersPanel();
+            }
+        });
+
+        deleteUserButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if (!additionalUserFields.isEmpty()) {
+                    JTextField lastUserField = null;
+                    for (JTextField userField : additionalUserFields) {
+                        lastUserField = userField;
+                    }
+                    if (lastUserField != null) {
+                        additionalUserFields.remove(lastUserField);
+                        viewModel.removeLastUserLabel();
+                        updateAdditionalUsersPanel();
                     }
                 }
-        );
+            }
+        });
 
-        // get typed shared account ID
+        // Shared Account ID Key Listener
         this.sharedAccountIdField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
@@ -110,6 +204,30 @@ public class SharedAccountSignupPanel extends SignupPanel {
     }
 
     /**
+     * Updates the panel for additional user fields.
+     */
+    private void updateAdditionalUsersPanel() {
+        additionalUsersPanel.removeAll();
+        GridBagConstraints userConstraints = new GridBagConstraints();
+        userConstraints.insets = new Insets(5, 5, 5, 5);
+
+        int row = 0;
+        for (String userLabel : viewModel.getAdditionalUserLabels()) {
+            userConstraints.gridx = 0;
+            userConstraints.gridy = row;
+            additionalUsersPanel.add(new JLabel(userLabel), userConstraints);
+
+            userConstraints.gridx = 1;
+            JTextField userField = (JTextField) additionalUserFields.toArray()[row]; // Ensure order is maintained
+            additionalUsersPanel.add(userField, userConstraints);
+
+            row++;
+        }
+        additionalUsersPanel.revalidate();
+        additionalUsersPanel.repaint();
+    }
+
+    /**
      * Property change event handling specific for shared account signup results.
      *
      * @param evt the property change event
@@ -118,45 +236,27 @@ public class SharedAccountSignupPanel extends SignupPanel {
     public void propertyChange(PropertyChangeEvent evt) {
         SharedAccountSignupState state = (SharedAccountSignupState) evt.getNewValue();
 
-        if (!state.isValid()) {
+        if (!state.isComplete()) {
             JOptionPane.showMessageDialog(this, state.getStateError());
         } else {
-            String successMsg = state.getSuccessMsg();
-
-            if (successMsg.contains("Shared account already exists")) {
-                // Show choice dialog for shared account existing case
-                int choice = JOptionPane.showOptionDialog(
-                        this,
-                        "Shared account already exists. Would you like to add to it or create a new shared account?",
-                        "Choose Action",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE,
-                        null,
-                        new String[]{"Add to Existing", "Create New"},
-                        "Add to Existing"
-                );
-
-                if (choice == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(this, "Added to shared account successfully.");
-                    // Handle adding logic here
-                } else {
-                    JOptionPane.showMessageDialog(this, "Create a new shared account.");
-                    // Handle creation logic here
-                }
-            } else {
-                // Normal success message
-                JOptionPane.showMessageDialog(this, successMsg);
-                viewManager.setActiveViewName("home page");
-            }
+            // Normal success message
+            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
+            viewManager.setActiveViewName("home page");
         }
     }
 
     /**
      * Clears the text fields in the shared account signup panel.
      */
-    @Override
     public void clearFields() {
-        super.clearFields();
         sharedAccountIdField.setText("");
+        sharedAccountPasswordField.setText("");
+        user1IdField.setText("");
+        user2IdField.setText("");
+        for (JTextField field : additionalUserFields) {
+            field.setText("");
+        }
     }
 }
+
+
