@@ -19,6 +19,7 @@ public class PeriodicTransactionInputData extends TransactionInputData {
     /**
      * Constructs a OneTimeTransactionInputData object with the specified details.
      *
+     * @param transactionIdentification the amount of the transaction
      * @param transactionAmount      the amount of the transaction
      * @param transactionStartDate        the date of the transaction
      * @param transactionEndDate        the date of the transaction
@@ -27,13 +28,14 @@ public class PeriodicTransactionInputData extends TransactionInputData {
      * @param transactionCategory    the category of the transaction
      * @param transactionDate        the date of the transaction
      */
-    public PeriodicTransactionInputData(String transactionAmount, String transactionStartDate,
+    public PeriodicTransactionInputData(String transactionIdentification, String transactionAmount, String transactionStartDate,
                                         String transactionDescription, String transactionPeriod,
                                         String transactionEndDate, String transactionCategory, String transactionDate) {
-        super(transactionAmount, transactionDescription, transactionCategory);
+        super(transactionIdentification, transactionAmount, transactionDescription, transactionCategory);
         this.transactionStartDate = transactionStartDate;
         this.transactionEndDate = transactionEndDate;
         this.transactionPeriod = transactionPeriod;
+        this.transactionDate = transactionDate;
 
     }
 
