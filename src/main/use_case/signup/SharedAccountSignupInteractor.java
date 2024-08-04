@@ -20,7 +20,7 @@ import java.util.Set;
 public class SharedAccountSignupInteractor implements SharedAccountSignupInputBoundary {
 
     final AccountFactory accountFactory;
-    final SignupOutputBoundary presenter;
+    final SharedAccountSignupOutputBoundary presenter;
     final UserSignupDataAccessInterface userDataAccessObject;
     final ShareAccountDataAccessInterface sharedDataAccessObject; // Interface for shared accounts
 
@@ -35,7 +35,7 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
      */
     public SharedAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
                                          ShareAccountDataAccessInterface sharedDataAccessObject,
-                                         SignupOutputBoundary signupOutputBoundary,
+                                         SharedAccountSignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
         this.accountFactory = accountFactory;
         this.userDataAccessObject = userSignupDataAccessInterface;
@@ -94,10 +94,7 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
         sharedDataAccessObject.save(newSharedAccount);
 
         // Prepare success view for shared account creation
-        SignupOutputData signupOutputData = new SignupOutputData(
-                sharedSignupData.getSharedAccountId(), // Shared account ID for success message
-                true
-        );
+        SharedAccountSignupOutputData signupOutputData = new SharedAccountSignupOutputData(sharedSignupData.getSharedAccountId(), sharedSignupData.getUser1Id(), sharedSignupData.getUser2Id(), sharedSignupData.getAdditionalUserIds(), false);
 
         presenter.prepareSuccessView(signupOutputData);
     }
