@@ -9,6 +9,7 @@ public class PeriodicTransactionInputDataTest {
 
     @Test
     public void testConstructorAndGetters() {
+        String transactionId = "transactionId";
         float transactionAmount = 150.0f;
         String transactionAmountString = Float.toString(transactionAmount);
         String transactionStartDate = "2024-01-01";
@@ -16,14 +17,17 @@ public class PeriodicTransactionInputDataTest {
         String transactionPeriod = "Monthly";
         String transactionEndDate = "2024-12-31";
         String transactionCategory = "Auto";
+        String transactionDate = "2024-01-01";;
 
         PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+                transactionId,
                 transactionAmountString,
                 transactionStartDate,
                 transactionDescription,
                 transactionPeriod,
                 transactionEndDate,
-                transactionCategory
+                transactionCategory,
+                transactionDate
         );
 
         assertEquals(transactionAmountString, inputData.getTransactionAmount());

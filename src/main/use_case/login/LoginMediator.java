@@ -1,6 +1,9 @@
 package use_case.login;
 
-import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
+import data_access.account.UserAccountDataAccessInterface;
+import entity.account.UserAccount;
+import use_case.transaction.periodic.PeriodicTransactionInteractor;
+
 import java.time.LocalDate;
 
 /**
@@ -11,18 +14,19 @@ import java.time.LocalDate;
  */
 public class LoginMediator {
     private final LoginInputBoundary loginInteractor;
-    private final PeriodicTransactionInputBoundary periodicTransactionInteractor;
+    private final UserAccountDataAccessInterface periodicTransactionDataAccessObject;
 
     /**
      * Constructs a LoginMediator object with the specified interactors.
      *
      * @param loginInteractor the login interactor
-     * @param periodicTransactionInteractor the periodic transaction interactor
+     * @param periodicTransactionDataAccessObject the periodic transaction interactor
      */
-    public LoginMediator(LoginInputBoundary loginInteractor, PeriodicTransactionInputBoundary periodicTransactionInteractor, LoginOutputBoundary loginOutput) {
+    public LoginMediator(LoginInputBoundary loginInteractor, UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
-        this.periodicTransactionInteractor = periodicTransactionInteractor;
+        this.periodicTransactionDataAccessObject = periodicTransactionDataAccessObject;
     }
+
 
     public void execute(LoginInputData loginInputData) {
         loginInteractor.execute(loginInputData);
@@ -31,6 +35,8 @@ public class LoginMediator {
     public void notifyLoginResult(boolean success, String userId) {
         if (success) {
             LocalDate currentDate = LocalDate.now();
+            UserAccount userAccount = periodicTransactionDataAccessObject.getById(userId);
+            PeriodicTransactionInteractor periodicTransactionInteractor = new PeriodicTransactionInteractor(periodicTransactionDataAccessObject, null, userAccount); // Assuming presenter is null for this context
             // periodicTransactionInteractor.updateTransactionsBasedOnDate(userId, currentDate);
         }
     }
