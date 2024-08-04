@@ -7,12 +7,15 @@ import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginPresenter;
 import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginPresenter;
 import interface_adaptors.login.SharedAccountLoginViewModel;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
+import use_case.login.SharedAccountLoginInputBoundary;
 import use_case.login.SharedAccountLoginInteractor;
+import use_case.login.SharedAccountLoginOutputBoundary;
 import view.login.LoginView;
 import view.login.SharedAccountLoginView;
 
@@ -49,8 +52,8 @@ public class LoginUseCaseFactory {
      */
     public static SharedAccountLoginView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountLoginViewModel sharedAccountLoginViewModel) {
         try {
-            LoginController loginController = createSharedAccountLoginUseCase(viewManagerModel, sharedAccountLoginViewModel);
-            return new SharedAccountLoginView(sharedAccountLoginViewModel, loginController, viewManagerModel);
+            SharedAccountLoginController sharedLoginController = createSharedAccountLoginUseCase(viewManagerModel, sharedAccountLoginViewModel);
+            return new SharedAccountLoginView(sharedAccountLoginViewModel, sharedLoginController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open shared account data file.");
         }
@@ -76,7 +79,7 @@ public class LoginUseCaseFactory {
         LoginInputBoundary standardLoginInteractor = new LoginInteractor(loginDataAccessObject, presenter);
 
         // Return the controller capable of handling standard login
-        return new LoginController(standardLoginInteractor, null);
+        return new LoginController(standardLoginInteractor);
     }
 
     /**
@@ -87,19 +90,18 @@ public class LoginUseCaseFactory {
      * @return the login controller
      * @throws IOException if there is an error accessing data files
      */
-    private static LoginController createSharedAccountLoginUseCase(ViewManagerModel viewManagerModel, SharedAccountLoginViewModel sharedAccountLoginViewModel) throws IOException {
+    private static SharedAccountLoginController createSharedAccountLoginUseCase(ViewManagerModel viewManagerModel, SharedAccountLoginViewModel sharedAccountLoginViewModel) throws IOException {
         // Obtain the data access objects
-        LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
-        ShareAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        ShareAccountDataAccessInterface sharedLoginDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
 
-        // Create the shared account presenter
-        LoginOutputBoundary sharedPresenter = new SharedAccountLoginPresenter(viewManagerModel, sharedAccountLoginViewModel);
+        // Create the presenter
+        SharedAccountLoginOutputBoundary sharedPresenter = new SharedAccountLoginPresenter(viewManagerModel, sharedAccountLoginViewModel);
 
-        // Create the shared account login interactor
-        LoginInputBoundary sharedLoginInteractor = new SharedAccountLoginInteractor(loginDataAccessObject, sharedDataAccessObject, sharedPresenter);
+        // Create the login interactor
+        SharedAccountLoginInputBoundary sharedAccountLoginInteractor = new SharedAccountLoginInteractor(sharedLoginDataAccessObject, sharedPresenter);
 
-        // Return the controller capable of handling shared account login
-        return new LoginController(null, sharedLoginInteractor);
+        // Return the controller capable of handling standard login
+        return new SharedAccountLoginController(sharedAccountLoginInteractor);
     }
 }
 

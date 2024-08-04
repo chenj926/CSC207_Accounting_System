@@ -1,5 +1,6 @@
 package data_access.authentication;
 
+import entity.account.SharedAccount;
 import entity.account.UserAccount;
 
 /**
@@ -36,4 +37,6 @@ public interface LoginDataAccessInterface {
      * @return {@code true} if the login is successful; {@code false} otherwise
      */
     boolean login(UserAccount userAccount);
+
+    boolean login(SharedAccount sharedAccount);
 }

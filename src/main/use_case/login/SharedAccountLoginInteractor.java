@@ -1,10 +1,8 @@
 package use_case.login;
 
-import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.UserAccount;
 import entity.account.SharedAccount;
-import data_access.authentication.LoginDataAccessInterface;
-import data_access.authentication.SharedAccountLoginDataAccessInterface;
+import data_access.authentication.LoginDataAccessInterface;;
 import data_access.account.ShareAccountDataAccessInterface;
 import use_case.signup.SharedAccountSignupOutputBoundary;
 import use_case.signup.SharedAccountSignupOutputData;
@@ -14,7 +12,7 @@ import use_case.signup.SharedAccountSignupOutputData;
  * It includes additional validation for the shared account ID and ensures that the user is part of the shared account.
  */
 public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoundary{
-    final SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessObject;
+    final ShareAccountDataAccessInterface sharedAccountLoginDataAccessObject;
     final SharedAccountLoginOutputBoundary sharedPresenter;
 
     /**
@@ -23,7 +21,7 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
      * @param sharedAccountLoginDataAccessInterface      the data access interface for user data
      * @param sharedLoginOutputBoundary           the output boundary for presenting the login results
      */
-    public SharedAccountLoginInteractor(SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessInterface,
+    public SharedAccountLoginInteractor(ShareAccountDataAccessInterface sharedAccountLoginDataAccessInterface,
                                         SharedAccountLoginOutputBoundary sharedLoginOutputBoundary) {
         this.sharedPresenter = sharedLoginOutputBoundary;
         this.sharedAccountLoginDataAccessObject = sharedAccountLoginDataAccessInterface;
