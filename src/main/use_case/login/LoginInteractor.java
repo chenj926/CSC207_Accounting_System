@@ -2,6 +2,9 @@ package use_case.login;
 
 import entity.account.UserAccount;
 import data_access.authentication.LoginDataAccessInterface;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+
+import java.time.LocalDate;
 
 /**
  * The LoginInteractor class implements the LoginInputBoundary interface.
@@ -80,8 +83,10 @@ public class LoginInteractor implements LoginInputBoundary {
                     // prepare output to presenter
                     LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
                     presenter.prepareSuccessView(loginOutputData);
+
                     // Notify mediator on successful login
-                    mediator.notifyLoginResult(true, userAccount.getIdentification());
+                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccount.getIdentification(), LocalDate.now());
+                    mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
                     }
                 }
 

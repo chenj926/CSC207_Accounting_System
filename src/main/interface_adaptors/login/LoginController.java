@@ -31,7 +31,7 @@ public class LoginController {
      * @param id       the identification of the user
      */
     public void execute(String password, String id) {
-        LoginInputData loginInputDate = new LoginInputData(password, id);
-        loginMediator.execute(loginInputDate);
+        LoginInputData loginInputData = new LoginInputData(password, id);
+        loginMediator.execute(loginInputData);
     }
 }

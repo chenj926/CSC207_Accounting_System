@@ -14,6 +14,7 @@ import use_case.login.LoginMediator;
 import use_case.login.LoginOutputBoundary;
 import use_case.transaction.periodic.PeriodicTransactionInteractor;
 import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
 import view.login.LoginView;
 
 import javax.swing.*;
@@ -39,8 +40,9 @@ public class LoginUseCaseFactory {
 
         LoginOutputBoundary loginPresenter = new LoginPresenter(viewManagerModel, loginViewModel);
         LoginInteractor loginInteractor = new LoginInteractor(loginDataAccessObject, loginPresenter); // Temporary null for mediator
+        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
-        LoginMediator loginMediator = new LoginMediator(loginInteractor, periodicTransactionDataAccessObject);
+        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
         return new LoginController(loginMediator);
     }
 }

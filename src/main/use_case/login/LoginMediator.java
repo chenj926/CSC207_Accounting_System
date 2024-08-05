@@ -3,6 +3,8 @@ package use_case.login;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import use_case.transaction.periodic.PeriodicTransactionInteractor;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputBoundary;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
 
@@ -14,6 +16,7 @@ import java.time.LocalDate;
  */
 public class LoginMediator {
     private final LoginInputBoundary loginInteractor;
+    private final UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
     private final UserAccountDataAccessInterface periodicTransactionDataAccessObject;
 
     /**
@@ -22,8 +25,11 @@ public class LoginMediator {
      * @param loginInteractor the login interactor
      * @param periodicTransactionDataAccessObject the periodic transaction interactor
      */
-    public LoginMediator(LoginInputBoundary loginInteractor, UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
+    public LoginMediator(LoginInputBoundary loginInteractor,
+                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
+        this.updatePeriodicAtLoginInteractor = updatePeriodicAtLoginInteractor;
         this.periodicTransactionDataAccessObject = periodicTransactionDataAccessObject;
     }
 
@@ -32,12 +38,10 @@ public class LoginMediator {
         loginInteractor.execute(loginInputData);
     }
 
-    public void notifyLoginResult(boolean success, String userId) {
+    public void notifyLoginResult(boolean success, UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {
         if (success) {
-            LocalDate currentDate = LocalDate.now();
-            UserAccount userAccount = periodicTransactionDataAccessObject.getById(userId);
-            PeriodicTransactionInteractor periodicTransactionInteractor = new PeriodicTransactionInteractor(periodicTransactionDataAccessObject, null, userAccount); // Assuming presenter is null for this context
-            periodicTransactionInteractor.updateTransactionsBasedOnDate(userId, currentDate);
+
+            updatePeriodicAtLoginInteractor.execute(updatePeriodicAtLoginInputData);
         }
     }
 }
