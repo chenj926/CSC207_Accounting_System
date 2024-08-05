@@ -31,12 +31,14 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
     private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
 
+    private final Path sharedAccountsCsvPath;
     /**
      * Constructs a new instance of {@code CSVSharedAccountDataAccessObject}.
      * Initializes the CSV-based data access object for shared accounts.
      */
     public CSVSharedAccountDataAccessObject() {
         super();
+        this.sharedAccountsCsvPath = Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH);
     }
 
     /**
@@ -131,16 +133,22 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 if (values.length == 6) {
-                    SharedAccount sharedAccount = new SharedAccount(values[0]);
-                    sharedAccount.setUsername(values[1]);
-                    sharedAccount.setPassword(values[2]);
+                    String sharedAccountIdentification = values[0];
+                    String sharedAccountPassword = values[1];
+                    SharedAccount sharedAccount = new SharedAccount(sharedAccountIdentification, sharedAccountPassword);
 
-                    sharedAccount.setTotalIncome(Float.parseFloat(values[3]));
-                    sharedAccount.setTotalOutflow(Float.parseFloat(values[4]));
-                    sharedAccount.setTotalBalance(Float.parseFloat(values[5]));
+                    sharedAccount.setUsername(values[2]);
+                    sharedAccount.setPassword(values[3]);
+                    sharedAccount.setTotalIncome(Float.parseFloat(values[4]));
+                    sharedAccount.setTotalOutflow(Float.parseFloat(values[5]));
+                    sharedAccount.setTotalBalance(Float.parseFloat(values[6]));
 
+                    // Read and set shared user identifications
                     sharedAccount.setSharedUserIdentifications(readSharedAccountUsers(sharedAccount.getIdentification()));
+
+                    // Read and set shared account transactions
                     sharedAccount.setTransactions(readSharedAccountTransactions(sharedAccount.getIdentification()));
+
                     sharedAccounts.put(sharedAccount.getIdentification(), sharedAccount);
                 }
             }
@@ -149,6 +157,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         }
         return sharedAccounts;
     }
+
 
     /**
      * Reads the users associated with a shared account from the CSV file.
