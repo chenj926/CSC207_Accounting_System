@@ -14,8 +14,8 @@ import java.awt.event.ActionListener;
 public class FinancialReportPanel extends JPanel {
     private final FinancialReportViewModel viewModel;
     private final FinancialReportController financialReportController;
-//    private final ViewManagerModel viewManager;
-    private ViewManagerModel viewManager;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JLabel incomeLabel;
@@ -38,11 +38,13 @@ public class FinancialReportPanel extends JPanel {
 
 //        // debug
         System.out.println("id in finan panel!!:\n看我！\n"+viewManager.getUserId());
-        financialReportController.execute(viewManager.getUserId());  // get the financial report content first
+        // 先关了看看
+//        financialReportController.execute(viewManager.getUserId());  // get the financial report content first
 
         this.viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())){
                 this.reportTextArea.setText(viewModel.getReportContent());
+
             }
         });
 

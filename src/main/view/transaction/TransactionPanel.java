@@ -20,8 +20,8 @@ import java.awt.*;
  */
 public class TransactionPanel extends JPanel {
     private final TransactionViewModel viewModel;
-//    private final ViewManagerModel viewManager;
-    private ViewManagerModel viewManager;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
 
     // text

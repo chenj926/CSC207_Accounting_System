@@ -13,6 +13,8 @@ public class TransactionUseCaseFactory {
 
         transactionView.addPropertyChangeListener(evt -> viewManagerModel.changeView("One Time Transaction"));
         transactionView.addPropertyChangeListener(evt -> viewManagerModel.changeView("Periodic Transaction"));
+        transactionView.addPropertyChangeListener(evt -> viewManagerModel.changeView("Homepage Two"));
+
 
         return transactionView;
 //        try {

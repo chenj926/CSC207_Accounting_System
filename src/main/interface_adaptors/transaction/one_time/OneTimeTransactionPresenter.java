@@ -13,8 +13,8 @@ import use_case.transaction.one_time.OneTimeTransactionOutputData;
  */
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
-//    private final ViewManagerModel viewManager;
-    private ViewManagerModel viewManager;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     /**
      * Constructs a OneTimeTransactionPresenter object with the specified view model and view manager model.

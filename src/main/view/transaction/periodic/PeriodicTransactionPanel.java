@@ -24,8 +24,8 @@ import java.awt.event.KeyListener;
 public class PeriodicTransactionPanel extends JPanel {
     private final PeriodicTransactionViewModel viewModel;
     private final PeriodicTransactionController periodicTransactionController;
-//    private final ViewManagerModel viewManager;
-    private ViewManagerModel viewManager;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField amountField;

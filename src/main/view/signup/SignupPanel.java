@@ -20,8 +20,8 @@ import java.beans.PropertyChangeListener;
 public class SignupPanel extends JPanel implements PropertyChangeListener {
     private final SignupViewModel viewModel;
     private SignupController signupController;
-//    private final ViewManagerModel viewManager;
-    private ViewManagerModel viewManager;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField usernameTextField;

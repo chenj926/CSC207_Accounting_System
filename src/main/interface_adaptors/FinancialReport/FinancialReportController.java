@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * Controller for handling financial report generation requests.
  *
- * @author :Chi Fong
+ * @author :Chi Fong, Eric Chen
  */
 public class FinancialReportController {
     private final FinancialReportInputBoundary financialReportInputBoundary;
