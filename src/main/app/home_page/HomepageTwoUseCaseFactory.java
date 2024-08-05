@@ -16,7 +16,6 @@ import use_case.FinancialReport.FinancialReportOutputBoundary;
 import use_case.homepage.HomepageTwoInteractor;
 import view.FinancialReport.FinancialReportView;
 import view.home_page.HomepageTwoView;
-import view.transaction.TransactionView;
 
 import javax.swing.*;
 import java.io.IOException;

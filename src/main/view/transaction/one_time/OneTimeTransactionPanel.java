@@ -181,7 +181,7 @@ public class OneTimeTransactionPanel extends JPanel {
 
         // cancel button response action
         cancelButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
 
         // get typed amount

@@ -4,6 +4,8 @@ import interface_adaptors.ViewManagerModel;
 import use_case.homepage.HomepageTwoOutputBoundary;
 import use_case.homepage.HomepageTwoOutputData;
 
+import java.util.Arrays;
+
 public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
     private String[] basicUserInfo;
     private final HomepageTwoViewModel viewModel;
@@ -25,14 +27,19 @@ public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
         HomepageTwoState state = this.viewModel.getState();
         this.basicUserInfo = outputData.getBasicUserInfo();
 
-        state.setBasicUserInfo(basicUserInfo);
+        // debug
+        System.out.println("in presenter"+Arrays.toString(this.basicUserInfo));
+
+        state.setBasicUserInfo(this.basicUserInfo);
+        System.out.println("in presenter\nget from state"+Arrays.toString(viewModel.getState().getBasicUserInfo()));
 
         state.setErr(null);  // reset the no transaction error
         this.viewModel.setState(state);
         this.viewModel.setBasicUserInfo(state.getBasicUserInfo());
+        this.viewManager.setBasicUserInfo(this.basicUserInfo);
         this.viewModel.firePropertyChanged();
 
-        this.viewManager.setActiveViewName(viewModel.getViewName());
+//        this.viewManager.setActiveViewName(viewModel.getViewName());
 
     }
 

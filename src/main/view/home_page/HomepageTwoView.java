@@ -2,8 +2,9 @@ package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.homepage.HomepageTwoController;
+import interface_adaptors.homepage.HomepageTwoState;
 import interface_adaptors.homepage.HomepageTwoViewModel;
-import view.transaction.TransactionPanel;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,6 +15,8 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
 
     private final HomepageTwoViewModel viewModel;
     private final HomepageTwoPanel homepageTwoPanel;
+    private HomepageTwoController controller;
+    private final ViewManagerModel viewManager;
 
     /**
      * Constructs a TransactionView with the specified view model and view manager.
@@ -23,11 +26,13 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
      */
     public HomepageTwoView(HomepageTwoViewModel viewModel, ViewManagerModel viewManager,
                            HomepageTwoController homepageTwoController) {
-        super("Transaction View");
+        super("Homepage Two");
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
+        this.viewManager = viewManager;
+        this.controller = homepageTwoController;
 
-        this.homepageTwoPanel = new HomepageTwoPanel(viewModel, viewManager, homepageTwoController);
+        this.homepageTwoPanel = new HomepageTwoPanel(this.viewModel, this.viewManager, this.controller);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,5 +56,19 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Handle property changes here if needed
+        HomepageTwoState state = (HomepageTwoState) evt.getNewValue();
     }
+
+    @Override
+    public void setVisible(boolean visible) {
+        super.setVisible(visible);
+        if (visible) {
+//            financialReportPanel.clearFields(); // Clear the fields when the view becomes visible
+            String id = this.viewManager.getUserId();
+            System.out.println("id in view:\n"+id);  //debug
+            this.controller.execute(id);
+//            this.financialReportPanel.refreshData(); // Refresh the data
+        }
+    }
+
 }

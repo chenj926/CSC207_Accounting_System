@@ -5,6 +5,7 @@ import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
 
 public class HomepageTwoViewModel extends ViewModel {
     // labels
@@ -121,7 +122,7 @@ public class HomepageTwoViewModel extends ViewModel {
     public void setState(HomepageTwoState state) {
         this.state = state;
         this.basicUserInfo = state.getBasicUserInfo();
-        System.out.println("view model"+this.basicUserInfo);
+        System.out.println("view model\n"+ Arrays.toString(this.basicUserInfo));
     }
 
     public void setBasicUserInfo(String[] basicUserInfo) {
@@ -137,6 +138,7 @@ public class HomepageTwoViewModel extends ViewModel {
      * Notifies listeners that the signup state has changed.
      */
     public void firePropertyChanged() {
+        System.out.println("Firing property change event");
         support.firePropertyChange("state", null, this.state);
     }
 
@@ -145,7 +147,9 @@ public class HomepageTwoViewModel extends ViewModel {
      *
      * @param listener the PropertyChangeListener to be added
      */
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
+        System.out.println("Adding PropertyChangeListener");
         support.addPropertyChangeListener(listener);
     }
 }

@@ -206,7 +206,7 @@ public class PeriodicTransactionPanel extends JPanel {
         });
 
         cancelButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
 
         this.amountField.addKeyListener(new KeyListener() {

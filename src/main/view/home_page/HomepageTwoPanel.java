@@ -2,16 +2,19 @@ package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.homepage.HomepageTwoController;
+import interface_adaptors.homepage.HomepageTwoState;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class HomepageTwoPanel extends JPanel{
 
     private final HomepageTwoViewModel viewModel;
     private final ViewManagerModel viewManager;
     private HomepageTwoController controller;
+    private String[] basicUserInfo;
 //    private ViewManagerModel viewManager;
 
     // text
@@ -33,7 +36,7 @@ public class HomepageTwoPanel extends JPanel{
     private JButton financialReportButton;
 
     /**
-     * Constructs a TransactionPanel with the specified view model and view manager.
+     * Constructs a HomepageTwoPanel with the specified view model and view manager.
      *
      * @param viewModel  the view model for the transaction view
      * @param viewManager the view manager for handling view transitions
@@ -46,7 +49,12 @@ public class HomepageTwoPanel extends JPanel{
 
         this.viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())){
-                controller.execute(this.viewModel.getState().getId());
+//                this.controller.execute(viewManager.getUserId());
+                System.out.println("property name: "+evt.getPropertyName());
+                HomepageTwoState state = viewModel.getState();
+                this.basicUserInfo = state.getBasicUserInfo();
+                System.out.println("in add property change:\n"+Arrays.toString(this.basicUserInfo));
+                updateUI(); // Update the UI components when state changes
             }
         });
 
@@ -66,26 +74,15 @@ public class HomepageTwoPanel extends JPanel{
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         this.usernameLabel = new JLabel(this.viewModel.getUSERNAME_LABEL());
-        this.balanceLabel = new JLabel(this.viewModel.getBALANCE_LABEL());
         this.incomeLabel = new JLabel(this.viewModel.getINCOME_LABEL());
         this.outflowLabel = new JLabel(this.viewModel.getOUTFLOW_LABEL());
-
-        // get the user's basic info
-        String[] basicUserInfo = viewModel.getBasicUserInfo();
-
-        // debug
-        System.out.println(basicUserInfo);
-
-//        this.usernameValueLabel = new JLabel("  "+basicUserInfo[0]);
-//        this.balanceValueLabel = new JLabel("  "+basicUserInfo[1]);
-//        this.incomeValueLabel = new JLabel("  "+basicUserInfo[2]);
-//        this.outflowValueLabel = new JLabel("  "+basicUserInfo[3]);
+        this.balanceLabel = new JLabel(this.viewModel.getBALANCE_LABEL());
 
         // 先假装get到了basic info
-        this.usernameValueLabel = new JLabel(" 0 ");
-        this.balanceValueLabel = new JLabel(" 1 ");
-        this.incomeValueLabel = new JLabel(" 2 ");
-        this.outflowValueLabel = new JLabel(" 3 ");
+        this.usernameValueLabel = new JLabel(" User ");
+        this.incomeValueLabel = new JLabel(" 0.00 ");
+        this.outflowValueLabel = new JLabel(" 0.00 ");
+        this.balanceValueLabel = new JLabel(" 0.00 ");
 
         JPanel buttons = new JPanel();
         this.oneTimeButton = new JButton(this.viewModel.getONE_TIME_BUTTON_LABEL());
@@ -154,27 +151,27 @@ public class HomepageTwoPanel extends JPanel{
         constraints.gridx = 1;
         add(this.usernameValueLabel, constraints);
 
-        // Balance Label and Field
+        // Income Label and Field
         constraints.gridy++;
         constraints.gridx = 0;  // Reset gridx
         constraints.gridwidth = 1;  // Reset gridwidth
-        add(this.balanceLabel, constraints);
-        constraints.gridx = 1;
-        add(this.balanceValueLabel, constraints);
-
-        // Income Label and Field
-        constraints.gridx = 0;
-        constraints.gridy++;
-        add(incomeLabel, constraints);
+        add(this.incomeLabel, constraints);
         constraints.gridx = 1;
         add(this.incomeValueLabel, constraints);
 
         // Outflow Label and Field
         constraints.gridx = 0;
         constraints.gridy++;
-        add(outflowLabel, constraints);
+        add(this.outflowLabel, constraints);
         constraints.gridx = 1;
         add(this.outflowValueLabel, constraints);
+
+        // Balance Label and Field
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(this.balanceLabel, constraints);
+        constraints.gridx = 1;
+        add(this.balanceValueLabel, constraints);
 
         // One Time Button
         constraints.gridx = 0;
@@ -226,5 +223,18 @@ public class HomepageTwoPanel extends JPanel{
             this.viewManager.setActiveViewName("home page"); // go back to home page
         });
 
+    }
+
+    /**
+     * Updates the UI components based on the current state.
+     */
+    @Override
+    public void updateUI() {
+        if (this.basicUserInfo != null && this.basicUserInfo.length == 4) {
+            this.usernameValueLabel.setText(this.basicUserInfo[0]);
+            this.incomeValueLabel.setText(this.basicUserInfo[1]);
+            this.outflowValueLabel.setText(this.basicUserInfo[2]);
+            this.balanceValueLabel.setText(this.basicUserInfo[3]);
+        }
     }
 }
