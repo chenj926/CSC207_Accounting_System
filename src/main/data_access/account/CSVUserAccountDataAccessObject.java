@@ -215,7 +215,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
             // create csv line with the user info
             String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password, totalIncome,
-                    totalOutflow, totalBalance, lastLoginDate);
+                    totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
             try {
@@ -470,6 +470,8 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                     float outflow = Float.parseFloat(values[4]);
                     float balance = Float.parseFloat(values[5]);
                     LocalDate lastLoginDate = LocalDate.parse(values[6]);
+
+
 
                     userAccount = new UserAccount(username, password, id, income, outflow, balance);
                     userAccount.setLastLoginDate(lastLoginDate);

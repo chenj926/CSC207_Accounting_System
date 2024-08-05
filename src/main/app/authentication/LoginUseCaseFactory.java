@@ -39,10 +39,13 @@ public class LoginUseCaseFactory {
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
 
         LoginOutputBoundary loginPresenter = new LoginPresenter(viewManagerModel, loginViewModel);
-        LoginInteractor loginInteractor = new LoginInteractor(loginDataAccessObject, loginPresenter); // Temporary null for mediator
+        LoginInteractor loginInteractor = new LoginInteractor(loginDataAccessObject, loginPresenter);
+
         UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
         LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        loginInteractor.setMediator(loginMediator);
         return new LoginController(loginMediator);
     }
 }
+
