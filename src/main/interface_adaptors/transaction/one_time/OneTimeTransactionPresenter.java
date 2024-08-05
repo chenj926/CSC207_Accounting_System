@@ -52,7 +52,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         viewManager.setActiveViewName(viewModel.getViewName());
 
         // go back to home page 2
-        viewManager.changeView("Transaction");
+        viewManager.changeView("Homepage Two");
     }
 
 

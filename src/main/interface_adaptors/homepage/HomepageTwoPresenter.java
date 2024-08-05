@@ -29,7 +29,7 @@ public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
 
         state.setErr(null);  // reset the no transaction error
         this.viewModel.setState(state);
-//        this.viewModel.setReportContent(state.getReportContent());
+        this.viewModel.setBasicUserInfo(state.getBasicUserInfo());
         this.viewModel.firePropertyChanged();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());

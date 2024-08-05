@@ -54,7 +54,7 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
         this.viewManager.setActiveViewName(viewModel.getViewName());
 
         // go back to home page 2
-        this.viewManager.changeView("Transaction");
+        this.viewManager.changeView("Homepage Two");
     }
 
     /**

@@ -111,7 +111,7 @@ public class FinancialReportPanel extends JPanel {
 
     private void setupListeners() {
         this.backButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
 
 //        financialReportController.execute();

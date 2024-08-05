@@ -10,9 +10,10 @@ public class HomepageTwoViewModel extends ViewModel {
     // labels
     private final String TITLE_LABEL = "Account";
 
-    private final String BALANCE_LABEL = "Total Balance";
-    private final String INCOME_LABEL = "Total Income";
-    private final String OUTFLOW_LABEL = "Total Outflow";
+    private final String USERNAME_LABEL = "User:";
+    private final String BALANCE_LABEL = "Total Balance:";
+    private final String INCOME_LABEL = "Total Income:";
+    private final String OUTFLOW_LABEL = "Total Outflow:";
 
     private final String ONE_TIME_BUTTON_LABEL = "One Time Transaction";
     private final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
@@ -32,6 +33,10 @@ public class HomepageTwoViewModel extends ViewModel {
      */
     public HomepageTwoViewModel() {
         super("Homepage Two");
+    }
+
+    public String getUSERNAME_LABEL() {
+        return this.USERNAME_LABEL;
     }
 
     /**

@@ -1,6 +1,7 @@
 package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.homepage.HomepageTwoController;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 import view.transaction.TransactionPanel;
 
@@ -20,12 +21,13 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
      * @param viewModel the view model for the transaction view
      * @param viewManager           the view manager for handling view transitions
      */
-    public HomepageTwoView(HomepageTwoViewModel viewModel, ViewManagerModel viewManager) {
+    public HomepageTwoView(HomepageTwoViewModel viewModel, ViewManagerModel viewManager,
+                           HomepageTwoController homepageTwoController) {
         super("Transaction View");
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        this.homepageTwoPanel = new HomepageTwoPanel(viewModel, viewManager);
+        this.homepageTwoPanel = new HomepageTwoPanel(viewModel, viewManager, homepageTwoController);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
