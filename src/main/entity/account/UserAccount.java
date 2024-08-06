@@ -3,6 +3,7 @@ package entity.account;
 import entity.transaction.Transaction;
 import entity.transaction.TransactionComparator;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,6 +25,8 @@ public class UserAccount implements Account {
     private float totalIncome;
     private float totalOutflow;
     private float totalBalance;
+
+    private LocalDate lastLoginDate;
 
     /**
      * Constructs a UserAccount object with the specified username, password, and identification.
@@ -140,6 +143,14 @@ public class UserAccount implements Account {
     }
 
     /**
+     * Gets the last login date of the account.
+     *
+     * @return the last login date
+     */
+    @Override
+    public LocalDate getLastLoginDate(){return this.lastLoginDate;}
+
+    /**
      * Sets the username of the user account.
      *
      * @param username the new username of the user account
@@ -210,6 +221,16 @@ public class UserAccount implements Account {
     }
 
     /**
+     * Sets the last login date.
+     *
+     * @param lastLoginDate the last login date of the account
+     */
+    @Override
+    public void setLastLoginDate(LocalDate lastLoginDate){
+        this.lastLoginDate = lastLoginDate;
+    }
+
+    /**
      * Adds a transaction to the user account.
      * Updates the total income, total outflow, and total balance accordingly.
      *
@@ -236,4 +257,6 @@ public class UserAccount implements Account {
         }
         totalBalance += amount;
     }
+
+
 }

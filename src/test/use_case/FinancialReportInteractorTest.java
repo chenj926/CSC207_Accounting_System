@@ -1,16 +1,17 @@
 package use_case;
 
 import data_access.account.CSVUserAccountDataAccessObject;
-import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
-import interface_adaptors.FinancialReport.FinancialReportPresenter;
+import interface_adaptors.financial_report.FinancialReportPresenter;
+import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.ViewManagerModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.FinancialReport.FinancialReportInputData;
-import use_case.FinancialReport.FinancialReportInteractor;
+import use_case.financial_report.FinancialReportInputData;
+import use_case.financial_report.FinancialReportInteractor;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -27,11 +28,13 @@ public class FinancialReportInteractorTest {
     private FinancialReportPresenter presenter;
     private FinancialReportInteractor interactor;
     private CSVUserAccountDataAccessObject userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
+    private FinancialReportViewModel viewModel = new FinancialReportViewModel();
+    private ViewManagerModel viewManagerModel = new ViewManagerModel();
 
     @BeforeEach
     public void setUp() {
         account = userAccountDataAccessObject.getById("id007");
-        presenter = new FinancialReportPresenter();
+        presenter = new FinancialReportPresenter(viewModel, viewManagerModel);
         userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
         interactor = new FinancialReportInteractor(account, presenter, userAccountDataAccessObject);
 
@@ -47,9 +50,9 @@ public class FinancialReportInteractorTest {
     }
 
     @Test
-    public void testGenerateReport() {
+    public void testexecute() {
         FinancialReportInputData inputData = new FinancialReportInputData("","id0", new Date(), new Date());
-        interactor.execute(inputData);
+        interactor.execute();
 
         String reportContent = presenter.getReportContent();
 

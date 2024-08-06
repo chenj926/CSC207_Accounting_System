@@ -30,15 +30,16 @@ public class PeriodicTransactionController {
     /**
      * Executes the periodic transaction process with the given transaction details.
      *
+     * @param id          the identification of the user
      * @param amount      the amount of the transaction
      * @param startDate   the start date of the transaction
      * @param description the description of the transaction
      * @param period      the period of the transaction
      * @param endDate     the end date of the transaction
      */
-    public void execute(String id, String amount, String startDate, String description, String period, String endDate, String category) {
-        PeriodicTransactionInputData periodicTransactionInputData = new PeriodicTransactionInputData(
-                id, amount, startDate, description, period, endDate, category);
+    public void execute(String id, String amount, String startDate, String description, String period, String endDate, String category, String date) {
+        PeriodicTransactionInputData periodicTransactionInputData = new PeriodicTransactionInputData(id,
+                amount, startDate, description, period, endDate, category, date);
         periodicTransactionInputBoundary.execute(periodicTransactionInputData);
         this.viewModel.resetState();
     }

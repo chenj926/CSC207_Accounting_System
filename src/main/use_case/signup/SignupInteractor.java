@@ -4,6 +4,8 @@ import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.UserAccount;
 import entity.account.AccountFactory;
 
+import java.time.LocalDate;
+
 /**
  * The SignupInteractor class implements the SignupInputBoundary interface.
  * It handles the signup process by validating the input data, interacting with the data access layer,
@@ -70,6 +72,7 @@ public class SignupInteractor implements SignupInputBoundary {
                 // create new user
                 UserAccount newUser = accountFactory.createUserAccount(signupInputData.getUsername(),
                         signupInputData.getPassword(), signupInputData.getIdentification());
+                newUser.setLastLoginDate(LocalDate.now());
                 userDataAccessObject.save(newUser);  // save this user
 
                 // prepare output to presenter

@@ -9,7 +9,7 @@ import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.logout.LogoutViewModel;
@@ -17,7 +17,7 @@ import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import view.FinancialReport.FinancialReportView;
+import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
 import view.login.LoginView;
@@ -184,6 +184,7 @@ public class ViewManagerModel {
                 OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this, oneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
+                System.out.println("manger: update once"); // debug
                 currentView = oneTimeTransactionView;
                 break;
             case "Periodic Transaction":

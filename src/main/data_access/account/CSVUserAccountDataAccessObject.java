@@ -16,6 +16,8 @@ import java.io.*;
 import java.nio.file.*;
 import java.util.*;
 
+import static java.lang.String.valueOf;
+
 /**
  * CSVUserAccountDataAccessObject provides methods to store and retrieve user account and transaction information from CSV files.
  * <p>
@@ -208,10 +210,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             float totalIncome = userAccount.getTotalIncome();
             float totalOutflow = userAccount.getTotalOutflow();
             float totalBalance = userAccount.getTotalBalance();
+            LocalDate lastLoginDate = userAccount.getLastLoginDate();
+            String stringLastLoginDate = valueOf(lastLoginDate);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
-                    totalOutflow, totalBalance);
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password, totalIncome,
+                    totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
             try {
@@ -332,7 +336,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             LocalDate date = oneTimeOutputData.getTransactionDate();
             String description = oneTimeOutputData.getTransactionDescription();
             String category = oneTimeOutputData.getTransactionCategory();
-            String dateString = String.valueOf(date);
+            String dateString = valueOf(date);
 
             return String.format("%s,%.2f,%s,%s,%s", id, amount, dateString, description, category);
         } else {
@@ -340,13 +344,15 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             float amount = periodicOutputData.getTransactionAmount();
             LocalDate startDate = periodicOutputData.getTransactionStartDate();
             LocalDate endDate = periodicOutputData.getTransactionEndDate();
+            LocalDate date = periodicOutputData.getTransactionDate();
             String description = periodicOutputData.getTransactionDescription();
             int period = periodicOutputData.getTransactionPeriod();
             String category = periodicOutputData.getTransactionCategory();
-            String startDateString = String.valueOf(startDate);
-            String endDateString = String.valueOf(endDate);
+            String startDateString = valueOf(startDate);
+            String endDateString = valueOf(endDate);
+            String dateString = valueOf(date);
 
-            return String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, "", description, category, startDateString, period, endDateString);
+            return String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, dateString, description, category, startDateString, period, endDateString);
         }
     }
 
@@ -376,9 +382,11 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                     float income = userAccount.getTotalIncome();
                     float outflow = userAccount.getTotalOutflow();
                     float balance = userAccount.getTotalBalance();
+                    LocalDate lastLoginDate = userAccount.getLastLoginDate();
+                    String lastLoginDateString = valueOf(lastLoginDate);
 
-                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password,
-                            income, outflow, balance);
+                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
+                            income, outflow, balance, lastLoginDateString);
                     lines.add(updatedLine);
                 } else {
                     lines.add(line);
@@ -461,8 +469,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                     float income = Float.parseFloat(values[3]);
                     float outflow = Float.parseFloat(values[4]);
                     float balance = Float.parseFloat(values[5]);
+                    LocalDate lastLoginDate = LocalDate.parse(values[6]);
+
+
 
                     userAccount = new UserAccount(username, password, id, income, outflow, balance);
+                    userAccount.setLastLoginDate(lastLoginDate);
                     return userAccount;
                 }
             }
@@ -563,7 +575,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         } else {
             String id = values[0];
             float amount = Float.parseFloat(values[1]);
-
+            LocalDate date = LocalDate.parse(values[2]);
             String description = values[3];
             String category = values[4];
             LocalDate startDate = LocalDate.parse(values[5]);
@@ -571,6 +583,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             LocalDate endDate = LocalDate.parse(values[7]);
 
             transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);
+            transaction.setDate(date);
         }
 
         return transaction;

@@ -14,5 +14,6 @@ public class PeriodicInflow extends PeriodicTransaction {
     public PeriodicInflow(String identification, float amount, LocalDate startDate, String description,
                           LocalDate endDate, int period, String category) {
         super(identification, amount, startDate, description, endDate, period, category);
+
     }
 }
