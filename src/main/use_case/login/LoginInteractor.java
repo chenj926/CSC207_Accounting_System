@@ -48,15 +48,15 @@ public class LoginInteractor implements LoginInputBoundary {
 
             // check if username or password or id is valid (not empty)
             boolean validPassword = this.checkPassword(loginInputData.getPassword());
-            boolean validIdentificaiton = this.checkIdentification(loginInputData.getIdentification());
+            boolean validIdentification = this.checkIdentification(loginInputData.getIdentification());
 
-            if (!validPassword && !validIdentificaiton) {
+            if (!validPassword && !validIdentification) {
                 presenter.prepareFailView("Identification AND Password can not be empty!");
                 return;
             } else if (!validPassword) {
                 presenter.prepareFailView("Password can not be empty!");
                 return;
-            } else if (!validIdentificaiton) {
+            } else if (!validIdentification) {
                 presenter.prepareFailView("Identification can not be empty!");
                 return;
             } else {
@@ -80,13 +80,13 @@ public class LoginInteractor implements LoginInputBoundary {
                 if (!isLogin) {
                     presenter.prepareFailView("Incorrect Password!");
                 } else {
-                    // prepare output to presenter
-                    LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
-                    presenter.prepareSuccessView(loginOutputData);
-
                     // Notify mediator on successful login
                     UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccount.getIdentification(), LocalDate.now());
                     mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
+
+                    // prepare output to presenter
+                    LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
+                    presenter.prepareSuccessView(loginOutputData);
                     }
                 }
 

@@ -10,8 +10,10 @@ import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 
 /**
  * The UpdatePeriodicAtLoginInteractor class is responsible for updating periodic transactions
@@ -44,50 +46,87 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         String userId = updatePeriodicAtLoginInputData.getIdentification();
         LocalDate currentDate = updatePeriodicAtLoginInputData.getCurrentDate();
 
-        // get the user account, transactions, and the last login date
+        // get the user account, transactions
         UserAccount userAccount = userDataAccessObject.getById(userId);
-        List<Transaction> transactions = userDataAccessObject.readTransactions(userId);
         LocalDate lastLoginDate = userAccount.getLastLoginDate();
 
+        // Get the latest transactions for each unique set of properties
+        Map<String, PeriodicTransaction> latestTransactionsMap = getLatestTransactionsMap(userId, lastLoginDate);
 
-        for (Transaction transaction : transactions) {
-            // If the transaction is the most recently updated periodic transaction
-            if ((transaction instanceof PeriodicTransaction) && (transaction.getDate() == lastLoginDate)) {
-
-                // Get transaction information
-                PeriodicTransaction periodicTransaction = (PeriodicTransaction) transaction;
-                LocalDate endDate = periodicTransaction.getEndDate();
-                LocalDate lastRecordedDate = periodicTransaction.getDate();
-                LocalDate date = lastRecordedDate.plusDays(1); // start from the day after the last recorded date
-                String period = periodicTransaction.getPeriod();
-
-                // get the correspond chronoUnit;
-                ChronoUnit unit = getChronoUnit(period);
-                int customPeriod = validateAndParsePeriod(period);
-
-                // Ensure we do not go beyond currentDate or endDate
-                while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
-                    if (periodicTransaction.getAmount() >= 0) {
-                        processInflow(userAccount, periodicTransaction, userDataAccessObject, date);
-                    } else {
-                        processOutflow(userAccount, periodicTransaction, userDataAccessObject, date);
-                    }
-
-                    // update date
-                    if (unit != ChronoUnit.DAYS) {
-                        date = date.plus(1, unit);
-                    } else if (customPeriod == 0) {
-                        date = date.plus(1, unit);
-                    } else {
-                        date = date.plusDays(customPeriod);
-                    }
-
-                }
-            }
+        // Process each latest transaction from the last recorded date up to the current date
+        for (PeriodicTransaction periodicTransaction : latestTransactionsMap.values()) {
+            System.out.println("process transaction");
+            processTransaction(userAccount, periodicTransaction, currentDate);
         }
+
         userAccount.setLastLoginDate(currentDate);
         userDataAccessObject.update(userAccount);
 
+    }
+
+
+    private Map<String, PeriodicTransaction> getLatestTransactionsMap(String userId, LocalDate lastLoginDate) {
+        List<Transaction> transactions = userDataAccessObject.readTransactions(userId);
+        Map<String, PeriodicTransaction> latestTransactionsMap = new HashMap<>();
+
+        for (Transaction transaction : transactions) {
+            if (transaction instanceof PeriodicTransaction) {
+                PeriodicTransaction periodicTransaction = (PeriodicTransaction) transaction;
+                String uniqueKey = getUniqueKey(periodicTransaction);
+
+                // Ensure we are considering transactions strictly before the last login date
+                if (periodicTransaction.getDate().isBefore(lastLoginDate)) {
+                    if (!latestTransactionsMap.containsKey(uniqueKey) || periodicTransaction.getDate().isAfter(latestTransactionsMap.get(uniqueKey).getDate())) {
+                        latestTransactionsMap.put(uniqueKey, periodicTransaction);
+                    }
+                }
+            }
+        }
+
+        return latestTransactionsMap;
+    }
+
+    private String getUniqueKey(PeriodicTransaction periodicTransaction) {
+        return periodicTransaction.getTransactionCategory() + "|" +
+                periodicTransaction.getDescription() + "|" +
+                periodicTransaction.getAmount() + "|" +
+                periodicTransaction.getStartDate().toString() + "|" +
+                periodicTransaction.getEndDate().toString() + "|" +
+                periodicTransaction.getPeriod() + "|" +
+                (periodicTransaction.getAmount() >= 0 ? "inflow" : "outflow");
+    }
+
+    private void processTransaction(UserAccount userAccount, PeriodicTransaction periodicTransaction, LocalDate currentDate) {
+        LocalDate endDate = periodicTransaction.getEndDate();
+        LocalDate lastRecordedDate = periodicTransaction.getDate();
+        LocalDate date = lastRecordedDate.plusDays(1); // start from the day after the last recorded date
+        String period = periodicTransaction.getPeriod();
+
+        // Get the corresponding ChronoUnit
+        ChronoUnit unit = getChronoUnit(period);
+        int customPeriod = validateAndParsePeriod(period);
+
+        // Ensure we do not go beyond currentDate or endDate
+        while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
+            if (periodicTransaction.getAmount() >= 0) {
+                processInflow(userAccount, periodicTransaction, userDataAccessObject, date);
+            } else {
+                processOutflow(userAccount, periodicTransaction, userDataAccessObject, date);
+            }
+
+            // Update date
+            date = getNextDate(date, unit, customPeriod);
+        }
+    }
+
+    private LocalDate getNextDate(LocalDate date, ChronoUnit unit, int customPeriod) {
+        if (unit != ChronoUnit.DAYS) {
+            return date.plus(1, unit);
+        } else if (customPeriod == 0) {
+            return date.plus(1, ChronoUnit.DAYS);
+        } else {
+            return date.plusDays(customPeriod);
+        }
     }
 
     /**
