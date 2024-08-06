@@ -22,23 +22,70 @@ import java.security.GeneralSecurityException;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The {@code GoogleDriveAPI} class provides methods to interact with Google Drive,
+ * including authorization, file upload, and file update functionalities.
+ *
+ * <p>This class is designed to facilitate file operations on Google Drive using the
+ * Google Drive API. It handles authentication and manages file upload or update
+ * based on whether the file already exists on the drive.
+ *
+ * <p>Example usage:
+ * <pre>
+ * {@code
+ * public static void main(String... args) throws IOException, GeneralSecurityException {
+ *     final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+ *     Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+ *             .setApplicationName(APPLICATION_NAME)
+ *             .build();
+ *
+ *     FileList result = service.files().list()
+ *             .setPageSize(10)
+ *             .setFields("nextPageToken, files(id, name)")
+ *             .execute();
+ *     List<File> files = result.getFiles();
+ *     if (files == null || files.isEmpty()) {
+ *         System.out.println("No files found.");
+ *     } else {
+ *         System.out.println("Files:");
+ *         for (File file : files) {
+ *             System.out.printf("%s (%s)\n", file.getName(), file.getId());
+ *         }
+ *
+ *         uploadOrUpdateFile(service, "src/main/data/transaction/userAccountTransactions.csv", "text/csv", "userAccountTransactions.csv");
+ *         uploadOrUpdateFile(service, "src/main/data/accounts/sharedAccounts.csv", "text/csv", "sharedAccounts.csv");
+ *         uploadOrUpdateFile(service, "src/main/data/transaction/sharedAccountTransactions.csv", "text/csv", "sharedAccountTransactions.csv");
+ *     }
+ * }
+ * }
+ * </pre>
+ *
+ * @see com.google.api.client.googleapis.javanet.GoogleNetHttpTransport
+ * @see com.google.api.services.drive.Drive
+ * @see com.google.api.client.auth.oauth2.Credential
+ * @author dana
+ */
 public class GoogleDriveAPI {
     private static final String APPLICATION_NAME = "Drive API Java Quickstart";
     private static final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
     private static final String TOKENS_DIRECTORY_PATH = "tokens";
-
     private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
+    /**
+     * Gets the credentials required to access Google Drive.
+     *
+     * @param HTTP_TRANSPORT the network HTTP transport
+     * @return the Credential object containing the authenticated user's credentials
+     * @throws IOException if there is an error reading the credentials file
+     */
     private static Credential getCredentials(final NetHttpTransport HTTP_TRANSPORT) throws IOException {
-        // Load client secrets.
         InputStream in = GoogleDriveAPI.class.getResourceAsStream(CREDENTIALS_FILE_PATH);
         if (in == null) {
             throw new FileNotFoundException("Resource not found: " + CREDENTIALS_FILE_PATH);
         }
         GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
 
-        // Build flow and trigger user authorization request.
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 HTTP_TRANSPORT, JSON_FACTORY, clientSecrets, SCOPES)
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
@@ -49,25 +96,16 @@ public class GoogleDriveAPI {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-//    private static void uploadFile(Drive service) throws IOException {
-//        File fileMetadata = new File();
-//        fileMetadata.setName("userAccountTransactions.csv");
-//        java.io.File filePath = new java.io.File("src/main/data/transaction/userAccountTransactions.csv");
-//        FileContent mediaContent = new FileContent("text/csv", filePath);
-//
-//        try {
-//            File file = service.files().create(fileMetadata, mediaContent)
-//                    .setFields("id")
-//                    .execute();
-//            System.out.println("File ID: " + file.getId());
-//        } catch (GoogleJsonResponseException e) {
-//            System.err.println("Unable to upload file: " + e.getDetails());
-//            throw e;
-//        }
-//    } this is only for upload file but not for update file
-
+    /**
+     * Uploads a file to Google Drive or updates it if it already exists.
+     *
+     * @param service       the Drive service instance
+     * @param localFilePath the local file path of the file to be uploaded or updated
+     * @param mimeType      the MIME type of the file
+     * @param fileName      the name of the file on Google Drive
+     * @throws IOException if there is an error during the file operation
+     */
     public static void uploadOrUpdateFile(Drive service, String localFilePath, String mimeType, String fileName) throws IOException {
-        // Check if the file already exists on Google Drive
         String fileId = null;
         FileList result = service.files().list()
                 .setQ("name='" + fileName + "' and mimeType='" + mimeType + "'")
@@ -83,7 +121,6 @@ public class GoogleDriveAPI {
         FileContent mediaContent = new FileContent(mimeType, filePath);
 
         if (fileId != null) {
-            // Update the existing file
             try {
                 File file = service.files().update(fileId, null, mediaContent)
                         .setFields("id")
@@ -94,7 +131,6 @@ public class GoogleDriveAPI {
                 throw e;
             }
         } else {
-            // Create a new file
             File fileMetadata = new File();
             fileMetadata.setName(fileName);
             try {
@@ -109,6 +145,13 @@ public class GoogleDriveAPI {
         }
     }
 
+    /**
+     * The main method to demonstrate Google Drive API usage.
+     *
+     * @param args the command-line arguments
+     * @throws IOException              if there is an error during the API call
+     * @throws GeneralSecurityException if there is a security error
+     */
     public static void main(String... args) throws IOException, GeneralSecurityException {
         final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
         Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
@@ -131,8 +174,6 @@ public class GoogleDriveAPI {
             uploadOrUpdateFile(service, "src/main/data/transaction/userAccountTransactions.csv", "text/csv", "userAccountTransactions.csv");
             uploadOrUpdateFile(service, "src/main/data/accounts/sharedAccounts.csv", "text/csv", "sharedAccounts.csv");
             uploadOrUpdateFile(service, "src/main/data/transaction/sharedAccountTransactions.csv", "text/csv", "sharedAccountTransactions.csv");
-
         }
     }
 }
-
