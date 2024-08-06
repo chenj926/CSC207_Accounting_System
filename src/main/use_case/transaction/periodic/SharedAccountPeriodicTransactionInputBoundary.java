@@ -1,7 +1,5 @@
 package use_case.transaction.periodic;
 
-import entity.account.SharedAccount;
-import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.TransactionInputBoundary;
 
 /**
@@ -11,11 +9,4 @@ import use_case.transaction.TransactionInputBoundary;
  *
  */
 public interface SharedAccountPeriodicTransactionInputBoundary extends TransactionInputBoundary<SharedAccountPeriodicTransactionInputData> {
-    /**
-     * Executes the periodic transaction operation for a shared account.
-     *
-     * @param inputData the input data for the periodic transaction operation
-     * @return the output data of the periodic transaction operation
-     */
-    SharedAccountPeriodicTransactionOutputData execute(SharedAccountPeriodicTransactionInputData inputData);
 }

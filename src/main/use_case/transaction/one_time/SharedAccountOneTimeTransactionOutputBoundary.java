@@ -10,19 +10,4 @@ import use_case.transaction.TransactionOutputBoundary;
  *
  */
 public interface SharedAccountOneTimeTransactionOutputBoundary extends TransactionOutputBoundary<SharedAccountOneTimeTransactionOutputData> {
-    /**
-     * Prepares the view for a successful one-time transaction operation for a shared account.
-     *
-     * @param outputData the output data for the successful one-time transaction operation
-     * @return the view representation of the successful one-time transaction operation
-     */
-    Object onSuccess(SharedAccountOneTimeTransactionOutputData outputData);
-
-    /**
-     * Prepares the view for a failed one-time transaction operation for a shared account.
-     *
-     * @param outputData the output data for the failed one-time transaction operation
-     * @return the view representation of the failed one-time transaction operation
-     */
-    Object onFailure(SharedAccountOneTimeTransactionOutputData outputData);
 }

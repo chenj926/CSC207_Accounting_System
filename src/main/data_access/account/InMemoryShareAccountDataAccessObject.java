@@ -1,8 +1,11 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * In-memory data access object (DAO) for shared account operations.
@@ -20,6 +23,11 @@ import java.util.*;
 public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAccessInterface{
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
 
+
+    @Override
+    public boolean login(SharedAccount sharedAccount) {
+        return shareAcc.containsKey(sharedAccount.getUsername());
+    }
     /**
      * Checks if a shared account exists with the given identification.
      *
@@ -49,6 +57,22 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         shareAcc.remove(sharedAccountId);
     }
 
+    @Override
+    public void saveSharedTransaction(
+            SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+            SharedAccountPeriodicTransactionOutputData periodicOutputData,
+            boolean isPeriodic
+    ) {
+        if (isPeriodic) {
+            System.out.println("Saving shared account periodic transaction data...");
+            // Implementation details for saving periodic transactions
+        } else {
+            System.out.println("Saving shared account one-time transaction data...");
+            // Implementation details for saving one-time transactions
+        }
+    }
+
+
     /**
      * Retrieves a shared account by its unique identification.
      *
@@ -58,6 +82,8 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     public SharedAccount getById(String sharedAccountId) {
         return shareAcc.get(sharedAccountId);
     }
+
+
 
     /**
      * Retrieves all shared accounts.

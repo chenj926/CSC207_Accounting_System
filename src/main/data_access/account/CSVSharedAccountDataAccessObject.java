@@ -8,10 +8,15 @@ import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import java.time.LocalDate;
 
@@ -31,15 +36,42 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
     private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
 
-    private final Path sharedAccountsCsvPath;
-    /**
-     * Constructs a new instance of {@code CSVSharedAccountDataAccessObject}.
-     * Initializes the CSV-based data access object for shared accounts.
-     */
+    private final Path sharedAccountsTransactionsCsvPath;
+
     public CSVSharedAccountDataAccessObject() {
-        super();
-        this.sharedAccountsCsvPath = Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH);
+        this.sharedAccountsTransactionsCsvPath = Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH);
     }
+
+    /**
+     * Logs in a shared account by verifying the identification and password.
+     * <p>
+     * This method reads shared account data from the CSV file and checks if the provided credentials
+     * match any existing shared account.
+     * </p>
+     *
+     * @param sharedAccount the shared account to authenticate
+     * @return {@code true} if the credentials match an existing shared account; {@code false} otherwise
+     */
+    @Override
+    public boolean login(SharedAccount sharedAccount) {
+        try (BufferedReader br = Files.newBufferedReader(sharedAccountsTransactionsCsvPath)) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                if (values.length >= 2) {  // Ensure there are enough fields to prevent ArrayIndexOutOfBoundsException
+                    String id = values[0];
+                    String password = values[1];
+                    if (id.equals(sharedAccount.getIdentification()) && password.equals(sharedAccount.getPassword())) {
+                        return true;
+                    }
+                }
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading the CSV file: " + e.getMessage());
+        }
+        return false;
+    }
+
 
     /**
      * Checks if a shared account exists by its identification.
@@ -329,6 +361,78 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
             }
         }
         return null;
+    }
+
+
+    @Override
+    public void saveSharedTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                SharedAccountPeriodicTransactionOutputData periodicOutputData,
+                                boolean isPeriodic) {
+        String transactionInfo;
+
+        if (!isPeriodic) {
+            // Get the CSV line with one-time transaction information
+            transactionInfo = getTransactionInfo(oneTimeOutputData, null, false);
+        } else {
+            // Get the CSV line with periodic transaction information
+            transactionInfo = getTransactionInfo(null, periodicOutputData, true);
+        }
+
+        // Save the transaction information to the CSV file
+        try {
+            Path parentDir = sharedAccountsTransactionsCsvPath.getParent();
+
+            if (parentDir != null && !Files.exists(parentDir)) {
+                Files.createDirectories(parentDir);
+            }
+
+            if (!Files.exists(sharedAccountsTransactionsCsvPath)) {
+                Files.createFile(sharedAccountsTransactionsCsvPath);
+            }
+
+            // Write the transaction info to the CSV
+            try (BufferedWriter bout = Files.newBufferedWriter(sharedAccountsTransactionsCsvPath, StandardOpenOption.APPEND)) {
+                bout.write(transactionInfo);
+                bout.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Failed to write to file: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Generates a CSV string representation of a transaction.
+     *
+     * @param oneTimeOutputData   the one-time transaction data
+     * @param periodicOutputData  the periodic transaction data
+     * @param isPeriodic          true if the transaction is periodic, false if it is one-time
+     * @return the CSV string representation of the transaction
+     */
+    private String getTransactionInfo(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                      SharedAccountPeriodicTransactionOutputData periodicOutputData,
+                                      boolean isPeriodic) {
+        if (!isPeriodic && oneTimeOutputData != null) {
+            // One-time transaction fields
+            return String.format("%s,%f,%s,%s,%s,%s",
+                    oneTimeOutputData.getId(),
+                    oneTimeOutputData.getTransactionAmount(),
+                    oneTimeOutputData.getTransactionDate(),
+                    oneTimeOutputData.getTransactionDescription(),
+                    oneTimeOutputData.getTransactionCategory(),
+                    oneTimeOutputData.getResponsibleUserIds());
+        } else if (isPeriodic && periodicOutputData != null) {
+            // Periodic transaction fields
+            return String.format("%s,%f,%s,%s,%s,%s,%s",
+                    periodicOutputData.getId(),
+                    periodicOutputData.getTransactionAmount(),
+                    periodicOutputData.getTransactionStartDate(),
+                    periodicOutputData.getTransactionEndDate(),
+                    periodicOutputData.getTransactionPeriod(),
+                    periodicOutputData.getTransactionDescription(),
+                    periodicOutputData.getResponsibleUserIds());
+        }
+        return "";
     }
 }
 
