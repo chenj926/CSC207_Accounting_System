@@ -15,12 +15,24 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * TextToSpeech class provides functionality to convert text to speech using Google Text-to-Speech API.
+ * It can send a request to the API, receive the audio content in base64 format, and decode it to an MP3 file.
+ *
+ * @author Chi Fong
+ */
 
 public class TextToSpeech {
+
+    /**
+     * Converts the given text to speech and saves the audio as an MP3 file.
+     *
+     * @param text the text to be converted to speech
+     */
     public void speak(String text) {
         String message = String.format("{'input':{'text':'%s'},'voice':{'languageCode':'en-gb','name':'en-GB-Standard-A','ssmlGender':'FEMALE'},'audioConfig':{'audioEncoding':'MP3'}}", text);
-        String audioFilePath = "./src/main/data/AudioFiles/Audio.mp3";
-        String audioTextFilePath = "./src/main/data/AudioFiles/Audio.txt";
+        String audioFilePath = "./src/main/data/audio_files/Audio.mp3";
+        String audioTextFilePath = "./src/main/data/audio_files/Audio.txt";
         try {
             HttpRequest postRequest = HttpRequest.newBuilder()
                     .uri(new URI("https://texttospeech.googleapis.com/v1/text:synthesize"))
@@ -46,6 +58,12 @@ public class TextToSpeech {
 
 
     }
+    /**
+     * Executes a shell command and prints the output and error streams.
+     *
+     * @param command the command to be executed
+     * @throws Exception if an error occurs during command execution
+     */
 
     public void executeShellCommand(String command) throws Exception {
         ProcessBuilder processBuilder = new ProcessBuilder();

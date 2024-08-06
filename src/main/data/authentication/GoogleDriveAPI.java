@@ -174,6 +174,7 @@ public class GoogleDriveAPI {
             uploadOrUpdateFile(service, "src/main/data/transaction/userAccountTransactions.csv", "text/csv", "userAccountTransactions.csv");
             uploadOrUpdateFile(service, "src/main/data/accounts/sharedAccounts.csv", "text/csv", "sharedAccounts.csv");
             uploadOrUpdateFile(service, "src/main/data/transaction/sharedAccountTransactions.csv", "text/csv", "sharedAccountTransactions.csv");
+            uploadOrUpdateFile(service, "src/main/data/accounts/userAccounts.csv", "text/csv", "userAccounts.csv");
         }
     }
 }
