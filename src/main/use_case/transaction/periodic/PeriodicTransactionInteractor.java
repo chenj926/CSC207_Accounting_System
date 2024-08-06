@@ -256,9 +256,12 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      */
     private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
-        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
+//        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
+//                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
+
+        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
+                period, category);
 
         // Update transaction date
         periodicInflow.setDate(transactionDate);
@@ -298,9 +301,11 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
     private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
                                            LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
         // Create a new PeriodicOutflow object
-        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
+//        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
+//                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
         // ?: if true (int) it, false, remain it as custom period
+        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
+                period, category);
 
         // Update transaction date
         periodicOutflow.setDate(transactionDate);

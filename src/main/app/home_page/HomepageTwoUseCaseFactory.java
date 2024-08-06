@@ -2,19 +2,11 @@ package app.home_page;
 
 import data_access.DAOFactory;
 import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
-import interface_adaptors.FinancialReport.FinancialReportController;
-import interface_adaptors.FinancialReport.FinancialReportPresenter;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.homepage.HomepageTwoController;
 import interface_adaptors.homepage.HomepageTwoPresenter;
 import interface_adaptors.homepage.HomepageTwoViewModel;
-import interface_adaptors.transaction.TransactionViewModel;
-import use_case.FinancialReport.FinancialReportInteractor;
-import use_case.FinancialReport.FinancialReportOutputBoundary;
 import use_case.homepage.HomepageTwoInteractor;
-import view.FinancialReport.FinancialReportView;
 import view.home_page.HomepageTwoView;
 
 import javax.swing.*;

@@ -28,7 +28,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
     private LocalDate transactionDate;
-    private int transactionPeriod;
+    private String transactionPeriod;
 
     /**
      * Constructs a PeriodicTransactionOutputData object for an inflow transaction with the specified details.
@@ -77,7 +77,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
      *
      * @return the period of the transaction
      */
-    public int getTransactionPeriod() {
+    public String getTransactionPeriod() {
         return this.transactionPeriod;
     }
 
@@ -114,6 +114,6 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
      *
      * @param transactionPeriod the new period of the transaction
      */
-    public void setTransactionPeriod(int transactionPeriod) {this.transactionPeriod = transactionPeriod; }
+    public void setTransactionPeriod(String transactionPeriod) {this.transactionPeriod = transactionPeriod; }
 }
 

@@ -346,13 +346,13 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             LocalDate endDate = periodicOutputData.getTransactionEndDate();
             LocalDate date = periodicOutputData.getTransactionDate();
             String description = periodicOutputData.getTransactionDescription();
-            int period = periodicOutputData.getTransactionPeriod();
+            String period = periodicOutputData.getTransactionPeriod();
             String category = periodicOutputData.getTransactionCategory();
             String startDateString = valueOf(startDate);
             String endDateString = valueOf(endDate);
             String dateString = valueOf(date);
 
-            return String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, dateString, description, category, startDateString, period, endDateString);
+            return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, dateString, description, category, startDateString, period, endDateString);
         }
     }
 
@@ -458,6 +458,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             String line;
             while ((line = bin.readLine()) != null) {
 //                line = bin.readLine();
+                System.out.println("debug in DAO"+line);
                 String[] values = line.split(",");
 
                 // we only compare the id
@@ -579,7 +580,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             String description = values[3];
             String category = values[4];
             LocalDate startDate = LocalDate.parse(values[5]);
-            int period = Integer.parseInt(values[6]);
+            String period = values[6];
             LocalDate endDate = LocalDate.parse(values[7]);
 
             transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);

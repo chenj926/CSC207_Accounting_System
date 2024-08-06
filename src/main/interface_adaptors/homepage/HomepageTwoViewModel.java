@@ -1,6 +1,5 @@
 package interface_adaptors.homepage;
 
-import interface_adaptors.FinancialReport.FinancialReportState;
 import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;

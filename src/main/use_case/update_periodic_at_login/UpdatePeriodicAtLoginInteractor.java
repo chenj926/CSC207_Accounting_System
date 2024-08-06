@@ -9,6 +9,7 @@ import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
 
@@ -40,17 +41,29 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
                 LocalDate endDate = periodicTransaction.getEndDate();
                 LocalDate lastRecordedDate = periodicTransaction.getDate();
                 LocalDate date = lastRecordedDate.plusDays(1); // start from the day after the last recorded date
+                String period = periodicTransaction.getPeriod();
+
+                // get the correspond chronoUnit;
+                ChronoUnit unit = getChronoUnit(period);
+                int customPeriod = validateAndParsePeriod(period);
 
                 // Ensure we do not go beyond currentDate or endDate
                 while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
                     if (periodicTransaction.getAmount() >= 0) {
                         processInflow(userAccount, periodicTransaction, userDataAccessObject, date);
                     } else {
-                        processInflow(userAccount, periodicTransaction, userDataAccessObject, date);
+                        processOutflow(userAccount, periodicTransaction, userDataAccessObject, date);
                     }
 
                     // update date
-                    date = date.plusDays(periodicTransaction.getPeriod());
+                    if (unit != ChronoUnit.DAYS) {
+                        date = date.plus(1, unit);
+                    } else if (customPeriod == 0) {
+                        date = date.plus(1, unit);
+                    } else {
+                        date = date.plusDays(customPeriod);
+                    }
+//                    date = date.plusDays(periodicTransaction.getPeriod());
 
                 }
             }
@@ -58,6 +71,46 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         userAccount.setLastLoginDate(currentDate);
         userDataAccessObject.update(userAccount);
 
+    }
+
+    /**
+     * Returns the ChronoUnit corresponding to the given period string.
+     * <p>
+     * If the period is not one of the predefined types, it defaults to ChronoUnit.DAYS.
+     * </p>
+     *
+     * @param period the transaction period as a string
+     * @return the corresponding ChronoUnit
+     */
+    private ChronoUnit getChronoUnit(String period) {
+        switch (period) {
+            case "day":
+                return ChronoUnit.DAYS;
+            case "week":
+                return ChronoUnit.WEEKS;
+            case "month":
+                return ChronoUnit.MONTHS;
+            case "year":
+                return ChronoUnit.YEARS;
+            default:
+                return ChronoUnit.DAYS;
+        }
+    }
+
+    private int validateAndParsePeriod(String period) {
+        ArrayList<String> periodTypes = new ArrayList<>();
+        periodTypes.add("day");
+        periodTypes.add("week");
+        periodTypes.add("month");
+        periodTypes.add("year");
+
+        if (periodTypes.contains(period)) {
+            return 0;
+        }
+
+        // the period is prechecked in interactor and stored, so no need to check again
+        int customPeriod = Integer.parseInt(period);
+        return customPeriod;
     }
 
     private void processInflow(UserAccount userAccount, PeriodicTransaction periodicTransaction, UserAccountDataAccessInterface userDataAccessObject, LocalDate date){

@@ -40,7 +40,6 @@ public class LoginMediator {
 
     public void notifyLoginResult(boolean success, UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {
         if (success) {
-
             updatePeriodicAtLoginInteractor.execute(updatePeriodicAtLoginInputData);
         }
     }

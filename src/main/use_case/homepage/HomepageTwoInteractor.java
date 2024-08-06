@@ -2,7 +2,6 @@ package use_case.homepage;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
-import use_case.FinancialReport.FinancialReportOutputBoundary;
 
 public class HomepageTwoInteractor implements HomepageTwoInputBoundary{
     private final UserAccountDataAccessInterface userDataAccessObject;
