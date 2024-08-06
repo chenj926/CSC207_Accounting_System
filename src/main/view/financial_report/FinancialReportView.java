@@ -65,11 +65,8 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
     public void setVisible(boolean visible) {
         super.setVisible(visible);
         if (visible) {
-//            financialReportPanel.clearFields(); // Clear the fields when the view becomes visible
             String id = this.viewManager.getUserId();
-            System.out.println("id in view:\n"+id);  //debug
             this.financialReportController.execute(id);
-//            this.financialReportPanel.refreshData(); // Refresh the data
         }
     }
 }

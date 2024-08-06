@@ -49,11 +49,8 @@ public class HomepageTwoPanel extends JPanel{
 
         this.viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())){
-//                this.controller.execute(viewManager.getUserId());
-                System.out.println("property name: "+evt.getPropertyName());
                 HomepageTwoState state = viewModel.getState();
                 this.basicUserInfo = state.getBasicUserInfo();
-                System.out.println("in add property change:\n"+Arrays.toString(this.basicUserInfo));
                 updateUI(); // Update the UI components when state changes
             }
         });

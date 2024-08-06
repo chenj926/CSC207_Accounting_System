@@ -57,9 +57,6 @@ public class OneTimeTransactionInteractor extends TransactionInteractor implemen
     public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
         // set up basic vars
         String identification = oneTimeTransactionInputData.getId();
-        // debug
-        System.out.println("in interactor"+identification);
-
         String stringAmount = oneTimeTransactionInputData.getTransactionAmount();
         String date = oneTimeTransactionInputData.getTransactionDate();
         String description = oneTimeTransactionInputData.getTransactionDescription();

@@ -14,8 +14,8 @@ import java.io.*;
  * utilizing a CSV file for data storage.
  * </p>
  *
- * @author Jessica
- * @author Eric
+ * @author Jessica Chen
+ * @author Eric Chen
  */
 public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObject implements LogoutDataAccessInterface, LoginDataAccessInterface {
     private static final String FILE_PATH = CSVUserAccountDataAccessObject.USER_CSV_FILE_PATH;

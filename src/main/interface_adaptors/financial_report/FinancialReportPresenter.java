@@ -7,7 +7,7 @@ import use_case.financial_report.FinancialReportOutputData;
 /**
  * Implements the output boundary to present the financial report.
  *
- * @author :Chi Fong Eric
+ * @author Chi Fong, Eric Chen
  */
 public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     private String reportContent;
@@ -30,11 +30,7 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
         FinancialReportState state = this.viewModel.getState();
         this.reportContent = outputData.getReportContent();
 
-        // debug
-        System.out.println("presenter"+reportContent);
-
         state.setReportContent(reportContent);
-        System.out.println("presenter\nstate\n"+state.getReportContent());
         state.setNoTransaction(null);  // reset the no transaction error
         this.viewModel.setState(state);
         this.viewModel.setReportContent(state.getReportContent());
@@ -48,9 +44,14 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
     @Override
     public void prepareFailView(String noTransaction) {
         FinancialReportState state = this.viewModel.getState();
+
+        state.setReportContent(noTransaction);
         state.setNoTransaction(noTransaction);
         this.viewModel.setState(state);
+        this.viewModel.setReportContent(state.getReportContent());
         this.viewModel.firePropertyChanged();
+
+        this.viewManager.setActiveViewName(viewModel.getViewName());
     }
 
     /**

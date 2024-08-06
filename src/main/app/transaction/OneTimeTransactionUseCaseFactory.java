@@ -33,14 +33,8 @@ public class OneTimeTransactionUseCaseFactory {
                                                             OneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
         OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
-//        UserAccount userAccount = dataAccessObject.getById(oneTimeTransactionViewModel.getState().getId());
-        // Debug statement to check current user ID
-//        System.out.println("Current user ID in ViewManagerModel: " + viewManagerModel.getUserId());
 
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
-
-        // Debug statement to check retrieved user account ID
-//        System.out.println("Retrieved user account ID: " + userAccount.getIdentification());
 
         OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
         return new OneTimeTransactionController(interactor, oneTimeTransactionViewModel);

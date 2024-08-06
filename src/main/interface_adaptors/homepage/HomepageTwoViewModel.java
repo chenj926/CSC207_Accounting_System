@@ -4,8 +4,13 @@ import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.Arrays;
 
+/**
+ * The view model for the second homepage view. This class is responsible for
+ * managing the state and labels of the homepage and notifying listeners of any changes.
+ *
+ * @author Eric
+ */
 public class HomepageTwoViewModel extends ViewModel {
     // labels
     private final String TITLE_LABEL = "Account";
@@ -23,6 +28,7 @@ public class HomepageTwoViewModel extends ViewModel {
     private String[] basicUserInfo;
 
     private HomepageTwoState state = new HomepageTwoState();
+
     /**
      * Notifies listeners that the signup state has changed.
      */
@@ -35,6 +41,11 @@ public class HomepageTwoViewModel extends ViewModel {
         super("Homepage Two");
     }
 
+    /**
+     * Gets the label for the username.
+     *
+     * @return the username label
+     */
     public String getUSERNAME_LABEL() {
         return this.USERNAME_LABEL;
     }
@@ -109,25 +120,47 @@ public class HomepageTwoViewModel extends ViewModel {
      */
     public String getFINANCIAL_REPORT_BUTTON_LABEL() {return this.FINANCIAL_REPORT_BUTTON_LABEL;}
 
+    /**
+     * Gets the basic user information.
+     *
+     * @return an array containing the basic user information
+     */
     public String[] getBasicUserInfo() {
         return this.basicUserInfo;
     }
 
+    /**
+     * Gets the current state of the homepage.
+     *
+     * @return the current state
+     */
     public HomepageTwoState getState() {
         return this.state;
     }
 
     // setters
+    /**
+     * Sets the current state of the homepage and updates the basic user information.
+     *
+     * @param state the new state
+     */
     public void setState(HomepageTwoState state) {
         this.state = state;
         this.basicUserInfo = state.getBasicUserInfo();
-        System.out.println("view model\n"+ Arrays.toString(this.basicUserInfo));
     }
 
+    /**
+     * Sets the basic user information.
+     *
+     * @param basicUserInfo the basic user information to set
+     */
     public void setBasicUserInfo(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
     }
 
+    /**
+     * Resets the state to a new default state.
+     */
     public void resetState() {
         HomepageTwoState newState = new HomepageTwoState();
         setState(newState);
@@ -137,7 +170,6 @@ public class HomepageTwoViewModel extends ViewModel {
      * Notifies listeners that the signup state has changed.
      */
     public void firePropertyChanged() {
-        System.out.println("Firing property change event");
         support.firePropertyChange("state", null, this.state);
     }
 
@@ -148,7 +180,6 @@ public class HomepageTwoViewModel extends ViewModel {
      */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
-        System.out.println("Adding PropertyChangeListener");
         support.addPropertyChangeListener(listener);
     }
 }

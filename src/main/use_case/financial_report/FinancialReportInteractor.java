@@ -52,7 +52,6 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
      */
     @Override
     public void execute(FinancialReportInputData inputData) {
-        System.out.println("in finan intera:\n"+inputData.getIdentification());  //debug
         String reportContent = generateReportContent(inputData);
         // if there is at least 1 transaction
         if (!reportContent.equals("No transactions yet!")) {
@@ -73,7 +72,6 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
     private String generateReportContent(FinancialReportInputData inputData) {
         String id = inputData.getIdentification();
         //debug
-        System.out.println("id in gener:\n"+id);
         this.account = userDataAccessObject.getById(id);
         String username = this.account.getUsername();
         String totalIncome = String.valueOf(this.account.getTotalIncome());

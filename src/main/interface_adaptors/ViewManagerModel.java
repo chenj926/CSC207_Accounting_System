@@ -184,7 +184,6 @@ public class ViewManagerModel {
                 OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this, oneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
-                System.out.println("manger: update once"); // debug
                 currentView = oneTimeTransactionView;
                 break;
             case "Periodic Transaction":
