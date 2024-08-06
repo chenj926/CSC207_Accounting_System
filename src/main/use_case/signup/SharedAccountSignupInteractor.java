@@ -15,7 +15,7 @@ import java.util.Set;
  * This class assumes that it will receive a SharedAccountSignupInputData type as input.
  * </p>
  *
- * @author Dana
+ * @author Xile Chen, Eric Chen
  */
 public class SharedAccountSignupInteractor implements SharedAccountSignupInputBoundary {
 
@@ -49,54 +49,55 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
      * @param sharedSignupData the input data required for the signup process
      */
     public void execute(SharedAccountSignupInputData sharedSignupData) {
+        // init set of shareAcc ids
+        Set<String> userIds = sharedSignupData.getUserIds();
+        String shareAccountId = sharedSignupData.getSharedAccountId();
+
 
         // Validate input fields
-        boolean validSharedAccountId = checkIdentification(sharedSignupData.getSharedAccountId());
+        boolean validSharedAccountId = checkIdentification(shareAccountId);
         boolean validSharedPassword = checkPassword(sharedSignupData.getSharedPassword());
-        boolean validUser1Id = checkIdentification(sharedSignupData.getUser1Id());
-        boolean validUser2Id = checkIdentification(sharedSignupData.getUser2Id());
+        boolean validUserIds = this.checkUserIds(userIds);
+//
+//        boolean validUser1Id = checkIdentification(sharedSignupData.getUser1Id());
+//        boolean validUser2Id = checkIdentification(sharedSignupData.getUser2Id());
 
-        if (!validSharedAccountId || !validSharedPassword || !validUser1Id || !validUser2Id) {
+        // 第三个user呢？mark一下到时候改
+        if (!validSharedAccountId || !validSharedPassword || !validUserIds) {
             presenter.prepareFailView("All fields must be filled out!");
             return;
         }
 
         // Check if the shared account already exists
-        if (sharedDataAccessObject.existById(sharedSignupData.getSharedAccountId())) {
-            presenter.prepareFailView("A shared account with this ID already exists.");
+        if (sharedDataAccessObject.existById(shareAccountId)) {
+            presenter.prepareFailView("A shared account with this ID already exists!");
             return;
         }
 
         // Verify that user accounts exist
-        if (!userDataAccessObject.existById(sharedSignupData.getUser1Id()) ||
-                !userDataAccessObject.existById(sharedSignupData.getUser2Id())) {
-            presenter.prepareFailView("Both user accounts must exist before creating a shared account.");
+        boolean userIdsExist = this.checkUserIdsExist(userIds);
+        if (!userIdsExist) {
+            presenter.prepareFailView("All user accounts must exist before creating a shared account!");
             return;
         }
 
         // Create a new shared account
         SharedAccount newSharedAccount = accountFactory.createSharedAccount(
-                sharedSignupData.getSharedAccountId(),
+                shareAccountId,
                 sharedSignupData.getSharedPassword()
         );
-
-        // Add user IDs to the shared account
-        newSharedAccount.addUserIdentification(sharedSignupData.getUser1Id());
-        newSharedAccount.addUserIdentification(sharedSignupData.getUser2Id());
-
-        // Add additional users
-        Set<String> additionalUserIds = sharedSignupData.getAdditionalUserIds();
-        for (String userId : additionalUserIds) {
-            newSharedAccount.addUserIdentification(userId);
-        }
+        // update the user account ids into newSharedAccount
+        this.addIdToShareAccount(newSharedAccount, userIds);
 
         // Save the new shared account
         sharedDataAccessObject.save(newSharedAccount);
 
         // Prepare success view for shared account creation
-        SharedAccountSignupOutputData signupOutputData = new SharedAccountSignupOutputData(sharedSignupData.getSharedAccountId(), sharedSignupData.getUser1Id(), sharedSignupData.getUser2Id(), sharedSignupData.getAdditionalUserIds(), false);
+        SharedAccountSignupOutputData outputData = new SharedAccountSignupOutputData(
+                shareAccountId,
+                sharedSignupData.getUserIds());
 
-        presenter.prepareSuccessView(signupOutputData);
+        presenter.prepareSuccessView(outputData);
     }
 
     /**
@@ -117,6 +118,30 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
      */
     private boolean checkIdentification(String id) {
         return id != null && !id.isEmpty();
+    }
+
+    private boolean checkUserIds(Set<String> userIds) {
+        for (String userId : userIds) {
+            if (!this.checkIdentification(userId)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean checkUserIdsExist(Set<String> userIds) {
+        for (String userId : userIds) {
+            if (!this.userDataAccessObject.existById(userId)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void addIdToShareAccount(SharedAccount sharedAccount, Set<String> userIds) {
+        for (String userId : userIds) {
+            sharedAccount.addUserIdentification(userId);
+        }
     }
 }
 

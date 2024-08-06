@@ -106,6 +106,20 @@ public class DAOFactory {
         }
     }
 
+    public static synchronized SharedAccountLoginDataAccessInterface getSharedAccountLoginDataAccessObject() {
+        if (useInMemory) {
+            if (inMemoryLoginoutDAO == null) {
+                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
+            }
+            return inMemoryLoginoutDAO;
+        } else {
+            if (csvUserLoginoutDAO == null) {
+                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            }
+            return csvUserLoginoutDAO;
+        }
+    }
+
     /**
      * Returns a singleton instance of {@link LogoutDataAccessInterface}.
      * <p>

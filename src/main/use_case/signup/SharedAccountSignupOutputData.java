@@ -8,17 +8,17 @@ import java.util.Set;
  */
 public class SharedAccountSignupOutputData{
     private final String sharedAccountId;
-    private String user1Id;
-    private String user2Id;
-    private Set<String> additionalUserIds;
-    private final boolean sharedAccountExists;
+//    private String user1Id;
+//    private String user2Id;
+    private Set<String> userIds;
+//    private final boolean sharedAccountExists;
 
-    public SharedAccountSignupOutputData(String sharedAccountId, String user1Id, String user2Id, Set<String> additionalUserIds, boolean sharedAccountExists) {
+    public SharedAccountSignupOutputData(String sharedAccountId, Set<String> userIds) {
         this.sharedAccountId = sharedAccountId;
-        this.user1Id = user1Id;
-        this.user2Id = user2Id;
-        this.additionalUserIds = additionalUserIds;
-        this.sharedAccountExists = sharedAccountExists;
+//        this.user1Id = user1Id;
+//        this.user2Id = user2Id;
+        this.userIds = userIds;
+//        this.sharedAccountExists = sharedAccountExists;
     }
 
     /**
@@ -29,20 +29,24 @@ public class SharedAccountSignupOutputData{
     public String getSharedAccountId() {
         return this.sharedAccountId;
     }
+//
+//    public String getUser1Id() {return this.user1Id;}
+//
+//    public String getUser2Id() {return this.user2Id;}
 
-    public String getUser1Id() {return this.user1Id;}
+    public Set<String> getUserIds() {
+        return this.userIds;
+    }
 
-    public String getUser2Id() {return this.user2Id;}
-
-    public Set<String> getAdditionalUserIds() {return this.additionalUserIds;}
+}
 
     /**
      * Checks if the shared account already exists.
      *
      * @return true if the shared account already exists, false otherwise
      */
-    public boolean isSharedAccountExists() {
-        return this.sharedAccountExists;
-    }
-}
+//    public boolean isSharedAccountExists() {
+//        return this.sharedAccountExists;
+//    }
+//}
 

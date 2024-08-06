@@ -14,9 +14,9 @@ import java.util.Set;
 public class SharedAccountSignupState {
     private String sharedAccountId;
     private String sharedPassword;
-    private String user1Id;
-    private String user2Id;
-    private Set<String> additionalUserIds;
+//    private String user1Id;
+//    private String user2Id;
+    private Set<String> userIds;
     private String stateError;
     private String successMsg;
 
@@ -24,11 +24,9 @@ public class SharedAccountSignupState {
      * Constructs a SharedAccountSignupState object with initial empty or null values.
      */
     public SharedAccountSignupState() {
-        this.sharedAccountId = null;
-        this.sharedPassword = null;
-        this.user1Id = null;
-        this.user2Id = null;
-        this.additionalUserIds = new HashSet<>();
+        this.sharedAccountId = "";
+        this.sharedPassword = "";
+        this.userIds = new HashSet<>();
         this.stateError = null;
         this.successMsg = null;
     }
@@ -39,7 +37,7 @@ public class SharedAccountSignupState {
      * @return the shared account ID, or null if not set
      */
     public String getSharedAccountId() {
-        return sharedAccountId;
+        return this.sharedAccountId;
     }
 
     /**
@@ -57,7 +55,7 @@ public class SharedAccountSignupState {
      * @return the shared account password, or null if not set
      */
     public String getSharedPassword() {
-        return sharedPassword;
+        return this.sharedPassword;
     }
 
     /**
@@ -74,39 +72,39 @@ public class SharedAccountSignupState {
      *
      * @return the ID of the first user, or null if not set
      */
-    public String getUser1Id() {
-        return user1Id;
+    public Set<String> getUserId() {
+        return this.userIds;
     }
 
-    /**
-     * Sets the ID of the first user.
-     *
-     * @param user1Id the ID of the first user to set
-     */
-    public void setUser1Id(String user1Id) {
-        this.user1Id = user1Id;
-    }
+//    /**
+//     * Sets the ID of the first user.
+//     *
+//     * @param user1Id the ID of the first user to set
+//     */
+//    public void setUser1Id(String user1Id) {
+//        this.user1Id = user1Id;
+//    }
 
-    /**
-     * Gets the ID of the second user.
-     *
-     * @return the ID of the second user, or null if not set
-     */
-    public String getUser2Id() {
-        return user2Id;
-    }
-
-    /**
-     * Sets the ID of the second user.
-     *
-     * @param user2Id the ID of the second user to set
-     */
-    public void setUser2Id(String user2Id) {
-        this.user2Id = user2Id;
-    }
+//    /**
+//     * Gets the ID of the second user.
+//     *
+//     * @return the ID of the second user, or null if not set
+//     */
+//    public String getUser2Id() {
+//        return user2Id;
+//    }
+//
+//    /**
+//     * Sets the ID of the second user.
+//     *
+//     * @param user2Id the ID of the second user to set
+//     */
+//    public void setUser2Id(String user2Id) {
+//        this.user2Id = user2Id;
+//    }
 
     public String getStateError() {
-        return stateError;
+        return this.stateError;
     }
 
     public void setStateError(String stateError) {
@@ -114,7 +112,7 @@ public class SharedAccountSignupState {
     }
 
     public String getSuccessMsg() {
-        return successMsg;
+        return this.successMsg;
     }
 
     public void setSuccessMsg(String successMsg) {
@@ -127,7 +125,7 @@ public class SharedAccountSignupState {
      * @param userId the user ID to add
      */
     public void addUserId(String userId) {
-        additionalUserIds.add(userId);
+        this.userIds.add(userId);
     }
 
     /**
@@ -136,34 +134,24 @@ public class SharedAccountSignupState {
      * @param userId the user ID to remove
      */
     public void removeUserId(String userId) {
-        additionalUserIds.remove(userId);
+        this.userIds.remove(userId);
     }
 
-    /**
-     * Gets the set of additional user IDs.
-     *
-     * @return the set of additional user IDs
-     */
-    public Set<String> getAdditionalUserIds() {
-        return new HashSet<>(additionalUserIds);
-    }
 
     /**
      * Sets the additional user IDs for the shared account.
      *
-     * @param additionalUserIds the new set of additional user IDs
+     * @param userIds the new set of additional user IDs
      */
-    public void setAdditionalUserIds(Set<String> additionalUserIds) {
-        this.additionalUserIds = new HashSet<>(additionalUserIds);
+    public void setUserIds(Set<String> userIds) {
+        this.userIds = new HashSet<>(userIds);
     }
 
     /**
      * Clears all user IDs from the state.
      */
     public void clearUserIds() {
-        user1Id = null;
-        user2Id = null;
-        additionalUserIds.clear();
+        this.userIds.clear();
     }
 
     /**
@@ -172,21 +160,16 @@ public class SharedAccountSignupState {
      * @return true if all fields are filled, false otherwise
      */
     public boolean isComplete() {
-        return sharedAccountId != null && !sharedAccountId.isEmpty() &&
-                sharedPassword != null && !sharedPassword.isEmpty() &&
-                user1Id != null && !user1Id.isEmpty() &&
-                user2Id != null && !user2Id.isEmpty();
+        return this.successMsg != null;
     }
 
     /**
      * Resets the state to its initial empty values.
      */
     public void reset() {
-        sharedAccountId = null;
-        sharedPassword = null;
-        user1Id = null;
-        user2Id = null;
-        additionalUserIds.clear();
+        this.sharedAccountId = null;
+        this.sharedPassword = null;
+        this.userIds.clear();
     }
 }
 

@@ -29,7 +29,7 @@ public class SignupViewModel extends ViewModel {
     /**
      * Constructs a SignupViewModel object with a specified view name.
      */
-    public SignupViewModel(String viewname) {
+    public SignupViewModel() {
         super("sign up");
     }
 
@@ -61,7 +61,6 @@ public class SignupViewModel extends ViewModel {
      */
     public String getID_LABEL() { return this.ID_LABEL; }
 
-
     /**
      * Gets the signup button label.
      *
@@ -81,7 +80,7 @@ public class SignupViewModel extends ViewModel {
      *
      * @return the current signup state
      */
-    public SignupState getState() { return state; }
+    public SignupState getState() { return this.state; }
 
     /**
      * Sets the current signup state.

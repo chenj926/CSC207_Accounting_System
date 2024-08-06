@@ -119,6 +119,7 @@ public class CSVUserLoginoutDataAccessObject extends CSVUserAccountDataAccessObj
      * @param sharedAccount the {@link SharedAccount} object containing the shared account's identification and password
      * @return {@code true} if the shared account is successfully logged in; {@code false} otherwise
      */
+    @Override
     public boolean login(SharedAccount sharedAccount) {
         try (BufferedReader bin = Files.newBufferedReader(sharedAccountCsvPath)) {
             String line;

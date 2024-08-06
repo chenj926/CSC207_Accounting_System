@@ -4,6 +4,7 @@ import data_access.*;
 import data_access.account.UserAccountDataAccessInterface;
 import data_access.authentication.LoginDataAccessInterface;
 import data_access.account.ShareAccountDataAccessInterface;
+import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginPresenter;
@@ -56,5 +57,32 @@ public class LoginUseCaseFactory {
         loginInteractor.setMediator(loginMediator);
         return new LoginController(loginMediator);
     }
+
+    public static SharedAccountLoginView create(ViewManagerModel viewManagerModel,
+                                                SharedAccountLoginViewModel viewModel) {
+        try {
+            SharedAccountLoginController controller = createSharedAccountUserLoginUseCase(viewManagerModel, viewModel);
+            return new SharedAccountLoginView(viewModel, controller, viewManagerModel);
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Could not open user data file.");
+        }
+        return null;
+    }
+
+    private static SharedAccountLoginController createSharedAccountUserLoginUseCase(ViewManagerModel viewManagerModel,
+                                                                       SharedAccountLoginViewModel viewModel) throws IOException {
+        SharedAccountLoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
+        UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
+
+        SharedAccountLoginOutputBoundary presenter = new SharedAccountLoginPresenter(viewManagerModel, viewModel);
+        SharedAccountLoginInteractor interactor = new SharedAccountLoginInteractor(loginDataAccessObject, presenter);
+
+        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
+
+        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        loginInteractor.setMediator(loginMediator);
+        return new SharedAccountLoginController(loginMediator);
+    }
+
 }
 

@@ -69,8 +69,8 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
 
         signupButton = new JButton(viewModel.getSignupButtonLabel());
         cancelButton = new JButton(viewModel.getCancelButtonLabel());
-        addUserButton = new JButton("Add User");
-        deleteUserButton = new JButton("Delete User");
+        addUserButton = new JButton("+");
+        deleteUserButton = new JButton("-");
 
         additionalUsersPanel = new JPanel(new GridBagLayout());
         additionalUserFields = new LinkedHashSet<>();  // Use LinkedHashSet to maintain insertion order
@@ -107,14 +107,14 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         // User 1 ID
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getUser1IdLabel()), constraints);
+        add(new JLabel(viewModel.getUserIdsLabel()), constraints);
         constraints.gridx = 1;
         add(user1IdField, constraints);
 
         // User 2 ID
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getUser2IdLabel()), constraints);
+        add(new JLabel(""), constraints);
         constraints.gridx = 1;
         add(user2IdField, constraints);
 
@@ -144,17 +144,20 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         signupButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                Set<String> additionalUserIds = new LinkedHashSet<>();
+
+                // 所有id都封装成一个set
+                Set<String> userIds = new LinkedHashSet<>();
+                // add the 1st 2 user id inputs
+                userIds.add(user1IdField.getText());
+                userIds.add(user2IdField.getText());
                 for (JTextField userField : additionalUserFields) {
-                    additionalUserIds.add(userField.getText());
+                    userIds.add(userField.getText());
                 }
 
                 signupController.execute(
                         sharedAccountIdField.getText(),
                         String.valueOf(sharedAccountPasswordField.getPassword()),
-                        user1IdField.getText(),
-                        user2IdField.getText(),
-                        additionalUserIds
+                        userIds
                 );
             }
         });
@@ -162,7 +165,7 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         addUserButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                viewModel.addMoreUserLabel();
+//                viewModel.addMoreUserLabel();
                 JTextField newUserField = new JTextField(20);
                 additionalUserFields.add(newUserField);
                 updateAdditionalUsersPanel();
@@ -179,7 +182,7 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
                     }
                     if (lastUserField != null) {
                         additionalUserFields.remove(lastUserField);
-                        viewModel.removeLastUserLabel();
+//                        viewModel.removeLastUserLabel();
                         updateAdditionalUsersPanel();
                     }
                 }
@@ -212,17 +215,27 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         userConstraints.insets = new Insets(5, 5, 5, 5);
 
         int row = 0;
-        for (String userLabel : viewModel.getAdditionalUserLabels()) {
+        for (JTextField userField : additionalUserFields) {
             userConstraints.gridx = 0;
             userConstraints.gridy = row;
-            additionalUsersPanel.add(new JLabel(userLabel), userConstraints);
+            userConstraints.gridwidth = 1;
+            additionalUsersPanel.add(new JLabel("User ID " + (row + 3) + ":"), userConstraints);
 
             userConstraints.gridx = 1;
-            JTextField userField = (JTextField) additionalUserFields.toArray()[row]; // Ensure order is maintained
             additionalUsersPanel.add(userField, userConstraints);
+
+            userConstraints.gridx = 2;
+            additionalUsersPanel.add(deleteUserButton, userConstraints);
 
             row++;
         }
+
+        // Add the "+" button at the end
+        userConstraints.gridx = 0;
+        userConstraints.gridy = row;
+        userConstraints.gridwidth = 2;
+        additionalUsersPanel.add(addUserButton, userConstraints);
+
         additionalUsersPanel.revalidate();
         additionalUsersPanel.repaint();
     }

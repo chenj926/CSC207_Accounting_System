@@ -25,11 +25,15 @@ public class SharedAccountSignupView extends JFrame{
      * @param sharedSignupController the controller for handling signup actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SharedAccountSignupView(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
+    public SharedAccountSignupView(SharedAccountSignupViewModel viewModel,
+                                   SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.sharedViewModel = viewModel;
         this.viewManager = viewManager;
-        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(sharedViewModel, sharedSignupController, viewManager);
+        this.sharedAccountSignupPanel = new SharedAccountSignupPanel(
+                sharedViewModel,
+                sharedSignupController,
+                this.viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -16,22 +16,21 @@ public class SharedAccountSignupViewModel extends ViewModel {
     private final String TITLE_LABEL = "Shared Account Sign Up";
     private final String SHARED_ACCOUNT_LABEL = "Set shared account id";
     private final String PASSWORD_LABEL = "Set shared account password";
-    private final String USER1_ID_LABEL = "Add user1 id";
-    private final String USER2_ID_LABEL = "Add user2 id";
+    private final String USER_IDS_LABEL = "Add users";
+//    private final String USER2_ID_LABEL = "Add user2 id";
 
-    private final String SIGNUP_BUTTON_LABEL = "Sign up";
+    private final String SIGNUP_BUTTON_LABEL = "Sign up share account";
     private final String CANCEL_BUTTON_LABEL = "Cancel";
 
     // List to hold additional user labels
     private final List<String> additionalUserLabels;
-
 
     private SharedAccountSignupState state = new SharedAccountSignupState();
 
     /**
      * Constructs a SharedAccountSignupViewModel object with the view name set to "shared account sign up".
      */
-    public SharedAccountSignupViewModel(String viewname) {
+    public SharedAccountSignupViewModel() {
         super("shared account sign up");
         this.additionalUserLabels = new ArrayList<>();
     }
@@ -62,10 +61,7 @@ public class SharedAccountSignupViewModel extends ViewModel {
      *
      * @return the identification label
      */
-    public String getUser1IdLabel() { return this.USER1_ID_LABEL; }
-
-    public String getUser2IdLabel() { return this.USER2_ID_LABEL; }
-
+    public String getUserIdsLabel() { return this.USER_IDS_LABEL; }
 
     /**
      * Gets the signup button label.
@@ -86,7 +82,7 @@ public class SharedAccountSignupViewModel extends ViewModel {
      *
      * @return the current signup state
      */
-    public SharedAccountSignupState getState() { return state; }
+    public SharedAccountSignupState getState() { return this.state; }
 
     /**
      * Sets the current signup state.
@@ -98,7 +94,7 @@ public class SharedAccountSignupViewModel extends ViewModel {
     }
 
     public void addMoreUserLabel() {
-        int nextUserNumber = additionalUserLabels.size() + 3; // Start counting from user3
+        int nextUserNumber = this.getState().getUserId().size();
         String newLabel = "Add user" + nextUserNumber + " ID";
         additionalUserLabels.add(newLabel);
     }

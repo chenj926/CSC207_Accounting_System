@@ -34,11 +34,9 @@ public class SharedAccountSignupPresenter implements SharedAccountSignupOutputBo
      */
     @Override
     public void prepareSuccessView(SharedAccountSignupOutputData data) {
-        if (!data.isSharedAccountExists()) {
-            SharedAccountSignupState signupState = sharedAccountSignupViewModel.getState();
-            signupState.setSuccessMsg("Shared account signed up successfully.");
-            sharedAccountSignupViewModel.firePropertyChanged();
-        }
+        SharedAccountSignupState signupState = sharedAccountSignupViewModel.getState();
+        signupState.setSuccessMsg("Shared account signed up successfully.");
+        sharedAccountSignupViewModel.firePropertyChanged();
 
         // Navigate to the home page after successful signup
         viewManagerModel.changeView("home page");

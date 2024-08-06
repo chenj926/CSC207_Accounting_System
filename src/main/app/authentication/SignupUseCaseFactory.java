@@ -51,7 +51,7 @@ public class SignupUseCaseFactory {
         SignupInteractor signupInteractor = new SignupInteractor(dataAccessObject, presenter, accountFactory);
 
         // Return the controller for standard signup
-        return new SignupController(signupInteractor); // Pass null for sharedInteractor
+        return new SignupController(signupInteractor); // Pass null for Interactor
     }
 
     private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
@@ -61,7 +61,7 @@ public class SignupUseCaseFactory {
         AccountFactory accountFactory = new AccountFactory();
 
         SharedAccountSignupInteractor signupInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, presenter, accountFactory);
-        return new SharedAccountSignupController(signupInteractor); // Pass null for standardInteractor
+        return new SharedAccountSignupController(signupInteractor); // Pass null for sharedInteractor
     }
 }
 

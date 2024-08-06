@@ -190,7 +190,7 @@ public class ViewManagerModel {
                 currentView = signupView;
                 break;
             case "shared account sign up":
-                SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel("shared account sign up");
+                SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
                 SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this, sharedSignupViewModel);
                 views.put("shared account sign up", sharedSignupView);
                 currentView = sharedSignupView;
@@ -201,17 +201,17 @@ public class ViewManagerModel {
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
-            case "Homepage Two":
-                HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
-                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
-                views.put("Homepage Two", homepageTwoView);
-                currentView = homepageTwoView;
             case "shared account log in":
                 SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
                 SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.createSharedAccount(this, sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
                 break;
+            case "Homepage Two":
+                HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
+                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
+                views.put("Homepage Two", homepageTwoView);
+                currentView = homepageTwoView;
             case "One Time Transaction":
                 OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this, oneTimeTransactionViewModel);

@@ -9,6 +9,8 @@ import java.util.Set;
 /**
  * The SharedAccountSignupController class handles user input for the shared account signup process.
  * It creates an input data object and delegates the execution to the signup interactor.
+ *
+ * @author Xile Chen, Eric Chen
  */
 public class SharedAccountSignupController {
     final SharedAccountSignupInputBoundary sharedAccountSignupInteractor;
@@ -27,18 +29,16 @@ public class SharedAccountSignupController {
      *
      * @param sharedAccountId       the shared account ID
      * @param sharedAccountPassword the shared account password
-     * @param user1Id               the first user's ID
-     * @param user2Id               the second user's ID
-     * @param additionalUserIds     a set of additional user IDs
+//     * @param user1Id               the first user's ID
+//     * @param user2Id               the second user's ID
+     * @param userIds     a set of additional user IDs
      */
-    public void execute(String sharedAccountId, String sharedAccountPassword, String user1Id, String user2Id, Set<String> additionalUserIds) {
+    public void execute(String sharedAccountId, String sharedAccountPassword, Set<String> userIds) {
         // Create input data object for the shared account signup
         SharedAccountSignupInputData sharedAccountSignupInputData = new SharedAccountSignupInputData(
                 sharedAccountId,
                 sharedAccountPassword,
-                user1Id,
-                user2Id,
-                additionalUserIds
+                userIds
         );
 
         // Execute the signup process using the interactor
