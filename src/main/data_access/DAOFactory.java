@@ -189,4 +189,18 @@ public class DAOFactory {
             return csvUserAccountDAO;
         }
     }
+
+    public static synchronized UserAccountDataAccessInterface getHomepageTwoDAO() {
+        if (useInMemory) {
+//            if (inMemoryPeriodicDataAccessObject == null) {
+//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+//            }
+            return inMemoryPeriodicDataAccessObject;
+        } else {
+            if (csvUserAccountDAO == null) {
+                csvUserAccountDAO = new CSVUserAccountDataAccessObject();
+            }
+            return csvUserAccountDAO;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package view.FinancialReport;
+package view.financial_report;
 
 import interface_adaptors.financial_report.FinancialReportController;
 import interface_adaptors.financial_report.FinancialReportViewModel;
@@ -7,6 +7,12 @@ import interface_adaptors.ViewManagerModel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The panel for displaying the financial report. This class is responsible for setting up
+ * the UI components, updating the view with report data, and handling user interactions.
+ *
+ * @author Eric Chen
+ */
 public class FinancialReportPanel extends JPanel {
     private final FinancialReportViewModel viewModel;
     private final FinancialReportController financialReportController;
@@ -21,44 +27,41 @@ public class FinancialReportPanel extends JPanel {
     private JButton backButton;
     private JScrollPane scrollPane;
 
-//    private JButton refreshButton;
-
+    /**
+     * Constructs a FinancialReportPanel with the specified view model, controller, and view manager.
+     *
+     * @param viewModel the view model to be used
+     * @param financialReportController the controller to handle report actions
+     * @param viewManager the view manager to handle view changes
+     */
     public FinancialReportPanel(FinancialReportViewModel viewModel,
                                 FinancialReportController financialReportController,
                                 ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.financialReportController = financialReportController;
         this.viewManager = viewManager;
+        this.reportTextArea = new JTextArea();
 
-        financialReportController.execute();  // get the financial report content first
+        this.viewModel.addPropertyChangeListener(evt -> {
+            if ("state".equals(evt.getPropertyName())){
+                this.reportTextArea.setText(viewModel.getReportContent());
 
-//        setupListeners();
+            }
+        });
+
         initializeComponents();
         setupUI();
         setupListeners();
     }
 
+    /**
+     * Initializes the UI components of the panel.
+     */
     private void initializeComponents() {
-//        financialReportController.execute();
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-
-//        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
-
-
-//        this.reportTextArea.setSelectionColor(Color.BLUE);
-//        this.reportTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
-//        this.reportTextArea.setEditable(false);
-
-//        this.scrollPane = new JScrollPane(new JTextArea(this.viewModel.getReportContent()));
-////        this.scrollPane = new JScrollPane(reportTextArea);
-//
-//
-//        this.scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-
-        this.reportTextArea = new JTextArea(this.viewModel.getReportContent());
         this.reportTextArea.setSelectionColor(Color.BLUE);
         this.reportTextArea.setFont(new Font("Arial", Font.PLAIN, 14));
         this.reportTextArea.setEditable(false);
@@ -70,6 +73,9 @@ public class FinancialReportPanel extends JPanel {
         this.backButton.setFont(new Font("Arial", Font.PLAIN, 16));
     }
 
+    /**
+     * Sets up the layout and adds the components to the panel.
+     */
     private void setupUI() {
         setLayout(new BorderLayout());
         setBackground(new Color(255, 255, 255));
@@ -81,7 +87,6 @@ public class FinancialReportPanel extends JPanel {
         centerPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         centerPanel.add(this.scrollPane, BorderLayout.CENTER);
 
-//        centerPanel.add(this.scrollPane);
         add(centerPanel, BorderLayout.CENTER);
 
         JPanel southPanel = new JPanel();
@@ -90,30 +95,27 @@ public class FinancialReportPanel extends JPanel {
         add(southPanel, BorderLayout.SOUTH);
     }
 
+    /**
+     * Sets up the listeners for user interactions.
+     */
     private void setupListeners() {
         this.backButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
-
-//        financialReportController.execute();
-//        refreshButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-////                refreshReport();
-//            }
-//        });
     }
 
-//    public void refreshReport() {
-//        financialReportController.refreshReport();
-//    }
-
-    public void displayReport(String reportContent) {
-        reportTextArea.setText(reportContent);
+    /**
+     * Refreshes the data by executing the financial report controller with the current user ID.
+     */
+    public void refreshData() {
+        financialReportController.execute(viewManager.getUserId());
     }
 
+    /**
+     * Clears the report text area.
+     */
     public void clearFields() {
-//        reportTextArea.setText("");
+        reportTextArea.setText("");
     }
 
 }

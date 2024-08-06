@@ -18,7 +18,7 @@ public class PeriodicTransaction extends Transaction {
 
     private LocalDate startDate;
     private LocalDate endDate;
-    private int period;
+    private String period;
 
     /**
      * Constructs a PeriodicTransaction object with the specified details.
@@ -31,7 +31,7 @@ public class PeriodicTransaction extends Transaction {
      * @param period         the period of the transaction in days
      */
     public PeriodicTransaction(String identification, float amount, LocalDate startDate, String description,
-                               LocalDate endDate, int period, String transactionCategory) {
+                               LocalDate endDate, String period, String transactionCategory) {
         this.identification = identification;
         this.amount = amount;
         this.startDate = startDate;
@@ -66,7 +66,7 @@ public class PeriodicTransaction extends Transaction {
      *
      * @return the period of the transaction
      */
-    public int getPeriod() {
+    public String getPeriod() {
         return this.period;
     }
 
@@ -94,7 +94,7 @@ public class PeriodicTransaction extends Transaction {
      *
      * @param period the new period of the transaction
      */
-    public void setPeriod(int period) {
+    public void setPeriod(String period) {
         this.period = period;
     }
 }

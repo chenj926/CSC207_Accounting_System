@@ -2,6 +2,7 @@ package entity.account;
 
 import entity.transaction.Transaction;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -62,6 +63,13 @@ public interface Account {
     List<Transaction> getTransactions();
 
     /**
+     * Gets the last login date of the account.
+     *
+     * @return the last login date
+     */
+    LocalDate getLastLoginDate();
+
+    /**
      * Sets the identification of the account.
      *
      * @param identification the new identification of the account
@@ -109,6 +117,13 @@ public interface Account {
      * @param transactions the new list of transactions of the account
      */
     void setTransactions(List<Transaction> transactions);
+
+    /**
+     * Sets the last login date.
+     *
+     * @param lastLoginDate the last login date of the account
+     */
+    void setLastLoginDate(LocalDate lastLoginDate);
 
     /**
      * Adds a transaction to the account.
