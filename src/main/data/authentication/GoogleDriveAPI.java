@@ -49,22 +49,64 @@ public class GoogleDriveAPI {
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
-    private static void uploadFile(Drive service) throws IOException {
-        File fileMetadata = new File();
-        fileMetadata.setName("userAccountTransactions.csv");
-        java.io.File filePath = new java.io.File("src/main/data/transaction/userAccountTransactions.csv");
-        FileContent mediaContent = new FileContent("text/csv", filePath);
+//    private static void uploadFile(Drive service) throws IOException {
+//        File fileMetadata = new File();
+//        fileMetadata.setName("userAccountTransactions.csv");
+//        java.io.File filePath = new java.io.File("src/main/data/transaction/userAccountTransactions.csv");
+//        FileContent mediaContent = new FileContent("text/csv", filePath);
+//
+//        try {
+//            File file = service.files().create(fileMetadata, mediaContent)
+//                    .setFields("id")
+//                    .execute();
+//            System.out.println("File ID: " + file.getId());
+//        } catch (GoogleJsonResponseException e) {
+//            System.err.println("Unable to upload file: " + e.getDetails());
+//            throw e;
+//        }
+//    } this is only for upload file but not for update file
 
-        try {
-            File file = service.files().create(fileMetadata, mediaContent)
-                    .setFields("id")
-                    .execute();
-            System.out.println("File ID: " + file.getId());
-        } catch (GoogleJsonResponseException e) {
-            System.err.println("Unable to upload file: " + e.getDetails());
-            throw e;
+    public static void uploadOrUpdateFile(Drive service, String localFilePath, String mimeType, String fileName) throws IOException {
+        // Check if the file already exists on Google Drive
+        String fileId = null;
+        FileList result = service.files().list()
+                .setQ("name='" + fileName + "' and mimeType='" + mimeType + "'")
+                .setSpaces("drive")
+                .setFields("files(id, name)")
+                .execute();
+        List<File> files = result.getFiles();
+        if (files != null && !files.isEmpty()) {
+            fileId = files.get(0).getId();
         }
 
+        java.io.File filePath = new java.io.File(localFilePath);
+        FileContent mediaContent = new FileContent(mimeType, filePath);
+
+        if (fileId != null) {
+            // Update the existing file
+            try {
+                File file = service.files().update(fileId, null, mediaContent)
+                        .setFields("id")
+                        .execute();
+                System.out.println("Updated File ID: " + file.getId());
+            } catch (GoogleJsonResponseException e) {
+                System.err.println("Unable to update file: " + e.getDetails());
+                throw e;
+            }
+        } else {
+            // Create a new file
+            File fileMetadata = new File();
+            fileMetadata.setName(fileName);
+            try {
+                File file = service.files().create(fileMetadata, mediaContent)
+                        .setFields("id")
+                        .execute();
+                System.out.println("Created File ID: " + file.getId());
+            } catch (GoogleJsonResponseException e) {
+                System.err.println("Unable to create file: " + e.getDetails());
+                throw e;
+            }
+        }
     }
 
     public static void main(String... args) throws IOException, GeneralSecurityException {
@@ -86,7 +128,10 @@ public class GoogleDriveAPI {
                 System.out.printf("%s (%s)\n", file.getName(), file.getId());
             }
 
-            uploadFile(service);
+            uploadOrUpdateFile(service, "src/main/data/transaction/userAccountTransactions.csv", "text/csv", "userAccountTransactions.csv");
+            uploadOrUpdateFile(service, "src/main/data/accounts/sharedAccounts.csv", "text/csv", "sharedAccounts.csv");
+            uploadOrUpdateFile(service, "src/main/data/transaction/sharedAccountTransactions.csv", "text/csv", "sharedAccountTransactions.csv");
+
         }
     }
 }
