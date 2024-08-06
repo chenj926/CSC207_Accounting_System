@@ -38,10 +38,10 @@ public class SignupUseCaseFactory {
 
         // Create the interactors for standard and shared account signups
         SignupInteractor signupInteractor = new SignupInteractor(dataAccessObject, presenter, accountFactory);
-        SharedAccountSignupInteractor sharedInteractor = new SharedAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
+//        SharedAccountSignupInteractor sharedInteractor = new SharedAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
 
         // Return the controller that can handle both types of signups
-        return new SignupController(signupInteractor, sharedInteractor);
+        return new SignupController(signupInteractor);
     }
 }
 

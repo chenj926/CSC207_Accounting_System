@@ -27,7 +27,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
     private JTextField usernameTextField;
     private JPasswordField passwordField;
     private JTextField idenficationField;
-    private JTextField sharedAccountIdField;
+//    private JTextField sharedAccountIdField;
     private JButton signupButton;
     private JButton cancelButton;
 
@@ -61,7 +61,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
         this.usernameTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
         this.idenficationField = new JTextField(20);
-        this.sharedAccountIdField = new JTextField(20);  // Added field for shared account ID
+//        this.sharedAccountIdField = new JTextField(20);  // Added field for shared account ID
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -123,13 +123,13 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
         add(new JLabel(this.viewModel.getID_LABEL()), constraints);
         constraints.gridx = 1;
         add(this.idenficationField, constraints);
-
-        // shared account ID
-        constraints.gridx = 0;
-        constraints.gridy++;
-        add(new JLabel(this.viewModel.getSHARED_ACCOUNT_ID_LABEL()), constraints);
-        constraints.gridx = 1;
-        add(this.sharedAccountIdField, constraints);
+//
+//        // shared account ID
+//        constraints.gridx = 0;
+//        constraints.gridy++;
+//        add(new JLabel(this.viewModel.getSHARED_ACCOUNT_ID_LABEL()), constraints);
+//        constraints.gridx = 1;
+//        add(this.sharedAccountIdField, constraints);
 
         // button panel for sign-up and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -157,8 +157,8 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
                         signupController.execute(
                                 usernameTextField.getText(),
                                 String.valueOf(passwordField.getPassword()),
-                                idenficationField.getText(),
-                                sharedAccountIdField.getText()
+                                idenficationField.getText()
+//                                sharedAccountIdField.getText()
                         );
                     }
                 }
@@ -216,21 +216,21 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
             public void keyReleased(KeyEvent e) {}
         });
 
-        // get typed shared account ID
-        this.sharedAccountIdField.addKeyListener(new KeyListener() {
-            @Override
-            public void keyTyped(KeyEvent evt) {
-                SignupState currentState = viewModel.getState();
-                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
-                viewModel.setState(currentState);
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {}
-
-            @Override
-            public void keyReleased(KeyEvent e) {}
-        });
+//        // get typed shared account ID
+//        this.sharedAccountIdField.addKeyListener(new KeyListener() {
+//            @Override
+//            public void keyTyped(KeyEvent evt) {
+//                SignupState currentState = viewModel.getState();
+//                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+//                viewModel.setState(currentState);
+//            }
+//
+//            @Override
+//            public void keyPressed(KeyEvent e) {}
+//
+//            @Override
+//            public void keyReleased(KeyEvent e) {}
+//        });
 
     }
 
@@ -283,7 +283,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
         usernameTextField.setText("");
         passwordField.setText("");
         idenficationField.setText("");
-        sharedAccountIdField.setText("");
+//        sharedAccountIdField.setText("");
     }
 }
 

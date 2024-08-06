@@ -33,7 +33,7 @@ public class PeriodicTransactionPanel extends JPanel {
     private JTextField endDateField;
     private JTextField descriptionField;
     private JComboBox<String> periodComb;
-    private JComboBox<String> categoryButton;
+    private JComboBox<String> categoryComb;
     private JButton submitButton;
     private JButton cancelButton;
 
@@ -74,7 +74,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.periodComb = new JComboBox<>(periods);
         String[] category = {"Auto", "Personal item", "Food", "Transport", "Income", "entertainment", "Travel",
                 "Utilities", "Medical", "Home", "Custom"};
-        this.categoryButton = new JComboBox<>(category);
+        this.categoryComb = new JComboBox<>(category);
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -156,7 +156,7 @@ public class PeriodicTransactionPanel extends JPanel {
         constraints.gridy++;
         add (new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
-        add(this.categoryButton, constraints);
+        add(this.categoryComb, constraints);
 
         // button panel for submit and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -187,8 +187,8 @@ public class PeriodicTransactionPanel extends JPanel {
                     }
 
                     // check if is custom category
-                    String category = (String) categoryButton.getSelectedItem();
-                    if ("custom".equals(category)) {
+                    String category = (String) categoryComb.getSelectedItem();
+                    if ("Custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
 
@@ -289,13 +289,13 @@ public class PeriodicTransactionPanel extends JPanel {
             }
         });
 
-        this.categoryButton.addActionListener(new ActionListener() {
+        this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 PeriodicTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
-                if ("Custom".equals(categoryButton.getSelectedItem())) {
+                if ("Custom".equals(categoryComb.getSelectedItem())) {
                     // Prompt the user to enter the number of custom days
                     String input = JOptionPane.showInputDialog(
                             null, "Enter the category type",
@@ -306,7 +306,7 @@ public class PeriodicTransactionPanel extends JPanel {
                     viewModel.setState(currentState);
                 } else {
                     //set the selected period
-                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
+                    currentState.setTransactionCategory((String) categoryComb.getSelectedItem());
                     viewModel.setState(currentState);
                 }
             }

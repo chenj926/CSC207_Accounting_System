@@ -31,7 +31,7 @@ public class OneTimeTransactionPanel extends JPanel {
     private JTextField amountField;
     private JTextField dateField;
     private JTextField descriptionField;
-    private JComboBox<String> categoryButton;
+    private JComboBox<String> categoryComb;
     private JButton submitButton;
     private JButton cancelButton;
 
@@ -77,7 +77,7 @@ public class OneTimeTransactionPanel extends JPanel {
         // add ComboBox for category
         String[] category = {"Auto", "Personal item", "Food", "Transport", "Income", "entertainment", "Travel",
                 "Utilities", "Medical", "Home", "Custom"};
-        this.categoryButton = new JComboBox<>(category);
+        this.categoryComb = new JComboBox<>(category);
 
         // Style buttons
         this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -139,7 +139,7 @@ public class OneTimeTransactionPanel extends JPanel {
         constraints.gridy++;
         add (new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
-        add(this.categoryButton, constraints);
+        add(this.categoryComb, constraints);
 
         // button panel for submit and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -163,8 +163,8 @@ public class OneTimeTransactionPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
-                    String category = (String) categoryButton.getSelectedItem();
-                    if ("custom".equals(category)) {
+                    String category = (String) categoryComb.getSelectedItem();
+                    if ("Custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
                     oneTimeTransactionController.execute(
@@ -230,13 +230,13 @@ public class OneTimeTransactionPanel extends JPanel {
                 }
         );
 
-        this.categoryButton.addActionListener(new ActionListener() {
+        this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 OneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
-                if ("Custom".equals(categoryButton.getSelectedItem())) {
+                if ("Custom".equals(categoryComb.getSelectedItem())) {
                     // Prompt the user to enter the number of custom days
                     String input = JOptionPane.showInputDialog(
                             null, "Enter the category type",
@@ -247,7 +247,7 @@ public class OneTimeTransactionPanel extends JPanel {
                     viewModel.setState(currentState);
                 } else {
                     //set the selected period
-                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
+                    currentState.setTransactionCategory((String) categoryComb.getSelectedItem());
                     viewModel.setState(currentState);
                 }
             }

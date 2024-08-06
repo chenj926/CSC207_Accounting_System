@@ -1,1 +1,22 @@
 id,amount,date,description,category,start date, period, end date
+id0,999.00,2024-01-01,testing category,Custom
+id0,-88.00,2022-01-01,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2022-04-10,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2022-07-18,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2022-10-25,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2023-02-01,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2023-05-11,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2023-08-18,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2023-11-25,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2024-03-03,testing,Custom,2022-01-01,99,2025-01-01
+id0,-88.00,2024-06-10,testing,Custom,2022-01-01,99,2025-01-01
+id0,6.66,2024-07-20,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-07-22,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-07-24,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-07-26,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-07-28,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-07-30,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-08-01,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-08-03,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,6.66,2024-08-05,test on transaction category,Testing,2024-07-20,2,2024-08-20
+id0,-7.77,2020-01-01,testing on transaction category,Testing
