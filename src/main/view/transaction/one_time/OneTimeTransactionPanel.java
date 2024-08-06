@@ -24,6 +24,7 @@ public class OneTimeTransactionPanel extends JPanel {
     private final OneTimeTransactionViewModel viewModel;
     private final OneTimeTransactionController oneTimeTransactionController;
     private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
 //    private JTextField idField;
@@ -167,6 +168,7 @@ public class OneTimeTransactionPanel extends JPanel {
                         category = viewModel.getState().getTransactionCategory();
                     }
                     oneTimeTransactionController.execute(
+                            viewManager.getUserId(),
                             amountField.getText(),
                             dateField.getText(),
                             descriptionField.getText(),
@@ -178,7 +180,7 @@ public class OneTimeTransactionPanel extends JPanel {
 
         // cancel button response action
         cancelButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
 
         // get typed amount
@@ -228,21 +230,6 @@ public class OneTimeTransactionPanel extends JPanel {
                 }
         );
 
-        // get typed category
-//        this.categoryButton.addKeyListener(
-//                new KeyListener() {
-//                    @Override
-//                    public void keyTyped(KeyEvent evt) {
-//                        OneTimeTransactionState currentState = viewModel.getState();
-////                        currentState.setTransactionCategory(categoryField.getText() + evt.getKeyChar());
-//                        viewModel.setState(currentState);
-//                    }
-//                    @Override
-//                    public void keyPressed(KeyEvent e) {}
-//                    @Override
-//                    public void keyReleased(KeyEvent e) {}
-//                }
-//        );
         this.categoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -274,6 +261,5 @@ public class OneTimeTransactionPanel extends JPanel {
         amountField.setText("");
         dateField.setText("");
         descriptionField.setText("");
-//        categoryField.setSelectedIndex(0);
     }
 }

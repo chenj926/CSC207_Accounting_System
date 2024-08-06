@@ -1,6 +1,7 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -35,15 +36,16 @@ public class LoginPresenter implements LoginOutputBoundary {
     @Override
     public void prepareSuccessView(LoginOutputData userInfo){
         // update the current login state
-        LoginState loginState = loginViewModel.getState();
+        LoginState loginState = this.loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());
+        this.viewManagerModel.setUserId(userInfo.getIdentification());
         this.loginViewModel.setState(loginState);
         loginState.setSuccessMsg("Successfully Logged In!!!");
-        loginViewModel.firePropertyChanged();
-        viewManagerModel.setActiveViewName(loginViewModel.getViewName());
+        this.loginViewModel.firePropertyChanged();
+        this.viewManagerModel.setActiveViewName(this.loginViewModel.getViewName());
 
         // should change to next view
-        viewManagerModel.changeView("Transaction");
+        this.viewManagerModel.changeView("Homepage Two");
     }
 
     /**

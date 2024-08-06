@@ -5,40 +5,78 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The view model for the financial report view. This class is responsible for managing
+ * the state and report content of the financial report and notifying listeners of any changes.
+ *
+ * @author Eric CHen
+ */
 public class FinancialReportViewModel extends ViewModel {
+    /**
+     * The title label for the financial report view.
+     */
     private final String TITLE_LABEL = "Financial Report";
     private String reportContent;
 
     private FinancialReportState state = new FinancialReportState();
 
+    /**
+     * Constructs a FinancialReportViewModel object with the view name set to "Financial Report".
+     */
     public FinancialReportViewModel() {
         super("Financial Report");
         this.reportContent = state.getReportContent();
     }
 
     // getters
+    /**
+     * Gets the title label.
+     *
+     * @return the title label
+     */
     public String getTitleLabel() {
         return this.TITLE_LABEL;
     }
+    /**
+     * Gets the current state of the financial report.
+     *
+     * @return the current state
+     */
     public FinancialReportState getState() {
         return this.state;
     }
+    /**
+     * Gets the current state of the financial report.
+     *
+     * @return the current state
+     */
     public String getReportContent() {
         return this.reportContent;
     }
 
     // setters
+    /**
+     * Sets the current state of the financial report and updates the report content.
+     *
+     * @param state the new state
+     */
     public void setState(FinancialReportState state) {
         this.state = state;
-        //
         this.reportContent = state.getReportContent();
-        System.out.println("view model"+this.reportContent);
-
     }
+
+    /**
+     * Sets the report content.
+     *
+     * @param reportContent the report content to set
+     */
     public void setReportContent(String reportContent) {
         this.reportContent = reportContent;
     }
 
+    /**
+     * Resets the state to a new default state.
+     */
     public void resetState() {
         FinancialReportState newState = new FinancialReportState();
         setState(newState);

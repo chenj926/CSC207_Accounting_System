@@ -14,6 +14,7 @@ import use_case.transaction.one_time.OneTimeTransactionOutputData;
 public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     /**
      * Constructs a OneTimeTransactionPresenter object with the specified view model and view manager model.
@@ -40,6 +41,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
 
         // set info
 //        oneTimeState.setNewBalance(data.getNewBalance());
+        oneTimeState.setId(data.getId());
         oneTimeState.setTransactionDate(data.getTransactionDate().toString());
         oneTimeState.setTransactionDescription(data.getTransactionDescription());
         oneTimeState.setTransactionCategory(data.getTransactionCategory());
@@ -50,7 +52,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
         viewManager.setActiveViewName(viewModel.getViewName());
 
         // go back to home page 2
-        viewManager.changeView("Transaction");
+        viewManager.changeView("Homepage Two");
     }
 
 

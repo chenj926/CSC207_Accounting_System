@@ -16,6 +16,7 @@ public abstract class TransactionOutputData<TransactionType>{
     protected String transactionDescription;
     protected LocalDate transactionDate;
     protected String transactionCategory;
+    private String[] basicUserInfo;
 
     public TransactionOutputData(Transaction transaction){
         this.transactionAmount = transaction.getAmount();
@@ -24,6 +25,8 @@ public abstract class TransactionOutputData<TransactionType>{
         this.transactionCategory = transaction.getTransactionCategory();
         this.id = transaction.getIdentification();
     }
+
+
     /**
      * Gets the transaction amount.
      *
