@@ -28,8 +28,8 @@ import java.time.LocalDate;
  */
 public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessObject implements ShareAccountDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
-    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
+    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
 
     /**
      * Constructs a new instance of {@code CSVSharedAccountDataAccessObject}.
