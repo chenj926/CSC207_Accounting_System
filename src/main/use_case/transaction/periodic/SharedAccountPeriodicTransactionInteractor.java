@@ -2,12 +2,12 @@ package main.use_case.transaction.periodic;
 
 import entity.account.SharedAccount;
 import entity.account.UserAccount;
-import main.data_access.account.UserAccountDataAccessInterface;
-import main.entity.transaction.periodic.PeriodicTransaction;
-import main.use_case.transaction.TransactionInteractor;
-import main.use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
-import main.use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
-import main.use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
+import data_access.account.UserAccountDataAccessInterface;
+import entity.transaction.periodic.PeriodicTransaction;
+import use_case.transaction.TransactionInteractor;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
 
 import java.time.LocalDate;
 import java.util.HashSet;
