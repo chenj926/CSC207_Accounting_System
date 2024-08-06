@@ -252,16 +252,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
                                 PeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
-        System.out.println();
         if (!isPeriodic) {
-//            String id = oneTimeOutputData.getId();
-//            float amount = oneTimeOutputData.getTransactionAmount();
-//            LocalDate date = oneTimeOutputData.getTransactionDate();
-//            String description = oneTimeOutputData.getTransactionDescription();
-//            String category = oneTimeOutputData.getTransactionCategory();
-//            // convert localdate to string
-//            String dateString = String.valueOf(date);
-
             // create csv line with the user info
             String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
 
@@ -287,18 +278,6 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 System.err.println("Failed to write to file: " + e.getMessage());
             }
         } else{
-//            String id = periodicOutputData.getId();
-//            float amount = periodicOutputData.getTransactionAmount();
-//            LocalDate startDate = periodicOutputData.getTransactionStartDate();
-//            LocalDate endDate = periodicOutputData.getTransactionEndDate();
-//            String description = periodicOutputData.getTransactionDescription();
-//            int period = periodicOutputData.getTransactionPeriod();
-//            String category = periodicOutputData.getTransactionCategory();
-//
-//            // convert Localdate to string
-//            String startDateString = String.valueOf(startDate);
-//            String endDateString = String.valueOf(endDate);
-
             // create csv line with the user info
             String userInfo = this.getTransactionInfo(null, periodicOutputData, true);
 
@@ -457,8 +436,6 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
             String line;
             while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
-                System.out.println("debug in DAO"+line);
                 String[] values = line.split(",");
 
                 // we only compare the id
@@ -554,6 +531,9 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
+
+        // Sort the transactions by date
+        Collections.sort(transactions, Comparator.comparing(Transaction::getDate));
 
         return transactions;
     }
