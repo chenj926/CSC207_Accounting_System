@@ -490,7 +490,6 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
         // Sort the transactions by date
         Collections.sort(transactions, Comparator.comparing(Transaction::getDate));
-
         return transactions;
     }
 
