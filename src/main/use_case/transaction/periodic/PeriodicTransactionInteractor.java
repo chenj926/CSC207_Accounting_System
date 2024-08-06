@@ -216,10 +216,10 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
             if (isInflow) {
                 finalOutputData = processInflowTransaction(identification, amount, startDate, description, endDate,
-                        period, customPeriod, unit, category, date);
+                        period, category, date);
             } else {
                 finalOutputData = processOutflowTransaction(identification, amount, startDate, description, endDate,
-                        period, customPeriod, unit, category, date);
+                        period, category, date);
             }
 
             // update date
@@ -251,15 +251,10 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param description the transaction description
      * @param endDate the transaction end date
      * @param period the transaction period
-     * @param customPeriod the custom period in days
-     * @param unit the ChronoUnit of the period
      */
     private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
-                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
-//        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
-//                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
-        // ?: if true (int) it, false, remain it as custom period
-
+                                          LocalDate endDate, String period, String category, LocalDate transactionDate) {
+        // Create a new PeriodicInflow object
         PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
                 period, category);
 
@@ -295,15 +290,10 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param description the transaction description
      * @param endDate the transaction end date
      * @param period the transaction period
-     * @param customPeriod the custom period in days
-     * @param unit the ChronoUnit of the period
      */
     private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit, String category, LocalDate transactionDate) {
+                                           LocalDate endDate, String period, String category, LocalDate transactionDate) {
         // Create a new PeriodicOutflow object
-//        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
-//                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
-        // ?: if true (int) it, false, remain it as custom period
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
                 period, category);
 
