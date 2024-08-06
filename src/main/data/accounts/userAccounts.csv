@@ -1,4 +1,4 @@
-id,username,password,totalIncome,totalOutflow,totalBalance
+id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate
 1233,1233,1233,0.00,0.00,0.00,2024-08-05
 id888,Eric,1234,8000.00,0.00,8000.00,2024-08-06
 id999,Jialuo,1234,25752.00,-44400.00,-18648.00,2024-08-06
