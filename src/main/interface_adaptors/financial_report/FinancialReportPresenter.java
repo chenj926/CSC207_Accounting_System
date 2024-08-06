@@ -1,5 +1,6 @@
 package interface_adaptors.financial_report;
 
+import data_access.financial_report_api_accessor.TextToSpeech;
 import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.FinancialReportOutputBoundary;
 import use_case.financial_report.FinancialReportOutputData;
@@ -40,6 +41,9 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
         this.viewModel.firePropertyChanged();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
+
+        TextToSpeech TTS = new TextToSpeech();
+        TTS.speak(reportContent);
 
     }
 
