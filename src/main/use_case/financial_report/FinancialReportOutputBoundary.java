@@ -1,6 +1,4 @@
-package use_case.FinancialReport;
-
-import use_case.logout.LogoutOutputData;
+package use_case.financial_report;
 
 /**
  * Output boundary interface for presenting financial reports.

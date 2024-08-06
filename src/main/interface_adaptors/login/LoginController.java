@@ -1,57 +1,37 @@
 package interface_adaptors.login;
 
-import use_case.login.SharedAccountLoginInputData;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInputData;
+import use_case.login.LoginMediator;
 
 /**
  * The LoginController class is responsible for handling user interactions related to the login process.
  * It communicates with the use case interactor to execute the login process.
  *
- * This controller uses both a general login interactor and a shared account login interactor
- * to handle different login scenarios.
+ * @author Eric
+ * @author Dana
+ * @author Jessica
  */
 public class LoginController {
-    final LoginInputBoundary loginInteractor; // General interactor for standard login
-//    final LoginInputBoundary sharedAccountLoginInteractor; // Interactor for shared account login
+    final LoginMediator loginMediator;
 
     /**
-     * Constructs a LoginController object with the specified use case interactors.
+     * Constructs a LoginController object with the specified use case interactor(mediator).
      *
-     * @param loginInteractor the use case interactor for standard user login
-//     * @param sharedAccountLoginInteractor the use case interactor for shared account user login
+     * @param loginMediator the use case interactor(mediator) for user login
      */
-    public LoginController(LoginInputBoundary loginInteractor) {
-        this.loginInteractor = loginInteractor;
-//        this.sharedAccountLoginInteractor = sharedAccountLoginInteractor;
+    public LoginController(LoginMediator loginMediator) {
+        this.loginMediator = loginMediator;
     }
 
     /**
-     * Executes the standard login process with the given user details.
+     * Executes the login process with the given user details.
      *
      * @param password the password of the user
      * @param id       the identification of the user
      */
     public void execute(String password, String id) {
         LoginInputData loginInputData = new LoginInputData(password, id);
-        loginInteractor.execute(loginInputData);
+        loginMediator.execute(loginInputData);
     }
-
-//    /**
-//     * Executes the shared account login process with the given user details.
-//     *
-//     * @param password the password of the user
-//     * @param id       the identification of the user
-//     * @param sharedAccountId the shared account ID
-//     */
-//    public void execute(String password, String id, String sharedAccountId) {
-//        if (sharedAccountId != null && !sharedAccountId.isEmpty()) {
-//            SharedAccountLoginInputData loginInputData = new SharedAccountLoginInputData(password, id, sharedAccountId);
-//            sh aredAccountLoginInteractor.execute(loginInputData);
-//        } else {
-//            execute(password, id); // Calls the method for standard login
-//        }
-//    }
 }
-
-

@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
     private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JButton loginButton;

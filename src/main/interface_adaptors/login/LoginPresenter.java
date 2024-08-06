@@ -6,7 +6,9 @@ import use_case.login.LoginOutputData;
 
 /**
  * The LoginPresenter class implements the LoginOutputBoundary interface.
- * It handles the presentation logic for the standard login process.
+ * It handles the presentation logic for the login process, updating the view model and managing view transitions.
+ *
+ * @author Eric
  */
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
@@ -18,9 +20,10 @@ public class LoginPresenter implements LoginOutputBoundary {
      * @param viewManagerModel the view manager model to manage view transitions
      * @param loginViewModel   the login view model to update the login state
      */
-    public LoginPresenter(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) {
-        this.viewManagerModel = viewManagerModel;
+    public LoginPresenter(ViewManagerModel viewManagerModel,
+                          LoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
+        this.viewManagerModel = viewManagerModel;
     }
 
     /**
@@ -30,17 +33,18 @@ public class LoginPresenter implements LoginOutputBoundary {
      * @param userInfo the login output data containing user information and success status
      */
     @Override
-    public void prepareSuccessView(LoginOutputData userInfo) {
-        // Handle standard login
-        LoginState loginState = loginViewModel.getState();
+    public void prepareSuccessView(LoginOutputData userInfo){
+        // update the current login state
+        LoginState loginState = this.loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());
+        this.viewManagerModel.setUserId(userInfo.getIdentification());
+        this.loginViewModel.setState(loginState);
         loginState.setSuccessMsg("Successfully Logged In!!!");
-        loginViewModel.setState(loginState);
-        loginViewModel.firePropertyChanged();
-        viewManagerModel.setActiveViewName(loginViewModel.getViewName());
+        this.loginViewModel.firePropertyChanged();
+        this.viewManagerModel.setActiveViewName(this.loginViewModel.getViewName());
 
-        // Change to the next view
-        viewManagerModel.changeView("Transaction");
+        // should change to next view
+        this.viewManagerModel.changeView("Homepage Two");
     }
 
     /**
@@ -56,6 +60,5 @@ public class LoginPresenter implements LoginOutputBoundary {
         loginState.setSuccessMsg(null); // Clear success message on failure
         loginViewModel.firePropertyChanged();
     }
+
 }
-
-

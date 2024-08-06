@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 import java.util.Date;
 
@@ -24,6 +24,15 @@ public class FinancialReportInputData {
         this.userName = userName;
         this.startDate = startDate;
         this.endDate = endDate;
+    }
+
+    public FinancialReportInputData(String id) {
+        this.identification = id;
+
+        // unused in this constructor
+        this.userName = "";
+        this.startDate = null;
+        this.endDate = null;
     }
 
     /**

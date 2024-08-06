@@ -1,5 +1,6 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
+import data_access.DAOFactory;
 import data_access.account.CSVUserAccountDataAccessObject;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.Account;
@@ -27,7 +28,7 @@ import java.util.List;
 public class FinancialReportInteractor implements FinancialReportInputBoundary {
     private final UserAccountDataAccessInterface userDataAccessObject;
     private final FinancialReportOutputBoundary presenter;
-    private final UserAccount account;
+    private UserAccount account;
 
     /**
      * Constructs a FinancialReportInteractor with the specified account, output boundary, and data access interface.
@@ -50,8 +51,8 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
      *
      */
     @Override
-    public void execute() {
-        String reportContent = generateReportContent();
+    public void execute(FinancialReportInputData inputData) {
+        String reportContent = generateReportContent(inputData);
         // if there is at least 1 transaction
         if (!reportContent.equals("No transactions yet!")) {
             FinancialReportOutputData outputData = new FinancialReportOutputData(reportContent);
@@ -68,25 +69,36 @@ public class FinancialReportInteractor implements FinancialReportInputBoundary {
      *
      * @return the content of the financial report
      */
-    private String generateReportContent() {
-        StringBuilder report = new StringBuilder();
-        report.append("Financial Report for Account: ").append(account.getUsername()).append("\n");
-        report.append("Total Income: ").append(account.getTotalIncome()).append("\n");
-        report.append("Total Outflow: ").append(account.getTotalOutflow()).append("\n");
-        report.append("Total Balance: ").append(account.getTotalBalance()).append("\n");
-        report.append("Transactions: \n");
+    private String generateReportContent(FinancialReportInputData inputData) {
+        String id = inputData.getIdentification();
+        //debug
+        this.account = userDataAccessObject.getById(id);
+        String username = this.account.getUsername();
+        String totalIncome = String.valueOf(this.account.getTotalIncome());
+        String totalOutflow = String.valueOf(this.account.getTotalOutflow());
+        String totalBalance = String.valueOf(this.account.getTotalBalance());
 
-        List<Transaction> transactions = userDataAccessObject.readTransactions(account.getIdentification());
+        StringBuilder report = new StringBuilder();
+        report.append("Financial Report for Account: ").append(username + ": " + id).append("\n");
+        report.append("\tTotal Income: ").append(totalIncome).append("\n");
+        report.append("\tTotal Outflow: ").append(totalOutflow).append("\n");
+        report.append("\tTotal Balance: ").append(totalBalance).append("\n");
+        report.append("Transactions: \n");
+        report.append("--------------------------------------------------------\n");
+        report.append("| Date | Amount | Category | Description |\n");
+        report.append("--------------------------------------------------------\n");
+
+        List<Transaction> transactions = this.userDataAccessObject.readTransactions(id);
         if (transactions.isEmpty()) {
             this.presenter.prepareFailView(report.toString()+"\nNo transactions yet!");
             return "No transactions yet!";
         }
 
         for (Transaction transaction : transactions) {
-            report.append(transaction.getDate()).append(" - ")
+            report.append(transaction.getDate()).append(" | ")
+                    .append(transaction.getAmount()).append(" -- ")
                     .append(transaction.getTransactionCategory()).append(" : ")
-                    .append(transaction.getDescription()).append(" - ")
-                    .append(transaction.getAmount()).append("\n");
+                    .append(transaction.getDescription()).append("\n");
         }
 
         return report.toString();

@@ -24,6 +24,7 @@ public class LoginPanel extends JPanel {
     private final LoginViewModel viewModel;
     protected LoginController loginController;
     private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     protected JLabel titleLabel;
     protected JTextField identificationTextField;

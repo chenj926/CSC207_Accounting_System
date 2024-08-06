@@ -312,7 +312,7 @@ public class CSVSharedAccountDataAccessObject extends CSVUserAccountDataAccessOb
         if (type.equals("periodic")) {
             LocalDate startDate = LocalDate.parse(values[4]);
             LocalDate endDate = LocalDate.parse(values[8]);
-            int period = Integer.parseInt(values[9]);
+            String period = values[9];
 
             if(isInflow){
                 return new PeriodicInflow(identification, amount, startDate, description, endDate, period, "Auto");

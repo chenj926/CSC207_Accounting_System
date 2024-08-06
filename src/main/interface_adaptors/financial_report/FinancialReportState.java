@@ -1,4 +1,4 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financial_report;
 
 public class FinancialReportState {
     private String userName;

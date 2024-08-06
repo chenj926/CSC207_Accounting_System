@@ -4,11 +4,13 @@ import app.authentication.LoginUseCaseFactory;
 import app.authentication.LogoutUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
+import app.home_page.HomepageTwoUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
-import app.transaction.TransactionUseCaseFactory;
+//import app.transaction.TransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
-import interface_adaptors.FinancialReport.FinancialReportViewModel;
+import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 import interface_adaptors.logout.LogoutViewModel;
@@ -17,8 +19,9 @@ import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import view.FinancialReport.FinancialReportView;
+import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
+import view.home_page.HomepageTwoView;
 import view.login.LoginView;
 import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
 import view.logout.LogoutView;
@@ -26,7 +29,7 @@ import view.signup.SignupView;
 import view.signup.SharedAccountSignupView;
 import view.transaction.one_time.OneTimeTransactionView;
 import view.transaction.periodic.PeriodicTransactionView;
-import view.transaction.TransactionView;
+//import view.transaction.TransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -36,10 +39,16 @@ import java.util.*;
 /**
  * The ViewManagerModel class manages the views in the application.
  * It keeps track of the current view and handles the switching between different views.
+ *
+ * @author Xile
+ * @author Rita
+ * @author Eric
+ * @author Dana
  */
 public class ViewManagerModel {
 
     private String userId;
+    private String[] basicUserInfo;
     private String sharedAccountId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -71,6 +80,10 @@ public class ViewManagerModel {
         return this.userId;
     }
 
+    public String[] getBasicUserInfo() {
+        return this.basicUserInfo;
+    }
+
     public String getSharedAccountId() {
         return this.sharedAccountId;
     }
@@ -89,10 +102,16 @@ public class ViewManagerModel {
     /**
      * Sets the user ID.
      *
-     * @param id the new user ID
+     * @param userId the new user ID
      */
-    public void setUserId(String id) {
-        this.userId = id;
+    public void setUserId(String userId) {
+//        String oldUserId = this.userId;
+        this.userId = userId;
+//        support.firePropertyChange("userId", oldUserId, userId);
+    }
+
+    public void setBasicUserInfo(String[] basicUserInfo) {
+        this.basicUserInfo = basicUserInfo;
     }
 
     public void setSharedAccountId(String sharedAccountId) {
@@ -115,6 +134,13 @@ public class ViewManagerModel {
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
+    }
+
+    // Reset method to clear all state
+    public void reset() {
+        this.userId = null;
+//        this.activeViewName = "home page"; // Reset to home page view
+//        support.firePropertyChange("reset", null, null); // Notify listeners of reset
     }
 
     /**
@@ -141,6 +167,7 @@ public class ViewManagerModel {
      * @param viewName the name of the view to create
      */
     private void createView(String viewName) {
+        // 让他加了（新的viewModel）好像也没用……非常无奈啊
         switch (viewName) {
             case "home page":
                 HomePageViewModel homePageViewModel = new HomePageViewModel();
@@ -149,7 +176,7 @@ public class ViewManagerModel {
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel = new SignupViewModel("sign up");
+                SignupViewModel signupViewModel = new SignupViewModel();
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
@@ -161,22 +188,21 @@ public class ViewManagerModel {
                 currentView = sharedSignupView;
                 break;
             case "log in":
-                LoginViewModel loginViewModel = new LoginViewModel();
+                LoginViewModel loginViewModel =  new LoginViewModel();
                 LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
+            case "Homepage Two":
+                HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
+                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
+                views.put("Homepage Two", homepageTwoView);
+                currentView = homepageTwoView;
             case "shared account log in":
                 SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
                 SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.createSharedAccount(this, sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
-                break;
-            case "Transaction":
-                TransactionViewModel transactionViewModel = new TransactionViewModel();
-                TransactionView transactionView = TransactionUseCaseFactory.createTransactionView(this, transactionViewModel);
-                views.put("Transaction", transactionView);
-                currentView = transactionView;
                 break;
             case "One Time Transaction":
                 OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
@@ -198,8 +224,7 @@ public class ViewManagerModel {
                 break;
             case "Financial Report":
                 FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
-                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
-                        financialReportViewModel);
+                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this, financialReportViewModel);
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;

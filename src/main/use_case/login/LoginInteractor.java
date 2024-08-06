@@ -2,6 +2,9 @@ package use_case.login;
 
 import entity.account.UserAccount;
 import data_access.authentication.LoginDataAccessInterface;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+
+import java.time.LocalDate;
 
 /**
  * The LoginInteractor class implements the LoginInputBoundary interface.
@@ -13,6 +16,7 @@ import data_access.authentication.LoginDataAccessInterface;
 public class LoginInteractor implements LoginInputBoundary {
     final LoginDataAccessInterface userDataAccessObject;
     final LoginOutputBoundary presenter;
+    private LoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
@@ -23,6 +27,15 @@ public class LoginInteractor implements LoginInputBoundary {
     public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary) {
         this.userDataAccessObject = LoginDataAccessInterface;
         this.presenter = logInOutputBoundary;
+    }
+
+    /**
+     * Sets the mediator for the interactor.
+     *
+     * @param mediator the LoginMediator instance to set
+     */
+    public void setMediator(LoginMediator mediator) {
+        this.mediator = mediator;
     }
 
     /**
@@ -70,6 +83,10 @@ public class LoginInteractor implements LoginInputBoundary {
                     // prepare output to presenter
                     LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
                     presenter.prepareSuccessView(loginOutputData);
+
+                    // Notify mediator on successful login
+                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccount.getIdentification(), LocalDate.now());
+                    mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
                     }
                 }
 

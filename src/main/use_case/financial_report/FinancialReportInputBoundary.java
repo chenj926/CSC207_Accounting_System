@@ -1,4 +1,4 @@
-package use_case.FinancialReport;
+package use_case.financial_report;
 
 /**
  * Input boundary for generating financial reports.
@@ -11,7 +11,7 @@ public interface FinancialReportInputBoundary {
      *
 //     * @param inputData the input data for the report
      */
-    void execute();
+    void execute(FinancialReportInputData inputData);
 }
 
 

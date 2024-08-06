@@ -25,6 +25,7 @@ public class PeriodicTransactionPanel extends JPanel {
     private final PeriodicTransactionViewModel viewModel;
     private final PeriodicTransactionController periodicTransactionController;
     private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField amountField;
@@ -35,6 +36,7 @@ public class PeriodicTransactionPanel extends JPanel {
     private JComboBox<String> categoryButton;
     private JButton submitButton;
     private JButton cancelButton;
+
 
     /**
      * Constructs a PeriodicTransactionPanel with the specified view model, controller, and view manager.
@@ -192,19 +194,20 @@ public class PeriodicTransactionPanel extends JPanel {
 
                     // execute to controller
                     periodicTransactionController.execute(
+                            viewManager.getUserId(),
                             amountField.getText(),
                             startDateField.getText(),
                             descriptionField.getText(),
                             period,
                             endDateField.getText(),
-                            category
+                            category, startDateField.getText()
                     );
                 }
             }
         });
 
         cancelButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Homepage Two");
         });
 
         this.amountField.addKeyListener(new KeyListener() {

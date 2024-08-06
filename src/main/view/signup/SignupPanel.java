@@ -18,16 +18,18 @@ import java.beans.PropertyChangeListener;
  * The SignupPanel class represents the panel for user signup. It contains fields for user input and buttons for signup and cancel actions.
  */
 public class SignupPanel extends JPanel implements PropertyChangeListener {
-    protected final SignupViewModel viewModel;
-    protected SignupController signupController;
-    protected final ViewManagerModel viewManager;
+    private final SignupViewModel viewModel;
+    private SignupController signupController;
+    private final ViewManagerModel viewManager;
+//    private ViewManagerModel viewManager;
 
-    protected JLabel titleLabel;
-    protected JTextField usernameTextField;
-    protected JPasswordField passwordField;
-    protected JTextField identificationField;
-    protected JButton signupButton;
-    protected JButton cancelButton;
+    private JLabel titleLabel;
+    private JTextField usernameTextField;
+    private JPasswordField passwordField;
+    private JTextField idenficationField;
+    private JTextField sharedAccountIdField;
+    private JButton signupButton;
+    private JButton cancelButton;
 
     /**
      * Constructs a SignupPanel object with the specified view model, controller, and view manager.
@@ -50,7 +52,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
     /**
      * Initializes the UI components for the signup panel.
      */
-    protected void initializeComponents() {
+    private void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -58,7 +60,8 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
 
         this.usernameTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
-        this.identificationField = new JTextField(20);
+        this.idenficationField = new JTextField(20);
+        this.sharedAccountIdField = new JTextField(20);  // Added field for shared account ID
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -85,7 +88,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
     /**
      * Sets up the UI layout for the signup panel.
      */
-    protected void setupUI() {
+    private void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.insets = new Insets(10, 10, 10, 10);  // pad
@@ -119,7 +122,14 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
         constraints.gridy++;
         add(new JLabel(this.viewModel.getID_LABEL()), constraints);
         constraints.gridx = 1;
-        add(this.identificationField, constraints);
+        add(this.idenficationField, constraints);
+
+        // shared account ID
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(this.viewModel.getSHARED_ACCOUNT_ID_LABEL()), constraints);
+        constraints.gridx = 1;
+        add(this.sharedAccountIdField, constraints);
 
         // button panel for sign-up and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -138,7 +148,7 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
     /**
      * Sets up listeners for the signup and cancel buttons, and for key events in the text fields.
      */
-    protected void setupListeners() {
+    private void setupListeners() {
         // sign up button response action
         signupButton.addActionListener(
                 new ActionListener() {
@@ -147,7 +157,8 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
                         signupController.execute(
                                 usernameTextField.getText(),
                                 String.valueOf(passwordField.getPassword()),
-                                identificationField.getText()
+                                idenficationField.getText(),
+                                sharedAccountIdField.getText()
                         );
                     }
                 }
@@ -190,11 +201,11 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
             public void keyReleased(KeyEvent e) {}
         });
 
-        this.identificationField.addKeyListener(new KeyListener() {
+        this.idenficationField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
                 SignupState currentState = viewModel.getState();
-                currentState.setIdentification(identificationField.getText() + evt.getKeyChar());
+                currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
 
@@ -204,6 +215,23 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
             @Override
             public void keyReleased(KeyEvent e) {}
         });
+
+        // get typed shared account ID
+        this.sharedAccountIdField.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent evt) {
+                SignupState currentState = viewModel.getState();
+                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+                viewModel.setState(currentState);
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {}
+
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+
     }
 
     /**
@@ -218,9 +246,33 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
         if (!state.isValid()) {
             JOptionPane.showMessageDialog(this, state.getStateError());
         } else {
-            // Normal success message
-            JOptionPane.showMessageDialog(this, state.getSuccessMsg());
-            viewManager.setActiveViewName("home page");
+            String successMsg = state.getSuccessMsg();
+
+            if (successMsg.contains("Shared account already exists")) {
+                // Show choice dialog for shared account existing case
+                int choice = JOptionPane.showOptionDialog(
+                        this,
+                        "Shared account already exists. Would you like to add to it or create a new shared account?",
+                        "Choose Action",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,
+                        new String[]{"Add to Existing", "Create New"},
+                        "Add to Existing"
+                );
+
+                if (choice == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "Added to shared account successfully.");
+                    // Handle adding logic here
+                } else {
+                    JOptionPane.showMessageDialog(this, "Create a new shared account.");
+                    // Handle creation logic here
+                }
+            } else {
+                // Normal success message
+                JOptionPane.showMessageDialog(this, successMsg);
+                viewManager.setActiveViewName("home page");
+            }
         }
     }
 
@@ -230,7 +282,8 @@ public class SignupPanel extends JPanel implements PropertyChangeListener {
     public void clearFields() {
         usernameTextField.setText("");
         passwordField.setText("");
-        identificationField.setText("");
+        idenficationField.setText("");
+        sharedAccountIdField.setText("");
     }
 }
 
