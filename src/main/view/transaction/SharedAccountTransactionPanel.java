@@ -1,22 +1,22 @@
 package view.transaction;
 
-import interface_adaptors.transaction.TransactionViewModel;
+import interface_adaptors.transaction.SharedAccountTransactionViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;
 import java.awt.*;
 
 /**
- * The TransactionPanel class represents the panel used for displaying and managing transactions.
+ * The SharedAccountTransactionPanel class represents the panel used for displaying and managing shared account transactions.
  * It provides buttons to navigate to different transaction views and displays current balance,
- * income, and outflow information.
+ * income, and outflow information, along with an option to add users to a shared account.
  * <p>
  * This class extends JPanel and is responsible for setting up the user interface components
  * and handling user interactions.
  * </p>
  */
-public class TransactionPanel extends JPanel {
-    private final TransactionViewModel viewModel;
+public class SharedAccountTransactionPanel extends JPanel {
+    private final SharedAccountTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
 
     // text
@@ -33,15 +33,15 @@ public class TransactionPanel extends JPanel {
     private JButton periodicButton;
     private JButton logoutButton;
     private JButton financialReportButton;
-    private JButton showRelatedSharedAccountButton; // Button to show related shared account
+    private JButton addUserButton; // Button to add user to shared account
 
     /**
-     * Constructs a TransactionPanel with the specified view model and view manager.
+     * Constructs a SharedAccountTransactionPanel with the specified view model and view manager.
      *
-     * @param viewModel  the view model for the transaction view
+     * @param viewModel  the view model for the shared account transaction view
      * @param viewManager the view manager for handling view transitions
      */
-    public TransactionPanel(TransactionViewModel viewModel, ViewManagerModel viewManager) {
+    public SharedAccountTransactionPanel(SharedAccountTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
         initializeComponents();
@@ -77,28 +77,28 @@ public class TransactionPanel extends JPanel {
         this.financialReportButton = new JButton(this.viewModel.getFINANCIAL_REPORT_BUTTON_LABEL());
         buttons.add(this.financialReportButton);
 
-        // Initialize the show related shared account button
-        this.showRelatedSharedAccountButton = new JButton("Show Related Shared Account");
-        buttons.add(this.showRelatedSharedAccountButton);
+        // Initialize the add user button
+        this.addUserButton = new JButton("Add User to Shared Account");
+        buttons.add(this.addUserButton);
 
         // Style buttons
         this.oneTimeButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.periodicButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.financialReportButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.showRelatedSharedAccountButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.addUserButton.setFont(new Font("Arial", Font.PLAIN, 16));
 
         this.oneTimeButton.setBackground(new Color(100, 150, 200));
         this.periodicButton.setBackground(new Color(100, 150, 200));
         this.logoutButton.setBackground(new Color(200, 100, 100));
         this.financialReportButton.setBackground(new Color(150, 200, 100));
-        this.showRelatedSharedAccountButton.setBackground(new Color(150, 150, 150));
+        this.addUserButton.setBackground(new Color(150, 150, 150));
 
         this.oneTimeButton.setForeground(Color.WHITE);
         this.periodicButton.setForeground(Color.WHITE);
         this.logoutButton.setForeground(Color.WHITE);
         this.financialReportButton.setForeground(Color.WHITE);
-        this.showRelatedSharedAccountButton.setForeground(Color.WHITE);
+        this.addUserButton.setForeground(Color.WHITE);
 
         // Adjust environment to compile MAC
         this.oneTimeButton.setOpaque(true);
@@ -109,8 +109,8 @@ public class TransactionPanel extends JPanel {
         this.logoutButton.setBorderPainted(false);
         this.financialReportButton.setOpaque(true);
         this.financialReportButton.setBorderPainted(false);
-        this.showRelatedSharedAccountButton.setOpaque(true);
-        this.showRelatedSharedAccountButton.setBorderPainted(false);
+        this.addUserButton.setOpaque(true);
+        this.addUserButton.setBorderPainted(false);
     }
 
     /**
@@ -127,7 +127,7 @@ public class TransactionPanel extends JPanel {
         this.periodicButton.setPreferredSize(buttonSize);
         this.logoutButton.setPreferredSize(buttonSize);
         this.financialReportButton.setPreferredSize(buttonSize);
-        this.showRelatedSharedAccountButton.setPreferredSize(buttonSize);
+        this.addUserButton.setPreferredSize(buttonSize);
 
         // Title Label
         constraints.gridx = 0;
@@ -168,12 +168,12 @@ public class TransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.periodicButton, constraints);
 
-        // Show Related Shared Account Button
+        // Add User Button
         constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-        add(this.showRelatedSharedAccountButton, constraints);
+        add(this.addUserButton, constraints);
 
         // Financial Report Button
         constraints.gridx = 0;
@@ -196,24 +196,24 @@ public class TransactionPanel extends JPanel {
      * <li>The one-time button navigates to the one-time transaction view.</li>
      * <li>The periodic button navigates to the periodic transaction view.</li>
      * <li>The logout button resets the user ID and navigates back to the home page.</li>
-     * <li>The show related shared account button displays shared account information.</li>
+     * <li>The add user button allows adding a user to the shared account.</li>
      * </ul>
      */
     private void setupListeners() {
         // One-time transaction button response action
-        this.oneTimeButton.addActionListener(e -> this.viewManager.setActiveViewName("One Time Transaction"));
+        this.oneTimeButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account One Time Transaction"));
 
         // Periodic transaction button response action
-        this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
+        this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account Periodic Transaction"));
 
         // Financial report button response action
         this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("Financial Report"));
 
-        // Show related shared account button response action
-        this.showRelatedSharedAccountButton.addActionListener(e -> {
-            // Implement logic to show related shared account information
-            JOptionPane.showMessageDialog(this, "Showing related shared account information...");
-            // Add actual logic to show shared account data as per the application's requirement
+        // Add user button response action
+        this.addUserButton.addActionListener(e -> {
+            // Implement logic to add user to shared account
+            JOptionPane.showMessageDialog(this, "Adding user to shared account...");
+            // Add actual logic to add user as per the application's requirement
         });
 
         // Logout button response action
@@ -223,5 +223,4 @@ public class TransactionPanel extends JPanel {
         });
     }
 }
-
 

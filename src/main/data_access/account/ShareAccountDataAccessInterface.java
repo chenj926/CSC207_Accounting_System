@@ -1,6 +1,8 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 /**
  * Interface for data access operations related to shared accounts.
@@ -49,5 +51,17 @@ public interface ShareAccountDataAccessInterface {
      * @param identification the unique identifier for the shared account to be deleted
      */
     void deleteById(String identification);
+
+    boolean login(SharedAccount sharedAccount);
+
+    /**
+     * Saves transaction data to the data store.
+     *
+     * @param sharedOneTimeOutputData the output data for one-time transactions
+     * @param sharedPeriodicOutputData output data for periodic transactions
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     */
+    void saveSharedTransaction(SharedAccountOneTimeTransactionOutputData sharedOneTimeOutputData,
+                         SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic);
 
 }

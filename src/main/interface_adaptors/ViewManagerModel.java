@@ -4,9 +4,7 @@ import app.authentication.LoginUseCaseFactory;
 import app.authentication.LogoutUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
-import app.transaction.OneTimeTransactionUseCaseFactory;
-import app.transaction.PeriodicTransactionUseCaseFactory;
-import app.transaction.TransactionUseCaseFactory;
+import app.transaction.*;
 import app.FinancialReport.FinancialReportUseCaseFactory;
 import interface_adaptors.FinancialReport.FinancialReportViewModel;
 import interface_adaptors.login.LoginViewModel;
@@ -15,8 +13,11 @@ import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
+import interface_adaptors.transaction.SharedAccountTransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
 import view.FinancialReport.FinancialReportView;
 import view.home_page.HomePageView;
 import view.login.LoginView;
@@ -24,9 +25,12 @@ import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
 import view.logout.LogoutView;
 import view.signup.SignupView;
 import view.signup.SharedAccountSignupView;
-import view.transaction.one_time.OneTimeTransactionView;
-import view.transaction.periodic.PeriodicTransactionView;
 import view.transaction.TransactionView;
+import view.transaction.SharedAccountTransactionView;
+import view.transaction.one_time.OneTimeTransactionView;
+import view.transaction.one_time.SharedAccountOneTimeTransactionView;
+import view.transaction.periodic.PeriodicTransactionView;
+import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 
 import javax.swing.*;
 import java.beans.PropertyChangeListener;
@@ -190,6 +194,24 @@ public class ViewManagerModel {
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
                 break;
+            case "Shared Account Transaction":
+                SharedAccountTransactionViewModel sharedAccountTransactionViewModel = new SharedAccountTransactionViewModel();
+                SharedAccountTransactionView sharedAccountTransactionView = SharedAccountTransactionUseCaseFactory.createTransactionView(this, sharedAccountTransactionViewModel);
+                views.put("Shared Account Transaction", sharedAccountTransactionView);
+                currentView = sharedAccountTransactionView;
+                break;
+            case "Shared Account One Time Transaction":
+                SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
+                SharedAccountOneTimeTransactionView sharedAccountOneTimeTransactionView = SharedAccountOneTimeTransactionUseCaseFactory.create(this, sharedAccountOneTimeTransactionViewModel);
+                views.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionView);
+                currentView = sharedAccountOneTimeTransactionView;
+                break;
+            case "Shared Account Periodic Transaction":
+                SharedAccountPeriodicTransactionViewModel sharedAccountPeriodicTransactionViewModel = new SharedAccountPeriodicTransactionViewModel();
+                SharedAccountPeriodicTransactionView sharedAccountPeriodicTransactionView = SharedAccountPeriodicTransactionUseCaseFactory.create(this, sharedAccountPeriodicTransactionViewModel);
+                views.put("Shared Account Periodic Transaction", sharedAccountPeriodicTransactionView);
+                currentView = sharedAccountPeriodicTransactionView;
+                break;
             case "log out":
                 LogoutViewModel logoutViewModel = new LogoutViewModel();
                 LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
@@ -198,8 +220,7 @@ public class ViewManagerModel {
                 break;
             case "Financial Report":
                 FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
-                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
-                        financialReportViewModel);
+                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this, financialReportViewModel);
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;

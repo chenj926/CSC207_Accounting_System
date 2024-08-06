@@ -10,11 +10,4 @@ import use_case.transaction.TransactionInputBoundary;
  *
  */
 public interface SharedAccountOneTimeTransactionInputBoundary extends TransactionInputBoundary<SharedAccountOneTimeTransactionInputData> {
-    /**
-     * Executes the one-time transaction operation for a shared account.
-     *
-     * @param inputData the input data for the one-time transaction operation
-     * @return the result of the one-time transaction operation
-     */
-    Object execute(SharedAccountOneTimeTransactionInputData inputData);
 }

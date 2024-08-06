@@ -2,13 +2,10 @@ package data_access.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
-import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -96,9 +93,9 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
         System.out.println("not implemented yet");
     }
 
-    @Override
-    public List<Transaction> readTransactions(String identification) {
-        List<Transaction> transactions = new ArrayList<>();
-        return transactions;
-    }
+//    @Override
+//    public List<Transaction> readTransactions(String identification) {
+//        List<Transaction> transactions = new ArrayList<>();
+//        return transactions;
+//    }
 }

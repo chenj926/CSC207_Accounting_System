@@ -3,8 +3,11 @@ package entity.account;
 import entity.transaction.Transaction;
 import entity.transaction.TransactionComparator;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * The UserAccount class implements the Account interface.
@@ -18,6 +21,7 @@ public class UserAccount implements Account {
     private String username;
     private String password;
     private String identification;
+    private Set<String> sharedAccounts;
 
     private List<Transaction> transactions;
 
@@ -37,6 +41,7 @@ public class UserAccount implements Account {
         this.username = username;
         this.password = password;
         this.identification = identification;
+        this.sharedAccounts = new HashSet<>();
 
         this.transactions = new ArrayList<>();
 
@@ -220,6 +225,22 @@ public class UserAccount implements Account {
         transactions.add(transaction);
         updateTotals(transaction);
         transactions.sort(new TransactionComparator());
+    }
+
+    public Set<String> getSharedAccounts() {
+        return sharedAccounts;
+    }
+
+    public void setSharedAccounts(Set<String> sharedAccounts) {
+        this.sharedAccounts = sharedAccounts;
+    }
+
+    public void addSharedAccount(String sharedAccountId) {
+        this.sharedAccounts.add(sharedAccountId);
+    }
+
+    public void removeSharedAccount(String sharedAccountId) {
+        this.sharedAccounts.remove(sharedAccountId);
     }
 
     /**
