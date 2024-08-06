@@ -19,8 +19,8 @@ import java.nio.file.Paths;
 public class TextToSpeech {
     public void speak(String text) {
         String message = String.format("{'input':{'text':'%s'},'voice':{'languageCode':'en-gb','name':'en-GB-Standard-A','ssmlGender':'FEMALE'},'audioConfig':{'audioEncoding':'MP3'}}", text);
-        String audioFilePath = "./src/main/data/AudioFiles/Audio.mp3";
-        String audioTextFilePath = "./src/main/data/AudioFiles/Audio.txt";
+        String audioFilePath = "./src/main/data/audio_files/Audio.mp3";
+        String audioTextFilePath = "./src/main/data/audio_files/Audio.txt";
         try {
             HttpRequest postRequest = HttpRequest.newBuilder()
                     .uri(new URI("https://texttospeech.googleapis.com/v1/text:synthesize"))
