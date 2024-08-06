@@ -2,6 +2,8 @@ package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
 
+import data_access.iterator.TransactionIterator;
+import data_access.iterator.UserAccountIterator;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
@@ -15,6 +17,8 @@ import java.util.Map;
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
+
+import static java.lang.String.valueOf;
 
 /**
  * CSVUserAccountDataAccessObject provides methods to store and retrieve user account and transaction information from CSV files.
@@ -44,7 +48,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     private Map<String, UserAccount> userAccounts;
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
-    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance";
+    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";
     private static final String TRANSACTION_HEADER = "id,amount,date,description,category,start date, period, end date";
 
     protected final Path userCsvPath;
@@ -189,7 +193,17 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      */
     @Override
     public boolean existById(String identification) {
-        return readAllUsers(identification);
+        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
+            while (iterator.hasNext()) {
+                UserAccount userAccount = iterator.next();
+                if (userAccount.getIdentification().equals(identification)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     /**
@@ -208,10 +222,12 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             float totalIncome = userAccount.getTotalIncome();
             float totalOutflow = userAccount.getTotalOutflow();
             float totalBalance = userAccount.getTotalBalance();
+            LocalDate lastLoginDate = userAccount.getLastLoginDate();
+            String stringLastLoginDate = valueOf(lastLoginDate);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password, totalIncome,
-                    totalOutflow, totalBalance);
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password, totalIncome,
+                    totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
             try {
@@ -248,16 +264,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
     public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
                                 PeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
-        System.out.println();
         if (!isPeriodic) {
-//            String id = oneTimeOutputData.getId();
-//            float amount = oneTimeOutputData.getTransactionAmount();
-//            LocalDate date = oneTimeOutputData.getTransactionDate();
-//            String description = oneTimeOutputData.getTransactionDescription();
-//            String category = oneTimeOutputData.getTransactionCategory();
-//            // convert localdate to string
-//            String dateString = String.valueOf(date);
-
             // create csv line with the user info
             String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
 
@@ -283,18 +290,6 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                 System.err.println("Failed to write to file: " + e.getMessage());
             }
         } else{
-//            String id = periodicOutputData.getId();
-//            float amount = periodicOutputData.getTransactionAmount();
-//            LocalDate startDate = periodicOutputData.getTransactionStartDate();
-//            LocalDate endDate = periodicOutputData.getTransactionEndDate();
-//            String description = periodicOutputData.getTransactionDescription();
-//            int period = periodicOutputData.getTransactionPeriod();
-//            String category = periodicOutputData.getTransactionCategory();
-//
-//            // convert Localdate to string
-//            String startDateString = String.valueOf(startDate);
-//            String endDateString = String.valueOf(endDate);
-
             // create csv line with the user info
             String userInfo = this.getTransactionInfo(null, periodicOutputData, true);
 
@@ -332,7 +327,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             LocalDate date = oneTimeOutputData.getTransactionDate();
             String description = oneTimeOutputData.getTransactionDescription();
             String category = oneTimeOutputData.getTransactionCategory();
-            String dateString = String.valueOf(date);
+            String dateString = valueOf(date);
 
             return String.format("%s,%.2f,%s,%s,%s", id, amount, dateString, description, category);
         } else {
@@ -340,13 +335,15 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             float amount = periodicOutputData.getTransactionAmount();
             LocalDate startDate = periodicOutputData.getTransactionStartDate();
             LocalDate endDate = periodicOutputData.getTransactionEndDate();
+            LocalDate date = periodicOutputData.getTransactionDate();
             String description = periodicOutputData.getTransactionDescription();
-            int period = periodicOutputData.getTransactionPeriod();
+            String period = periodicOutputData.getTransactionPeriod();
             String category = periodicOutputData.getTransactionCategory();
-            String startDateString = String.valueOf(startDate);
-            String endDateString = String.valueOf(endDate);
+            String startDateString = valueOf(startDate);
+            String endDateString = valueOf(endDate);
+            String dateString = valueOf(date);
 
-            return String.format("%s,%.2f,%s,%s,%s,%s,%d,%s", id, amount, "", description, category, startDateString, period, endDateString);
+            return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, dateString, description, category, startDateString, period, endDateString);
         }
     }
 
@@ -376,9 +373,11 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                     float income = userAccount.getTotalIncome();
                     float outflow = userAccount.getTotalOutflow();
                     float balance = userAccount.getTotalBalance();
+                    LocalDate lastLoginDate = userAccount.getLastLoginDate();
+                    String lastLoginDateString = valueOf(lastLoginDate);
 
-                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f", id, username, password,
-                            income, outflow, balance);
+                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
+                            income, outflow, balance, lastLoginDateString);
                     lines.add(updatedLine);
                 } else {
                     lines.add(line);
@@ -414,13 +413,18 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         List<String> lines = new ArrayList<>();
 
         // Read all lines from the CSV file
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-                String[] values = line.split(",");
-                String id = values[0];
-                if (!id.equals(identification)) {
-                    lines.add(line);
+        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
+            while (iterator.hasNext()) {
+                UserAccount userAccount = iterator.next();
+                if (!userAccount.getIdentification().equals(identification)) {
+                    lines.add(String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s",
+                            userAccount.getIdentification(),
+                            userAccount.getUsername(),
+                            userAccount.getPassword(),
+                            userAccount.getTotalIncome(),
+                            userAccount.getTotalOutflow(),
+                            userAccount.getTotalBalance(),
+                            userAccount.getLastLoginDate() != null ? userAccount.getLastLoginDate() : ""));
                 }
             }
         } catch (IOException e) {
@@ -429,6 +433,8 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
         // Write all lines back to the CSV file, excluding the deleted user
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH), StandardOpenOption.TRUNCATE_EXISTING)) {
+            writer.write(CSV_HEADER);
+            writer.newLine();
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -444,66 +450,19 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      * @param identification the unique identification of the user to be retrieved
      * @return the user account if found, or null if not found
      */
-    public UserAccount getById(String identification){
-        UserAccount userAccount = null;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
-                String[] values = line.split(",");
-
-                // we only compare the id
-                String id = values[0];
-                if (id.equals(identification)) {
-                    // user info
-                    String username = values[1];
-                    String password = values[2];
-                    float income = Float.parseFloat(values[3]);
-                    float outflow = Float.parseFloat(values[4]);
-                    float balance = Float.parseFloat(values[5]);
-
-                    userAccount = new UserAccount(username, password, id, income, outflow, balance);
+    @Override
+    public UserAccount getById(String identification) {
+        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
+            while (iterator.hasNext()) {
+                UserAccount userAccount = iterator.next();
+                if (userAccount.getIdentification().equals(identification)) {
                     return userAccount;
                 }
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
-        return userAccount;
-    }
-
-    /**
-     * Reads all users from the user accounts CSV file and checks if a user with the specified identification exists.
-     *
-     * @param identification the unique identification of the user to be checked
-     * @return true if the user exists, false otherwise
-     */
-    private boolean readAllUsers(String identification) {
-        boolean userExist = false;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
-            String line;
-            boolean isFirstLine = true;
-
-            while ((line = bin.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] values = line.split(",");
-                // we only compare the id
-                String id = values[0].trim().toLowerCase();
-
-                if (id.equals(identification.trim().toLowerCase())) {
-                    userExist = true;
-                    return userExist;
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        return userExist;
+        return null;
     }
 
     /**
@@ -518,23 +477,10 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         // need implementation
         List<Transaction> transactions = new ArrayList<>();
 
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(TRANSACTION_CSV_FILE_PATH))) {
-            String line;
-            boolean isFirstLine = true;
-
-            while ((line = bin.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] values = line.split(",");
-                // we only compare the id
-                String id = values[0].trim().toLowerCase();
-
-                if (id.equals(identification.trim().toLowerCase())) {
-                    Transaction transaction = getTransactions(values);
+        try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {
+            while (iterator.hasNext()) {
+                Transaction transaction = iterator.next();
+                if (transaction.getIdentification().equalsIgnoreCase(identification)) {
                     transactions.add(transaction);
                 }
             }
@@ -542,38 +488,10 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             System.err.println(e.getMessage());
         }
 
+        // Sort the transactions by date
+        Collections.sort(transactions, Comparator.comparing(Transaction::getDate));
+
         return transactions;
-    }
-
-    // helper method
-    private Transaction getTransactions(String[] values) {
-        Transaction transaction;
-
-        // if it is onetime
-        if (values.length <= 5) {
-            String id = values[0];
-            float amount = Float.parseFloat(values[1]);
-            LocalDate date = LocalDate.parse(values[2]);
-            String description = values[3];
-            String category = values[4];
-
-            transaction = new OneTimeTransaction(id, amount, date, description, category);
-
-            // if it is periodc
-        } else {
-            String id = values[0];
-            float amount = Float.parseFloat(values[1]);
-
-            String description = values[3];
-            String category = values[4];
-            LocalDate startDate = LocalDate.parse(values[5]);
-            int period = Integer.parseInt(values[6]);
-            LocalDate endDate = LocalDate.parse(values[7]);
-
-            transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);
-        }
-
-        return transaction;
     }
 
     /**

@@ -17,7 +17,7 @@ public class OneTimeTransactionViewModel extends ViewModel {
     // labels
     private final String TITLE_LABEL = "One Time Transaction";
     private final String AMOUNT = "Transaction Amount";
-    private final String ID = "Identification";
+//    private final String ID = "Identification";
     private final String DATE = "Transaction Date";
     private final String DESCRIPTION = "Description";
     private final String CATEGORY_BUTTON = "Transaction Category";
@@ -52,14 +52,14 @@ public class OneTimeTransactionViewModel extends ViewModel {
         return this.AMOUNT;
     }
 
-    /**
-     * Gets the identification label.
-     *
-     * @return the identification label
-     */
-    public String getId() {
-        return this.ID;
-    }
+//    /**
+//     * Gets the identification label.
+//     *
+//     * @return the identification label
+//     */
+//    public String getId() {
+//        return this.ID;
+//    }
 
     /**
      * Gets the date label.
@@ -153,8 +153,8 @@ public class OneTimeTransactionViewModel extends ViewModel {
      * Resets the one-time transaction state to default values.
      */
     public void resetState() {
-        OneTimeTransactionState newState = new OneTimeTransactionState();
-        setState(newState);
+        this.state = new OneTimeTransactionState();
+//        setState(newState);
     }
 
 }

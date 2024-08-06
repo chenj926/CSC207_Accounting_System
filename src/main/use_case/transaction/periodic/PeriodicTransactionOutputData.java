@@ -27,7 +27,8 @@ import java.time.LocalDate;
 public class PeriodicTransactionOutputData extends TransactionOutputData<PeriodicTransaction> {
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
-    private int transactionPeriod;
+    private LocalDate transactionDate;
+    private String transactionPeriod;
 
     /**
      * Constructs a PeriodicTransactionOutputData object for an inflow transaction with the specified details.
@@ -41,6 +42,7 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
         this.id = periodicTransaction.getIdentification();
         this.transactionCategory = periodicTransaction.getTransactionCategory();
         this.transactionStartDate = periodicTransaction.getStartDate();
+        this.transactionDate = periodicTransaction.getDate();
     }
 
     /**
@@ -62,11 +64,20 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
     }
 
     /**
+     * Gets the date of the transaction.
+     *
+     * @return the date of the transaction
+     */
+    public LocalDate getTransactionDate() {
+        return this.transactionDate;
+    }
+
+    /**
      * Gets the period of the transaction.
      *
      * @return the period of the transaction
      */
-    public int getTransactionPeriod() {
+    public String getTransactionPeriod() {
         return this.transactionPeriod;
     }
 
@@ -90,10 +101,19 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Periodi
     }
 
     /**
+     * Sets the date of the transaction.
+     *
+     * @param transactionDate the new date of the transaction
+     */
+    public void setTransactionDate(LocalDate transactionDate) {
+        this. transactionDate = transactionDate;
+    }
+
+    /**
      * Sets the period of the transaction.
      *
      * @param transactionPeriod the new period of the transaction
      */
-    public void setTransactionPeriod(int transactionPeriod) {this.transactionPeriod = transactionPeriod; }
+    public void setTransactionPeriod(String transactionPeriod) {this.transactionPeriod = transactionPeriod; }
 }
 
