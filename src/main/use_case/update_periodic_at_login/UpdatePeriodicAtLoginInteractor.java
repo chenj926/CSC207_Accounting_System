@@ -13,13 +13,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * The UpdatePeriodicAtLoginInteractor class is responsible for updating periodic transactions
+ * when a user logs in. It processes both inflow and outflow transactions based on their periodicity
+ * and ensures that the user's account balances are updated accordingly.
+ *
+ * @author
+ * Jessica Chen and Eric Chen
+ */
 public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInputBoundary {
     private final UserAccountDataAccessInterface userDataAccessObject;
 
+    /**
+     * Constructs an UpdatePeriodicAtLoginInteractor with the given UserAccountDataAccessInterface.
+     *
+     * @param userDataAccessObject the data access object for user accounts
+     */
     public UpdatePeriodicAtLoginInteractor(UserAccountDataAccessInterface userDataAccessObject) {
         this.userDataAccessObject = userDataAccessObject;
     }
 
+    /**
+     * Executes the update of periodic transactions for the given user based on the provided input data.
+     *
+     * @param updatePeriodicAtLoginInputData the input data containing user identification and current date
+     */
     @Override
     public void execute(UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {
         // Get the information from the input data
@@ -63,7 +81,6 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
                     } else {
                         date = date.plusDays(customPeriod);
                     }
-//                    date = date.plusDays(periodicTransaction.getPeriod());
 
                 }
             }
@@ -97,6 +114,13 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         }
     }
 
+    /**
+     * Validates and parses the period string. If the period is a predefined type, it returns 0.
+     * Otherwise, it parses the custom period as an integer.
+     *
+     * @param period the transaction period as a string
+     * @return the parsed custom period or 0 if the period is predefined
+     */
     private int validateAndParsePeriod(String period) {
         ArrayList<String> periodTypes = new ArrayList<>();
         periodTypes.add("day");
@@ -113,6 +137,15 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         return customPeriod;
     }
 
+    /**
+     * Processes an inflow transaction by creating a new PeriodicInflow object, updating the user's total income
+     * and balance, and saving the transaction through the data access object.
+     *
+     * @param userAccount           the user account
+     * @param periodicTransaction   the periodic transaction
+     * @param userDataAccessObject  the data access object for user accounts
+     * @param date                  the date of the transaction
+     */
     private void processInflow(UserAccount userAccount, PeriodicTransaction periodicTransaction, UserAccountDataAccessInterface userDataAccessObject, LocalDate date){
 
         // Create new periodic inflow
@@ -142,6 +175,15 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         userDataAccessObject.update(userAccount);
     }
 
+    /**
+     * Processes an outflow transaction by creating a new PeriodicOutflow object, updating the user's total outflow
+     * and balance, and saving the transaction through the data access object.
+     *
+     * @param userAccount           the user account
+     * @param periodicTransaction   the periodic transaction
+     * @param userDataAccessObject  the data access object for user accounts
+     * @param date                  the date of the transaction
+     */
     private void processOutflow(UserAccount userAccount, PeriodicTransaction periodicTransaction, UserAccountDataAccessInterface userDataAccessObject, LocalDate date){
 
         // Create new periodic outflow
