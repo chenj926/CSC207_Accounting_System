@@ -97,9 +97,6 @@ public class LogoutPanel extends JPanel {
                    logoutController.execute(
                            "logout"
                    );
-
-                   // debug
-                    System.out.println(logoutController);
                 }
             }
         });

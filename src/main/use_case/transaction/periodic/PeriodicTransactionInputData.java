@@ -14,24 +14,28 @@ public class PeriodicTransactionInputData extends TransactionInputData {
     private String transactionStartDate;
     private String transactionEndDate;
     private String transactionPeriod;
+    private String transactionDate;
 
     /**
      * Constructs a OneTimeTransactionInputData object with the specified details.
      *
+     * @param transactionIdentification the amount of the transaction
      * @param transactionAmount      the amount of the transaction
      * @param transactionStartDate        the date of the transaction
      * @param transactionEndDate        the date of the transaction
      * @param transactionPeriod      the period of the transaction
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
+     * @param transactionDate        the date of the transaction
      */
-    public PeriodicTransactionInputData(String transactionAmount, String transactionStartDate,
+    public PeriodicTransactionInputData(String transactionIdentification, String transactionAmount, String transactionStartDate,
                                         String transactionDescription, String transactionPeriod,
-                                        String transactionEndDate, String transactionCategory) {
-        super(transactionAmount, transactionDescription, transactionCategory);
+                                        String transactionEndDate, String transactionCategory, String transactionDate) {
+        super(transactionIdentification, transactionAmount, transactionDescription, transactionCategory);
         this.transactionStartDate = transactionStartDate;
         this.transactionEndDate = transactionEndDate;
         this.transactionPeriod = transactionPeriod;
+        this.transactionDate = transactionDate;
 
     }
 
@@ -60,5 +64,14 @@ public class PeriodicTransactionInputData extends TransactionInputData {
      */
     public String getTransactionPeriod() {
         return this.transactionPeriod;
+    }
+
+    /**
+     * Gets the date of the transaction.
+     *
+     * @return the date of the transaction
+     */
+    public String getTransactionDate() {
+        return this.transactionDate;
     }
 }

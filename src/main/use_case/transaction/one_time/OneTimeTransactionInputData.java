@@ -20,9 +20,9 @@ public class OneTimeTransactionInputData extends TransactionInputData {
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
      */
-    public OneTimeTransactionInputData(String transactionAmount, String transactionDate, String transactionDescription,
-                                       String transactionCategory) {
-        super(transactionAmount, transactionDescription, transactionCategory);
+    public OneTimeTransactionInputData(String id, String transactionAmount, String transactionDate,
+                                       String transactionDescription, String transactionCategory) {
+        super(id, transactionAmount, transactionDescription, transactionCategory);
         this.transactionDate = transactionDate;
     }
 

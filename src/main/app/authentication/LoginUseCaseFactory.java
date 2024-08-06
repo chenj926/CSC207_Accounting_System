@@ -1,13 +1,20 @@
 package app.authentication;
 
 import data_access.*;
+import data_access.account.UserAccountDataAccessInterface;
 import data_access.authentication.LoginDataAccessInterface;
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginPresenter;
 import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.transaction.periodic.PeriodicTransactionPresenter;
+import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 import use_case.login.LoginInteractor;
+import use_case.login.LoginMediator;
 import use_case.login.LoginOutputBoundary;
+import use_case.transaction.periodic.PeriodicTransactionInteractor;
+import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
 import view.login.LoginView;
 
 import javax.swing.*;
@@ -28,10 +35,17 @@ public class LoginUseCaseFactory {
     }
 
     private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, LoginViewModel loginViewModel) throws IOException {
-        LoginDataAccessInterface dataAccessObject = DAOFactory.getLoginDataAccessObject();
-//        AccountFactory accountFactory = new AccountFactory();
-        LoginOutputBoundary presenter = new LoginPresenter(viewManagerModel, loginViewModel);
-        LoginInteractor interactor = new LoginInteractor(dataAccessObject, presenter);
-        return new LoginController(interactor);
+        LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
+        UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
+
+        LoginOutputBoundary loginPresenter = new LoginPresenter(viewManagerModel, loginViewModel);
+        LoginInteractor loginInteractor = new LoginInteractor(loginDataAccessObject, loginPresenter);
+
+        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
+
+        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        loginInteractor.setMediator(loginMediator);
+        return new LoginController(loginMediator);
     }
 }
+

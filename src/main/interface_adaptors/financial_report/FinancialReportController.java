@@ -1,6 +1,7 @@
 package interface_adaptors.financial_report;
 
 import use_case.financial_report.FinancialReportInputBoundary;
+import use_case.financial_report.FinancialReportInputData;
 
 /**
  * Controller for handling financial report generation requests.
@@ -29,10 +30,9 @@ public class FinancialReportController {
 //     * @param startDate the start date of the report period
 //     * @param endDate the end date of the report period
      */
-    public void execute() {
-//        FinancialReportInputData financialReportInputData = new FinancialReportInputData(userName, identification,
-//                startDate, endDate);
-        financialReportInputBoundary.execute();
+    public void execute(String identification) {
+        FinancialReportInputData financialReportInputData = new FinancialReportInputData(identification);
+        financialReportInputBoundary.execute(financialReportInputData);
 //        this.viewModel.resetState();
     }
 }

@@ -33,7 +33,9 @@ public class OneTimeTransactionUseCaseFactory {
                                                             OneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
         OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
+
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
+
         OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
         return new OneTimeTransactionController(interactor, oneTimeTransactionViewModel);
     }
