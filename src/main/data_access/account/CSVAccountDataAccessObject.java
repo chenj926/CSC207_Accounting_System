@@ -1,7 +1,10 @@
 package data_access.account;
 
 import entity.account.Account;
+import entity.account.SharedAccount;
+import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -12,15 +15,13 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<
-        T extends Account,
-        OneTimeTransactionOutput,
-        P> {
+public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     private final String csvHeader;
@@ -102,18 +103,42 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
-    public void saveTransaction(OneTimeTransactionOutput oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
-        String transactionInfo = getTransactionInfo(oneTimeOutputData, periodicOutputData, isPeriodic);
+    /**
+     * Saves a transaction (either one-time or periodic) to the transactions CSV file.
+     *
+     * @param oneTimeOutputData the one-time transaction data to be saved
+     * @param periodicOutputData the periodic transaction data to be saved
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     */
+    public void saveTransaction(O oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
+        if (!isPeriodic) {
+            // create csv line with the user info
+            String userInfo = getTransactionInfo((OneTimeTransactionOutputData) oneTimeOutputData,
+                    null, false);
+            // if csv not created, create it
+            confirmCsvExistence(transactionCsvPath, userInfo);
+        } else{
+            // create csv line with the user info
+            String userInfo = getTransactionInfo(null,
+                    (PeriodicTransactionOutputData)periodicOutputData, true);
+            // if csv not created, create it
+            confirmCsvExistence(transactionCsvPath, userInfo);
+
+        }
+    }
+
+    protected void confirmCsvExistence(Path transactionCsvPath, String userInfo) {
         try {
-            Path parentDir = this.transactionCsvPath.getParent();
+            Path parentDir = transactionCsvPath.getParent();
             if (parentDir != null && !Files.exists(parentDir)) {
                 Files.createDirectories(parentDir);
             }
-            if (!Files.exists(this.transactionCsvPath)) {
-                Files.createFile(this.transactionCsvPath);
+            if (!Files.exists(transactionCsvPath)) {
+                Files.createFile(transactionCsvPath);
             }
-            try (BufferedWriter bout = Files.newBufferedWriter(this.transactionCsvPath, StandardOpenOption.APPEND)) {
-                bout.write(transactionInfo);
+            // record the info
+            try (BufferedWriter bout = Files.newBufferedWriter(transactionCsvPath, StandardOpenOption.APPEND)) {
+                bout.write(userInfo);
                 bout.newLine();
             }
         } catch (IOException e) {
@@ -122,27 +147,99 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
-    public abstract void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
-                                         PeriodicTransactionOutputData periodicOutputData,
-                                         boolean isPeriodic);
+    protected static String getPeriodicTransactionInfo(PeriodicTransactionOutputData periodicOutputData) {
+        String id = periodicOutputData.getId();
+        float amount = periodicOutputData.getTransactionAmount();
+        String startDate = valueOf(periodicOutputData.getTransactionStartDate());
+        String endDate = valueOf(periodicOutputData.getTransactionEndDate());
+        String date = valueOf(periodicOutputData.getTransactionDate());
+        String description = periodicOutputData.getTransactionDescription();
+        String period = periodicOutputData.getTransactionPeriod();
+        String category = periodicOutputData.getTransactionCategory();
+        return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
+    }
 
-    protected abstract String getTransactionInfo(OneTimeTransactionOutput oneTimeOutputData, P periodicOutputData, boolean isPeriodic);
+    protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
+        String id = oneTimeOutputData.getId();
+        float amount = oneTimeOutputData.getTransactionAmount();
+        String date = valueOf(oneTimeOutputData.getTransactionDate());
+        String description = oneTimeOutputData.getTransactionDescription();
+        String category = oneTimeOutputData.getTransactionCategory();
+        return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
+    }
 
+    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
+                                        PeriodicTransactionOutputData periodicOutputData,
+                                        boolean isPeriodic) {
+        if (!isPeriodic) {
+            return getOneTimeTransactionInfo(oneTimeOutputData);
+        } else {
+            return getPeriodicTransactionInfo(periodicOutputData);
+        }
+    }
+
+
+    /**
+     * Updates an existing account in the CSV file.
+     * <p>
+     * This method reads the existing accounts from the CSV file, updates the account,
+     * and writes all accounts back to the file.
+     * </p>
+     *
+     * @param account the account to be updated
+     */
+    public void update(A account) {
+        String identification = account.getIdentification();
+        List<String> lines = new ArrayList<>();
+        String updatedLine = null;
+        try (BufferedReader bin = Files.newBufferedReader(accountCsvPath)) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+//                line = bin.readLine();
+                String[] values = line.split(",");
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    // user info
+
+                    String password = account.getPassword();
+                    float income = account.getTotalIncome();
+                    float outflow = account.getTotalOutflow();
+                    float balance = account.getTotalBalance();
+                    LocalDate lastLoginDate = account.getLastLoginDate();
+                    String lastLoginDateString = valueOf(lastLoginDate);
+
+                    if (account instanceof SharedAccount) {
+                        String userIds = ((SharedAccount) account).getSharedUserIdentifications().toString();
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, userIds, password,
+                                income, outflow, balance, lastLoginDateString);
+
+                    }else if (account instanceof UserAccount){
+                        String username = ((UserAccount)account).getUsername();
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
+                                income, outflow, balance, lastLoginDateString);
+                    }
+
+                    lines.add(updatedLine);
+                } else {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
     public abstract boolean existById(String identification);
 
-    public abstract void save(T account);
-
-    public abstract void update(T account);
+    public abstract void save(A account);
 
     public abstract void deleteById(String identification);
 
-    public abstract T getById(String identification);
-
-    protected abstract boolean readAllUsers(String identification);
+    public abstract A getById(String identification);
 
     public abstract List<Transaction> readTransactions(String identification);
 
-    protected abstract Transaction getTransactions(String[] values);
 }
 

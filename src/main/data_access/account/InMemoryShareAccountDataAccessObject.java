@@ -2,9 +2,13 @@ package data_access.account;
 
 import entity.account.SharedAccount;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import entity.transaction.Transaction;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -24,6 +28,7 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
 
 
+
 //    @Override
 //    public boolean login(SharedAccount sharedAccount) {
 //        return shareAcc.containsKey(sharedAccount.getUsername());
@@ -33,6 +38,7 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
 //    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
 //
 //    }
+
 
     /**
      * Checks if a shared account exists with the given identification.
