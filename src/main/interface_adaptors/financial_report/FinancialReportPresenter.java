@@ -56,6 +56,8 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
         this.viewModel.firePropertyChanged();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
+        TextToSpeech TTS = new TextToSpeech();
+        TTS.speak(noTransaction);
     }
 
     /**
