@@ -11,8 +11,6 @@ import java.util.Set;
  * It includes details such as the new balance of the shared account and the set of users responsible for the transaction.
  */
 public class SharedAccountOneTimeTransactionOutputData extends OneTimeTransactionOutputData {
-//    private final float newSharedAccountBalance;
-//    private final Set<String> responsibleUserIds; // List of responsible user IDs
 
     /**
      * Constructs a SharedAccountOneTimeTransactionOutputData object with the specified details.
