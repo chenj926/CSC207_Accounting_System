@@ -1,10 +1,12 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
-import entity.account.Account;
+import data_access.iterator.TransactionIterator;
+import data_access.iterator.UserAccountIterator;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
@@ -43,8 +45,7 @@ import static java.lang.String.valueOf;
  * @see PeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<UserAccount, OneTimeTransactionOutputData, PeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
-    private Map<String, UserAccount> userAccounts;
+
 public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
         UserAccount,
         UserAccountOneTimeTransactionOutputData,

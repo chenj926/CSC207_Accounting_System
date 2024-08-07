@@ -2,11 +2,9 @@ package data_access.account;
 
 import data_access.iterator.SharedAccountIterator;
 import data_access.iterator.TransactionIterator;
-import data_access.iterator.UserAccountIterator;
 import entity.account.SharedAccount;
+import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import entity.transaction.one_time.OneTimeTransaction;
-import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
@@ -172,7 +170,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
-        return sharedAccount;
+        return shared;
     }
 
     /**
