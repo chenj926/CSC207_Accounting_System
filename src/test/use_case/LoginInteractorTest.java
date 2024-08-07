@@ -50,6 +50,8 @@ public class LoginInteractorTest {
         ((InMemoryLoginDataAccess) userDataAccessObject).addUser(user);
         LoginInputData inputData = new LoginInputData(password, userId);
 
+
+
         loginInteractor.execute(inputData);
 
         assertTrue(presenter.isSuccess());

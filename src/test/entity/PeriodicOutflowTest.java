@@ -17,7 +17,7 @@ class PeriodicOutflowTest {
         assertEquals(-100.0f, outflow.getAmount(), "Amount doesn't match");
         assertEquals(LocalDate.of(2024, 7, 16), outflow.getStartDate(), "Start date doesn't match");
         assertEquals(LocalDate.of(2024, 12, 31), outflow.getEndDate(), "End date doesn't match");
-        assertEquals(30, outflow.getPeriod(), "Period doesn't match");
+        assertEquals("MOUTH", outflow.getPeriod(), "Period doesn't match");
         assertEquals("Test description", outflow.getDescription(), "Description doesn't match");
         assertFalse(outflow.isInflow(), "Inflow should be false");
 
@@ -32,7 +32,7 @@ class PeriodicOutflowTest {
         assertEquals(-200.0f, outflow.getAmount(), "Amount doesn't match after set");
         assertEquals(LocalDate.of(2024, 8, 16), outflow.getStartDate(), "Start date doesn't match after set");
         assertEquals(LocalDate.of(2024, 11, 30), outflow.getEndDate(), "End date doesn't match after set");
-        assertEquals(15, outflow.getPeriod(), "Period doesn't match after set");
+        assertEquals("MOUTH", outflow.getPeriod(), "Period doesn't match after set");
         assertEquals("New description", outflow.getDescription(), "Description doesn't match after set");
         assertFalse(outflow.isInflow(), "Inflow should be false after setting negative amount");
     }
