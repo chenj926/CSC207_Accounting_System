@@ -10,7 +10,7 @@ import use_case.signup.*;
 // * to handle different signup scenarios.
  */
 public class SignupController {
-    final SignupInputBoundary signupInteractor;  // General interactor for standard signup
+    final UserAccountSignupInputBoundary signupInteractor;  // General interactor for standard signup
 //    final SharedAccountSignupInteractor sharedAccountSignupInteractor;  // Specific interactor for shared account signup
 
     /**
@@ -19,7 +19,7 @@ public class SignupController {
      * @param signupInteractor             the use case interactor for standard user signup
 //     * @param sharedAccountSignupInteractor the use case interactor for shared account signup
      */
-    public SignupController(SignupInteractor signupInteractor) {
+    public SignupController(UserAccountSignupInteractor signupInteractor) {
         this.signupInteractor = signupInteractor;
 //        this.sharedAccountSignupInteractor = sharedAccountSignupInteractor;
     }
@@ -32,8 +32,8 @@ public class SignupController {
      * @param identification  the identification of the user
      */
     public void execute(String username, String password, String identification) {
-        SignupInputData signupInputData = new SignupInputData(username, password, identification);
-        signupInteractor.execute(signupInputData);
+        UserAccountSignupInputData userAccountSignupInputData = new UserAccountSignupInputData(username, password, identification);
+        signupInteractor.execute(userAccountSignupInputData);
     }
 
     //overloading

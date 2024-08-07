@@ -5,12 +5,12 @@ package use_case.signup;
  *
  * @author Dana
  */
-public interface SharedAccountSignupInputBoundary {
+public interface SharedAccountSignupInputBoundary extends SignupInputBoundary<SharedAccountSignupInputData>{
 
-    /**
-     * Executes the signup process with the given input data.
-     *
-     * @param sharedAccountSignupInputData the input data required for the signup process
-     */
-    void execute(SharedAccountSignupInputData sharedAccountSignupInputData);
+//    /**
+//     * Executes the signup process with the given input data.
+//     *
+//     * @param sharedAccountSignupInputData the input data required for the signup process
+//     */
+//    void execute(SharedAccountSignupInputData sharedAccountSignupInputData);
 }

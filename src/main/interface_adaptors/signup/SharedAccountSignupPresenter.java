@@ -5,7 +5,7 @@ import use_case.signup.SharedAccountSignupOutputBoundary;
 import use_case.signup.SharedAccountSignupOutputData;
 
 /**
- * The SharedAccountSignupPresenter class extends SignupPresenter to handle specific logic for shared account signups.
+ * The SharedAccountSignupPresenter class extends UserAccountSignupPresenter to handle specific logic for shared account signups.
  *
  * Authors:
  * - Xile
