@@ -102,14 +102,14 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
     public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         String transactionInfo = getTransactionInfo(oneTimeOutputData, periodicOutputData, isPeriodic);
         try {
-            Path parentDir = transactionCsvPath.getParent();
+            Path parentDir = this.transactionCsvPath.getParent();
             if (parentDir != null && !Files.exists(parentDir)) {
                 Files.createDirectories(parentDir);
             }
-            if (!Files.exists(transactionCsvPath)) {
-                Files.createFile(transactionCsvPath);
+            if (!Files.exists(this.transactionCsvPath)) {
+                Files.createFile(this.transactionCsvPath);
             }
-            try (BufferedWriter bout = Files.newBufferedWriter(transactionCsvPath, StandardOpenOption.APPEND)) {
+            try (BufferedWriter bout = Files.newBufferedWriter(this.transactionCsvPath, StandardOpenOption.APPEND)) {
                 bout.write(transactionInfo);
                 bout.newLine();
             }

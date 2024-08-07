@@ -51,8 +51,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     }
 
     @Override
-    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        PeriodicTransactionOutputData periodicOutputData,
+    protected String getTransactionInfo(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                        SharedAccountPeriodicTransactionOutputData periodicOutputData,
                                         boolean isPeriodic) {
         if (!isPeriodic) {
             String id = oneTimeOutputData.getId();
@@ -148,8 +148,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      * @param isPeriodic true if the transaction is periodic, false if it is one-time
      */
     @Override
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData,
+    public void saveTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                SharedAccountPeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
         if (!isPeriodic) {
             // create csv line with the user info

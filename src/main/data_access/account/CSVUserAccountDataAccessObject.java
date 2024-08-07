@@ -216,10 +216,13 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
             float totalBalance = userAccount.getTotalBalance();
             LocalDate lastLoginDate = userAccount.getLastLoginDate();
             String stringLastLoginDate = valueOf(lastLoginDate);
+            Set<String> sharedAccountIds = userAccount.getSharedAccounts();
+            String stringSharedAccountIds = String.join(";", sharedAccountIds);
+
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password, totalIncome,
-                    totalOutflow, totalBalance, stringLastLoginDate);
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s", id, username, password, totalIncome,
+                    totalOutflow, totalBalance, stringLastLoginDate, stringSharedAccountIds);
 
             // if csv not created, create it
             try {

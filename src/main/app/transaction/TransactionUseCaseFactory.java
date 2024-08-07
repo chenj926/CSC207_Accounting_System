@@ -26,7 +26,7 @@
 ////
 ////            // Create One-Time Transaction Components
 ////            OneTimeTransactionOutputBoundary oneTimePresenter = new OneTimeTransactionPresenter(new OneTimeTransactionViewModel(), viewManagerModel);
-////            OneTimeTransactionInputBoundary oneTimeInteractor = new OneTimeTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (OneTimeTransactionOutputBoundary) oneTimePresenter);
+////            OneTimeTransactionInputBoundary oneTimeInteractor = new UserAccountOneTimeTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (OneTimeTransactionOutputBoundary) oneTimePresenter);
 ////            OneTimeTransactionController oneTimeController = new OneTimeTransactionController(oneTimeInteractor);
 ////
 ////            // Create Periodic Transaction Components
