@@ -1,29 +1,22 @@
 package data_access.account;
 
-import data_access.authentication.SharedAccountLoginDataAccessInterface;
+import data_access.iterator.TransactionIterator;
 import entity.account.SharedAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
-import entity.transaction.periodic.PeriodicInflow;
-import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.io.*;
 import java.nio.file.*;
 import java.util.*;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
-import static java.util.Arrays.stream;
 
 /**
  * A CSV-based implementation of data access for shared accounts.
@@ -58,7 +51,31 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      */
     @Override
     public boolean existById(String sharedAccountIdentification) {
-        return readAllUsers(sharedAccountIdentification);
+        boolean userExist = false;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
+            String line;
+            boolean isFirstLine = true;
+
+            while ((line = bin.readLine()) != null) {
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
+                String[] values = line.split(",");
+                // we only compare the id
+                String id = values[0].trim().toLowerCase();
+
+                if (id.equals(sharedAccountIdentification.trim().toLowerCase())) {
+                    userExist = true;
+                    return userExist;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return userExist;
     }
 
     /**
@@ -73,7 +90,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     @Override
     public void save(SharedAccount newSharedAccount) {
         if (!existById(newSharedAccount.getIdentification())) {
-            // get shared account info
             String userInfo = getSharedAccountInfo(newSharedAccount);
             // if csv not created, create it
             confirmCsvExistence(this.accountCsvPath, userInfo);
@@ -181,43 +197,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     }
 
     /**
-     * Reads the users associated with a shared account from the CSV file.
-     * <p>
-     * This method parses the CSV file and returns a set of user IDs associated with the given shared account identification.
-     * </p>
-     *
-     * @param sharedAccountIdentification the identification of the shared account
-     * @return a set of user IDs associated with the shared account
-     */
-    protected boolean readAllUsers(String sharedAccountIdentification) {
-        boolean userExist = false;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-            String line;
-            boolean isFirstLine = true;
-
-            while ((line = bin.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] values = line.split(",");
-                // we only compare the id
-                String id = values[0].trim().toLowerCase();
-
-                if (id.equals(sharedAccountIdentification.trim().toLowerCase())) {
-                    userExist = true;
-                    return userExist;
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-        return userExist;
-    }
-
-    /**
      * Reads the transactions associated with a shared account from the CSV file.
      * <p>
      * This method parses the CSV file and returns a list of {@link Transaction} objects associated with the given
@@ -231,23 +210,10 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     public List<Transaction> readTransactions(String sharedAccountIdentification) {
         List<Transaction> transactions = new ArrayList<>();
 
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH))) {
-            String line;
-            boolean isFirstLine = true;
-
-            while ((line = bin.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] values = line.split(",");
-                // we only compare the id
-                String id = values[0].trim().toLowerCase();
-
-                if (id.equals(sharedAccountIdentification.trim().toLowerCase())) {
-                    Transaction transaction = getTransactions(values);
+        try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {
+            while (iterator.hasNext()) {
+                Transaction transaction = iterator.next();
+                if (transaction.getIdentification().equalsIgnoreCase(sharedAccountIdentification)) {
                     transactions.add(transaction);
                 }
             }
@@ -257,7 +223,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
 
         // Sort the transactions by date
         Collections.sort(transactions, Comparator.comparing(Transaction::getDate));
-
         return transactions;
     }
 
