@@ -5,9 +5,7 @@ package use_case.login;
  *
  * @author Dana
  */
-public class UserLoginInputData {
-    private final String password;
-    private final String identification;
+public class UserLoginInputData extends LoginInputData {
 
     /**
      * Constructs a LoginInputData object with the specified password and identification.
@@ -16,25 +14,7 @@ public class UserLoginInputData {
      * @param identification the identification for the login
      */
     public UserLoginInputData(String password, String identification){
-        this.password = password;
-        this.identification = identification;
+        super(password,identification);
     }
 
-    /**
-     * Gets the password for the login.
-     *
-     * @return the password for the login
-     */
-    public String getPassword() {
-        return this.password;
-    }
-
-    /**
-     * Gets the identification for the login.
-     *
-     * @return the identification for the login
-     */
-    public String getIdentification() {
-        return this.identification;
-    }
 }
