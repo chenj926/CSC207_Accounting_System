@@ -1,7 +1,10 @@
 package data_access.account;
 
+import data_access.iterator.SharedAccountIterator;
 import data_access.iterator.TransactionIterator;
+import data_access.iterator.UserAccountIterator;
 import entity.account.SharedAccount;
+import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
@@ -52,30 +55,17 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     @Override
     public boolean existById(String sharedAccountIdentification) {
         boolean userExist = false;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-            String line;
-            boolean isFirstLine = true;
-
-            while ((line = bin.readLine()) != null) {
-                // Skip the header line
-                if (isFirstLine) {
-                    isFirstLine = false;
-                    continue;
-                }
-
-                String[] values = line.split(",");
-                // we only compare the id
-                String id = values[0].trim().toLowerCase();
-
-                if (id.equals(sharedAccountIdentification.trim().toLowerCase())) {
-                    userExist = true;
-                    return userExist;
+        try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
+            while (iterator.hasNext()) {
+                UserAccount userAccount = iterator.next();
+                if (userAccount.getIdentification().equals(sharedAccountIdentification)) {
+                    return true;
                 }
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
-        return userExist;
+        return false;
     }
 
     /**
@@ -127,13 +117,18 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         List<String> lines = new ArrayList<>();
 
         // Read all lines from the CSV file
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-                String[] values = line.split(",");
-                String id = values[0];
-                if (!id.equals(sharedAccountIdentification)) {
-                    lines.add(line);
+        try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
+            while (iterator.hasNext()) {
+                SharedAccount sharedAccount = iterator.next();
+                if (!sharedAccount.getIdentification().equals(sharedAccountIdentification)) {
+                    lines.add(String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s",
+                            sharedAccount.getIdentification(),
+                            sharedAccount.getSharedUserIdentifications(),
+                            sharedAccount.getPassword(),
+                            sharedAccount.getTotalIncome(),
+                            sharedAccount.getTotalOutflow(),
+                            sharedAccount.getTotalBalance(),
+                            sharedAccount.getLastLoginDate() != null ? sharedAccount.getLastLoginDate() : ""));
                 }
             }
         } catch (IOException e) {
@@ -142,6 +137,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
 
         // Write all lines back to the CSV file, excluding the deleted user
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH), StandardOpenOption.TRUNCATE_EXISTING)) {
+            writer.write(CSV_HEADER);
+            writer.newLine();
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -164,36 +161,19 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      */
     @Override
     public SharedAccount getById(String sharedAccountIdentification) {
-        SharedAccount sharedAccount = null;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-                String[] values = line.split(",");
-
-                // we only compare the id
-                String id = values[0];
-                if (id.equals(sharedAccountIdentification)) {
-                    // user info
-                    Set<String> userIds = new HashSet<>();
-                    // string userIds were separated by ";" instead of ","
-                    String[] stringUserIds = values[1].split(";");
-                    userIds.addAll(Arrays.asList(stringUserIds));
-
-                    String password = values[2];
-                    float income = Float.parseFloat(values[3]);
-                    float outflow = Float.parseFloat(values[4]);
-                    float balance = Float.parseFloat(values[5]);
-                    LocalDate lastLoginDate = LocalDate.parse(values[6]);
-
-                    sharedAccount = new SharedAccount(id, userIds, password, income, outflow, balance);
-                    sharedAccount.setLastLoginDate(lastLoginDate);
+        SharedAccount shared = null;
+        try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
+            while (iterator.hasNext()) {
+                SharedAccount sharedAccount = iterator.next();
+                shared = sharedAccount;
+                if (sharedAccount.getIdentification().equals(sharedAccountIdentification)) {
                     return sharedAccount;
                 }
             }
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
         }
-        return sharedAccount;
+        return shared;
     }
 
     /**
@@ -226,36 +206,5 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         return transactions;
     }
 
-    // helper method
-    protected Transaction getTransactions(String[] values) {
-        Transaction transaction;
-
-        // if it is onetime
-        if (values[5].equals("")) {
-            String id = values[0];
-            float amount = Float.parseFloat(values[1]);
-            LocalDate date = LocalDate.parse(values[2]);
-            String description = values[3];
-            String category = values[4];
-
-            transaction = new OneTimeTransaction(id, amount, date, description, category);
-
-            // if it is periodc
-        } else {
-            String id = values[0];
-            float amount = Float.parseFloat(values[1]);
-            LocalDate date = LocalDate.parse(values[2]);
-            String description = values[3];
-            String category = values[4];
-            LocalDate startDate = LocalDate.parse(values[5]);
-            String period = values[6];
-            LocalDate endDate = LocalDate.parse(values[7]);
-
-            transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);
-            transaction.setDate(date);
-        }
-
-        return transaction;
-    }
 }
 

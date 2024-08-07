@@ -206,24 +206,4 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
         return transactions;
     }
 
-    /**
-     * Writes all transactions of all users to the transactions CSV file.
-     *
-     * @param users a map of user accounts and their associated transactions to be written to the file
-     */
-    private void writeAllTransactions(Map<String, UserAccount> users) {
-        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(TRANSACTION_CSV_FILE_PATH))) {
-            for (UserAccount user : users.values()) {
-                for (Transaction transaction : user.getTransactions()) {
-                    bw.write(String.format("%s,%s,%f",
-                            transaction.getIdentification(),
-                            transaction.getDescription(),
-                            transaction.getAmount()));
-                    bw.newLine();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 }
