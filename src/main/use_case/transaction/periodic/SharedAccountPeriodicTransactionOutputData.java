@@ -26,7 +26,7 @@ import java.util.Set;
 public class SharedAccountPeriodicTransactionOutputData extends TransactionOutputData<PeriodicTransaction> {
     private LocalDate transactionStartDate;
     private LocalDate transactionEndDate;
-    private int transactionPeriod;
+    private String transactionPeriod;
     private Set<String> responsibleUserIds;
     private float newSharedAccountBalance;
 
@@ -73,7 +73,7 @@ public class SharedAccountPeriodicTransactionOutputData extends TransactionOutpu
      *
      * @return the period of the transaction
      */
-    public int getTransactionPeriod() {
+    public String getTransactionPeriod() {
         return this.transactionPeriod;
     }
 
@@ -100,7 +100,7 @@ public class SharedAccountPeriodicTransactionOutputData extends TransactionOutpu
      *
      * @param transactionPeriod the new period of the transaction
      */
-    public void setTransactionPeriod(int transactionPeriod) {
+    public void setTransactionPeriod(String transactionPeriod) {
         this.transactionPeriod = transactionPeriod;
     }
 

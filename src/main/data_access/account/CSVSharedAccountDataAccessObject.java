@@ -39,7 +39,7 @@ import static java.util.Arrays.stream;
  * @author Jessica
  * @author Eric
  */
-public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<SharedAccount> implements ShareAccountDataAccessInterface {
+public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<SharedAccount, SharedAccountOneTimeTransactionOutputData, SharedAccountPeriodicTransactionOutputData> implements ShareAccountDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
 //    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
@@ -238,47 +238,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         return sharedAccount;
     }
 
-//    /**
-//     * Reads all shared accounts from the CSV file.
-//     * <p>
-//     * This method parses the CSV file and creates {@link SharedAccount} objects for each record.
-//     * </p>
-//     *
-//     * @return a map of shared accounts with their identification as keys
-//     */
-//    private Map<String, SharedAccount> readAllSharedAccounts() {
-//        Map<String, SharedAccount> sharedAccounts = new HashMap<>();
-//        try (BufferedReader br = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-//            String line;
-//            while ((line = br.readLine()) != null) {
-//                String[] values = line.split(",");
-//                if (values.length == 6) {
-//                    String sharedAccountIdentification = values[0];
-//                    String sharedAccountPassword = values[1];
-//                    SharedAccount sharedAccount = new SharedAccount(sharedAccountIdentification, sharedAccountPassword);
-//
-//                    sharedAccount.setUsername(values[2]);
-//                    sharedAccount.setPassword(values[3]);
-//                    sharedAccount.setTotalIncome(Float.parseFloat(values[4]));
-//                    sharedAccount.setTotalOutflow(Float.parseFloat(values[5]));
-//                    sharedAccount.setTotalBalance(Float.parseFloat(values[6]));
-//
-//                    // Read and set shared user identifications
-//                    sharedAccount.setSharedUserIdentifications(readSharedAccountUsers(sharedAccount.getIdentification()));
-//
-//                    // Read and set shared account transactions
-//                    sharedAccount.setTransactions(readSharedAccountTransactions(sharedAccount.getIdentification()));
-//
-//                    sharedAccounts.put(sharedAccount.getIdentification(), sharedAccount);
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return sharedAccounts;
-//    }
-
-
     /**
      * Reads the users associated with a shared account from the CSV file.
      * <p>
@@ -288,7 +247,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      * @param sharedAccountIdentification the identification of the shared account
      * @return a set of user IDs associated with the shared account
      */
-    @Override
     protected boolean readAllUsers(String sharedAccountIdentification) {
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
@@ -392,197 +350,5 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
 
         return transaction;
     }
-
-//    /**
-//     * Writes all shared accounts to the CSV file.
-//     * <p>
-//     * This method serializes the shared accounts and their associated users and transactions to CSV files.
-//     * </p>
-//     *
-//     * @param sharedAccounts a map of shared accounts with their identification as keys
-//     */
-//    private void writeAllSharedAccounts(Map<String, SharedAccount> sharedAccounts) {
-//        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-//            for (SharedAccount sharedAccount : sharedAccounts.values()) {
-//                bw.write(String.format("%s,%s,%s,%f,%f,%f",
-//                        sharedAccount.getIdentification(),
-//                        sharedAccount.getUsername(),
-//                        sharedAccount.getPassword(),
-//                        sharedAccount.getTotalIncome(),
-//                        sharedAccount.getTotalOutflow(),
-//                        sharedAccount.getTotalBalance()));
-//                bw.newLine();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        writeAllSharedAccountUsers(sharedAccounts);
-//        writeAllSharedAccountTransactions(sharedAccounts);
-//    }
-//
-//    /**
-//     * Writes the users associated with shared accounts to the CSV file.
-//     * <p>
-//     * This method serializes the user IDs associated with each shared account to the CSV file.
-//     * </p>
-//     *
-//     * @param sharedAccounts a map of shared accounts with their identification as keys
-//     */
-//    private void writeAllSharedAccountUsers(Map<String, SharedAccount> sharedAccounts) {
-//        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_USERS_CSV_FILE_PATH))) {
-//            for (SharedAccount sharedAccount : sharedAccounts.values()) {
-//                for (String userId : sharedAccount.getSharedUserIdentifications()) {
-//                    bw.write(String.format("%s,%s",
-//                            sharedAccount.getIdentification(), userId));
-//                    bw.newLine();
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * Writes the transactions associated with shared accounts to the CSV file.
-//     * <p>
-//     * This method serializes the transactions associated with each shared account to the CSV file.
-//     * </p>
-//     *
-//     * @param sharedAccounts a map of shared accounts with their identification as keys
-//     */
-//    private void writeAllSharedAccountTransactions(Map<String, SharedAccount> sharedAccounts) {
-//        try (BufferedWriter bw = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH))) {
-//            for (SharedAccount sharedAccount : sharedAccounts.values()) {
-//                for (Transaction transaction : sharedAccount.getTransactions()) {
-//                    if (transaction instanceof PeriodicTransaction) {
-//                        PeriodicTransaction pt = (PeriodicTransaction) transaction;
-//                        bw.write(String.format("%s,periodic,%s,%f,%s,%s,%s,%d,%b",
-//                                sharedAccount.getIdentification(), pt.getIdentification(), pt.getAmount(), pt.getStartDate(),
-//                                pt.getDescription(), pt.getEndDate(), pt.getPeriod(), pt.isInflow()));
-//                    } else if (transaction instanceof OneTimeTransaction) {
-//                        OneTimeTransaction ot = (OneTimeTransaction) transaction;
-//                        bw.write(String.format("%s,onetime,%s,%f,%s,%s,%s,,,%b",
-//                                sharedAccount.getIdentification(), ot.getIdentification(), ot.getAmount(), ot.getDate(),
-//                                ot.getDescription(), ot.getTransactionCategory(), ot.isInflow()));
-//                    }
-//                    bw.newLine();
-//                }
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-//    /**
-//     * Creates a {@link Transaction} object from a CSV record.
-//     * <p>
-//     * This method parses the CSV record and constructs the appropriate type of transaction based on the provided
-//     * type and other details.
-//     * </p>
-//     *
-//     * @param values an array of values from the CSV record
-//     * @return a {@link Transaction} object created from the CSV record, or {@code null} if the type is unknown
-//     */
-//    private Transaction createTransaction(String[] values) {
-//        String type = values[1];
-//        String identification = values[2];
-//        float amount = Float.parseFloat(values[3]);
-//        LocalDate date = LocalDate.parse(values[4]);
-//        String description = values[5];
-//        boolean isInflow = Boolean.parseBoolean(values[10]);
-//
-//        if (type.equals("periodic")) {
-//            LocalDate startDate = LocalDate.parse(values[4]);
-//            LocalDate endDate = LocalDate.parse(values[8]);
-//            String period = values[9];
-//
-//            if(isInflow){
-//                return new PeriodicInflow(identification, amount, startDate, description, endDate, period, "Auto");
-//            }else{
-//                return new PeriodicOutflow(identification, amount, startDate, description, endDate, period, "Auto");
-//            }
-//
-//        } else if (type.equals("onetime")) {
-//            String category = values[6];
-//            if(isInflow){
-//                return new OneTimeInflow(identification, amount, date, description, category);
-//            }else{
-//                return new OneTimeOutflow(identification, amount, date, description, category);
-//            }
-//        }
-//        return null;
-//    }
-
-
-//    @Override
-//    public void saveSharedTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
-//                                SharedAccountPeriodicTransactionOutputData periodicOutputData,
-//                                boolean isPeriodic) {
-//        String transactionInfo;
-//
-//        if (!isPeriodic) {
-//            // Get the CSV line with one-time transaction information
-//            transactionInfo = getTransactionInfo(oneTimeOutputData, null, false);
-//        } else {
-//            // Get the CSV line with periodic transaction information
-//            transactionInfo = getTransactionInfo(null, periodicOutputData, true);
-//        }
-//
-//        // Save the transaction information to the CSV file
-//        try {
-//            Path parentDir = sharedAccountsTransactionsCsvPath.getParent();
-//
-//            if (parentDir != null && !Files.exists(parentDir)) {
-//                Files.createDirectories(parentDir);
-//            }
-//
-//            if (!Files.exists(sharedAccountsTransactionsCsvPath)) {
-//                Files.createFile(sharedAccountsTransactionsCsvPath);
-//            }
-//
-//            // Write the transaction info to the CSV
-//            try (BufferedWriter bout = Files.newBufferedWriter(sharedAccountsTransactionsCsvPath, StandardOpenOption.APPEND)) {
-//                bout.write(transactionInfo);
-//                bout.newLine();
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            System.err.println("Failed to write to file: " + e.getMessage());
-//        }
-//    }
-
-//    /**
-//     * Generates a CSV string representation of a transaction.
-//     *
-//     * @param oneTimeOutputData   the one-time transaction data
-//     * @param periodicOutputData  the periodic transaction data
-//     * @param isPeriodic          true if the transaction is periodic, false if it is one-time
-//     * @return the CSV string representation of the transaction
-//     */
-//    private String getTransactionInfo(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
-//                                      SharedAccountPeriodicTransactionOutputData periodicOutputData,
-//                                      boolean isPeriodic) {
-//        if (!isPeriodic && oneTimeOutputData != null) {
-//            // One-time transaction fields
-//            return String.format("%s,%f,%s,%s,%s,%s",
-//                    oneTimeOutputData.getId(),
-//                    oneTimeOutputData.getTransactionAmount(),
-//                    oneTimeOutputData.getTransactionDate(),
-//                    oneTimeOutputData.getTransactionDescription(),
-//                    oneTimeOutputData.getTransactionCategory(),
-//                    oneTimeOutputData.getResponsibleUserIds());
-//        } else if (isPeriodic && periodicOutputData != null) {
-//            // Periodic transaction fields
-//            return String.format("%s,%f,%s,%s,%s,%s,%s",
-//                    periodicOutputData.getId(),
-//                    periodicOutputData.getTransactionAmount(),
-//                    periodicOutputData.getTransactionStartDate(),
-//                    periodicOutputData.getTransactionEndDate(),
-//                    periodicOutputData.getTransactionPeriod(),
-//                    periodicOutputData.getTransactionDescription(),
-//                    periodicOutputData.getResponsibleUserIds());
-//        }
-//        return "";
-//    }
 }
 

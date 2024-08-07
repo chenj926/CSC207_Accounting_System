@@ -4,6 +4,7 @@ import entity.account.Account;
 import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -17,11 +18,11 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<T extends Account> {
+public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData>
+        implements AccountDataAccessInterface<A, O, P> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     protected final String csvHeader;
@@ -110,17 +111,17 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
      * @param periodicOutputData the periodic transaction data to be saved
      * @param isPeriodic true if the transaction is periodic, false if it is one-time
      */
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData,
-                                boolean isPeriodic) {
+    public void saveTransaction(O oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
         if (!isPeriodic) {
             // create csv line with the user info
-            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
+            String userInfo = getTransactionInfo((use_case.transaction.one_time.OneTimeTransactionOutputData) oneTimeOutputData,
+                    null, false);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
         } else{
             // create csv line with the user info
-            String userInfo = getTransactionInfo(null, periodicOutputData, true);
+            String userInfo = getTransactionInfo(null,
+                    (use_case.transaction.periodic.PeriodicTransactionOutputData)periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 
@@ -179,11 +180,7 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
     }
 
 
-    public abstract boolean existById(String identification);
-
-    public abstract void save(T account);
-
-    public void update(Account account) {
+    public void update(A account) {
         String identification = account.getIdentification();
         List<String> lines = new ArrayList<>();
         String updatedLine = null;
@@ -226,14 +223,15 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
         }
     }
 
+    public abstract boolean existById(String identification);
+
+    public abstract void save(A account);
+
     public abstract void deleteById(String identification);
 
-    public abstract T getById(String identification);
-
-    protected abstract boolean readAllUsers(String identification);
+    public abstract A getById(String identification);
 
     public abstract List<Transaction> readTransactions(String identification);
 
-    protected abstract Transaction getTransactions(String[] values);
 }
 

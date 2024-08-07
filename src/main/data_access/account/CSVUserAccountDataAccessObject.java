@@ -45,7 +45,7 @@ import static java.lang.String.valueOf;
  * @see PeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<UserAccount> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
+public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<UserAccount, OneTimeTransactionOutputData, PeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
     private Map<String, UserAccount> userAccounts;
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";

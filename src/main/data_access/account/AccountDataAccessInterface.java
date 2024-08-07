@@ -3,6 +3,7 @@ package data_access.account;
 import entity.account.Account;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -10,8 +11,8 @@ import java.util.List;
 
 public interface AccountDataAccessInterface<
         A extends Account,
-        O,
-        P> {
+        O extends TransactionOutputData,
+        P extends TransactionOutputData> {
     /**
      * Retrieves a user account by its identification.
      *

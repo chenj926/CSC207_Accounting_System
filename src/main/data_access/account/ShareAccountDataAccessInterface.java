@@ -1,9 +1,7 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 /**
