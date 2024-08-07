@@ -7,19 +7,5 @@ package use_case.login;
  * @author Dana
  * @author Eric
  */
-public interface UserLoginOutputBoundary {
-
-    /**
-     * Prepares the success view with the given login output data.
-     *
-     * @param user the login output data containing user information and success status
-     */
-    void prepareSuccessView(UserLoginOutputData user);
-
-    /**
-     * Prepares the fail view with the given error message.
-     *
-     * @param error the error message to be presented in case of a failed login attempt
-     */
-    void prepareFailView(String error);
+public interface UserLoginOutputBoundary extends LoginOutputBoundary<UserLoginOutputData> {
 }
