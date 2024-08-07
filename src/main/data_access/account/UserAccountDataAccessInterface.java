@@ -1,12 +1,8 @@
 package data_access.account;
 
 import entity.account.UserAccount;
-import entity.transaction.Transaction;
-import org.checkerframework.checker.units.qual.A;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
-
-import java.util.List;
 
 /**
  * Interface for data access operations related to user accounts.
@@ -21,7 +17,7 @@ import java.util.List;
  * @author Dana
  */
 public interface UserAccountDataAccessInterface
-        extends AccountDataAccessInterface<UserAccount, OneTimeTransactionOutputData, PeriodicTransactionOutputData> {
+        extends AccountDataAccessInterface<UserAccount, UserAccountOneTimeTransactionOutputData, PeriodicTransactionOutputData> {
 //    /**
 //     * Retrieves a user account by its identification.
 //     *
@@ -66,7 +62,7 @@ public interface UserAccountDataAccessInterface
 //     * @param periodicOutputData the output data for periodic transactions
 //     * @param isPeriodic true if the transaction is periodic, false if it is one-time
 //     */
-//    void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
+//    void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
 //                         PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
 //
 //    List<Transaction> readTransactions(String userId);

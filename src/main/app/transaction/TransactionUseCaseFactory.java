@@ -25,8 +25,8 @@
 ////            UserAccount mockUserAccount = new UserAccount("mockUsername", "mockPassword", "mockId");
 ////
 ////            // Create One-Time Transaction Components
-////            OneTimeTransactionOutputBoundary oneTimePresenter = new OneTimeTransactionPresenter(new OneTimeTransactionViewModel(), viewManagerModel);
-////            OneTimeTransactionInputBoundary oneTimeInteractor = new UserAccountOneTimeTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (OneTimeTransactionOutputBoundary) oneTimePresenter);
+////            UserAccountOneTimeTransactionOutputBoundary oneTimePresenter = new UserAccountOneTimeTransactionPresenter(new OneTimeTransactionViewModel(), viewManagerModel);
+////            OneTimeTransactionInputBoundary oneTimeInteractor = new UserAccountOneTimeTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (UserAccountOneTimeTransactionOutputBoundary) oneTimePresenter);
 ////            OneTimeTransactionController oneTimeController = new OneTimeTransactionController(oneTimeInteractor);
 ////
 ////            // Create Periodic Transaction Components

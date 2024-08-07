@@ -1,12 +1,12 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
-import entity.account.Account;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
@@ -41,11 +41,14 @@ import static java.lang.String.valueOf;
  *
  * @see UserAccount
  * @see Transaction
- * @see OneTimeTransactionOutputData
+ * @see UserAccountOneTimeTransactionOutputData
  * @see PeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<UserAccount> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
+public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
+        UserAccount,
+        UserAccountOneTimeTransactionOutputData,
+        PeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
 
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
@@ -260,8 +263,12 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
                                 PeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
         if (!isPeriodic) {
+            UserAccountOneTimeTransactionOutputData userAccountoneTimeOutputData = null;
+            if (oneTimeOutputData instanceof UserAccountOneTimeTransactionOutputData) {
+                userAccountoneTimeOutputData = (UserAccountOneTimeTransactionOutputData) oneTimeOutputData;
+            }
             // create csv line with the user info
-            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
+            String userInfo = getTransactionInfo(userAccountoneTimeOutputData, null, false);
 
             // if csv not created, create it
             try {
@@ -314,9 +321,9 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
     }
 
     @Override
-    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                      PeriodicTransactionOutputData periodicOutputData,
-                                      boolean isPeriodic) {
+    protected String getTransactionInfo(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                        PeriodicTransactionOutputData periodicOutputData,
+                                        boolean isPeriodic) {
         if (!isPeriodic) {
             String id = oneTimeOutputData.getId();
             float amount = oneTimeOutputData.getTransactionAmount();

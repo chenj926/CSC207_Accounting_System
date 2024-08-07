@@ -1,18 +1,10 @@
 package data_access.account;
 
-import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.SharedAccount;
-import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import entity.transaction.one_time.OneTimeInflow;
-import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
-import entity.transaction.periodic.PeriodicInflow;
-import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.io.*;
@@ -23,7 +15,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 import static java.lang.String.valueOf;
 import static java.util.Arrays.stream;
@@ -39,7 +30,10 @@ import static java.util.Arrays.stream;
  * @author Jessica
  * @author Eric
  */
-public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<SharedAccount> implements ShareAccountDataAccessInterface {
+public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<
+        SharedAccount,
+        SharedAccountOneTimeTransactionOutputData,
+        SharedAccountPeriodicTransactionOutputData> implements ShareAccountDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
 //    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";

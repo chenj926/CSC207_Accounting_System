@@ -17,7 +17,7 @@ public class PeriodicTransactionInputData extends TransactionInputData {
     private String transactionDate;
 
     /**
-     * Constructs a OneTimeTransactionInputData object with the specified details.
+     * Constructs a UserAccountOneTimeTransactionInputData object with the specified details.
      *
      * @param transactionIdentification the amount of the transaction
      * @param transactionAmount      the amount of the transaction

@@ -1,9 +1,7 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 /**
@@ -56,7 +54,7 @@ public interface ShareAccountDataAccessInterface
 //    void deleteById(String identification);
 //
 //
-//    void saveTransaction(OneTimeTransactionOutputData outputData,
+//    void saveTransaction(UserAccountOneTimeTransactionOutputData outputData,
 //                         PeriodicTransactionOutputData sharedPeriodicOutputData,
 //                         boolean isPeriodic);
 }

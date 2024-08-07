@@ -4,7 +4,6 @@ import data_access.account.ShareAccountDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
-import use_case.transaction.SharedAccountTransactionInteractor;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
@@ -50,7 +49,7 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
      * @param inputData the input data required for the shared account transaction process
      */
     @Override
-    public void execute(SharedAccountOneTimeTransactionInputData inputData) {
+    public void execute(SharedAccountUserAccountOneTimeTransactionInputData inputData) {
         // Extract transaction details
         String stringAmount = inputData.getTransactionAmount();
         String date = inputData.getTransactionDate();
@@ -116,7 +115,7 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
         OneTimeInflow oneTimeInflow = new OneTimeInflow(sharedAccount.getIdentification(), amount, date, description, category);
 
         // Prepare output data
-        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeInflow, totalBalance, responsibleUserIds);
+        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeInflow);
 
         // Save this transaction
         sharedAccountDataAccessInterface.saveTransaction(outputData, null, false);
@@ -145,7 +144,7 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
         OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(sharedAccount.getIdentification(), amount, date, description, category);
 
         // Prepare output data
-        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeOutflow, totalBalance, responsibleUserIds);
+        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeOutflow);
 
         // Save this transaction
         sharedAccountDataAccessInterface.saveTransaction(outputData, null, false);

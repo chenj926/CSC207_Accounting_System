@@ -17,7 +17,10 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<T extends Account> {
+public abstract class CSVAccountDataAccessObject<
+        T extends Account,
+        OneTimeTransactionOutput,
+        P> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     private final String csvHeader;
@@ -99,7 +102,7 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
         }
     }
 
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+    public void saveTransaction(OneTimeTransactionOutput oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
         String transactionInfo = getTransactionInfo(oneTimeOutputData, periodicOutputData, isPeriodic);
         try {
             Path parentDir = this.transactionCsvPath.getParent();
@@ -119,7 +122,11 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
         }
     }
 
-    protected abstract String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
+    public abstract void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
+                                         PeriodicTransactionOutputData periodicOutputData,
+                                         boolean isPeriodic);
+
+    protected abstract String getTransactionInfo(OneTimeTransactionOutput oneTimeOutputData, P periodicOutputData, boolean isPeriodic);
 
 
     public abstract boolean existById(String identification);

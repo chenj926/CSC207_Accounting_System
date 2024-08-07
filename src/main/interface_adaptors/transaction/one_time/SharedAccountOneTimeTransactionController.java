@@ -1,7 +1,8 @@
 package interface_adaptors.transaction.one_time;
 
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputData;
+import use_case.transaction.one_time.SharedAccountUserAccountOneTimeTransactionInputData;
+
 import java.util.Set;
 
 /**
@@ -50,7 +51,7 @@ public class SharedAccountOneTimeTransactionController {
             Set<String> responsibleUserIds) {
 
         // Create input data object for the transaction
-        SharedAccountOneTimeTransactionInputData transactionInputData = new SharedAccountOneTimeTransactionInputData(
+        SharedAccountUserAccountOneTimeTransactionInputData transactionInputData = new SharedAccountUserAccountOneTimeTransactionInputData(
                 amount, transactionDate, transactionDescription, transactionCategory, sharedAccountId, responsibleUserIds
         );
 

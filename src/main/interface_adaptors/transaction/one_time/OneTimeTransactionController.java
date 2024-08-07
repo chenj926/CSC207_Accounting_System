@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.one_time;
 
-import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionInputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInputBoundary;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInputData;
 
 /**
  * The OneTimeTransactionController class is responsible for handling user interactions related to one-time transactions.
@@ -12,7 +12,7 @@ import use_case.transaction.one_time.OneTimeTransactionInputData;
  */
 public class OneTimeTransactionController {
 
-    final OneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor;
+    final UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor;
     final OneTimeTransactionViewModel viewModel;
 
     /**
@@ -21,7 +21,7 @@ public class OneTimeTransactionController {
      * @param userOneTimeTransactionUseCaseInteractor the use case interactor for one-time transactions
      * @param viewModel                               the view model to update the transaction state
      */
-    public OneTimeTransactionController(OneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
+    public OneTimeTransactionController(UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
                                         OneTimeTransactionViewModel viewModel) {
         this.userOneTimeTransactionUseCaseInteractor = userOneTimeTransactionUseCaseInteractor;
         this.viewModel = viewModel;
@@ -37,10 +37,10 @@ public class OneTimeTransactionController {
      */
     public void execute(String id, String amount, String transactionDate, String transactionDescription,
                         String transactionCategory) {
-        OneTimeTransactionInputData oneTimeTransactionInputData = new OneTimeTransactionInputData(
+        UserAccountOneTimeTransactionInputData userAccountOneTimeTransactionInputData = new UserAccountOneTimeTransactionInputData(
                 id, amount, transactionDate, transactionDescription, transactionCategory
         );
-        userOneTimeTransactionUseCaseInteractor.execute(oneTimeTransactionInputData);
+        userOneTimeTransactionUseCaseInteractor.execute(userAccountOneTimeTransactionInputData);
         this.viewModel.resetState();
     }
 }
