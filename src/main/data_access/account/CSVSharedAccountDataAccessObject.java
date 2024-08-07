@@ -113,7 +113,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             String stringLastLoginDate = valueOf(lastLoginDate);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, username, password,
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
                     totalIncome, totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
