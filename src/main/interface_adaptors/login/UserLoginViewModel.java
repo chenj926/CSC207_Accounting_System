@@ -14,7 +14,7 @@ import java.beans.PropertyChangeSupport;
  * @author Eric
  * @author Dana
  */
-public class LoginViewModel extends ViewModel {
+public class UserLoginViewModel extends ViewModel {
 
     private final String titleLabel = "LOGIN";
     private final String identificationLabel = "Enter identification";
@@ -28,7 +28,7 @@ public class LoginViewModel extends ViewModel {
     /**
      * Constructs a LoginViewModel object with the view name set to "login".
      */
-    public LoginViewModel() {
+    public UserLoginViewModel() {
         super("login");
     }
 

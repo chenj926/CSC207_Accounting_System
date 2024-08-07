@@ -6,7 +6,7 @@ package use_case.login;
  *
  * @author Dana
  */
-public interface SharedAccountLoginInputBoundary extends LoginInputBoundary<SharedAccountLoginOutputData> {
+public interface SharedAccountLoginInputBoundary extends LoginInputBoundary<SharedAccountLoginInputData> {
 
 //    /**
 //     * Executes the login process with the given input data.

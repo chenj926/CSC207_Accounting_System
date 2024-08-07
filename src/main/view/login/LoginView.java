@@ -3,7 +3,7 @@ package view.login;
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginState;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.UserLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
  * @author Eric
  */
 public class LoginView extends JFrame implements PropertyChangeListener {
-    private LoginViewModel viewModel;
+    private UserLoginViewModel viewModel;
     private LoginPanel loginPanel;
 
     /**
@@ -29,7 +29,7 @@ public class LoginView extends JFrame implements PropertyChangeListener {
      * @param loginController the controller handling login actions
      * @param viewManager     the view manager for managing view transitions
      */
-    public LoginView(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginView(UserLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);

@@ -11,18 +11,13 @@ import app.transaction.PeriodicTransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
 import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.UserLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
-import interface_adaptors.transaction.TransactionViewModel;
-import interface_adaptors.transaction.SharedAccountTransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
-import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
-import view.financial_report.FinancialReportView;
 import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
@@ -32,11 +27,8 @@ import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
 import view.signup.SignupView;
 import view.signup.SharedAccountSignupView;
 //import view.transaction.TransactionView;
-import view.transaction.SharedAccountTransactionView;
 import view.transaction.one_time.OneTimeTransactionView;
-import view.transaction.one_time.SharedAccountOneTimeTransactionView;
 import view.transaction.periodic.PeriodicTransactionView;
-import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 //import view.transaction.TransactionView;
 
 import javax.swing.*;
@@ -196,7 +188,7 @@ public class ViewManagerModel {
                 currentView = sharedSignupView;
                 break;
             case "log in":
-                LoginViewModel loginViewModel =  new LoginViewModel();
+                UserLoginViewModel loginViewModel =  new UserLoginViewModel();
                 LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;

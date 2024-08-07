@@ -10,7 +10,7 @@ import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
  *
  * @author Jessica
  */
-public class UserLoginMediator {
+public class LoginMediator {
     private final UserLoginInputBoundary loginInteractor;
     private final SharedAccountLoginInputBoundary sharedLoginInteractor;
     private final UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
@@ -22,18 +22,18 @@ public class UserLoginMediator {
      * @param loginInteractor the login interactor
      * @param periodicTransactionDataAccessObject the periodic transaction interactor
      */
-    public UserLoginMediator(UserLoginInputBoundary loginInteractor,
-                             UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
-                             UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
+    public LoginMediator(UserLoginInputBoundary loginInteractor,
+                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
         this.sharedLoginInteractor = null;
         this.updatePeriodicAtLoginInteractor = updatePeriodicAtLoginInteractor;
         this.periodicTransactionDataAccessObject = periodicTransactionDataAccessObject;
     }
 
-    public UserLoginMediator(SharedAccountLoginInputBoundary interactor,
-                             UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
-                             UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
+    public LoginMediator(SharedAccountLoginInputBoundary interactor,
+                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = null;
         this.sharedLoginInteractor = interactor;
         this.updatePeriodicAtLoginInteractor = updatePeriodicAtLoginInteractor;
@@ -44,8 +44,8 @@ public class UserLoginMediator {
     public void execute(UserLoginInputData userLoginInputData) {
         this.loginInteractor.execute(userLoginInputData);
     }
-    public void execute(SharedAccountLoginInputData inputData) {
-        this.sharedLoginInteractor.execute(inputData);
+    public void execute(SharedAccountLoginInputData sharedAccountLoginInputData) {
+        this.sharedLoginInteractor.execute(sharedAccountLoginInputData);
     }
 
     public void notifyLoginResult(boolean success, UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {

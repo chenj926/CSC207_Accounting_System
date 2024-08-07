@@ -3,7 +3,7 @@ package view.login;
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
 import interface_adaptors.login.LoginState;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.UserLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ import java.awt.event.KeyListener;
  * @author Eric
  */
 public class LoginPanel extends JPanel {
-    private final LoginViewModel viewModel;
+    private final UserLoginViewModel viewModel;
     protected LoginController loginController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
@@ -40,7 +40,7 @@ public class LoginPanel extends JPanel {
      * @param loginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public LoginPanel(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginPanel(UserLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
         this.viewManager = viewManager;

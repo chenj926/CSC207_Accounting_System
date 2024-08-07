@@ -16,7 +16,7 @@ import java.time.LocalDate;
 public class UserLoginInteractor implements UserLoginInputBoundary {
     final LoginDataAccessInterface userDataAccessObject;
     final UserLoginOutputBoundary presenter;
-    private UserLoginMediator mediator;
+    private LoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
@@ -34,7 +34,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      *
      * @param mediator the LoginMediator instance to set
      */
-    public void setMediator(UserLoginMediator mediator) {
+    public void setMediator(LoginMediator mediator) {
         this.mediator = mediator;
     }
 

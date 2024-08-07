@@ -37,8 +37,8 @@ public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoun
     public void prepareSuccessView(SharedAccountLoginOutputData userInfo) {
             // Handle shared account login
             SharedAccountLoginState sharedAccountLoginState = this.sharedAccountLoginViewModel.getState();
-            sharedAccountLoginState.setSharedAccountId(userInfo.getSharedAccountId());
-            this.viewManagerModel.setSharedAccountId(userInfo.getSharedAccountId());
+            sharedAccountLoginState.setSharedAccountId(userInfo.getIdentification());
+            this.viewManagerModel.setSharedAccountId(userInfo.getIdentification());
             this.sharedAccountLoginViewModel.setState(sharedAccountLoginState);
             sharedAccountLoginState.setSuccessMsg("Successfully Logged In to Shared Account!!!");
             this.sharedAccountLoginViewModel.firePropertyChanged();

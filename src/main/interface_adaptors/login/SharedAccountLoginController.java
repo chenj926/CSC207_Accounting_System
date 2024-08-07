@@ -1,7 +1,6 @@
 package interface_adaptors.login;
 
 import use_case.login.*;
-import use_case.login.LoginInteractor;
 
 public class SharedAccountLoginController{
     final LoginMediator loginMediator;
