@@ -1,7 +1,5 @@
 package use_case.signup;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,7 +11,7 @@ import java.util.Set;
  * @since 2024-08-03
  *
  */
-public class SharedAccountSignupInputData extends AbstractSignupInputData{
+public class SharedAccountSignupInputData extends SignupInputData {
 //    private String user1Id;
 //    private String user2Id;
     private Set<String> userIds;

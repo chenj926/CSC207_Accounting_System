@@ -5,7 +5,7 @@ package use_case.signup;
  * It includes the username, password, and identification of the user.
  * This class serves as a superclass for specific signup types.
  */
-public class UserAccountSignupInputData extends AbstractSignupInputData {
+public class UserAccountSignupInputData extends SignupInputData {
     private final String username;
 
     /**
