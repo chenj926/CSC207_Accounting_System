@@ -114,14 +114,14 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
     public void saveTransaction(O oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
         if (!isPeriodic) {
             // create csv line with the user info
-            String userInfo = getTransactionInfo((use_case.transaction.one_time.OneTimeTransactionOutputData) oneTimeOutputData,
+            String userInfo = getTransactionInfo((OneTimeTransactionOutputData) oneTimeOutputData,
                     null, false);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
         } else{
             // create csv line with the user info
             String userInfo = getTransactionInfo(null,
-                    (use_case.transaction.periodic.PeriodicTransactionOutputData)periodicOutputData, true);
+                    (PeriodicTransactionOutputData)periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 

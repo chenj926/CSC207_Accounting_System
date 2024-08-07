@@ -2,10 +2,7 @@ package data_access.account;
 
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.SharedAccount;
-import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import entity.transaction.one_time.OneTimeInflow;
-import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;

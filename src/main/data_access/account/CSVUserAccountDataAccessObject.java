@@ -215,9 +215,11 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
      */
     @Override
     public UserAccount getById(String identification) {
+        UserAccount user = null;
         try (UserAccountIterator iterator = new UserAccountIterator(accountCsvPath)) {
             while (iterator.hasNext()) {
                 UserAccount userAccount = iterator.next();
+                user = userAccount;
                 if (userAccount.getIdentification().equals(identification)) {
                     return userAccount;
                 }
@@ -225,7 +227,7 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return user;
     }
 
     /**
