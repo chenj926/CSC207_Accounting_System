@@ -7,7 +7,7 @@ import entity.account.AccountFactory;
 import java.time.LocalDate;
 
 /**
- * The SignupInteractor class implements the SignupInputBoundary interface.
+ * The UserAccountSignupInteractor class implements the UserAccountSignupInputBoundary interface.
  * It handles the signup process by validating the input data, interacting with the data access layer,
  * and using the presenter to prepare the output views.
  *
@@ -15,43 +15,43 @@ import java.time.LocalDate;
  * @author Dana
  * @author Jessica
  */
-public class SignupInteractor implements SignupInputBoundary {
+public class UserAccountSignupInteractor implements UserAccountSignupInputBoundary {
     final AccountFactory accountFactory;
-    final SignupOutputBoundary presenter;
+    final UserAccountSignupOutputBoundary presenter;
     final UserSignupDataAccessInterface userDataAccessObject;
 
     /**
-     * Constructs a SignupInteractor object with the specified data access interface, output boundary, and account factory.
+     * Constructs a UserAccountSignupInteractor object with the specified data access interface, output boundary, and account factory.
      *
      * @param userSignupDataAccessInterface the data access interface for user data
-     * @param signupOutputBoundary          the output boundary for presenting the signup results
+     * @param userAccountSignupOutputBoundary          the output boundary for presenting the signup results
      * @param accountFactory                the factory for creating user accounts
      */
-    public SignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
-                            SignupOutputBoundary signupOutputBoundary,
-                            AccountFactory accountFactory) {
+    public UserAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
+                                       UserAccountSignupOutputBoundary userAccountSignupOutputBoundary,
+                                       AccountFactory accountFactory) {
         this.accountFactory = accountFactory;
         this.userDataAccessObject = userSignupDataAccessInterface;
-        this.presenter = signupOutputBoundary;
+        this.presenter = userAccountSignupOutputBoundary;
 
     }
 
     /**
      * Executes the signup process with the given input data.
      *
-     * @param signupInputData the input data required for the signup process
+     * @param userAccountSignupInputData the input data required for the signup process
      */
     @Override
-    public void execute(SignupInputData signupInputData) {
-        if (userDataAccessObject.existById(signupInputData.getIdentification())) {
+    public void execute(UserAccountSignupInputData userAccountSignupInputData) {
+        if (userDataAccessObject.existById(userAccountSignupInputData.getIdentification())) {
             // user already exist, return back fail view to presenter
             presenter.prepareFailView("User already exist!!!");
         }
         else {
             // check if username or password or id is valid (not empty)
-            boolean validUsername = this.checkUsername(signupInputData.getUsername());
-            boolean validPassword = this.checkPassword(signupInputData.getPassword());
-            boolean validIdentificaiton = this.checkIdentification(signupInputData.getIdentification());
+            boolean validUsername = this.checkUsername(userAccountSignupInputData.getUsername());
+            boolean validPassword = this.checkPassword(userAccountSignupInputData.getPassword());
+            boolean validIdentificaiton = this.checkIdentification(userAccountSignupInputData.getIdentification());
 
 
             if (!validUsername && !validPassword && !validIdentificaiton) {
@@ -70,14 +70,14 @@ public class SignupInteractor implements SignupInputBoundary {
                 presenter.prepareFailView("Identification can not be empty!");
             } else {
                 // create new user
-                UserAccount newUser = accountFactory.createUserAccount(signupInputData.getUsername(),
-                        signupInputData.getPassword(), signupInputData.getIdentification());
+                UserAccount newUser = accountFactory.createUserAccount(userAccountSignupInputData.getUsername(),
+                        userAccountSignupInputData.getPassword(), userAccountSignupInputData.getIdentification());
                 newUser.setLastLoginDate(LocalDate.now());
                 userDataAccessObject.save(newUser);  // save this user
 
                 // prepare output to presenter
-                SignupOutputData signupOutputData = new SignupOutputData(newUser.getUsername(), false);
-                presenter.prepareSuccessView(signupOutputData);
+                UserAccountSignupOutputData userAccountSignupOutputData = new UserAccountSignupOutputData(newUser.getUsername(), false);
+                presenter.prepareSuccessView(userAccountSignupOutputData);
             }
         }
     }

@@ -22,15 +22,16 @@ import java.awt.event.KeyListener;
  */
 public class LoginPanel extends JPanel {
     private final LoginViewModel viewModel;
-    private LoginController loginController;
+    protected LoginController loginController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
-    private JLabel titleLabel;
-    private JTextField identificationTextField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
-    private JButton cancelButton;
+    protected JLabel titleLabel;
+    protected JTextField identificationTextField;
+    protected JPasswordField passwordField;
+    protected JButton loginButton;
+    protected JButton cancelButton;
+
 
     /**
      * Constructs a LoginPanel object with the specified view model, login controller, and view manager.
@@ -52,7 +53,7 @@ public class LoginPanel extends JPanel {
      * Initializes the components of the login panel, including labels, text fields, and buttons.
      * Styles the buttons with specific fonts and colors.
      */
-    private void initializeComponents() {
+    protected void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -87,7 +88,7 @@ public class LoginPanel extends JPanel {
      * Sets up the user interface for the login panel, arranging components using a GridBagLayout.
      * Adds components such as labels, text fields, and buttons to the panel.
      */
-    private void setupUI() {
+    protected void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 //        constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -142,7 +143,7 @@ public class LoginPanel extends JPanel {
      * Sets up listeners for user interactions, including button clicks and key presses.
      * Updates the view model based on user input and handles actions for login and cancel buttons.
      */
-    private void setupListeners() {
+    protected void setupListeners() {
         // login in button response action
         loginButton.addActionListener(new ActionListener() {
             @Override

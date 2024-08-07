@@ -5,99 +5,91 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * In-memory data access object (DAO) for user account and one-time transaction operations.
- * <p>
- * This class implements the {@link UserAccountDataAccessInterface} interface and provides an in-memory
- * implementation for managing user accounts and one-time transactions. It is intended for testing purposes
- * and does not persist data beyond the lifetime of the application.
- * </p>
- *
- * @author Eric
- */
-public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInterface{
-    private static Map<String, UserAccount> users;
+public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInterface {
+    private static Map<String, UserAccount> users = new HashMap<>();
+    private static Map<String, SharedAccountOneTimeTransactionOutputData> sharedAccountOneTimeTransactions = new HashMap<>();
+    private static Map<String, SharedAccountPeriodicTransactionOutputData> sharedAccountPeriodicTransactions = new HashMap<>();
 
-    /**
-     * Constructs a new {@link InMemoryOneTimeDataAccessObject} with an empty user account map.
-     */
     public InMemoryOneTimeDataAccessObject() {
-        this.users = new HashMap<>();
+        // Initialize the user map if needed
     }
 
-    /**
-     * Checks if a user account exists with the given identifier.
-     *
-     * @param identifier the unique identifier for the user account
-     * @return {@code true} if a user account exists with the specified identifier; {@code false} otherwise
-     */
     @Override
     public boolean existById(String identifier) {
         return users.containsKey(identifier);
     }
 
-    /**
-     * Retrieves a user account by its unique identifier.
-     *
-     * @param identification the unique identifier for the user account
-     * @return {@code null} as this method is not implemented yet
-     */
     @Override
     public UserAccount getById(String identification) {
-        return null;
+        return users.get(identification);
     }
 
-    /**
-     * Updates a user account.
-     *
-     * @param userAccount the {@link UserAccount} to be updated
-     */
     @Override
     public void update(UserAccount userAccount) {
-        System.out.println("update");
+        users.put(userAccount.getIdentification(), userAccount);
     }
 
-    /**
-     * Deletes a user account by its unique identifier.
-     *
-     * @param id the unique identifier for the user account to be deleted
-     */
     @Override
     public void deleteById(String id) {
-        System.out.println("id");
+        users.remove(id);
     }
 
-    /**
-     * Saves a user account.
-     *
-     * @param userAccount the {@link UserAccount} to be saved
-     */
     @Override
     public void save(UserAccount userAccount) {
-        System.out.println("id");
+        users.put(userAccount.getIdentification(), userAccount);
     }
 
-    /**
-     * Saves transaction data. This method is not yet implemented.
-     *
-     * @param oneTimeOutputData   the output data for one-time transactions
-     * @param periodicOutputData  the output data for periodic transactions
-     * @param isPeriodic          {@code true} if the transaction is periodic; {@code false} if it is one-time
-     */
     @Override
     public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
                                 PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
-        System.out.println("not implemented yet");
+        if (isPeriodic) {
+            System.out.println("Saving periodic transaction data...");
+        } else {
+            System.out.println("Saving one-time transaction data...");
+        }
     }
 
     @Override
-    public List<Transaction> readTransactions(String identification) {
-        List<Transaction> transactions= new ArrayList<>();
-        return transactions;
+    public List<Transaction> readTransactions(String userId) {
+        return List.of();
     }
 
+    // Add methods for shared account transactions
+//    public void saveSharedTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+//                                             SharedAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+//        if (isPeriodic) {
+//            System.out.println("Saving shared account periodic transaction data...");
+//            // Store the periodic transaction
+//            sharedAccountPeriodicTransactions.put(periodicOutputData.getId(), periodicOutputData);
+//        } else {
+//            System.out.println("Saving shared account one-time transaction data...");
+//            // Store the one-time transaction
+//            sharedAccountOneTimeTransactions.put(oneTimeOutputData.getId(), oneTimeOutputData);
+//        }
+//    }
 
+    // Additional methods to retrieve shared transactions can be added as needed
+    public SharedAccountOneTimeTransactionOutputData getSharedOneTimeTransaction(String transactionId) {
+        return sharedAccountOneTimeTransactions.get(transactionId);
+    }
+
+    public SharedAccountPeriodicTransactionOutputData getSharedPeriodicTransaction(String transactionId) {
+        return sharedAccountPeriodicTransactions.get(transactionId);
+    }
 }
+
+
+//    @Override
+//    public List<Transaction> readTransactions(String identification) {
+//        List<Transaction> transactions= new ArrayList<>();
+//        return transactions;
+//    }
+
+

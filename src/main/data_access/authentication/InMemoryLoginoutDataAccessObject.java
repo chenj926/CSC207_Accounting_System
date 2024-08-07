@@ -2,6 +2,7 @@ package data_access.authentication;
 
 import data_access.account.InMemoryUserAccountDataAccessObject;
 import entity.account.UserAccount;
+import entity.account.SharedAccount;
 
 import java.util.*;
 /**
@@ -48,6 +49,17 @@ public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAcc
         userLogin.put(userAccount.getIdentification(), true);
         return false;
     }
+
+//    @Override
+//    public boolean login(SharedAccount account) {
+//        String identifier = account.getIdentification();
+//        if (existById(identifier)) {
+//            userLogin.put(identifier, true); // Mark the account as logged in
+//            return true;
+//        }
+//        return false;
+//    }
+
 
     /**
      * Logs out a user account, marking the account as logged out.

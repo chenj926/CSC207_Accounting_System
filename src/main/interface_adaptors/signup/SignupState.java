@@ -11,7 +11,6 @@ public class SignupState {
     private String identification;
     private String username;
     private String password;
-    private String sharedAccountId;
     private String stateError;
     private String successMsg;
 
@@ -22,7 +21,6 @@ public class SignupState {
         this.identification = "";
         this.username = "";
         this.password = "";
-        this.sharedAccountId = "";
         this.stateError = null;
         this.successMsg = null;
     }
@@ -52,7 +50,6 @@ public class SignupState {
         return this.password;
     }
 
-    public String getSharedAccountId() {return this.sharedAccountId; }
 
     /**
      * Gets the state error message.
@@ -91,9 +88,6 @@ public class SignupState {
      */
     public void setIdentification(String identification) { this.identification = identification; }
 
-    public void setSharedAccountId(String sharedAccountId) {
-        this.sharedAccountId = sharedAccountId;
-    }
 
     /**
      * Sets the state error message.
@@ -125,7 +119,6 @@ public class SignupState {
         this.identification = "";
         this.setUsername("");
         this.setPassword("");
-        this.setSharedAccountId("");
         this.setStateError(null);
         this.setSuccessMsg(null);
     }
