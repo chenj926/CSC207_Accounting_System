@@ -4,14 +4,15 @@ import use_case.login.*;
 import use_case.login.LoginInteractor;
 
 public class SharedAccountLoginController{
-    final SharedAccountLoginInputBoundary sharedAccountLoginInteractor;
+    final LoginMediator loginMediator;
+//    final SharedAccountLoginInputBoundary sharedAccountLoginInteractor;
 
-    public SharedAccountLoginController(SharedAccountLoginInputBoundary sharedAccountLoginInteractor) {
-        this.sharedAccountLoginInteractor = sharedAccountLoginInteractor;
+    public SharedAccountLoginController(LoginMediator loginMediator) {
+        this.loginMediator = loginMediator;
     }
 
     public void execute(String sharedAccountId, String password) {
         SharedAccountLoginInputData sharedAccountLoginInputData = new SharedAccountLoginInputData(sharedAccountId, password);
-        sharedAccountLoginInteractor.execute(sharedAccountLoginInputData);
+        this.loginMediator.execute(sharedAccountLoginInputData);
     }
 }

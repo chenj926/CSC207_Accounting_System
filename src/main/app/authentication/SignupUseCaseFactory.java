@@ -7,7 +7,7 @@ import entity.account.AccountFactory;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SharedAccountSignupController;
-import interface_adaptors.signup.SignupPresenter;
+import interface_adaptors.signup.UserAccountSignupPresenter;
 import interface_adaptors.signup.SharedAccountSignupPresenter;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
@@ -44,11 +44,11 @@ public class SignupUseCaseFactory {
 
     private static SignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) throws IOException {
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
-        SignupOutputBoundary presenter = new SignupPresenter(viewManagerModel, signupViewModel);
+        UserAccountSignupOutputBoundary presenter = new UserAccountSignupPresenter(viewManagerModel, signupViewModel);
         AccountFactory accountFactory = new AccountFactory();
 
         // Create the general signup interactor
-        SignupInteractor signupInteractor = new SignupInteractor(dataAccessObject, presenter, accountFactory);
+        UserAccountSignupInteractor signupInteractor = new UserAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
 
         // Return the controller for standard signup
         return new SignupController(signupInteractor); // Pass null for Interactor

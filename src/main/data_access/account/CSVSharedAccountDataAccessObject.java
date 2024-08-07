@@ -80,7 +80,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             String id = newSharedAccount.getIdentification();
             Set<String> userIds = newSharedAccount.getSharedUserIdentifications();
             String stringUserIds = String.join(";", userIds);
-
             String username = newSharedAccount.getUsername();
             String password = newSharedAccount.getPassword();
             float totalIncome = newSharedAccount.getTotalIncome();
@@ -90,7 +89,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             String stringLastLoginDate = valueOf(lastLoginDate);
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, username, password,
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
                     totalIncome, totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
@@ -289,6 +288,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      * @param sharedAccountIdentification the identification of the shared account
      * @return a set of user IDs associated with the shared account
      */
+    @Override
     protected boolean readAllUsers(String sharedAccountIdentification) {
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {

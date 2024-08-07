@@ -89,7 +89,7 @@ public class DAOFactory {
      * Returns a singleton instance of {@link LoginDataAccessInterface}.
      * <p>
      * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryLoginoutDataAccessObject}.
-     * Otherwise, returns an instance of {@link CSVUserLoginoutDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVUserLoginDataAccessObject}.
      * </p>
      *
      * @return the {@link LoginDataAccessInterface} instance

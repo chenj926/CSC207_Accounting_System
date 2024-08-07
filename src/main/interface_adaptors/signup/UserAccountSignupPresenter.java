@@ -1,28 +1,28 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.signup.SignupOutputBoundary;
-import use_case.signup.SignupOutputData;
+import use_case.signup.UserAccountSignupOutputBoundary;
+import use_case.signup.UserAccountSignupOutputData;
 
 /**
- * The SignupPresenter class implements the SignupOutputBoundary interface.
+ * The UserAccountSignupPresenter class implements the UserAccountSignupOutputBoundary interface.
  * It handles the presentation logic for the standard signup process, updating the view model and managing view transitions.
  *
  * Authors:
  * - Xile
  * - Eric
  */
-public class SignupPresenter implements SignupOutputBoundary {
+public class UserAccountSignupPresenter implements UserAccountSignupOutputBoundary {
     protected final ViewManagerModel viewManagerModel;
     protected final SignupViewModel signupViewModel;
 
     /**
-     * Constructs a SignupPresenter object for standard signups with the specified view manager model and signup view model.
+     * Constructs a UserAccountSignupPresenter object for standard signups with the specified view manager model and signup view model.
      *
      * @param viewManagerModel the view manager model to manage view transitions
      * @param signupViewModel  the signup view model to update the signup state
      */
-    public SignupPresenter(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
+    public UserAccountSignupPresenter(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.signupViewModel = signupViewModel;
     }
@@ -34,7 +34,7 @@ public class SignupPresenter implements SignupOutputBoundary {
      * @param data the signup output data containing user information and success status
      */
     @Override
-    public void prepareSuccessView(SignupOutputData data) {
+    public void prepareSuccessView(UserAccountSignupOutputData data) {
         if (!data.isUseCaseFailed()) {
             SignupState signupState = signupViewModel.getState();
             signupState.setSuccessMsg("User account signed up successfully.");

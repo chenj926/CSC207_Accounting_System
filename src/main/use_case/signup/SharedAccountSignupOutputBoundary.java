@@ -6,19 +6,19 @@ package use_case.signup;
  * @author Dana
  */
 
-public interface SharedAccountSignupOutputBoundary {
+public interface SharedAccountSignupOutputBoundary extends SignupOutputBoundary<SharedAccountSignupOutputData> {
 
-    /**
-     * Prepares the success view with the given sharedAccount signup output data.
-     *
-     * @param user the signup output data containing user information and success status
-     */
-    void prepareSuccessView(SharedAccountSignupOutputData user);
-
-    /**
-     * Prepares the fail view with the given error message.
-     *
-     * @param error the error message to be presented in case of a failed sharedAccount signup attempt
-     */
-    void prepareFailView(String error);
+//    /**
+//     * Prepares the success view with the given sharedAccount signup output data.
+//     *
+//     * @param user the signup output data containing user information and success status
+//     */
+//    void prepareSuccessView(SharedAccountSignupOutputData user);
+//
+//    /**
+//     * Prepares the fail view with the given error message.
+//     *
+//     * @param error the error message to be presented in case of a failed sharedAccount signup attempt
+//     */
+//    void prepareFailView(String error);
 }

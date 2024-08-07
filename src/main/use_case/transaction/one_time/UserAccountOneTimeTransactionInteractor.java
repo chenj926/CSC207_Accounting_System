@@ -5,14 +5,12 @@ import entity.account.UserAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import use_case.transaction.TransactionInteractor;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 
 /**
- * The OneTimeTransactionInteractor class implements the OneTimeTransactionInputBoundary interface.
+ * The UserAccountOneTimeTransactionInteractor class implements the OneTimeTransactionInputBoundary interface.
  * It handles the process of creating a one-time transaction by validating the input data,
  * interacting with the data access layer, and using the presenter to prepare the output views.
  * <p>
@@ -24,21 +22,26 @@ import java.time.format.ResolverStyle;
  * @author Dana
  * @author Eric
  */
-public class OneTimeTransactionInteractor extends TransactionInteractor implements OneTimeTransactionInputBoundary {
+public class UserAccountOneTimeTransactionInteractor extends TransactionInteractor<
+        UserAccountDataAccessInterface,
+        UserAccount,
+        OneTimeTransactionOutputData,
+        PeriodicTransactionOutputData>
+        implements OneTimeTransactionInputBoundary {
     private final OneTimeTransactionOutputBoundary presenter;
 
 
     /**
-     * Constructs a OneTimeTransactionInteractor object with the specified data access interface,
+     * Constructs a UserAccountOneTimeTransactionInteractor object with the specified data access interface,
      * output boundary, and user account.
      *
      * @param userAccountDataAccessInterface the data access interface for user data
      * @param oneTimeTransactionOutputBoundary the output boundary for presenting the one-time transaction results
      * @param userAccount the user account associated with the transaction
      */
-    public OneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                        OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
-                                        UserAccount userAccount) {
+    public UserAccountOneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
+                                                   OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
+                                                   UserAccount userAccount) {
         super(userAccountDataAccessInterface, userAccount);
         this.presenter = oneTimeTransactionOutputBoundary;
     }
@@ -111,13 +114,13 @@ public class OneTimeTransactionInteractor extends TransactionInteractor implemen
      * @param category the transaction category
      */
     private void processInflow(String identification, float amount, LocalDate date, String description, String category) {
-        float totalIncome = userAccount.getTotalIncome() + amount;
-        userAccount.setTotalIncome(totalIncome);  // update the total income
+        float totalIncome = this.account.getTotalIncome() + amount;
+        this.account.setTotalIncome(totalIncome);  // update the total income
 
         // prepare inflow
         OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, date, description, category);
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);  // Update the balance accordingly
+        float totalBalance = this.account.getTotalBalance() + amount;
+        this.account.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
         OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow);
@@ -125,7 +128,7 @@ public class OneTimeTransactionInteractor extends TransactionInteractor implemen
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null,false);
         // update the transaction info to user acc database as well
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(this.account);
         presenter.prepareSuccessView(outputData);
     }
 
@@ -144,13 +147,13 @@ public class OneTimeTransactionInteractor extends TransactionInteractor implemen
      * @param category the transaction category
      */
     private void processOutflow(String identification, float amount, LocalDate date, String description, String category) {
-        float totalOutflow = userAccount.getTotalOutflow() + amount;
-        userAccount.setTotalOutflow(totalOutflow);  // update the total outflow
+        float totalOutflow = this.account.getTotalOutflow() + amount;
+        this.account.setTotalOutflow(totalOutflow);  // update the total outflow
 
         // prepare outflow
         OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(identification, amount, date, description, category);
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);  // Update the balance accordingly
+        float totalBalance = this.account.getTotalBalance() + amount;
+        this.account.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
         OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow);
@@ -158,7 +161,7 @@ public class OneTimeTransactionInteractor extends TransactionInteractor implemen
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null, false);
         // update the transaction info to user acc database as well
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(this.account);
         presenter.prepareSuccessView(outputData);
     }
 

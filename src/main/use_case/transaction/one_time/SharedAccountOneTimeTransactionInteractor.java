@@ -5,6 +5,8 @@ import entity.account.SharedAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import use_case.transaction.SharedAccountTransactionInteractor;
+import use_case.transaction.TransactionInteractor;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -13,8 +15,11 @@ import java.util.Set;
  * The SharedAccountOneTimeTransactionInteractor class implements the TransactionInputBoundary
  * interface for handling one-time transactions for a shared account.
  */
-public class SharedAccountOneTimeTransactionInteractor
-        extends SharedAccountTransactionInteractor
+public class SharedAccountOneTimeTransactionInteractor extends TransactionInteractor <
+        ShareAccountDataAccessInterface,
+        SharedAccount,
+        SharedAccountOneTimeTransactionOutputData,
+        SharedAccountPeriodicTransactionOutputData>
         implements SharedAccountOneTimeTransactionInputBoundary { // Use the generic interface
 
     private final ShareAccountDataAccessInterface sharedAccountDataAccessInterface;

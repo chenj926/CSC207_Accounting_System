@@ -7,7 +7,7 @@ import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;
 import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
-import use_case.transaction.one_time.OneTimeTransactionInteractor;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInteractor;
 import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 import view.transaction.one_time.OneTimeTransactionView;
 
@@ -36,7 +36,7 @@ public class OneTimeTransactionUseCaseFactory {
 
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
 
-        OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
+        UserAccountOneTimeTransactionInteractor interactor = new UserAccountOneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
         return new OneTimeTransactionController(interactor, oneTimeTransactionViewModel);
     }
 

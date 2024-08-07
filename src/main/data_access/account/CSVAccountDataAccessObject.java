@@ -230,6 +230,10 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
 
     public abstract T getById(String identification);
 
+    protected abstract boolean readAllUsers(String identification);
+
     public abstract List<Transaction> readTransactions(String identification);
+
+    protected abstract Transaction getTransactions(String[] values);
 }
 

@@ -9,10 +9,14 @@ import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.Map;
-import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 import static java.lang.String.valueOf;
@@ -57,6 +61,7 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
         super(USER_CSV_FILE_PATH, TRANSACTION_CSV_FILE_PATH, CSV_HEADER, TRANSACTION_HEADER);
     }
 
+
     /**
      * Checks whether a user with the specified identification exists.
      *
@@ -89,13 +94,16 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
         if (!existById(userAccount.getIdentification())) {
             LocalDate lastLoginDate = userAccount.getLastLoginDate();
             String stringLastLoginDate = valueOf(lastLoginDate);
+            Set<String> sharedAccountIds = userAccount.getSharedAccounts();
+            String stringSharedAccountIds = String.join(";", sharedAccountIds);
+
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s",
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s",
                     userAccount.getIdentification(), userAccount.getUsername(),
                     userAccount.getPassword(), userAccount.getTotalIncome(),
                     userAccount.getTotalOutflow(), userAccount.getTotalBalance(),
-                    stringLastLoginDate);
+                    stringLastLoginDate, stringSharedAccountIds);
 
             // if csv not created, create it
             confirmCsvExistence(accountCsvPath, userInfo);
@@ -229,7 +237,6 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
      */
     @Override
     public List<Transaction> readTransactions(String identification){
-        // need implementation
         List<Transaction> transactions = new ArrayList<>();
 
         try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {

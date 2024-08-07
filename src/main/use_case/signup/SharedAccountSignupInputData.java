@@ -1,7 +1,5 @@
 package use_case.signup;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -13,9 +11,7 @@ import java.util.Set;
  * @since 2024-08-03
  *
  */
-public class SharedAccountSignupInputData {
-    private String sharedAccountId;
-    private String sharedPassword;
+public class SharedAccountSignupInputData extends SignupInputData {
 //    private String user1Id;
 //    private String user2Id;
     private Set<String> userIds;
@@ -29,50 +25,11 @@ public class SharedAccountSignupInputData {
 //     * @param user2Id         the identification for the second user
      */
     public SharedAccountSignupInputData(String sharedAccountId, String sharedPassword, Set<String> userIds) {
-        this.sharedAccountId = sharedAccountId;
-        this.sharedPassword = sharedPassword;
+        super(sharedAccountId, sharedPassword);
 //        this.user1Id = user1Id;
 //        this.user2Id = user2Id;
         this.userIds = userIds;
     }
-
-
-    /**
-     * Gets the shared account ID.
-     *
-     * @return the shared account ID
-     */
-    public String getSharedAccountId() {
-        return sharedAccountId;
-    }
-
-    /**
-     * Sets the shared account ID.
-     *
-     * @param sharedAccountId the new shared account ID
-     */
-    public void setSharedAccountId(String sharedAccountId) {
-        this.sharedAccountId = sharedAccountId;
-    }
-
-    /**
-     * Gets the shared account password.
-     *
-     * @return the shared account password
-     */
-    public String getSharedPassword() {
-        return sharedPassword;
-    }
-
-    /**
-     * Sets the shared account password.
-     *
-     * @param sharedPassword the new shared account password
-     */
-    public void setSharedPassword(String sharedPassword) {
-        this.sharedPassword = sharedPassword;
-    }
-
     /**
      * Gets the ID of the first user.
      *
@@ -136,14 +93,6 @@ public class SharedAccountSignupInputData {
         return this.userIds;
     }
 
-    /**
-     * Sets the additional user IDs for the shared account.
-     *
-     * @param userIds the new set of additional user IDs
-     */
-    public void setUserIds(Set<String> userIds) {
-        this.userIds = userIds;
-    }
 }
 
 

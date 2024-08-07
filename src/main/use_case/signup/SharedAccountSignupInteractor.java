@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * The SharedAccountSignupInteractor class handles the signup process for shared accounts.
  * It validates input data, interacts with the data access layer, and uses the presenter to prepare output views.
- * This class does not extend SignupInteractor but follows a similar process.
+ * This class does not extend UserAccountSignupInteractor but follows a similar process.
  * <p>
  * This class assumes that it will receive a SharedAccountSignupInputData type as input.
  * </p>

@@ -9,6 +9,8 @@ import use_case.login.SharedAccountLoginOutputData;
 /**
  * The SharedAccountLoginPresenter class implements the LoginOutputBoundary interface.
  * It handles the presentation logic specifically for shared account login.
+ *
+ * @author Xile Chen, Eric Chen
  */
 public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoundary {
     private final SharedAccountLoginViewModel sharedAccountLoginViewModel;
@@ -33,18 +35,17 @@ public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoun
      */
     @Override
     public void prepareSuccessView(SharedAccountLoginOutputData userInfo) {
-            SharedAccountLoginOutputData sharedUserInfo =  userInfo;
-
             // Handle shared account login
-            SharedAccountLoginState sharedAccountLoginState = sharedAccountLoginViewModel.getState();
-            sharedAccountLoginState.setSharedAccountId(sharedUserInfo.getSharedAccountId());
+            SharedAccountLoginState sharedAccountLoginState = this.sharedAccountLoginViewModel.getState();
+            sharedAccountLoginState.setSharedAccountId(userInfo.getSharedAccountId());
+            this.viewManagerModel.setSharedAccountId(userInfo.getSharedAccountId());
+            this.sharedAccountLoginViewModel.setState(sharedAccountLoginState);
             sharedAccountLoginState.setSuccessMsg("Successfully Logged In to Shared Account!!!");
-            sharedAccountLoginViewModel.setState(sharedAccountLoginState);
-            sharedAccountLoginViewModel.firePropertyChanged();
-            viewManagerModel.setActiveViewName(sharedAccountLoginViewModel.getViewName());
+            this.sharedAccountLoginViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveViewName(this.sharedAccountLoginViewModel.getViewName());
 
             // Change to the next view
-            viewManagerModel.changeView("Transaction");
+            this.viewManagerModel.changeView("Homepage Two");
     }
 
     /**
@@ -55,10 +56,10 @@ public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoun
      */
     @Override
     public void prepareFailView(String err) {
-        SharedAccountLoginState sharedAccountLoginState = sharedAccountLoginViewModel.getState();
+        SharedAccountLoginState sharedAccountLoginState = this.sharedAccountLoginViewModel.getState();
         sharedAccountLoginState.setStateError(err);
         sharedAccountLoginState.setSuccessMsg(null); // Clear success message on failure
-        sharedAccountLoginViewModel.firePropertyChanged();
+        this.sharedAccountLoginViewModel.firePropertyChanged();
     }
 }
 
