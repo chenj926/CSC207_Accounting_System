@@ -111,61 +111,6 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
     }
 
     /**
-     * Updates an existing user account in the user accounts CSV file.
-     * The method reads the file, updates the relevant user's information, and writes the updated content back to the file.
-     *
-     * @param userAccount the user account with updated information
-     */
-    @Override
-    public void update(UserAccount userAccount) {
-        String identification = userAccount.getIdentification();
-        List<String> lines = new ArrayList<>();
-        String updatedLine = null;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
-                String[] values = line.split(",");
-
-                // we only compare the id
-                String id = values[0];
-                if (id.equals(identification)) {
-                    // user info
-                    String username = userAccount.getUsername();
-                    String password = userAccount.getPassword();
-                    float income = userAccount.getTotalIncome();
-                    float outflow = userAccount.getTotalOutflow();
-                    float balance = userAccount.getTotalBalance();
-                    LocalDate lastLoginDate = userAccount.getLastLoginDate();
-                    String lastLoginDateString = valueOf(lastLoginDate);
-
-                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
-                            income, outflow, balance, lastLoginDateString);
-                    lines.add(updatedLine);
-                } else {
-                    lines.add(line);
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-
-        // updateLine is updated, pass in all the info back
-        if (updatedLine != null) {
-            // open while csv, delete every thing
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH),
-                    StandardOpenOption.TRUNCATE_EXISTING)) {
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    /**
      * Deletes a user account by its identification from the user accounts CSV file.
      * The method reads the file, excludes the user to be deleted, and writes the remaining data back to the file.
      *

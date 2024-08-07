@@ -179,6 +179,15 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
     }
 
 
+    /**
+     * Updates an existing account in the CSV file.
+     * <p>
+     * This method reads the existing accounts from the CSV file, updates the account,
+     * and writes all accounts back to the file.
+     * </p>
+     *
+     * @param account the account to be updated
+     */
     public void update(A account) {
         String identification = account.getIdentification();
         List<String> lines = new ArrayList<>();

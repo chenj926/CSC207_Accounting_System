@@ -95,64 +95,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     }
 
     /**
-     * Updates an existing shared account in the CSV file.
-     * <p>
-     * This method reads the existing shared accounts from the CSV file, updates the shared account,
-     * and writes all shared accounts back to the file.
-     * </p>
-     *
-     * @param sharedAccount the {@link SharedAccount} to be updated
-     */
-    @Override
-    public void update(SharedAccount sharedAccount) {
-        String identification = sharedAccount.getIdentification();
-        List<String> lines = new ArrayList<>();
-        String updatedLine = null;
-        try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
-            String line;
-            while ((line = bin.readLine()) != null) {
-//                line = bin.readLine();
-                String[] values = line.split(",");
-
-                // we only compare the id
-                String id = values[0];
-                if (id.equals(identification)) {
-                    // user info
-                    String userIds = sharedAccount.getSharedUserIdentifications().toString();
-                    String password = sharedAccount.getPassword();
-                    float income = sharedAccount.getTotalIncome();
-                    float outflow = sharedAccount.getTotalOutflow();
-                    float balance = sharedAccount.getTotalBalance();
-                    LocalDate lastLoginDate = sharedAccount.getLastLoginDate();
-                    String lastLoginDateString = valueOf(lastLoginDate);
-
-                    updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, userIds, password,
-                            income, outflow, balance, lastLoginDateString);
-                    lines.add(updatedLine);
-                } else {
-                    lines.add(line);
-                }
-            }
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-
-        // updateLine is updated, pass in all the info back
-        if (updatedLine != null) {
-            // open while csv, delete every thing
-            try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH),
-                    StandardOpenOption.TRUNCATE_EXISTING)) {
-                for (String line : lines) {
-                    writer.write(line);
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
-            }
-        }
-    }
-
-    /**
      * Deletes a shared account by its identification.
      * <p>
      * This method reads the existing shared accounts from the CSV file, removes the specified shared account,
