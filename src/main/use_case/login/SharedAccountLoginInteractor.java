@@ -1,12 +1,8 @@
 package use_case.login;
 
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
-import entity.account.UserAccount;
 import entity.account.SharedAccount;
-import data_access.authentication.LoginDataAccessInterface;;
-import data_access.account.ShareAccountDataAccessInterface;
-import use_case.signup.SharedAccountSignupOutputBoundary;
-import use_case.signup.SharedAccountSignupOutputData;
+;
 import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
@@ -20,7 +16,7 @@ import java.time.LocalDate;
 public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoundary{
     final SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessObject;
     final SharedAccountLoginOutputBoundary sharedPresenter;
-    private LoginMediator mediator;
+    private UserLoginMediator mediator;
 
     /**
      * Constructs a SharedAccountLoginInteractor object with the specified data access interfaces and output boundary.
@@ -39,7 +35,7 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
      *
      * @param mediator the LoginMediator instance to set
      */
-    public void setMediator(LoginMediator mediator) {
+    public void setMediator(UserLoginMediator mediator) {
         this.mediator = mediator;
     }
 
