@@ -1,7 +1,7 @@
 package interface_adaptors;
 
 import app.authentication.LoginUseCaseFactory;
-import app.authentication.LogoutUseCaseFactory;
+//import app.authentication.LogoutUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
 import app.home_page.HomepageTwoUseCaseFactory;
@@ -13,7 +13,7 @@ import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.LoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
-import interface_adaptors.logout.LogoutViewModel;
+//import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
@@ -28,7 +28,7 @@ import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
 import view.login.LoginView;
 import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
-import view.logout.LogoutView;
+//import view.logout.LogoutView;
 import view.signup.SignupView;
 import view.signup.SharedAccountSignupView;
 //import view.transaction.TransactionView;
@@ -203,7 +203,7 @@ public class ViewManagerModel {
                 break;
             case "shared account log in":
                 SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
-                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.createSharedAccount(this, sharedAccountLoginViewModel);
+                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.create(this, sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
                 break;
@@ -224,12 +224,12 @@ public class ViewManagerModel {
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
                 break;
-            case "log out":
-                LogoutViewModel logoutViewModel = new LogoutViewModel();
-                LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
-                views.put("log out", logoutView);
-                currentView = logoutView;
-                break;
+//            case "log out":
+//                LogoutViewModel logoutViewModel = new LogoutViewModel();
+//                LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
+//                views.put("log out", logoutView);
+//                currentView = logoutView;
+//                break;
             case "Financial Report":
                 FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
                 FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this, financialReportViewModel);

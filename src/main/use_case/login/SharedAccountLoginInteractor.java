@@ -7,14 +7,20 @@ import data_access.authentication.LoginDataAccessInterface;;
 import data_access.account.ShareAccountDataAccessInterface;
 import use_case.signup.SharedAccountSignupOutputBoundary;
 import use_case.signup.SharedAccountSignupOutputData;
+import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+
+import java.time.LocalDate;
 
 /**
  * The SharedAccountLoginInteractor class extends the LoginInteractor to handle login for shared accounts.
  * It includes additional validation for the shared account ID and ensures that the user is part of the shared account.
+ *
+ * @author Xile Chen, Eric Chen
  */
 public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoundary{
     final SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessObject;
     final SharedAccountLoginOutputBoundary sharedPresenter;
+    private LoginMediator mediator;
 
     /**
      * Constructs a SharedAccountLoginInteractor object with the specified data access interfaces and output boundary.
@@ -29,6 +35,15 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
     }
 
     /**
+     * Sets the mediator for the interactor.
+     *
+     * @param mediator the LoginMediator instance to set
+     */
+    public void setMediator(LoginMediator mediator) {
+        this.mediator = mediator;
+    }
+
+    /**
      * Executes the shared account login process with the given input data.
      *
      * @param sharedLoginInputData the input data required for the shared account login process
@@ -39,29 +54,39 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
         boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getSharedAccountId());
         boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getSharedPassword());
 
-        if (!validSharedAccountId || !validSharedAccountPassword) {
-            sharedPresenter.prepareFailView("Shared Account ID and Shared Account Password cannot be empty!");
+        if (!validSharedAccountPassword && !validSharedAccountId) {
+            sharedPresenter.prepareFailView("Identification AND Password can not be empty!");
             return;
-        }
-
-        if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getSharedAccountId())) {
-            sharedPresenter.prepareFailView("Shared Account not found");
+        } else if (!validSharedAccountPassword) {
+            sharedPresenter.prepareFailView("Password can not be empty!");
             return;
-        }
-
-        SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getSharedAccountId());
-        if (sharedAccount == null || !sharedAccount.getSharedAccountPassword().equals(sharedLoginInputData.getSharedPassword())) {
-            sharedPresenter.prepareFailView("Incorrect Shared Account Password!");
+        } else if (!validSharedAccountId) {
+            sharedPresenter.prepareFailView("Identification can not be empty!");
             return;
-        }
-
-        boolean isLogin = sharedAccountLoginDataAccessObject.login(sharedAccount);
-
-        if (!isLogin) {
-            sharedPresenter.prepareFailView("Incorrect Shared Account Password!");
         } else {
-            SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getSharedAccountId(), true);
-            sharedPresenter.prepareSuccessView(sharedLoginOutputData);
+            if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getSharedAccountId())) {
+                sharedPresenter.prepareFailView("Shared Account not found");
+                return;
+            }
+
+            SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getSharedAccountId());
+            if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getSharedPassword())) {
+                sharedPresenter.prepareFailView("Incorrect Password!");
+                return;
+            }
+
+            boolean isLogin = sharedAccountLoginDataAccessObject.login(sharedAccount);
+
+            if (!isLogin) {
+                sharedPresenter.prepareFailView("Incorrect Account Password!");
+            } else {
+                SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getSharedAccountId(), true);
+                sharedPresenter.prepareSuccessView(sharedLoginOutputData);
+
+                // Notify mediator on successful login
+                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getSharedAccountId(), LocalDate.now());
+                mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
+            }
         }
     }
 

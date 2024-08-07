@@ -32,6 +32,6 @@ public class LoginController {
      */
     public void execute(String password, String id) {
         LoginInputData loginInputData = new LoginInputData(password, id);
-        loginMediator.execute(loginInputData);
+        this.loginMediator.execute(loginInputData);
     }
 }

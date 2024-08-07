@@ -81,11 +81,11 @@ public class LoginInteractor implements LoginInputBoundary {
                     presenter.prepareFailView("Incorrect Password!");
                 } else {
                     // prepare output to presenter
-                    LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
+                    LoginOutputData loginOutputData = new LoginOutputData(loginInputData.getIdentification(), true);
                     presenter.prepareSuccessView(loginOutputData);
 
                     // Notify mediator on successful login
-                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccount.getIdentification(), LocalDate.now());
+                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(loginInputData.getIdentification(), LocalDate.now());
                     mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
                     }
                 }
