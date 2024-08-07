@@ -1,7 +1,5 @@
 package interface_adaptors.login;
 
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInputData;
 import use_case.login.LoginMediator;
 import use_case.login.UserLoginInputData;
 
