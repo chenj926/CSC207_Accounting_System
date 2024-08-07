@@ -1,6 +1,10 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 /**
  * Interface for data access operations related to shared accounts.
@@ -28,4 +32,30 @@ public interface ShareAccountDataAccessInterface {
      */
     void save(SharedAccount sharedAccount);
 
+    /**
+     * Retrieves a shared account by its unique identification.
+     *
+     * @param identification the unique identifier for the shared account
+     * @return the shared account associated with the specified identification, or null if not found
+     */
+    SharedAccount getById(String identification);
+
+    /**
+     * Updates an existing shared account in the data store.
+     *
+     * @param sharedAccount the shared account to be updated
+     */
+    void update(SharedAccount sharedAccount);
+
+    /**
+     * Deletes a shared account by its unique identification.
+     *
+     * @param identification the unique identifier for the shared account to be deleted
+     */
+    void deleteById(String identification);
+
+
+    void saveTransaction(OneTimeTransactionOutputData outputData,
+                         PeriodicTransactionOutputData sharedPeriodicOutputData,
+                         boolean isPeriodic);
 }

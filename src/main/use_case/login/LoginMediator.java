@@ -16,6 +16,7 @@ import java.time.LocalDate;
  */
 public class LoginMediator {
     private final LoginInputBoundary loginInteractor;
+    private final SharedAccountLoginInputBoundary sharedLoginInteractor;
     private final UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
     private final UserAccountDataAccessInterface periodicTransactionDataAccessObject;
 
@@ -29,13 +30,26 @@ public class LoginMediator {
                          UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                          UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
+        this.sharedLoginInteractor = null;
+        this.updatePeriodicAtLoginInteractor = updatePeriodicAtLoginInteractor;
+        this.periodicTransactionDataAccessObject = periodicTransactionDataAccessObject;
+    }
+
+    public LoginMediator(SharedAccountLoginInputBoundary interactor,
+                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
+        this.loginInteractor = null;
+        this.sharedLoginInteractor = interactor;
         this.updatePeriodicAtLoginInteractor = updatePeriodicAtLoginInteractor;
         this.periodicTransactionDataAccessObject = periodicTransactionDataAccessObject;
     }
 
 
     public void execute(LoginInputData loginInputData) {
-        loginInteractor.execute(loginInputData);
+        this.loginInteractor.execute(loginInputData);
+    }
+    public void execute(SharedAccountLoginInputData inputData) {
+        this.sharedLoginInteractor.execute(inputData);
     }
 
     public void notifyLoginResult(boolean success, UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {

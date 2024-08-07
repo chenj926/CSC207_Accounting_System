@@ -1,25 +1,24 @@
 package use_case.signup;
 
+import java.util.Set;
+
 /**
  * The SharedAccountSignupOutputData class represents the output data of a shared account signup operation.
  * It includes specific fields such as shared account ID and the status of whether the shared account already exists.
  */
-public class SharedAccountSignupOutputData extends SignupOutputData {
+public class SharedAccountSignupOutputData{
     private final String sharedAccountId;
-    private final boolean sharedAccountExists;
+//    private String user1Id;
+//    private String user2Id;
+    private Set<String> userIds;
+//    private final boolean sharedAccountExists;
 
-    /**
-     * Constructs a SharedAccountSignupOutputData object with the specified details.
-     *
-     * @param username            the username of the newly signed-up user
-     * @param useCaseFailed       the status indicating if the signup use case has failed
-     * @param sharedAccountId     the shared account ID
-     * @param sharedAccountExists the status indicating if the shared account already exists
-     */
-    public SharedAccountSignupOutputData(String username, boolean useCaseFailed, String sharedAccountId, boolean sharedAccountExists) {
-        super(username, useCaseFailed);
+    public SharedAccountSignupOutputData(String sharedAccountId, Set<String> userIds) {
         this.sharedAccountId = sharedAccountId;
-        this.sharedAccountExists = sharedAccountExists;
+//        this.user1Id = user1Id;
+//        this.user2Id = user2Id;
+        this.userIds = userIds;
+//        this.sharedAccountExists = sharedAccountExists;
     }
 
     /**
@@ -30,14 +29,24 @@ public class SharedAccountSignupOutputData extends SignupOutputData {
     public String getSharedAccountId() {
         return this.sharedAccountId;
     }
+//
+//    public String getUser1Id() {return this.user1Id;}
+//
+//    public String getUser2Id() {return this.user2Id;}
+
+    public Set<String> getUserIds() {
+        return this.userIds;
+    }
+
+}
 
     /**
      * Checks if the shared account already exists.
      *
      * @return true if the shared account already exists, false otherwise
      */
-    public boolean isSharedAccountExists() {
-        return this.sharedAccountExists;
-    }
-}
+//    public boolean isSharedAccountExists() {
+//        return this.sharedAccountExists;
+//    }
+//}
 

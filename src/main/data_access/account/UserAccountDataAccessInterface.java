@@ -67,8 +67,8 @@ public interface UserAccountDataAccessInterface {
     void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
                          PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
 
+    List<Transaction> readTransactions(String userId);
 
-    List<Transaction> readTransactions(String identification);
     // void updateId(UserAccount userAccount);
     //account balance
 //    void updateBalance(float balance);

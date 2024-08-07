@@ -1,7 +1,6 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -13,7 +12,7 @@ import use_case.login.LoginOutputData;
  */
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructs a LoginPresenter object with the specified view manager model and login view model.

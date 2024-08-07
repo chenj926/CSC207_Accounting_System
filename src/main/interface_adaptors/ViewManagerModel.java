@@ -12,19 +12,31 @@ import app.FinancialReport.FinancialReportUseCaseFactory;
 import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
+import interface_adaptors.transaction.SharedAccountTransactionViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
+import view.financial_report.FinancialReportView;
 import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
 import view.login.LoginView;
+import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
 import view.logout.LogoutView;
 import view.signup.SignupView;
+import view.signup.SharedAccountSignupView;
+//import view.transaction.TransactionView;
+import view.transaction.SharedAccountTransactionView;
 import view.transaction.one_time.OneTimeTransactionView;
+import view.transaction.one_time.SharedAccountOneTimeTransactionView;
 import view.transaction.periodic.PeriodicTransactionView;
+import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 //import view.transaction.TransactionView;
 
 import javax.swing.*;
@@ -45,6 +57,7 @@ public class ViewManagerModel {
 
     private String userId;
     private String[] basicUserInfo;
+    private String sharedAccountId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
@@ -79,6 +92,10 @@ public class ViewManagerModel {
         return this.basicUserInfo;
     }
 
+    public String getSharedAccountId() {
+        return this.sharedAccountId;
+    }
+
     /**
      * Sets the name of the active view and notifies listeners of the change.
      *
@@ -103,6 +120,10 @@ public class ViewManagerModel {
 
     public void setBasicUserInfo(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
+    }
+
+    public void setSharedAccountId(String sharedAccountId) {
+        this.sharedAccountId = sharedAccountId;
     }
 
     /**
@@ -163,10 +184,16 @@ public class ViewManagerModel {
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel =  new SignupViewModel();
+                SignupViewModel signupViewModel = new SignupViewModel();
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
+                break;
+            case "shared account sign up":
+                SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
+                SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this, sharedSignupViewModel);
+                views.put("shared account sign up", sharedSignupView);
+                currentView = sharedSignupView;
                 break;
             case "log in":
                 LoginViewModel loginViewModel =  new LoginViewModel();
@@ -174,12 +201,17 @@ public class ViewManagerModel {
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
+            case "shared account log in":
+                SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
+                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.createSharedAccount(this, sharedAccountLoginViewModel);
+                views.put("shared account log in", sharedAccountLoginView);
+                currentView = sharedAccountLoginView;
+                break;
             case "Homepage Two":
                 HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
                 HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
                 views.put("Homepage Two", homepageTwoView);
                 currentView = homepageTwoView;
-                break;
             case "One Time Transaction":
                 OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this, oneTimeTransactionViewModel);

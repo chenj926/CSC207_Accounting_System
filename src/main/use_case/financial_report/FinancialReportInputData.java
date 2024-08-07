@@ -9,7 +9,6 @@ import java.util.Date;
  */
 public class FinancialReportInputData {
     private final String userName;
-    private final String identification;
 
     private final Date startDate;
     private final Date endDate;
@@ -21,9 +20,8 @@ public class FinancialReportInputData {
      * @param startDate the start date of the report period
      * @param endDate the end date of the report period
      */
-    public FinancialReportInputData(String userName, String id, Date startDate, Date endDate) {
+    public FinancialReportInputData(String userName, Date startDate, Date endDate) {
         this.userName = userName;
-        this.identification = id;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -42,25 +40,21 @@ public class FinancialReportInputData {
      *
      * @return the account ID
      */
-    public String getUserName() { return this.userName; }
-
-    public String getIdentification() {
-        return this.identification;
-    }
+    public String getUserName() { return userName; }
 
     /**
      * Returns the start date of the report period.
      *
      * @return the start date
      */
-    public Date getStartDate() { return this.startDate; }
+    public Date getStartDate() { return startDate; }
 
     /**
      * Returns the end date of the report period.
      *
      * @return the end date
      */
-    public Date getEndDate() { return this.endDate; }
+    public Date getEndDate() { return endDate; }
 }
 
 
