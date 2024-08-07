@@ -17,11 +17,13 @@ import data_access.transaction.*;
 public class DAOFactory {
     private static CSVUserAccountDataAccessObject csvUserAccountDAO;
     private static CSVSharedAccountDataAccessObject csvSharedAccountDAO;
-    private static CSVUserLoginoutDataAccessObject csvUserLoginoutDAO;
+    private static CSVUserLoginDataAccessObject csvUserLoginDAO;
+    private static CSVSharedAccountLoginDataAccessObject csvSharedAccountUserLoginDAO;
 
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
     private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
     private static InMemoryLoginoutDataAccessObject inMemoryLoginoutDAO;
+    private static InMemorySharedAccountLoginDataAccessObject inMemorySharedAccountLoginDataAccessObject;
     private static InMemoryOneTimeDataAccessObject inMemoryOneTimeDataAccessObject;
     private static InMemoryPeriodicDataAccessObject inMemoryPeriodicDataAccessObject;
 
@@ -99,50 +101,50 @@ public class DAOFactory {
             }
             return inMemoryLoginoutDAO;
         } else {
-            if (csvUserLoginoutDAO == null) {
-                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            if (csvUserLoginDAO == null) {
+                csvUserLoginDAO = new CSVUserLoginDataAccessObject();
             }
-            return csvUserLoginoutDAO;
+            return csvUserLoginDAO;
         }
     }
 
     public static synchronized SharedAccountLoginDataAccessInterface getSharedAccountLoginDataAccessObject() {
         if (useInMemory) {
-            if (inMemoryLoginoutDAO == null) {
-                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
+            if (inMemorySharedAccountLoginDataAccessObject == null) {
+                inMemorySharedAccountLoginDataAccessObject = new InMemorySharedAccountLoginDataAccessObject();
             }
-            return inMemoryLoginoutDAO;
+            return inMemorySharedAccountLoginDataAccessObject;
         } else {
-            if (csvUserLoginoutDAO == null) {
-                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
+            if (csvSharedAccountUserLoginDAO == null) {
+                csvSharedAccountUserLoginDAO = new CSVSharedAccountLoginDataAccessObject();
             }
-            return csvUserLoginoutDAO;
+            return csvSharedAccountUserLoginDAO;
         }
     }
 
-    /**
-     * Returns a singleton instance of {@link LogoutDataAccessInterface}.
-     * <p>
-     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryLoginoutDataAccessObject}.
-     * Otherwise, returns an instance of {@link CSVUserLoginoutDataAccessObject}.
-     * </p>
-     *
-     * @return the {@link LogoutDataAccessInterface} instance
-     */
-    public static synchronized LogoutDataAccessInterface getLogoutDataAccessObject() {
-        // 先不管
-        if (useInMemory) {
-            if (inMemoryLoginoutDAO == null) {
-                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
-            }
-            return inMemoryLoginoutDAO;
-        } else {
-            if (csvUserLoginoutDAO == null) {
-                csvUserLoginoutDAO = new CSVUserLoginoutDataAccessObject();
-            }
-            return csvUserLoginoutDAO;
-        }
-    }
+//    /**
+//     * Returns a singleton instance of {@link LogoutDataAccessInterface}.
+//     * <p>
+//     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryLoginoutDataAccessObject}.
+//     * Otherwise, returns an instance of {@link CSVUserLoginoutDataAccessObject}.
+//     * </p>
+//     *
+//     * @return the {@link LogoutDataAccessInterface} instance
+//     */
+//    public static synchronized LogoutDataAccessInterface getLogoutDataAccessObject() {
+//        // 先不管
+//        if (useInMemory) {
+//            if (inMemoryLoginoutDAO == null) {
+//                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
+//            }
+//            return inMemoryLoginoutDAO;
+//        } else {
+//            if (csvUserLoginDAO == null) {
+//                csvUserLoginDAO = new CSVUserLoginoutDataAccessObject();
+//            }
+//            return csvUserLoginDAO;
+//        }
+//    }
 
     /**
      * Returns a singleton instance of {@link UserAccountDataAccessInterface} for one-time transactions.

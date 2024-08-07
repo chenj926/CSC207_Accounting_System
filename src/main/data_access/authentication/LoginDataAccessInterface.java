@@ -38,5 +38,5 @@ public interface LoginDataAccessInterface {
      */
     boolean login(UserAccount userAccount);
 
-    boolean login(SharedAccount sharedAccount);
+//    boolean login(SharedAccount sharedAccount);
 }

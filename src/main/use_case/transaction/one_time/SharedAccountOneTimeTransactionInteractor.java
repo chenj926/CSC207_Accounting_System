@@ -114,7 +114,7 @@ public class SharedAccountOneTimeTransactionInteractor
         SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeInflow, totalBalance, responsibleUserIds);
 
         // Save this transaction
-        sharedAccountDataAccessInterface.saveSharedTransaction(outputData, null, true);
+        sharedAccountDataAccessInterface.saveTransaction(outputData, null, false);
         sharedAccountDataAccessInterface.update(sharedAccount);
         presenter.prepareSuccessView(outputData);
     }
@@ -143,7 +143,7 @@ public class SharedAccountOneTimeTransactionInteractor
         SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeOutflow, totalBalance, responsibleUserIds);
 
         // Save this transaction
-        sharedAccountDataAccessInterface.saveSharedTransaction(outputData, null, false);
+        sharedAccountDataAccessInterface.saveTransaction(outputData, null, false);
         sharedAccountDataAccessInterface.update(sharedAccount);
         presenter.prepareSuccessView(outputData);
     }

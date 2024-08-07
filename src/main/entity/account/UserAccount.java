@@ -70,6 +70,7 @@ public class UserAccount implements Account {
         this.username = username;
         this.password = password;
         this.identification = identification;
+        this.sharedAccounts = new HashSet<>();
 
         this.transactions = new ArrayList<>();
 

@@ -50,15 +50,15 @@ public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAcc
         return false;
     }
 
-    @Override
-    public boolean login(SharedAccount account) {
-        String identifier = account.getIdentification();
-        if (existById(identifier)) {
-            userLogin.put(identifier, true); // Mark the account as logged in
-            return true;
-        }
-        return false;
-    }
+//    @Override
+//    public boolean login(SharedAccount account) {
+//        String identifier = account.getIdentification();
+//        if (existById(identifier)) {
+//            userLogin.put(identifier, true); // Mark the account as logged in
+//            return true;
+//        }
+//        return false;
+//    }
 
 
     /**

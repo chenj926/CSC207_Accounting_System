@@ -28,6 +28,12 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     public boolean login(SharedAccount sharedAccount) {
         return shareAcc.containsKey(sharedAccount.getUsername());
     }
+
+    @Override
+    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+
+    }
+
     /**
      * Checks if a shared account exists with the given identification.
      *
@@ -57,20 +63,20 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         shareAcc.remove(sharedAccountId);
     }
 
-    @Override
-    public void saveSharedTransaction(
-            SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
-            SharedAccountPeriodicTransactionOutputData periodicOutputData,
-            boolean isPeriodic
-    ) {
-        if (isPeriodic) {
-            System.out.println("Saving shared account periodic transaction data...");
-            // Implementation details for saving periodic transactions
-        } else {
-            System.out.println("Saving shared account one-time transaction data...");
-            // Implementation details for saving one-time transactions
-        }
-    }
+//    @Override
+//    public void saveSharedTransaction(
+//            SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+//            SharedAccountPeriodicTransactionOutputData periodicOutputData,
+//            boolean isPeriodic
+//    ) {
+//        if (isPeriodic) {
+//            System.out.println("Saving shared account periodic transaction data...");
+//            // Implementation details for saving periodic transactions
+//        } else {
+//            System.out.println("Saving shared account one-time transaction data...");
+//            // Implementation details for saving one-time transactions
+//        }
+//    }
 
 
     /**

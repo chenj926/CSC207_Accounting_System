@@ -3,13 +3,18 @@ package main.use_case.transaction.periodic;
 import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import data_access.account.UserAccountDataAccessInterface;
+import entity.transaction.periodic.PeriodicInflow;
+import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
+//import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +46,7 @@ public class SharedAccountPeriodicTransactionInteractor extends TransactionInter
 
     @Override
     public void execute(SharedAccountPeriodicTransactionInputData periodicTransactionInputData) {
-        String identification = sharedAccount.getIdentification();
+        String identification = periodicTransactionInputData.getId();
         String stringAmount = periodicTransactionInputData.getTransactionAmount();
         String endDate = periodicTransactionInputData.getTransactionEndDate();
         String description = periodicTransactionInputData.getTransactionDescription();

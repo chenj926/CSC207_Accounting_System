@@ -71,7 +71,7 @@ public class LoginUseCaseFactory {
 
     private static SharedAccountLoginController createSharedAccountUserLoginUseCase(ViewManagerModel viewManagerModel,
                                                                        SharedAccountLoginViewModel viewModel) throws IOException {
-        SharedAccountLoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
+        SharedAccountLoginDataAccessInterface loginDataAccessObject = DAOFactory.getSharedAccountLoginDataAccessObject();
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
 
         SharedAccountLoginOutputBoundary presenter = new SharedAccountLoginPresenter(viewManagerModel, viewModel);
@@ -79,8 +79,8 @@ public class LoginUseCaseFactory {
 
         UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
-        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
-        loginInteractor.setMediator(loginMediator);
+        LoginMediator loginMediator = new LoginMediator(interactor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        interactor.setMediator(loginMediator);
         return new SharedAccountLoginController(loginMediator);
     }
 
