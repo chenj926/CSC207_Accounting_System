@@ -1,21 +1,22 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
-
-import data_access.iterator.TransactionIterator;
-import data_access.iterator.UserAccountIterator;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
-//import org.w3c.dom.css.CSSStyleSheet;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.Map;
-import java.io.*;
-import java.nio.file.*;
 import java.util.*;
 
 import static java.lang.String.valueOf;
@@ -40,150 +41,154 @@ import static java.lang.String.valueOf;
  *
  * @see UserAccount
  * @see Transaction
- * @see OneTimeTransactionOutputData
+ * @see UserAccountOneTimeTransactionOutputData
  * @see PeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
-    private Map<String, UserAccount> userAccounts;
+public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
+        UserAccount,
+        UserAccountOneTimeTransactionOutputData,
+        PeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
+
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
-    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";
-    private static final String TRANSACTION_HEADER = "id,amount,date,description,category,start date, period, end date";
+    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance";
+    protected static final String TRANSACTION_HEADER = "id,amount,date,description,category,start date,period,end date";
 
-    protected final Path userCsvPath;
-    protected final Path transactionCsvPath;
-
-    /**
-     * Constructs a CSVUserAccountDataAccessObject object and initializes the CSV file paths.
-     * The constructor dynamically determines the base directory and initializes the CSV files
-     * with correct headers if they do not exist.
-     */
     public CSVUserAccountDataAccessObject() {
-        // Determine the base directory dynamically
-        String baseDir = System.getProperty("user.dir");
-        this.userCsvPath = Paths.get(baseDir, USER_CSV_FILE_PATH);
-        this.transactionCsvPath = Paths.get(baseDir, TRANSACTION_CSV_FILE_PATH);
-
-        // define the header for csvfile
-        try {
-            initializeCsvFile(userCsvPath);
-            initializeTransactionFile(transactionCsvPath);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.err.println("Failed to initialize CSV file: " + e.getMessage());
-        }
+        super(USER_CSV_FILE_PATH, TRANSACTION_CSV_FILE_PATH, CSV_HEADER, TRANSACTION_HEADER);
     }
 
-    /**
-     * Initializes the user accounts CSV file with the correct header.
-     * If the file does not exist, it creates the file and writes the header.
-     * If the file exists, it ensures the header is correct.
-     *
-     * @param csvPath the path to the CSV file to be initialized
-     * @throws IOException if an I/O error occurs
-     */
-    private void initializeCsvFile(Path csvPath) throws IOException {
-        // Get the parent directory of the CSV file path
-        Path parentDir = csvPath.getParent();
+//    /**
+//     * Constructs a CSVUserAccountDataAccessObject object and initializes the CSV file paths.
+//     * The constructor dynamically determines the base directory and initializes the CSV files
+//     * with correct headers if they do not exist.
+//     */
+//    public CSVUserAccountDataAccessObject() {
+//        // Determine the base directory dynamically
+//        String baseDir = System.getProperty("user.dir");
+//        this.userCsvPath = Paths.get(baseDir, USER_CSV_FILE_PATH);
+//        this.transactionCsvPath = Paths.get(baseDir, TRANSACTION_CSV_FILE_PATH);
+//
+//        // define the header for csvfile
+//        try {
+//            initializeCsvFile(userCsvPath);
+//            initializeTransactionFile(transactionCsvPath);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            System.err.println("Failed to initialize CSV file: " + e.getMessage());
+//        }
+//    }
 
-        // If the parent directory does not exist, create it
-        if (parentDir != null && !Files.exists(parentDir)) {
-            Files.createDirectories(parentDir);
-        }
-
-        // If the CSV file does not exist, create it and write the header
-        if (!Files.exists(csvPath)) {
-            Files.createFile(csvPath);
-            try (BufferedWriter bout = Files.newBufferedWriter(csvPath, StandardOpenOption.APPEND)) {
-                bout.write(CSV_HEADER);
-                bout.newLine();
-            }
-        } else {
-            // If the CSV file exists, check if the header is correct
-            try (BufferedReader bin = Files.newBufferedReader(csvPath)) {
-                String firstLine = bin.readLine();
-                List<String> lines = new ArrayList<>();
-
-                // If the first line is null or incorrect, rewrite the file with the correct header
-                if (firstLine == null || !firstLine.equals(CSV_HEADER)) {
-
-                    // If the first line is not the header, add it to the lines to be written back
-                    if (firstLine != null && !firstLine.isEmpty()) {
-                        lines.add(firstLine);
-                    }
-
-                    // Read the rest of the file
-                    String line;
-                    while ((line = bin.readLine()) != null) {
-                        lines.add(line);
-                    }
-
-                    // Rewrite the file with the correct header and existing data
-                    List<String> allLines = new ArrayList<>();
-                    allLines.add(CSV_HEADER);
-                    allLines.addAll(lines);
-
-                    Files.write(csvPath, allLines, StandardOpenOption.TRUNCATE_EXISTING);
-                }
-            }
-        }
-    }
-
-    /**
-     * Initializes the transactions CSV file with the correct header.
-     * If the file does not exist, it creates the file and writes the header.
-     * If the file exists, it ensures the header is correct.
-     *
-     * @param transactionPath the path to the transactions CSV file to be initialized
-     * @throws IOException if an I/O error occurs
-     */
-    private void initializeTransactionFile(Path transactionPath) throws IOException {
-        // Get the parent directory of the CSV file path
-        Path parentDir = transactionPath.getParent();
-
-        // If the parent directory does not exist, create it
-        if (parentDir != null && !Files.exists(parentDir)) {
-            Files.createDirectories(parentDir);
-        }
-
-        // If the CSV file does not exist, create it and write the header
-        if (!Files.exists(transactionPath)) {
-            Files.createFile(transactionPath);
-            try (BufferedWriter bout = Files.newBufferedWriter(transactionPath, StandardOpenOption.APPEND)) {
-                bout.write(TRANSACTION_HEADER);
-                bout.newLine();
-            }
-        } else {
-            // If the CSV file exists, check if the header is correct
-            try (BufferedReader bin = Files.newBufferedReader(transactionPath)) {
-                String firstLine = bin.readLine();
-                List<String> lines = new ArrayList<>();
-
-                // If the first line is null or incorrect, rewrite the file with the correct header
-                if (firstLine == null || !firstLine.equals(TRANSACTION_HEADER)) {
-
-                    // If the first line is not the header, add it to the lines to be written back
-                    if (firstLine != null && !firstLine.isEmpty()) {
-                        lines.add(firstLine);
-                    }
-
-                    // Read the rest of the file
-                    String line;
-                    while ((line = bin.readLine()) != null) {
-                        lines.add(line);
-                    }
-
-                    // Rewrite the file with the correct header and existing data
-                    List<String> allLines = new ArrayList<>();
-                    allLines.add(TRANSACTION_HEADER);
-                    allLines.addAll(lines);
-
-                    Files.write(transactionPath, allLines, StandardOpenOption.TRUNCATE_EXISTING);
-                }
-            }
-        }
-    }
+//    /**
+//     * Initializes the user accounts CSV file with the correct header.
+//     * If the file does not exist, it creates the file and writes the header.
+//     * If the file exists, it ensures the header is correct.
+//     *
+//     * @param csvPath the path to the CSV file to be initialized
+//     * @throws IOException if an I/O error occurs
+//     */
+//    private void initializeCsvFile(Path csvPath) throws IOException {
+//        // Get the parent directory of the CSV file path
+//        Path parentDir = csvPath.getParent();
+//
+//        // If the parent directory does not exist, create it
+//        if (parentDir != null && !Files.exists(parentDir)) {
+//            Files.createDirectories(parentDir);
+//        }
+//
+//        // If the CSV file does not exist, create it and write the header
+//        if (!Files.exists(csvPath)) {
+//            Files.createFile(csvPath);
+//            try (BufferedWriter bout = Files.newBufferedWriter(csvPath, StandardOpenOption.APPEND)) {
+//                bout.write(CSVUserAccountDataAccessObject.CSV_HEADER);
+//                bout.newLine();
+//            }
+//        } else {
+//            // If the CSV file exists, check if the header is correct
+//            try (BufferedReader bin = Files.newBufferedReader(csvPath)) {
+//                String firstLine = bin.readLine();
+//                List<String> lines = new ArrayList<>();
+//
+//                // If the first line is null or incorrect, rewrite the file with the correct header
+//                if (firstLine == null || !firstLine.equals(CSVUserAccountDataAccessObject.CSV_HEADER)) {
+//
+//                    // If the first line is not the header, add it to the lines to be written back
+//                    if (firstLine != null && !firstLine.isEmpty()) {
+//                        lines.add(firstLine);
+//                    }
+//
+//                    // Read the rest of the file
+//                    String line;
+//                    while ((line = bin.readLine()) != null) {
+//                        lines.add(line);
+//                    }
+//
+//                    // Rewrite the file with the correct header and existing data
+//                    List<String> allLines = new ArrayList<>();
+//                    allLines.add(CSVUserAccountDataAccessObject.CSV_HEADER);
+//                    allLines.addAll(lines);
+//
+//                    Files.write(csvPath, allLines, StandardOpenOption.TRUNCATE_EXISTING);
+//                }
+//            }
+//        }
+//    }
+//
+//    /**
+//     * Initializes the transactions CSV file with the correct header.
+//     * If the file does not exist, it creates the file and writes the header.
+//     * If the file exists, it ensures the header is correct.
+//     *
+//     * @param transactionPath the path to the transactions CSV file to be initialized
+//     * @throws IOException if an I/O error occurs
+//     */
+//    private void initializeTransactionFile(Path transactionPath) throws IOException {
+//        // Get the parent directory of the CSV file path
+//        Path parentDir = transactionPath.getParent();
+//
+//        // If the parent directory does not exist, create it
+//        if (parentDir != null && !Files.exists(parentDir)) {
+//            Files.createDirectories(parentDir);
+//        }
+//
+//        // If the CSV file does not exist, create it and write the header
+//        if (!Files.exists(transactionPath)) {
+//            Files.createFile(transactionPath);
+//            try (BufferedWriter bout = Files.newBufferedWriter(transactionPath, StandardOpenOption.APPEND)) {
+//                bout.write(CSVUserAccountDataAccessObject.TRANSACTION_HEADER);
+//                bout.newLine();
+//            }
+//        } else {
+//            // If the CSV file exists, check if the header is correct
+//            try (BufferedReader bin = Files.newBufferedReader(transactionPath)) {
+//                String firstLine = bin.readLine();
+//                List<String> lines = new ArrayList<>();
+//
+//                // If the first line is null or incorrect, rewrite the file with the correct header
+//                if (firstLine == null || !firstLine.equals(CSVUserAccountDataAccessObject.TRANSACTION_HEADER)) {
+//
+//                    // If the first line is not the header, add it to the lines to be written back
+//                    if (firstLine != null && !firstLine.isEmpty()) {
+//                        lines.add(firstLine);
+//                    }
+//
+//                    // Read the rest of the file
+//                    String line;
+//                    while ((line = bin.readLine()) != null) {
+//                        lines.add(line);
+//                    }
+//
+//                    // Rewrite the file with the correct header and existing data
+//                    List<String> allLines = new ArrayList<>();
+//                    allLines.add(CSVUserAccountDataAccessObject.TRANSACTION_HEADER);
+//                    allLines.addAll(lines);
+//
+//                    Files.write(transactionPath, allLines, StandardOpenOption.TRUNCATE_EXISTING);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * Checks whether a user with the specified identification exists.
@@ -193,17 +198,7 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      */
     @Override
     public boolean existById(String identification) {
-        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
-            while (iterator.hasNext()) {
-                UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(identification)) {
-                    return true;
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return false;
+        return readAllUsers(identification);
     }
 
     /**
@@ -224,25 +219,28 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
             float totalBalance = userAccount.getTotalBalance();
             LocalDate lastLoginDate = userAccount.getLastLoginDate();
             String stringLastLoginDate = valueOf(lastLoginDate);
+            Set<String> sharedAccountIds = userAccount.getSharedAccounts();
+            String stringSharedAccountIds = String.join(";", sharedAccountIds);
+
 
             // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password, totalIncome,
-                    totalOutflow, totalBalance, stringLastLoginDate);
+            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s", id, username, password, totalIncome,
+                    totalOutflow, totalBalance, stringLastLoginDate, stringSharedAccountIds);
 
             // if csv not created, create it
             try {
-                Path parentDir = userCsvPath.getParent();
+                Path parentDir = this.accountCsvPath.getParent();
 
                 if (parentDir != null && !Files.exists(parentDir)) {
                     Files.createDirectories(parentDir);
                 }
 
-                if (!Files.exists(userCsvPath)) {
-                    Files.createFile(userCsvPath);
+                if (!Files.exists(this.accountCsvPath)) {
+                    Files.createFile(this.accountCsvPath);
                 }
 
                 // record the info
-                try (BufferedWriter bout = Files.newBufferedWriter(userCsvPath, StandardOpenOption.APPEND)) {
+                try (BufferedWriter bout = Files.newBufferedWriter(this.accountCsvPath, StandardOpenOption.APPEND)) {
                     bout.write(userInfo);
                     bout.newLine();
                 }
@@ -265,19 +263,23 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
                                 PeriodicTransactionOutputData periodicOutputData,
                                 boolean isPeriodic) {
         if (!isPeriodic) {
+            UserAccountOneTimeTransactionOutputData userAccountoneTimeOutputData = null;
+            if (oneTimeOutputData instanceof UserAccountOneTimeTransactionOutputData) {
+                userAccountoneTimeOutputData = (UserAccountOneTimeTransactionOutputData) oneTimeOutputData;
+            }
             // create csv line with the user info
-            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
+            String userInfo = getTransactionInfo(userAccountoneTimeOutputData, null, false);
 
             // if csv not created, create it
             try {
-                Path parentDir = transactionCsvPath.getParent();
+                Path parentDir = this.transactionCsvPath.getParent();
 
                 if (parentDir != null && !Files.exists(parentDir)) {
                     Files.createDirectories(parentDir);
                 }
 
-                if (!Files.exists(transactionCsvPath)) {
-                    Files.createFile(transactionCsvPath);
+                if (!Files.exists(this.transactionCsvPath)) {
+                    Files.createFile(this.transactionCsvPath);
                 }
 
                 // record the info
@@ -318,9 +320,10 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         }
     }
 
-    private String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                      PeriodicTransactionOutputData periodicOutputData,
-                                      boolean isPeriodic) {
+    @Override
+    protected String getTransactionInfo(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
+                                        PeriodicTransactionOutputData periodicOutputData,
+                                        boolean isPeriodic) {
         if (!isPeriodic) {
             String id = oneTimeOutputData.getId();
             float amount = oneTimeOutputData.getTransactionAmount();
@@ -413,18 +416,13 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
         List<String> lines = new ArrayList<>();
 
         // Read all lines from the CSV file
-        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
-            while (iterator.hasNext()) {
-                UserAccount userAccount = iterator.next();
-                if (!userAccount.getIdentification().equals(identification)) {
-                    lines.add(String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s",
-                            userAccount.getIdentification(),
-                            userAccount.getUsername(),
-                            userAccount.getPassword(),
-                            userAccount.getTotalIncome(),
-                            userAccount.getTotalOutflow(),
-                            userAccount.getTotalBalance(),
-                            userAccount.getLastLoginDate() != null ? userAccount.getLastLoginDate() : ""));
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+                String[] values = line.split(",");
+                String id = values[0];
+                if (!id.equals(identification)) {
+                    lines.add(line);
                 }
             }
         } catch (IOException e) {
@@ -433,8 +431,6 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
         // Write all lines back to the CSV file, excluding the deleted user
         try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(USER_CSV_FILE_PATH), StandardOpenOption.TRUNCATE_EXISTING)) {
-            writer.write(CSV_HEADER);
-            writer.newLine();
             for (String line : lines) {
                 writer.write(line);
                 writer.newLine();
@@ -451,18 +447,68 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      * @return the user account if found, or null if not found
      */
     @Override
-    public UserAccount getById(String identification) {
-        try (UserAccountIterator iterator = new UserAccountIterator(userCsvPath)) {
-            while (iterator.hasNext()) {
-                UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(identification)) {
+    public UserAccount getById(String identification){
+        UserAccount userAccount = null;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+                String[] values = line.split(",");
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    // user info
+                    String username = values[1];
+                    String password = values[2];
+                    float income = Float.parseFloat(values[3]);
+                    float outflow = Float.parseFloat(values[4]);
+                    float balance = Float.parseFloat(values[5]);
+                    LocalDate lastLoginDate = LocalDate.parse(values[6]);
+
+                    userAccount = new UserAccount(username, password, id, income, outflow, balance);
+                    userAccount.setLastLoginDate(lastLoginDate);
                     return userAccount;
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
-        return null;
+        return userAccount;
+    }
+
+    /**
+     * Reads all users from the user accounts CSV file and checks if a user with the specified identification exists.
+     *
+     * @param identification the unique identification of the user to be checked
+     * @return true if the user exists, false otherwise
+     */
+    @Override
+    protected boolean readAllUsers(String identification) {
+        boolean userExist = false;
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(USER_CSV_FILE_PATH))) {
+            String line;
+            boolean isFirstLine = true;
+
+            while ((line = bin.readLine()) != null) {
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
+                String[] values = line.split(",");
+                // we only compare the id
+                String id = values[0].trim().toLowerCase();
+
+                if (id.equals(identification.trim().toLowerCase())) {
+                    userExist = true;
+                    return userExist;
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+        return userExist;
     }
 
     /**
@@ -474,13 +520,25 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
      */
     @Override
     public List<Transaction> readTransactions(String identification){
-        // need implementation
         List<Transaction> transactions = new ArrayList<>();
 
-        try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {
-            while (iterator.hasNext()) {
-                Transaction transaction = iterator.next();
-                if (transaction.getIdentification().equalsIgnoreCase(identification)) {
+        try (BufferedReader bin = Files.newBufferedReader(Paths.get(TRANSACTION_CSV_FILE_PATH))) {
+            String line;
+            boolean isFirstLine = true;
+
+            while ((line = bin.readLine()) != null) {
+                // Skip the header line
+                if (isFirstLine) {
+                    isFirstLine = false;
+                    continue;
+                }
+
+                String[] values = line.split(",");
+                // we only compare the id
+                String id = values[0].trim().toLowerCase();
+
+                if (id.equals(identification.trim().toLowerCase())) {
+                    Transaction transaction = getTransactions(values);
                     transactions.add(transaction);
                 }
             }
@@ -490,7 +548,41 @@ public class CSVUserAccountDataAccessObject implements UserAccountDataAccessInte
 
         // Sort the transactions by date
         Collections.sort(transactions, Comparator.comparing(Transaction::getDate));
+
         return transactions;
+    }
+
+    // helper method
+    @Override
+    protected Transaction getTransactions(String[] values) {
+        Transaction transaction;
+
+        // if it is onetime
+        if (values[5].equals("")) {
+            String id = values[0];
+            float amount = Float.parseFloat(values[1]);
+            LocalDate date = LocalDate.parse(values[2]);
+            String description = values[3];
+            String category = values[4];
+
+            transaction = new OneTimeTransaction(id, amount, date, description, category);
+
+            // if it is periodc
+        } else {
+            String id = values[0];
+            float amount = Float.parseFloat(values[1]);
+            LocalDate date = LocalDate.parse(values[2]);
+            String description = values[3];
+            String category = values[4];
+            LocalDate startDate = LocalDate.parse(values[5]);
+            String period = values[6];
+            LocalDate endDate = LocalDate.parse(values[7]);
+
+            transaction = new PeriodicTransaction(id, amount, startDate, description, endDate, period, category);
+            transaction.setDate(date);
+        }
+
+        return transaction;
     }
 
     /**

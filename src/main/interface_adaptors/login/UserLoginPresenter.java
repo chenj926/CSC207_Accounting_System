@@ -1,7 +1,6 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 
@@ -9,11 +8,11 @@ import use_case.login.LoginOutputData;
  * The LoginPresenter class implements the LoginOutputBoundary interface.
  * It handles the presentation logic for the login process, updating the view model and managing view transitions.
  *
- * @author Eric
+ * @author Eric Chen
  */
 public class LoginPresenter implements LoginOutputBoundary {
     private final LoginViewModel loginViewModel;
-    private ViewManagerModel viewManagerModel;
+    private final ViewManagerModel viewManagerModel;
 
     /**
      * Constructs a LoginPresenter object with the specified view manager model and login view model.
@@ -56,10 +55,10 @@ public class LoginPresenter implements LoginOutputBoundary {
      */
     @Override
     public void prepareFailView(String err) {
-        LoginState loginState = loginViewModel.getState();
+        LoginState loginState = this.loginViewModel.getState();
         loginState.setStateError(err);
         loginState.setSuccessMsg(null); // Clear success message on failure
-        loginViewModel.firePropertyChanged();
+        this.loginViewModel.firePropertyChanged();
     }
 
 }

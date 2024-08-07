@@ -2,26 +2,19 @@ package use_case.transaction.one_time;
 
 import use_case.transaction.TransactionInputData;
 
-/**
- * The OneTimeTransactionInputData class represents the input data required for a one-time transaction operation.
- * It includes details such as the transaction amount, date, description, and category.
- *
- * @author Dana
- * @author Eric
- */
-public class OneTimeTransactionInputData extends TransactionInputData {
+public abstract class OneTimeTransactionInputData extends TransactionInputData {
     private String transactionDate;
 
     /**
-     * Constructs a OneTimeTransactionInputData object with the specified details.
+     * Constructs a TransactionInputData object with the specified details.
      *
+     * @param id
      * @param transactionAmount      the amount of the transaction
-     * @param transactionDate        the date of the transaction
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
      */
-    public OneTimeTransactionInputData(String id, String transactionAmount, String transactionDate,
-                                       String transactionDescription, String transactionCategory) {
+    public OneTimeTransactionInputData(String id, String transactionAmount, String transactionDescription,
+                                       String transactionCategory, String TransactionDate) {
         super(id, transactionAmount, transactionDescription, transactionCategory);
         this.transactionDate = transactionDate;
     }

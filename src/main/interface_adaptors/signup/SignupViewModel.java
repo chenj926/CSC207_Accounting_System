@@ -20,7 +20,6 @@ public class SignupViewModel extends ViewModel {
     private final String USERNAME_LABEL = "Set username";
     private final String PASSWORD_LABEL = "Set password";
     private final String ID_LABEL = "Set identification";
-    private final String SHARED_ACCOUNT_ID_LABEL = "Set shared account id";
 
     private final String SIGNUP_BUTTON_LABEL = "Sign up";
     private final String CANCEL_BUTTON_LABEL = "Cancel";
@@ -28,7 +27,7 @@ public class SignupViewModel extends ViewModel {
     private SignupState state = new SignupState();
 
     /**
-     * Constructs a SignupViewModel object with the view name set to "sign up".
+     * Constructs a SignupViewModel object with a specified view name.
      */
     public SignupViewModel() {
         super("sign up");
@@ -62,10 +61,6 @@ public class SignupViewModel extends ViewModel {
      */
     public String getID_LABEL() { return this.ID_LABEL; }
 
-    public String getSHARED_ACCOUNT_ID_LABEL() {
-        return SHARED_ACCOUNT_ID_LABEL;
-    }
-
     /**
      * Gets the signup button label.
      *
@@ -85,12 +80,12 @@ public class SignupViewModel extends ViewModel {
      *
      * @return the current signup state
      */
-    public SignupState getState() { return state; }
+    public SignupState getState() { return this.state; }
 
     /**
      * Sets the current signup state.
      *
-             * @param state the new signup state
+     * @param state the new signup state
      */
     public void setState(SignupState state) {
         this.state = state;

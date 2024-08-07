@@ -15,8 +15,6 @@ import java.nio.file.Paths;
  * It extends JPanel and is responsible for displaying the home page interface, including
  * buttons for login, signup, and exit, along with a background image.
  *
- * @author Dana
- * @author Eric
  */
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
@@ -25,7 +23,9 @@ public class HomePagePanel extends JPanel {
 
     private JLabel titleLabel;
     private JButton loginButton;
+    private JButton sharedAccountLoginButton;
     private JButton signupButton;
+    private JButton sharedAccountSignupButton;
     private JButton exitButton;
     private Image backgroundImage;
 
@@ -76,42 +76,35 @@ public class HomePagePanel extends JPanel {
     /**
      * Initializes the components used in the home page panel.
      */
-    private void initializeComponents(){
+    private void initializeComponents() {
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 18));
         titleLabel.setForeground(Color.BLACK);
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.signupButton = createButton(this.viewModel.getSignupButtonLabel());
-        this.loginButton = createButton(this.viewModel.getLoginButtonLabel());
-        this.exitButton = createButton(this.viewModel.getExitButtonLabel());
-//
-//        // Style buttons
-//        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
-//        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
-//        this.exitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-//        this.loginButton.setBackground(new Color(255, 255, 255));
-//        this.signupButton.setBackground(new Color(255, 255, 255));
-//        this.exitButton.setBackground(new Color(255, 255, 255));
-//        this.loginButton.setForeground(Color.BLACK);
-//        this.signupButton.setForeground(Color.BLACK);
-//        this.exitButton.setForeground(Color.BLACK);
-    }
+        this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
+        this.sharedAccountLoginButton = new JButton(this.viewModel.getSharedAccountLoginButtonLabel());
+        this.signupButton = new JButton(this.viewModel.getSignupButtonLabel());
+        this.sharedAccountSignupButton = new JButton(this.viewModel.getSharedAccountSignupButtonLabel());
+        this.exitButton = new JButton(this.viewModel.getExitButtonLabel());
 
-    private JButton createButton(String text) {
-        JButton button = new JButton(text);
-        button.setFont(new Font("Arial", Font.PLAIN, 16));
-        button.setPreferredSize(new Dimension(100, 30)); // Ensure all buttons have the same size
-        button.setBackground(new Color(255, 255, 255));
-        button.setForeground(Color.BLACK);
-        return button;
-    }
+        // Style buttons
+        Font buttonFont = new Font("Arial", Font.PLAIN, 16);
+        Color buttonBackgroundColor = new Color(255, 255, 255);
+        Color buttonTextColor = Color.BLACK;
 
+        JButton[] buttons = {loginButton, sharedAccountLoginButton, signupButton, sharedAccountSignupButton, exitButton};
+        for (JButton button : buttons) {
+            button.setFont(buttonFont);
+            button.setBackground(buttonBackgroundColor);
+            button.setForeground(buttonTextColor);
+        }
+    }
 
     /**
      * Sets up the UI layout for the home page panel.
      */
-    private void setupUI(){
+    private void setupUI() {
         setLayout(new BorderLayout());
 
         JPanel centerPanel = new JPanel(new GridBagLayout());
@@ -123,7 +116,13 @@ public class HomePagePanel extends JPanel {
         centerPanel.add(loginButton, constraints);
 
         constraints.gridy++;
+        centerPanel.add(sharedAccountLoginButton, constraints);
+
+        constraints.gridy++;
         centerPanel.add(signupButton, constraints);
+
+        constraints.gridy++;
+        centerPanel.add(sharedAccountSignupButton, constraints);
 
         constraints.gridy++;
         centerPanel.add(exitButton, constraints);
@@ -135,12 +134,18 @@ public class HomePagePanel extends JPanel {
     /**
      * Sets up listeners for the buttons in the home page panel.
      */
-    private void setupListeners(){
+    private void setupListeners() {
         // login button response action
         loginButton.addActionListener(e -> this.viewManager.setActiveViewName("log in"));
 
+        // shared account login button response action
+        sharedAccountLoginButton.addActionListener(e -> this.viewManager.setActiveViewName("shared account log in"));
+
         // signup button response action
         signupButton.addActionListener(e -> this.viewManager.setActiveViewName("sign up"));
+
+        // shared account signup button response action
+        sharedAccountSignupButton.addActionListener(e -> this.viewManager.setActiveViewName("shared account sign up"));
 
         // exit button response action
         this.exitButton.addActionListener(e -> {
@@ -153,5 +158,4 @@ public class HomePagePanel extends JPanel {
         });
 
     }
-
 }

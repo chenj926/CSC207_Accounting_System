@@ -1,8 +1,11 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * In-memory data access object (DAO) for shared account operations.
@@ -19,6 +22,17 @@ import java.util.*;
 // in memory DAO for test purposes
 public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAccessInterface{
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
+
+
+//    @Override
+//    public boolean login(SharedAccount sharedAccount) {
+//        return shareAcc.containsKey(sharedAccount.getUsername());
+//    }
+//
+//    @Override
+//    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+//
+//    }
 
     /**
      * Checks if a shared account exists with the given identification.
@@ -49,6 +63,27 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         shareAcc.remove(sharedAccountId);
     }
 
+    @Override
+    public void saveTransaction(UserAccountOneTimeTransactionOutputData outputData, PeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+
+    }
+
+//    @Override
+//    public void saveSharedTransaction(
+//            SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
+//            SharedAccountPeriodicTransactionOutputData periodicOutputData,
+//            boolean isPeriodic
+//    ) {
+//        if (isPeriodic) {
+//            System.out.println("Saving shared account periodic transaction data...");
+//            // Implementation details for saving periodic transactions
+//        } else {
+//            System.out.println("Saving shared account one-time transaction data...");
+//            // Implementation details for saving one-time transactions
+//        }
+//    }
+
+
     /**
      * Retrieves a shared account by its unique identification.
      *
@@ -59,6 +94,8 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         return shareAcc.get(sharedAccountId);
     }
 
+
+
     /**
      * Retrieves all shared accounts.
      *
@@ -66,5 +103,16 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
      */
     public Map<String, SharedAccount> getAllShareAcc() {
         return shareAcc;
+    }
+
+    @Override
+    public void update(SharedAccount sharedAccount) {
+        // Check if the account exists before updating
+        if (shareAcc.containsKey(sharedAccount.getIdentification())) {
+            shareAcc.put(sharedAccount.getIdentification(), sharedAccount);
+        } else {
+            // Handle the case where the account doesn't exist, if needed
+            throw new IllegalArgumentException("Shared account does not exist: " + sharedAccount.getIdentification());
+        }
     }
 }
