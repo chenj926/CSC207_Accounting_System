@@ -4,6 +4,7 @@ import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
+import entity.transaction.one_time.OneTimeTransaction;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
@@ -22,13 +23,14 @@ import java.time.LocalDate;
  * @author Dana
  * @author Eric
  */
-public class UserAccountOneTimeTransactionInteractor extends TransactionInteractor<
+public class UserAccountOneTimeTransactionInteractor extends OneTimeTransactionInteractor<
         UserAccountDataAccessInterface,
         UserAccount,
         UserAccountOneTimeTransactionOutputData,
-        PeriodicTransactionOutputData>
+        PeriodicTransactionOutputData,
+        UserAccountOneTimeTransactionInputData>
         implements UserAccountOneTimeTransactionInputBoundary {
-    private final UserAccountOneTimeTransactionOutputBoundary presenter;
+//    private final UserAccountOneTimeTransactionOutputBoundary presenter;
 
 
     /**
@@ -42,8 +44,8 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
     public UserAccountOneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
                                                    UserAccountOneTimeTransactionOutputBoundary userAccountOneTimeTransactionOutputBoundary,
                                                    UserAccount userAccount) {
-        super(userAccountDataAccessInterface, userAccount);
-        this.presenter = userAccountOneTimeTransactionOutputBoundary;
+        super(userAccountDataAccessInterface, userAccountOneTimeTransactionOutputBoundary, userAccount);
+//        this.presenter = userAccountOneTimeTransactionOutputBoundary;
     }
 
     /**
@@ -163,6 +165,11 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
         // update the transaction info to user acc database as well
         userDataAccessObject.update(this.account);
         presenter.prepareSuccessView(outputData);
+    }
+
+    @Override
+    protected UserAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
+        return new UserAccountOneTimeTransactionOutputData(transaction);
     }
 
 }

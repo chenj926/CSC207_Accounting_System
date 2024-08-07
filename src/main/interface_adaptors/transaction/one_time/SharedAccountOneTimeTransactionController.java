@@ -40,7 +40,7 @@ public class SharedAccountOneTimeTransactionController {
      * @param transactionDescription the description of the transaction
      * @param transactionCategory  the category of the transaction
      * @param sharedAccountId      the identifier of the shared account
-     * @param responsibleUserIds   the set of user IDs responsible for the transaction
+     * @param userId   the set of user IDs responsible for the transaction
      */
     public void execute(
             String amount,
@@ -48,12 +48,11 @@ public class SharedAccountOneTimeTransactionController {
             String transactionDescription,
             String transactionCategory,
             String sharedAccountId, // Make sure sharedAccountId is passed here
-            Set<String> responsibleUserIds) {
+            String userId) {
 
         // Create input data object for the transaction
         SharedAccountUserAccountOneTimeTransactionInputData transactionInputData = new SharedAccountUserAccountOneTimeTransactionInputData(
-                amount, transactionDate, transactionDescription, transactionCategory, sharedAccountId, responsibleUserIds
-        );
+                amount, transactionDate, transactionDescription, transactionCategory, sharedAccountId, userId);
 
         // Execute the transaction process using the interactor
         sharedAccountTransactionInteractor.execute(transactionInputData);

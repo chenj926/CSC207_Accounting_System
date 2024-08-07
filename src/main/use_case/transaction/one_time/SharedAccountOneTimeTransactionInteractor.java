@@ -4,6 +4,7 @@ import data_access.account.ShareAccountDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
+import entity.transaction.one_time.OneTimeTransaction;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
@@ -14,11 +15,12 @@ import java.util.Set;
  * The SharedAccountOneTimeTransactionInteractor class implements the TransactionInputBoundary
  * interface for handling one-time transactions for a shared account.
  */
-public class SharedAccountOneTimeTransactionInteractor extends TransactionInteractor <
+public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactionInteractor <
         ShareAccountDataAccessInterface,
         SharedAccount,
         SharedAccountOneTimeTransactionOutputData,
-        SharedAccountPeriodicTransactionOutputData>
+        SharedAccountPeriodicTransactionOutputData,
+        SharedAccountUserAccountOneTimeTransactionInputData>
         implements SharedAccountOneTimeTransactionInputBoundary { // Use the generic interface
 
     private final ShareAccountDataAccessInterface sharedAccountDataAccessInterface;
@@ -36,7 +38,7 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
     public SharedAccountOneTimeTransactionInteractor(ShareAccountDataAccessInterface sharedAccountDataAccessInterface,
                                                      SharedAccountOneTimeTransactionOutputBoundary presenter,
                                                      SharedAccount sharedAccount) {
-        super(sharedAccountDataAccessInterface, sharedAccount);
+        super(sharedAccountDataAccessInterface, presenter, sharedAccount);
         this.sharedAccountDataAccessInterface = sharedAccountDataAccessInterface;
         this.presenter = presenter;
         this.sharedAccount = sharedAccount;
@@ -55,7 +57,7 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
         String date = inputData.getTransactionDate();
         String description = inputData.getTransactionDescription();
         String category = inputData.getTransactionCategory();
-        Set<String> responsibleUserIds = inputData.getResponsibleUserIds();
+//        Set<String> responsibleUserIds = inputData.getResponsibleUserIds();
 
         // Validate input fields
         if (!checkValid(stringAmount) || !checkValid(date) || !checkValid(description) || !checkValid(category)) {
@@ -150,6 +152,11 @@ public class SharedAccountOneTimeTransactionInteractor extends TransactionIntera
         sharedAccountDataAccessInterface.saveTransaction(outputData, null, false);
         sharedAccountDataAccessInterface.update(sharedAccount);
         presenter.prepareSuccessView(outputData);
+    }
+
+    @Override
+    protected UserAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
+        return new UserAccountOneTimeTransactionOutputData(transaction);
     }
 }
 

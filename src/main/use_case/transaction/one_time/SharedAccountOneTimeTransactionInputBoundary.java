@@ -9,5 +9,5 @@ import use_case.transaction.TransactionInputBoundary;
  * with additional logic for handling shared accounts.
  *
  */
-public interface SharedAccountOneTimeTransactionInputBoundary extends TransactionInputBoundary<SharedAccountUserAccountOneTimeTransactionInputData> {
+public interface SharedAccountOneTimeTransactionInputBoundary extends OneTimeTransactionInputBoundary<SharedAccountUserAccountOneTimeTransactionInputData> {
 }

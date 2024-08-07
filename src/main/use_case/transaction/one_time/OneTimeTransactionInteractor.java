@@ -23,7 +23,7 @@ public abstract class OneTimeTransactionInteractor<
         P,
         I extends OneTimeTransactionInputData> extends TransactionInteractor<DAO, A, O, P> implements OneTimeTransactionInputBoundary<I> {
 
-    protected final UserAccountOneTimeTransactionOutputBoundary presenter;
+    protected final OneTimeTransactionOutputBoundary<O> presenter;
 
     /**
      * Constructs an AbstractOneTimeTransactionInteractor object.
@@ -33,7 +33,7 @@ public abstract class OneTimeTransactionInteractor<
      * @param account             the account associated with the transaction
      */
     protected OneTimeTransactionInteractor(DAO dataAccessInterface,
-                                           UserAccountOneTimeTransactionOutputBoundary presenter,
+                                           OneTimeTransactionOutputBoundary<O> presenter,
                                            A account) {
         super(dataAccessInterface, account);
         this.presenter = presenter;

@@ -10,7 +10,7 @@ import java.util.Set;
  */
 public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTimeTransactionInputData {
     private final String sharedAccountId;
-    private final Set<String> responsibleUserIds; // Changed from Map to Set to reflect user responsibilities
+//    private final Set<String> userIds; // Changed from Map to Set to reflect user responsibilities
 
     /**
      * Constructs a SharedAccountUserAccountOneTimeTransactionInputData object with the specified details.
@@ -20,7 +20,7 @@ public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTime
      * @param transactionDescription the description of the transaction
      * @param transactionCategory    the category of the transaction
      * @param sharedAccountId        the identifier of the shared account
-     * @param responsibleUserIds     a set of user IDs responsible for the transaction
+     * @param userId    a set of user IDs responsible for the transaction
      */
     public SharedAccountUserAccountOneTimeTransactionInputData(
             String transactionAmount,
@@ -28,10 +28,12 @@ public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTime
             String transactionDescription,
             String transactionCategory,
             String sharedAccountId,
-            Set<String> responsibleUserIds) {
-        super(transactionAmount, transactionDate, transactionDescription, transactionCategory);
+            String userId) {
+        super(userId, transactionAmount, transactionDescription, transactionCategory, transactionDate);
+//        this.userIds = userIds;
         this.sharedAccountId = sharedAccountId;
-        this.responsibleUserIds = responsibleUserIds;
+        // 需要user输入自己的id
+        // DAO 也要随之而改了
     }
 
     /**
@@ -48,8 +50,8 @@ public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTime
      *
      * @return a set of user IDs responsible for the transaction
      */
-    public Set<String> getResponsibleUserIds() {
-        return responsibleUserIds;
-    }
+//    public Set<String> getResponsibleUserIds() {
+//        return this.userIds;
+//    }
 }
 
