@@ -8,9 +8,7 @@ package use_case.login;
  * @author Eric
  * @author Jessica
  */
-public class UserLoginOutputData {
-    private final String identification;
-    private final boolean success;
+public class UserLoginOutputData extends LoginOutputData {
 
     /**
      * Constructs a LoginOutputData object with the specified identification and success status.
@@ -19,25 +17,25 @@ public class UserLoginOutputData {
      * @param success        the success status of the login attempt
      */
     public UserLoginOutputData(String identification, boolean success) {
-        this.identification = identification;
-        this.success = success;
+        super(identification, success);
+
     }
 
-    /**
-     * Checks if the login attempt was successful.
-     *
-     * @return true if the login attempt was successful, false otherwise
-     */
-    public String getIdentification() {
-        return this.identification;
-    }
-
-    /**
-     * Checks if the login attempt was successful.
-     *
-     * @return true if the login attempt was successful, false otherwise
-     */
-    public boolean isSuccess() {
-        return this.success;
-    }
+//    /**
+//     * Checks if the login attempt was successful.
+//     *
+//     * @return true if the login attempt was successful, false otherwise
+//     */
+//    public String getIdentification() {
+//        return this.identification;
+//    }
+//
+//    /**
+//     * Checks if the login attempt was successful.
+//     *
+//     * @return true if the login attempt was successful, false otherwise
+//     */
+//    public boolean isSuccess() {
+//        return this.success;
+//    }
 }
