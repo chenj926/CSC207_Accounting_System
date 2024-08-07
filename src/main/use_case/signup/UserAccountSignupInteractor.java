@@ -15,10 +15,8 @@ import java.time.LocalDate;
  * @author Dana
  * @author Jessica
  */
-public class UserAccountSignupInteractor implements UserAccountSignupInputBoundary {
-    final AccountFactory accountFactory;
-    final UserAccountSignupOutputBoundary presenter;
-    final UserSignupDataAccessInterface userDataAccessObject;
+public class UserAccountSignupInteractor extends SignupInteractor implements UserAccountSignupInputBoundary {
+    private final UserAccountSignupOutputBoundary presenter;
 
     /**
      * Constructs a UserAccountSignupInteractor object with the specified data access interface, output boundary, and account factory.
@@ -30,10 +28,8 @@ public class UserAccountSignupInteractor implements UserAccountSignupInputBounda
     public UserAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
                                        UserAccountSignupOutputBoundary userAccountSignupOutputBoundary,
                                        AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
-        this.userDataAccessObject = userSignupDataAccessInterface;
+        super(userSignupDataAccessInterface, accountFactory);
         this.presenter = userAccountSignupOutputBoundary;
-
     }
 
     /**
@@ -43,7 +39,7 @@ public class UserAccountSignupInteractor implements UserAccountSignupInputBounda
      */
     @Override
     public void execute(UserAccountSignupInputData userAccountSignupInputData) {
-        if (userDataAccessObject.existById(userAccountSignupInputData.getIdentification())) {
+        if (userDataAccessObject.existById(userAccountSignupInputData.getId())) {
             // user already exist, return back fail view to presenter
             presenter.prepareFailView("User already exist!!!");
         }
@@ -51,7 +47,7 @@ public class UserAccountSignupInteractor implements UserAccountSignupInputBounda
             // check if username or password or id is valid (not empty)
             boolean validUsername = this.checkUsername(userAccountSignupInputData.getUsername());
             boolean validPassword = this.checkPassword(userAccountSignupInputData.getPassword());
-            boolean validIdentificaiton = this.checkIdentification(userAccountSignupInputData.getIdentification());
+            boolean validIdentificaiton = this.checkIdentification(userAccountSignupInputData.getId());
 
 
             if (!validUsername && !validPassword && !validIdentificaiton) {
@@ -71,7 +67,7 @@ public class UserAccountSignupInteractor implements UserAccountSignupInputBounda
             } else {
                 // create new user
                 UserAccount newUser = accountFactory.createUserAccount(userAccountSignupInputData.getUsername(),
-                        userAccountSignupInputData.getPassword(), userAccountSignupInputData.getIdentification());
+                        userAccountSignupInputData.getPassword(), userAccountSignupInputData.getId());
                 newUser.setLastLoginDate(LocalDate.now());
                 userDataAccessObject.save(newUser);  // save this user
 
@@ -90,32 +86,6 @@ public class UserAccountSignupInteractor implements UserAccountSignupInputBounda
      */
     private boolean checkUsername(String username) {
         if (username == null || username.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    private boolean checkPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    private boolean checkIdentification(String id) {
-        if (id == null || id.isEmpty()) {
             return false;
         }
         return true;

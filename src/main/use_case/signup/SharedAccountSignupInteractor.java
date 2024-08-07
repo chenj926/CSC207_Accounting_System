@@ -17,12 +17,9 @@ import java.util.Set;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupInteractor implements SharedAccountSignupInputBoundary {
-
-    final AccountFactory accountFactory;
-    final SharedAccountSignupOutputBoundary presenter;
-    final UserSignupDataAccessInterface userDataAccessObject;
-    final ShareAccountDataAccessInterface sharedDataAccessObject; // Interface for shared accounts
+public class SharedAccountSignupInteractor extends SignupInteractor implements SharedAccountSignupInputBoundary {
+    private final SharedAccountSignupOutputBoundary presenter;
+    private final ShareAccountDataAccessInterface sharedDataAccessObject;
 
     /**
      * Constructs a SharedAccountSignupInteractor object with the specified data access interfaces,
@@ -37,8 +34,7 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
                                          ShareAccountDataAccessInterface sharedDataAccessObject,
                                          SharedAccountSignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
-        this.userDataAccessObject = userSignupDataAccessInterface;
+        super(userSignupDataAccessInterface, accountFactory);
         this.sharedDataAccessObject = sharedDataAccessObject;
         this.presenter = signupOutputBoundary;
     }
@@ -48,21 +44,19 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
      *
      * @param sharedSignupData the input data required for the signup process
      */
+    @Override
     public void execute(SharedAccountSignupInputData sharedSignupData) {
-        // init set of shareAcc ids
         Set<String> userIds = sharedSignupData.getUserIds();
-        String shareAccountId = sharedSignupData.getSharedAccountId();
+        String shareAccountId = sharedSignupData.getId();
 
-
-        // Validate input fields
         boolean validSharedAccountId = checkIdentification(shareAccountId);
-        boolean validSharedPassword = checkPassword(sharedSignupData.getSharedPassword());
+        boolean validSharedPassword = checkPassword(sharedSignupData.getPassword());
         boolean validUserIds = this.checkUserIds(userIds);
+
 //
 //        boolean validUser1Id = checkIdentification(sharedSignupData.getUser1Id());
 //        boolean validUser2Id = checkIdentification(sharedSignupData.getUser2Id());
 
-        // 第三个user呢？mark一下到时候改
         if (!validSharedAccountId || !validSharedPassword || !validUserIds) {
             presenter.prepareFailView("All fields must be filled out!");
             return;
@@ -84,7 +78,7 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
         // Create a new shared account
         SharedAccount newSharedAccount = accountFactory.createSharedAccount(
                 shareAccountId,
-                sharedSignupData.getSharedPassword()
+                sharedSignupData.getPassword()
         );
         // update the user account ids into newSharedAccount
         this.addIdToShareAccount(newSharedAccount, userIds);
@@ -98,26 +92,6 @@ public class SharedAccountSignupInteractor implements SharedAccountSignupInputBo
                 sharedSignupData.getUserIds());
 
         presenter.prepareSuccessView(outputData);
-    }
-
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    private boolean checkPassword(String password) {
-        return password != null && !password.isEmpty();
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    private boolean checkIdentification(String id) {
-        return id != null && !id.isEmpty();
     }
 
     private boolean checkUserIds(Set<String> userIds) {
