@@ -1,4 +1,6 @@
 package use_case.login;
 
-public interface LoginInputBoundary {
+public interface LoginInputBoundary<T> {
+    void execute(T inputData);
+
 }

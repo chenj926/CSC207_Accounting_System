@@ -10,7 +10,7 @@ public abstract class SignupInputData {
     }
 
     public String getId() {
-        return identification;
+        return this.identification;
     }
 
     public void setId(String identification) {
