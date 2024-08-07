@@ -50,30 +50,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         super(SHARED_ACCOUNT_CSV_FILE_PATH, SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH, CSV_HEADER, TRANSACTION_HEADER);
     }
 
-    @Override
-    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        PeriodicTransactionOutputData periodicOutputData,
-                                        boolean isPeriodic) {
-        if (!isPeriodic) {
-            String id = oneTimeOutputData.getId();
-            float amount = oneTimeOutputData.getTransactionAmount();
-            String date = valueOf(oneTimeOutputData.getTransactionDate());
-            String description = oneTimeOutputData.getTransactionDescription();
-            String category = oneTimeOutputData.getTransactionCategory();
-            return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
-        } else {
-            String id = periodicOutputData.getId();
-            float amount = periodicOutputData.getTransactionAmount();
-            String startDate = valueOf(periodicOutputData.getTransactionStartDate());
-            String endDate = valueOf(periodicOutputData.getTransactionEndDate());
-            String date = valueOf(periodicOutputData.getTransactionDate());
-            String description = periodicOutputData.getTransactionDescription();
-            String period = periodicOutputData.getTransactionPeriod();
-            String category = periodicOutputData.getTransactionCategory();
-            return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
-        }
-    }
-
     /**
      * Checks if a shared account exists by its identification.
      * <p>
@@ -117,91 +93,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
                     totalIncome, totalOutflow, totalBalance, stringLastLoginDate);
 
             // if csv not created, create it
-            try {
-                Path parentDir = this.accountCsvPath.getParent();
-
-                if (parentDir != null && !Files.exists(parentDir)) {
-                    Files.createDirectories(parentDir);
-                }
-
-                if (!Files.exists(this.accountCsvPath)) {
-                    Files.createFile(this.accountCsvPath);
-                }
-
-                // record the info
-                try (BufferedWriter bout = Files.newBufferedWriter(this.accountCsvPath, StandardOpenOption.APPEND)) {
-                    bout.write(userInfo);
-                    bout.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Failed to write to file: " + e.getMessage());
-            }
-        }
-    }
-
-    /**
-     * Saves a transaction (either one-time or periodic) to the transactions CSV file.
-     *
-     * @param oneTimeOutputData the one-time transaction data to be saved
-     * @param periodicOutputData the periodic transaction data to be saved
-     * @param isPeriodic true if the transaction is periodic, false if it is one-time
-     */
-    @Override
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData,
-                                boolean isPeriodic) {
-        if (!isPeriodic) {
-            // create csv line with the user info
-            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
-
-            // if csv not created, create it
-            try {
-                Path parentDir = this.transactionCsvPath.getParent();
-
-                if (parentDir != null && !Files.exists(parentDir)) {
-                    Files.createDirectories(parentDir);
-                }
-
-                if (!Files.exists(this.transactionCsvPath)) {
-                    Files.createFile(this.transactionCsvPath);
-                }
-
-                // record the info
-                try (BufferedWriter bout = Files.newBufferedWriter(this.transactionCsvPath, StandardOpenOption.APPEND)) {
-                    bout.write(userInfo);
-                    bout.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Failed to write to file: " + e.getMessage());
-            }
-        } else{
-            // create csv line with the user info
-            String userInfo = this.getTransactionInfo(null, periodicOutputData, true);
-
-            // if csv not created, create it
-            try {
-                Path parentDir = transactionCsvPath.getParent();
-
-                if (parentDir != null && !Files.exists(parentDir)) {
-                    Files.createDirectories(parentDir);
-                }
-
-                if (!Files.exists(transactionCsvPath)) {
-                    Files.createFile(transactionCsvPath);
-                }
-
-                // record the info
-                try (BufferedWriter bout = Files.newBufferedWriter(transactionCsvPath, StandardOpenOption.APPEND)) {
-                    bout.write(userInfo);
-                    bout.newLine();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.err.println("Failed to write to file: " + e.getMessage());
-            }
-
+            confirmCsvExistence(this.accountCsvPath, userInfo);
         }
     }
 
@@ -396,7 +288,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
      * @param sharedAccountIdentification the identification of the shared account
      * @return a set of user IDs associated with the shared account
      */
-    @Override
     protected boolean readAllUsers(String sharedAccountIdentification) {
         boolean userExist = false;
         try (BufferedReader bin = Files.newBufferedReader(Paths.get(SHARED_ACCOUNT_CSV_FILE_PATH))) {
@@ -470,7 +361,6 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     }
 
     // helper method
-    @Override
     protected Transaction getTransactions(String[] values) {
         Transaction transaction;
 

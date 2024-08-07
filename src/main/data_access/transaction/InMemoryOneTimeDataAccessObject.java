@@ -2,12 +2,14 @@ package data_access.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInterface {
@@ -52,6 +54,11 @@ public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInt
         } else {
             System.out.println("Saving one-time transaction data...");
         }
+    }
+
+    @Override
+    public List<Transaction> readTransactions(String userId) {
+        return List.of();
     }
 
     // Add methods for shared account transactions

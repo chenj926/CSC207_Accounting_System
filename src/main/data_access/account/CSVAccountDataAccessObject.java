@@ -20,8 +20,8 @@ import static java.lang.String.valueOf;
 public abstract class CSVAccountDataAccessObject<T extends Account> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
-    private final String csvHeader;
-    private final String transactionHeader;
+    protected final String csvHeader;
+    protected final String transactionHeader;
 
     public CSVAccountDataAccessObject(String accountCsvFilePath, String transactionCsvFilePath, String csvHeader, String transactionHeader) {
         String baseDir = System.getProperty("user.dir");
@@ -99,8 +99,31 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
         }
     }
 
-    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
-        String transactionInfo = getTransactionInfo(oneTimeOutputData, periodicOutputData, isPeriodic);
+    /**
+     * Saves a transaction (either one-time or periodic) to the transactions CSV file.
+     *
+     * @param oneTimeOutputData the one-time transaction data to be saved
+     * @param periodicOutputData the periodic transaction data to be saved
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     */
+    public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData,
+                                PeriodicTransactionOutputData periodicOutputData,
+                                boolean isPeriodic) {
+        if (!isPeriodic) {
+            // create csv line with the user info
+            String userInfo = getTransactionInfo(oneTimeOutputData, null, false);
+            // if csv not created, create it
+            confirmCsvExistence(transactionCsvPath, userInfo);
+        } else{
+            // create csv line with the user info
+            String userInfo = getTransactionInfo(null, periodicOutputData, true);
+            // if csv not created, create it
+            confirmCsvExistence(transactionCsvPath, userInfo);
+
+        }
+    }
+
+    protected void confirmCsvExistence(Path transactionCsvPath, String userInfo) {
         try {
             Path parentDir = transactionCsvPath.getParent();
             if (parentDir != null && !Files.exists(parentDir)) {
@@ -109,8 +132,9 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
             if (!Files.exists(transactionCsvPath)) {
                 Files.createFile(transactionCsvPath);
             }
+            // record the info
             try (BufferedWriter bout = Files.newBufferedWriter(transactionCsvPath, StandardOpenOption.APPEND)) {
-                bout.write(transactionInfo);
+                bout.write(userInfo);
                 bout.newLine();
             }
         } catch (IOException e) {
@@ -119,7 +143,36 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
         }
     }
 
-    protected abstract String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
+    protected static String getPeriodicTransactionInfo(PeriodicTransactionOutputData periodicOutputData) {
+        String id = periodicOutputData.getId();
+        float amount = periodicOutputData.getTransactionAmount();
+        String startDate = valueOf(periodicOutputData.getTransactionStartDate());
+        String endDate = valueOf(periodicOutputData.getTransactionEndDate());
+        String date = valueOf(periodicOutputData.getTransactionDate());
+        String description = periodicOutputData.getTransactionDescription();
+        String period = periodicOutputData.getTransactionPeriod();
+        String category = periodicOutputData.getTransactionCategory();
+        return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
+    }
+
+    protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
+        String id = oneTimeOutputData.getId();
+        float amount = oneTimeOutputData.getTransactionAmount();
+        String date = valueOf(oneTimeOutputData.getTransactionDate());
+        String description = oneTimeOutputData.getTransactionDescription();
+        String category = oneTimeOutputData.getTransactionCategory();
+        return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
+    }
+
+    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
+                                        PeriodicTransactionOutputData periodicOutputData,
+                                        boolean isPeriodic) {
+        if (!isPeriodic) {
+            return getOneTimeTransactionInfo(oneTimeOutputData);
+        } else {
+            return getPeriodicTransactionInfo(periodicOutputData);
+        }
+    }
 
 
     public abstract boolean existById(String identification);
@@ -132,10 +185,6 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
 
     public abstract T getById(String identification);
 
-    protected abstract boolean readAllUsers(String identification);
-
     public abstract List<Transaction> readTransactions(String identification);
-
-    protected abstract Transaction getTransactions(String[] values);
 }
 
