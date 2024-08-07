@@ -73,25 +73,28 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     @Override
     public void save(SharedAccount newSharedAccount) {
         if (!existById(newSharedAccount.getIdentification())) {
-            // user info
-            String id = newSharedAccount.getIdentification();
-            Set<String> userIds = newSharedAccount.getSharedUserIdentifications();
-            String stringUserIds = String.join(";", userIds);
-            String username = newSharedAccount.getUsername();
-            String password = newSharedAccount.getPassword();
-            float totalIncome = newSharedAccount.getTotalIncome();
-            float totalOutflow = newSharedAccount.getTotalOutflow();
-            float totalBalance = newSharedAccount.getTotalBalance();
-            LocalDate lastLoginDate = newSharedAccount.getLastLoginDate();
-            String stringLastLoginDate = valueOf(lastLoginDate);
-
-            // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
-                    totalIncome, totalOutflow, totalBalance, stringLastLoginDate);
-
+            // get shared account info
+            String userInfo = getSharedAccountInfo(newSharedAccount);
             // if csv not created, create it
             confirmCsvExistence(this.accountCsvPath, userInfo);
         }
+    }
+
+    private static String getSharedAccountInfo(SharedAccount newSharedAccount) {
+        // user info
+        String id = newSharedAccount.getIdentification();
+        Set<String> userIds = newSharedAccount.getSharedUserIdentifications();
+        String stringUserIds = String.join(";", userIds);
+        String password = newSharedAccount.getPassword();
+        float totalIncome = newSharedAccount.getTotalIncome();
+        float totalOutflow = newSharedAccount.getTotalOutflow();
+        float totalBalance = newSharedAccount.getTotalBalance();
+        LocalDate lastLoginDate = newSharedAccount.getLastLoginDate();
+        String stringLastLoginDate = valueOf(lastLoginDate);
+
+        // create csv line with the user info
+        return String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
+                totalIncome, totalOutflow, totalBalance, stringLastLoginDate);
     }
 
     /**

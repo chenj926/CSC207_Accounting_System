@@ -92,22 +92,26 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<U
     @Override
     public void save(UserAccount userAccount) {
         if (!existById(userAccount.getIdentification())) {
-            LocalDate lastLoginDate = userAccount.getLastLoginDate();
-            String stringLastLoginDate = valueOf(lastLoginDate);
-            Set<String> sharedAccountIds = userAccount.getSharedAccounts();
-            String stringSharedAccountIds = String.join(";", sharedAccountIds);
-
-
-            // create csv line with the user info
-            String userInfo = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s",
-                    userAccount.getIdentification(), userAccount.getUsername(),
-                    userAccount.getPassword(), userAccount.getTotalIncome(),
-                    userAccount.getTotalOutflow(), userAccount.getTotalBalance(),
-                    stringLastLoginDate, stringSharedAccountIds);
-
+            // Get user account info
+            String userInfo = getUserAccountInfo(userAccount);
             // if csv not created, create it
             confirmCsvExistence(accountCsvPath, userInfo);
         }
+    }
+
+    private static String getUserAccountInfo(UserAccount userAccount) {
+        LocalDate lastLoginDate = userAccount.getLastLoginDate();
+        String stringLastLoginDate = valueOf(lastLoginDate);
+        Set<String> sharedAccountIds = userAccount.getSharedAccounts();
+        String stringSharedAccountIds = String.join(";", sharedAccountIds);
+
+
+        // create csv line with the user info
+        return String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s",
+                userAccount.getIdentification(), userAccount.getUsername(),
+                userAccount.getPassword(), userAccount.getTotalIncome(),
+                userAccount.getTotalOutflow(), userAccount.getTotalBalance(),
+                stringLastLoginDate, stringSharedAccountIds);
     }
 
     /**
