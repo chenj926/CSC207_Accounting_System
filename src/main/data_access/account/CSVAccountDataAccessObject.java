@@ -1,6 +1,8 @@
 package data_access.account;
 
 import entity.account.Account;
+import entity.account.SharedAccount;
+import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
@@ -12,8 +14,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.String.valueOf;
 
@@ -179,7 +183,48 @@ public abstract class CSVAccountDataAccessObject<T extends Account> {
 
     public abstract void save(T account);
 
-    public abstract void update(T account);
+    public void update(Account account) {
+        String identification = account.getIdentification();
+        List<String> lines = new ArrayList<>();
+        String updatedLine = null;
+        try (BufferedReader bin = Files.newBufferedReader(accountCsvPath)) {
+            String line;
+            while ((line = bin.readLine()) != null) {
+//                line = bin.readLine();
+                String[] values = line.split(",");
+
+                // we only compare the id
+                String id = values[0];
+                if (id.equals(identification)) {
+                    // user info
+
+                    String password = account.getPassword();
+                    float income = account.getTotalIncome();
+                    float outflow = account.getTotalOutflow();
+                    float balance = account.getTotalBalance();
+                    LocalDate lastLoginDate = account.getLastLoginDate();
+                    String lastLoginDateString = valueOf(lastLoginDate);
+
+                    if (account instanceof SharedAccount) {
+                        String userIds = ((SharedAccount) account).getSharedUserIdentifications().toString();
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, userIds, password,
+                                income, outflow, balance, lastLoginDateString);
+
+                    }else if (account instanceof UserAccount){
+                        String username = ((UserAccount)account).getUsername();
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
+                                income, outflow, balance, lastLoginDateString);
+                    }
+
+                    lines.add(updatedLine);
+                } else {
+                    lines.add(line);
+                }
+            }
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+        }
+    }
 
     public abstract void deleteById(String identification);
 

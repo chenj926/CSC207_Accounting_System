@@ -80,6 +80,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             String id = newSharedAccount.getIdentification();
             Set<String> userIds = newSharedAccount.getSharedUserIdentifications();
             String stringUserIds = String.join(";", userIds);
+
             String username = newSharedAccount.getUsername();
             String password = newSharedAccount.getPassword();
             float totalIncome = newSharedAccount.getTotalIncome();
