@@ -21,8 +21,7 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData>
-        implements AccountDataAccessInterface<A, O, P> {
+public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     protected final String csvHeader;
