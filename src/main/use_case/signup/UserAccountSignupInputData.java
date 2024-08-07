@@ -5,10 +5,8 @@ package use_case.signup;
  * It includes the username, password, and identification of the user.
  * This class serves as a superclass for specific signup types.
  */
-public class UserAccountSignupInputData {
+public class UserAccountSignupInputData extends AbstractSignupInputData {
     private final String username;
-    private final String password;
-    private final String identification;
 
     /**
      * Constructs a UserAccountSignupInputData object with the specified username, password, and identification.
@@ -18,9 +16,8 @@ public class UserAccountSignupInputData {
      * @param identification the identification of the user
      */
     public UserAccountSignupInputData(String username, String password, String identification) {
+        super(password, identification);
         this.username = username;
-        this.password = password;
-        this.identification = identification;
     }
 
     /**
@@ -30,23 +27,5 @@ public class UserAccountSignupInputData {
      */
     public String getUsername() {
         return this.username;
-    }
-
-    /**
-     * Gets the password of the user.
-     *
-     * @return the password of the user
-     */
-    public String getPassword() {
-        return this.password;
-    }
-
-    /**
-     * Gets the identification of the user.
-     *
-     * @return the identification of the user
-     */
-    public String getIdentification() {
-        return this.identification;
     }
 }
