@@ -25,7 +25,7 @@ class OneTimeTransactionInteractorTest {
 
     @BeforeEach
     void setUp() {
-        userAccount = new UserAccount("user1", "pass1", "id1");
+        userAccount = new UserAccount("user1", "pass1", "id999");
         userAccountDataAccessObject = new UserAccountDataAccessInterface() {
             @Override
             public boolean existById(String identification) {
@@ -77,7 +77,7 @@ class OneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteInflow() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0", "01-01-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0", "01-01-2024", "Salary", "Income");
         interactor.execute(inputData);
         assertEquals(100.0f, userAccount.getTotalIncome());
         assertEquals(100.0f, userAccount.getTotalBalance());
@@ -85,7 +85,7 @@ class OneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteOutflow() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("-50.0", "01-01-2024", "Rent", "Expense");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","-50.0", "01-01-2024", "Rent", "Expense");
         interactor.execute(inputData);
         assertEquals(-50.0f, userAccount.getTotalOutflow());
         assertEquals(-50.0f, userAccount.getTotalBalance());
@@ -93,24 +93,24 @@ class OneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteInvalidDate() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "invalid-date", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "invalid-date", "Salary", "Income");
         interactor.execute(inputData);
 
     }
 
     @Test
     void testExecuteInvalidDate1() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "29-02-2023", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "29-02-2023", "Salary", "Income");
         interactor.execute(inputData);
     }
     @Test
     void testExecuteInvalidDate2() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "32-12-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "32-12-2024", "Salary", "Income");
         interactor.execute(inputData);
     }
     @Test
     void testExecuteInvalidDate3() {
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("100.0f", "00-02-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "00-02-2024", "Salary", "Income");
         interactor.execute(inputData);
     }
 

@@ -10,12 +10,13 @@ public class OneTimeTransactionInputDataTest {
     @Test
     public void testOneTimeTransactionInputData() {
         String transactionAmount = "100.0";
-//        String identification = "user123";
+        String identification = "id999";
         String transactionDate = "2024-07-17";
         String transactionDescription = "Grocery Shopping";
         String transactionCategory = "Food";
 
         OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(
+                identification,
                 transactionAmount,
                 transactionDate,
                 transactionDescription,
@@ -23,7 +24,7 @@ public class OneTimeTransactionInputDataTest {
         );
 
         assertEquals(transactionAmount, inputData.getTransactionAmount());
-//        assertEquals(identification, inputData.getIdentification());
+        assertEquals(identification, inputData.getId());
         assertEquals(transactionDate, inputData.getTransactionDate());
         assertEquals(transactionDescription, inputData.getTransactionDescription());
         assertEquals(transactionCategory, inputData.getTransactionCategory());

@@ -45,14 +45,14 @@ public class FinancialReportInteractorTest {
         account.addTransaction(t2);
 
         // test Periodic transactions
-        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2023, 7, 1), "Rent", LocalDate.of(2024, 7, 1), 30, "food") {};
+        Transaction p1 = new PeriodicTransaction("p1", 500.0f, LocalDate.of(2023, 7, 1), "Rent", LocalDate.of(2024, 7, 1), "MOUTH", "food") {};
         account.addTransaction(p1);
     }
 
     @Test
     public void testexecute() {
         FinancialReportInputData inputData = new FinancialReportInputData("","id0", new Date(), new Date());
-        interactor.execute();
+        interactor.execute(inputData);
 
         String reportContent = presenter.getReportContent();
 
