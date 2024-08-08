@@ -1,7 +1,7 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.account.ShareAccountDataAccessInterface;
+import data_access.account.SharedAccountDataAccessInterface;
 import entity.account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionController;
@@ -33,8 +33,8 @@ public class SharedAccountPeriodicTransactionUseCaseFactory {
             ViewManagerModel viewManager,
             SharedAccountPeriodicTransactionViewModel viewModel) throws IOException {
 
-        // Use ShareAccountDataAccessInterface for accessing shared account data
-        ShareAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        // Use SharedAccountDataAccessInterface for accessing shared account data
+        SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
 
         // Presenter for handling shared account periodic transactions
         SharedAccountPeriodicTransactionOutputBoundary presenter =
