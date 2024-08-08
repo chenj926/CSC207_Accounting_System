@@ -15,7 +15,7 @@ import java.time.LocalDate;
  * @author Dana
  * @author Jessica
  */
-public class UserAccountSignupInteractor extends SignupInteractor implements UserAccountSignupInputBoundary {
+public class UserAccountSignupInteractor extends SignupInteractor <UserSignupDataAccessInterface> implements UserAccountSignupInputBoundary {
     private final UserAccountSignupOutputBoundary presenter;
 
     /**

@@ -1,5 +1,6 @@
 package data_access.account;
 
+import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import data_access.iterator.SharedAccountIterator;
 import data_access.iterator.TransactionIterator;
 import entity.account.SharedAccount;
@@ -29,7 +30,12 @@ import static java.lang.String.valueOf;
  * @author Jessica
  * @author Eric
  */
-public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<SharedAccount, SharedAccountOneTimeTransactionOutputData, SharedAccountPeriodicTransactionOutputData> implements ShareAccountDataAccessInterface {
+public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<
+        SharedAccount,
+        SharedAccountOneTimeTransactionOutputData,
+        SharedAccountPeriodicTransactionOutputData>
+        implements ShareAccountDataAccessInterface,
+        SharedAccountSignupDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
 //    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";

@@ -1,5 +1,6 @@
 package data_access.account;
 
+import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
@@ -24,7 +25,7 @@ import java.util.Map;
  */
 
 // in memory DAO for test purposes
-public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAccessInterface{
+public class InMemoryShareAccountDataAccessObject implements SharedAccountSignupDataAccessInterface, ShareAccountDataAccessInterface {
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
 
 
@@ -60,12 +61,12 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
     }
 
-    @Override
+
     public void saveTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData, SharedAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
 
     }
 
-    @Override
+
     public List<Transaction> readTransactions(String userId) {
         return List.of();
     }
@@ -101,7 +102,7 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         return shareAcc;
     }
 
-    @Override
+
     public void update(SharedAccount sharedAccount) {
         // Check if the account exists before updating
         if (shareAcc.containsKey(sharedAccount.getIdentification())) {
