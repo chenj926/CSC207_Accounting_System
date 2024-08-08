@@ -1,9 +1,6 @@
 package interface_adaptors.login;
 
-import interface_adaptors.HomePageViewModel;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoState;
-import interface_adaptors.homepage.HomepageTwoViewModel;
 import use_case.login.UserAcountLoginOutputBoundary;
 import use_case.login.UserAccountLoginOutputData;
 
@@ -14,7 +11,7 @@ import use_case.login.UserAccountLoginOutputData;
  * @author Eric Chen
  */
 public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
-    private final UserLoginViewModel loginViewModel;
+    private final UserAccountLoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
 
     /**
@@ -24,7 +21,7 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
      * @param loginViewModel   the login view model to update the login state
      */
     public UserAcountLoginPresenter(ViewManagerModel viewManagerModel,
-                                    UserLoginViewModel loginViewModel){
+                                    UserAccountLoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
     }
@@ -38,8 +35,8 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
     @Override
     public void prepareSuccessView(UserAccountLoginOutputData userInfo){
         // update the current login state
-        LoginState loginState = this.loginViewModel.getState();
-        loginState.setIdentification(userInfo.getIdentification());
+        UserAccountLoginState userAccountLoginState = this.loginViewModel.getState();
+        userAccountLoginState.setIdentification(userInfo.getIdentification());
 
 //        HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewManagerModel.getViewModel("Homepage Two");
 //        HomepageTwoState homepageTwoState = homepageTwoViewModel.getState();
@@ -48,8 +45,8 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
 //        this.viewManagerModel.updateViewModel("Homepage Two", homepageTwoViewModel);
 
         this.viewManagerModel.setUserId(userInfo.getIdentification());
-        this.loginViewModel.setState(loginState);
-        loginState.setSuccessMsg("Successfully Logged In!!!");
+        this.loginViewModel.setState(userAccountLoginState);
+        userAccountLoginState.setSuccessMsg("Successfully Logged In!!!");
         this.loginViewModel.firePropertyChanged();
         this.viewManagerModel.setActiveViewName(this.loginViewModel.getViewName());
 
@@ -65,9 +62,9 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
      */
     @Override
     public void prepareFailView(String err) {
-        LoginState loginState = this.loginViewModel.getState();
-        loginState.setStateError(err);
-        loginState.setSuccessMsg(null); // Clear success message on failure
+        UserAccountLoginState userAccountLoginState = this.loginViewModel.getState();
+        userAccountLoginState.setStateError(err);
+        userAccountLoginState.setSuccessMsg(null); // Clear success message on failure
         this.loginViewModel.firePropertyChanged();
     }
 

@@ -14,7 +14,7 @@ import java.beans.PropertyChangeSupport;
  * @author Eric
  * @author Dana
  */
-public class UserLoginViewModel extends ViewModel {
+public class UserAccountLoginViewModel extends ViewModel {
 
     private final String titleLabel = "LOGIN";
     private final String identificationLabel = "Enter identification";
@@ -23,12 +23,12 @@ public class UserLoginViewModel extends ViewModel {
     private final String loginButtonLabel = "Login";
     private final String cancelButtonLabel = "Cancel";
 
-    private LoginState state = new LoginState();
+    private UserAccountLoginState state = new UserAccountLoginState();
 
     /**
      * Constructs a LoginViewModel object with the view name set to "login".
      */
-    public UserLoginViewModel() {
+    public UserAccountLoginViewModel() {
         super("login");
     }
 
@@ -82,7 +82,7 @@ public class UserLoginViewModel extends ViewModel {
      *
      * @return the current login state
      */
-    public LoginState getState() {
+    public UserAccountLoginState getState() {
         return this.state;
     }
 
@@ -91,7 +91,7 @@ public class UserLoginViewModel extends ViewModel {
      *
      * @param state the new login state
      */
-    public void setState(LoginState state) {
+    public void setState(UserAccountLoginState state) {
         this.state = state;
     }
 

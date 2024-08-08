@@ -19,7 +19,7 @@ public class LoginUseCaseFactory {
 
     private LoginUseCaseFactory() {}
 
-    public static LoginView create(ViewManagerModel viewManagerModel, UserLoginViewModel loginViewModel) {
+    public static LoginView create(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) {
         try {
             LoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
             return new LoginView(loginViewModel, loginController, viewManagerModel);
@@ -29,7 +29,7 @@ public class LoginUseCaseFactory {
         return null;
     }
 
-    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, UserLoginViewModel loginViewModel) throws IOException {
+    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) throws IOException {
         LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
 

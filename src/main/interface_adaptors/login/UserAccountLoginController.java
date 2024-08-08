@@ -11,14 +11,14 @@ import use_case.login.UserAccountLoginInputData;
  * @author Dana
  * @author Jessica
  */
-public class UserLoginController extends AccountLoginController {
+public class UserAccountLoginController extends AccountLoginController {
 
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
      * @param loginMediator the use case interactor(mediator) for user login
      */
-    public UserLoginController(LoginMediator loginMediator) {
+    public UserAccountLoginController(LoginMediator loginMediator) {
         super(loginMediator);
     }
 

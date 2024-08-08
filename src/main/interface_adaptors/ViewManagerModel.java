@@ -11,7 +11,7 @@ import app.transaction.PeriodicTransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
 import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
-import interface_adaptors.login.UserLoginViewModel;
+import interface_adaptors.login.UserAccountLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.SignupViewModel;
@@ -78,7 +78,7 @@ public class ViewManagerModel {
         SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
         this.viewModels.put("shared account sign up", sharedSignupViewModel);
 
-        UserLoginViewModel loginViewModel =  new UserLoginViewModel();
+        UserAccountLoginViewModel loginViewModel =  new UserAccountLoginViewModel();
         this.viewModels.put("log in", loginViewModel);
 
         SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
@@ -237,7 +237,7 @@ public class ViewManagerModel {
                 currentView = sharedSignupView;
                 break;
             case "log in":
-                UserLoginViewModel loginViewModel =  (UserLoginViewModel) this.viewModels.get("log in");
+                UserAccountLoginViewModel loginViewModel =  (UserAccountLoginViewModel) this.viewModels.get("log in");
                 LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
