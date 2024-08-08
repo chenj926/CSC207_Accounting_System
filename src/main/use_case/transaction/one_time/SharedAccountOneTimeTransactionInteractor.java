@@ -8,6 +8,7 @@ import entity.transaction.one_time.OneTimeTransaction;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * The SharedAccountOneTimeTransactionInteractor class implements the TransactionInputBoundary
@@ -105,7 +106,7 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param category             the transaction category
 //     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
-    private void processInflow(String sharedIds, String userId, float amount, LocalDate date, String description,
+    private void processInflow(String sharedId, String userId, float amount, LocalDate date, String description,
                                String category) {
         // Update shared account income and balance
         float totalIncome = sharedAccount.getTotalIncome() + amount;
@@ -113,8 +114,13 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         float totalBalance = sharedAccount.getTotalBalance() + amount;
         this.sharedAccount.setTotalBalance(totalBalance);
 
+        if (!checkValidUserId(sharedId, userId)) {
+            presenter.prepareFailView("This user is not in this Shared Account!");
+            return;
+        }
+
         // package shareids+userids
-        String ids = sharedIds + ";" + userId;
+        String ids = sharedId + ";" + userId;
 
         // Create inflow transaction
         OneTimeInflow oneTimeInflow = new OneTimeInflow(ids, amount, date, description, category);
@@ -139,6 +145,11 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      */
     private void processOutflow(String sharedId, String userId, float amount, LocalDate date, String description,
                                 String category) {
+
+        if (!checkValidUserId(sharedId, userId)) {
+            presenter.prepareFailView("This user is not in this Shared Account!");
+            return;
+        }
         // Update shared account outflow and balance
         String ids = sharedId + ";" + userId;
         float totalOutflow = sharedAccount.getTotalOutflow() + amount;
@@ -158,10 +169,22 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         presenter.prepareSuccessView(outputData);
     }
 
+    private boolean checkValidUserId(String sharedId, String userId) {
+        SharedAccount account = this.userDataAccessObject.getById(sharedId);
+        Set<String> userIds = account.getSharedUserIdentifications();
+        for (String id : userIds) {
+            if (id.equals(userId)){
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     protected SharedAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
         return new SharedAccountOneTimeTransactionOutputData(transaction);
     }
+
+
 }
 
 
