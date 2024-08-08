@@ -30,8 +30,8 @@
 ////            OneTimeTransactionController oneTimeController = new OneTimeTransactionController(oneTimeInteractor);
 ////
 ////            // Create Periodic Transaction Components
-////            PeriodicTransactionOutputBoundary periodicPresenter = new PeriodicTransactionPresenter(new PeriodicTransactionViewModel(), transactionViewModel);
-////            PeriodicTransactionInputBoundary periodicInteractor = new PeriodicTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (PeriodicTransactionOutputBoundary) periodicPresenter, mockUserAccount);
+////            UserAccountPeriodicTransactionOutputBoundary periodicPresenter = new UserAccountPeriodicTransactionPresenter(new PeriodicTransactionViewModel(), transactionViewModel);
+////            UserAccountPeriodicTransactionInputBoundary periodicInteractor = new UserAccountPeriodicTransactionInteractor((UserAccountDataAccessInterface) userDataAccessObject, (UserAccountPeriodicTransactionOutputBoundary) periodicPresenter, mockUserAccount);
 ////            PeriodicTransactionController periodicController = new PeriodicTransactionController(periodicInteractor);
 ////
 ////            // Create the combined Transaction Interactor

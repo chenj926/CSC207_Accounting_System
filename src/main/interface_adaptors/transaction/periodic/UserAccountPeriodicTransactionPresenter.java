@@ -1,28 +1,28 @@
 package interface_adaptors.transaction.periodic;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputBoundary;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 /**
- * The PeriodicTransactionPresenter class implements the PeriodicTransactionOutputBoundary interface.
+ * The UserAccountPeriodicTransactionPresenter class implements the UserAccountPeriodicTransactionOutputBoundary interface.
  * It handles the presentation logic for periodic transactions, updating the view model and managing view transitions.
  *
  * @author Eric
  * @author Xile
  */
-public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBoundary {
+public class UserAccountPeriodicTransactionPresenter implements UserAccountPeriodicTransactionOutputBoundary {
     private final PeriodicTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
     /**
-     * Constructs a PeriodicTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a UserAccountPeriodicTransactionPresenter object with the specified view model and view manager model.
      *
      * @param viewModel  the view model to update the periodic transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public PeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
+    public UserAccountPeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }
@@ -34,7 +34,7 @@ public class PeriodicTransactionPresenter implements PeriodicTransactionOutputBo
      * @param data the periodic transaction output data containing transaction details and success status
      */
     @Override
-    public void prepareSuccessView(PeriodicTransactionOutputData data) {
+    public void prepareSuccessView(UserAccountPeriodicTransactionOutputData data) {
         // update the current transaction sate
         PeriodicTransactionState periodicState = this.viewModel.getState();
 

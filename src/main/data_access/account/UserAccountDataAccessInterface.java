@@ -2,7 +2,7 @@ package data_access.account;
 
 import entity.account.UserAccount;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 /**
  * Interface for data access operations related to user accounts.
@@ -17,7 +17,7 @@ import use_case.transaction.periodic.PeriodicTransactionOutputData;
  * @author Dana
  */
 public interface UserAccountDataAccessInterface
-        extends AccountDataAccessInterface<UserAccount, UserAccountOneTimeTransactionOutputData, PeriodicTransactionOutputData> {
+        extends AccountDataAccessInterface<UserAccount, UserAccountOneTimeTransactionOutputData, UserAccountPeriodicTransactionOutputData> {
 //    /**
 //     * Retrieves a user account by its identification.
 //     *
@@ -63,7 +63,7 @@ public interface UserAccountDataAccessInterface
 //     * @param isPeriodic true if the transaction is periodic, false if it is one-time
 //     */
 //    void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
-//                         PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
+//                         UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic);
 //
 //    List<Transaction> readTransactions(String userId);
 

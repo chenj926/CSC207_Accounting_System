@@ -53,13 +53,56 @@ public class ViewManagerModel {
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
-    private Map<String, JFrame> views;
+    private final Map<String, JFrame> views;
+    private final Map<String, ViewModel> viewModels;
 
     /**
      * Constructs a ViewManagerModel object with no initial views.
      */
     public ViewManagerModel() {
         this.views = new HashMap<>();
+        this.viewModels = new HashMap<>();
+        this.initViewModels();
+    }
+
+    // 2种方式，一种是set好viewModel， 然后新创建的时候，viewModel里就已近有了id/shareId
+    //还有一种就是一个个加
+    private void initViewModels() {
+        // init every view in the beginning
+        HomePageViewModel homePageViewModel = new HomePageViewModel();
+        this.viewModels.put("home page", homePageViewModel);
+
+        SignupViewModel signupViewModel = new SignupViewModel();
+        this.viewModels.put("sign up", signupViewModel);
+
+        SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
+        this.viewModels.put("shared account sign up", sharedSignupViewModel);
+
+        UserLoginViewModel loginViewModel =  new UserLoginViewModel();
+        this.viewModels.put("log in", loginViewModel);
+
+        SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
+        this.viewModels.put("shared account log in", sharedAccountLoginViewModel);
+
+        HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
+        this.viewModels.put("Homepage Two", homepageTwoViewModel);
+
+        OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
+        this.viewModels.put("One Time Transaction", oneTimeTransactionViewModel);
+
+        PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
+        this.viewModels.put("Periodic Transaction", periodicTransactionViewModel);
+
+        FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
+        this.viewModels.put("Financial Report", financialReportViewModel);
+    }
+
+    public <V extends ViewModel> void updateViewModel(String viewModelName, V viewModel) {
+        if (this.viewModels.containsKey(viewModelName)) {
+            this.viewModels.put(viewModelName, viewModel);
+        } else {
+            throw new IllegalArgumentException("No ViewModel found with the name: " + viewModelName);
+        }
     }
 
     /**
@@ -69,6 +112,10 @@ public class ViewManagerModel {
      */
     public String getActiveViewName() {
         return activeViewName;
+    }
+
+    public ViewModel getViewModel(String viewModelName) {
+        return this.viewModels.get(viewModelName);
     }
 
     /**
@@ -170,49 +217,57 @@ public class ViewManagerModel {
         // 让他加了（新的viewModel）好像也没用……非常无奈啊
         switch (viewName) {
             case "home page":
-                HomePageViewModel homePageViewModel = new HomePageViewModel();
+                HomePageViewModel homePageViewModel = (HomePageViewModel) this.viewModels.get("home page");
                 HomePageView homePageView = HomePageUseCaseFactory.create(this, homePageViewModel);
                 views.put("home page", homePageView);
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel = new SignupViewModel();
+                SignupViewModel signupViewModel = (SignupViewModel) this.viewModels.get("sign up");
                 SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
                 break;
             case "shared account sign up":
-                SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
-                SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this, sharedSignupViewModel);
+                SharedAccountSignupViewModel sharedSignupViewModel =
+                        (SharedAccountSignupViewModel) this.viewModels.get("shared account sign up");
+                SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this,
+                        sharedSignupViewModel);
                 views.put("shared account sign up", sharedSignupView);
                 currentView = sharedSignupView;
                 break;
             case "log in":
-                UserLoginViewModel loginViewModel =  new UserLoginViewModel();
+                UserLoginViewModel loginViewModel =  (UserLoginViewModel) this.viewModels.get("log in");
                 LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
             case "shared account log in":
-                SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
-                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.create(this, sharedAccountLoginViewModel);
+                SharedAccountLoginViewModel sharedAccountLoginViewModel =
+                        (SharedAccountLoginViewModel) this.viewModels.get("shared account log in");
+                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.create(this,
+                        sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
                 break;
             case "Homepage Two":
-                HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
+                HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewModels.get("Homepage Two");
                 HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
                 views.put("Homepage Two", homepageTwoView);
                 currentView = homepageTwoView;
             case "One Time Transaction":
-                OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
-                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(this, oneTimeTransactionViewModel);
+                OneTimeTransactionViewModel oneTimeTransactionViewModel =
+                        (OneTimeTransactionViewModel) this.viewModels.get("One Time Transaction");
+                OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(
+                        this, oneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
                 currentView = oneTimeTransactionView;
                 break;
             case "Periodic Transaction":
-                PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-                PeriodicTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(this, periodicTransactionViewModel);
+                PeriodicTransactionViewModel periodicTransactionViewModel =
+                        (PeriodicTransactionViewModel) this.viewModels.get("Periodic Transaction");
+                PeriodicTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(
+                        this, periodicTransactionViewModel);
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
                 break;
@@ -223,8 +278,9 @@ public class ViewManagerModel {
 //                currentView = logoutView;
 //                break;
             case "Financial Report":
-                FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
-                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this, financialReportViewModel);
+                FinancialReportViewModel financialReportViewModel = (FinancialReportViewModel) this.viewModels.get("Financial Report");
+                FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
+                        financialReportViewModel);
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;

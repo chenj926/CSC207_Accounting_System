@@ -115,8 +115,11 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         float totalBalance = sharedAccount.getTotalBalance() + amount;
         this.sharedAccount.setTotalBalance(totalBalance);
 
+        // package shareids+userids
+        String ids = sharedIds + ";" + userId;
+
         // Create inflow transaction
-        OneTimeInflow oneTimeInflow = new OneTimeInflow(userId, amount, date, description, category);
+        OneTimeInflow oneTimeInflow = new OneTimeInflow(ids, amount, date, description, category);
 
         // Prepare output data
         SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeInflow);
@@ -136,17 +139,17 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param category             the transaction category
 //     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
-    private void processOutflow(String shareId, String userId, float amount, LocalDate date, String description,
+    private void processOutflow(String sharedId, String userId, float amount, LocalDate date, String description,
                                 String category) {
         // Update shared account outflow and balance
-        String ids = shareId + ";" + userId;
+        String ids = sharedId + ";" + userId;
         float totalOutflow = sharedAccount.getTotalOutflow() + amount;
         sharedAccount.setTotalOutflow(totalOutflow);
         float totalBalance = sharedAccount.getTotalBalance() - amount;
         sharedAccount.setTotalBalance(totalBalance);
 
         // Create outflow transaction
-        OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(sharedAccount.getIdentification(), amount, date, description, category);
+        OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(ids, amount, date, description, category);
 
         // Prepare output data
         SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeOutflow);

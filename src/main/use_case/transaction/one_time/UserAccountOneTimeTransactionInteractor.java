@@ -5,8 +5,7 @@ import entity.account.UserAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
-import use_case.transaction.TransactionInteractor;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -27,7 +26,7 @@ public class UserAccountOneTimeTransactionInteractor extends OneTimeTransactionI
         UserAccountDataAccessInterface,
         UserAccount,
         UserAccountOneTimeTransactionOutputData,
-        PeriodicTransactionOutputData,
+        UserAccountPeriodicTransactionOutputData,
         UserAccountOneTimeTransactionInputData>
         implements UserAccountOneTimeTransactionInputBoundary {
 //    private final UserAccountOneTimeTransactionOutputBoundary presenter;

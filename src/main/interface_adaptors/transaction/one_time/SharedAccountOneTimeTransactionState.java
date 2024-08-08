@@ -11,13 +11,15 @@ import java.util.Set;
  *
  */
 public class SharedAccountOneTimeTransactionState extends OneTimeTransactionState {
-    private Set<String> responsibleUserIds;
+    private String responsibleUserIds;
+    private String shareId;
 
     /**
      * Constructs a SharedAccountOneTimeTransactionState with an empty set of responsible user IDs.
      */
     public SharedAccountOneTimeTransactionState() {
-        this.responsibleUserIds = new HashSet<>();
+        this.responsibleUserIds = "";
+        this.shareId = "";
     }
 
     /**
@@ -25,8 +27,12 @@ public class SharedAccountOneTimeTransactionState extends OneTimeTransactionStat
      *
      * @return the set of responsible user IDs
      */
-    public Set<String> getResponsibleUserIds() {
-        return responsibleUserIds;
+    public String getResponsibleUserIds() {
+        return this.responsibleUserIds;
+    }
+
+    public String getShareId() {
+        return this.shareId;
     }
 
     /**
@@ -34,8 +40,12 @@ public class SharedAccountOneTimeTransactionState extends OneTimeTransactionStat
      *
      * @param responsibleUserIds the set of responsible user IDs
      */
-    public void setResponsibleUserIds(Set<String> responsibleUserIds) {
+    public void setResponsibleUserIds(String responsibleUserIds) {
         this.responsibleUserIds = responsibleUserIds;
+    }
+
+    public void setShareId(String shareId) {
+        this.shareId = shareId;
     }
 }
 

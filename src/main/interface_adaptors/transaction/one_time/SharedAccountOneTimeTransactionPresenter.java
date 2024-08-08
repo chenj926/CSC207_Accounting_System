@@ -39,7 +39,9 @@ public class SharedAccountOneTimeTransactionPresenter implements SharedAccountOn
         transactionState.setTransactionDescription(data.getTransactionDescription());
         transactionState.setTransactionCategory(data.getTransactionCategory());
 //        transactionState.setNewSharedAccountBalance(data.getNewSharedAccountBalance());
-        transactionState.setResponsibleUserIds(data.getResponsibleUserIds());
+        String[] ids = data.getId().split(";");
+        transactionState.setResponsibleUserIds(ids[1]);
+        transactionState.setShareId(ids[0]);
         transactionState.setSuccessMessage("Shared account one-time transaction recorded successfully!");
 
         // Update the view model state

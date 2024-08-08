@@ -3,12 +3,11 @@ package data_access.transaction;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInterface {
@@ -47,7 +46,7 @@ public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInt
 
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+                                UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         if (isPeriodic) {
             System.out.println("Saving periodic transaction data...");
         } else {

@@ -1,6 +1,9 @@
 package interface_adaptors.login;
 
+import interface_adaptors.HomePageViewModel;
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.homepage.HomepageTwoState;
+import interface_adaptors.homepage.HomepageTwoViewModel;
 import use_case.login.UserAcountLoginOutputBoundary;
 import use_case.login.UserAccountLoginOutputData;
 
@@ -37,6 +40,13 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
         // update the current login state
         LoginState loginState = this.loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());
+
+//        HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewManagerModel.getViewModel("Homepage Two");
+//        HomepageTwoState homepageTwoState = homepageTwoViewModel.getState();
+//        homepageTwoState.setId(userInfo.getIdentification());
+//        homepageTwoViewModel.setState(homepageTwoState);
+//        this.viewManagerModel.updateViewModel("Homepage Two", homepageTwoViewModel);
+
         this.viewManagerModel.setUserId(userInfo.getIdentification());
         this.loginViewModel.setState(loginState);
         loginState.setSuccessMsg("Successfully Logged In!!!");

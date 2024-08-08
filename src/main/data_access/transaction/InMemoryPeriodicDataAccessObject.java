@@ -3,7 +3,7 @@ package data_access.transaction;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -89,7 +89,7 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
      */
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+                                UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         System.out.println("not implemented yet");
     }
 

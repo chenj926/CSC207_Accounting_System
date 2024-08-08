@@ -55,6 +55,6 @@ public interface ShareAccountDataAccessInterface
 //
 //
 //    void saveTransaction(UserAccountOneTimeTransactionOutputData outputData,
-//                         PeriodicTransactionOutputData sharedPeriodicOutputData,
+//                         UserAccountPeriodicTransactionOutputData sharedPeriodicOutputData,
 //                         boolean isPeriodic);
 }

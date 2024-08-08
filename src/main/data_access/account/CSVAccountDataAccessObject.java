@@ -6,7 +6,7 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -120,7 +120,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         } else{
             // create csv line with the user info
             String userInfo = getTransactionInfo(null,
-                    (PeriodicTransactionOutputData)periodicOutputData, true);
+                    (UserAccountPeriodicTransactionOutputData)periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 
@@ -147,7 +147,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    protected static String getPeriodicTransactionInfo(PeriodicTransactionOutputData periodicOutputData) {
+    protected static String getPeriodicTransactionInfo(UserAccountPeriodicTransactionOutputData periodicOutputData) {
         String id = periodicOutputData.getId();
         float amount = periodicOutputData.getTransactionAmount();
         String startDate = valueOf(periodicOutputData.getTransactionStartDate());
@@ -169,7 +169,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
     }
 
     protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        PeriodicTransactionOutputData periodicOutputData,
+                                        UserAccountPeriodicTransactionOutputData periodicOutputData,
                                         boolean isPeriodic) {
         if (!isPeriodic) {
             return getOneTimeTransactionInfo(oneTimeOutputData);

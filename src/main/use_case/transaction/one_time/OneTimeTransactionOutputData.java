@@ -6,7 +6,7 @@ import use_case.transaction.TransactionOutputData;
 
 public class OneTimeTransactionOutputData extends TransactionOutputData<Transaction> {
 
-    public OneTimeTransactionOutputData(OneTimeTransaction transaction) {
-        super(transaction);
+    public OneTimeTransactionOutputData(OneTimeTransaction onetimeTransaction) {
+        super(onetimeTransaction);
     }
 }

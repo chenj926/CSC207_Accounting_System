@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
-import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionInputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionInputData;
 
 /**
  * The PeriodicTransactionController class is responsible for handling user interactions related to periodic transactions.
@@ -12,18 +12,18 @@ import use_case.transaction.periodic.PeriodicTransactionInputData;
  */
 public class PeriodicTransactionController {
 
-    final PeriodicTransactionInputBoundary periodicTransactionInputBoundary;
+    final UserAccountPeriodicTransactionInputBoundary userAccountPeriodicTransactionInputBoundary;
     final PeriodicTransactionViewModel viewModel;
 
     /**
      * Constructs a PeriodicTransactionController object with the specified use case interactor and view model.
      *
-     * @param periodicTransactionInputBoundary the use case interactor for periodic transactions
+     * @param userAccountPeriodicTransactionInputBoundary the use case interactor for periodic transactions
      * @param viewModel                        the view model to update the transaction state
      */
-    public PeriodicTransactionController(PeriodicTransactionInputBoundary periodicTransactionInputBoundary,
+    public PeriodicTransactionController(UserAccountPeriodicTransactionInputBoundary userAccountPeriodicTransactionInputBoundary,
                                          PeriodicTransactionViewModel viewModel) {
-        this.periodicTransactionInputBoundary = periodicTransactionInputBoundary;
+        this.userAccountPeriodicTransactionInputBoundary = userAccountPeriodicTransactionInputBoundary;
         this.viewModel = viewModel;
     }
 
@@ -38,9 +38,9 @@ public class PeriodicTransactionController {
      * @param endDate     the end date of the transaction
      */
     public void execute(String id, String amount, String startDate, String description, String period, String endDate, String category, String date) {
-        PeriodicTransactionInputData periodicTransactionInputData = new PeriodicTransactionInputData(id,
+        UserAccountPeriodicTransactionInputData userAccountPeriodicTransactionInputData = new UserAccountPeriodicTransactionInputData(id,
                 amount, startDate, description, period, endDate, category, date);
-        periodicTransactionInputBoundary.execute(periodicTransactionInputData);
+        userAccountPeriodicTransactionInputBoundary.execute(userAccountPeriodicTransactionInputData);
         this.viewModel.resetState();
     }
 }

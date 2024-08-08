@@ -2,13 +2,9 @@ package data_access.account;
 
 import entity.account.SharedAccount;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import entity.transaction.Transaction;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -70,7 +66,7 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     }
 
     @Override
-    public void saveTransaction(UserAccountOneTimeTransactionOutputData outputData, PeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+    public void saveTransaction(UserAccountOneTimeTransactionOutputData outputData, UserAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
 
     }
 
