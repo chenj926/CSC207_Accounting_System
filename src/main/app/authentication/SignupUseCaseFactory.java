@@ -1,9 +1,9 @@
 package app.authentication;
 
 import data_access.DAOFactory;
+import data_access.account.SharedAccountDataAccessInterface;
 import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import data_access.authentication.UserSignupDataAccessInterface;
-import data_access.account.ShareAccountDataAccessInterface;
 import entity.account.AccountFactory;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SignupController;
@@ -57,7 +57,7 @@ public class SignupUseCaseFactory {
 
     private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
         SharedAccountSignupDataAccessInterface dataAccessObject = DAOFactory.getSharedAccountSignupDataAccessObject();
-        ShareAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        SharedAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
         SharedAccountSignupOutputBoundary presenter = new SharedAccountSignupPresenter(viewManagerModel, sharedSignupViewModel);
         AccountFactory accountFactory = new AccountFactory();
 
