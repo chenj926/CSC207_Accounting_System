@@ -53,7 +53,7 @@ public class UserAccountFinancialReportPresenter extends FinancialReportPresente
         state.setNoTransaction(noTransaction);
         this.viewModel.setState(state);
         this.viewModel.setReportContent(state.getReportContent());
-        this.viewModel.firePropertyChanged();
+        this.viewModel.firePropertyChange();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
     }
