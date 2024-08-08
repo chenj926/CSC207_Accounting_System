@@ -98,7 +98,7 @@ public abstract class PeriodicTransactionInteractor <
      * @param period the transaction period as a string
      * @return the custom period as an integer, or 0 if it's a predefined period, or -1 if parsing fails
      */
-    private int validateAndParsePeriod(String period) {
+    protected int validateAndParsePeriod(String period) {
         ArrayList<String> periodTypes = new ArrayList<>();
         periodTypes.add("day");
         periodTypes.add("week");
@@ -129,7 +129,7 @@ public abstract class PeriodicTransactionInteractor <
      * @param period the transaction period as a string
      * @return the corresponding ChronoUnit
      */
-    private ChronoUnit getChronoUnit(String period) {
+    protected ChronoUnit getChronoUnit(String period) {
         switch (period) {
             case "day":
                 return ChronoUnit.DAYS;
@@ -153,7 +153,7 @@ public abstract class PeriodicTransactionInteractor <
      * @param endDate the end date
      * @return true if the period is valid, false otherwise
      */
-    private boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
+    protected boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
         long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
         // if the start day and end day is the same day
@@ -235,8 +235,9 @@ public abstract class PeriodicTransactionInteractor <
      * @param endDate the transaction end date
      * @param period the transaction period
      */
-    private P processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
-                                                                              LocalDate endDate, String period, String category, LocalDate transactionDate) {
+    protected P processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
+                                       LocalDate endDate, String period,
+                                       String category, LocalDate transactionDate) {
         // Create a new PeriodicInflow object
         PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
                 period, category);
@@ -245,12 +246,12 @@ public abstract class PeriodicTransactionInteractor <
         periodicInflow.setDate(transactionDate);
 
         // Create a new PeriodicInflow object
-        float totalIncome = account.getTotalIncome() + amount;
-        account.setTotalIncome(totalIncome);
+        float totalIncome = this.account.getTotalIncome() + amount;
+        this.account.setTotalIncome(totalIncome);
 
         // Update the user's total income and balance
-        float totalBalance = account.getTotalBalance() + amount;
-        account.setTotalBalance(totalBalance);
+        float totalBalance = this.account.getTotalBalance() + amount;
+        this.account.setTotalBalance(totalBalance);
 
         // Prepare the output data
         P outputData = this.createOutputData(periodicInflow);
@@ -274,7 +275,7 @@ public abstract class PeriodicTransactionInteractor <
      * @param endDate the transaction end date
      * @param period the transaction period
      */
-    private P processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
+    protected P processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
                                                                                LocalDate endDate, String period, String category, LocalDate transactionDate) {
         // Create a new PeriodicOutflow object
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
