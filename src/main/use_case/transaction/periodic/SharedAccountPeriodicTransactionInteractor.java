@@ -1,19 +1,16 @@
-package main.use_case.transaction.periodic;
+package use_case.transaction.periodic;
 
+import data_access.account.ShareAccountDataAccessInterface;
+import entity.account.SharedAccount;
 import entity.account.UserAccount;
-import data_access.account.UserAccountDataAccessInterface;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
-import use_case.transaction.TransactionInteractor;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
+import entity.transaction.periodic.PeriodicTransaction;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 //import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.Set;
 
 /**
  * The SharedAccountPeriodicTransactionInteractor class is responsible for managing periodic transactions
@@ -22,35 +19,43 @@ import java.util.Set;
  *
  * @author Rita
  */
-public class SharedAccountPeriodicTransactionInteractor extends TransactionInteractor
+public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransactionInteractor <
+        ShareAccountDataAccessInterface,
+        SharedAccount,
+        SharedAccountOneTimeTransactionOutputData,
+        SharedAccountPeriodicTransactionOutputData,
+        SharedAccountPeriodicTransactionInputData>
         implements SharedAccountPeriodicTransactionInputBoundary {
 
-    private final SharedAccountPeriodicTransactionOutputBoundary outputBoundary;
+//    private final SharedAccountPeriodicTransactionOutputBoundary outputBoundary;
 
     /**
      * Constructs a SharedAccountPeriodicTransactionInteractor object with the necessary dependencies.
      *
-     * @param userAccountDataAccessInterface the data access interface for user account data
-     * @param userAccount                   the user account associated with the periodic transaction
-     * @param outputBoundary                the output boundary for the periodic transaction use case
+     * @param DAO the data access interface for user account data
+     * @param sharedAccount                   the user account associated with the periodic transaction
+     * @param presenter  the output boundary for the periodic transaction use case
      */
-    public SharedAccountPeriodicTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                                      UserAccount userAccount,
-                                                      SharedAccountPeriodicTransactionOutputBoundary outputBoundary) {
-        super(userAccountDataAccessInterface, userAccount);
-        this.outputBoundary = outputBoundary;
+    public SharedAccountPeriodicTransactionInteractor(ShareAccountDataAccessInterface DAO,
+                                                      SharedAccount sharedAccount,
+                                                      SharedAccountPeriodicTransactionOutputBoundary presenter) {
+        super(DAO, presenter, sharedAccount);
+//        this.outputBoundary = outputBoundary;
     }
 
     @Override
     public void execute(SharedAccountPeriodicTransactionInputData periodicTransactionInputData) {
-        String identification = periodicTransactionInputData.getId();
+        String userId = periodicTransactionInputData.getId();
+        String sharedId = periodicTransactionInputData.getSharedAccountId();
         String stringAmount = periodicTransactionInputData.getTransactionAmount();
         String endDate = periodicTransactionInputData.getTransactionEndDate();
         String description = periodicTransactionInputData.getTransactionDescription();
         String startDate = periodicTransactionInputData.getTransactionStartDate();
         String period = periodicTransactionInputData.getTransactionPeriod();
         String category = periodicTransactionInputData.getTransactionCategory();
-        Set<String> responsibleUserIds = periodicTransactionInputData.getResponsibleUserIds();
+
+        //Set currentDate to today
+        LocalDate currentDate = LocalDate.now();
 
         // Validate input
         if (!checkValid(stringAmount) || !checkValid(startDate) || !checkValid(endDate) ||
@@ -89,7 +94,8 @@ public class SharedAccountPeriodicTransactionInteractor extends TransactionInter
         }
 
         boolean isInflow = amount >= 0.0; // Determine if it's an inflow
-        processTransactions(isInflow, identification, amount, localStartDate, localEndDate, description, period, customPeriod, unit, category, responsibleUserIds);
+        processTransactions(isInflow, userId, sharedId, amount, localStartDate, localEndDate, description, period,
+                customPeriod, unit, category, currentDate);
     }
 
     /**
@@ -102,7 +108,8 @@ public class SharedAccountPeriodicTransactionInteractor extends TransactionInter
      * </p>
      *
      * @param isInflow           boolean indicating if the transaction is an inflow
-     * @param identification     the shared account's identification
+     * @param userId             the user account's id
+     * @param shareId            the shared account's id
      * @param amount             the transaction amount
      * @param startDate          the transaction start date
      * @param endDate            the transaction end date
@@ -111,190 +118,44 @@ public class SharedAccountPeriodicTransactionInteractor extends TransactionInter
      * @param customPeriod       the custom period in days
      * @param unit               the ChronoUnit of the period
      * @param category           the transaction category
-     * @param responsibleUserIds the set of user IDs responsible for the transaction
+     * @param currentDate the set of user IDs responsible for the transaction
      */
-    private void processTransactions(boolean isInflow, String identification, float amount, LocalDate startDate,
+    private void processTransactions(boolean isInflow, String userId, String shareId, float amount, LocalDate startDate,
                                      LocalDate endDate, String description, String period, int customPeriod,
-                                     ChronoUnit unit, String category, Set<String> responsibleUserIds) {
-        LocalDate currentDate = startDate;
+                                     ChronoUnit unit, String category, LocalDate currentDate) {
+        LocalDate date = startDate;
+        String userIds = shareId + ";" + userId;
 
-        while (!currentDate.isAfter(endDate)) {
+        SharedAccountPeriodicTransactionOutputData finalOutputData = null;
+
+        while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
             if (isInflow) {
-                processInflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit, category, responsibleUserIds);
+                finalOutputData = this.processInflowTransaction(userIds, amount, startDate, description, endDate,
+                        period, category, date);
             } else {
-                processOutflowTransaction(identification, amount, currentDate, description, endDate, period, customPeriod, unit, category, responsibleUserIds);
+                finalOutputData = this.processOutflowTransaction(userIds, amount, startDate, description, endDate,
+                        period, category, date);
+
+                // Update current date
+                if (unit != ChronoUnit.DAYS) {
+                    currentDate = currentDate.plus(1, unit);
+                } else if (customPeriod == 0) {
+                    currentDate = currentDate.plus(1, unit);
+                } else {
+                    currentDate = currentDate.plusDays(customPeriod);
+                }
             }
 
-            // Update current date
-            if (unit != ChronoUnit.DAYS) {
-                currentDate = currentDate.plus(1, unit);
-            } else if (customPeriod == 0) {
-                currentDate = currentDate.plus(1, unit);
-            } else {
-                currentDate = currentDate.plusDays(customPeriod);
+            // update the success view only after all transactions are done
+            if (finalOutputData != null) {
+                this.presenter.prepareSuccessView(finalOutputData);
             }
         }
     }
 
-    /**
-     * Processes an inflow transaction for the shared account.
-     * <p>
-     * This method creates and saves a periodic inflow transaction, updates the
-     * shared account's total income and balance, and interacts with the data access
-     * object to save the transaction.
-     * </p>
-     *
-     * @param identification      the shared account's identification
-     * @param amount              the transaction amount
-     * @param currentDate         the current transaction date
-     * @param description         the transaction description
-     * @param endDate             the transaction end date
-     * @param period              the transaction period
-     * @param customPeriod        the custom period in days
-     * @param unit                the ChronoUnit of the period
-     * @param category            the transaction category
-     * @param responsibleUserIds  the set of user IDs responsible for the transaction
-     */
-    private void processInflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                          LocalDate endDate, String period, int customPeriod, ChronoUnit unit,
-                                          String category, Set<String> responsibleUserIds) {
-        PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, currentDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
-
-        // Update the shared account's total income and balance
-        float totalIncome = sharedAccount.getTotalIncome() + amount;
-        sharedAccount.setTotalIncome(totalIncome);
-
-        float totalBalance = sharedAccount.getTotalBalance() + amount;
-        sharedAccount.setTotalBalance(totalBalance);
-
-        // Save transaction
-        SharedAccountPeriodicTransactionOutputData outputData = new SharedAccountPeriodicTransactionOutputData(
-                periodicInflow, responsibleUserIds, sharedAccount.getTotalBalance());
-        sharedAccountDataAccessInterface.saveSharedTransaction(null, outputData, true);
-        sharedAccountDataAccessInterface.update(sharedAccount);
-    }
-
-    /**
-     * Processes an outflow transaction for the shared account.
-     * <p>
-     * This method creates and saves a periodic outflow transaction, updates the
-     * shared account's total outflow and balance, and interacts with the data access
-     * object to save the transaction.
-     * </p>
-     *
-     * @param identification      the shared account's identification
-     * @param amount              the transaction amount
-     * @param currentDate         the current transaction date
-     * @param description         the transaction description
-     * @param endDate             the transaction end date
-     * @param period              the transaction period
-     * @param customPeriod        the custom period in days
-     * @param unit                the ChronoUnit of the period
-     * @param category            the transaction category
-     * @param responsibleUserIds  the set of user IDs responsible for the transaction
-     */
-    private void processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                           LocalDate endDate, String period, int customPeriod, ChronoUnit unit,
-                                           String category, Set<String> responsibleUserIds) {
-        PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
-                period.equals("day") ? (int) unit.getDuration().toDays() : customPeriod, category);
-
-        // Update the shared account's total outflow and balance
-        float totalOutflow = sharedAccount.getTotalOutflow() + amount;
-        sharedAccount.setTotalOutflow(totalOutflow);
-
-        float totalBalance = sharedAccount.getTotalBalance() - amount;
-        sharedAccount.setTotalBalance(totalBalance);
-
-        // Save transaction
-        SharedAccountPeriodicTransactionOutputData outputData = new SharedAccountPeriodicTransactionOutputData(
-                periodicOutflow, responsibleUserIds, sharedAccount.getTotalBalance());
-        sharedAccountDataAccessInterface.saveSharedTransaction(null, outputData, false);
-        sharedAccountDataAccessInterface.update(sharedAccount);
-    }
-
-    /**
-     * Validates and parses the transaction period.
-     * <p>
-     * This method checks if the period is one of the predefined period types (day, week, month, year).
-     * If not, it tries to parse the period as an integer representing a custom period in days.
-     * If parsing fails or the custom period is 0, it returns -1 as an indication of failure.
-     * </p>
-     *
-     * @param period the transaction period as a string
-     * @return the custom period as an integer, or 0 if it's a predefined period, or -1 if parsing fails
-     */
-    private int validateAndParsePeriod(String period) {
-        ArrayList<String> periodTypes = new ArrayList<>();
-        periodTypes.add("day");
-        periodTypes.add("week");
-        periodTypes.add("month");
-        periodTypes.add("year");
-
-        if (periodTypes.contains(period)) {
-            return 0;
-        }
-
-        try {
-            int customPeriod = Integer.parseInt(period);
-            if (customPeriod == 0) {
-                return -1;
-            }
-            return customPeriod;
-        } catch (NumberFormatException e) {
-            return -1;
-        }
-    }
-
-    /**
-     * Returns the ChronoUnit corresponding to the given period string.
-     * <p>
-     * If the period is not one of the predefined types, it defaults to ChronoUnit.DAYS.
-     * </p>
-     *
-     * @param period the transaction period as a string
-     * @return the corresponding ChronoUnit
-     */
-    private ChronoUnit getChronoUnit(String period) {
-        switch (period) {
-            case "day":
-                return ChronoUnit.DAYS;
-            case "week":
-                return ChronoUnit.WEEKS;
-            case "month":
-                return ChronoUnit.MONTHS;
-            case "year":
-                return ChronoUnit.YEARS;
-            default:
-                return ChronoUnit.DAYS;
-        }
-    }
-
-    /**
-     * Validates if the period is shorter than the duration between the start and end dates.
-     *
-     * @param unit the ChronoUnit of the period
-     * @param customPeriod the custom period in days
-     * @param startDate the start date
-     * @param endDate the end date
-     * @return true if the period is valid, false otherwise
-     */
-    private boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
-        long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
-
-        // if the start day and end day is the same day
-        if (totalDaysBetween == 0) {
-            totalDaysBetween++;
-        }
-
-        if (unit != ChronoUnit.DAYS && totalDaysBetween < unit.getDuration().toDays()) {
-            return false;
-        } else if (totalDaysBetween < customPeriod) {
-            return false;
-        }
-
-        return unit == ChronoUnit.DAYS || totalDaysBetween >= customPeriod;
+    @Override
+    protected SharedAccountPeriodicTransactionOutputData createOutputData(PeriodicTransaction transaction) {
+        return new SharedAccountPeriodicTransactionOutputData(transaction);
     }
 }
 
