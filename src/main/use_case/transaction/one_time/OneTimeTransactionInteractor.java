@@ -7,6 +7,7 @@ import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.TransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -21,7 +22,7 @@ public abstract class OneTimeTransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
         O extends OneTimeTransactionOutputData,
-        P extends TransactionOutputData, //要改
+        P extends PeriodicTransactionOutputData, //要改
         I extends OneTimeTransactionInputData> extends TransactionInteractor<DAO, A, O, P> implements OneTimeTransactionInputBoundary<I> {
 
     protected final OneTimeTransactionOutputBoundary<O> presenter;
