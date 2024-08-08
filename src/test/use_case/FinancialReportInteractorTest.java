@@ -6,7 +6,7 @@ import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
 import interface_adaptors.financial_report.UserAccountFinancialReportPresenter;
-import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -28,7 +28,7 @@ public class FinancialReportInteractorTest {
     private UserAccountFinancialReportPresenter presenter;
     private UserAccountFinancialReportInteractor interactor;
     private CSVUserAccountDataAccessObject userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
-    private FinancialReportViewModel viewModel = new FinancialReportViewModel();
+    private UserAccountFinancialReportViewModel viewModel = new UserAccountFinancialReportViewModel();
     private ViewManagerModel viewManagerModel = new ViewManagerModel();
 
     @BeforeEach

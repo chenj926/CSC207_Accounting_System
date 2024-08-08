@@ -1,8 +1,8 @@
 package view.financial_report;
 
-import interface_adaptors.financial_report.FinancialReportController;
-import interface_adaptors.financial_report.FinancialReportState;
-import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.financial_report.UserAccountFinancialReportController;
+import interface_adaptors.financial_report.UserAccountFinancialReportState;
+import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;
@@ -12,18 +12,18 @@ import java.beans.PropertyChangeListener;
 
 public class FinancialReportView extends JFrame implements PropertyChangeListener {
     private FinancialReportPanel financialReportPanel;
-    private FinancialReportViewModel viewModel;
-    private FinancialReportController financialReportController;
+    private UserAccountFinancialReportViewModel viewModel;
+    private UserAccountFinancialReportController userAccountFinancialReportController;
     private ViewManagerModel viewManager;
 
-    public FinancialReportView (FinancialReportViewModel viewModel,
-                                FinancialReportController financialReportController,
+    public FinancialReportView (UserAccountFinancialReportViewModel viewModel,
+                                UserAccountFinancialReportController userAccountFinancialReportController,
                                 ViewManagerModel viewManager) {
         super("Financial Report");
         this.viewModel = viewModel;
         this.viewManager = viewManager;
         this.viewModel.addPropertyChangeListener(this);
-        this.financialReportController = financialReportController;
+        this.userAccountFinancialReportController = userAccountFinancialReportController;
 
 //        this.viewModel.addPropertyChangeListener(evt -> {
 //            if ("state".equals(evt.getPropertyName())){
@@ -33,7 +33,7 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
 
 
 
-        this.financialReportPanel = new FinancialReportPanel(this.viewModel, this.financialReportController,
+        this.financialReportPanel = new FinancialReportPanel(this.viewModel, this.userAccountFinancialReportController,
                 this.viewManager);
 
         setupUI();
@@ -48,7 +48,7 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        FinancialReportState state = (FinancialReportState) evt.getNewValue();
+        UserAccountFinancialReportState state = (UserAccountFinancialReportState) evt.getNewValue();
     }
 
     /**
@@ -61,7 +61,7 @@ public class FinancialReportView extends JFrame implements PropertyChangeListene
         super.setVisible(visible);
         if (visible) {
             String id = this.viewManager.getUserId();
-            this.financialReportController.execute(id);
+            this.userAccountFinancialReportController.execute(id);
         }
     }
 }

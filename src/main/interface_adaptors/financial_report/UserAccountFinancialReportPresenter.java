@@ -12,11 +12,11 @@ import use_case.financial_report.UserAccountFinancialReportOutputData;
  */
 public class UserAccountFinancialReportPresenter implements UserAccountFinancialReportOutputBoundary {
     private String reportContent;
-    private final FinancialReportViewModel viewModel;
+    private final UserAccountFinancialReportViewModel viewModel;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
-    public UserAccountFinancialReportPresenter(FinancialReportViewModel viewModel, ViewManagerModel viewManager) {
+    public UserAccountFinancialReportPresenter(UserAccountFinancialReportViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }
@@ -28,7 +28,7 @@ public class UserAccountFinancialReportPresenter implements UserAccountFinancial
      */
     @Override
     public void prepareSuccessView(UserAccountFinancialReportOutputData outputData) {
-        FinancialReportState state = this.viewModel.getState();
+        UserAccountFinancialReportState state = this.viewModel.getState();
         this.reportContent = outputData.getReportContent();
 
         state.setReportContent(reportContent);
@@ -47,7 +47,7 @@ public class UserAccountFinancialReportPresenter implements UserAccountFinancial
     // 如果user还没有transaction，就report说暂无transaction
     @Override
     public void prepareFailView(String noTransaction) {
-        FinancialReportState state = this.viewModel.getState();
+        UserAccountFinancialReportState state = this.viewModel.getState();
 
         state.setReportContent(noTransaction);
         state.setNoTransaction(noTransaction);

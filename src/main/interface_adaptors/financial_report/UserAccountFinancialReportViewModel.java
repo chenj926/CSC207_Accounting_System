@@ -11,19 +11,19 @@ import java.beans.PropertyChangeSupport;
  *
  * @author Eric CHen
  */
-public class FinancialReportViewModel extends ViewModel {
+public class UserAccountFinancialReportViewModel extends ViewModel {
     /**
      * The title label for the financial report view.
      */
     private final String TITLE_LABEL = "Financial Report";
     private String reportContent;
 
-    private FinancialReportState state = new FinancialReportState();
+    private UserAccountFinancialReportState state = new UserAccountFinancialReportState();
 
     /**
      * Constructs a FinancialReportViewModel object with the view name set to "Financial Report".
      */
-    public FinancialReportViewModel() {
+    public UserAccountFinancialReportViewModel() {
         super("Financial Report");
         this.reportContent = state.getReportContent();
     }
@@ -42,7 +42,7 @@ public class FinancialReportViewModel extends ViewModel {
      *
      * @return the current state
      */
-    public FinancialReportState getState() {
+    public UserAccountFinancialReportState getState() {
         return this.state;
     }
     /**
@@ -60,7 +60,7 @@ public class FinancialReportViewModel extends ViewModel {
      *
      * @param state the new state
      */
-    public void setState(FinancialReportState state) {
+    public void setState(UserAccountFinancialReportState state) {
         this.state = state;
         this.reportContent = state.getReportContent();
     }
@@ -78,7 +78,7 @@ public class FinancialReportViewModel extends ViewModel {
      * Resets the state to a new default state.
      */
     public void resetState() {
-        FinancialReportState newState = new FinancialReportState();
+        UserAccountFinancialReportState newState = new UserAccountFinancialReportState();
         setState(newState);
     }
 

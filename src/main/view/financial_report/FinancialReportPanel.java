@@ -1,7 +1,7 @@
 package view.financial_report;
 
-import interface_adaptors.financial_report.FinancialReportController;
-import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.financial_report.UserAccountFinancialReportController;
+import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;
@@ -14,8 +14,8 @@ import java.awt.*;
  * @author Eric Chen
  */
 public class FinancialReportPanel extends JPanel {
-    private final FinancialReportViewModel viewModel;
-    private final FinancialReportController financialReportController;
+    private final UserAccountFinancialReportViewModel viewModel;
+    private final UserAccountFinancialReportController userAccountFinancialReportController;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -31,14 +31,14 @@ public class FinancialReportPanel extends JPanel {
      * Constructs a FinancialReportPanel with the specified view model, controller, and view manager.
      *
      * @param viewModel the view model to be used
-     * @param financialReportController the controller to handle report actions
+     * @param userAccountFinancialReportController the controller to handle report actions
      * @param viewManager the view manager to handle view changes
      */
-    public FinancialReportPanel(FinancialReportViewModel viewModel,
-                                FinancialReportController financialReportController,
+    public FinancialReportPanel(UserAccountFinancialReportViewModel viewModel,
+                                UserAccountFinancialReportController userAccountFinancialReportController,
                                 ViewManagerModel viewManager) {
         this.viewModel = viewModel;
-        this.financialReportController = financialReportController;
+        this.userAccountFinancialReportController = userAccountFinancialReportController;
         this.viewManager = viewManager;
         this.reportTextArea = new JTextArea();
 
@@ -108,7 +108,7 @@ public class FinancialReportPanel extends JPanel {
      * Refreshes the data by executing the financial report controller with the current user ID.
      */
     public void refreshData() {
-        financialReportController.execute(viewManager.getUserId());
+        userAccountFinancialReportController.execute(viewManager.getUserId());
     }
 
     /**

@@ -9,7 +9,7 @@ import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
-import interface_adaptors.financial_report.FinancialReportViewModel;
+import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.UserAccountLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
@@ -93,8 +93,8 @@ public class ViewManagerModel {
         PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
         this.viewModels.put("Periodic Transaction", periodicTransactionViewModel);
 
-        FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
-        this.viewModels.put("Financial Report", financialReportViewModel);
+        UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = new UserAccountFinancialReportViewModel();
+        this.viewModels.put("Financial Report", userAccountFinancialReportViewModel);
     }
 
     public <V extends ViewModel> void updateViewModel(String viewModelName, V viewModel) {
@@ -278,9 +278,9 @@ public class ViewManagerModel {
 //                currentView = logoutView;
 //                break;
             case "Financial Report":
-                FinancialReportViewModel financialReportViewModel = (FinancialReportViewModel) this.viewModels.get("Financial Report");
+                UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = (UserAccountFinancialReportViewModel) this.viewModels.get("Financial Report");
                 FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
-                        financialReportViewModel);
+                        userAccountFinancialReportViewModel);
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;

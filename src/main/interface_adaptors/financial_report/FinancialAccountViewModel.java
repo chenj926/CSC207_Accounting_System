@@ -1,4 +1,4 @@
 package interface_adaptors.financial_report;
 
-public class FinancialReportState {
+public class FinancialAccountViewModel {
 }
