@@ -2,7 +2,9 @@ package view.transaction.periodic;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionState;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The SharedAccountPeriodicTransactionPanel class represents the panel used to input and manage shared account periodic transactions.
@@ -27,12 +28,14 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
     private JTextField startDateField;
     private JTextField endDateField;
     private JTextField descriptionField;
+    private JTextField userId;
+
     private JComboBox<String> periodComb;
     private JComboBox<String> categoryButton;
+
     private JButton submitButton;
     private JButton cancelButton;
     private JButton selectUsersButton;
-    private Set<String> responsibleUserIds;
 
     /**
      * Constructs a SharedAccountPeriodicTransactionPanel with the specified view model, controller, and view manager.
@@ -47,7 +50,6 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         this.viewModel = viewModel;
         this.sharedAccountPeriodicTransactionController = sharedAccountPeriodicTransactionController;
         this.viewManager = viewManager;
-        this.responsibleUserIds = new HashSet<>(); // Initialize responsible user IDs set
         initializeComponents();
         setupUI();
         setupListeners();
@@ -65,6 +67,7 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         this.startDateField = new JTextField(20);
         this.endDateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
+        this.userId = new JTextField(20);
 
         // Initialize drop downs
         String[] periods = {"day", "week", "month", "year", "custom"};
@@ -74,9 +77,12 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         this.categoryButton = new JComboBox<>(category);
 
         // Initialize buttons
+        JPanel buttons = new JPanel();
         this.submitButton = new JButton(this.viewModel.getSubmitButton());
+        buttons.add(this.submitButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButton());
-        this.selectUsersButton = new JButton(this.viewModel.getSELECT_USERS_BUTTON_LABEL()); // New button for selecting users
+        buttons.add(this.submitButton);
+        this.selectUsersButton = new JButton(this.viewModel.getSELECT_USER()); // New button for selecting users
 
         // Style buttons
         this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -144,6 +150,13 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.descriptionField, constraints);
 
+        // User id
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(viewModel.getUSER_ID_FIELD_LABEL()), constraints);
+        constraints.gridx = 1;
+        add(this.descriptionField, constraints);
+
         // Period drop down
         constraints.gridx = 0;
         constraints.gridy++;
@@ -207,14 +220,17 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
                             period,
                             endDateField.getText(),
                             category,
-                            responsibleUserIds // Pass responsibleUserIds to the controller
+                            startDateField.getText(),
+                            viewManager.getUserId(),
+                            userId.getText()
+                            // Pass userIds to the controller
                     );
                 }
             }
         });
 
         cancelButton.addActionListener(e -> {
-            viewManager.setActiveViewName("Transaction");
+            viewManager.setActiveViewName("Shared Account Homepage Two");
         });
 
         selectUsersButton.addActionListener(new ActionListener() {
@@ -223,19 +239,14 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
                 // Simulate user selection dialog
                 String input = JOptionPane.showInputDialog(
                         null,
-                        "Enter the IDs of responsible users separated by commas:",
-                        "Select Responsible Users",
+                        "Enter the IDs of responsible users separated by commas.",
+                        "Select Users",
                         JOptionPane.PLAIN_MESSAGE
                 );
 
                 if (input != null && !input.trim().isEmpty()) {
-                    String[] userIds = input.split(",");
-                    for (String id : userIds) {
-                        responsibleUserIds.add(id.trim());
-                    }
-
                     // Update the view model with the selected responsible users
-                    viewModel.getState().setResponsibleUserIds(responsibleUserIds);
+                    viewModel.getState().setIdentification(viewManager.getUserId() + ";" + (SharedAccountPeriodicTransactionPanel.this.userId));
                 }
             }
         });
@@ -243,7 +254,8 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         this.amountField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                viewModel.getState().setTransactionAmount(amountField.getText() + evt.getKeyChar());
+                SharedAccountPeriodicTransactionState currentState = viewModel.getState();
+                currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
             }
 
             @Override
@@ -347,7 +359,8 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         startDateField.setText("");
         endDateField.setText("");
         descriptionField.setText("");
-        responsibleUserIds.clear(); // Clear the set of responsible user IDs
+        userId.setText("");
+
     }
 }
 

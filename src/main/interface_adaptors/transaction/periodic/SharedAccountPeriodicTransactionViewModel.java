@@ -20,6 +20,7 @@ import java.beans.PropertyChangeSupport;
  */
 public class SharedAccountPeriodicTransactionViewModel extends PeriodicTransactionViewModel<SharedAccountPeriodicTransactionState> {
     private final String USER_ID_FIELD_LABEL = "User ID";
+    private final String SELECT_USER = "Users";
 
     /**
      * Constructs a SharedAccountPeriodicTransactionViewModel object with the view name set to "Shared Account Periodic Transaction".
@@ -37,6 +38,9 @@ public class SharedAccountPeriodicTransactionViewModel extends PeriodicTransacti
     public String getUSER_ID_FIELD_LABEL() {
         return this.USER_ID_FIELD_LABEL;
     }
+    public String getSELECT_USER() {
+        return this.SELECT_USER;
+    }
 
 
     /**
@@ -47,5 +51,6 @@ public class SharedAccountPeriodicTransactionViewModel extends PeriodicTransacti
         SharedAccountPeriodicTransactionState newState = new SharedAccountPeriodicTransactionState();
         setState(newState);
     }
+
 }
 
