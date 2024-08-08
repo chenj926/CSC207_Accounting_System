@@ -8,7 +8,7 @@ package use_case.login;
  * @author Eric
  * @author Jessica
  */
-public class UserLoginOutputData extends LoginOutputData {
+public class UserAccountLoginOutputData extends LoginOutputData {
 
     /**
      * Constructs a LoginOutputData object with the specified identification and success status.
@@ -16,7 +16,7 @@ public class UserLoginOutputData extends LoginOutputData {
      * @param identification the identification of the user
      * @param success        the success status of the login attempt
      */
-    public UserLoginOutputData(String identification, boolean success) {
+    public UserAccountLoginOutputData(String identification, boolean success) {
         super(identification, success);
 
     }

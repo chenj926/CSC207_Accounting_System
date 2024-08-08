@@ -13,9 +13,9 @@ import java.time.LocalDate;
  * @author Dana
  * @author Eric
  */
-public class UserLoginInteractor implements UserLoginInputBoundary {
+public class UserAccountLoginInteractor implements UserAccountLoginInputBoundary {
     final LoginDataAccessInterface userDataAccessObject;
-    final UserLoginOutputBoundary presenter;
+    final UserAcountLoginOutputBoundary presenter;
     private LoginMediator mediator;
 
     /**
@@ -24,7 +24,7 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
      * @param LoginDataAccessInterface the data access interface for user data
      * @param logInOutputBoundaryUser      the output boundary for presenting the login results
      */
-    public UserLoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, UserLoginOutputBoundary logInOutputBoundaryUser) {
+    public UserAccountLoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, UserAcountLoginOutputBoundary logInOutputBoundaryUser) {
         this.userDataAccessObject = LoginDataAccessInterface;
         this.presenter = logInOutputBoundaryUser;
     }
@@ -41,14 +41,14 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
     /**
      * Executes the login process with the given input data.
      *
-     * @param userLoginInputData the input data required for the login process
+     * @param userAccountLoginInputData the input data required for the login process
      */
     @Override
-    public void execute(UserLoginInputData userLoginInputData) {
+    public void execute(UserAccountLoginInputData userAccountLoginInputData) {
 
             // check if username or password or id is valid (not empty)
-            boolean validPassword = this.checkPassword(userLoginInputData.getPassword());
-            boolean validIdentificaiton = this.checkIdentification(userLoginInputData.getIdentification());
+            boolean validPassword = this.checkPassword(userAccountLoginInputData.getPassword());
+            boolean validIdentificaiton = this.checkIdentification(userAccountLoginInputData.getIdentification());
 
             if (!validPassword && !validIdentificaiton) {
                 presenter.prepareFailView("Identification AND Password can not be empty!");
@@ -60,15 +60,15 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
                 presenter.prepareFailView("Identification can not be empty!");
                 return;
             } else {
-                if (!userDataAccessObject.existById(userLoginInputData.getIdentification())) {
+                if (!userDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
                     //User does not exist
                     presenter.prepareFailView("User not found");
                     return;
                 }
 
                 //User exists, fetch the user account
-                UserAccount userAccount = userDataAccessObject.getById(userLoginInputData.getIdentification());
-                if (userAccount != null && !userAccount.getPassword().equals(userLoginInputData.getPassword())) {
+                UserAccount userAccount = userDataAccessObject.getById(userAccountLoginInputData.getIdentification());
+                if (userAccount != null && !userAccount.getPassword().equals(userAccountLoginInputData.getPassword())) {
                     presenter.prepareFailView("Incorrect Password!");
                     return;
                 }
@@ -81,11 +81,11 @@ public class UserLoginInteractor implements UserLoginInputBoundary {
                     presenter.prepareFailView("Incorrect Password!");
                 } else {
                     // prepare output to presenter
-                    UserLoginOutputData userLoginOutputData = new UserLoginOutputData(userLoginInputData.getIdentification(), true);
-                    presenter.prepareSuccessView(userLoginOutputData);
+                    UserAccountLoginOutputData userAccountLoginOutputData = new UserAccountLoginOutputData(userAccountLoginInputData.getIdentification(), true);
+                    presenter.prepareSuccessView(userAccountLoginOutputData);
 
                     // Notify mediator on successful login
-                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userLoginInputData.getIdentification(), LocalDate.now());
+                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
                     mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
                     }
                 }

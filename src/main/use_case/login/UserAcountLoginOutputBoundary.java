@@ -7,5 +7,5 @@ package use_case.login;
  * @author Dana
  * @author Eric
  */
-public interface UserLoginOutputBoundary extends LoginOutputBoundary<UserLoginOutputData> {
+public interface UserAcountLoginOutputBoundary extends LoginOutputBoundary<UserAccountLoginOutputData> {
 }

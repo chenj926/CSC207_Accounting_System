@@ -11,7 +11,7 @@ import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
  * @author Jessica
  */
 public class LoginMediator {
-    private final UserLoginInputBoundary loginInteractor;
+    private final UserAccountLoginInputBoundary loginInteractor;
     private final SharedAccountLoginInputBoundary sharedLoginInteractor;
     private final UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
     private final UserAccountDataAccessInterface periodicTransactionDataAccessObject;
@@ -22,7 +22,7 @@ public class LoginMediator {
      * @param loginInteractor the login interactor
      * @param periodicTransactionDataAccessObject the periodic transaction interactor
      */
-    public LoginMediator(UserLoginInputBoundary loginInteractor,
+    public LoginMediator(UserAccountLoginInputBoundary loginInteractor,
                          UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                          UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
@@ -41,8 +41,8 @@ public class LoginMediator {
     }
 
 
-    public void execute(UserLoginInputData userLoginInputData) {
-        this.loginInteractor.execute(userLoginInputData);
+    public void execute(UserAccountLoginInputData userAccountLoginInputData) {
+        this.loginInteractor.execute(userAccountLoginInputData);
     }
     public void execute(SharedAccountLoginInputData sharedAccountLoginInputData) {
         this.sharedLoginInteractor.execute(sharedAccountLoginInputData);

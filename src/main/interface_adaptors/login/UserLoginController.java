@@ -1,7 +1,7 @@
 package interface_adaptors.login;
 
 import use_case.login.LoginMediator;
-import use_case.login.UserLoginInputData;
+import use_case.login.UserAccountLoginInputData;
 
 /**
  * The LoginController class is responsible for handling user interactions related to the login process.
@@ -30,7 +30,7 @@ public class UserLoginController {
      * @param id       the identification of the user
      */
     public void execute(String password, String id) {
-        UserLoginInputData loginInputData = new UserLoginInputData(password, id);
+        UserAccountLoginInputData loginInputData = new UserAccountLoginInputData(password, id);
         this.loginMediator.execute(loginInputData);
     }
 }

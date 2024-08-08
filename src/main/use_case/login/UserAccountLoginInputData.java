@@ -5,7 +5,7 @@ package use_case.login;
  *
  * @author Dana
  */
-public class UserLoginInputData extends LoginInputData {
+public class UserAccountLoginInputData extends LoginInputData {
 
     /**
      * Constructs a LoginInputData object with the specified password and identification.
@@ -13,7 +13,7 @@ public class UserLoginInputData extends LoginInputData {
      * @param password       the password for the login
      * @param identification the identification for the login
      */
-    public UserLoginInputData(String password, String identification){
+    public UserAccountLoginInputData(String password, String identification){
         super(password,identification);
     }
 

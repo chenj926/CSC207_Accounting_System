@@ -1,9 +1,8 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.login.LoginOutputData;
-import use_case.login.UserLoginOutputBoundary;
-import use_case.login.UserLoginOutputData;
+import use_case.login.UserAcountLoginOutputBoundary;
+import use_case.login.UserAccountLoginOutputData;
 
 /**
  * The LoginPresenter class implements the LoginOutputBoundary interface.
@@ -11,7 +10,7 @@ import use_case.login.UserLoginOutputData;
  *
  * @author Eric Chen
  */
-public class UserLoginPresenter implements UserLoginOutputBoundary {
+public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
     private final UserLoginViewModel loginViewModel;
     private final ViewManagerModel viewManagerModel;
 
@@ -21,8 +20,8 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
      * @param viewManagerModel the view manager model to manage view transitions
      * @param loginViewModel   the login view model to update the login state
      */
-    public UserLoginPresenter(ViewManagerModel viewManagerModel,
-                          UserLoginViewModel loginViewModel){
+    public UserAcountLoginPresenter(ViewManagerModel viewManagerModel,
+                                    UserLoginViewModel loginViewModel){
         this.loginViewModel = loginViewModel;
         this.viewManagerModel = viewManagerModel;
     }
@@ -34,7 +33,7 @@ public class UserLoginPresenter implements UserLoginOutputBoundary {
      * @param userInfo the login output data containing user information and success status
      */
     @Override
-    public void prepareSuccessView(UserLoginOutputData userInfo){
+    public void prepareSuccessView(UserAccountLoginOutputData userInfo){
         // update the current login state
         LoginState loginState = this.loginViewModel.getState();
         loginState.setIdentification(userInfo.getIdentification());

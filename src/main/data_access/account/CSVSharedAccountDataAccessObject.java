@@ -190,7 +190,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {
             while (iterator.hasNext()) {
                 Transaction transaction = iterator.next();
-                if (transaction.getIdentification().equalsIgnoreCase(sharedAccountIdentification)) {
+                String[] ids = transaction.getIdentification().split(";");
+                if (ids[0].equals(sharedAccountIdentification)) {
                     transactions.add(transaction);
                 }
             }

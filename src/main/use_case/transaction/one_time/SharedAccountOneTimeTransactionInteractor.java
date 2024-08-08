@@ -53,6 +53,8 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
     @Override
     public void execute(SharedAccountUserAccountOneTimeTransactionInputData inputData) {
         // Extract transaction details
+        String sharedId = inputData.getSharedAccountId();
+        String userId = inputData.getId();
         String stringAmount = inputData.getTransactionAmount();
         String date = inputData.getTransactionDate();
         String description = inputData.getTransactionDescription();
@@ -79,20 +81,20 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
             return;
         }
 
-        // Check if any responsible users are specified
-        if (responsibleUserIds == null || responsibleUserIds.isEmpty()) {
-            presenter.prepareFailView("At least one user must be responsible for the transaction.");
-            return;
-        }
+//        // Check if any responsible users are specified
+//        if (responsibleUserIds == null || responsibleUserIds.isEmpty()) {
+//            presenter.prepareFailView("At least one user must be responsible for the transaction.");
+//            return;
+//        }
 
         // Determine transaction type
         boolean isInflow = amount >= 0.0;
 
         // Process the transaction
         if (isInflow) {
-            processInflow(amount, localDate, description, category, responsibleUserIds);
+            processInflow(sharedId, userId, amount, localDate, description, category);
         } else {
-            processOutflow(amount, localDate, description, category, responsibleUserIds);
+            processOutflow(sharedId, userId, amount, localDate, description, category);
         }
     }
 
@@ -103,18 +105,18 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param date                 the transaction date
      * @param description          the transaction description
      * @param category             the transaction category
-     * @param responsibleUserIds   the set of user IDs responsible for the transaction
+//     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
-    private void processInflow(float amount, LocalDate date, String description,
-                               String category, Set<String> responsibleUserIds) {
+    private void processInflow(String sharedIds, String userId, float amount, LocalDate date, String description,
+                               String category) {
         // Update shared account income and balance
         float totalIncome = sharedAccount.getTotalIncome() + amount;
-        sharedAccount.setTotalIncome(totalIncome);
+        this.sharedAccount.setTotalIncome(totalIncome);
         float totalBalance = sharedAccount.getTotalBalance() + amount;
-        sharedAccount.setTotalBalance(totalBalance);
+        this.sharedAccount.setTotalBalance(totalBalance);
 
         // Create inflow transaction
-        OneTimeInflow oneTimeInflow = new OneTimeInflow(sharedAccount.getIdentification(), amount, date, description, category);
+        OneTimeInflow oneTimeInflow = new OneTimeInflow(userId, amount, date, description, category);
 
         // Prepare output data
         SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(oneTimeInflow);
@@ -132,11 +134,12 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param date                 the transaction date
      * @param description          the transaction description
      * @param category             the transaction category
-     * @param responsibleUserIds   the set of user IDs responsible for the transaction
+//     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
-    private void processOutflow(float amount, LocalDate date, String description,
-                                String category, Set<String> responsibleUserIds) {
+    private void processOutflow(String shareId, String userId, float amount, LocalDate date, String description,
+                                String category) {
         // Update shared account outflow and balance
+        String ids = shareId + ";" + userId;
         float totalOutflow = sharedAccount.getTotalOutflow() + amount;
         sharedAccount.setTotalOutflow(totalOutflow);
         float totalBalance = sharedAccount.getTotalBalance() - amount;
@@ -155,8 +158,8 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
     }
 
     @Override
-    protected UserAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
-        return new UserAccountOneTimeTransactionOutputData(transaction);
+    protected SharedAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
+        return new SharedAccountOneTimeTransactionOutputData(transaction);
     }
 }
 
