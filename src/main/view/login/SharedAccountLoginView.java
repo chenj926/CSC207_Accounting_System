@@ -1,7 +1,6 @@
 package view.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.LoginController;
 import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginState;
 import interface_adaptors.login.SharedAccountLoginViewModel;

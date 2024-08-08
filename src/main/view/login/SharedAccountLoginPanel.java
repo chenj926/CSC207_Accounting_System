@@ -101,7 +101,7 @@ public class SharedAccountLoginPanel extends JPanel {
         // Shared Account ID
         constraints.gridy++;
         constraints.gridwidth = 1;
-        add(new JLabel(this.sharedViewModel.getSharedAccountIdLabel()), constraints);
+        add(new JLabel(this.sharedViewModel.getIdentificationLabel()), constraints);
         // Input Shared Account ID
         constraints.gridx = 1;
         add(this.sharedAccountIdField, constraints);
@@ -109,7 +109,7 @@ public class SharedAccountLoginPanel extends JPanel {
         // Password
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(this.sharedViewModel.getSharedAccountPasswordLabel()), constraints);
+        add(new JLabel(this.sharedViewModel.getPasswordLabel()), constraints);
         // Input password
         constraints.gridx = 1;
         add(this.passwordField, constraints);
@@ -154,7 +154,7 @@ public class SharedAccountLoginPanel extends JPanel {
             @Override
             public void keyTyped(KeyEvent evt) {
                 SharedAccountLoginState currentState = sharedViewModel.getState();
-                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+                currentState.setIdentification(sharedAccountIdField.getText() + evt.getKeyChar());
                 viewManager.setUserId(sharedAccountIdField.getText() + evt.getKeyChar());
                 sharedViewModel.setState(currentState);
             }
