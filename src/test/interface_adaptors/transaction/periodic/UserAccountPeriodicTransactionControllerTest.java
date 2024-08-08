@@ -1,20 +1,20 @@
 package interface_adaptors.transaction.periodic;
 
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionInputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class PeriodicTransactionControllerTest {
+class UserAccountPeriodicTransactionControllerTest {
 
     @Test
     void testExecute() {
-        PeriodicTransactionInputBoundary testInteractor = new PeriodicTransactionInputBoundary() {
+        UserAccountPeriodicTransactionInputBoundary testInteractor = new UserAccountPeriodicTransactionInputBoundary() {
             @Override
-            public void execute(PeriodicTransactionInputData inputData) {
+            public void execute(UserAccountPeriodicTransactionInputData inputData) {
                 // Verify that the interactor was called with the correct data
-                assertEquals("123", inputData.getId());
+                assertEquals("user789", inputData.getId());
                 assertEquals("100.00", inputData.getTransactionAmount());
                 assertEquals("2023-07-25", inputData.getTransactionStartDate());
                 assertEquals("Subscription", inputData.getTransactionDescription());
@@ -25,13 +25,13 @@ class PeriodicTransactionControllerTest {
             }
         };
 
-        PeriodicTransactionViewModel testViewModel = new PeriodicTransactionViewModel();
+        UserAccountPeriodicTransactionViewModel testViewModel = new UserAccountPeriodicTransactionViewModel();
 
         // Create the controller with the test implementations
-        PeriodicTransactionController controller = new PeriodicTransactionController(testInteractor, testViewModel);
+        UserAccountPeriodicTransactionController controller = new UserAccountPeriodicTransactionController(testInteractor, testViewModel);
 
         // Test data
-        String id = "123";
+        String id = "user789";
         String amount = "100.00";
         String startDate = "2023-07-25";
         String description = "Subscription";
@@ -43,7 +43,7 @@ class PeriodicTransactionControllerTest {
         // Execute the method
         controller.execute(id, amount, startDate, description, period, endDate, category, date);
 
-        PeriodicTransactionState expectedState = new PeriodicTransactionState();
+        UserAccountPeriodicTransactionState expectedState = new UserAccountPeriodicTransactionState();
         assertEquals(expectedState.getTransactionAmount(), testViewModel.getState().getTransactionAmount());
         assertEquals(expectedState.getTransactionStartDate(), testViewModel.getState().getTransactionStartDate());
         assertEquals(expectedState.getTransactionDescription(), testViewModel.getState().getTransactionDescription());

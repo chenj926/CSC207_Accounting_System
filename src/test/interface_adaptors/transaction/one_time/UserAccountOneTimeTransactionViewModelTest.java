@@ -1,4 +1,4 @@
-package interface_adaptors.transaction.periodic;
+package interface_adaptors.transaction.one_time;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,31 +8,29 @@ import java.beans.PropertyChangeListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PeriodicTransactionViewModelTest {
+class UserAccountOneTimeTransactionViewModelTest {
 
-    private PeriodicTransactionViewModel viewModel;
+    private UserAccountOneTimeTransactionViewModel viewModel;
 
     @BeforeEach
     void setUp() {
-        viewModel = new PeriodicTransactionViewModel();
+        viewModel = new UserAccountOneTimeTransactionViewModel();
     }
 
     @Test
     void testGetLabels() {
-        assertEquals("Periodic Transaction", viewModel.getTitleLabel());
+        assertEquals("One Time Transaction", viewModel.getTitleLabel());
         assertEquals("Transaction Amount", viewModel.getAmount());
-        assertEquals("Identification", viewModel.getId());
-        assertEquals("Transaction Start Date", viewModel.getStartDate());
-        assertEquals("Transaction End Date", viewModel.getEndDate());
+        assertEquals("Transaction Date", viewModel.getDate());
         assertEquals("Description", viewModel.getDescription());
-        assertEquals("Period", viewModel.getPeriod());
+        assertEquals("Transaction Category", viewModel.getCategoryButton());
         assertEquals("Submit Transaction", viewModel.getSubmitButton());
         assertEquals("Cancel", viewModel.getCancelButton());
     }
 
     @Test
     void testGetAndSetState() {
-        PeriodicTransactionState state = new PeriodicTransactionState();
+        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
         viewModel.setState(state);
         assertEquals(state, viewModel.getState());
     }
@@ -49,14 +47,14 @@ class PeriodicTransactionViewModelTest {
 
     @Test
     void testResetState() {
-        PeriodicTransactionState state = new PeriodicTransactionState();
+        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
         state.setTransactionAmount("100.0");
         viewModel.setState(state);
 
         viewModel.resetState();
 
         assertNotEquals("100.0", viewModel.getState().getTransactionAmount());
-        assertNull(viewModel.getState().getTransactionAmount());
+        assertEquals("0", viewModel.getState().getTransactionAmount());
     }
 
     private static class TestPropertyChangeListener implements PropertyChangeListener {
@@ -72,4 +70,5 @@ class PeriodicTransactionViewModelTest {
         }
     }
 }
+
 

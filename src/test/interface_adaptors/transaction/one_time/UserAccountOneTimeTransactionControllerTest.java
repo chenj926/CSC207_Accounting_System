@@ -1,19 +1,19 @@
 package interface_adaptors.transaction.one_time;
 
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionInputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInputBoundary;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class OneTimeTransactionControllerTest {
+class UserAccountOneTimeTransactionControllerTest {
 
     @Test
     void testExecute() {
         // Create a mock interactor to verify that execute is called with the correct data
-        OneTimeTransactionInputBoundary testInteractor = new OneTimeTransactionInputBoundary() {
+        UserAccountOneTimeTransactionInputBoundary testInteractor = new UserAccountOneTimeTransactionInputBoundary() {
             @Override
-            public void execute(OneTimeTransactionInputData inputData) {
+            public void execute(UserAccountOneTimeTransactionInputData inputData) {
                 // Verify that the interactor was called with the correct data
                 assertEquals("123", inputData.getId());
                 assertEquals("50.00", inputData.getTransactionAmount());
@@ -24,7 +24,7 @@ class OneTimeTransactionControllerTest {
         };
 
         // Create a mock view model, if you want to check reset state behavior
-        OneTimeTransactionViewModel testViewModel = new OneTimeTransactionViewModel() {
+        UserAccountOneTimeTransactionViewModel testViewModel = new UserAccountOneTimeTransactionViewModel() {
             @Override
             public void resetState() {
                 // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value
@@ -32,7 +32,7 @@ class OneTimeTransactionControllerTest {
         };
 
         // Create the controller with the mock implementations
-        OneTimeTransactionController controller = new OneTimeTransactionController(testInteractor, testViewModel);
+        UserAccountOneTimeTransactionController controller = new UserAccountOneTimeTransactionController(testInteractor, testViewModel);
 
         // Test data
         String id = "123";

@@ -1,4 +1,4 @@
-package interface_adaptors.transaction.one_time;
+package interface_adaptors.transaction.periodic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,29 +8,30 @@ import java.beans.PropertyChangeListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OneTimeTransactionViewModelTest {
+class UserAccountPeriodicTransactionViewModelTest {
 
-    private OneTimeTransactionViewModel viewModel;
+    private UserAccountPeriodicTransactionViewModel viewModel;
 
     @BeforeEach
     void setUp() {
-        viewModel = new OneTimeTransactionViewModel();
+        viewModel = new UserAccountPeriodicTransactionViewModel();
     }
 
     @Test
     void testGetLabels() {
-        assertEquals("One Time Transaction", viewModel.getTitleLabel());
+        assertEquals("Periodic Transaction", viewModel.getTitleLabel());
         assertEquals("Transaction Amount", viewModel.getAmount());
-        assertEquals("Transaction Date", viewModel.getDate());
+        assertEquals("Transaction Start Date", viewModel.getStartDate());
+        assertEquals("Transaction End Date", viewModel.getEndDate());
         assertEquals("Description", viewModel.getDescription());
-        assertEquals("Transaction Category", viewModel.getCategoryButton());
+        assertEquals("Period", viewModel.getPeriod());
         assertEquals("Submit Transaction", viewModel.getSubmitButton());
         assertEquals("Cancel", viewModel.getCancelButton());
     }
 
     @Test
     void testGetAndSetState() {
-        OneTimeTransactionState state = new OneTimeTransactionState();
+        UserAccountPeriodicTransactionState state = new UserAccountPeriodicTransactionState();
         viewModel.setState(state);
         assertEquals(state, viewModel.getState());
     }
@@ -47,7 +48,7 @@ class OneTimeTransactionViewModelTest {
 
     @Test
     void testResetState() {
-        OneTimeTransactionState state = new OneTimeTransactionState();
+        UserAccountPeriodicTransactionState state = new UserAccountPeriodicTransactionState();
         state.setTransactionAmount("100.0");
         viewModel.setState(state);
 
@@ -70,5 +71,4 @@ class OneTimeTransactionViewModelTest {
         }
     }
 }
-
 

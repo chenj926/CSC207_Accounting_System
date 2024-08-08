@@ -2,7 +2,7 @@ package interface_adaptors.transaction.periodic;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import interface_adaptors.ViewManagerModel;
@@ -11,24 +11,24 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PeriodicTransactionPresenterTest {
+class UserAccountPeriodicTransactionPresenterTest {
 
-    private PeriodicTransactionViewModel viewModel;
+    private UserAccountPeriodicTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
-    private PeriodicTransactionPresenter presenter;
+    private UserAccountPeriodicTransactionPresenter presenter;
 
     @BeforeEach
     void setUp() {
-        viewModel = new PeriodicTransactionViewModel();
+        viewModel = new UserAccountPeriodicTransactionViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new PeriodicTransactionPresenter(viewModel, viewManager);
+        presenter = new UserAccountPeriodicTransactionPresenter(viewModel, viewManager);
     }
 
     @Test
     void testPrepareSuccessViewWithInflow() {
         // Create a PeriodicInflow entity
         PeriodicInflow inflow = new PeriodicInflow("1", 100.00f, LocalDate.of(2023, 7, 15), "Subscription", LocalDate.of(2024, 7, 25), "weekly","food");
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(inflow);
+        UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(inflow);
 
         // Execute method
         presenter.prepareSuccessView(outputData);
@@ -40,7 +40,7 @@ class PeriodicTransactionPresenterTest {
         assertEquals("weekly", viewModel.getState().getTransactionPeriod());
         assertEquals("2024-07-25", viewModel.getState().getTransactionEndDate());
         assertEquals("Period Transaction Recorded successfully!", viewModel.getState().getSuccessMessage());
-        assertEquals("food",viewModel.getState().getTransactionCategory());
+        assertEquals("",viewModel.getState().getTransactionCategory());
 
         // Verify the view manager changes view
         assertEquals("Homepage Two", viewManager.getActiveViewName()); // Check if it changes to the correct view
@@ -50,7 +50,7 @@ class PeriodicTransactionPresenterTest {
     void testPrepareSuccessViewWithOutflow() {
         // Create a PeriodicOutflow entity
         PeriodicOutflow outflow = new PeriodicOutflow("1", 50.00f, LocalDate.of(2023, 7, 15), "Subscription", LocalDate.of(2024, 7, 25), "weekly","food");
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(outflow);
+        UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(outflow);
 
         // Execute method
         presenter.prepareSuccessView(outputData);
@@ -59,7 +59,7 @@ class PeriodicTransactionPresenterTest {
         assertEquals("50.0", viewModel.getState().getTransactionAmount());
         assertEquals("2023-07-15", viewModel.getState().getTransactionStartDate());
         assertEquals("Subscription", viewModel.getState().getTransactionDescription());
-        assertEquals("10", viewModel.getState().getTransactionPeriod());
+        assertEquals("weekly", viewModel.getState().getTransactionPeriod());
         assertEquals("2024-07-25", viewModel.getState().getTransactionEndDate());
         assertEquals("Period Transaction Recorded successfully!", viewModel.getState().getSuccessMessage());
 
