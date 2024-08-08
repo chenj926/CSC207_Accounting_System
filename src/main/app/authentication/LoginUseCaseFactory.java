@@ -15,10 +15,25 @@ import view.login.SharedAccountLoginView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The LoginUseCaseFactory class is responsible for creating instances of LoginView and SharedAccountLoginView.
+ * It also creates the necessary components for handling user account login and shared account login use cases.
+ * This class ensures the proper initialization of the login controllers and their dependencies.
+ * @author Jessica
+ * @author Eric
+ * @author Zella
+ */
 public class LoginUseCaseFactory {
 
     private LoginUseCaseFactory() {}
 
+    /**
+     * Creates and returns an instance of LoginView for user account login.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param loginViewModel   the view model to update the login state
+     * @return an instance of LoginView
+     */
     public static LoginView create(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) {
         try {
             AccountLoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
@@ -29,6 +44,14 @@ public class LoginUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and returns an instance of UserAccountLoginController for user account login.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param loginViewModel   the view model to update the login state
+     * @return an instance of UserAccountLoginController
+     * @throws IOException if an I/O error occurs
+     */
     private static UserAccountLoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) throws IOException {
         LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();

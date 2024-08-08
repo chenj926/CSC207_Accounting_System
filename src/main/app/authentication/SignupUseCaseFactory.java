@@ -15,10 +15,25 @@ import view.signup.SharedAccountSignupView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The SignupUseCaseFactory class is responsible for creating instances of SignupView and SharedAccountSignupView.
+ * It also creates the necessary components for handling user account signup and shared account signup use cases.
+ * This class ensures the proper initialization of the signup controllers and their dependencies.
+ * @author Jessica
+ * @author Eric
+ * @author Zella
+ */
 public class SignupUseCaseFactory {
 
     private SignupUseCaseFactory() {}
 
+    /**
+     * Creates and returns an instance of SignupView for user account signup.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param userAccountSignupViewModel the view model to update the signup state
+     * @return an instance of SignupView
+     */
     public static SignupView create(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
         try {
             UserAccountSignupController userAccountSignupController = createUserSignupUseCase(viewManagerModel, userAccountSignupViewModel);
@@ -29,6 +44,13 @@ public class SignupUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and returns an instance of SharedAccountSignupView for shared account signup.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param sharedSignupViewModel the view model to update the shared account signup state
+     * @return an instance of SharedAccountSignupView
+     */
     public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) {
         try {
             SharedAccountSignupController sharedSignupController = createSharedAccountSignupUseCase(viewManagerModel, sharedSignupViewModel);
@@ -39,6 +61,14 @@ public class SignupUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and returns an instance of UserAccountSignupController for user account signup.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param userAccountSignupViewModel the view model to update the signup state
+     * @return an instance of UserAccountSignupController
+     * @throws IOException if an I/O error occurs
+     */
     private static UserAccountSignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) throws IOException {
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
         UserAccountSignupOutputBoundary presenter = new UserAccountSignupPresenter(viewManagerModel, userAccountSignupViewModel);
@@ -48,9 +78,17 @@ public class SignupUseCaseFactory {
         UserAccountSignupInteractor signupInteractor = new UserAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
 
         // Return the controller for standard signup
-        return new UserAccountSignupController(signupInteractor); // Pass null for Interactor
+        return new UserAccountSignupController(signupInteractor);
     }
 
+    /**
+     * Creates and returns an instance of SharedAccountSignupController for shared account signup.
+     *
+     * @param viewManagerModel the view manager model to manage view transitions
+     * @param sharedSignupViewModel the view model to update the shared account signup state
+     * @return an instance of SharedAccountSignupController
+     * @throws IOException if an I/O error occurs
+     */
     private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
         SharedAccountSignupDataAccessInterface dataAccessObject = DAOFactory.getSharedAccountSignupDataAccessObject();
         SharedAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
@@ -58,9 +96,10 @@ public class SignupUseCaseFactory {
         AccountFactory accountFactory = new AccountFactory();
 
         SharedAccountSignupInteractor signupInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, presenter, accountFactory);
-        return new SharedAccountSignupController(signupInteractor); // Pass null for sharedInteractor
+        return new SharedAccountSignupController(signupInteractor);
     }
 }
+
 
 
 
