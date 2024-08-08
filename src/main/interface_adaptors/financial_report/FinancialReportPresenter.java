@@ -4,12 +4,6 @@ import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.UserAccountFinancialReportOutputData;
 
 
-/**
- * Implements the output boundary to present the financial report.
- *
- * @author Dana
- */
-
 public abstract class FinancialReportPresenter<
         V extends FinancialReportViewModel,
         S extends FinancialReportState> {
@@ -30,6 +24,12 @@ public abstract class FinancialReportPresenter<
     public void prepareSuccessView(FinancialReportOutputData outputData) {
         this.reportContent = outputData.getReportContent();
         V state = (V) viewModel.getState();
+    }
 
-
+    public void prepareFailedView(String error){
+    S state = (S) viewModel.getState();
+    state.setReportContent(error);
+    viewModel.firePropertyChange();
+    }
 }
+
