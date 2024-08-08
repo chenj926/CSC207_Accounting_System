@@ -24,8 +24,10 @@ public class HomePagePanel extends JPanel {
 //    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
-    private JButton loginButton;
-    private JButton signupButton;
+    private JButton sharedAccLoginButton;
+    private JButton sharedAccSignupButton;
+    private JButton userAccLoginButton;
+    private JButton userAccSignupButton;
     private JButton exitButton;
     private Image backgroundImage;
 
@@ -82,8 +84,10 @@ public class HomePagePanel extends JPanel {
         titleLabel.setForeground(Color.BLACK);
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        this.signupButton = createButton(this.viewModel.getSignupButtonLabel());
-        this.loginButton = createButton(this.viewModel.getLoginButtonLabel());
+        this.sharedAccLoginButton = createButton(this.viewModel.getSignupButtonLabel());
+        this.sharedAccSignupButton = createButton(this.viewModel.getLoginButtonLabel());
+        this.userAccLoginButton = createButton(this.viewModel.getLoginButtonLabel());
+        this.userAccSignupButton = createButton(this.viewModel.getSignupButtonLabel());
         this.exitButton = createButton(this.viewModel.getExitButtonLabel());
 //
 //        // Style buttons
@@ -120,10 +124,16 @@ public class HomePagePanel extends JPanel {
         constraints.insets = new Insets(10, 10, 10, 10);
         constraints.gridx = 0;
         constraints.gridy = 0;
-        centerPanel.add(loginButton, constraints);
+        centerPanel.add(sharedAccLoginButton, constraints);
 
         constraints.gridy++;
-        centerPanel.add(signupButton, constraints);
+        centerPanel.add(sharedAccSignupButton, constraints);
+
+        constraints.gridy++;
+        centerPanel.add(userAccLoginButton, constraints);
+
+        constraints.gridy++;
+        centerPanel.add(userAccSignupButton, constraints);
 
         constraints.gridy++;
         centerPanel.add(exitButton, constraints);
@@ -136,11 +146,17 @@ public class HomePagePanel extends JPanel {
      * Sets up listeners for the buttons in the home page panel.
      */
     private void setupListeners(){
-        // login button response action
-        loginButton.addActionListener(e -> this.viewManager.setActiveViewName("log in"));
+        // shared acc login button response action
+        sharedAccSignupButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account Signup"));
 
-        // signup button response action
-        signupButton.addActionListener(e -> this.viewManager.setActiveViewName("sign up"));
+        // shared acc signup button response action
+        sharedAccLoginButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account Login"));
+
+        //user acc signup button response action
+        userAccLoginButton.addActionListener(e -> this.viewManager.setActiveViewName("User Account Login"));
+
+        //user acc login button response action
+        userAccSignupButton.addActionListener(e -> this.viewManager.setActiveViewName("User Account Signup"));
 
         // exit button response action
         this.exitButton.addActionListener(e -> {
