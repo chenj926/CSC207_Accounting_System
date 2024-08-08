@@ -14,7 +14,7 @@ import interface_adaptors.homepage.HomepageTwoViewModel;
 import interface_adaptors.login.UserAccountLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
-import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
@@ -72,8 +72,8 @@ public class ViewManagerModel {
         HomePageViewModel homePageViewModel = new HomePageViewModel();
         this.viewModels.put("home page", homePageViewModel);
 
-        SignupViewModel signupViewModel = new SignupViewModel();
-        this.viewModels.put("sign up", signupViewModel);
+        UserAccountSignupViewModel userAccountSignupViewModel = new UserAccountSignupViewModel();
+        this.viewModels.put("sign up", userAccountSignupViewModel);
 
         SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
         this.viewModels.put("shared account sign up", sharedSignupViewModel);
@@ -223,8 +223,8 @@ public class ViewManagerModel {
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel = (SignupViewModel) this.viewModels.get("sign up");
-                SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
+                UserAccountSignupViewModel userAccountSignupViewModel = (UserAccountSignupViewModel) this.viewModels.get("sign up");
+                SignupView signupView = SignupUseCaseFactory.create(this, userAccountSignupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
                 break;

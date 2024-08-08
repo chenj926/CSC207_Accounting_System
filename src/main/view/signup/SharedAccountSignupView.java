@@ -2,7 +2,6 @@ package view.signup;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel; // Use specific ViewModel for shared accounts
-import interface_adaptors.signup.SignupController;
 import interface_adaptors.signup.SharedAccountSignupController;
 
 import javax.swing.*;

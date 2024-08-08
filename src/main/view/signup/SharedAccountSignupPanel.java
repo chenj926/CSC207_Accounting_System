@@ -93,7 +93,7 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         // Shared Account ID
         constraints.gridy++;
         constraints.gridwidth = 1;
-        add(new JLabel(viewModel.getSHARED_ACCOUNT_LABEL()), constraints);
+        add(new JLabel(viewModel.getID_LABEL()), constraints);
         constraints.gridx = 1;
         add(sharedAccountIdField, constraints);
 
@@ -194,7 +194,7 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
             @Override
             public void keyTyped(KeyEvent evt) {
                 SharedAccountSignupState currentState = viewModel.getState();
-                currentState.setSharedAccountId(sharedAccountIdField.getText() + evt.getKeyChar());
+                currentState.setIdentification(sharedAccountIdField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
 
