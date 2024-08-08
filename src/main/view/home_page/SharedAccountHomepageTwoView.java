@@ -1,7 +1,9 @@
 package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoState;
+import interface_adaptors.homepage.SharedAccountHomepageTwoController;
+import interface_adaptors.homepage.SharedAccountHomepageTwoState;
+import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +16,7 @@ public class SharedAccountHomepageTwoView extends JFrame implements PropertyChan
     private SharedAccountHomepageTwoController controller;
     private final ViewManagerModel viewManager;
 
-    private SharedAccountHomepageTwoView(SharedAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager,
+    public SharedAccountHomepageTwoView(SharedAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager,
                                          SharedAccountHomepageTwoController controller) {
         super("Shared Account Homepage Two");
         this.viewModel = viewModel;
@@ -34,7 +36,7 @@ public class SharedAccountHomepageTwoView extends JFrame implements PropertyChan
      * Sets up the user interface by adding the transaction panel to the content pane.
      */
     private void setupUI() {
-        this.getContentPane().add(SharedAccounthomepageTwoPanel, BorderLayout.CENTER);
+        this.getContentPane().add(shareAccountHomepageTwoPanel, BorderLayout.CENTER);
     }
 
     @Override

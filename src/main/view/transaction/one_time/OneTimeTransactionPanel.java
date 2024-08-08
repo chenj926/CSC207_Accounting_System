@@ -1,9 +1,9 @@
 package view.transaction.one_time;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.OneTimeTransactionController;
-import interface_adaptors.transaction.one_time.OneTimeTransactionState;
-import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionState;
 
 import javax.swing.*;
@@ -21,8 +21,8 @@ import java.awt.event.KeyListener;
  * @author Eric
  */
 public class OneTimeTransactionPanel extends JPanel {
-    private final OneTimeTransactionViewModel viewModel;
-    private final OneTimeTransactionController oneTimeTransactionController;
+    private final UserAccountOneTimeTransactionViewModel viewModel;
+    private final UserAccountOneTimeTransactionController oneTimeTransactionController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
@@ -42,8 +42,8 @@ public class OneTimeTransactionPanel extends JPanel {
      * @param oneTimeTransactionController the controller handling one-time transaction actions
      * @param viewManager                the view manager for handling view transitions
      */
-    public OneTimeTransactionPanel(OneTimeTransactionViewModel viewModel,
-                                   OneTimeTransactionController oneTimeTransactionController,
+    public OneTimeTransactionPanel(UserAccountOneTimeTransactionViewModel viewModel,
+                                   UserAccountOneTimeTransactionController oneTimeTransactionController,
                                    ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.oneTimeTransactionController = oneTimeTransactionController;
@@ -188,7 +188,7 @@ public class OneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        OneTimeTransactionState currentState = viewModel.getState();
+                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
                     }
                     @Override
@@ -203,7 +203,7 @@ public class OneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        OneTimeTransactionState currentState = viewModel.getState();
+                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }
@@ -219,7 +219,7 @@ public class OneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        OneTimeTransactionState currentState = viewModel.getState();
+                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }
@@ -233,7 +233,7 @@ public class OneTimeTransactionPanel extends JPanel {
         this.categoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                OneTimeTransactionState currentState = viewModel.getState();
+                UserAccountOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
                 if ("Custom".equals(categoryButton.getSelectedItem())) {
