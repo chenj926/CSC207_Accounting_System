@@ -1,11 +1,10 @@
 package use_case.signup;
 
-import data_access.account.ShareAccountDataAccessInterface;
+import data_access.account.SharedAccountDataAccessInterface;
 import data_access.authentication.SharedAccountSignupDataAccessInterface;
-import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.account.AccountFactory;
-import entity.account.UserAccount;
+
 import java.util.Set;
 
 /**
@@ -22,7 +21,7 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         SharedAccountSignupDataAccessInterface,
         SharedAccountSignupInputData> implements SharedAccountSignupInputBoundary {
     private final SharedAccountSignupOutputBoundary presenter;
-    private final ShareAccountDataAccessInterface sharedDataAccessObject;
+    private final SharedAccountDataAccessInterface sharedDataAccessObject;
 
     /**
      * Constructs a SharedAccountSignupInteractor object with the specified data access interfaces,
@@ -34,7 +33,7 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
      * @param accountFactory                the factory for creating user accounts
      */
     public SharedAccountSignupInteractor(SharedAccountSignupDataAccessInterface userSignupDataAccessInterface,
-                                         ShareAccountDataAccessInterface sharedDataAccessObject,
+                                         SharedAccountDataAccessInterface sharedDataAccessObject,
                                          SharedAccountSignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
         super(userSignupDataAccessInterface, accountFactory);
