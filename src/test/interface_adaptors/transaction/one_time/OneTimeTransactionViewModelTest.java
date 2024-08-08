@@ -21,10 +21,9 @@ class OneTimeTransactionViewModelTest {
     void testGetLabels() {
         assertEquals("One Time Transaction", viewModel.getTitleLabel());
         assertEquals("Transaction Amount", viewModel.getAmount());
-        assertEquals("Identification", viewModel.getId());
         assertEquals("Transaction Date", viewModel.getDate());
         assertEquals("Description", viewModel.getDescription());
-        assertEquals("Transaction Category", viewModel.getCategory());
+        assertEquals("Transaction Category", viewModel.getCategoryButton());
         assertEquals("Submit Transaction", viewModel.getSubmitButton());
         assertEquals("Cancel", viewModel.getCancelButton());
     }
@@ -71,4 +70,5 @@ class OneTimeTransactionViewModelTest {
         }
     }
 }
+
 

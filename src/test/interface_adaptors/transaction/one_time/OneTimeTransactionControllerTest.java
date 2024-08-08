@@ -10,10 +10,12 @@ class OneTimeTransactionControllerTest {
 
     @Test
     void testExecute() {
+        // Create a mock interactor to verify that execute is called with the correct data
         OneTimeTransactionInputBoundary testInteractor = new OneTimeTransactionInputBoundary() {
             @Override
             public void execute(OneTimeTransactionInputData inputData) {
                 // Verify that the interactor was called with the correct data
+                assertEquals("123", inputData.getId());
                 assertEquals("50.00", inputData.getTransactionAmount());
                 assertEquals("2023-08-01", inputData.getTransactionDate());
                 assertEquals("Dinner", inputData.getTransactionDescription());
@@ -21,11 +23,11 @@ class OneTimeTransactionControllerTest {
             }
         };
 
+        // Create a mock view model, if you want to check reset state behavior
         OneTimeTransactionViewModel testViewModel = new OneTimeTransactionViewModel() {
             @Override
             public void resetState() {
-                // Optionally verify if resetState is called
-                // e.g., add a boolean flag and assert its value
+                // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value
             }
         };
 
@@ -33,15 +35,17 @@ class OneTimeTransactionControllerTest {
         OneTimeTransactionController controller = new OneTimeTransactionController(testInteractor, testViewModel);
 
         // Test data
+        String id = "123";
         String amount = "50.00";
         String transactionDate = "2023-08-01";
         String transactionDescription = "Dinner";
         String transactionCategory = "Food";
 
-        // Execute the method
-        controller.execute(amount, transactionDate, transactionDescription, transactionCategory);
+        // Execute the method with the correct parameters, including id
+        controller.execute(id, amount, transactionDate, transactionDescription, transactionCategory);
     }
 }
+
 
 
 
