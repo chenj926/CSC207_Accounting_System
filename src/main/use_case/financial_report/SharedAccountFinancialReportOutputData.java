@@ -13,7 +13,6 @@ public class SharedAccountFinancialReportOutputData extends FinancialReportOutpu
      * @param reportContent the content of the financial report
      */
     public SharedAccountFinancialReportOutputData(String reportContent) {
-
         super(reportContent);
     }
 }

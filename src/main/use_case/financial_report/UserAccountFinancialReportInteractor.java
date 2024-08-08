@@ -3,6 +3,8 @@ package use_case.financial_report;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 
 import java.util.List;
@@ -21,41 +23,43 @@ import java.util.List;
  *
  * @author Chi Fong, Eric
  */
-public class UserAccountFinancialReportInteractor implements UserAccountFinancialReportInputBoundary {
-    private final UserAccountDataAccessInterface userDataAccessObject;
-    private final UserAccountFinancialReportOutputBoundary presenter;
-    private UserAccount account;
+public class UserAccountFinancialReportInteractor extends FinancialReportInteractor<
+        UserAccountDataAccessInterface,
+        UserAccount,
+        UserAccountOneTimeTransactionOutputData,
+        UserAccountPeriodicTransactionOutputData,
+        UserAccountFinancialReportInputData,
+        UserAccountFinancialReportOutputBoundary,
+        UserAccountFinancialReportOutputData
+        >implements UserAccountFinancialReportInputBoundary {
 
     /**
      * Constructs a FinancialReportInteractor with the specified account, output boundary, and data access interface.
      *
      * @param account the account for which the financial report is to be generated
-     * @param outputBoundary the output boundary to which the generated report will be presented
+     * @param presenter the output boundary to which the generated report will be presented
      * @param userAccountDataAccessInterface the data access interface for retrieving user account data
      */
     public UserAccountFinancialReportInteractor(UserAccount account,
-                                                UserAccountFinancialReportOutputBoundary outputBoundary,
+                                                UserAccountFinancialReportOutputBoundary presenter,
                                                 UserAccountDataAccessInterface userAccountDataAccessInterface) {
-        this.account = account;
-        this.presenter = outputBoundary;
-        this.userDataAccessObject = userAccountDataAccessInterface;
+        super(account, presenter, userAccountDataAccessInterface);
     }
 
-    /**
-     * Generates a financial report based on the provided input data and sends it to the output boundary.
-     *
-     *
-     */
-    @Override
-    public void execute(UserAccountFinancialReportInputData inputData) {
-        String reportContent = generateReportContent(inputData);
-        // if there is at least 1 transaction
-        if (!reportContent.equals("No transactions yet!")) {
-            UserAccountFinancialReportOutputData outputData = new UserAccountFinancialReportOutputData(reportContent);
-            this.presenter.prepareSuccessView(outputData);
-        }
-
-    }
+//    /**
+//     * Generates a financial report based on the provided input data and sends it to the output boundary.
+//     *
+//     *
+//     */
+//    @Override
+//    public void execute(UserAccountFinancialReportInputData inputData) {
+//        String reportContent = generateReportContent(inputData);
+//        // if there is at least 1 transaction
+//        if (!reportContent.equals("No transactions yet!")) {
+//            UserAccountFinancialReportOutputData outputData = this.createOutputData(reportContent);
+//            this.presenter.prepareSuccessView(outputData);
+//        }
+//    }
 
     /**
      * Generates the content of the financial report as a string.
@@ -65,7 +69,8 @@ public class UserAccountFinancialReportInteractor implements UserAccountFinancia
      *
      * @return the content of the financial report
      */
-    private String generateReportContent(UserAccountFinancialReportInputData inputData) {
+    @Override
+    protected String generateReportContent(UserAccountFinancialReportInputData inputData) {
         String id = inputData.getIdentification();
         //debug
         this.account = userDataAccessObject.getById(id);
@@ -98,6 +103,11 @@ public class UserAccountFinancialReportInteractor implements UserAccountFinancia
         }
 
         return report.toString();
+    }
+
+    @Override
+    protected UserAccountFinancialReportOutputData createOutputData(String reportContent) {
+        return new UserAccountFinancialReportOutputData(reportContent);
     }
 }
 
