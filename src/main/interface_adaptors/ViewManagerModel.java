@@ -12,7 +12,7 @@ import app.FinancialReport.FinancialReportUseCaseFactory;
 import app.transaction.SharedAccountOneTimeTransactionUseCaseFactory;
 import app.transaction.SharedAccountPeriodicTransactionUseCaseFactory;
 import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
-import interface_adaptors.homepage.HomepageTwoViewModel;
+import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
 import interface_adaptors.login.UserAccountLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
@@ -90,8 +90,8 @@ public class ViewManagerModel {
         SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
         this.viewModels.put("shared account log in", sharedAccountLoginViewModel);
 
-        HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
-        this.viewModels.put("Homepage Two", homepageTwoViewModel);
+        UserAccountHomepageTwoViewModel userAccountHomepageTwoViewModel = new UserAccountHomepageTwoViewModel();
+        this.viewModels.put("Homepage Two", userAccountHomepageTwoViewModel);
 
 //        SharedAccountHomepageTwoViewModel sharedAccounthomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
 //        this.viewModels.put("Share Account Homepage Two", sharedAccounthomepageTwoViewModel);
@@ -266,8 +266,8 @@ public class ViewManagerModel {
                 currentView = sharedAccountLoginView;
                 break;
             case "Homepage Two":
-                HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewModels.get("Homepage Two");
-                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
+                UserAccountHomepageTwoViewModel userAccountHomepageTwoViewModel = (UserAccountHomepageTwoViewModel) this.viewModels.get("Homepage Two");
+                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, userAccountHomepageTwoViewModel);
                 views.put("Homepage Two", homepageTwoView);
                 currentView = homepageTwoView;
             case "One Time Transaction":
