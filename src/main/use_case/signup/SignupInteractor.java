@@ -8,7 +8,7 @@ import entity.account.AccountFactory;
 /**
  * Abstract base class for account sign-up interactors.
  */
-public abstract class SignupInteractor<T extends AccountSignupDataAccessInterface> {
+public abstract class SignupInteractor<T extends AccountSignupDataAccessInterface, I extends SignupInputData> {
     protected final AccountFactory accountFactory;
     protected final T userDataAccessObject;
 
@@ -18,6 +18,7 @@ public abstract class SignupInteractor<T extends AccountSignupDataAccessInterfac
         this.userDataAccessObject = userSignupDataAccessInterface;
     }
 
+    public abstract void execute(I signupInputData) throws Exception;
     /**
      * Validates if the provided password is valid (not null or empty).
      *

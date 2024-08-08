@@ -18,7 +18,7 @@ import java.util.Set;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupInteractor extends SignupInteractor<SharedAccountSignupDataAccessInterface> implements SharedAccountSignupInputBoundary {
+public class SharedAccountSignupInteractor extends SignupInteractor<SharedAccountSignupDataAccessInterface, SharedAccountSignupInputData> implements SharedAccountSignupInputBoundary {
     private final SharedAccountSignupOutputBoundary presenter;
     private final ShareAccountDataAccessInterface sharedDataAccessObject;
 
