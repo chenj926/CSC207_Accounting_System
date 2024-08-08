@@ -1,9 +1,9 @@
 package interface_adaptors.transaction.one_time;
 
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.SharedAccountUserAccountOneTimeTransactionInputData;
-
-import java.util.Set;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputData;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 
 /**
  * The SharedAccountOneTimeTransactionController class is responsible for handling user interactions
@@ -12,10 +12,9 @@ import java.util.Set;
  *
  * This controller extends functionality to support the selection of responsible users for the transaction.
  */
-public class SharedAccountOneTimeTransactionController {
-
-    private final SharedAccountOneTimeTransactionInputBoundary sharedAccountTransactionInteractor;
-    private final SharedAccountOneTimeTransactionViewModel viewModel;
+public class SharedAccountOneTimeTransactionController extends AccountOneTimeTransactionController<
+        SharedAccountOneTimeTransactionInputBoundary,
+        SharedAccountOneTimeTransactionViewModel> {
 
     /**
      * Constructs a SharedAccountOneTimeTransactionController object with the specified use case interactor
@@ -27,9 +26,7 @@ public class SharedAccountOneTimeTransactionController {
     public SharedAccountOneTimeTransactionController(
             SharedAccountOneTimeTransactionInputBoundary sharedAccountTransactionInteractor,
             SharedAccountOneTimeTransactionViewModel viewModel) {
-
-        this.sharedAccountTransactionInteractor = sharedAccountTransactionInteractor;
-        this.viewModel = viewModel;
+        super(sharedAccountTransactionInteractor, viewModel);
     }
 
     /**
@@ -51,11 +48,11 @@ public class SharedAccountOneTimeTransactionController {
             String userId) {
 
         // Create input data object for the transaction
-        SharedAccountUserAccountOneTimeTransactionInputData transactionInputData = new SharedAccountUserAccountOneTimeTransactionInputData(
+        SharedAccountOneTimeTransactionInputData transactionInputData = new SharedAccountOneTimeTransactionInputData(
                 amount, transactionDate, transactionDescription, transactionCategory, sharedAccountId, userId);
 
         // Execute the transaction process using the interactor
-        sharedAccountTransactionInteractor.execute(transactionInputData);
+        oneTimeTransactionInteractor.execute(transactionInputData);
 
         // Reset the view model state after processing the transaction
         this.viewModel.resetState();

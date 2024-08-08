@@ -1,7 +1,6 @@
 package view.transaction.periodic;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 import interface_adaptors.transaction.periodic.PeriodicTransactionController;
 import interface_adaptors.transaction.periodic.PeriodicTransactionState;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;

@@ -1,19 +1,17 @@
 package use_case.transaction.one_time;
 
-import java.util.Set;
-
 /**
- * The SharedAccountUserAccountOneTimeTransactionInputData class represents the input data required for a one-time transaction operation
+ * The SharedAccountOneTimeTransactionInputData class represents the input data required for a one-time transaction operation
  * that involves a shared account.
  * It includes details such as the transaction amount, date, description, category, the shared account identifier,
  * and the set of users responsible for the transaction.
  */
-public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTimeTransactionInputData {
+public class SharedAccountOneTimeTransactionInputData extends OneTimeTransactionInputData {
     private final String sharedAccountId;
 //    private final Set<String> userIds; // Changed from Map to Set to reflect user responsibilities
 
     /**
-     * Constructs a SharedAccountUserAccountOneTimeTransactionInputData object with the specified details.
+     * Constructs a SharedAccountOneTimeTransactionInputData object with the specified details.
      *
      * @param transactionAmount      the amount of the transaction
      * @param transactionDate        the date of the transaction
@@ -22,7 +20,7 @@ public class SharedAccountUserAccountOneTimeTransactionInputData extends OneTime
      * @param sharedAccountId        the identifier of the shared account
      * @param userId    a set of user IDs responsible for the transaction
      */
-    public SharedAccountUserAccountOneTimeTransactionInputData(
+    public SharedAccountOneTimeTransactionInputData(
             String transactionAmount,
             String transactionDate,
             String transactionDescription,

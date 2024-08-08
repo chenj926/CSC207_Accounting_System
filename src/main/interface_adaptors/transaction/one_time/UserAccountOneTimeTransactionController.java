@@ -1,30 +1,30 @@
 package interface_adaptors.transaction.one_time;
 
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputBoundary;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionInputBoundary;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionInputData;
 
 /**
- * The OneTimeTransactionController class is responsible for handling user interactions related to one-time transactions.
+ * The UserAccountOneTimeTransactionController class is responsible for handling user interactions related to one-time transactions.
  * It communicates with the use case interactor to execute the one-time transaction process.
  *
  * @author Xile
  * @author Eric
  */
-public class OneTimeTransactionController {
-
-    final UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor;
-    final OneTimeTransactionViewModel viewModel;
+public class UserAccountOneTimeTransactionController extends
+        AccountOneTimeTransactionController<
+                UserAccountOneTimeTransactionInputBoundary,
+                UserAccountOneTimeTransactionViewModel> {
 
     /**
-     * Constructs a OneTimeTransactionController object with the specified use case interactor and view model.
+     * Constructs a UserAccountOneTimeTransactionController object with the specified use case interactor and view model.
      *
      * @param userOneTimeTransactionUseCaseInteractor the use case interactor for one-time transactions
      * @param viewModel                               the view model to update the transaction state
      */
-    public OneTimeTransactionController(UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
-                                        OneTimeTransactionViewModel viewModel) {
-        this.userOneTimeTransactionUseCaseInteractor = userOneTimeTransactionUseCaseInteractor;
-        this.viewModel = viewModel;
+    public UserAccountOneTimeTransactionController(UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
+                                                   UserAccountOneTimeTransactionViewModel viewModel) {
+        super(userOneTimeTransactionUseCaseInteractor, viewModel);
     }
 
     /**
@@ -40,7 +40,7 @@ public class OneTimeTransactionController {
         UserAccountOneTimeTransactionInputData userAccountOneTimeTransactionInputData = new UserAccountOneTimeTransactionInputData(
                 id, amount, transactionDate, transactionDescription, transactionCategory
         );
-        userOneTimeTransactionUseCaseInteractor.execute(userAccountOneTimeTransactionInputData);
+        oneTimeTransactionInteractor.execute(userAccountOneTimeTransactionInputData);
         this.viewModel.resetState();
     }
 }

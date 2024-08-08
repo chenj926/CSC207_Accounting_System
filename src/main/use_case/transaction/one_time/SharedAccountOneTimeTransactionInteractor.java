@@ -19,7 +19,7 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         SharedAccount,
         SharedAccountOneTimeTransactionOutputData,
         SharedAccountPeriodicTransactionOutputData,
-        SharedAccountUserAccountOneTimeTransactionInputData>
+        SharedAccountOneTimeTransactionInputData>
         implements SharedAccountOneTimeTransactionInputBoundary { // Use the generic interface
 
     private final SharedAccountDataAccessInterface sharedAccountDataAccessInterface;
@@ -50,7 +50,7 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param inputData the input data required for the shared account transaction process
      */
     @Override
-    public void execute(SharedAccountUserAccountOneTimeTransactionInputData inputData) {
+    public void execute(SharedAccountOneTimeTransactionInputData inputData) {
         // Extract transaction details
         String sharedId = inputData.getSharedAccountId();
         String userId = inputData.getId();

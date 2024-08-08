@@ -18,7 +18,7 @@ import interface_adaptors.login.SharedAccountLoginViewModel; // Import the Share
 //import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
-import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
@@ -96,8 +96,8 @@ public class ViewManagerModel {
 //        SharedAccountHomepageTwoViewModel sharedAccounthomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
 //        this.viewModels.put("Share Account Homepage Two", sharedAccounthomepageTwoViewModel);
 
-        OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
-        this.viewModels.put("One Time Transaction", oneTimeTransactionViewModel);
+        UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserAccountOneTimeTransactionViewModel();
+        this.viewModels.put("One Time Transaction", userAccountOneTimeTransactionViewModel);
 
         SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
         this.viewModels.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionViewModel);
@@ -271,10 +271,10 @@ public class ViewManagerModel {
                 views.put("Homepage Two", homepageTwoView);
                 currentView = homepageTwoView;
             case "One Time Transaction":
-                OneTimeTransactionViewModel oneTimeTransactionViewModel =
-                        (OneTimeTransactionViewModel) this.viewModels.get("One Time Transaction");
+                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
+                        (UserAccountOneTimeTransactionViewModel) this.viewModels.get("One Time Transaction");
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(
-                        this, oneTimeTransactionViewModel);
+                        this, userAccountOneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
                 currentView = oneTimeTransactionView;
                 break;

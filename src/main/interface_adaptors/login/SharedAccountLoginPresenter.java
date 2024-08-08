@@ -12,7 +12,8 @@ import use_case.login.SharedAccountLoginOutputData;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountLoginPresenter extends AccountLoginPresenter<SharedAccountLoginViewModel,
+public class SharedAccountLoginPresenter extends AccountLoginPresenter<
+        SharedAccountLoginViewModel,
         SharedAccountLoginOutputData,
         SharedAccountLoginState> implements SharedAccountLoginOutputBoundary {
 

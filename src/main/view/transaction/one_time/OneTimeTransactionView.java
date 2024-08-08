@@ -1,9 +1,9 @@
 package view.transaction.one_time;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.OneTimeTransactionController;
-import interface_adaptors.transaction.one_time.OneTimeTransactionState;
-import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,23 +19,23 @@ import java.beans.PropertyChangeListener;
  */
 public class OneTimeTransactionView extends JFrame implements PropertyChangeListener {
     private OneTimeTransactionPanel oneTimeTransactionPanel;
-    private OneTimeTransactionViewModel viewModel;
+    private UserAccountOneTimeTransactionViewModel viewModel;
 
     /**
      * Constructs a OneTimeTransactionView object with the specified view model, controller, and view manager.
      *
      * @param viewModel                the view model for the one-time transaction view
-     * @param oneTimeTransactionController the controller handling one-time transaction actions
+     * @param userAccountOneTimeTransactionController the controller handling one-time transaction actions
      * @param viewManager              the view manager for handling view transitions
      */
-    public OneTimeTransactionView(OneTimeTransactionViewModel viewModel,
-                                  OneTimeTransactionController oneTimeTransactionController,
+    public OneTimeTransactionView(UserAccountOneTimeTransactionViewModel viewModel,
+                                  UserAccountOneTimeTransactionController userAccountOneTimeTransactionController,
                                   ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        oneTimeTransactionPanel = new OneTimeTransactionPanel(viewModel, oneTimeTransactionController, viewManager);
+        oneTimeTransactionPanel = new OneTimeTransactionPanel(viewModel, userAccountOneTimeTransactionController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +58,7 @@ public class OneTimeTransactionView extends JFrame implements PropertyChangeList
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        OneTimeTransactionState state = (OneTimeTransactionState) evt.getNewValue();
+        UserAccountOneTimeTransactionState state = (UserAccountOneTimeTransactionState) evt.getNewValue();
         if (state.getSuccessMessage() == null) {
             JOptionPane.showMessageDialog(this, state.getErrorMessage());
         } else {
