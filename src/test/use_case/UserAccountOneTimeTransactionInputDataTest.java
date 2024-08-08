@@ -1,11 +1,11 @@
 package use_case;
 
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.OneTimeTransactionInputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OneTimeTransactionInputDataTest {
+public class UserAccountOneTimeTransactionInputDataTest {
 
     @Test
     public void testOneTimeTransactionInputData() {
@@ -15,7 +15,7 @@ public class OneTimeTransactionInputDataTest {
         String transactionDescription = "Grocery Shopping";
         String transactionCategory = "Food";
 
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(
+        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData(
                 transactionAmount,
                 transactionDate,
                 transactionDescription,

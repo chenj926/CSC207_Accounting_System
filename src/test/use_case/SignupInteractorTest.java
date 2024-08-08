@@ -5,10 +5,10 @@ import entity.account.AccountFactory;
 import data_access.authentication.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.signup.SignupInputData;
-import use_case.signup.SignupInteractor;
-import use_case.signup.SignupOutputBoundary;
-import use_case.signup.SignupOutputData;
+import use_case.signup.UserAccountSignupInputData;
+import use_case.signup.UserAccountSignupInteractor;
+import use_case.signup.UserAccountSignupOutputBoundary;
+import use_case.signup.UserAccountSignupOutputData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,14 +21,14 @@ public class SignupInteractorTest {
     private UserSignupDataAccessInterface userDataAccessObject;
     private SimplePresenter presenter;
     private AccountFactory accountFactory;
-    private SignupInteractor signupInteractor;
+    private UserAccountSignupInteractor signupInteractor;
 
     @BeforeEach
     public void setUp() {
         userDataAccessObject = new InMemoryUserSignupDataAccess();
         presenter = new SimplePresenter();
         accountFactory = new AccountFactory();
-        signupInteractor = new SignupInteractor(userDataAccessObject, presenter, accountFactory);
+        signupInteractor = new UserAccountSignupInteractor(userDataAccessObject, presenter, accountFactory);
     }
 
     @Test
@@ -38,7 +38,7 @@ public class SignupInteractorTest {
         String userId = "existentUser";
         UserAccount user = new UserAccount(username, password, userId);
         ((InMemoryUserSignupDataAccess) userDataAccessObject).addUser(user);
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -50,7 +50,7 @@ public class SignupInteractorTest {
         String username = "";
         String password = "password123";
         String userId = "newUser";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -62,7 +62,7 @@ public class SignupInteractorTest {
         String username = "testUser";
         String password = "";
         String userId = "newUser";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -74,7 +74,7 @@ public class SignupInteractorTest {
         String username = "testUser";
         String password = "1234";
         String userId = "";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -86,7 +86,7 @@ public class SignupInteractorTest {
         String username = "";
         String password = "";
         String userId = "newUser";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -98,7 +98,7 @@ public class SignupInteractorTest {
         String username = "";
         String password = "1234";
         String userId = "";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -110,7 +110,7 @@ public class SignupInteractorTest {
         String username = "testUser";
         String password = "";
         String userId = "";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -122,7 +122,7 @@ public class SignupInteractorTest {
         String username = "";
         String password = "";
         String userId = "";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -135,7 +135,7 @@ public class SignupInteractorTest {
         String username = "testUser";
         String password = "password123";
         String userId = "newUser";
-        SignupInputData inputData = new SignupInputData(username, password, userId);
+        UserAccountSignupInputData inputData = new UserAccountSignupInputData(username, password, userId);
 
         signupInteractor.execute(inputData);
 
@@ -161,9 +161,9 @@ public class SignupInteractorTest {
         }
     }
 
-    private static class SimplePresenter implements SignupOutputBoundary {
+    private static class SimplePresenter implements UserAccountSignupOutputBoundary {
         private String message;
-        private SignupOutputData data;
+        private UserAccountSignupOutputData data;
         private boolean success;
 
         @Override
@@ -173,7 +173,7 @@ public class SignupInteractorTest {
         }
 
         @Override
-        public void prepareSuccessView(SignupOutputData data) {
+        public void prepareSuccessView(UserAccountSignupOutputData data) {
             this.data = data;
             this.success = true;
         }
@@ -186,7 +186,7 @@ public class SignupInteractorTest {
             return success;
         }
 
-        public SignupOutputData getData() {
+        public UserAccountSignupOutputData getData() {
             return data;
         }
     }
