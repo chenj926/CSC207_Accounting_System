@@ -1,10 +1,7 @@
 package use_case.transaction.periodic;
 
-import data_access.account.ShareAccountDataAccessInterface;
+import data_access.account.SharedAccountDataAccessInterface;
 import entity.account.SharedAccount;
-import entity.account.UserAccount;
-import entity.transaction.periodic.PeriodicInflow;
-import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 //import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
@@ -20,7 +17,7 @@ import java.time.temporal.ChronoUnit;
  * @author Rita
  */
 public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransactionInteractor <
-        ShareAccountDataAccessInterface,
+        SharedAccountDataAccessInterface,
         SharedAccount,
         SharedAccountOneTimeTransactionOutputData,
         SharedAccountPeriodicTransactionOutputData,
@@ -36,7 +33,7 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
      * @param sharedAccount                   the user account associated with the periodic transaction
      * @param presenter  the output boundary for the periodic transaction use case
      */
-    public SharedAccountPeriodicTransactionInteractor(ShareAccountDataAccessInterface DAO,
+    public SharedAccountPeriodicTransactionInteractor(SharedAccountDataAccessInterface DAO,
                                                       SharedAccount sharedAccount,
                                                       SharedAccountPeriodicTransactionOutputBoundary presenter) {
         super(DAO, presenter, sharedAccount);

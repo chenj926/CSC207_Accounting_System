@@ -1,29 +1,27 @@
 package use_case.transaction.one_time;
 
-import data_access.account.ShareAccountDataAccessInterface;
+import data_access.account.SharedAccountDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
-import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 /**
  * The SharedAccountOneTimeTransactionInteractor class implements the TransactionInputBoundary
  * interface for handling one-time transactions for a shared account.
  */
 public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactionInteractor <
-        ShareAccountDataAccessInterface,
+        SharedAccountDataAccessInterface,
         SharedAccount,
         SharedAccountOneTimeTransactionOutputData,
         SharedAccountPeriodicTransactionOutputData,
         SharedAccountUserAccountOneTimeTransactionInputData>
         implements SharedAccountOneTimeTransactionInputBoundary { // Use the generic interface
 
-    private final ShareAccountDataAccessInterface sharedAccountDataAccessInterface;
+    private final SharedAccountDataAccessInterface sharedAccountDataAccessInterface;
     private final SharedAccount sharedAccount;
     private final SharedAccountOneTimeTransactionOutputBoundary presenter;
 
@@ -35,7 +33,7 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param presenter                        the output boundary for presenting the one-time transaction results
      * @param sharedAccount                    the shared account associated with the transaction
      */
-    public SharedAccountOneTimeTransactionInteractor(ShareAccountDataAccessInterface sharedAccountDataAccessInterface,
+    public SharedAccountOneTimeTransactionInteractor(SharedAccountDataAccessInterface sharedAccountDataAccessInterface,
                                                      SharedAccountOneTimeTransactionOutputBoundary presenter,
                                                      SharedAccount sharedAccount) {
         super(sharedAccountDataAccessInterface, presenter, sharedAccount);
