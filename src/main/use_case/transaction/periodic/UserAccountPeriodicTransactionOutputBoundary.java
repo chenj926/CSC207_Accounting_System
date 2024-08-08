@@ -9,5 +9,5 @@ package use_case.transaction.periodic;
  */
 public interface UserAccountPeriodicTransactionOutputBoundary extends PeriodicTransactionOutputBoundary<UserAccountPeriodicTransactionOutputData>{
     // methods defined in TransactionOutputBoundary interface
-    void prepareSuccessView(PeriodicTransactionOutputData outputData);
+    void prepareSuccessView(UserAccountPeriodicTransactionOutputData outputData);
 }
