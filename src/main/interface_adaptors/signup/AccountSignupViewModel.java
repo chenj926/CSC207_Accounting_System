@@ -4,33 +4,25 @@ import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 
-/**
- * The SignupViewModel class extends the ViewModel class and manages the state and labels for the signup view.
- * It provides getters for various labels used in the signup view and supports property change notifications.
- *
- * @author Rita
- * @author Jessica
- * @author Eric
- */
+public abstract class AccountSignupViewModel<S extends AccountSignupState> extends ViewModel {
+    protected final String TITLE_LABEL = "Sign Up";
+    protected final String PASSWORD_LABEL = "Set password";
+    protected final String ID_LABEL = "Set identification";
 
-public class SignupViewModel extends ViewModel {
+    protected final String SIGNUP_BUTTON_LABEL = "Sign up account";
+    protected final String CANCEL_BUTTON_LABEL = "Cancel";
 
-    private final String TITLE_LABEL = "Sign Up";
-    private final String USERNAME_LABEL = "Set username";
-    private final String PASSWORD_LABEL = "Set password";
-    private final String ID_LABEL = "Set identification";
-
-    private final String SIGNUP_BUTTON_LABEL = "Sign up";
-    private final String CANCEL_BUTTON_LABEL = "Cancel";
-
-    private SignupState state = new SignupState();
+    protected S state;
 
     /**
-     * Constructs a SignupViewModel object with a specified view name.
+     * Constructs a ViewModel object with the specified view name.
+     *
+     * @param viewName the name of the view
      */
-    public SignupViewModel() {
-        super("sign up");
+    public AccountSignupViewModel(String viewName) {
+        super(viewName);
     }
 
     /**
@@ -45,7 +37,7 @@ public class SignupViewModel extends ViewModel {
      *
      * @return the username label
      */
-    public String getUsernameLabel() { return this.USERNAME_LABEL; }
+    public String getID_LABEL() { return this.ID_LABEL; }
 
     /**
      * Gets the password label.
@@ -53,13 +45,6 @@ public class SignupViewModel extends ViewModel {
      * @return the password label
      */
     public String getPasswordLabel() { return this.PASSWORD_LABEL; }
-
-    /**
-     * Gets the identification label.
-     *
-     * @return the identification label
-     */
-    public String getID_LABEL() { return this.ID_LABEL; }
 
     /**
      * Gets the signup button label.
@@ -80,14 +65,14 @@ public class SignupViewModel extends ViewModel {
      *
      * @return the current signup state
      */
-    public SignupState getState() { return this.state; }
+    public S getState() { return this.state; }
 
     /**
      * Sets the current signup state.
      *
      * @param state the new signup state
      */
-    public void setState(SignupState state) {
+    public void setState(S state) {
         this.state = state;
     }
 

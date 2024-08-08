@@ -1,8 +1,6 @@
 package interface_adaptors.signup;
 
-import use_case.signup.SharedAccountSignupInputBoundary;
-import use_case.signup.SharedAccountSignupInputData;
-import use_case.signup.SharedAccountSignupInteractor;
+import use_case.signup.*;
 
 import java.util.Set;
 
@@ -12,16 +10,17 @@ import java.util.Set;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupController {
-    final SharedAccountSignupInputBoundary sharedAccountSignupInteractor;
+public class SharedAccountSignupController extends AccountSignupController<
+        SharedAccountSignupInputBoundary,
+        SharedAccountSignupInteractor> {
 
     /**
      * Constructs a SharedAccountSignupController with the specified signup interactor.
      *
      * @param sharedAccountSignupInteractor the interactor that processes the signup data
      */
-    public SharedAccountSignupController(SharedAccountSignupInputBoundary sharedAccountSignupInteractor) {
-        this.sharedAccountSignupInteractor = sharedAccountSignupInteractor;
+    public SharedAccountSignupController(SharedAccountSignupInteractor sharedAccountSignupInteractor) {
+        super(sharedAccountSignupInteractor);
     }
 
     /**
@@ -42,7 +41,7 @@ public class SharedAccountSignupController {
         );
 
         // Execute the signup process using the interactor
-        sharedAccountSignupInteractor.execute(sharedAccountSignupInputData);
+        signupInteractor.execute(sharedAccountSignupInputData);
     }
 }
 

@@ -1,25 +1,24 @@
 package interface_adaptors.signup;
 
 /**
- * The SignupState class represents the state of the signup process,
+ * The UserAccountSignupState class represents the state of the signup process,
  * including user details, error messages, and success messages.
  *
  * @author Chi Fong
  * @author Eric
  */
-public class SignupState {
-    private String identification;
-    private String username;
-    private String password;
-    private String stateError;
-    private String successMsg;
+public abstract class AccountSignupState {
+    protected String identification;
+    protected String password;
+
+    protected String stateError;
+    protected String successMsg;
 
     /**
-     * Constructs a SignupState object with default values.
+     * Constructs a UserAccountSignupState object with default values.
      */
-    public SignupState() {
+    public AccountSignupState() {
         this.identification = "";
-        this.username = "";
         this.password = "";
         this.stateError = null;
         this.successMsg = null;
@@ -31,15 +30,6 @@ public class SignupState {
      * @return the identification
      */
     public String getIdentification() { return this.identification; }
-
-    /**
-     * Gets the username.
-     *
-     * @return the username
-     */
-    public String getUsername() {
-        return this.username;
-    }
 
     /**
      * Gets the password.
@@ -64,13 +54,6 @@ public class SignupState {
      * @return the success message
      */
     public String getSuccessMsg() { return this.successMsg; }
-
-    /**
-     * Sets the username.
-     *
-     * @param username the new username
-     */
-    public void setUsername(String username) { this.username = username;}
 
     /**
      * Sets the password.
@@ -117,7 +100,6 @@ public class SignupState {
      */
     public void reset() {
         this.identification = "";
-        this.setUsername("");
         this.setPassword("");
         this.setStateError(null);
         this.setSuccessMsg(null);
