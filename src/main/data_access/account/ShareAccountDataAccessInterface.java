@@ -54,7 +54,7 @@ public interface ShareAccountDataAccessInterface
 //    void deleteById(String identification);
 //
 //
-//    void saveTransaction(OneTimeTransactionOutputData outputData,
-//                         PeriodicTransactionOutputData sharedPeriodicOutputData,
+//    void saveTransaction(UserAccountOneTimeTransactionOutputData outputData,
+//                         UserAccountPeriodicTransactionOutputData sharedPeriodicOutputData,
 //                         boolean isPeriodic);
 }

@@ -1,18 +1,26 @@
 package interface_adaptors.login;
 
 import use_case.login.*;
-import use_case.login.LoginInteractor;
 
-public class SharedAccountLoginController{
-    final LoginMediator loginMediator;
-//    final SharedAccountLoginInputBoundary sharedAccountLoginInteractor;
-
+public class SharedAccountLoginController extends AccountLoginController {
+    /**
+     * Constructs a LoginController object with the specified use case interactor(mediator).
+     *
+     * @param loginMediator the use case interactor(mediator) for user login
+     */
     public SharedAccountLoginController(LoginMediator loginMediator) {
-        this.loginMediator = loginMediator;
+        super(loginMediator);
     }
 
-    public void execute(String sharedAccountId, String password) {
-        SharedAccountLoginInputData sharedAccountLoginInputData = new SharedAccountLoginInputData(sharedAccountId, password);
+    /**
+     * Constructs a LoginInputData object with the specified password and identification.
+     *
+     * @param sharedIdentification   the identification for the login
+     * @param sharedPassword         the password for the login
+     */
+    @Override
+    public void execute(String sharedIdentification, String sharedPassword) {
+        SharedAccountLoginInputData sharedAccountLoginInputData = new SharedAccountLoginInputData(sharedIdentification, sharedPassword);
         this.loginMediator.execute(sharedAccountLoginInputData);
     }
 }

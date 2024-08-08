@@ -5,31 +5,23 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+public abstract class AccountLoginViewModel<S extends AccountLoginState> extends ViewModel {
+    protected final String titleLabel = "ACCOUNT LOGIN";
+    protected final String identificationLabel = "Enter account ID";
+    protected final String passwordLabel = "Enter account password";
 
-/**
- * The LoginViewModel class extends the ViewModel class and manages the state and labels for the login view.
- * It provides getters for various labels used in the login view and supports property change notifications.
- *
- * @author Rita
- * @author Eric
- * @author Dana
- */
-public class LoginViewModel extends ViewModel {
+    protected final String loginButtonLabel = "Login";
+    protected final String cancelButtonLabel = "Cancel";
 
-    private final String titleLabel = "LOGIN";
-    private final String identificationLabel = "Enter identification";
-    private final String passwordLabel = "Enter password";
+    protected S state;
 
-    private final String loginButtonLabel = "Login";
-    private final String cancelButtonLabel = "Cancel";
-
-    private LoginState state = new LoginState();
+    protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
      * Constructs a LoginViewModel object with the view name set to "login".
      */
-    public LoginViewModel() {
-        super("login");
+    public AccountLoginViewModel(String viewModelName) {
+        super(viewModelName);
     }
 
     /**
@@ -37,6 +29,7 @@ public class LoginViewModel extends ViewModel {
      *
      * @return the title label
      */
+
     public String getTitleLabel(){
         return this.titleLabel;
     }
@@ -82,7 +75,7 @@ public class LoginViewModel extends ViewModel {
      *
      * @return the current login state
      */
-    public LoginState getState() {
+    public S getState() {
         return this.state;
     }
 
@@ -91,14 +84,12 @@ public class LoginViewModel extends ViewModel {
      *
      * @param state the new login state
      */
-    public void setState(LoginState state) {
+    public void setState(S state) {
         this.state = state;
     }
 
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
     /**
-     * Notifies listeners that the login state has changed.
+     * Notifies listeners that the shared account login state has changed.
      */
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
@@ -109,9 +100,9 @@ public class LoginViewModel extends ViewModel {
      *
      * @param listener the PropertyChangeListener to be added
      */
+    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
-
 
 }

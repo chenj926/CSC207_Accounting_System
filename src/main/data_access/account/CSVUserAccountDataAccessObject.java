@@ -1,22 +1,20 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
-
 import data_access.iterator.TransactionIterator;
 import data_access.iterator.UserAccountIterator;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
-import java.util.Map;
 import java.util.*;
 
 import static java.lang.String.valueOf;
@@ -42,11 +40,15 @@ import static java.lang.String.valueOf;
  * @see UserAccount
  * @see Transaction
  * @see OneTimeTransactionOutputData
- * @see PeriodicTransactionOutputData
+ * @see UserAccountPeriodicTransactionOutputData
  *
  */
-public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<UserAccount, OneTimeTransactionOutputData, PeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
-    private Map<String, UserAccount> userAccounts;
+
+public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
+        UserAccount,
+        UserAccountOneTimeTransactionOutputData,
+        UserAccountPeriodicTransactionOutputData> implements UserAccountDataAccessInterface, UserSignupDataAccessInterface {
+
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
     private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";

@@ -6,20 +6,5 @@ package use_case.login;
  *
  * @author Dana
  */
-public interface SharedAccountLoginOutputBoundary {
-
-    /**
-     * Prepares the success view with the given sharedAccount login output data.
-     *
-     * @param user the login output data containing user information and success status
-     */
-    void prepareSuccessView(SharedAccountLoginOutputData user);
-
-    /**
-     * Prepares the fail view with the given error message.
-     *
-     * @param error the error message to be presented in case of a failed login attempt
-     */
-    void prepareFailView(String error);
-
+public interface SharedAccountLoginOutputBoundary extends LoginOutputBoundary<SharedAccountLoginOutputData> {
 }

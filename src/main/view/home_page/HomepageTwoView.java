@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 
 public class HomepageTwoView extends JFrame implements PropertyChangeListener {
 
@@ -31,6 +32,9 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
         this.viewModel.addPropertyChangeListener(this);
         this.viewManager = viewManager;
         this.controller = homepageTwoController;
+
+        // debug
+        System.out.println("checking viewModel value"+Arrays.toString(this.viewModel.getBasicUserInfo()));
 
         this.homepageTwoPanel = new HomepageTwoPanel(this.viewModel, this.viewManager, this.controller);
 

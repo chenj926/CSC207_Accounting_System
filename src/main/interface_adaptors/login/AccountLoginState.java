@@ -1,22 +1,15 @@
 package interface_adaptors.login;
 
-/**
- * The LoginState class represents the state of the login process,
- * including user details, error messages, and success messages.
- *
- * @author Chi Fong
- * @author Eric
- */
-public class LoginState {
-    private String identification;
-    private String password;
-    private String stateError;
-    private String successMsg;
+public abstract class AccountLoginState {
+    protected String identification;
+    protected String password;
+    protected String stateError;
+    protected String successMsg;
 
     /**
      * Constructs a LoginState object with default values.
      */
-    public LoginState() {
+    public AccountLoginState() {
         this.identification = "";
         this.password = "";
         this.stateError = null;
@@ -94,4 +87,5 @@ public class LoginState {
     public void setSuccessMsg(String msg) {
         this.successMsg = msg;
     }
+
 }

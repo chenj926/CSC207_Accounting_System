@@ -2,12 +2,9 @@ package data_access.account;
 
 import data_access.iterator.SharedAccountIterator;
 import data_access.iterator.TransactionIterator;
-import data_access.iterator.UserAccountIterator;
 import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import entity.transaction.one_time.OneTimeTransaction;
-import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
@@ -171,7 +168,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
         return shared;
     }
@@ -193,7 +190,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         try (TransactionIterator iterator = new TransactionIterator(transactionCsvPath)) {
             while (iterator.hasNext()) {
                 Transaction transaction = iterator.next();
-                if (transaction.getIdentification().equalsIgnoreCase(sharedAccountIdentification)) {
+                String[] ids = transaction.getIdentification().split(";");
+                if (ids[0].equals(sharedAccountIdentification)) {
                     transactions.add(transaction);
                 }
             }

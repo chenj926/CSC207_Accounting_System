@@ -4,7 +4,7 @@ package use_case.signup;
  * The UserAccountSignupOutputData class serves as a base class for all types of signup output data.
  * It contains common fields such as username and the status of whether the use case has failed.
  */
-public class UserAccountSignupOutputData {
+public class UserAccountSignupOutputData implements SignupOutputData<String> {
     private final String username;
     private final boolean useCaseFailed;
 

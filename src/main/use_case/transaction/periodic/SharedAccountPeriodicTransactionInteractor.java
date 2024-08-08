@@ -1,11 +1,9 @@
 package main.use_case.transaction.periodic;
 
-import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
-import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
@@ -15,7 +13,6 @@ import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

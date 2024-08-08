@@ -1,28 +1,28 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
 /**
- * The OneTimeTransactionPresenter class implements the OneTimeTransactionOutputBoundary interface.
+ * The UserAccountOneTimeTransactionPresenter class implements the UserAccountOneTimeTransactionOutputBoundary interface.
  * It handles the presentation logic for one-time transactions, updating the view model and managing view transitions.
  *
  * @author Xile
  * @author Eric
  */
-public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoundary {
+public class UserAccountOneTimeTransactionPresenter implements UserAccountOneTimeTransactionOutputBoundary {
     private final OneTimeTransactionViewModel viewModel;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
     /**
-     * Constructs a OneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a UserAccountOneTimeTransactionPresenter object with the specified view model and view manager model.
      *
      * @param viewModel   the view model to update the one-time transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public OneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
+    public UserAccountOneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
 //        this.transactionViewModel = transactionViewModel;
@@ -35,7 +35,7 @@ public class OneTimeTransactionPresenter implements OneTimeTransactionOutputBoun
      * @param data the one-time transaction output data containing transaction details and success status
      */
     @Override
-    public void prepareSuccessView(OneTimeTransactionOutputData data) {
+    public void prepareSuccessView(UserAccountOneTimeTransactionOutputData data) {
         // update the current transaction sate
         OneTimeTransactionState oneTimeState = viewModel.getState();
 

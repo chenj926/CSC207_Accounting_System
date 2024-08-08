@@ -5,10 +5,10 @@ import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import interface_adaptors.*;
 import interface_adaptors.transaction.one_time.OneTimeTransactionController;
-import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionPresenter;
 import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionInteractor;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
 import view.transaction.one_time.OneTimeTransactionView;
 
 import javax.swing.*;
@@ -32,7 +32,7 @@ public class OneTimeTransactionUseCaseFactory {
     private static OneTimeTransactionController createUserOneTimeUseCase(ViewManagerModel viewManagerModel,
                                                             OneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
-        OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
+        UserAccountOneTimeTransactionOutputBoundary presenter = new UserAccountOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
 
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
 

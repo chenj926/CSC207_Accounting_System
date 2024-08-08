@@ -9,5 +9,11 @@ import use_case.transaction.TransactionOutputBoundary;
  * attempts for shared accounts.
  *
  */
-public interface SharedAccountOneTimeTransactionOutputBoundary extends TransactionOutputBoundary<SharedAccountOneTimeTransactionOutputData> {
+public interface SharedAccountOneTimeTransactionOutputBoundary extends OneTimeTransactionOutputBoundary<SharedAccountOneTimeTransactionOutputData> {
+    /**
+     * Prepares the success view with the given transaction output data.
+     *
+     * @param outputData the transaction output data containing transaction information and new balance
+     */
+    void prepareSuccessView(OneTimeTransactionOutputData outputData);
 }

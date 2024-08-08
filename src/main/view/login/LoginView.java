@@ -2,8 +2,8 @@ package view.login;
 
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
-import interface_adaptors.login.LoginState;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.UserAccountLoginState;
+import interface_adaptors.login.UserAccountLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ import java.beans.PropertyChangeListener;
  * @author Eric
  */
 public class LoginView extends JFrame implements PropertyChangeListener {
-    private LoginViewModel viewModel;
+    private UserAccountLoginViewModel viewModel;
     private LoginPanel loginPanel;
 
     /**
@@ -29,7 +29,7 @@ public class LoginView extends JFrame implements PropertyChangeListener {
      * @param loginController the controller handling login actions
      * @param viewManager     the view manager for managing view transitions
      */
-    public LoginView(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginView(UserAccountLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
@@ -57,7 +57,7 @@ public class LoginView extends JFrame implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        LoginState state = (LoginState) evt.getNewValue();
+        UserAccountLoginState state = (UserAccountLoginState) evt.getNewValue();
         if (state.getSuccessMsg() == null) {
             JOptionPane.showMessageDialog(this, state.getStateError());
         } else {

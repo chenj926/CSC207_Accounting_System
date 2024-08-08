@@ -5,7 +5,7 @@ import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBound
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
 /**
- * The SharedAccountPeriodicTransactionPresenter class implements the PeriodicTransactionOutputBoundary interface.
+ * The SharedAccountPeriodicTransactionPresenter class implements the UserAccountPeriodicTransactionOutputBoundary interface.
  * It handles the presentation logic for shared account periodic transactions, updating the view model and managing view transitions.
  *
  */

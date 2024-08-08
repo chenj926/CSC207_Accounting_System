@@ -12,9 +12,9 @@ import use_case.login.SharedAccountLoginOutputData;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoundary {
-    private final SharedAccountLoginViewModel sharedAccountLoginViewModel;
-    private final ViewManagerModel viewManagerModel;
+public class SharedAccountLoginPresenter extends AccountLoginPresenter<SharedAccountLoginViewModel,
+        SharedAccountLoginOutputData,
+        SharedAccountLoginState> implements SharedAccountLoginOutputBoundary {
 
     /**
      * Constructs a SharedAccountLoginPresenter object with the specified view manager model and shared account login view model.
@@ -23,8 +23,7 @@ public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoun
      * @param sharedAccountLoginViewModel the shared account login view model to update the shared account login state
      */
     public SharedAccountLoginPresenter(ViewManagerModel viewManagerModel, SharedAccountLoginViewModel sharedAccountLoginViewModel) {
-        this.viewManagerModel = viewManagerModel;
-        this.sharedAccountLoginViewModel = sharedAccountLoginViewModel;
+        super(viewManagerModel, sharedAccountLoginViewModel);
     }
 
     /**
@@ -36,30 +35,16 @@ public class SharedAccountLoginPresenter implements SharedAccountLoginOutputBoun
     @Override
     public void prepareSuccessView(SharedAccountLoginOutputData userInfo) {
             // Handle shared account login
-            SharedAccountLoginState sharedAccountLoginState = this.sharedAccountLoginViewModel.getState();
-            sharedAccountLoginState.setSharedAccountId(userInfo.getSharedAccountId());
-            this.viewManagerModel.setSharedAccountId(userInfo.getSharedAccountId());
-            this.sharedAccountLoginViewModel.setState(sharedAccountLoginState);
+            SharedAccountLoginState sharedAccountLoginState = this.accountLoginViewModel.getState();
+            sharedAccountLoginState.setIdentification(userInfo.getIdentification());
+            this.viewManagerModel.setSharedAccountId(userInfo.getIdentification());
+            this.accountLoginViewModel.setState(sharedAccountLoginState);
             sharedAccountLoginState.setSuccessMsg("Successfully Logged In to Shared Account!!!");
-            this.sharedAccountLoginViewModel.firePropertyChanged();
-            this.viewManagerModel.setActiveViewName(this.sharedAccountLoginViewModel.getViewName());
+            this.accountLoginViewModel.firePropertyChanged();
+            this.viewManagerModel.setActiveViewName(this.accountLoginViewModel.getViewName());
 
             // Change to the next view
             this.viewManagerModel.changeView("Homepage Two");
-    }
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the shared account login state with the error message and clears the success message.
-     *
-     * @param err the error message to be presented in case of a failed login attempt
-     */
-    @Override
-    public void prepareFailView(String err) {
-        SharedAccountLoginState sharedAccountLoginState = this.sharedAccountLoginViewModel.getState();
-        sharedAccountLoginState.setStateError(err);
-        sharedAccountLoginState.setSuccessMsg(null); // Clear success message on failure
-        this.sharedAccountLoginViewModel.firePropertyChanged();
     }
 }
 

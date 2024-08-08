@@ -2,8 +2,8 @@ package view.login;
 
 import interface_adaptors.*;
 import interface_adaptors.login.LoginController;
-import interface_adaptors.login.LoginState;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.UserAccountLoginState;
+import interface_adaptors.login.UserAccountLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +21,7 @@ import java.awt.event.KeyListener;
  * @author Eric
  */
 public class LoginPanel extends JPanel {
-    private final LoginViewModel viewModel;
+    private final UserAccountLoginViewModel viewModel;
     protected LoginController loginController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
@@ -40,7 +40,7 @@ public class LoginPanel extends JPanel {
      * @param loginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public LoginPanel(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginPanel(UserAccountLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
         this.viewManager = viewManager;
@@ -167,7 +167,7 @@ public class LoginPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        LoginState currentState = viewModel.getState();
+                        UserAccountLoginState currentState = viewModel.getState();
                         currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
                         viewManager.setUserId(identificationTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
@@ -184,7 +184,7 @@ public class LoginPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        LoginState currentState = viewModel.getState();
+                        UserAccountLoginState currentState = viewModel.getState();
                         currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }

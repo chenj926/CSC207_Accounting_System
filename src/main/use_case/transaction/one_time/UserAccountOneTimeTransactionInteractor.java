@@ -4,8 +4,8 @@ import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
-import use_case.transaction.TransactionInteractor;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import entity.transaction.one_time.OneTimeTransaction;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -22,13 +22,14 @@ import java.time.LocalDate;
  * @author Dana
  * @author Eric
  */
-public class UserAccountOneTimeTransactionInteractor extends TransactionInteractor<
+public class UserAccountOneTimeTransactionInteractor extends OneTimeTransactionInteractor<
         UserAccountDataAccessInterface,
         UserAccount,
-        OneTimeTransactionOutputData,
-        PeriodicTransactionOutputData>
-        implements OneTimeTransactionInputBoundary {
-    private final OneTimeTransactionOutputBoundary presenter;
+        UserAccountOneTimeTransactionOutputData,
+        UserAccountPeriodicTransactionOutputData,
+        UserAccountOneTimeTransactionInputData>
+        implements UserAccountOneTimeTransactionInputBoundary {
+//    private final UserAccountOneTimeTransactionOutputBoundary presenter;
 
 
     /**
@@ -36,14 +37,14 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
      * output boundary, and user account.
      *
      * @param userAccountDataAccessInterface the data access interface for user data
-     * @param oneTimeTransactionOutputBoundary the output boundary for presenting the one-time transaction results
+     * @param userAccountOneTimeTransactionOutputBoundary the output boundary for presenting the one-time transaction results
      * @param userAccount the user account associated with the transaction
      */
     public UserAccountOneTimeTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                                   OneTimeTransactionOutputBoundary oneTimeTransactionOutputBoundary,
+                                                   UserAccountOneTimeTransactionOutputBoundary userAccountOneTimeTransactionOutputBoundary,
                                                    UserAccount userAccount) {
-        super(userAccountDataAccessInterface, userAccount);
-        this.presenter = oneTimeTransactionOutputBoundary;
+        super(userAccountDataAccessInterface, userAccountOneTimeTransactionOutputBoundary, userAccount);
+//        this.presenter = userAccountOneTimeTransactionOutputBoundary;
     }
 
     /**
@@ -54,16 +55,16 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
      * the user's account balance and interacts with the data access object to save the transaction.
      * </p>
      *
-     * @param oneTimeTransactionInputData the input data required for the one-time transaction process
+     * @param userAccountOneTimeTransactionInputData the input data required for the one-time transaction process
      */
     @Override
-    public void execute(OneTimeTransactionInputData oneTimeTransactionInputData) {
+    public void execute(UserAccountOneTimeTransactionInputData userAccountOneTimeTransactionInputData) {
         // set up basic vars
-        String identification = oneTimeTransactionInputData.getId();
-        String stringAmount = oneTimeTransactionInputData.getTransactionAmount();
-        String date = oneTimeTransactionInputData.getTransactionDate();
-        String description = oneTimeTransactionInputData.getTransactionDescription();
-        String category = oneTimeTransactionInputData.getTransactionCategory();
+        String identification = userAccountOneTimeTransactionInputData.getId();
+        String stringAmount = userAccountOneTimeTransactionInputData.getTransactionAmount();
+        String date = userAccountOneTimeTransactionInputData.getTransactionDate();
+        String description = userAccountOneTimeTransactionInputData.getTransactionDescription();
+        String category = userAccountOneTimeTransactionInputData.getTransactionCategory();
 
         // if user entered empty input in one or more of the input fields
         if(!checkValid(stringAmount) || !checkValid(date) ||
@@ -123,7 +124,7 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
         this.account.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(oneTimeInflow);
 
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null,false);
@@ -156,13 +157,18 @@ public class UserAccountOneTimeTransactionInteractor extends TransactionInteract
         this.account.setTotalBalance(totalBalance);  // Update the balance accordingly
 
         // Prepare output data
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(oneTimeOutflow);
 
         // Save this transaction
         userDataAccessObject.saveTransaction(outputData, null, false);
         // update the transaction info to user acc database as well
         userDataAccessObject.update(this.account);
         presenter.prepareSuccessView(outputData);
+    }
+
+    @Override
+    protected UserAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
+        return new UserAccountOneTimeTransactionOutputData(transaction);
     }
 
 }

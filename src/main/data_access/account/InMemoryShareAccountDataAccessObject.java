@@ -1,14 +1,10 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
-import entity.transaction.Transaction;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,20 +24,17 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
 
 
-    @Override
-    public boolean login(SharedAccount sharedAccount) {
-        return shareAcc.containsKey(sharedAccount.getUsername());
-    }
 
-    @Override
-    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+//    @Override
+//    public boolean login(SharedAccount sharedAccount) {
+//        return shareAcc.containsKey(sharedAccount.getUsername());
+//    }
+//
+//    @Override
+//    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+//
+//    }
 
-    }
-
-    @Override
-    public List<Transaction> readTransactions(String userId) {
-        return List.of();
-    }
 
     /**
      * Checks if a shared account exists with the given identification.
@@ -73,8 +66,8 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     }
 
     @Override
-    public void saveTransaction(OneTimeTransactionOutputData outputData, PeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
-        //
+    public void saveTransaction(UserAccountOneTimeTransactionOutputData outputData, UserAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
+
     }
 
 //    @Override

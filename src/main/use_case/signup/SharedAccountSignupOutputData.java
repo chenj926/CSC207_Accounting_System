@@ -6,7 +6,7 @@ import java.util.Set;
  * The SharedAccountSignupOutputData class represents the output data of a shared account signup operation.
  * It includes specific fields such as shared account ID and the status of whether the shared account already exists.
  */
-public class SharedAccountSignupOutputData{
+public class SharedAccountSignupOutputData implements SignupOutputData<Set<String>> {
     private final String sharedAccountId;
 //    private String user1Id;
 //    private String user2Id;

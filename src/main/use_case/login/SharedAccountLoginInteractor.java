@@ -1,12 +1,8 @@
 package use_case.login;
 
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
-import entity.account.UserAccount;
 import entity.account.SharedAccount;
-import data_access.authentication.LoginDataAccessInterface;;
-import data_access.account.ShareAccountDataAccessInterface;
-import use_case.signup.SharedAccountSignupOutputBoundary;
-import use_case.signup.SharedAccountSignupOutputData;
+;
 import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
@@ -51,8 +47,8 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
     @Override
     public void execute(SharedAccountLoginInputData sharedLoginInputData) {
 
-        boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getSharedAccountId());
-        boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getSharedPassword());
+        boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getIdentification());
+        boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getPassword());
 
         if (!validSharedAccountPassword && !validSharedAccountId) {
             sharedPresenter.prepareFailView("Identification AND Password can not be empty!");
@@ -64,13 +60,13 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
             sharedPresenter.prepareFailView("Identification can not be empty!");
             return;
         } else {
-            if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getSharedAccountId())) {
+            if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getIdentification())) {
                 sharedPresenter.prepareFailView("Shared Account not found");
                 return;
             }
 
-            SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getSharedAccountId());
-            if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getSharedPassword())) {
+            SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getIdentification());
+            if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getPassword())) {
                 sharedPresenter.prepareFailView("Incorrect Password!");
                 return;
             }
@@ -80,11 +76,11 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
             if (!isLogin) {
                 sharedPresenter.prepareFailView("Incorrect Account Password!");
             } else {
-                SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getSharedAccountId(), true);
+                SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getIdentification(), true);
                 sharedPresenter.prepareSuccessView(sharedLoginOutputData);
 
                 // Notify mediator on successful login
-                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getSharedAccountId(), LocalDate.now());
+                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
                 mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
             }
         }
