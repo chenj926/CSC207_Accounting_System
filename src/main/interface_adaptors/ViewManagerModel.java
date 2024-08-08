@@ -20,7 +20,7 @@ import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
 import view.financial_report.FinancialReportView;
 import view.home_page.HomePageView;
@@ -102,8 +102,8 @@ public class ViewManagerModel {
         SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
         this.viewModels.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionViewModel);
 
-        PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-        this.viewModels.put("Periodic Transaction", periodicTransactionViewModel);
+        UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel = new UserAccountPeriodicTransactionViewModel();
+        this.viewModels.put("Periodic Transaction", userAccountPeriodicTransactionViewModel);
 
         SharedAccountPeriodicTransactionViewModel sharedAccountperiodicTransactionViewModel = new SharedAccountPeriodicTransactionViewModel();
         this.viewModels.put("Shared Account Periodic Transaction", sharedAccountperiodicTransactionViewModel);
@@ -287,10 +287,10 @@ public class ViewManagerModel {
                 currentView = sharedAccountoneTimeTransactionView;
                 break;
             case "Periodic Transaction":
-                PeriodicTransactionViewModel periodicTransactionViewModel =
-                        (PeriodicTransactionViewModel) this.viewModels.get("Periodic Transaction");
+                UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel =
+                        (UserAccountPeriodicTransactionViewModel) this.viewModels.get("Periodic Transaction");
                 PeriodicTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(
-                        this, periodicTransactionViewModel);
+                        this, userAccountPeriodicTransactionViewModel);
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
                 break;
