@@ -37,7 +37,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         implements SharedAccountDataAccessInterface,
         SharedAccountSignupDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
-//    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
+    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
     private static final String CSV_HEADER  = "sharedId,ids,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";
     private static final String TRANSACTION_HEADER  = "id,amount,date,description,category,start date,period,end date";

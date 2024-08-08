@@ -1,11 +1,13 @@
 package use_case.signup;
 
 import data_access.account.CSVSharedAccountDataAccessObject;
+import data_access.account.CSVUserAccountDataAccessObject;
 import data_access.account.SharedAccountDataAccessInterface;
 import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.account.AccountFactory;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 /**
@@ -86,7 +88,7 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         );
         // update the user account ids into newSharedAccount
         this.addIdToShareAccount(newSharedAccount, userIds);
-
+        newSharedAccount.setLastLoginDate(LocalDate.now());
         // Save the new shared account
         sharedDataAccessObject.save(newSharedAccount);
 
@@ -108,9 +110,9 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
     }
 
     private boolean checkUserIdsExist(Set<String> userIds) {
+        CSVUserAccountDataAccessObject dao = new CSVUserAccountDataAccessObject();
         for (String userId : userIds) {
-            SharedAccountDataAccessInterface DAO = new CSVSharedAccountDataAccessObject();
-            if (!CSVSharedAccountDataAccessObject.existByuserId(userId)) {
+            if (!dao.existById(userId)) {
                 return false;
             }
         }

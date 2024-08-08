@@ -82,6 +82,7 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.print(identification);
         return false;
     }
 
