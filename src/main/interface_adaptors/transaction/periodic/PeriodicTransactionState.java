@@ -1,21 +1,27 @@
 package interface_adaptors.transaction.periodic;
 
-/**
- * The PeriodicTransactionState class represents the state of a periodic transaction,
- * including transaction details and success or error messages.
- *
- * @author Xile
- * @author Eric
- */
-public class PeriodicTransactionState {
-    private String transactionAmount;
-    private String transactionStartDate;
-    private String transactionEndDate;
-    private String transactionPeriod;
-    private String transactionDescription;
-    private String transactionCategory;
-    private String successMessage;
-    private String errorMsg;
+public abstract class PeriodicTransactionState {
+    protected String id;
+    protected String transactionAmount;
+    protected String transactionStartDate;
+    protected String transactionEndDate;
+    protected String transactionPeriod;
+    protected String transactionDescription;
+    protected String transactionCategory;
+    protected String successMessage;
+    protected String errorMsg;
+
+    public PeriodicTransactionState() {
+        this.id ="";
+        this.transactionAmount = "0";
+        this.transactionStartDate = "";
+        this.transactionEndDate = "";
+        this.transactionPeriod = "";
+        this.transactionDescription = "";
+        this.transactionCategory = "";
+        this.errorMsg = null;
+        this.successMessage = null;
+    }
 
     /**
      * Gets the transaction amount.
@@ -151,5 +157,8 @@ public class PeriodicTransactionState {
     public void setTransactionCategory(String category) {
         this.transactionCategory = category;
     }
-}
 
+    public void setIdentification (String identification) {
+        this.id = identification;
+    }
+}

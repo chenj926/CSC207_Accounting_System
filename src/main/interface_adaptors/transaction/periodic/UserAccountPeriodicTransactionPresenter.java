@@ -1,6 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
 import interface_adaptors.ViewManagerModel;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
 import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputBoundary;
 import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
@@ -11,10 +12,9 @@ import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
  * @author Eric
  * @author Xile
  */
-public class UserAccountPeriodicTransactionPresenter implements UserAccountPeriodicTransactionOutputBoundary {
-    private final PeriodicTransactionViewModel viewModel;
-    private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
+public class UserAccountPeriodicTransactionPresenter
+        extends PeriodicTransactionPresenter<UserAccountPeriodicTransactionViewModel, UserAccountPeriodicTransactionState>
+        implements UserAccountPeriodicTransactionOutputBoundary {
 
     /**
      * Constructs a UserAccountPeriodicTransactionPresenter object with the specified view model and view manager model.
@@ -22,9 +22,8 @@ public class UserAccountPeriodicTransactionPresenter implements UserAccountPerio
      * @param viewModel  the view model to update the periodic transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public UserAccountPeriodicTransactionPresenter(PeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
-        this.viewModel = viewModel;
-        this.viewManager = viewManager;
+    public UserAccountPeriodicTransactionPresenter(UserAccountPeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
+        super(viewModel, viewManager);
     }
 
     /**
@@ -36,7 +35,7 @@ public class UserAccountPeriodicTransactionPresenter implements UserAccountPerio
     @Override
     public void prepareSuccessView(UserAccountPeriodicTransactionOutputData data) {
         // update the current transaction sate
-        PeriodicTransactionState periodicState = this.viewModel.getState();
+        UserAccountPeriodicTransactionState periodicState = this.viewModel.getState();
 
         // set info
         periodicState.setTransactionAmount(String.valueOf(data.getTransactionAmount()));
@@ -55,20 +54,5 @@ public class UserAccountPeriodicTransactionPresenter implements UserAccountPerio
 
         // go back to home page 2
         this.viewManager.changeView("Homepage Two");
-    }
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the transaction state with the error message and clears the success message.
-     *
-     * @param error the error message to be presented in case of a failed periodic transaction attempt
-     */
-    @Override
-    public void prepareFailView(String error) {
-        PeriodicTransactionState periodicState = this.viewModel.getState();
-        periodicState.setError(error);
-        periodicState.setSuccessMessage(null); // Clear success message on failure
-        this.viewModel.setState(periodicState);
-        this.viewModel.firePropertyChanged();
     }
 }

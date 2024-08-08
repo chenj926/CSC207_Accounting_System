@@ -17,10 +17,10 @@ import java.util.Set;
  *
  *
  */
-public class SharedAccountPeriodicTransactionController {
+public class SharedAccountPeriodicTransactionController extends PeriodicTransactionController <
+        SharedAccountPeriodicTransactionInputBoundary,
+        SharedAccountPeriodicTransactionViewModel>{
 
-    final SharedAccountPeriodicTransactionInputBoundary sharedAccountPeriodicTransactionInputBoundary;
-    final SharedAccountPeriodicTransactionViewModel viewModel;
 
     /**
      * Constructs a SharedAccountPeriodicTransactionController object with the specified use case interactor and view model.
@@ -28,11 +28,9 @@ public class SharedAccountPeriodicTransactionController {
      * @param sharedAccountPeriodicTransactionInputBoundary the use case interactor for shared account periodic transactions
      * @param viewModel                                     the view model to update the shared account transaction state
      */
-    public SharedAccountPeriodicTransactionController(
-            SharedAccountPeriodicTransactionInputBoundary sharedAccountPeriodicTransactionInputBoundary,
+    public SharedAccountPeriodicTransactionController( SharedAccountPeriodicTransactionInputBoundary sharedAccountPeriodicTransactionInputBoundary,
             SharedAccountPeriodicTransactionViewModel viewModel) {
-        this.sharedAccountPeriodicTransactionInputBoundary = sharedAccountPeriodicTransactionInputBoundary;
-        this.viewModel = viewModel;
+        super(sharedAccountPeriodicTransactionInputBoundary, viewModel);
     }
 
     public void execute(String amount, String startDate, String description, String period, String endDate,
@@ -43,9 +41,7 @@ public class SharedAccountPeriodicTransactionController {
         );
 
         // Execute the transaction process using the interactor
-        sharedAccountPeriodicTransactionInputBoundary.execute(inputData);
-
-        // Reset the view model state after processing the transaction
+        periodicTransactionInputBoundary.execute(inputData);
         this.viewModel.resetState();
     }
 }

@@ -1,28 +1,25 @@
 package use_case.homepage;
 
+import data_access.account.AccountDataAccessInterface;
 import data_access.account.UserAccountDataAccessInterface;
+import entity.account.Account;
 import entity.account.UserAccount;
 
-public class HomepageTwoInteractor implements HomepageTwoInputBoundary{
-    private final UserAccountDataAccessInterface userDataAccessObject;
-    private final HomepageTwoOutputBoundary presenter;
+public abstract class HomepageTwoInteractor<
+        DAO extends AccountDataAccessInterface,
+        PRE extends HomepageTwoOutBoundary<O>,
+        I extends HomepageTwoInputData,
+        O extends HomepageTwoOutputData> implements HomepageTwoInputBoundary<I> {
 
-    public HomepageTwoInteractor(UserAccountDataAccessInterface userDataAccessObject,
-                                 HomepageTwoOutputBoundary presenter) {
+    protected final DAO userDataAccessObject;
+    protected final PRE presenter;
+
+    public HomepageTwoInteractor(DAO userDataAccessObject,
+                                            PRE presenter) {
         this.userDataAccessObject = userDataAccessObject;
         this.presenter = presenter;
     }
 
-    public void execute(HomepageTwoInputData inputData) {
-        String id = inputData.getId();
-        UserAccount user = userDataAccessObject.getById(id);
-        String username = user.getUsername();
-        String totalIncome = String.valueOf(user.getTotalIncome());
-        String totalOutflow = String.valueOf(user.getTotalOutflow());
-        String totalBalance = String.valueOf(user.getTotalBalance());
-
-        String[] basicUserInfo = {username, totalIncome, totalOutflow, totalBalance};
-        HomepageTwoOutputData outputData = new HomepageTwoOutputData(basicUserInfo);
-        presenter.prepareSuccessView(outputData);
-    }
+    @Override
+    public abstract void execute(I inputData);
 }
