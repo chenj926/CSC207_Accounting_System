@@ -3,7 +3,8 @@ package interface_adaptors.login;
 import interface_adaptors.ViewManagerModel;
 import use_case.login.LoginOutputData;
 
-public abstract class AccountLoginPresenter<V extends AccountLoginViewModel,
+public abstract class AccountLoginPresenter<
+        V extends AccountLoginViewModel,
         O extends LoginOutputData,
         S extends AccountLoginState>{
     protected final ViewManagerModel viewManagerModel;
