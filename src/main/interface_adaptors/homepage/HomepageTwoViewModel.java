@@ -2,9 +2,10 @@ package interface_adaptors.homepage;
 
 import interface_adaptors.ViewModel;
 
+import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel {
+public abstract class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel {
     // labels
     protected final String USERNAME_LABEL = "User:";
     protected final String BALANCE_LABEL = "Total Balance:";
@@ -17,7 +18,10 @@ public class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel 
     protected final String FINANCIAL_REPORT_BUTTON_LABEL = "Transaction Report";
 
     protected String[] basicUserInfo;
-
+    /**
+     * Notifies listeners that the signup state has changed.
+     */
+    protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
     protected S state;
 
     public HomepageTwoViewModel(String viewName) {
@@ -103,6 +107,9 @@ public class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel 
         return this.basicUserInfo;
     }
 
+    public abstract S getState();
+    public abstract void setState(S state);
+    protected abstract void resetState();
 
     /**
      * Sets the basic user information.
@@ -111,6 +118,23 @@ public class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel 
      */
     public void setBasicUserInfo(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
+    }
+
+    /**
+     * Notifies listeners that the signup state has changed.
+     */
+    public void firePropertyChanged() {
+        support.firePropertyChange("state", null, this.state);
+    }
+
+    /**
+     * Adds a property change listener to the listener list.
+     *
+     * @param listener the PropertyChangeListener to be added
+     */
+    @Override
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
     }
 
 }

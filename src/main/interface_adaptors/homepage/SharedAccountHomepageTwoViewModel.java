@@ -7,11 +7,6 @@ public class SharedAccountHomepageTwoViewModel extends HomepageTwoViewModel<Shar
     private final String TITLE_LABEL = "Shared Account";
 
     /**
-     * Notifies listeners that the signup state has changed.
-     */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    /**
      * Constructs a TransactionViewModel object with the view name set to "Transaction".
      */
     public SharedAccountHomepageTwoViewModel() {
@@ -33,6 +28,7 @@ public class SharedAccountHomepageTwoViewModel extends HomepageTwoViewModel<Shar
      *
      * @return the current state
      */
+    @Override
     public SharedAccountHomepageTwoState getState() {
         return this.state;
     }
@@ -43,6 +39,7 @@ public class SharedAccountHomepageTwoViewModel extends HomepageTwoViewModel<Shar
      *
      * @param state the new state
      */
+    @Override
     public void setState(SharedAccountHomepageTwoState state) {
         this.state = state;
         this.basicUserInfo = state.getBasicUserInfo();
@@ -51,26 +48,10 @@ public class SharedAccountHomepageTwoViewModel extends HomepageTwoViewModel<Shar
     /**
      * Resets the state to a new default state.
      */
+    @Override
     public void resetState() {
         SharedAccountHomepageTwoState newState = new SharedAccountHomepageTwoState();
         setState(newState);
-    }
-
-    /**
-     * Notifies listeners that the signup state has changed.
-     */
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    /**
-     * Adds a property change listener to the listener list.
-     *
-     * @param listener the PropertyChangeListener to be added
-     */
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
     }
 
 }

@@ -16,11 +16,6 @@ public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAc
     private final String TITLE_LABEL = "User Account";
 
     /**
-     * Notifies listeners that the signup state has changed.
-     */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    /**
      * Constructs a TransactionViewModel object with the view name set to "Transaction".
      */
     public UserAccountHomepageTwoViewModel() {
@@ -42,6 +37,7 @@ public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAc
      *
      * @return the current state
      */
+    @Override
     public UserAccountHomepageTwoState getState() {
         return this.state;
     }
@@ -52,6 +48,7 @@ public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAc
      *
      * @param state the new state
      */
+    @Override
     public void setState(UserAccountHomepageTwoState state) {
         this.state = state;
         this.basicUserInfo = state.getBasicUserInfo();
@@ -60,25 +57,10 @@ public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAc
     /**
      * Resets the state to a new default state.
      */
+    @Override
     public void resetState() {
         UserAccountHomepageTwoState newState = new UserAccountHomepageTwoState();
         setState(newState);
     }
 
-    /**
-     * Notifies listeners that the signup state has changed.
-     */
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    /**
-     * Adds a property change listener to the listener list.
-     *
-     * @param listener the PropertyChangeListener to be added
-     */
-    @Override
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
 }
