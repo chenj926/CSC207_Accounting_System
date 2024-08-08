@@ -256,17 +256,17 @@ public class UserAccountPeriodicTransactionInteractor extends TransactionInterac
         periodicInflow.setDate(transactionDate);
 
         // Create a new PeriodicInflow object
-        float totalIncome = userAccount.getTotalIncome() + amount;
-        userAccount.setTotalIncome(totalIncome);
+        float totalIncome = account.getTotalIncome() + amount;
+        account.setTotalIncome(totalIncome);
 
         // Update the user's total income and balance
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);
+        float totalBalance = account.getTotalBalance() + amount;
+        account.setTotalBalance(totalBalance);
 
         // Prepare the output data
         UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(periodicInflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(account);
 
         return outputData;
     }
@@ -295,16 +295,16 @@ public class UserAccountPeriodicTransactionInteractor extends TransactionInterac
         periodicOutflow.setDate(transactionDate);
 
         // Update the user's total outflow and balance
-        float totalOutflow = userAccount.getTotalOutflow() + amount;
-        userAccount.setTotalOutflow(totalOutflow);
+        float totalOutflow = account.getTotalOutflow() + amount;
+        account.setTotalOutflow(totalOutflow);
 
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);
+        float totalBalance = account.getTotalBalance() + amount;
+        account.setTotalBalance(totalBalance);
 
         // Prepare the output data
         UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(periodicOutflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(account);
 
         return outputData;
     }
