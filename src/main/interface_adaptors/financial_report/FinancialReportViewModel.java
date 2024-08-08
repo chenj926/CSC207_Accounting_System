@@ -14,7 +14,6 @@ public abstract class FinancialReportViewModel<S extends FinancialReportState> e
 
     public FinancialReportViewModel(String viewName) {
         super(viewName);
-        this.reportContent = state.getReportContent();
     }
 
     public String getTitleLabel() {

@@ -10,7 +10,9 @@ import use_case.financial_report.UserAccountFinancialReportInputData;
  */
 public class UserAccountFinancialReportController extends FinancialReportController<
         UserAccountFinancialReportInputBoundary,
-        UserAccountFinancialReportViewModel> {
+        UserAccountFinancialReportViewModel,
+        UserAccountFinancialReportInputData,
+        UserAccountFinancialReportState> {
 
 
     /**

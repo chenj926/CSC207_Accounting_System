@@ -1,15 +1,18 @@
 package interface_adaptors.financial_report;
 
 import use_case.financial_report.FinancialReportInputBoundary;
+import use_case.financial_report.FinancialReportInputData;
 
 public abstract class FinancialReportController<
-        I extends FinancialReportInputBoundary,
-        V extends FinancialReportViewModel> {
+        IB extends FinancialReportInputBoundary<I>,
+        V extends FinancialReportViewModel<S>,
+        I extends FinancialReportInputData,
+        S extends FinancialReportState> {
 
-    protected final I financialReportInteractor;
+    protected final IB financialReportInteractor;
     protected final V viewModel;
 
-    public FinancialReportController (I financialReportInteractor, V viewModel){
+    public FinancialReportController (IB financialReportInteractor, V viewModel){
         this.financialReportInteractor = financialReportInteractor;
         this.viewModel = viewModel;
     }

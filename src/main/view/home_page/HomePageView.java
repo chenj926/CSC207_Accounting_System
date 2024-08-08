@@ -33,7 +33,7 @@ public class HomePageView extends JFrame implements PropertyChangeListener {
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 400);
+        setSize(1200, 750);
         setVisible(true);
 
     }

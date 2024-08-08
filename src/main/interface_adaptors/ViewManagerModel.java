@@ -12,6 +12,7 @@ import app.transaction.PeriodicTransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
 import app.transaction.SharedAccountOneTimeTransactionUseCaseFactory;
 import app.transaction.SharedAccountPeriodicTransactionUseCaseFactory;
+import interface_adaptors.financial_report.SharedAccountFinancialReportViewModel;
 import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
 import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
@@ -115,8 +116,8 @@ public class ViewManagerModel {
         UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = new UserAccountFinancialReportViewModel();
         this.viewModels.put("Financial Report", userAccountFinancialReportViewModel);
 
-//        SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
-//        this.viewModels.put("Shared Account Financial Report", sharedAccountFinancialReportViewModel);
+        SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
+        this.viewModels.put("Shared Account Financial Report", sharedAccountFinancialReportViewModel);
     }
 
     public <V extends ViewModel> void updateViewModel(String viewModelName, V viewModel) {

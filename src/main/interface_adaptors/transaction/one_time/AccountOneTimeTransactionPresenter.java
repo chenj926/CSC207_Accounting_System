@@ -6,7 +6,7 @@ import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
 public abstract class AccountOneTimeTransactionPresenter<
-        V extends AccountOneTimeTransactionViewModel,
+        V extends AccountOneTimeTransactionViewModel<S>,
         S extends AccountOneTimeTransactionState>{
 
     protected final V viewModel;

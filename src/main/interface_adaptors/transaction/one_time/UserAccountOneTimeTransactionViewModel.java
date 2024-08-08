@@ -14,8 +14,7 @@ import java.beans.PropertyChangeSupport;
  * @author Jessica
  * @author Eric
  */
-public class UserAccountOneTimeTransactionViewModel extends
-        AccountOneTimeTransactionViewModel<
+public class UserAccountOneTimeTransactionViewModel extends AccountOneTimeTransactionViewModel<
                 UserAccountOneTimeTransactionState> {
 
     /**

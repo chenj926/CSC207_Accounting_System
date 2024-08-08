@@ -4,19 +4,21 @@ import data_access.financial_report_api_accessor.TextToSpeech;
 import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.UserAccountFinancialReportOutputBoundary;
 import use_case.financial_report.UserAccountFinancialReportOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
 /**
  * Implements the output boundary to present the financial report.
  *
  * @author Chi Fong, Eric Chen
  */
-public class UserAccountFinancialReportPresenter extends FinancialReportPresenter implements UserAccountFinancialReportOutputBoundary {
-    private final UserAccountFinancialReportViewModel viewModel;
-//    private ViewManagerModel viewManager;
+public class UserAccountFinancialReportPresenter extends FinancialReportPresenter<
+        UserAccountFinancialReportViewModel,
+        UserAccountFinancialReportState,
+        UserAccountFinancialReportOutputData> implements UserAccountFinancialReportOutputBoundary {
+
 
     public UserAccountFinancialReportPresenter(UserAccountFinancialReportViewModel viewModel, ViewManagerModel viewManager) {
-        super(viewManager);
-        this.viewModel = viewModel;
+        super(viewModel, viewManager);
     }
 
     /**
@@ -33,7 +35,7 @@ public class UserAccountFinancialReportPresenter extends FinancialReportPresente
         state.setNoTransaction(null);  // reset the no transaction error
         this.viewModel.setState(state);
         this.viewModel.setReportContent(state.getReportContent());
-        this.viewModel.firePropertyChanged();
+        this.viewModel.firePropertyChange();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
 

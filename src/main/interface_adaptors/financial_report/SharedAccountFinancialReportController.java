@@ -5,7 +5,9 @@ import use_case.financial_report.SharedAccountFinancialReportInputData;
 
 public class SharedAccountFinancialReportController extends FinancialReportController<
         SharedAccountFinancialReportInputBoundary,
-        SharedAccountFinancialReportViewModel> {
+        SharedAccountFinancialReportViewModel,
+        SharedAccountFinancialReportInputData,
+        SharedAccountFinancialReportState> {
 
     public SharedAccountFinancialReportController(SharedAccountFinancialReportInputBoundary
                                                           sharedAccountFinancialReportInteractor,
