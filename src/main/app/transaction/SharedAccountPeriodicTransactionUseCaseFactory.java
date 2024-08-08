@@ -14,9 +14,29 @@ import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * Factory class for creating components related to the shared account periodic transaction use case.
+ * <p>
+ * This factory is responsible for assembling the necessary components, such as the view,
+ * controller, interactor, and presenter, for handling periodic transactions associated with shared accounts.
+ * </p>
+ * @author Eric
+ * @author Zella
+ */
 public class SharedAccountPeriodicTransactionUseCaseFactory {
     private SharedAccountPeriodicTransactionUseCaseFactory() {}
 
+    /**
+     * Creates and returns the view for the shared account periodic transaction use case.
+     * <p>
+     * This method sets up the necessary components, including the controller and view model,
+     * for handling periodic transactions and returns the assembled view.
+     * </p>
+     *
+     * @param viewManagerModel the model responsible for managing view transitions
+     * @param viewModel the view model that holds the state of the periodic transaction
+     * @return the assembled SharedAccountPeriodicTransactionView
+     */
     public static SharedAccountPeriodicTransactionView create(ViewManagerModel viewManagerModel,
                                                               SharedAccountPeriodicTransactionViewModel viewModel) {
         try {
@@ -29,6 +49,18 @@ public class SharedAccountPeriodicTransactionUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and returns the controller for handling shared account periodic transactions.
+     * <p>
+     * This method sets up the interactor and presenter required to manage shared account periodic transactions,
+     * and returns a controller to facilitate interactions between the user and the use case.
+     * </p>
+     *
+     * @param viewManager the model responsible for managing view transitions
+     * @param viewModel the view model that holds the state of the periodic transaction
+     * @return the assembled SharedAccountPeriodicTransactionController
+     * @throws IOException if an error occurs while accessing the shared account data file
+     */
     private static SharedAccountPeriodicTransactionController createSharedAccountPeriodicUseCase(
             ViewManagerModel viewManager,
             SharedAccountPeriodicTransactionViewModel viewModel) throws IOException {
