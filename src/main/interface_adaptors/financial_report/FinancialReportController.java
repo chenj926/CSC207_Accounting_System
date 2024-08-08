@@ -1,7 +1,7 @@
 package interface_adaptors.financial_report;
 
-import use_case.financial_report.FinancialReportInputBoundary;
-import use_case.financial_report.FinancialReportInputData;
+import use_case.financial_report.UserAccountFinancialReportInputBoundary;
+import use_case.financial_report.UserAccountFinancialReportInputData;
 
 /**
  * Controller for handling financial report generation requests.
@@ -9,17 +9,17 @@ import use_case.financial_report.FinancialReportInputData;
  * @author :Chi Fong Dana Eric
  */
 public class FinancialReportController {
-    private final FinancialReportInputBoundary financialReportInputBoundary;
+    private final UserAccountFinancialReportInputBoundary userAccountFinancialReportInputBoundary;
     private final FinancialReportViewModel viewModel;
 
 
     /**
      * Constructs a FinancialReportController with the specified interactor.
      *
-     * @param financialReportInputBoundary the use case interactor for generating financial reports
+     * @param userAccountFinancialReportInputBoundary the use case interactor for generating financial reports
      */
-    public FinancialReportController(FinancialReportInputBoundary financialReportInputBoundary, FinancialReportViewModel viewModel) {
-        this.financialReportInputBoundary = financialReportInputBoundary;
+    public FinancialReportController(UserAccountFinancialReportInputBoundary userAccountFinancialReportInputBoundary, FinancialReportViewModel viewModel) {
+        this.userAccountFinancialReportInputBoundary = userAccountFinancialReportInputBoundary;
         this.viewModel = viewModel;
     }
 
@@ -31,8 +31,8 @@ public class FinancialReportController {
 //     * @param endDate the end date of the report period
      */
     public void execute(String identification) {
-        FinancialReportInputData financialReportInputData = new FinancialReportInputData(identification);
-        financialReportInputBoundary.execute(financialReportInputData);
+        UserAccountFinancialReportInputData userAccountFinancialReportInputData = new UserAccountFinancialReportInputData(identification);
+        userAccountFinancialReportInputBoundary.execute(userAccountFinancialReportInputData);
 //        this.viewModel.resetState();
     }
 }

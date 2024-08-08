@@ -5,13 +5,13 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicTransaction;
-import interface_adaptors.financial_report.FinancialReportPresenter;
+import interface_adaptors.financial_report.UserAccountFinancialReportPresenter;
 import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.financial_report.FinancialReportInputData;
-import use_case.financial_report.FinancialReportInteractor;
+import use_case.financial_report.UserAccountFinancialReportInputData;
+import use_case.financial_report.UserAccountFinancialReportInteractor;
 
 import java.time.LocalDate;
 import java.util.Date;
@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class FinancialReportInteractorTest {
 
     private UserAccount account;
-    private FinancialReportPresenter presenter;
-    private FinancialReportInteractor interactor;
+    private UserAccountFinancialReportPresenter presenter;
+    private UserAccountFinancialReportInteractor interactor;
     private CSVUserAccountDataAccessObject userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
     private FinancialReportViewModel viewModel = new FinancialReportViewModel();
     private ViewManagerModel viewManagerModel = new ViewManagerModel();
@@ -34,9 +34,9 @@ public class FinancialReportInteractorTest {
     @BeforeEach
     public void setUp() {
         account = userAccountDataAccessObject.getById("id007");
-        presenter = new FinancialReportPresenter(viewModel, viewManagerModel);
+        presenter = new UserAccountFinancialReportPresenter(viewModel, viewManagerModel);
         userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
-        interactor = new FinancialReportInteractor(account, presenter, userAccountDataAccessObject);
+        interactor = new UserAccountFinancialReportInteractor(account, presenter, userAccountDataAccessObject);
 
         // test for one time
         Transaction t1 = new OneTimeTransaction("t1", 100.0f, LocalDate.of(2024, 7, 1), "Salary", "Income") {};
@@ -51,7 +51,7 @@ public class FinancialReportInteractorTest {
 
     @Test
     public void testexecute() {
-        FinancialReportInputData inputData = new FinancialReportInputData("","id0", new Date(), new Date());
+        UserAccountFinancialReportInputData inputData = new UserAccountFinancialReportInputData("","id0", new Date(), new Date());
         interactor.execute();
 
         String reportContent = presenter.getReportContent();

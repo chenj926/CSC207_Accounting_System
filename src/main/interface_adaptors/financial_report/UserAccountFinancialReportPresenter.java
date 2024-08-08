@@ -2,21 +2,21 @@ package interface_adaptors.financial_report;
 
 import data_access.financial_report_api_accessor.TextToSpeech;
 import interface_adaptors.ViewManagerModel;
-import use_case.financial_report.FinancialReportOutputBoundary;
-import use_case.financial_report.FinancialReportOutputData;
+import use_case.financial_report.UserAccountFinancialReportOutputBoundary;
+import use_case.financial_report.UserAccountFinancialReportOutputData;
 
 /**
  * Implements the output boundary to present the financial report.
  *
  * @author Chi Fong, Eric Chen
  */
-public class FinancialReportPresenter implements FinancialReportOutputBoundary {
+public class UserAccountFinancialReportPresenter implements UserAccountFinancialReportOutputBoundary {
     private String reportContent;
     private final FinancialReportViewModel viewModel;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
-    public FinancialReportPresenter(FinancialReportViewModel viewModel, ViewManagerModel viewManager) {
+    public UserAccountFinancialReportPresenter(FinancialReportViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }
@@ -27,7 +27,7 @@ public class FinancialReportPresenter implements FinancialReportOutputBoundary {
      * @param outputData the output data containing the report content
      */
     @Override
-    public void prepareSuccessView(FinancialReportOutputData outputData) {
+    public void prepareSuccessView(UserAccountFinancialReportOutputData outputData) {
         FinancialReportState state = this.viewModel.getState();
         this.reportContent = outputData.getReportContent();
 
