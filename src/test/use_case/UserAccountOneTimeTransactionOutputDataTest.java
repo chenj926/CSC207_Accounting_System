@@ -3,7 +3,7 @@ package use_case;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class OneTimeTransactionOutputDataTest {
+public class UserAccountOneTimeTransactionOutputDataTest {
 
     @Test
     public void testConstructorForOutflow() {
@@ -25,7 +25,7 @@ public class OneTimeTransactionOutputDataTest {
 
         OneTimeOutflow oneTimeOutflow = new OneTimeOutflow(identification, amount, date, description, category);
 
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeOutflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(oneTimeOutflow);
 
         assertEquals(date, outputData.getTransactionDate());
         assertEquals(description, outputData.getTransactionDescription());
@@ -43,7 +43,7 @@ public class OneTimeTransactionOutputDataTest {
 
         OneTimeInflow oneTimeInflow = new OneTimeInflow(identification, amount, date, description, category);
 
-        OneTimeTransactionOutputData outputData = new OneTimeTransactionOutputData(oneTimeInflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(oneTimeInflow);
 
         assertEquals(date, outputData.getTransactionDate());
         assertEquals(description, outputData.getTransactionDescription());

@@ -1,11 +1,11 @@
 package use_case;
 
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.PeriodicTransactionInputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PeriodicTransactionInputDataTest {
+public class UserAccountPeriodicTransactionInputDataTest {
 
     @Test
     public void testConstructorAndGetters() {
@@ -19,7 +19,7 @@ public class PeriodicTransactionInputDataTest {
         String transactionCategory = "Auto";
         String transactionDate = "2024-01-01";;
 
-        PeriodicTransactionInputData inputData = new PeriodicTransactionInputData(
+        UserAccountPeriodicTransactionInputData inputData = new UserAccountPeriodicTransactionInputData(
                 transactionId,
                 transactionAmountString,
                 transactionStartDate,

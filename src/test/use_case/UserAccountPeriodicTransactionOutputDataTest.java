@@ -4,14 +4,14 @@ import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class PeriodicTransactionOutputDataTest {
+public class UserAccountPeriodicTransactionOutputDataTest {
 
     private PeriodicInflow periodicInflow;
     private PeriodicOutflow periodicOutflow;
@@ -26,7 +26,7 @@ public class PeriodicTransactionOutputDataTest {
 
     @Test
     public void testPeriodicTransactionOutputDataInflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
+        UserAccountPeriodicTransactionOutputData data = new UserAccountPeriodicTransactionOutputData(periodicInflow);
         assertNotNull(data);
         assertEquals(100.0f, data.getTransactionAmount());
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionDate());
@@ -37,7 +37,7 @@ public class PeriodicTransactionOutputDataTest {
 
     @Test
     public void testPeriodicTransactionOutputDataOutflow() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicOutflow);
+        UserAccountPeriodicTransactionOutputData data = new UserAccountPeriodicTransactionOutputData(periodicOutflow);
         assertNotNull(data);
         assertEquals(50.0f, data.getTransactionAmount());
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
@@ -48,7 +48,7 @@ public class PeriodicTransactionOutputDataTest {
 
     @Test
     public void testSetters() {
-        PeriodicTransactionOutputData data = new PeriodicTransactionOutputData(periodicInflow);
+        UserAccountPeriodicTransactionOutputData data = new UserAccountPeriodicTransactionOutputData(periodicInflow);
 
         data.setTransactionAmount(200.0f);
         assertEquals(200.0f, data.getTransactionAmount());
