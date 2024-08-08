@@ -1,9 +1,9 @@
 package view.signup;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.signup.SignupController;
-import interface_adaptors.signup.SignupState;
-import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.UserAccountSignupController;
+import interface_adaptors.signup.UserAccountSignupState;
+import interface_adaptors.signup.UserAccountSignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +14,8 @@ import java.beans.PropertyChangeListener;
  * The SignupView class represents the GUI for user signup. It extends JFrame and manages the signup panel.
  */
 public class SignupView extends JFrame implements PropertyChangeListener {
-    protected final SignupViewModel viewModel;
-    protected final SignupController signupController;
+    protected final UserAccountSignupViewModel viewModel;
+    protected final UserAccountSignupController userAccountSignupController;
     protected final ViewManagerModel viewManager;
     private final SignupPanel signupPanel;
 
@@ -23,17 +23,17 @@ public class SignupView extends JFrame implements PropertyChangeListener {
      * Constructs a SignupView object with the specified view model, controller, and view manager.
      *
      * @param viewModel        the view model for the signup view
-     * @param signupController the controller for handling signup actions
+     * @param userAccountSignupController the controller for handling signup actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SignupView(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
+    public SignupView(UserAccountSignupViewModel viewModel, UserAccountSignupController userAccountSignupController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
-        this.signupController = signupController;
+        this.userAccountSignupController = userAccountSignupController;
         this.viewManager = viewManager;
         this.viewModel.addPropertyChangeListener(this);
 
-        this.signupPanel = new SignupPanel(viewModel, signupController, viewManager);
+        this.signupPanel = new SignupPanel(viewModel, userAccountSignupController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +55,7 @@ public class SignupView extends JFrame implements PropertyChangeListener {
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SignupState state = (SignupState) evt.getNewValue();
+        UserAccountSignupState state = (UserAccountSignupState) evt.getNewValue();
 
         if (!state.isValid()) {
             JOptionPane.showMessageDialog(this, state.getStateError());

@@ -1,7 +1,7 @@
 package use_case.homepage;
 
 public class HomepageTwoOutputData {
-    private String[] basicUserInfo;
+    protected String[] basicUserInfo;
 
     public HomepageTwoOutputData(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
@@ -14,5 +14,4 @@ public class HomepageTwoOutputData {
     public void setBasicUserInfo(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
     }
-
 }

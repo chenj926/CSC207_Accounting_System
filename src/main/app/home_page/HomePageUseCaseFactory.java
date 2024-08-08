@@ -1,9 +1,6 @@
 package app.home_page;
 
-import interface_adaptors.*;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.LoginViewModel;
-import interface_adaptors.signup.SignupViewModel;
 import interface_adaptors.HomePageViewModel;
 import view.home_page.HomePageView;
 

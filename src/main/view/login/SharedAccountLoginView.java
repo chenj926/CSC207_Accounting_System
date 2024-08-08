@@ -1,7 +1,6 @@
 package view.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.LoginController;
 import interface_adaptors.login.SharedAccountLoginController;
 import interface_adaptors.login.SharedAccountLoginState;
 import interface_adaptors.login.SharedAccountLoginViewModel;
@@ -17,7 +16,7 @@ import java.beans.PropertyChangeListener;
  */
 public class SharedAccountLoginView extends JFrame implements PropertyChangeListener {
     private SharedAccountLoginViewModel sharedViewModel;
-    private SharedAccountLoginController sharedLoginController;
+//    private SharedAccountLoginController sharedLoginController;
     private SharedAccountLoginPanel sharedAccountLoginPanel;
 
     /**
@@ -30,7 +29,7 @@ public class SharedAccountLoginView extends JFrame implements PropertyChangeList
     public SharedAccountLoginView(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
         super(sharedViewModel.getTitleLabel());
         this.sharedViewModel = sharedViewModel;
-        this.sharedLoginController = sharedLoginController;
+//        this.sharedLoginController = sharedLoginController;
         this.sharedViewModel.addPropertyChangeListener(this);
 
         sharedAccountLoginPanel = new SharedAccountLoginPanel(sharedViewModel, sharedLoginController, viewManager);

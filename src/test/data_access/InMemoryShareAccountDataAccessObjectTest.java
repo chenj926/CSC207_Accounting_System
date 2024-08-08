@@ -1,6 +1,6 @@
 package data_access;
 
-import data_access.account.InMemoryShareAccountDataAccessObject;
+import data_access.account.InMemorySharedAccountDataAccessObject;
 import entity.account.SharedAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Map;
 
 public class InMemoryShareAccountDataAccessObjectTest {
-    private InMemoryShareAccountDataAccessObject dao;
+    private InMemorySharedAccountDataAccessObject dao;
     private SharedAccount sharedAccount;
 
     @BeforeEach
     public void setUp() {
-        dao = new InMemoryShareAccountDataAccessObject();
+        dao = new InMemorySharedAccountDataAccessObject();
         sharedAccount = new SharedAccount("shared123");
         sharedAccount.addUserIdentification("user1");
     }

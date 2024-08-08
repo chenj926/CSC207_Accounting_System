@@ -3,24 +3,16 @@ package use_case.transaction.periodic;
 import java.util.Set;
 
 /**
- * The SharedAccountPeriodicTransactionInputData class represents the input data required for a periodic transaction operation
+ * The SharedAccountUserAccountPeriodicTransactionInputData class represents the input data required for a periodic transaction operation
  * involving a shared account.
  * It includes details such as the shared account, transaction amount, start date, end date, period, description, category,
  * and the set of responsible users.
  */
 public class SharedAccountPeriodicTransactionInputData extends PeriodicTransactionInputData {
-    private final Set<String> responsibleUserIds; // Users responsible for the transaction
+//    private final Set<String> responsibleUserIds; // Users responsible for the transaction
+    private final String sharedAccountId;
 
-    /**
-     * Constructs a SharedAccountPeriodicTransactionInputData object with the specified details.
-     * @param transactionAmount      the amount of the transaction
-     * @param transactionStartDate   the start date of the transaction
-     * @param transactionEndDate     the end date of the transaction
-     * @param transactionPeriod      the period of the transaction
-     * @param transactionDescription the description of the transaction
-     * @param transactionCategory    the category of the transaction
-     * @param responsibleUserIds     the set of user IDs responsible for the transaction
-     */
+
     public SharedAccountPeriodicTransactionInputData(
             String transactionAmount,
             String transactionStartDate,
@@ -28,9 +20,11 @@ public class SharedAccountPeriodicTransactionInputData extends PeriodicTransacti
             String transactionPeriod,
             String transactionDescription,
             String transactionCategory,
-            Set<String> responsibleUserIds) {
-        super(transactionAmount, transactionStartDate, transactionDescription, transactionPeriod, transactionEndDate, transactionCategory);
-        this.responsibleUserIds = responsibleUserIds;
+            String transactionDate,
+            String sharedAccountId,
+            String userId) {
+        super(userId, transactionAmount, transactionStartDate, transactionDescription, transactionPeriod, transactionEndDate, transactionCategory, transactionDate);
+        this.sharedAccountId = sharedAccountId;
     }
 
 
@@ -39,7 +33,10 @@ public class SharedAccountPeriodicTransactionInputData extends PeriodicTransacti
      *
      * @return a set of user IDs responsible for the transaction
      */
-    public Set<String> getResponsibleUserIds() {
-        return responsibleUserIds;
+    public String getSharedAccountId() {
+        return this.sharedAccountId;
     }
+
+    // public Set<String> getResponsibleUserIds();
+
 }

@@ -1,5 +1,7 @@
 package entity.account;
 
+import java.util.Set;
+
 /**
  * The AccountFactory class is responsible for creating different types of account objects.
  * It provides methods to create user accounts and shared accounts.
@@ -27,7 +29,7 @@ public class AccountFactory {
      * @param sharedAccountPassword the password for the new shared account
      * @return a new SharedAccount object
      */
-    public SharedAccount createSharedAccount(String sharedAccountIdentification, String sharedAccountPassword) {
-        return new SharedAccount(sharedAccountIdentification, sharedAccountPassword);
+    public SharedAccount createSharedAccount(String sharedAccountIdentification, Set<String> users, String sharedAccountPassword) {
+        return new SharedAccount(sharedAccountIdentification, users, sharedAccountPassword);
     }
 }

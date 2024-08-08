@@ -2,11 +2,14 @@ package data_access.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
+import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,7 +50,7 @@ public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInt
 
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
-                                PeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+                                UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         if (isPeriodic) {
             System.out.println("Saving periodic transaction data...");
         } else {
@@ -55,19 +58,13 @@ public class InMemoryOneTimeDataAccessObject implements UserAccountDataAccessInt
         }
     }
 
-    // Add methods for shared account transactions
-//    public void saveSharedTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
-//                                             SharedAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
-//        if (isPeriodic) {
-//            System.out.println("Saving shared account periodic transaction data...");
-//            // Store the periodic transaction
-//            sharedAccountPeriodicTransactions.put(periodicOutputData.getId(), periodicOutputData);
-//        } else {
-//            System.out.println("Saving shared account one-time transaction data...");
-//            // Store the one-time transaction
-//            sharedAccountOneTimeTransactions.put(oneTimeOutputData.getId(), oneTimeOutputData);
-//        }
-//    }
+    @Override
+    public List<Transaction> readTransactions(String userId) {
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.addAll(users.get(userId).getTransactions());
+        transactions.removeIf(transaction -> transaction instanceof PeriodicTransaction);
+        return transactions;
+    }
 
     // Additional methods to retrieve shared transactions can be added as needed
     public SharedAccountOneTimeTransactionOutputData getSharedOneTimeTransaction(String transactionId) {

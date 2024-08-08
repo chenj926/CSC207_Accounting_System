@@ -6,6 +6,8 @@ import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
 import entity.transaction.one_time.OneTimeTransaction;
 import use_case.transaction.TransactionInteractor;
+import use_case.transaction.TransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 
@@ -20,7 +22,7 @@ public abstract class OneTimeTransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
         O extends OneTimeTransactionOutputData,
-        P,
+        P extends PeriodicTransactionOutputData,
         I extends OneTimeTransactionInputData> extends TransactionInteractor<DAO, A, O, P> implements OneTimeTransactionInputBoundary<I> {
 
     protected final OneTimeTransactionOutputBoundary<O> presenter;
@@ -73,7 +75,7 @@ public abstract class OneTimeTransactionInteractor<
         }
     }
 
-    private void processInflow(String identification, float amount, LocalDate date, String description, String category) {
+    protected void processInflow(String identification, float amount, LocalDate date, String description, String category) {
         float totalIncome = this.account.getTotalIncome() + amount;
         this.account.setTotalIncome(totalIncome);  // update the total income
 
@@ -92,7 +94,7 @@ public abstract class OneTimeTransactionInteractor<
         presenter.prepareSuccessView(outputData);
     }
 
-    private void processOutflow(String identification, float amount, LocalDate date, String description, String category) {
+    protected void processOutflow(String identification, float amount, LocalDate date, String description, String category) {
         float totalOutflow = this.account.getTotalOutflow() + amount;
         this.account.setTotalOutflow(totalOutflow);  // update the total outflow
 

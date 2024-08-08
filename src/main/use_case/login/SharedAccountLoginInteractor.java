@@ -1,5 +1,6 @@
 package use_case.login;
 
+import data_access.authentication.LoginDataAccessInterface;
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.SharedAccount;
 ;
@@ -13,10 +14,11 @@ import java.time.LocalDate;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoundary{
-    final SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessObject;
-    final SharedAccountLoginOutputBoundary sharedPresenter;
-    private UserLoginMediator mediator;
+public class SharedAccountLoginInteractor extends LoginInteractor<
+        SharedAccountLoginDataAccessInterface,
+        SharedAccountLoginOutputBoundary,
+        SharedAccountLoginOutputData,
+        SharedAccountLoginInputData>implements SharedAccountLoginInputBoundary{
 
     /**
      * Constructs a SharedAccountLoginInteractor object with the specified data access interfaces and output boundary.
@@ -26,17 +28,7 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
      */
     public SharedAccountLoginInteractor(SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessInterface,
                                         SharedAccountLoginOutputBoundary sharedLoginOutputBoundary) {
-        this.sharedPresenter = sharedLoginOutputBoundary;
-        this.sharedAccountLoginDataAccessObject = sharedAccountLoginDataAccessInterface;
-    }
-
-    /**
-     * Sets the mediator for the interactor.
-     *
-     * @param mediator the LoginMediator instance to set
-     */
-    public void setMediator(UserLoginMediator mediator) {
-        this.mediator = mediator;
+        super(sharedAccountLoginDataAccessInterface, sharedLoginOutputBoundary);
     }
 
     /**
@@ -47,69 +39,43 @@ public class SharedAccountLoginInteractor implements SharedAccountLoginInputBoun
     @Override
     public void execute(SharedAccountLoginInputData sharedLoginInputData) {
 
-        boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getSharedAccountId());
-        boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getSharedPassword());
+        boolean validSharedAccountId = this.checkIdentification(sharedLoginInputData.getIdentification());
+        boolean validSharedAccountPassword = this.checkPassword(sharedLoginInputData.getPassword());
 
         if (!validSharedAccountPassword && !validSharedAccountId) {
-            sharedPresenter.prepareFailView("Identification AND Password can not be empty!");
+            this.presenter.prepareFailView("Identification AND Password can not be empty!");
             return;
         } else if (!validSharedAccountPassword) {
-            sharedPresenter.prepareFailView("Password can not be empty!");
+            this.presenter.prepareFailView("Password can not be empty!");
             return;
         } else if (!validSharedAccountId) {
-            sharedPresenter.prepareFailView("Identification can not be empty!");
+            this.presenter.prepareFailView("Identification can not be empty!");
             return;
         } else {
-            if (!sharedAccountLoginDataAccessObject.existById(sharedLoginInputData.getSharedAccountId())) {
-                sharedPresenter.prepareFailView("Shared Account not found");
+            if (!this.userDataAccessObject.existById(sharedLoginInputData.getIdentification())) {
+                this.presenter.prepareFailView("Shared Account not found");
                 return;
             }
 
-            SharedAccount sharedAccount = sharedAccountLoginDataAccessObject.getById(sharedLoginInputData.getSharedAccountId());
-            if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getSharedPassword())) {
-                sharedPresenter.prepareFailView("Incorrect Password!");
+            SharedAccount sharedAccount = this.userDataAccessObject.getById(sharedLoginInputData.getIdentification());
+            if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getPassword())) {
+                this.presenter.prepareFailView("Incorrect Password!");
                 return;
             }
 
-            boolean isLogin = sharedAccountLoginDataAccessObject.login(sharedAccount);
+            boolean isLogin = this.userDataAccessObject.login(sharedAccount);
 
             if (!isLogin) {
-                sharedPresenter.prepareFailView("Incorrect Account Password!");
+                this.presenter.prepareFailView("Incorrect Account Password!");
             } else {
-                SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getSharedAccountId(), true);
-                sharedPresenter.prepareSuccessView(sharedLoginOutputData);
+                SharedAccountLoginOutputData sharedLoginOutputData = new SharedAccountLoginOutputData(sharedLoginInputData.getIdentification(), true);
+                this.presenter.prepareSuccessView(sharedLoginOutputData);
 
                 // Notify mediator on successful login
-                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getSharedAccountId(), LocalDate.now());
+                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
                 mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
             }
         }
-    }
-
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    public boolean checkPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    public boolean checkIdentification(String id) {
-        if (id == null || id.isEmpty()) {
-            return false;
-        }
-        return true;
     }
 
 }

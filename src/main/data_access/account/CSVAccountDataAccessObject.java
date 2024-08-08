@@ -6,7 +6,7 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -43,7 +43,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    private void initializeCsvFile(Path csvPath, String header) throws IOException {
+    protected void initializeCsvFile(Path csvPath, String header) throws IOException {
         Path parentDir = csvPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
             Files.createDirectories(parentDir);
@@ -73,7 +73,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    private void initializeTransactionFile(Path transactionPath, String header) throws IOException {
+    protected void initializeTransactionFile(Path transactionPath, String header) throws IOException {
         Path parentDir = transactionPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
             Files.createDirectories(parentDir);
@@ -120,7 +120,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         } else{
             // create csv line with the user info
             String userInfo = getTransactionInfo(null,
-                    (PeriodicTransactionOutputData)periodicOutputData, true);
+                    (UserAccountPeriodicTransactionOutputData)periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 
@@ -147,7 +147,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    protected static String getPeriodicTransactionInfo(PeriodicTransactionOutputData periodicOutputData) {
+    protected static String getPeriodicTransactionInfo(UserAccountPeriodicTransactionOutputData periodicOutputData) {
         String id = periodicOutputData.getId();
         float amount = periodicOutputData.getTransactionAmount();
         String startDate = valueOf(periodicOutputData.getTransactionStartDate());
@@ -161,6 +161,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
 
     protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
         String id = oneTimeOutputData.getId();
+        System.out.println("output id"+id);
         float amount = oneTimeOutputData.getTransactionAmount();
         String date = valueOf(oneTimeOutputData.getTransactionDate());
         String description = oneTimeOutputData.getTransactionDescription();
@@ -169,7 +170,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
     }
 
     protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        PeriodicTransactionOutputData periodicOutputData,
+                                        UserAccountPeriodicTransactionOutputData periodicOutputData,
                                         boolean isPeriodic) {
         if (!isPeriodic) {
             return getOneTimeTransactionInfo(oneTimeOutputData);
@@ -228,6 +229,20 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        }
+
+        // updateLine is updated, pass in all the info back
+        if (updatedLine != null) {
+            // open while csv, delete every thing
+            try (BufferedWriter writer = Files.newBufferedWriter(this.accountCsvPath,
+                    StandardOpenOption.TRUNCATE_EXISTING)) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 

@@ -2,6 +2,8 @@ package use_case.transaction;
 
 import data_access.account.AccountDataAccessInterface;
 import entity.account.Account;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -9,10 +11,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
 public abstract class TransactionInteractor<
-        DAO extends AccountDataAccessInterface<A, OneTimeTransactionOutputData, P>,
+        DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
-        OneTimeTransactionOutputData,
-        P>{
+        O extends OneTimeTransactionOutputData,
+        P extends PeriodicTransactionOutputData>{
     protected final DAO userDataAccessObject;
     protected A account;
 

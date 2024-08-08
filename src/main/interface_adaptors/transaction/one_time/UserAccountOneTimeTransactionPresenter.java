@@ -1,6 +1,7 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
@@ -11,10 +12,11 @@ import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
  * @author Xile
  * @author Eric
  */
-public class UserAccountOneTimeTransactionPresenter implements UserAccountOneTimeTransactionOutputBoundary {
-    private final OneTimeTransactionViewModel viewModel;
-    private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
+public class UserAccountOneTimeTransactionPresenter extends AccountOneTimeTransactionPresenter<
+        UserAccountOneTimeTransactionViewModel,
+        UserAccountOneTimeTransactionState>
+        implements UserAccountOneTimeTransactionOutputBoundary {
+
 
     /**
      * Constructs a UserAccountOneTimeTransactionPresenter object with the specified view model and view manager model.
@@ -22,10 +24,8 @@ public class UserAccountOneTimeTransactionPresenter implements UserAccountOneTim
      * @param viewModel   the view model to update the one-time transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public UserAccountOneTimeTransactionPresenter(OneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
-        this.viewModel = viewModel;
-        this.viewManager = viewManager;
-//        this.transactionViewModel = transactionViewModel;
+    public UserAccountOneTimeTransactionPresenter(UserAccountOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
+        super(viewModel, viewManager);
     }
 
     /**
@@ -37,15 +37,14 @@ public class UserAccountOneTimeTransactionPresenter implements UserAccountOneTim
     @Override
     public void prepareSuccessView(UserAccountOneTimeTransactionOutputData data) {
         // update the current transaction sate
-        OneTimeTransactionState oneTimeState = viewModel.getState();
+        UserAccountOneTimeTransactionState oneTimeState = (UserAccountOneTimeTransactionState) viewModel.getState();
 
         // set info
-//        oneTimeState.setNewBalance(data.getNewBalance());
         oneTimeState.setId(data.getId());
         oneTimeState.setTransactionDate(data.getTransactionDate().toString());
         oneTimeState.setTransactionDescription(data.getTransactionDescription());
         oneTimeState.setTransactionCategory(data.getTransactionCategory());
-//        oneTimeState.setUseCaseFailed(data.isUseCaseFailed());
+
         this.viewModel.setState(oneTimeState);
         oneTimeState.setSuccessMessage("One time transaction recorded successfully!");
         viewModel.firePropertyChanged();
@@ -55,20 +54,6 @@ public class UserAccountOneTimeTransactionPresenter implements UserAccountOneTim
         viewManager.changeView("Homepage Two");
     }
 
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the transaction state with the error message and clears the success message.
-     *
-     * @param error the error message to be presented in case of a failed one-time transaction attempt
-     */
-    @Override
-    public void prepareFailView(String error) {
-        OneTimeTransactionState oneTimeState = viewModel.getState();
-        oneTimeState.setErrorMessage(error);
-        oneTimeState.setSuccessMessage(null); // Clear success message on failure
-        viewModel.firePropertyChanged();
-    }
 }
 
 

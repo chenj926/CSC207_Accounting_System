@@ -5,40 +5,27 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-/**
- * The view model for the second homepage view. This class is responsible for
- * managing the state and labels of the homepage and notifying listeners of any changes.
- *
- * @author Eric
- */
-public class HomepageTwoViewModel extends ViewModel {
+public abstract class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel {
     // labels
-    private final String TITLE_LABEL = "Account";
+    protected final String USERNAME_LABEL = "User:";
+    protected final String BALANCE_LABEL = "Total Balance:";
+    protected final String INCOME_LABEL = "Total Income:";
+    protected final String OUTFLOW_LABEL = "Total Outflow:";
 
-    private final String USERNAME_LABEL = "User:";
-    private final String BALANCE_LABEL = "Total Balance:";
-    private final String INCOME_LABEL = "Total Income:";
-    private final String OUTFLOW_LABEL = "Total Outflow:";
+    protected final String ONE_TIME_BUTTON_LABEL = "One Time Transaction";
+    protected final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
+    protected final String CANCEL_BUTTON_LABEL = "Log out";
+    protected final String FINANCIAL_REPORT_BUTTON_LABEL = "Transaction Report";
 
-    private final String ONE_TIME_BUTTON_LABEL = "One Time Transaction";
-    private final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
-    private final String CANCEL_BUTTON_LABEL = "Log out";
-    private final String FINANCIAL_REPORT_BUTTON_LABEL = "Transaction Report";
-
-    private String[] basicUserInfo;
-
-    private HomepageTwoState state = new HomepageTwoState();
-
+    protected String[] basicUserInfo;
     /**
      * Notifies listeners that the signup state has changed.
      */
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    protected S state;
 
-    /**
-     * Constructs a TransactionViewModel object with the view name set to "Transaction".
-     */
-    public HomepageTwoViewModel() {
-        super("Homepage Two");
+    public HomepageTwoViewModel(String viewName) {
+        super(viewName);
     }
 
     /**
@@ -48,15 +35,6 @@ public class HomepageTwoViewModel extends ViewModel {
      */
     public String getUSERNAME_LABEL() {
         return this.USERNAME_LABEL;
-    }
-
-    /**
-     * Gets the title label.
-     *
-     * @return the title label
-     */
-    public String getTITLE_LABEL() {
-        return this.TITLE_LABEL;
     }
 
     /**
@@ -129,25 +107,9 @@ public class HomepageTwoViewModel extends ViewModel {
         return this.basicUserInfo;
     }
 
-    /**
-     * Gets the current state of the homepage.
-     *
-     * @return the current state
-     */
-    public HomepageTwoState getState() {
-        return this.state;
-    }
-
-    // setters
-    /**
-     * Sets the current state of the homepage and updates the basic user information.
-     *
-     * @param state the new state
-     */
-    public void setState(HomepageTwoState state) {
-        this.state = state;
-        this.basicUserInfo = state.getBasicUserInfo();
-    }
+    public abstract S getState();
+    public abstract void setState(S state);
+    protected abstract void resetState();
 
     /**
      * Sets the basic user information.
@@ -156,14 +118,6 @@ public class HomepageTwoViewModel extends ViewModel {
      */
     public void setBasicUserInfo(String[] basicUserInfo) {
         this.basicUserInfo = basicUserInfo;
-    }
-
-    /**
-     * Resets the state to a new default state.
-     */
-    public void resetState() {
-        HomepageTwoState newState = new HomepageTwoState();
-        setState(newState);
     }
 
     /**
@@ -182,4 +136,5 @@ public class HomepageTwoViewModel extends ViewModel {
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
     }
+
 }

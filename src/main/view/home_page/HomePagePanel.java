@@ -19,7 +19,6 @@ import java.nio.file.Paths;
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JButton loginButton;
@@ -94,10 +93,14 @@ public class HomePagePanel extends JPanel {
         Color buttonTextColor = Color.BLACK;
 
         JButton[] buttons = {loginButton, sharedAccountLoginButton, signupButton, sharedAccountSignupButton, exitButton};
+        Dimension buttonSize = new Dimension(220, 30);
         for (JButton button : buttons) {
             button.setFont(buttonFont);
             button.setBackground(buttonBackgroundColor);
             button.setForeground(buttonTextColor);
+            button.setPreferredSize(buttonSize);
+            button.setMinimumSize(buttonSize);
+            button.setMaximumSize(buttonSize);
         }
     }
 

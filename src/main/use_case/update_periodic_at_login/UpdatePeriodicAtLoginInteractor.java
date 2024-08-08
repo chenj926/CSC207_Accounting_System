@@ -6,7 +6,7 @@ import entity.transaction.Transaction;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import entity.transaction.periodic.PeriodicTransaction;
-import use_case.transaction.periodic.PeriodicTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -209,7 +209,7 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         userAccount.setTotalBalance(totalBalance);
 
         // Update through the DAO
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow);
+        UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(periodicInflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
         userDataAccessObject.update(userAccount);
     }
@@ -247,7 +247,7 @@ public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInp
         userAccount.setTotalBalance(totalBalance);
 
         // Update through the DAO
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicOutflow);
+        UserAccountPeriodicTransactionOutputData outputData = new UserAccountPeriodicTransactionOutputData(periodicOutflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
         userDataAccessObject.update(userAccount);
     }

@@ -1,7 +1,7 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.account.ShareAccountDataAccessInterface;
+import data_access.account.SharedAccountDataAccessInterface;
 import entity.account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionController;
@@ -31,7 +31,7 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
 
     private static SharedAccountOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
                                                                          SharedAccountOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
-        ShareAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
         SharedAccountOneTimeTransactionOutputBoundary presenter = new SharedAccountOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
         SharedAccount sharedAccount = dataAccessObject.getById(viewManagerModel.getUserId());
         SharedAccountOneTimeTransactionInteractor interactor = new SharedAccountOneTimeTransactionInteractor(dataAccessObject, presenter, sharedAccount);
