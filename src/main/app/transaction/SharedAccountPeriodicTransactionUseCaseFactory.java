@@ -45,7 +45,7 @@ public class SharedAccountPeriodicTransactionUseCaseFactory {
 
         // Interactor for shared account periodic transactions
         SharedAccountPeriodicTransactionInteractor interactor =
-                new SharedAccountPeriodicTransactionInteractor(dataAccessObject, sharedAccount);
+                new SharedAccountPeriodicTransactionInteractor(dataAccessObject, sharedAccount, presenter);
 
         // Return the controller with the interactor and view model
         return new SharedAccountPeriodicTransactionController(interactor, viewModel);
