@@ -246,7 +246,7 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
 
                 if (input != null && !input.trim().isEmpty()) {
                     // Update the view model with the selected responsible users
-                    viewModel.getState().setIdentification(viewManager.getUserId() + ";" + (SharedAccountPeriodicTransactionPanel.this.userId));
+                    viewModel.getState().setIdentification(userId.getText());
                 }
             }
         });
