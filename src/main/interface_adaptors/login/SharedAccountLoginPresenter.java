@@ -12,7 +12,8 @@ import use_case.login.SharedAccountLoginOutputData;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountLoginPresenter extends AccountLoginPresenter<SharedAccountLoginViewModel,
+public class SharedAccountLoginPresenter extends AccountLoginPresenter<
+        SharedAccountLoginViewModel,
         SharedAccountLoginOutputData,
         SharedAccountLoginState> implements SharedAccountLoginOutputBoundary {
 
@@ -37,7 +38,7 @@ public class SharedAccountLoginPresenter extends AccountLoginPresenter<SharedAcc
             // Handle shared account login
             SharedAccountLoginState sharedAccountLoginState = this.accountLoginViewModel.getState();
             sharedAccountLoginState.setIdentification(userInfo.getIdentification());
-            this.viewManagerModel.setSharedAccountId(userInfo.getIdentification());
+            this.viewManagerModel.setUserId(userInfo.getIdentification());
             this.accountLoginViewModel.setState(sharedAccountLoginState);
             sharedAccountLoginState.setSuccessMsg("Successfully Logged In to Shared Account!!!");
             this.accountLoginViewModel.firePropertyChanged();

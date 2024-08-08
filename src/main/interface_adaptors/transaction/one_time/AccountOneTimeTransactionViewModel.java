@@ -5,33 +5,24 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-/**
- * The OneTimeTransactionViewModel class extends the ViewModel class and manages the state and labels for the one-time transaction view.
- * It provides getters for various labels used in the one-time transaction view and supports property change notifications.
- *
- * @author Xile
- * @author Jessica
- * @author Eric
- */
-public class OneTimeTransactionViewModel extends ViewModel {
-    // labels
-    private final String TITLE_LABEL = "One Time Transaction";
-    private final String AMOUNT = "Transaction Amount";
-//    private final String ID = "Identification";
-    private final String DATE = "Transaction Date";
-    private final String DESCRIPTION = "Description";
-    private final String CATEGORY_BUTTON = "Transaction Category";
-    private final String SUBMIT_BUTTON = "Submit Transaction";
-    private final String CANCEL_BUTTON = "Cancel";
+public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTimeTransactionState> extends ViewModel {
+    protected final String TITLE_LABEL = "One Time Transaction";
+    protected final String AMOUNT = "Transaction Amount";
+    protected final String DATE = "Transaction Date";
+    protected final String DESCRIPTION = "Description";
+    protected final String CATEGORY_BUTTON = "Transaction Category";
 
-    private OneTimeTransactionState state = new OneTimeTransactionState();
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+    protected final String SUBMIT_BUTTON = "Submit Transaction";
+    protected final String CANCEL_BUTTON = "Cancel";
+
+    protected S state;
+    protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a OneTimeTransactionViewModel object with the view name set to "One Time Transaction".
+     * Constructs a AccountOneTimeTransactionViewModel object with the view name set to "One Time Transaction".
      */
-    public OneTimeTransactionViewModel() {
-        super("One Time Transaction");
+    public AccountOneTimeTransactionViewModel(String viewName) {
+        super(viewName);
     }
 
     /**
@@ -51,15 +42,6 @@ public class OneTimeTransactionViewModel extends ViewModel {
     public String getAmount() {
         return this.AMOUNT;
     }
-
-//    /**
-//     * Gets the identification label.
-//     *
-//     * @return the identification label
-//     */
-//    public String getId() {
-//        return this.ID;
-//    }
 
     /**
      * Gets the date label.
@@ -111,7 +93,7 @@ public class OneTimeTransactionViewModel extends ViewModel {
      *
      * @return the current one-time transaction state
      */
-    public OneTimeTransactionState getState() {
+    public S getState() {
         return this.state;
     }
 
@@ -120,7 +102,7 @@ public class OneTimeTransactionViewModel extends ViewModel {
      *
      * @param state the new one-time transaction state
      */
-    public void setState(OneTimeTransactionState state) {
+    public void setState(S state) {
         this.state = state;
     }
 
@@ -152,10 +134,6 @@ public class OneTimeTransactionViewModel extends ViewModel {
     /**
      * Resets the one-time transaction state to default values.
      */
-    public void resetState() {
-        this.state = new OneTimeTransactionState();
-//        setState(newState);
-    }
+    public abstract void resetState();
 
 }
-

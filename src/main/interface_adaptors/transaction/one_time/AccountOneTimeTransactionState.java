@@ -1,27 +1,20 @@
 package interface_adaptors.transaction.one_time;
 
-/**
- * The OneTimeTransactionState class represents the state of a one-time transaction,
- * including transaction details, new balance, and success or error messages.
- *
- * @author Xile
- * @author Eric
- */
-public class OneTimeTransactionState {
-    private String id;
-    private String transactionAmount;
-    private String transactionDate;
-    private String transactionDescription;
-    private String transactionCategory;
-    private float newBalance;
-    private boolean useCaseFailed;
-    private String errorMessage;
-    private String successMessage;
+public abstract class AccountOneTimeTransactionState {
+    protected String id;
+    protected String transactionAmount;
+    protected String transactionDate;
+    protected String transactionDescription;
+    protected String transactionCategory;
+    protected float newBalance;
+    protected boolean useCaseFailed;
+    protected String errorMessage;
+    protected String successMessage;
 
     /**
-     * Constructs a OneTimeTransactionState object with default values.
+     * Constructs a UserAccountOneTimeTransactionState object with default values.
      */
-    public OneTimeTransactionState() {
+    public AccountOneTimeTransactionState() {
         this.id = "";
         this.transactionAmount = "0";
         this.transactionDate = null;

@@ -41,7 +41,7 @@ public class SharedAccountPeriodicTransactionUseCaseFactory {
                 new SharedAccountPeriodicTransactionPresenter(viewModel, viewManager);
 
         // Retrieve shared account by its ID
-        SharedAccount sharedAccount = dataAccessObject.getById(viewManager.getSharedAccountId());
+        SharedAccount sharedAccount = dataAccessObject.getById(viewManager.getUserId());
 
         // Interactor for shared account periodic transactions
         SharedAccountPeriodicTransactionInteractor interactor =

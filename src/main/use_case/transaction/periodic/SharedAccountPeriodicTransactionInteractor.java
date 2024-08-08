@@ -8,6 +8,7 @@ import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
 /**
  * The SharedAccountPeriodicTransactionInteractor class is responsible for managing periodic transactions
@@ -121,6 +122,10 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
                                      LocalDate endDate, String description, String period, int customPeriod,
                                      ChronoUnit unit, String category, LocalDate currentDate) {
         LocalDate date = startDate;
+        if(!checkValidUserId(shareId, userId)) {
+            presenter.prepareFailView("This user is not in this Shared Account!");
+            return;
+        }
         String userIds = shareId + ";" + userId;
 
         SharedAccountPeriodicTransactionOutputData finalOutputData = null;
@@ -148,6 +153,17 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
                 this.presenter.prepareSuccessView(finalOutputData);
             }
         }
+    }
+
+    private boolean checkValidUserId(String sharedId, String userId) {
+        SharedAccount account = this.userDataAccessObject.getById(sharedId);
+        Set<String> userIds = account.getSharedUserIdentifications();
+        for (String id : userIds) {
+            if (id.equals(userId)){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
