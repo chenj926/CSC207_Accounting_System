@@ -1,2 +1,4 @@
-package view.home_page;public class SharedAccountHomePageTwoPanel {
+package view.home_page;
+
+public class SharedAccountHomepageTwoPanel {
 }

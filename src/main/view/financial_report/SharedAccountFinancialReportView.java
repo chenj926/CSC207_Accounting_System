@@ -1,2 +1,4 @@
-package view.financial_report;public class SharedAccountFinancialReportView {
+package view.financial_report;
+
+public class SharedAccountFinancialReportView {
 }

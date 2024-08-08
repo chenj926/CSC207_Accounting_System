@@ -25,7 +25,7 @@ public class SharedAccountOneTimeTransactionViewModel extends ViewModel {
     private final String DATE = "Transaction Date";
     private final String DESCRIPTION = "Description";
     private final String CATEGORY_BUTTON = "Transaction Category";
-    private final String SELECT_USERS_BUTTON_LABEL = "Select Responsible Users";
+    private final String SELECT_USERS_BUTTON_LABEL = "Enter Responsible Users";
     private final String SUBMIT_BUTTON = "Submit Transaction";
     private final String CANCEL_BUTTON = "Cancel";
 
@@ -144,19 +144,19 @@ public class SharedAccountOneTimeTransactionViewModel extends ViewModel {
      *
      * @return the set of responsible user IDs
      */
-    public Set<String> getSelectedUserIds() {
-        return this.state.getResponsibleUserIds();
-    }
+//    public Set<String> getSelectedUserIds() {
+//        return this.state.getResponsibleUserIds();
+//    }
 
     /**
      * Sets the responsible user IDs for the transaction.
      *
      * @param userIds the set of responsible user IDs
      */
-    public void setResponsibleUserIds(Set<String> userIds) {
-        this.state.setResponsibleUserIds(userIds);
-        firePropertyChanged();
-    }
+//    public void setResponsibleUserIds(Set<String> userIds) {
+//        this.state.setResponsibleUserIds(userIds);
+//        firePropertyChanged();
+//    }
 
     /**
      * Notifies listeners that the shared account one-time transaction state has changed.
