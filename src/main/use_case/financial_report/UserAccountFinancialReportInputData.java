@@ -6,6 +6,7 @@ import java.util.Date;
  * Input data for generating financial reports.
  *
  * @author :Chi Fong
+ * @author :Dana
  */
 public class UserAccountFinancialReportInputData extends FinancialReportInputData {
 
