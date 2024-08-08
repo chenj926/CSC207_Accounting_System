@@ -16,17 +16,6 @@ public class HomepageTwoUseCaseFactory {
     private HomepageTwoUseCaseFactory() {
     }
 
-//    public static HomepageTwoView create(ViewManagerModel viewManagerModel, UserAccountHomepageTwoViewModel homepageTwoViewModel) {
-//        HomepageTwoView homepageTwoView = new HomepageTwoView(homepageTwoViewModel, viewManagerModel);
-//
-//        homepageTwoView.addPropertyChangeListener(evt -> viewManagerModel.changeView("One Time Transaction"));
-//        homepageTwoView.addPropertyChangeListener(evt -> viewManagerModel.changeView("Periodic Transaction"));
-//        homepageTwoView.addPropertyChangeListener(evt -> viewManagerModel.changeView("Homepage Two"));
-//
-//
-//        return homepageTwoView;
-//    }
-
     public static HomepageTwoView create(ViewManagerModel viewManagerModel,
                                              UserAccountHomepageTwoViewModel viewModel) {
         try {

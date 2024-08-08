@@ -5,6 +5,7 @@ import app.authentication.LoginUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
 import app.home_page.HomepageTwoUseCaseFactory;
+import app.home_page.SharedAccountHomepageTwoUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
@@ -24,6 +25,7 @@ import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionVi
 import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
 import view.financial_report.FinancialReportView;
+import view.financial_report.SharedAccountFinancialReportView;
 import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
 import view.home_page.SharedAccountHomepageTwoView;
@@ -112,6 +114,9 @@ public class ViewManagerModel {
 
         UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = new UserAccountFinancialReportViewModel();
         this.viewModels.put("Financial Report", userAccountFinancialReportViewModel);
+
+//        SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
+//        this.viewModels.put("Shared Account Financial Report", sharedAccountFinancialReportViewModel);
     }
 
     public <V extends ViewModel> void updateViewModel(String viewModelName, V viewModel) {
@@ -274,7 +279,7 @@ public class ViewManagerModel {
                 currentView = homepageTwoView;
             case "Shared Account Homepage Two":
                 SharedAccountHomepageTwoViewModel sharedAccountHomepageTwoViewModel = (SharedAccountHomepageTwoViewModel) this.viewModels.get("Shared Account Homepage Two");
-                SharedAccountHomepageTwoView sharedAccountHomepageTwoView = HomepageTwoUseCaseFactory.create(this, sharedAccountHomepageTwoViewModel);
+                SharedAccountHomepageTwoView sharedAccountHomepageTwoView = SharedAccountHomepageTwoUseCaseFactory.create(this, sharedAccountHomepageTwoViewModel);
                 views.put("Shared Account Homepage Two", sharedAccountHomepageTwoView);
                 currentView = sharedAccountHomepageTwoView;
             case "One Time Transaction":
@@ -290,7 +295,7 @@ public class ViewManagerModel {
                         (SharedAccountOneTimeTransactionViewModel) this.viewModels.get("Shared Account One Time Transaction");
                 SharedAccountOneTimeTransactionView sharedAccountoneTimeTransactionView = SharedAccountOneTimeTransactionUseCaseFactory.create(
                         this, sharedAccountoneTimeTransactionViewModel);
-                views.put("One Time Transaction", sharedAccountoneTimeTransactionView);
+                views.put("Shared Account One Time Transaction", sharedAccountoneTimeTransactionView);
                 currentView = sharedAccountoneTimeTransactionView;
                 break;
             case "Periodic Transaction":
@@ -303,7 +308,7 @@ public class ViewManagerModel {
                 break;
             case "Shared Account Periodic Transaction":
                 SharedAccountPeriodicTransactionViewModel sharedAccountperiodicTransactionViewModel =
-                        (SharedAccountPeriodicTransactionViewModel) this.viewModels.get("Periodic Transaction");
+                        (SharedAccountPeriodicTransactionViewModel) this.viewModels.get("Shared Account Periodic Transaction");
                 SharedAccountPeriodicTransactionView sharedAccountperiodicTransactionView = SharedAccountPeriodicTransactionUseCaseFactory.create(
                         this, sharedAccountperiodicTransactionViewModel);
                 views.put("Shared Account Periodic Transaction", sharedAccountperiodicTransactionView);
@@ -316,6 +321,13 @@ public class ViewManagerModel {
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;
+//            case "Shared Account Financial Report":
+//                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
+//                SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
+//                        sharedAccountFinancialReportViewModel);
+//                views.put("Shared Account Financial Report", sharedAccountFinancialReportView);
+//                currentView = sharedAccountFinancialReportView;
+//                break;
         }
         if (currentView != null) {
             currentView.setVisible(true);
