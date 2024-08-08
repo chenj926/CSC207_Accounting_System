@@ -22,7 +22,7 @@ public abstract class OneTimeTransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
         O extends OneTimeTransactionOutputData,
-        P extends PeriodicTransactionOutputData, //要改
+        P extends PeriodicTransactionOutputData,
         I extends OneTimeTransactionInputData> extends TransactionInteractor<DAO, A, O, P> implements OneTimeTransactionInputBoundary<I> {
 
     protected final OneTimeTransactionOutputBoundary<O> presenter;
