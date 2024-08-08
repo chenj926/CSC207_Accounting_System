@@ -4,9 +4,6 @@ import com.google.api.services.drive.model.User;
 import data_access.authentication.AccountSignupDataAccessInterface;
 import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.AccountFactory;
-import entity.account.UserAccount;
-
-import java.time.LocalDate;
 
 /**
  * Abstract base class for account sign-up interactors.
@@ -23,9 +20,7 @@ public abstract class SignupInteractor<
         this.userDataAccessObject = userSignupDataAccessInterface;
     }
 
-    public void execute(I inputData) {
-    }
-
+    public abstract void execute(I signupInputData) throws Exception;
     /**
      * Validates if the provided password is valid (not null or empty).
      *
