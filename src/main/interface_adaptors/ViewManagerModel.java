@@ -49,7 +49,7 @@ public class ViewManagerModel {
 
     private String userId;
     private String[] basicUserInfo;
-    private String sharedAccountId;
+//    private String sharedAccountId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
@@ -131,9 +131,9 @@ public class ViewManagerModel {
         return this.basicUserInfo;
     }
 
-    public String getSharedAccountId() {
-        return this.sharedAccountId;
-    }
+//    public String getSharedAccountId() {
+//        return this.sharedAccountId;
+//    }
 
     /**
      * Sets the name of the active view and notifies listeners of the change.
@@ -161,9 +161,9 @@ public class ViewManagerModel {
         this.basicUserInfo = basicUserInfo;
     }
 
-    public void setSharedAccountId(String sharedAccountId) {
-        this.sharedAccountId = sharedAccountId;
-    }
+//    public void setSharedAccountId(String sharedAccountId) {
+//        this.sharedAccountId = sharedAccountId;
+//    }
 
     /**
      * Adds a property change listener to the listener list.
