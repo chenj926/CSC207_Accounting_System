@@ -37,8 +37,8 @@ public class UserAccountLoginPresenter extends AccountLoginPresenter<UserAccount
         UserAccountLoginState userAccountLoginState = this.accountLoginViewModel.getState();
         userAccountLoginState.setIdentification(userInfo.getIdentification());
 
-//        HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewManagerModel.getViewModel("Homepage Two");
-//        HomepageTwoState homepageTwoState = homepageTwoViewModel.getState();
+//        UserAccountHomepageTwoViewModel homepageTwoViewModel = (UserAccountHomepageTwoViewModel) this.viewManagerModel.getViewModel("Homepage Two");
+//        UserAccountHomepageTwoState homepageTwoState = homepageTwoViewModel.getState();
 //        homepageTwoState.setId(userInfo.getIdentification());
 //        homepageTwoViewModel.setState(homepageTwoState);
 //        this.viewManagerModel.updateViewModel("Homepage Two", homepageTwoViewModel);
