@@ -6,7 +6,7 @@ import data_access.authentication.LoginDataAccessInterface;
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.*;
-import interface_adaptors.login.UserAcountLoginPresenter;
+import interface_adaptors.login.UserAccountLoginPresenter;
 import use_case.login.*;
 import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
 import view.login.LoginView;
@@ -33,7 +33,7 @@ public class LoginUseCaseFactory {
         LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
 
-        UserAcountLoginOutputBoundary loginPresenter = new UserAcountLoginPresenter(viewManagerModel, loginViewModel);
+        UserAcountLoginOutputBoundary loginPresenter = new UserAccountLoginPresenter(viewManagerModel, loginViewModel);
         UserAccountLoginInteractor loginInteractor = new UserAccountLoginInteractor(loginDataAccessObject, loginPresenter);
 
         UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);

@@ -1,5 +1,6 @@
 package interface_adaptors.login;
 
+import entity.account.UserAccount;
 import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
@@ -14,104 +15,19 @@ import java.beans.PropertyChangeSupport;
  * @author Eric
  * @author Dana
  */
-public class UserAccountLoginViewModel extends ViewModel {
+public class UserAccountLoginViewModel extends AccountLoginViewModel<UserAccountLoginState> {
 
-    private final String titleLabel = "LOGIN";
-    private final String identificationLabel = "Enter identification";
-    private final String passwordLabel = "Enter password";
-
-    private final String loginButtonLabel = "Login";
-    private final String cancelButtonLabel = "Cancel";
-
-    private UserAccountLoginState state = new UserAccountLoginState();
+    private final String titleLabel = "USER ACCOUNT LOGIN";
+    private final String identificationLabel = "Enter user account ID";
+    private final String passwordLabel = "Enter user account password";
 
     /**
      * Constructs a LoginViewModel object with the view name set to "login".
+     * Initiates state.
      */
     public UserAccountLoginViewModel() {
         super("login");
+        state = new UserAccountLoginState();
     }
-
-    /**
-     * Gets the title label.
-     *
-     * @return the title label
-     */
-    public String getTitleLabel(){
-        return this.titleLabel;
-    }
-
-    /**
-     * Gets the identification label.
-     *
-     * @return the identification label
-     */
-    public String getIdentificationLabel(){
-        return this.identificationLabel;
-    }
-
-    /**
-     * Gets the password label.
-     *
-     * @return the password label
-     */
-    public String getPasswordLabel(){
-        return this.passwordLabel;
-    }
-
-    /**
-     * Gets the login button label.
-     *
-     * @return the login button label
-     */
-    public String getLoginButtonLabel(){
-        return this.loginButtonLabel;
-    }
-
-    /**
-     * Gets the cancel button label.
-     *
-     * @return the cancel button label
-     */
-    public String getCancelButtonLabel(){
-        return this.cancelButtonLabel;
-    }
-
-    /**
-     * Gets the current login state.
-     *
-     * @return the current login state
-     */
-    public UserAccountLoginState getState() {
-        return this.state;
-    }
-
-    /**
-     * Sets the current login state.
-     *
-     * @param state the new login state
-     */
-    public void setState(UserAccountLoginState state) {
-        this.state = state;
-    }
-
-    private final PropertyChangeSupport support = new PropertyChangeSupport(this);
-
-    /**
-     * Notifies listeners that the login state has changed.
-     */
-    public void firePropertyChanged() {
-        support.firePropertyChange("state", null, this.state);
-    }
-
-    /**
-     * Adds a property change listener to the listener list.
-     *
-     * @param listener the PropertyChangeListener to be added
-     */
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
-
 
 }

@@ -10,20 +10,19 @@ import use_case.login.UserAccountLoginOutputData;
  *
  * @author Eric Chen
  */
-public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
-    private final UserAccountLoginViewModel loginViewModel;
-    private final ViewManagerModel viewManagerModel;
+public class UserAccountLoginPresenter extends AccountLoginPresenter<UserAccountLoginViewModel,
+        UserAccountLoginOutputData,
+        UserAccountLoginState> implements UserAcountLoginOutputBoundary {
 
     /**
      * Constructs a LoginPresenter object with the specified view manager model and login view model.
      *
      * @param viewManagerModel the view manager model to manage view transitions
-     * @param loginViewModel   the login view model to update the login state
+     * @param userLoginViewModel   the login view model to update the login state
      */
-    public UserAcountLoginPresenter(ViewManagerModel viewManagerModel,
-                                    UserAccountLoginViewModel loginViewModel){
-        this.loginViewModel = loginViewModel;
-        this.viewManagerModel = viewManagerModel;
+    public UserAccountLoginPresenter(ViewManagerModel viewManagerModel,
+                                     UserAccountLoginViewModel userLoginViewModel){
+        super(viewManagerModel, userLoginViewModel);
     }
 
     /**
@@ -35,7 +34,7 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
     @Override
     public void prepareSuccessView(UserAccountLoginOutputData userInfo){
         // update the current login state
-        UserAccountLoginState userAccountLoginState = this.loginViewModel.getState();
+        UserAccountLoginState userAccountLoginState = this.accountLoginViewModel.getState();
         userAccountLoginState.setIdentification(userInfo.getIdentification());
 
 //        HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewManagerModel.getViewModel("Homepage Two");
@@ -45,27 +44,13 @@ public class UserAcountLoginPresenter implements UserAcountLoginOutputBoundary {
 //        this.viewManagerModel.updateViewModel("Homepage Two", homepageTwoViewModel);
 
         this.viewManagerModel.setUserId(userInfo.getIdentification());
-        this.loginViewModel.setState(userAccountLoginState);
+        this.accountLoginViewModel.setState(userAccountLoginState);
         userAccountLoginState.setSuccessMsg("Successfully Logged In!!!");
-        this.loginViewModel.firePropertyChanged();
-        this.viewManagerModel.setActiveViewName(this.loginViewModel.getViewName());
+        this.accountLoginViewModel.firePropertyChanged();
+        this.viewManagerModel.setActiveViewName(this.accountLoginViewModel.getViewName());
 
         // should change to next view
         this.viewManagerModel.changeView("Homepage Two");
-    }
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the login state with the error message and clears the success message.
-     *
-     * @param err the error message to be presented in case of a failed login attempt
-     */
-    @Override
-    public void prepareFailView(String err) {
-        UserAccountLoginState userAccountLoginState = this.loginViewModel.getState();
-        userAccountLoginState.setStateError(err);
-        userAccountLoginState.setSuccessMsg(null); // Clear success message on failure
-        this.loginViewModel.firePropertyChanged();
     }
 
 }
