@@ -21,7 +21,7 @@ public class LoginUseCaseFactory {
 
     public static LoginView create(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) {
         try {
-            LoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
+            AccountLoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
             return new LoginView(loginViewModel, loginController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
@@ -29,7 +29,7 @@ public class LoginUseCaseFactory {
         return null;
     }
 
-    private static LoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) throws IOException {
+    private static UserAccountLoginController createUserLoginUseCase(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) throws IOException {
         LoginDataAccessInterface loginDataAccessObject = DAOFactory.getLoginDataAccessObject();
         UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
 
@@ -40,7 +40,7 @@ public class LoginUseCaseFactory {
 
         LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
         loginInteractor.setMediator(loginMediator);
-        return new LoginController(loginMediator);
+        return new UserAccountLoginController(loginMediator);
     }
 
     public static SharedAccountLoginView create(ViewManagerModel viewManagerModel,

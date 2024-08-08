@@ -1,7 +1,5 @@
 package use_case.transaction.one_time;
 
-import use_case.transaction.TransactionInputBoundary;
-
 /**
  * The SharedAccountOneTimeTransactionInputBoundary interface provides a method for executing one-time transaction operations
  * that involving the shared account.
@@ -9,5 +7,5 @@ import use_case.transaction.TransactionInputBoundary;
  * with additional logic for handling shared accounts.
  *
  */
-public interface SharedAccountOneTimeTransactionInputBoundary extends OneTimeTransactionInputBoundary<SharedAccountUserAccountOneTimeTransactionInputData> {
+public interface SharedAccountOneTimeTransactionInputBoundary extends OneTimeTransactionInputBoundary<SharedAccountOneTimeTransactionInputData> {
 }

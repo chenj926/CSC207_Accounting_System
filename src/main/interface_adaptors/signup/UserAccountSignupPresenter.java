@@ -1,6 +1,7 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
+import use_case.signup.UserAccountSignupInputData;
 import use_case.signup.UserAccountSignupOutputBoundary;
 import use_case.signup.UserAccountSignupOutputData;
 
@@ -12,19 +13,20 @@ import use_case.signup.UserAccountSignupOutputData;
  * - Xile
  * - Eric
  */
-public class UserAccountSignupPresenter implements UserAccountSignupOutputBoundary {
-    protected final ViewManagerModel viewManagerModel;
-    protected final SignupViewModel signupViewModel;
+public class UserAccountSignupPresenter extends AccountSignupPresenter<
+        UserAccountSignupViewModel,
+        UserAccountSignupOutputData,
+        UserAccountSignupState>
+        implements UserAccountSignupOutputBoundary {
 
     /**
      * Constructs a UserAccountSignupPresenter object for standard signups with the specified view manager model and signup view model.
      *
      * @param viewManagerModel the view manager model to manage view transitions
-     * @param signupViewModel  the signup view model to update the signup state
+     * @param userAccountSignupViewModel  the signup view model to update the signup state
      */
-    public UserAccountSignupPresenter(ViewManagerModel viewManagerModel, SignupViewModel signupViewModel) {
-        this.viewManagerModel = viewManagerModel;
-        this.signupViewModel = signupViewModel;
+    public UserAccountSignupPresenter(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
+        super(viewManagerModel, userAccountSignupViewModel);
     }
 
     /**
@@ -36,26 +38,13 @@ public class UserAccountSignupPresenter implements UserAccountSignupOutputBounda
     @Override
     public void prepareSuccessView(UserAccountSignupOutputData data) {
         if (!data.isUseCaseFailed()) {
-            SignupState signupState = signupViewModel.getState();
-            signupState.setSuccessMsg("User account signed up successfully.");
-            signupViewModel.firePropertyChanged();
+            UserAccountSignupState userAccountSignupState = accountSignupViewModel.getState();
+            userAccountSignupState.setSuccessMsg("User account signed up successfully.");
+            accountSignupViewModel.setState(userAccountSignupState);
+            accountSignupViewModel.firePropertyChanged();
         }
 
         // Navigate to the home page after successful signup
         viewManagerModel.changeView("home page");
-    }
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the signup state with the error message and clears the success message.
-     *
-     * @param error the error message to be presented in case of a failed signup attempt
-     */
-    @Override
-    public void prepareFailView(String error) {
-        SignupState signupState = signupViewModel.getState();
-        signupState.setStateError(error);
-        signupState.setSuccessMsg(null); // Clear success message on failure
-        signupViewModel.firePropertyChanged();
     }
 }

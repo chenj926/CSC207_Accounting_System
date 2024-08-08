@@ -1,6 +1,6 @@
 //package use_case.transaction;
 //
-//import data_access.account.ShareAccountDataAccessInterface;
+//import data_access.account.SharedAccountDataAccessInterface;
 //import entity.account.SharedAccount;
 //import java.time.LocalDate;
 //import java.time.format.DateTimeFormatter;
@@ -16,7 +16,7 @@
 // * </p>
 // */
 //public abstract class SharedAccountTransactionInteractor {
-//    protected final ShareAccountDataAccessInterface sharedAccountDataAccessInterface;
+//    protected final SharedAccountDataAccessInterface sharedAccountDataAccessInterface;
 //    protected final SharedAccount sharedAccount;
 //
 //    /**
@@ -26,7 +26,7 @@
 //     * @param sharedAccountDataAccessInterface the data access interface for shared account data
 //     * @param sharedAccount the shared account associated with the transaction
 //     */
-//    public SharedAccountTransactionInteractor(ShareAccountDataAccessInterface sharedAccountDataAccessInterface,
+//    public SharedAccountTransactionInteractor(SharedAccountDataAccessInterface sharedAccountDataAccessInterface,
 //                                              SharedAccount sharedAccount) {
 //        this.sharedAccountDataAccessInterface = sharedAccountDataAccessInterface;
 //        this.sharedAccount = sharedAccount;

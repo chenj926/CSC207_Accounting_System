@@ -1,21 +1,26 @@
 package use_case.signup;
 
+import com.google.api.services.drive.model.User;
+import data_access.authentication.AccountSignupDataAccessInterface;
 import data_access.authentication.UserSignupDataAccessInterface;
 import entity.account.AccountFactory;
 
 /**
  * Abstract base class for account sign-up interactors.
  */
-public abstract class SignupInteractor {
+public abstract class SignupInteractor<
+        T extends AccountSignupDataAccessInterface,
+        I extends SignupInputData> {
     protected final AccountFactory accountFactory;
-    protected final UserSignupDataAccessInterface userDataAccessObject;
+    protected final T userDataAccessObject;
 
-    public SignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
+    public SignupInteractor(T userSignupDataAccessInterface,
                                    AccountFactory accountFactory) {
         this.accountFactory = accountFactory;
         this.userDataAccessObject = userSignupDataAccessInterface;
     }
 
+    public abstract void execute(I signupInputData) throws Exception;
     /**
      * Validates if the provided password is valid (not null or empty).
      *

@@ -3,6 +3,7 @@ package use_case.transaction;
 import data_access.account.AccountDataAccessInterface;
 import entity.account.Account;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +14,7 @@ public abstract class TransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
         O extends OneTimeTransactionOutputData,
-        P extends TransactionOutputData>{
+        P extends PeriodicTransactionOutputData>{
     protected final DAO userDataAccessObject;
     protected A account;
 

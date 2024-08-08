@@ -4,13 +4,14 @@ import entity.account.Account;
 import entity.transaction.Transaction;
 import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.util.List;
 
 public interface AccountDataAccessInterface<
         A extends Account,
         O extends OneTimeTransactionOutputData,
-        P extends TransactionOutputData> {
+        P extends PeriodicTransactionOutputData> {
     /**
      * Retrieves a user account by its identification.
      *

@@ -1,5 +1,6 @@
 package data_access.account;
 
+import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import data_access.iterator.SharedAccountIterator;
 import data_access.iterator.TransactionIterator;
 import entity.account.SharedAccount;
@@ -21,7 +22,7 @@ import static java.lang.String.valueOf;
 /**
  * A CSV-based implementation of data access for shared accounts.
  * <p>
- * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link ShareAccountDataAccessInterface}.
+ * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link SharedAccountDataAccessInterface}.
  * It provides methods to manage shared accounts, including saving, updating, deleting, and retrieving shared account
  * information from CSV files.
  * </p>
@@ -29,7 +30,12 @@ import static java.lang.String.valueOf;
  * @author Jessica
  * @author Eric
  */
-public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<SharedAccount, SharedAccountOneTimeTransactionOutputData, SharedAccountPeriodicTransactionOutputData> implements ShareAccountDataAccessInterface {
+public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject<
+        SharedAccount,
+        SharedAccountOneTimeTransactionOutputData,
+        SharedAccountPeriodicTransactionOutputData>
+        implements SharedAccountDataAccessInterface,
+        SharedAccountSignupDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
 //    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/sharedAccountTransactions.csv";
@@ -54,8 +60,25 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         boolean userExist = false;
         try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
             while (iterator.hasNext()) {
+                SharedAccount account = iterator.next();
+                if (account.getIdentification().equals(sharedAccountIdentification)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean existByuserId(String userId) {
+        boolean userExist = false;
+        String baseDir = System.getProperty("user.dir");
+        Path tempCsvPath = Paths.get(baseDir, "src/main/data/accounts/userAccounts.csv");
+        try (SharedAccountIterator iterator = new SharedAccountIterator(tempCsvPath)) {
+            while (iterator.hasNext()) {
                 UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(sharedAccountIdentification)) {
+                if (userAccount.getIdentification().equals(userId)) {
                     return true;
                 }
             }

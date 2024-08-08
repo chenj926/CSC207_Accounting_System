@@ -17,13 +17,16 @@ import data_access.transaction.*;
 public class DAOFactory {
     private static CSVUserAccountDataAccessObject csvUserAccountDAO;
     private static CSVSharedAccountDataAccessObject csvSharedAccountDAO;
+
     private static CSVUserLoginDataAccessObject csvUserLoginDAO;
     private static CSVSharedAccountLoginDataAccessObject csvSharedAccountUserLoginDAO;
 
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
-    private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
+    private static InMemorySharedAccountDataAccessObject inMemorySharedAccountDAO;
+
     private static InMemoryLoginoutDataAccessObject inMemoryLoginoutDAO;
     private static InMemorySharedAccountLoginDataAccessObject inMemorySharedAccountLoginDataAccessObject;
+
     private static InMemoryOneTimeDataAccessObject inMemoryOneTimeDataAccessObject;
     private static InMemoryPeriodicDataAccessObject inMemoryPeriodicDataAccessObject;
 
@@ -62,19 +65,10 @@ public class DAOFactory {
         }
     }
 
-    /**
-     * Returns a singleton instance of {@link ShareAccountDataAccessInterface}.
-     * <p>
-     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryShareAccountDataAccessObject}.
-     * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
-     * </p>
-     *
-     * @return the {@link ShareAccountDataAccessInterface} instance
-     */
-    public static synchronized ShareAccountDataAccessInterface getShareAccountDataAccessObject() {
+    public static synchronized SharedAccountSignupDataAccessInterface getSharedAccountSignupDataAccessObject() {
         if (useInMemory) {
             if (inMemorySharedAccountDAO == null) {
-                inMemorySharedAccountDAO = new InMemoryShareAccountDataAccessObject();
+                inMemorySharedAccountDAO = new InMemorySharedAccountDataAccessObject();
             }
             return inMemorySharedAccountDAO;
         } else {
@@ -82,6 +76,43 @@ public class DAOFactory {
                 csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
             }
             return csvSharedAccountDAO;
+        }
+    }
+
+    /**
+     * Returns a singleton instance of {@link SharedAccountDataAccessInterface}.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemorySharedAccountDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link SharedAccountDataAccessInterface} instance
+     */
+    public static synchronized SharedAccountDataAccessInterface getShareAccountDataAccessObject() {
+        if (useInMemory) {
+            if (inMemorySharedAccountDAO == null) {
+                inMemorySharedAccountDAO = new InMemorySharedAccountDataAccessObject();
+            }
+            return inMemorySharedAccountDAO;
+        } else {
+            if (csvSharedAccountDAO == null) {
+                csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
+            }
+            return csvSharedAccountDAO;
+        }
+    }
+
+    public static synchronized UserAccountDataAccessInterface getUserAccountDataAccessObject() {
+        if (useInMemory) {
+            if (inMemoryUserAccountDAO == null) {
+                inMemoryUserAccountDAO = new InMemoryUserAccountDataAccessObject();
+            }
+            return inMemoryUserAccountDAO;
+        } else {
+            if (csvUserAccountDAO == null) {
+                csvUserAccountDAO = new CSVUserAccountDataAccessObject();
+            }
+            return csvUserAccountDAO;
         }
     }
 
@@ -122,30 +153,6 @@ public class DAOFactory {
         }
     }
 
-//    /**
-//     * Returns a singleton instance of {@link LogoutDataAccessInterface}.
-//     * <p>
-//     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryLoginoutDataAccessObject}.
-//     * Otherwise, returns an instance of {@link CSVUserLoginoutDataAccessObject}.
-//     * </p>
-//     *
-//     * @return the {@link LogoutDataAccessInterface} instance
-//     */
-//    public static synchronized LogoutDataAccessInterface getLogoutDataAccessObject() {
-//        // 先不管
-//        if (useInMemory) {
-//            if (inMemoryLoginoutDAO == null) {
-//                inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();
-//            }
-//            return inMemoryLoginoutDAO;
-//        } else {
-//            if (csvUserLoginDAO == null) {
-//                csvUserLoginDAO = new CSVUserLoginoutDataAccessObject();
-//            }
-//            return csvUserLoginDAO;
-//        }
-//    }
-
     /**
      * Returns a singleton instance of {@link UserAccountDataAccessInterface} for one-time transactions.
      * <p>
@@ -173,7 +180,7 @@ public class DAOFactory {
      * Returns a singleton instance of {@link UserAccountDataAccessInterface} for periodic transactions.
      * <p>
      * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryPeriodicDataAccessObject}.
-     * Otherwise, returns an instance of {@link CSVUserLoginoutDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVUserAccountDataAccessObject}.
      * </p>
      *
      * @return the {@link UserAccountDataAccessInterface} instance
@@ -206,6 +213,20 @@ public class DAOFactory {
         }
     }
 
+    public static synchronized SharedAccountDataAccessInterface getSharedAccountFinancialReportDAO() {
+        if (useInMemory) {
+//            if (inMemoryPeriodicDataAccessObject == null) {
+//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+//            }
+            return inMemorySharedAccountDAO;
+        } else {
+            if (csvSharedAccountDAO == null) {
+                csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
+            }
+            return csvSharedAccountDAO;
+        }
+    }
+
     public static synchronized UserAccountDataAccessInterface getHomepageTwoDAO() {
         if (useInMemory) {
 //            if (inMemoryPeriodicDataAccessObject == null) {
@@ -217,6 +238,20 @@ public class DAOFactory {
                 csvUserAccountDAO = new CSVUserAccountDataAccessObject();
             }
             return csvUserAccountDAO;
+        }
+    }
+
+    public static synchronized SharedAccountDataAccessInterface getSharedAccountHomepageTwoDAO() {
+        if (useInMemory) {
+//            if (inMemoryPeriodicDataAccessObject == null) {
+//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+//            }
+            return inMemorySharedAccountDAO;
+        } else {
+            if (csvSharedAccountDAO == null) {
+                csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
+            }
+            return csvSharedAccountDAO;
         }
     }
 }

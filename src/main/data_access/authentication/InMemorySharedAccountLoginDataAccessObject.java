@@ -1,14 +1,12 @@
 package data_access.authentication;
 
-import data_access.account.InMemoryShareAccountDataAccessObject;
-import data_access.account.InMemoryUserAccountDataAccessObject;
+import data_access.account.InMemorySharedAccountDataAccessObject;
 import entity.account.SharedAccount;
-import entity.account.UserAccount;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemorySharedAccountLoginDataAccessObject extends InMemoryShareAccountDataAccessObject implements SharedAccountLoginDataAccessInterface {
+public class InMemorySharedAccountLoginDataAccessObject extends InMemorySharedAccountDataAccessObject implements SharedAccountLoginDataAccessInterface {
     private static Map<String, Boolean> sharedAccountUserLogin;
 
     public InMemorySharedAccountLoginDataAccessObject() {

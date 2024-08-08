@@ -3,9 +3,9 @@ package use_case.financial_report;
 /**
  * Output data for presenting financial reports.
  *
- * @author :Chi Fong
+ * @author :Dana
  */
-public class FinancialReportOutputData {
+public abstract class FinancialReportOutputData {
     private final String reportContent;
 
     /**
@@ -14,6 +14,7 @@ public class FinancialReportOutputData {
      * @param reportContent the content of the financial report
      */
     public FinancialReportOutputData(String reportContent) {
+
         this.reportContent = reportContent;
     }
 
@@ -24,5 +25,3 @@ public class FinancialReportOutputData {
      */
     public String getReportContent() { return reportContent; }
 }
-
-

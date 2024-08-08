@@ -5,22 +5,31 @@ import app.authentication.LoginUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
 import app.home_page.HomepageTwoUseCaseFactory;
+import app.home_page.SharedAccountHomepageTwoUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
 import app.FinancialReport.FinancialReportUseCaseFactory;
-import interface_adaptors.financial_report.FinancialReportViewModel;
-import interface_adaptors.homepage.HomepageTwoViewModel;
+import app.transaction.SharedAccountOneTimeTransactionUseCaseFactory;
+import app.transaction.SharedAccountPeriodicTransactionUseCaseFactory;
+import interface_adaptors.financial_report.SharedAccountFinancialReportViewModel;
+import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
+import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
+import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
 import interface_adaptors.login.UserAccountLoginViewModel;
 import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
-import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
-import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
 import view.financial_report.FinancialReportView;
+import view.financial_report.SharedAccountFinancialReportView;
 import view.home_page.HomePageView;
 import view.home_page.HomepageTwoView;
+import view.home_page.SharedAccountHomepageTwoView;
 import view.login.LoginView;
 import view.login.SharedAccountLoginView; // Import the SharedAccountLoginView
 //import view.logout.LogoutView;
@@ -28,7 +37,9 @@ import view.signup.SignupView;
 import view.signup.SharedAccountSignupView;
 //import view.transaction.TransactionView;
 import view.transaction.one_time.OneTimeTransactionView;
+import view.transaction.one_time.SharedAccountOneTimeTransactionView;
 import view.transaction.periodic.PeriodicTransactionView;
+import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 //import view.transaction.TransactionView;
 
 import javax.swing.*;
@@ -49,7 +60,7 @@ public class ViewManagerModel {
 
     private String userId;
     private String[] basicUserInfo;
-    private String sharedAccountId;
+//    private String sharedAccountId;
     private String activeViewName;
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
     private JFrame currentView;
@@ -62,7 +73,7 @@ public class ViewManagerModel {
     public ViewManagerModel() {
         this.views = new HashMap<>();
         this.viewModels = new HashMap<>();
-        this.initViewModels();
+//        this.initViewModels();
     }
 
     // 2种方式，一种是set好viewModel， 然后新创建的时候，viewModel里就已近有了id/shareId
@@ -72,8 +83,8 @@ public class ViewManagerModel {
         HomePageViewModel homePageViewModel = new HomePageViewModel();
         this.viewModels.put("home page", homePageViewModel);
 
-        SignupViewModel signupViewModel = new SignupViewModel();
-        this.viewModels.put("sign up", signupViewModel);
+        UserAccountSignupViewModel userAccountSignupViewModel = new UserAccountSignupViewModel();
+        this.viewModels.put("sign up", userAccountSignupViewModel);
 
         SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
         this.viewModels.put("shared account sign up", sharedSignupViewModel);
@@ -84,17 +95,29 @@ public class ViewManagerModel {
         SharedAccountLoginViewModel sharedAccountLoginViewModel = new SharedAccountLoginViewModel();
         this.viewModels.put("shared account log in", sharedAccountLoginViewModel);
 
-        HomepageTwoViewModel homepageTwoViewModel = new HomepageTwoViewModel();
-        this.viewModels.put("Homepage Two", homepageTwoViewModel);
+        UserAccountHomepageTwoViewModel userAccountHomepageTwoViewModel = new UserAccountHomepageTwoViewModel();
+        this.viewModels.put("Homepage Two", userAccountHomepageTwoViewModel);
 
-        OneTimeTransactionViewModel oneTimeTransactionViewModel = new OneTimeTransactionViewModel();
-        this.viewModels.put("One Time Transaction", oneTimeTransactionViewModel);
+        SharedAccountHomepageTwoViewModel sharedAccounthomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
+        this.viewModels.put("Share Account Homepage Two", sharedAccounthomepageTwoViewModel);
 
-        PeriodicTransactionViewModel periodicTransactionViewModel = new PeriodicTransactionViewModel();
-        this.viewModels.put("Periodic Transaction", periodicTransactionViewModel);
+        UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserAccountOneTimeTransactionViewModel();
+        this.viewModels.put("One Time Transaction", userAccountOneTimeTransactionViewModel);
 
-        FinancialReportViewModel financialReportViewModel = new FinancialReportViewModel();
-        this.viewModels.put("Financial Report", financialReportViewModel);
+        SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
+        this.viewModels.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionViewModel);
+
+        UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel = new UserAccountPeriodicTransactionViewModel();
+        this.viewModels.put("Periodic Transaction", userAccountPeriodicTransactionViewModel);
+
+        SharedAccountPeriodicTransactionViewModel sharedAccountperiodicTransactionViewModel = new SharedAccountPeriodicTransactionViewModel();
+        this.viewModels.put("Shared Account Periodic Transaction", sharedAccountperiodicTransactionViewModel);
+
+        UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = new UserAccountFinancialReportViewModel();
+        this.viewModels.put("Financial Report", userAccountFinancialReportViewModel);
+
+        SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
+        this.viewModels.put("Shared Account Financial Report", sharedAccountFinancialReportViewModel);
     }
 
     public <V extends ViewModel> void updateViewModel(String viewModelName, V viewModel) {
@@ -131,9 +154,9 @@ public class ViewManagerModel {
         return this.basicUserInfo;
     }
 
-    public String getSharedAccountId() {
-        return this.sharedAccountId;
-    }
+//    public String getSharedAccountId() {
+//        return this.sharedAccountId;
+//    }
 
     /**
      * Sets the name of the active view and notifies listeners of the change.
@@ -161,9 +184,9 @@ public class ViewManagerModel {
         this.basicUserInfo = basicUserInfo;
     }
 
-    public void setSharedAccountId(String sharedAccountId) {
-        this.sharedAccountId = sharedAccountId;
-    }
+//    public void setSharedAccountId(String sharedAccountId) {
+//        this.sharedAccountId = sharedAccountId;
+//    }
 
     /**
      * Adds a property change listener to the listener list.
@@ -217,73 +240,97 @@ public class ViewManagerModel {
         // 让他加了（新的viewModel）好像也没用……非常无奈啊
         switch (viewName) {
             case "home page":
-                HomePageViewModel homePageViewModel = (HomePageViewModel) this.viewModels.get("home page");
+                HomePageViewModel homePageViewModel =  new HomePageViewModel();
                 HomePageView homePageView = HomePageUseCaseFactory.create(this, homePageViewModel);
                 views.put("home page", homePageView);
                 currentView = homePageView;
                 break;
             case "sign up":
-                SignupViewModel signupViewModel = (SignupViewModel) this.viewModels.get("sign up");
-                SignupView signupView = SignupUseCaseFactory.create(this, signupViewModel);
+                UserAccountSignupViewModel userAccountSignupViewModel = new UserAccountSignupViewModel();
+                SignupView signupView = SignupUseCaseFactory.create(this, userAccountSignupViewModel);
                 views.put("sign up", signupView);
                 currentView = signupView;
                 break;
             case "shared account sign up":
                 SharedAccountSignupViewModel sharedSignupViewModel =
-                        (SharedAccountSignupViewModel) this.viewModels.get("shared account sign up");
+                        new SharedAccountSignupViewModel();
                 SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this,
                         sharedSignupViewModel);
                 views.put("shared account sign up", sharedSignupView);
                 currentView = sharedSignupView;
                 break;
             case "log in":
-                UserAccountLoginViewModel loginViewModel =  (UserAccountLoginViewModel) this.viewModels.get("log in");
+                UserAccountLoginViewModel loginViewModel =  new UserAccountLoginViewModel();
                 LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
             case "shared account log in":
                 SharedAccountLoginViewModel sharedAccountLoginViewModel =
-                        (SharedAccountLoginViewModel) this.viewModels.get("shared account log in");
+                        new SharedAccountLoginViewModel();
                 SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.create(this,
                         sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
                 break;
             case "Homepage Two":
-                HomepageTwoViewModel homepageTwoViewModel = (HomepageTwoViewModel) this.viewModels.get("Homepage Two");
-                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, homepageTwoViewModel);
+                UserAccountHomepageTwoViewModel userAccountHomepageTwoViewModel = new UserAccountHomepageTwoViewModel();
+                HomepageTwoView homepageTwoView = HomepageTwoUseCaseFactory.create(this, userAccountHomepageTwoViewModel);
                 views.put("Homepage Two", homepageTwoView);
                 currentView = homepageTwoView;
+                break;
+            case "Shared Account Homepage Two":
+                SharedAccountHomepageTwoViewModel sharedAccountHomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
+                SharedAccountHomepageTwoView sharedAccountHomepageTwoView = SharedAccountHomepageTwoUseCaseFactory.create(this, sharedAccountHomepageTwoViewModel);
+                views.put("Shared Account Homepage Two", sharedAccountHomepageTwoView);
+                currentView = sharedAccountHomepageTwoView;
+                break;
             case "One Time Transaction":
-                OneTimeTransactionViewModel oneTimeTransactionViewModel =
-                        (OneTimeTransactionViewModel) this.viewModels.get("One Time Transaction");
+                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
+                       new UserAccountOneTimeTransactionViewModel();
                 OneTimeTransactionView oneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(
-                        this, oneTimeTransactionViewModel);
+                        this, userAccountOneTimeTransactionViewModel);
                 views.put("One Time Transaction", oneTimeTransactionView);
                 currentView = oneTimeTransactionView;
                 break;
+            case "Shared Account One Time Transaction":
+                SharedAccountOneTimeTransactionViewModel sharedAccountoneTimeTransactionViewModel =
+                        new SharedAccountOneTimeTransactionViewModel();
+                SharedAccountOneTimeTransactionView sharedAccountoneTimeTransactionView = SharedAccountOneTimeTransactionUseCaseFactory.create(
+                        this, sharedAccountoneTimeTransactionViewModel);
+                views.put("Shared Account One Time Transaction", sharedAccountoneTimeTransactionView);
+                currentView = sharedAccountoneTimeTransactionView;
+                break;
             case "Periodic Transaction":
-                PeriodicTransactionViewModel periodicTransactionViewModel =
-                        (PeriodicTransactionViewModel) this.viewModels.get("Periodic Transaction");
+                UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel =
+                        new UserAccountPeriodicTransactionViewModel();
                 PeriodicTransactionView periodicTransactionView = PeriodicTransactionUseCaseFactory.create(
-                        this, periodicTransactionViewModel);
+                        this, userAccountPeriodicTransactionViewModel);
                 views.put("Periodic Transaction", periodicTransactionView);
                 currentView = periodicTransactionView;
                 break;
-//            case "log out":
-//                LogoutViewModel logoutViewModel = new LogoutViewModel();
-//                LogoutView logoutView = LogoutUseCaseFactory.create(this, logoutViewModel);
-//                views.put("log out", logoutView);
-//                currentView = logoutView;
-//                break;
+            case "Shared Account Periodic Transaction":
+                SharedAccountPeriodicTransactionViewModel sharedAccountperiodicTransactionViewModel =
+                        new SharedAccountPeriodicTransactionViewModel();
+                SharedAccountPeriodicTransactionView sharedAccountperiodicTransactionView = SharedAccountPeriodicTransactionUseCaseFactory.create(
+                        this, sharedAccountperiodicTransactionViewModel);
+                views.put("Shared Account Periodic Transaction", sharedAccountperiodicTransactionView);
+                currentView = sharedAccountperiodicTransactionView;
+                break;
             case "Financial Report":
-                FinancialReportViewModel financialReportViewModel = (FinancialReportViewModel) this.viewModels.get("Financial Report");
+                UserAccountFinancialReportViewModel userAccountFinancialReportViewModel = new UserAccountFinancialReportViewModel();
                 FinancialReportView financialReportView = FinancialReportUseCaseFactory.create(this,
-                        financialReportViewModel);
+                        userAccountFinancialReportViewModel);
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;
+//            case "Shared Account Financial Report":
+//                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
+//                SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
+//                        sharedAccountFinancialReportViewModel);
+//                views.put("Shared Account Financial Report", sharedAccountFinancialReportView);
+//                currentView = sharedAccountFinancialReportView;
+//                break;
         }
         if (currentView != null) {
             currentView.setVisible(true);

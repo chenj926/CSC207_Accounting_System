@@ -4,7 +4,7 @@ public abstract class SignupInputData {
     private String identification;
     private String password;
 
-    public SignupInputData(String identification, String password) {
+    public SignupInputData(String password, String identification) {
         this.identification = identification;
         this.password = password;
     }

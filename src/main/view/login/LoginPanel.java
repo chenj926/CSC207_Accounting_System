@@ -1,7 +1,7 @@
 package view.login;
 
 import interface_adaptors.*;
-import interface_adaptors.login.LoginController;
+import interface_adaptors.login.AccountLoginController;
 import interface_adaptors.login.UserAccountLoginState;
 import interface_adaptors.login.UserAccountLoginViewModel;
 
@@ -22,9 +22,8 @@ import java.awt.event.KeyListener;
  */
 public class LoginPanel extends JPanel {
     private final UserAccountLoginViewModel viewModel;
-    protected LoginController loginController;
+    protected AccountLoginController loginController;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
     protected JLabel titleLabel;
     protected JTextField identificationTextField;
@@ -40,7 +39,7 @@ public class LoginPanel extends JPanel {
      * @param loginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public LoginPanel(UserAccountLoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginPanel(UserAccountLoginViewModel viewModel, AccountLoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
         this.viewManager = viewManager;
@@ -61,6 +60,8 @@ public class LoginPanel extends JPanel {
 
         this.identificationTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
+        this.identificationTextField.setToolTipText("Enter User Account ID");
+        this.passwordField.setToolTipText("Enter User Account Password");
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -99,16 +100,12 @@ public class LoginPanel extends JPanel {
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
         add(this.titleLabel, constraints);
 
         // reset gridwidth and anchor for other components
-//        constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.WEST;
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // identification
-//        constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
         add(new JLabel(this.viewModel.getIdentificationLabel()), constraints);
@@ -150,8 +147,9 @@ public class LoginPanel extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
                     loginController.execute(
-                            String.valueOf(passwordField.getPassword()),
-                            identificationTextField.getText()
+                            identificationTextField.getText(),
+                            String.valueOf(passwordField.getPassword())
+//                            identificationTextField.getText()
                     );
                 }
             }

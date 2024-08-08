@@ -1,8 +1,8 @@
 package view.transaction.periodic;
 
-import interface_adaptors.transaction.periodic.PeriodicTransactionController;
-import interface_adaptors.transaction.periodic.PeriodicTransactionState;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionState;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;
@@ -19,23 +19,23 @@ import java.beans.PropertyChangeListener;
  */
 public class PeriodicTransactionView extends JFrame implements PropertyChangeListener {
     private PeriodicTransactionPanel periodicTransactionPanel;
-    private PeriodicTransactionViewModel viewModel;
+    private UserAccountPeriodicTransactionViewModel viewModel;
 
     /**
      * Constructs a PeriodicTransactionView object with the specified view model, controller, and view manager.
      *
      * @param viewModel                  the view model for the periodic transaction view
-     * @param periodicTransactionController the controller handling periodic transaction actions
+     * @param userAccountPeriodicTransactionController the controller handling periodic transaction actions
      * @param viewManager                the view manager for handling view transitions
      */
-    public PeriodicTransactionView(PeriodicTransactionViewModel viewModel,
-                                   PeriodicTransactionController periodicTransactionController,
+    public PeriodicTransactionView(UserAccountPeriodicTransactionViewModel viewModel,
+                                   UserAccountPeriodicTransactionController userAccountPeriodicTransactionController,
                                    ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
 
-        periodicTransactionPanel = new PeriodicTransactionPanel(viewModel, periodicTransactionController, viewManager);
+        periodicTransactionPanel = new PeriodicTransactionPanel(viewModel, userAccountPeriodicTransactionController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +58,7 @@ public class PeriodicTransactionView extends JFrame implements PropertyChangeLis
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        PeriodicTransactionState state = (PeriodicTransactionState) evt.getNewValue();
+        UserAccountPeriodicTransactionState state = (UserAccountPeriodicTransactionState) evt.getNewValue();
         if (state.getErrorMsg() == null) {
             String successMsg = state.getSuccessMessage();
             JOptionPane.showMessageDialog(this, successMsg, "Success", JOptionPane.INFORMATION_MESSAGE);

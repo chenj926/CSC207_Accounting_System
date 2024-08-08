@@ -1,10 +1,11 @@
 package use_case.signup;
 
-import data_access.account.ShareAccountDataAccessInterface;
-import data_access.authentication.UserSignupDataAccessInterface;
+import data_access.account.CSVSharedAccountDataAccessObject;
+import data_access.account.SharedAccountDataAccessInterface;
+import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.account.AccountFactory;
-import entity.account.UserAccount;
+
 import java.util.Set;
 
 /**
@@ -17,9 +18,11 @@ import java.util.Set;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupInteractor extends SignupInteractor implements SharedAccountSignupInputBoundary {
+public class SharedAccountSignupInteractor extends SignupInteractor<
+        SharedAccountSignupDataAccessInterface,
+        SharedAccountSignupInputData> implements SharedAccountSignupInputBoundary {
     private final SharedAccountSignupOutputBoundary presenter;
-    private final ShareAccountDataAccessInterface sharedDataAccessObject;
+    private final SharedAccountDataAccessInterface sharedDataAccessObject;
 
     /**
      * Constructs a SharedAccountSignupInteractor object with the specified data access interfaces,
@@ -30,8 +33,8 @@ public class SharedAccountSignupInteractor extends SignupInteractor implements S
      * @param signupOutputBoundary          the output boundary for presenting the signup results
      * @param accountFactory                the factory for creating user accounts
      */
-    public SharedAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
-                                         ShareAccountDataAccessInterface sharedDataAccessObject,
+    public SharedAccountSignupInteractor(SharedAccountSignupDataAccessInterface userSignupDataAccessInterface,
+                                         SharedAccountDataAccessInterface sharedDataAccessObject,
                                          SharedAccountSignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
         super(userSignupDataAccessInterface, accountFactory);
@@ -78,6 +81,7 @@ public class SharedAccountSignupInteractor extends SignupInteractor implements S
         // Create a new shared account
         SharedAccount newSharedAccount = accountFactory.createSharedAccount(
                 shareAccountId,
+                userIds,
                 sharedSignupData.getPassword()
         );
         // update the user account ids into newSharedAccount
@@ -105,7 +109,8 @@ public class SharedAccountSignupInteractor extends SignupInteractor implements S
 
     private boolean checkUserIdsExist(Set<String> userIds) {
         for (String userId : userIds) {
-            if (!this.userDataAccessObject.existById(userId)) {
+            SharedAccountDataAccessInterface DAO = new CSVSharedAccountDataAccessObject();
+            if (!CSVSharedAccountDataAccessObject.existByuserId(userId)) {
                 return false;
             }
         }

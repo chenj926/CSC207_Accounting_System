@@ -1,9 +1,9 @@
 package view.signup;
 
 import interface_adaptors.*;
-import interface_adaptors.signup.SignupController;
-import interface_adaptors.signup.SignupState;
-import interface_adaptors.signup.SignupViewModel;
+import interface_adaptors.signup.UserAccountSignupController;
+import interface_adaptors.signup.UserAccountSignupState;
+import interface_adaptors.signup.UserAccountSignupViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,22 +11,19 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 
 /**
  * The SignupPanel class represents the panel for user signup. It contains fields for user input and buttons for signup and cancel actions.
  */
 public class SignupPanel extends JPanel {
-    private final SignupViewModel viewModel;
-    private SignupController signupController;
+    private final UserAccountSignupViewModel viewModel;
+    private UserAccountSignupController userAccountSignupController;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField usernameTextField;
     private JPasswordField passwordField;
     private JTextField idenficationField;
-    private JTextField sharedAccountIdField;
     private JButton signupButton;
     private JButton cancelButton;
 
@@ -34,11 +31,11 @@ public class SignupPanel extends JPanel {
      * Constructs a SignupPanel object with the specified view model, controller, and view manager.
      *
      * @param viewModel        the view model for the signup panel
-     * @param signupController the controller for handling signup actions
+     * @param userAccountSignupController the controller for handling signup actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public SignupPanel(SignupViewModel viewModel, SignupController signupController, ViewManagerModel viewManager) {
-        this.signupController = signupController;
+    public SignupPanel(UserAccountSignupViewModel viewModel, UserAccountSignupController userAccountSignupController, ViewManagerModel viewManager) {
+        this.userAccountSignupController = userAccountSignupController;
         this.viewManager = viewManager;
         this.viewModel = viewModel;
 
@@ -59,6 +56,11 @@ public class SignupPanel extends JPanel {
         this.usernameTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
         this.idenficationField = new JTextField(20);
+
+        // tip explanation to users
+        this.usernameTextField.setToolTipText("Set a nick-name for your account");
+        this.passwordField.setToolTipText("Set a secret password");
+        this.idenficationField.setToolTipText("Set a unique ID for you to login");
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -144,7 +146,7 @@ public class SignupPanel extends JPanel {
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent evt) {
-                        signupController.execute(
+                        userAccountSignupController.execute(
                                 usernameTextField.getText(),
                                 String.valueOf(passwordField.getPassword()),
                                 idenficationField.getText()
@@ -162,7 +164,7 @@ public class SignupPanel extends JPanel {
         this.usernameTextField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SignupState currentState = viewModel.getState();
+                UserAccountSignupState currentState = viewModel.getState();
                 currentState.setUsername(usernameTextField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -178,7 +180,7 @@ public class SignupPanel extends JPanel {
         this.passwordField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SignupState currentState = viewModel.getState();
+                UserAccountSignupState currentState = viewModel.getState();
                 currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -193,7 +195,7 @@ public class SignupPanel extends JPanel {
         this.idenficationField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SignupState currentState = viewModel.getState();
+                UserAccountSignupState currentState = viewModel.getState();
                 currentState.setIdentification(idenficationField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -213,7 +215,6 @@ public class SignupPanel extends JPanel {
         usernameTextField.setText("");
         passwordField.setText("");
         idenficationField.setText("");
-        sharedAccountIdField.setText("");
     }
 }
 

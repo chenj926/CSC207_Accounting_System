@@ -28,11 +28,11 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
     private JTextField amountField;
     private JTextField dateField;
     private JTextField descriptionField;
-    private JComboBox<String> categoryButton;
+    private JComboBox<String> categoryComb;
     private JButton submitButton;
     private JButton cancelButton;
-    private JButton selectUsersButton; // New button to select responsible users
-    private Set<String> responsibleUserIds; // Set to store selected user IDs
+//    private JComboBox<String> selectUsersComb; // 可以做成comb让user select的形式，失策了
+    private JTextField userIdField;
 
     /**
      * Constructs a SharedAccountOneTimeTransactionPanel object with the specified view model, controller, and view manager.
@@ -47,7 +47,6 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.viewModel = viewModel;
         this.controller = controller;
         this.viewManager = viewManager;
-        this.responsibleUserIds = new HashSet<>(); // Initialize the set for responsible user IDs
         initializeComponents();
         setupUI();
         setupListeners();
@@ -66,21 +65,23 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.amountField = new JTextField(20);
         this.dateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
+        this.userIdField = new JTextField(20);
 
         // Category combo box
         String[] categories = {"Auto", "Personal item", "Food", "Transport", "Income", "Entertainment", "Travel",
                 "Utilities", "Medical", "Home", "Custom"};
-        this.categoryButton = new JComboBox<>(categories);
+        this.categoryComb = new JComboBox<>(categories);
+//        String[] userIds = ;
 
         // Buttons
         this.submitButton = new JButton(viewModel.getSubmitButton());
         this.cancelButton = new JButton(viewModel.getCancelButton());
-        this.selectUsersButton = new JButton(viewModel.getSELECT_USERS_BUTTON_LABEL()); // Button to select users
+//        this.selectUsersComb = new JButton(viewModel.getSELECT_USERS_BUTTON_LABEL()); // Button to select users
 
         // Style buttons
-        styleButton(this.submitButton, new Color(100, 150, 200));
-        styleButton(this.cancelButton, new Color(200, 100, 100));
-        styleButton(this.selectUsersButton, new Color(100, 200, 100));
+        this.styleButton(this.submitButton, new Color(100, 150, 200));
+        this.styleButton(this.cancelButton, new Color(200, 100, 100));
+//        this.styleButton(this.selectUsersComb, new Color(100, 200, 100));
     }
 
     /**
@@ -116,6 +117,13 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         constraints.anchor = GridBagConstraints.WEST;
         constraints.gridwidth = 1;
 
+        // Select Users Button
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(new JLabel(viewModel.getSELECT_USERS_BUTTON_LABEL()), constraints);
+        constraints.gridx = 1;
+        add(this.userIdField, constraints);
+        
         // Amount
         constraints.gridx = 0;
         constraints.gridy++;
@@ -142,14 +150,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         constraints.gridy++;
         add(new JLabel(viewModel.getCategoryButton()), constraints);
         constraints.gridx = 1;
-        add(this.categoryButton, constraints);
-
-        // Select Users Button
-        constraints.gridx = 0;
-        constraints.gridy++;
-        add(new JLabel(viewModel.getSELECT_USERS_BUTTON_LABEL()), constraints);
-        constraints.gridx = 1;
-        add(this.selectUsersButton, constraints);
+        add(this.categoryComb, constraints);
 
         // Buttons panel for submit and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -174,7 +175,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(submitButton)) {
-                    String category = (String) categoryButton.getSelectedItem();
+                    String category = (String) categoryComb.getSelectedItem();
                     if ("Custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
@@ -185,8 +186,8 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
                             dateField.getText(),
                             descriptionField.getText(),
                             category,
-                            viewManager.getSharedAccountId(), // Pass sharedAccountId from viewManager
-                            responsibleUserIds // Pass selected responsible users
+                            viewManager.getUserId(), // Pass sharedAccountId from viewManager
+                            userIdField.getText()
                     );
                 }
             }
@@ -195,25 +196,25 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         // Cancel button action
         cancelButton.addActionListener(e -> viewManager.setActiveViewName("Transaction"));
 
-        // Select Users button action
-        selectUsersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // Open dialog to select responsible users
-                String users = JOptionPane.showInputDialog(
-                        null, "Enter responsible user IDs separated by commas",
-                        "Select Users", JOptionPane.PLAIN_MESSAGE);
-
-                if (users != null && !users.trim().isEmpty()) {
-                    // Split input string and add to set
-                    String[] userIds = users.split(",");
-                    for (String userId : userIds) {
-                        responsibleUserIds.add(userId.trim());
-                    }
-                    JOptionPane.showMessageDialog(null, "Selected Users: " + responsibleUserIds);
-                }
-            }
-        });
+//        // Select Users button action
+//        selectUsersComb.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                // Open dialog to select responsible users
+//                String users = JOptionPane.showInputDialog(
+//                        null, "Enter responsible user IDs separated by commas",
+//                        "Select Users", JOptionPane.PLAIN_MESSAGE);
+//
+//                if (users != null && !users.trim().isEmpty()) {
+//                    // Split input string and add to set
+//                    String[] userIds = users.split(",");
+//                    for (String userId : userIds) {
+//                        responsibleUserIds.add(userId.trim());
+//                    }
+//                    JOptionPane.showMessageDialog(null, "Selected Users: " + responsibleUserIds);
+//                }
+//            }
+//        });
 
         // Add listeners for typing in fields to update state
         addTypingListeners();
@@ -265,13 +266,13 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         });
 
         // Category combo box action
-        this.categoryButton.addActionListener(new ActionListener() {
+        this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 SharedAccountOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "Custom"
-                if ("Custom".equals(categoryButton.getSelectedItem())) {
+                if ("Custom".equals(categoryComb.getSelectedItem())) {
                     // Prompt the user to enter a custom category
                     String input = JOptionPane.showInputDialog(
                             null, "Enter the custom category",
@@ -282,7 +283,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
                     viewModel.setState(currentState);
                 } else {
                     // Set the selected category
-                    currentState.setTransactionCategory((String) categoryButton.getSelectedItem());
+                    currentState.setTransactionCategory((String) categoryComb.getSelectedItem());
                     viewModel.setState(currentState);
                 }
             }
@@ -296,8 +297,8 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         amountField.setText("");
         dateField.setText("");
         descriptionField.setText("");
-        categoryButton.setSelectedIndex(0);
-        responsibleUserIds.clear(); // Clear responsible user IDs
+        categoryComb.setSelectedIndex(0);
+//        responsibleUserIds.clear(); // Clear responsible user IDs
     }
 }
 

@@ -5,5 +5,5 @@ package use_case.transaction.periodic;
  * of a periodic transaction operation involving a shared account.
  */
 public interface SharedAccountPeriodicTransactionOutputBoundary extends PeriodicTransactionOutputBoundary<SharedAccountPeriodicTransactionOutputData> {
-    void prepareSuccessView(PeriodicTransactionOutputData outputData);
+    void prepareSuccessView(SharedAccountPeriodicTransactionOutputData outputData);
 }

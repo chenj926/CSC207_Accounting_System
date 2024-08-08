@@ -1,7 +1,7 @@
 package use_case.homepage;
 
 public class HomepageTwoInputData {
-    private String id;
+    protected String id;
 
     public HomepageTwoInputData(String id) {
         this.id = id;

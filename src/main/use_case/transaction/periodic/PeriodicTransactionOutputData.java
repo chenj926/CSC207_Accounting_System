@@ -44,4 +44,10 @@ public class PeriodicTransactionOutputData extends TransactionOutputData<Transac
     public String getTransactionPeriod() {
         return this.transactionPeriod;
     }
+
+    /**
+     * Gets the related account identification of the transaction.
+     *
+     * @return the related account identification of the transaction
+     */
 }

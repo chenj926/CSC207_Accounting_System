@@ -13,29 +13,24 @@ import java.time.LocalDate;
  * @author Dana
  * @author Eric
  */
-public class UserAccountLoginInteractor implements UserAccountLoginInputBoundary {
-    final LoginDataAccessInterface userDataAccessObject;
-    final UserAcountLoginOutputBoundary presenter;
-    private LoginMediator mediator;
+public class UserAccountLoginInteractor extends LoginInteractor<
+        LoginDataAccessInterface,
+        UserAcountLoginOutputBoundary,
+        UserAccountLoginOutputData,
+        UserAccountLoginInputData> implements UserAccountLoginInputBoundary {
+
+//    final LoginDataAccessInterface userDataAccessObject;
+//    final UserAcountLoginOutputBoundary presenter;
+//    private LoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
      *
-     * @param LoginDataAccessInterface the data access interface for user data
+     * @param loginDataAccessInterface the data access interface for user data
      * @param logInOutputBoundaryUser      the output boundary for presenting the login results
      */
-    public UserAccountLoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, UserAcountLoginOutputBoundary logInOutputBoundaryUser) {
-        this.userDataAccessObject = LoginDataAccessInterface;
-        this.presenter = logInOutputBoundaryUser;
-    }
-
-    /**
-     * Sets the mediator for the interactor.
-     *
-     * @param mediator the LoginMediator instance to set
-     */
-    public void setMediator(LoginMediator mediator) {
-        this.mediator = mediator;
+    public UserAccountLoginInteractor(LoginDataAccessInterface loginDataAccessInterface, UserAcountLoginOutputBoundary logInOutputBoundaryUser) {
+        super(loginDataAccessInterface, logInOutputBoundaryUser);
     }
 
     /**
