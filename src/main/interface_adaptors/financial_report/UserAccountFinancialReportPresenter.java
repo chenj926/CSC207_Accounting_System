@@ -10,15 +10,13 @@ import use_case.financial_report.UserAccountFinancialReportOutputData;
  *
  * @author Chi Fong, Eric Chen
  */
-public class UserAccountFinancialReportPresenter implements UserAccountFinancialReportOutputBoundary {
-    private String reportContent;
+public class UserAccountFinancialReportPresenter extends FinancialReportPresenter implements UserAccountFinancialReportOutputBoundary {
     private final UserAccountFinancialReportViewModel viewModel;
-    private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
     public UserAccountFinancialReportPresenter(UserAccountFinancialReportViewModel viewModel, ViewManagerModel viewManager) {
+        super(viewManager);
         this.viewModel = viewModel;
-        this.viewManager = viewManager;
     }
 
     /**
