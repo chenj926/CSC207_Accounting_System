@@ -24,7 +24,6 @@ public class LoginPanel extends JPanel {
     private final UserAccountLoginViewModel viewModel;
     protected AccountLoginController loginController;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
     protected JLabel titleLabel;
     protected JTextField identificationTextField;
@@ -61,6 +60,8 @@ public class LoginPanel extends JPanel {
 
         this.identificationTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
+        this.identificationTextField.setToolTipText("Enter User Account ID");
+        this.passwordField.setToolTipText("Enter User Account Password");
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -99,16 +100,12 @@ public class LoginPanel extends JPanel {
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
         add(this.titleLabel, constraints);
 
         // reset gridwidth and anchor for other components
-//        constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.WEST;
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // identification
-//        constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
         add(new JLabel(this.viewModel.getIdentificationLabel()), constraints);

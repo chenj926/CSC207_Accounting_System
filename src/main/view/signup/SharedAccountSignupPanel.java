@@ -67,6 +67,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         user1IdField = new JTextField(20);
         user2IdField = new JTextField(20);
 
+        // tip explanation to users
+        this.sharedAccountIdField.setToolTipText("Set a nick-name for your account");
+        this.sharedAccountPasswordField.setToolTipText("Set a secret password");
+        this.user1IdField.setToolTipText("Enter at least 2 or more user account id to create a shared account between users");
+
         signupButton = new JButton(viewModel.getSignupButtonLabel());
         cancelButton = new JButton(viewModel.getCancelButtonLabel());
         addUserButton = new JButton("+");

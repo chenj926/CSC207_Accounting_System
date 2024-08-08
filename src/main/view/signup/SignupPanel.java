@@ -58,6 +58,11 @@ public class SignupPanel extends JPanel {
         this.passwordField = new JPasswordField(20);
         this.idenficationField = new JTextField(20);
 
+        // tip explanation to users
+        this.usernameTextField.setToolTipText("Set a nick-name for your account");
+        this.passwordField.setToolTipText("Set a secret password");
+        this.idenficationField.setToolTipText("Set a unique ID for you to login");
+
         // add buttons
         JPanel buttons = new JPanel();
         this.signupButton = new JButton(this.viewModel.getSignupButtonLabel());

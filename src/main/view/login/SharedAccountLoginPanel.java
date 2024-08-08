@@ -38,8 +38,6 @@ public class SharedAccountLoginPanel extends JPanel {
         this.sharedViewModel = sharedViewModel;
         this.sharedLoginController = sharedLoginController;
         this.viewManager = viewManager;
-        this.sharedAccountIdField = new JTextField(20);
-        this.passwordField = new JPasswordField(20);
 
         initializeComponents();
         setupUI();
@@ -55,7 +53,10 @@ public class SharedAccountLoginPanel extends JPanel {
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        sharedAccountIdField.setToolTipText("Enter Shared Account ID");
+        this.sharedAccountIdField = new JTextField(20);
+        this.passwordField = new JPasswordField(20);
+        this.sharedAccountIdField.setToolTipText("Enter Shared Account ID");
+        this.passwordField.setToolTipText("Enter Shared Account Password");
 
         // Add buttons
         JPanel buttons = new JPanel();
@@ -162,11 +163,26 @@ public class SharedAccountLoginPanel extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
             }
-
             @Override
             public void keyReleased(KeyEvent e) {
             }
         });
+
+        // get typed password
+        this.passwordField.addKeyListener(
+                new KeyListener() {
+                    @Override
+                    public void keyTyped(KeyEvent evt) {
+                        SharedAccountLoginState currentState = sharedViewModel.getState();
+                        currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
+                        sharedViewModel.setState(currentState);
+                    }
+                    @Override
+                    public void keyPressed(KeyEvent e) {}
+                    @Override
+                    public void keyReleased(KeyEvent e) {}
+                }
+        );
     }
 
     /**
