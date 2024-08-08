@@ -138,8 +138,8 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
             }
             // record the info
             try (BufferedWriter bout = Files.newBufferedWriter(transactionCsvPath, StandardOpenOption.APPEND)) {
-                bout.write(userInfo);
                 bout.newLine();
+                bout.write(userInfo);
             }
         } catch (IOException e) {
             e.printStackTrace();
