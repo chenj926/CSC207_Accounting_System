@@ -1,9 +1,9 @@
 package view.transaction.periodic;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.periodic.PeriodicTransactionController;
-import interface_adaptors.transaction.periodic.PeriodicTransactionState;
-import interface_adaptors.transaction.periodic.PeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionState;
+import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,8 +21,8 @@ import java.awt.event.KeyListener;
  * @author Jessica
  */
 public class PeriodicTransactionPanel extends JPanel {
-    private final PeriodicTransactionViewModel viewModel;
-    private final PeriodicTransactionController periodicTransactionController;
+    private final UserAccountPeriodicTransactionViewModel viewModel;
+    private final UserAccountPeriodicTransactionController userAccountPeriodicTransactionController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
@@ -41,14 +41,14 @@ public class PeriodicTransactionPanel extends JPanel {
      * Constructs a PeriodicTransactionPanel with the specified view model, controller, and view manager.
      *
      * @param viewModel                   the view model for the periodic transaction panel
-     * @param periodicTransactionController the controller handling periodic transaction actions
+     * @param userAccountPeriodicTransactionController the controller handling periodic transaction actions
      * @param viewManager                 the view manager for handling view transitions
      */
-    public PeriodicTransactionPanel(PeriodicTransactionViewModel viewModel,
-                                    PeriodicTransactionController periodicTransactionController,
+    public PeriodicTransactionPanel(UserAccountPeriodicTransactionViewModel viewModel,
+                                    UserAccountPeriodicTransactionController userAccountPeriodicTransactionController,
                                     ViewManagerModel viewManager) {
         this.viewModel = viewModel;
-        this.periodicTransactionController = periodicTransactionController;
+        this.userAccountPeriodicTransactionController = userAccountPeriodicTransactionController;
         this.viewManager = viewManager;
         initializeComponents();
         setupUI();
@@ -192,7 +192,7 @@ public class PeriodicTransactionPanel extends JPanel {
                     }
 
                     // execute to controller
-                    periodicTransactionController.execute(
+                    userAccountPeriodicTransactionController.execute(
                             viewManager.getUserId(),
                             amountField.getText(),
                             startDateField.getText(),
@@ -212,7 +212,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.amountField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
             }
 
@@ -225,7 +225,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.startDateField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionStartDate(startDateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -239,7 +239,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.endDateField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionEndDate(endDateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -253,7 +253,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.descriptionField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -268,7 +268,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.periodComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent  evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
                 if ("custom".equals(periodComb.getSelectedItem())) {
@@ -291,7 +291,7 @@ public class PeriodicTransactionPanel extends JPanel {
         this.categoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                PeriodicTransactionState currentState = viewModel.getState();
+                UserAccountPeriodicTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
                 if ("Custom".equals(categoryButton.getSelectedItem())) {

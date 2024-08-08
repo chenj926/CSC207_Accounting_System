@@ -9,9 +9,9 @@ import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
  * It handles the presentation logic for shared account periodic transactions, updating the view model and managing view transitions.
  *
  */
-public class SharedAccountPeriodicTransactionPresenter implements SharedAccountPeriodicTransactionOutputBoundary {
-    private final SharedAccountPeriodicTransactionViewModel viewModel;
-    private final ViewManagerModel viewManager;
+public class SharedAccountPeriodicTransactionPresenter
+        extends PeriodicTransactionPresenter<SharedAccountPeriodicTransactionViewModel, SharedAccountPeriodicTransactionState>
+        implements SharedAccountPeriodicTransactionOutputBoundary {
 
     /**
      * Constructs a SharedAccountPeriodicTransactionPresenter object with the specified view model and view manager model.
@@ -20,8 +20,7 @@ public class SharedAccountPeriodicTransactionPresenter implements SharedAccountP
      * @param viewManager the view manager model to manage view transitions
      */
     public SharedAccountPeriodicTransactionPresenter(SharedAccountPeriodicTransactionViewModel viewModel, ViewManagerModel viewManager) {
-        this.viewModel = viewModel;
-        this.viewManager = viewManager;
+        super(viewModel, viewManager);
     }
 
     /**
@@ -42,7 +41,7 @@ public class SharedAccountPeriodicTransactionPresenter implements SharedAccountP
         sharedState.setTransactionPeriod(String.valueOf(data.getTransactionPeriod()));
         sharedState.setTransactionEndDate(data.getTransactionEndDate().toString());
         sharedState.setTransactionCategory(data.getTransactionCategory());
-        sharedState.setResponsibleUserIds(data.getResponsibleUserIds());
+        sharedState.setIdentification(data.getId());
         sharedState.setSuccessMessage("Shared Account Periodic Transaction Recorded successfully!");
         sharedState.setError(null); // Clear error message on success
 
@@ -53,21 +52,6 @@ public class SharedAccountPeriodicTransactionPresenter implements SharedAccountP
         // Set the active view and navigate back to the transaction page
         viewManager.setActiveViewName(viewModel.getViewName());
         viewManager.changeView("Shared Account Transaction");
-    }
-
-    /**
-     * Prepares the fail view with the given error message.
-     * Updates the transaction state with the error message and clears the success message.
-     *
-     * @param error the error message to be presented in case of a failed shared account periodic transaction attempt
-     */
-    @Override
-    public void prepareFailView(String error) {
-        SharedAccountPeriodicTransactionState sharedState = viewModel.getState();
-        sharedState.setError(error);
-        sharedState.setSuccessMessage(null); // Clear success message on failure
-        viewModel.setState(sharedState);
-        viewModel.firePropertyChanged();
     }
 }
 
