@@ -161,6 +161,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
 
     protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
         String id = oneTimeOutputData.getId();
+        System.out.println("output id"+id);
         float amount = oneTimeOutputData.getTransactionAmount();
         String date = valueOf(oneTimeOutputData.getTransactionDate());
         String description = oneTimeOutputData.getTransactionDescription();
@@ -228,6 +229,20 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());
+        }
+
+        // updateLine is updated, pass in all the info back
+        if (updatedLine != null) {
+            // open while csv, delete every thing
+            try (BufferedWriter writer = Files.newBufferedWriter(this.accountCsvPath,
+                    StandardOpenOption.TRUNCATE_EXISTING)) {
+                for (String line : lines) {
+                    writer.write(line);
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
 

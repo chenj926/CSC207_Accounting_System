@@ -60,8 +60,25 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         boolean userExist = false;
         try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
             while (iterator.hasNext()) {
+                SharedAccount account = iterator.next();
+                if (account.getIdentification().equals(sharedAccountIdentification)) {
+                    return true;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public static boolean existByuserId(String userId) {
+        boolean userExist = false;
+        String baseDir = System.getProperty("user.dir");
+        Path tempCsvPath = Paths.get(baseDir, "src/main/data/accounts/userAccounts.csv");
+        try (SharedAccountIterator iterator = new SharedAccountIterator(tempCsvPath)) {
+            while (iterator.hasNext()) {
                 UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(sharedAccountIdentification)) {
+                if (userAccount.getIdentification().equals(userId)) {
                     return true;
                 }
             }

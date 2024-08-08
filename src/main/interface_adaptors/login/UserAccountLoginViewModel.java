@@ -26,7 +26,7 @@ public class UserAccountLoginViewModel extends AccountLoginViewModel<UserAccount
      * Initiates state.
      */
     public UserAccountLoginViewModel() {
-        super("login");
+        super("log in");
         state = new UserAccountLoginState();
     }
 

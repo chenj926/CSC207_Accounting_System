@@ -147,8 +147,9 @@ public class LoginPanel extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
                     loginController.execute(
-                            String.valueOf(passwordField.getPassword()),
-                            identificationTextField.getText()
+                            identificationTextField.getText(),
+                            String.valueOf(passwordField.getPassword())
+//                            identificationTextField.getText()
                     );
                 }
             }

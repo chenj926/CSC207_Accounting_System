@@ -43,6 +43,7 @@ public class UserAccountLoginPresenter extends AccountLoginPresenter<UserAccount
 //        homepageTwoViewModel.setState(homepageTwoState);
 //        this.viewManagerModel.updateViewModel("Homepage Two", homepageTwoViewModel);
 
+        System.out.println("in login"+userInfo.getIdentification());
         this.viewManagerModel.setUserId(userInfo.getIdentification());
         this.accountLoginViewModel.setState(userAccountLoginState);
         userAccountLoginState.setSuccessMsg("Successfully Logged In!!!");

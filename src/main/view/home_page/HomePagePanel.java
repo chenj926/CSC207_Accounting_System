@@ -93,7 +93,7 @@ public class HomePagePanel extends JPanel {
         Color buttonTextColor = Color.BLACK;
 
         JButton[] buttons = {loginButton, sharedAccountLoginButton, signupButton, sharedAccountSignupButton, exitButton};
-        Dimension buttonSize = new Dimension(200, 30);
+        Dimension buttonSize = new Dimension(220, 30);
         for (JButton button : buttons) {
             button.setFont(buttonFont);
             button.setBackground(buttonBackgroundColor);

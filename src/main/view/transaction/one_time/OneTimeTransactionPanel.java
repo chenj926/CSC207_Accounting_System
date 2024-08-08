@@ -167,6 +167,7 @@ public class OneTimeTransactionPanel extends JPanel {
                     if ("custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
+                    System.out.println("in one time panel"+viewManager.getUserId());
                     oneTimeTransactionController.execute(
                             viewManager.getUserId(),
                             amountField.getText(),

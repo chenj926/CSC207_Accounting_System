@@ -1,5 +1,6 @@
 package use_case.signup;
 
+import data_access.account.CSVSharedAccountDataAccessObject;
 import data_access.account.SharedAccountDataAccessInterface;
 import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
@@ -108,7 +109,8 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
 
     private boolean checkUserIdsExist(Set<String> userIds) {
         for (String userId : userIds) {
-            if (!this.userDataAccessObject.existById(userId)) {
+            SharedAccountDataAccessInterface DAO = new CSVSharedAccountDataAccessObject();
+            if (!CSVSharedAccountDataAccessObject.existByuserId(userId)) {
                 return false;
             }
         }

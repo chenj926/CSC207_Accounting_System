@@ -24,7 +24,6 @@ public class SignupPanel extends JPanel {
     private JTextField usernameTextField;
     private JPasswordField passwordField;
     private JTextField idenficationField;
-    private JTextField sharedAccountIdField;
     private JButton signupButton;
     private JButton cancelButton;
 
@@ -216,7 +215,6 @@ public class SignupPanel extends JPanel {
         usernameTextField.setText("");
         passwordField.setText("");
         idenficationField.setText("");
-        sharedAccountIdField.setText("");
     }
 }
 

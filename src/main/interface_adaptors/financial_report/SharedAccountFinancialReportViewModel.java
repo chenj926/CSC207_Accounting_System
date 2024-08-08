@@ -4,7 +4,8 @@ public class SharedAccountFinancialReportViewModel extends FinancialReportViewMo
 
     public SharedAccountFinancialReportViewModel() {
         super("Shared Account Financial Report");
-        this.reportContent = state.getReportContent();
+        this.reportContent = "";
+        this.state = new SharedAccountFinancialReportState();
     }
 
 

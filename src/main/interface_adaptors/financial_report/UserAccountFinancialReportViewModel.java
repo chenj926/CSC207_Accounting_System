@@ -21,7 +21,7 @@ public class UserAccountFinancialReportViewModel extends FinancialReportViewMode
      */
     public UserAccountFinancialReportViewModel() {
         super("Financial Report");
-        this.reportContent = state.getReportContent();
+        this.reportContent = "";
         this.state = new UserAccountFinancialReportState();
     }
 

@@ -130,13 +130,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         add(additionalUsersPanel, constraints);
 
         // Buttons
+        constraints.gridy++;
+        constraints.gridwidth = 2;
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        buttonsPanel.add(addUserButton);
-        buttonsPanel.add(deleteUserButton);
         buttonsPanel.add(signupButton);
         buttonsPanel.add(cancelButton);
-
-        constraints.gridy++;
         add(buttonsPanel, constraints);
 
         updateAdditionalUsersPanel();  // Initial panel update
@@ -194,6 +192,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
             }
         });
 
+        // cancel button response action
+        this.cancelButton.addActionListener(e -> {
+            viewManager.setActiveViewName("home page");
+        });
+
         // Shared Account ID Key Listener
         this.sharedAccountIdField.addKeyListener(new KeyListener() {
             @Override
@@ -241,6 +244,9 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         userConstraints.gridwidth = 2;
         additionalUsersPanel.add(addUserButton, userConstraints);
 
+        // Hide delete button if only 2 user fields left
+        deleteUserButton.setVisible(!additionalUserFields.isEmpty());
+
         additionalUsersPanel.revalidate();
         additionalUsersPanel.repaint();
     }
@@ -271,9 +277,8 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         sharedAccountPasswordField.setText("");
         user1IdField.setText("");
         user2IdField.setText("");
-        for (JTextField field : additionalUserFields) {
-            field.setText("");
-        }
+        additionalUserFields.clear();
+        updateAdditionalUsersPanel();
     }
 }
 
