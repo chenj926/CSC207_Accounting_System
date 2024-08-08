@@ -22,7 +22,7 @@ import static java.lang.String.valueOf;
 /**
  * A CSV-based implementation of data access for shared accounts.
  * <p>
- * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link ShareAccountDataAccessInterface}.
+ * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link SharedAccountDataAccessInterface}.
  * It provides methods to manage shared accounts, including saving, updating, deleting, and retrieving shared account
  * information from CSV files.
  * </p>
@@ -34,7 +34,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         SharedAccount,
         SharedAccountOneTimeTransactionOutputData,
         SharedAccountPeriodicTransactionOutputData>
-        implements ShareAccountDataAccessInterface,
+        implements SharedAccountDataAccessInterface,
         SharedAccountSignupDataAccessInterface {
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/sharedAccounts.csv";
 //    private static final String SHARED_ACCOUNT_USERS_CSV_FILE_PATH = "src/main/data/sharedAccountUsers.csv";

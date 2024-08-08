@@ -4,9 +4,7 @@ import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +13,7 @@ import java.util.Map;
 /**
  * In-memory data access object (DAO) for shared account operations.
  * <p>
- * This class implements the {@link ShareAccountDataAccessInterface} interface and provides an in-memory
+ * This class implements the {@link SharedAccountDataAccessInterface} interface and provides an in-memory
  * implementation for managing shared accounts. It is intended for testing purposes and does not persist data
  * beyond the lifetime of the application.
  * </p>
@@ -25,7 +23,7 @@ import java.util.Map;
  */
 
 // in memory DAO for test purposes
-public class InMemoryShareAccountDataAccessObject implements SharedAccountSignupDataAccessInterface, ShareAccountDataAccessInterface {
+public class InMemorySharedAccountDataAccessObject implements SharedAccountSignupDataAccessInterface, SharedAccountDataAccessInterface {
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
 
 

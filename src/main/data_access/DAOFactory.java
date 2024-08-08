@@ -22,7 +22,7 @@ public class DAOFactory {
     private static CSVSharedAccountLoginDataAccessObject csvSharedAccountUserLoginDAO;
 
     private static InMemoryUserAccountDataAccessObject inMemoryUserAccountDAO;
-    private static InMemoryShareAccountDataAccessObject inMemorySharedAccountDAO;
+    private static InMemorySharedAccountDataAccessObject inMemorySharedAccountDAO;
 
     private static InMemoryLoginoutDataAccessObject inMemoryLoginoutDAO;
     private static InMemorySharedAccountLoginDataAccessObject inMemorySharedAccountLoginDataAccessObject;
@@ -68,7 +68,7 @@ public class DAOFactory {
     public static synchronized SharedAccountSignupDataAccessInterface getSharedAccountSignupDataAccessObject() {
         if (useInMemory) {
             if (inMemorySharedAccountDAO == null) {
-                inMemorySharedAccountDAO = new InMemoryShareAccountDataAccessObject();
+                inMemorySharedAccountDAO = new InMemorySharedAccountDataAccessObject();
             }
             return inMemorySharedAccountDAO;
         } else {
@@ -80,18 +80,18 @@ public class DAOFactory {
     }
 
     /**
-     * Returns a singleton instance of {@link ShareAccountDataAccessInterface}.
+     * Returns a singleton instance of {@link SharedAccountDataAccessInterface}.
      * <p>
-     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryShareAccountDataAccessObject}.
+     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemorySharedAccountDataAccessObject}.
      * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
      * </p>
      *
-     * @return the {@link ShareAccountDataAccessInterface} instance
+     * @return the {@link SharedAccountDataAccessInterface} instance
      */
-    public static synchronized ShareAccountDataAccessInterface getShareAccountDataAccessObject() {
+    public static synchronized SharedAccountDataAccessInterface getShareAccountDataAccessObject() {
         if (useInMemory) {
             if (inMemorySharedAccountDAO == null) {
-                inMemorySharedAccountDAO = new InMemoryShareAccountDataAccessObject();
+                inMemorySharedAccountDAO = new InMemorySharedAccountDataAccessObject();
             }
             return inMemorySharedAccountDAO;
         } else {
@@ -234,6 +234,20 @@ public class DAOFactory {
                 csvUserAccountDAO = new CSVUserAccountDataAccessObject();
             }
             return csvUserAccountDAO;
+        }
+    }
+
+    public static synchronized SharedAccountDataAccessInterface getSharedAccountFinancialReportDAO() {
+        if (useInMemory) {
+//            if (inMemoryPeriodicDataAccessObject == null) {
+//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
+//            }
+            return inMemorySharedAccountDAO;
+        } else {
+            if (csvSharedAccountDAO == null) {
+                csvSharedAccountDAO = new CSVSharedAccountDataAccessObject();
+            }
+            return csvSharedAccountDAO;
         }
     }
 

@@ -13,7 +13,7 @@ import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
  *
  * @author Eric
  */
-public interface ShareAccountDataAccessInterface
+public interface SharedAccountDataAccessInterface
         extends AccountDataAccessInterface<SharedAccount, SharedAccountOneTimeTransactionOutputData, SharedAccountPeriodicTransactionOutputData>{
 
 //    /**
