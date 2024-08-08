@@ -11,8 +11,7 @@ import use_case.login.UserAccountLoginInputData;
  * @author Dana
  * @author Jessica
  */
-public class UserLoginController {
-    final LoginMediator loginMediator;
+public class UserLoginController extends AccountLoginController {
 
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
@@ -20,17 +19,18 @@ public class UserLoginController {
      * @param loginMediator the use case interactor(mediator) for user login
      */
     public UserLoginController(LoginMediator loginMediator) {
-        this.loginMediator = loginMediator;
+        super(loginMediator);
     }
 
     /**
      * Executes the login process with the given user details.
      *
-     * @param password the password of the user
      * @param id       the identification of the user
+     *@param password the password of the user
      */
-    public void execute(String password, String id) {
-        UserAccountLoginInputData loginInputData = new UserAccountLoginInputData(password, id);
+    @Override
+    public void execute(String id, String password) {
+        UserAccountLoginInputData loginInputData = new UserAccountLoginInputData(id, password);
         this.loginMediator.execute(loginInputData);
     }
 }

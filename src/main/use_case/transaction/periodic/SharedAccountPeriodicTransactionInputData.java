@@ -8,12 +8,12 @@ import java.util.Set;
  * It includes details such as the shared account, transaction amount, start date, end date, period, description, category,
  * and the set of responsible users.
  */
-public class SharedAccountUserAccountPeriodicTransactionInputData extends UserAccountPeriodicTransactionInputData {
+public class SharedAccountPeriodicTransactionInputData extends PeriodicTransactionInputData {
 //    private final Set<String> responsibleUserIds; // Users responsible for the transaction
     private final String sharedAccountId;
 
 
-    public SharedAccountUserAccountPeriodicTransactionInputData(
+    public SharedAccountPeriodicTransactionInputData(
             String transactionAmount,
             String transactionStartDate,
             String transactionEndDate,
@@ -36,4 +36,7 @@ public class SharedAccountUserAccountPeriodicTransactionInputData extends UserAc
     public String getSharedAccountId() {
         return this.sharedAccountId;
     }
+
+    // public Set<String> getResponsibleUserIds();
+
 }

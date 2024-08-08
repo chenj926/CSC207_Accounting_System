@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.SharedAccountUserAccountPeriodicTransactionInputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import java.util.Set;
  *
  * @see SharedAccountPeriodicTransactionInputBoundary
  * @see SharedAccountPeriodicTransactionViewModel
- * @see SharedAccountUserAccountPeriodicTransactionInputData
+ * @see SharedAccountPeriodicTransactionInputData
  * @see Set
  *
  *
@@ -38,7 +38,7 @@ public class SharedAccountPeriodicTransactionController {
     public void execute(String amount, String startDate, String description, String period, String endDate,
                         String category, String transactionDate, String sharedAccountId, String userId) {
         // Create input data object for the transaction
-        SharedAccountUserAccountPeriodicTransactionInputData inputData = new SharedAccountUserAccountPeriodicTransactionInputData(
+        SharedAccountPeriodicTransactionInputData inputData = new SharedAccountPeriodicTransactionInputData(
                 amount, startDate, description, period, endDate, category, transactionDate, sharedAccountId, userId
         );
 

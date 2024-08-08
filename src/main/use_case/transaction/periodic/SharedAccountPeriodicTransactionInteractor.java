@@ -6,7 +6,7 @@ import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
 import use_case.transaction.TransactionInteractor;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.SharedAccountUserAccountPeriodicTransactionInputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
 import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 //import use_case.transaction.periodic.SharedAccountPeriodicTransactionResponseModel;
@@ -42,7 +42,7 @@ public class SharedAccountPeriodicTransactionInteractor extends TransactionInter
     }
 
     @Override
-    public void execute(SharedAccountUserAccountPeriodicTransactionInputData periodicTransactionInputData) {
+    public void execute(SharedAccountPeriodicTransactionInputData periodicTransactionInputData) {
         String identification = periodicTransactionInputData.getId();
         String stringAmount = periodicTransactionInputData.getTransactionAmount();
         String endDate = periodicTransactionInputData.getTransactionEndDate();
