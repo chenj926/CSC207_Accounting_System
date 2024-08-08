@@ -14,5 +14,5 @@ public interface UserAccountOneTimeTransactionOutputBoundary extends OneTimeTran
      *
      * @param outputData the transaction output data containing transaction information and new balance
      */
-    void prepareSuccessView(OneTimeTransactionOutputData outputData);
+    void prepareSuccessView(UserAccountOneTimeTransactionOutputData outputData);
 }
