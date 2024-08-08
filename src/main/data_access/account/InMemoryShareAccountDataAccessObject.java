@@ -1,10 +1,14 @@
 package data_access.account;
 
 import entity.account.SharedAccount;
+import entity.transaction.Transaction;
+import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
 import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -56,6 +60,16 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
         shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
     }
 
+    @Override
+    public void saveTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData, SharedAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+
+    }
+
+    @Override
+    public List<Transaction> readTransactions(String userId) {
+        return List.of();
+    }
+
     /**
      * Deletes a shared account by its unique identification.
      *
@@ -64,26 +78,6 @@ public class InMemoryShareAccountDataAccessObject implements ShareAccountDataAcc
     public void deleteById(String sharedAccountId) {
         shareAcc.remove(sharedAccountId);
     }
-
-    @Override
-    public void saveTransaction(UserAccountOneTimeTransactionOutputData outputData, UserAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
-
-    }
-
-//    @Override
-//    public void saveSharedTransaction(
-//            SharedAccountOneTimeTransactionOutputData oneTimeOutputData,
-//            SharedAccountPeriodicTransactionOutputData periodicOutputData,
-//            boolean isPeriodic
-//    ) {
-//        if (isPeriodic) {
-//            System.out.println("Saving shared account periodic transaction data...");
-//            // Implementation details for saving periodic transactions
-//        } else {
-//            System.out.println("Saving shared account one-time transaction data...");
-//            // Implementation details for saving one-time transactions
-//        }
-//    }
 
 
     /**

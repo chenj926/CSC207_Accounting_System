@@ -2,10 +2,15 @@ package data_access.transaction;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
+import entity.transaction.one_time.OneTimeTransaction;
+import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -91,6 +96,14 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData,
                                 UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
         System.out.println("not implemented yet");
+    }
+
+    @Override
+    public List<Transaction> readTransactions(String userId) {
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.addAll(users.get(userId).getTransactions());
+        transactions.removeIf(transaction -> transaction instanceof OneTimeTransaction);
+        return transactions;
     }
 
 //    @Override
