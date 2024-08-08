@@ -8,19 +8,20 @@ import use_case.financial_report.UserAccountFinancialReportInputData;
  *
  * @author :Chi Fong Dana Eric
  */
-public class UserAccountFinancialReportController {
-    private final UserAccountFinancialReportInputBoundary userAccountFinancialReportInputBoundary;
-    private final UserAccountFinancialReportViewModel viewModel;
+public class UserAccountFinancialReportController extends FinancialReportController<
+        UserAccountFinancialReportInputBoundary,
+        UserAccountFinancialReportViewModel> {
 
 
     /**
      * Constructs a FinancialReportController with the specified interactor.
      *
-     * @param userAccountFinancialReportInputBoundary the use case interactor for generating financial reports
+     * @param userAccountFinancialReportInteractor the use case interactor for generating financial reports
      */
-    public UserAccountFinancialReportController(UserAccountFinancialReportInputBoundary userAccountFinancialReportInputBoundary, UserAccountFinancialReportViewModel viewModel) {
-        this.userAccountFinancialReportInputBoundary = userAccountFinancialReportInputBoundary;
-        this.viewModel = viewModel;
+    public UserAccountFinancialReportController(UserAccountFinancialReportInputBoundary
+                                                        userAccountFinancialReportInteractor,
+                                                UserAccountFinancialReportViewModel viewModel) {
+        super(userAccountFinancialReportInteractor, viewModel);
     }
 
     /**
@@ -32,7 +33,7 @@ public class UserAccountFinancialReportController {
      */
     public void execute(String identification) {
         UserAccountFinancialReportInputData userAccountFinancialReportInputData = new UserAccountFinancialReportInputData(identification);
-        userAccountFinancialReportInputBoundary.execute(userAccountFinancialReportInputData);
+        financialReportInteractor.execute(userAccountFinancialReportInputData);
 //        this.viewModel.resetState();
     }
 }
