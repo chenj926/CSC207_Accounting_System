@@ -1,7 +1,9 @@
 package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoState;
+import interface_adaptors.homepage.SharedAccountHomepageTwoController;
+import interface_adaptors.homepage.SharedAccountHomepageTwoState;
+import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
 
 import javax.swing.*;
 import java.awt.*;

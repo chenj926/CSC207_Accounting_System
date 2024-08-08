@@ -1,12 +1,14 @@
 package interface_adaptors.homepage;
 
+import use_case.homepage.HomepageTwoInputData;
 import use_case.homepage.UserAccountHomepageTwoInputBoundary;
 import use_case.homepage.UserAccountHomepageTwoInputData;
 
-public class HomepageTwoController {
-
-    private final UserAccountHomepageTwoInputBoundary userAccountHomepageTwoInputBoundary;
-    private final HomepageTwoViewModel viewModel;
+public class UserAccountHomepageTwoController extends HomepageTwoController<
+        UserAccountHomepageTwoInputBoundary,
+        UserAccountHomepageTwoViewModel,
+        UserAccountHomepageTwoInputData,
+        UserAccountHomepageTwoState>{
 
 
     /**
@@ -14,21 +16,13 @@ public class HomepageTwoController {
      *
      * @param userAccountHomepageTwoInputBoundary the use case interactor for generating financial reports
      */
-    public HomepageTwoController(UserAccountHomepageTwoInputBoundary userAccountHomepageTwoInputBoundary, HomepageTwoViewModel viewModel) {
-        this.userAccountHomepageTwoInputBoundary = userAccountHomepageTwoInputBoundary;
-        this.viewModel = viewModel;
+    public UserAccountHomepageTwoController(UserAccountHomepageTwoInputBoundary userAccountHomepageTwoInputBoundary, UserAccountHomepageTwoViewModel viewModel) {
+        super(userAccountHomepageTwoInputBoundary, viewModel);
     }
 
-    /**
-     * Generates a financial report for the specified account and date range.
-     *
-     //     * @param userName the account ID
-     //     * @param startDate the start date of the report period
-     //     * @param endDate the end date of the report period
-     */
-    public void execute(String identification) {
-        UserAccountHomepageTwoInputData inputData = new UserAccountHomepageTwoInputData(identification);
-        userAccountHomepageTwoInputBoundary.execute(inputData);
+    @Override
+    protected UserAccountHomepageTwoInputData createInputData(String id) {
+        return new UserAccountHomepageTwoInputData(id);
     }
 
 }

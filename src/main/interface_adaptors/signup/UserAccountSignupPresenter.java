@@ -40,6 +40,7 @@ public class UserAccountSignupPresenter extends AccountSignupPresenter<
         if (!data.isUseCaseFailed()) {
             UserAccountSignupState userAccountSignupState = accountSignupViewModel.getState();
             userAccountSignupState.setSuccessMsg("User account signed up successfully.");
+            accountSignupViewModel.setState(userAccountSignupState);
             accountSignupViewModel.firePropertyChanged();
         }
 

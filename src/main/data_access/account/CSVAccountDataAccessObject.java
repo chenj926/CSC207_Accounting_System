@@ -43,7 +43,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    private void initializeCsvFile(Path csvPath, String header) throws IOException {
+    protected void initializeCsvFile(Path csvPath, String header) throws IOException {
         Path parentDir = csvPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
             Files.createDirectories(parentDir);
@@ -73,7 +73,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    private void initializeTransactionFile(Path transactionPath, String header) throws IOException {
+    protected void initializeTransactionFile(Path transactionPath, String header) throws IOException {
         Path parentDir = transactionPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
             Files.createDirectories(parentDir);

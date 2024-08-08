@@ -1,8 +1,8 @@
 package interface_adaptors.homepage;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.homepage.HomepageTwoOutputBoundary;
-import use_case.homepage.HomepageTwoOutputData;
+import use_case.homepage.UserAccountHomepageTwoOutputBoundary;
+import use_case.homepage.UserAccountHomepageTwoOutputData;
 
 /**
  * The presenter for the second homepage view. This class is responsible for handling
@@ -10,18 +10,18 @@ import use_case.homepage.HomepageTwoOutputData;
  *
  * @author Eric Chen
  */
-public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
+public class UserAccountHomepageTwoPresenter implements UserAccountHomepageTwoOutputBoundary {
     private String[] basicUserInfo;
-    private final HomepageTwoViewModel viewModel;
+    private final UserAccountHomepageTwoViewModel viewModel;
     private final ViewManagerModel viewManager;
 
     /**
-     * Constructs a new HomepageTwoPresenter with the specified view model and view manager.
+     * Constructs a new UserAccountHomepageTwoPresenter with the specified view model and view manager.
      *
      * @param viewModel the view model to be updated
      * @param viewManager the view manager to be updated
      */
-    public HomepageTwoPresenter(HomepageTwoViewModel viewModel, ViewManagerModel viewManager) {
+    public UserAccountHomepageTwoPresenter(UserAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }
@@ -33,8 +33,8 @@ public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
      * @param outputData the output data containing the basic user information
      */
     @Override
-    public void prepareSuccessView(HomepageTwoOutputData outputData) {
-        HomepageTwoState state = this.viewModel.getState();
+    public void prepareSuccessView(UserAccountHomepageTwoOutputData outputData) {
+        UserAccountHomepageTwoState state = this.viewModel.getState();
         this.basicUserInfo = outputData.getBasicUserInfo();
 
         state.setBasicUserInfo(this.basicUserInfo);
@@ -52,7 +52,7 @@ public class HomepageTwoPresenter implements HomepageTwoOutputBoundary {
      */
     @Override
     public void prepareFailView(String err) {
-        HomepageTwoState state = this.viewModel.getState();
+        UserAccountHomepageTwoState state = this.viewModel.getState();
         this.viewModel.setState(state);
         this.viewModel.firePropertyChanged();
     }

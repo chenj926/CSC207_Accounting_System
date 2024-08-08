@@ -1,7 +1,6 @@
 package app.main;
 
 import interface_adaptors.*;
-import interface_adaptors.homepage.HomepageTwoViewModel;
 
 import javax.swing.*;
 

@@ -3,10 +3,10 @@ package app.home_page;
 import data_access.DAOFactory;
 import data_access.account.UserAccountDataAccessInterface;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoController;
-import interface_adaptors.homepage.HomepageTwoPresenter;
-import interface_adaptors.homepage.HomepageTwoViewModel;
-import use_case.homepage.HomepageTwoInteractor;
+import interface_adaptors.homepage.UserAccountHomepageTwoController;
+import interface_adaptors.homepage.UserAccountHomepageTwoPresenter;
+import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
+import use_case.homepage.UserAccountHomepageTwoInteractor;
 import view.home_page.HomepageTwoView;
 
 import javax.swing.*;
@@ -16,7 +16,7 @@ public class HomepageTwoUseCaseFactory {
     private HomepageTwoUseCaseFactory() {
     }
 
-//    public static HomepageTwoView create(ViewManagerModel viewManagerModel, HomepageTwoViewModel homepageTwoViewModel) {
+//    public static HomepageTwoView create(ViewManagerModel viewManagerModel, UserAccountHomepageTwoViewModel homepageTwoViewModel) {
 //        HomepageTwoView homepageTwoView = new HomepageTwoView(homepageTwoViewModel, viewManagerModel);
 //
 //        homepageTwoView.addPropertyChangeListener(evt -> viewManagerModel.changeView("One Time Transaction"));
@@ -28,27 +28,27 @@ public class HomepageTwoUseCaseFactory {
 //    }
 
     public static HomepageTwoView create(ViewManagerModel viewManagerModel,
-                                             HomepageTwoViewModel viewModel) {
+                                             UserAccountHomepageTwoViewModel viewModel) {
         try {
-            HomepageTwoController homepageTwoController = createHomepageTwoUseCase(viewManagerModel, viewModel);
-            return new HomepageTwoView(viewModel, viewManagerModel, homepageTwoController);
+            UserAccountHomepageTwoController userAccountHomepageTwoController = createHomepageTwoUseCase(viewManagerModel, viewModel);
+            return new HomepageTwoView(viewModel, viewManagerModel, userAccountHomepageTwoController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-    private static HomepageTwoController createHomepageTwoUseCase(ViewManagerModel viewManagerModel,
-                                                                          HomepageTwoViewModel viewModel) throws IOException {
+    private static UserAccountHomepageTwoController createHomepageTwoUseCase(ViewManagerModel viewManagerModel,
+                                                                             UserAccountHomepageTwoViewModel viewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getHomepageTwoDAO();
-        HomepageTwoPresenter presenter = new HomepageTwoPresenter(viewModel, viewManagerModel);
+        UserAccountHomepageTwoPresenter presenter = new UserAccountHomepageTwoPresenter(viewModel, viewManagerModel);
 //        UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
 
         // Create the interactors for standard and shared account signups
-        HomepageTwoInteractor interactor = new HomepageTwoInteractor(dataAccessObject, presenter);
+        UserAccountHomepageTwoInteractor interactor = new UserAccountHomepageTwoInteractor(dataAccessObject, presenter);
 
         // Return the controller that can handle both types of signups
-        return new HomepageTwoController(interactor, viewModel);
+        return new UserAccountHomepageTwoController(interactor, viewModel);
     }
 
 }
