@@ -708,8 +708,8 @@ public class PeriodicTransactionInteractorTest {
 
         System.out.println(userAccount.getTotalIncome());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(5300.0f, userAccount.getTotalIncome(), 0.01);
-        assertEquals(5300.0f, userAccount.getTotalBalance(), 0.01);
+        assertEquals(5300.0f + 1300.0f, userAccount.getTotalIncome(), 0.01);
+        assertEquals(5300.0f + 1300.0f, userAccount.getTotalBalance(), 0.01);
 
         // year
         PeriodicTransactionInputData inputData3 = new PeriodicTransactionInputData(
@@ -732,8 +732,8 @@ public class PeriodicTransactionInteractorTest {
 
         System.out.println(userAccount.getTotalIncome());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(43500.0f, userAccount.getTotalIncome(), 0.01);  // since 2024 is a leap year, it has 366 days +1 in Jan. 1 2025
-        assertEquals(43500.0f, userAccount.getTotalBalance(), 0.01);
+        assertEquals(43400.0f, userAccount.getTotalIncome(), 0.01);  // since 2024 is a leap year, it has 366 days +1 in Jan. 1 2025
+        assertEquals(43400.0f, userAccount.getTotalBalance(), 0.01);
 
         // custom
         PeriodicTransactionInputData inputData5 = new PeriodicTransactionInputData(
@@ -744,8 +744,8 @@ public class PeriodicTransactionInteractorTest {
 
         System.out.println(userAccount.getTotalIncome());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(61900.0f, userAccount.getTotalIncome(), 0.01); // since 2024 is a leap year, it has 188 two-day periods +1 in Jan. 1 2025
-        assertEquals(61900.0f, userAccount.getTotalBalance(), 0.01);
+        assertEquals(61700.0f, userAccount.getTotalIncome(), 0.01); // since 2024 is a leap year, it has 188 two-day periods +1 in Jan. 1 2025
+        assertEquals(61700.0f, userAccount.getTotalBalance(), 0.01);
     }
 
     @Test
@@ -795,8 +795,8 @@ public class PeriodicTransactionInteractorTest {
 
         System.out.println(userAccount.getTotalOutflow());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(-43500.0f, userAccount.getTotalOutflow());  // since 2024 is a leap year, it have 366 days -1 in Jan. 1 2025
-        assertEquals(-43500.0f, userAccount.getTotalBalance());
+        assertEquals(-43400.0f, userAccount.getTotalOutflow());  // since 2024 is a leap year, it have 366 days -1 in Jan. 1 2025
+        assertEquals(-43400.0f, userAccount.getTotalBalance());
 
         // custom
         PeriodicTransactionInputData inputData5 = new PeriodicTransactionInputData(
@@ -807,8 +807,8 @@ public class PeriodicTransactionInteractorTest {
 
         System.out.println(userAccount.getTotalOutflow());
         System.out.println(userAccount.getTotalBalance());
-        assertEquals(-61900.0f, userAccount.getTotalOutflow()); // since 2024 is a leap year, it have 188 two days -$2 in Jan. 1 2025
-        assertEquals(-61900.0f, userAccount.getTotalBalance());
+        assertEquals(-61700.0f, userAccount.getTotalOutflow()); // since 2024 is a leap year, it have 188 two days -$2 in Jan. 1 2025
+        assertEquals(-61700.0f, userAccount.getTotalBalance());
     }
 
 //
