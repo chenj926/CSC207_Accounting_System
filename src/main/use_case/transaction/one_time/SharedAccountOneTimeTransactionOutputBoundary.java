@@ -15,5 +15,5 @@ public interface SharedAccountOneTimeTransactionOutputBoundary extends OneTimeTr
      *
      * @param outputData the transaction output data containing transaction information and new balance
      */
-    void prepareSuccessView(OneTimeTransactionOutputData outputData);
+    void prepareSuccessView(SharedAccountOneTimeTransactionOutputData outputData);
 }
