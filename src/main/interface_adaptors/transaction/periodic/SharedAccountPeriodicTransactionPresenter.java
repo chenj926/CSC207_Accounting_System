@@ -51,7 +51,7 @@ public class SharedAccountPeriodicTransactionPresenter
 
         // Set the active view and navigate back to the transaction page
         viewManager.setActiveViewName(viewModel.getViewName());
-        viewManager.changeView("Shared Account Transaction");
+        viewManager.changeView("Shared Account Homepage Two");
     }
 }
 

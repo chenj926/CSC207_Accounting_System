@@ -52,13 +52,14 @@ public class UserAccountIterator implements Iterator<UserAccount>, AutoCloseable
         if (currentLine == null) {
             throw new NoSuchElementException();
         }
+        // System.out.println(currentLine);
 
         String[] values = currentLine.split(",");
         UserAccount userAccount = new UserAccount(values[1], values[2], values[0],
                 Float.parseFloat(values[3]), Float.parseFloat(values[4]),
                 Float.parseFloat(values[5]));
 
-        if (values.length > 6 && values[6] != null && !values[6].isEmpty()) {
+        if (values.length >= 6 && values[6] != null && !values[6].isEmpty()) {
             userAccount.setLastLoginDate(LocalDate.parse(values[6]));
         } else {
             userAccount.setLastLoginDate(LocalDate.now());

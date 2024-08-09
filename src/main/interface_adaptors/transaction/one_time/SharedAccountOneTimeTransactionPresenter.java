@@ -47,7 +47,7 @@ public class SharedAccountOneTimeTransactionPresenter extends AccountOneTimeTran
 
         // Change the view to the transaction view
         viewManager.setActiveViewName(viewModel.getViewName());
-        viewManager.changeView("Shared Account Transaction");
+        viewManager.changeView("Shared Account Homepage Two");
     }
 }
 

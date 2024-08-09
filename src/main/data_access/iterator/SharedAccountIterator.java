@@ -71,7 +71,7 @@ public class SharedAccountIterator implements Iterator<SharedAccount>, AutoClose
 
         SharedAccount sharedAccount = new SharedAccount(id, userIds, password, income, outflow, balance);
 
-        if (values.length > 6 && values[6] != null && !values[6].isEmpty()) {
+        if (values.length >= 6 && values[6] != null && !values[6].isEmpty() && !values[6].equals("null")) {
             sharedAccount.setLastLoginDate(LocalDate.parse(values[6]));
         } else {
             sharedAccount.setLastLoginDate(LocalDate.now());

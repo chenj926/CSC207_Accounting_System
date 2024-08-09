@@ -6,6 +6,7 @@ import entity.account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
@@ -21,7 +22,10 @@ import java.util.List;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData> {
+public abstract class CSVAccountDataAccessObject<
+        A extends Account,
+        O extends OneTimeTransactionOutputData,
+        P extends PeriodicTransactionOutputData> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     private final String csvHeader;
