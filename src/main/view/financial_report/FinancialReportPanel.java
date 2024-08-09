@@ -19,9 +19,6 @@ public class FinancialReportPanel extends JPanel {
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
-    private JLabel incomeLabel;
-    private JLabel outflowLabel;
-    private JLabel balanceLabel;
 
     private JTextArea reportTextArea;
     private JButton backButton;

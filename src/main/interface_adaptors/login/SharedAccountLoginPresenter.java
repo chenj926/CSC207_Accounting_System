@@ -45,7 +45,7 @@ public class SharedAccountLoginPresenter extends AccountLoginPresenter<
             this.viewManagerModel.setActiveViewName(this.accountLoginViewModel.getViewName());
 
             // Change to the next view
-            this.viewManagerModel.changeView("Homepage Two");
+            this.viewManagerModel.changeView("Shared Account Homepage Two");
     }
 }
 

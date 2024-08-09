@@ -201,13 +201,13 @@ public class SharedAccountHomepageTwoPanel extends JPanel {
      */
     private void setupListeners() {
         // login button response action
-        this.oneTimeButton.addActionListener(e -> this.viewManager.setActiveViewName("One Time Transaction"));
+        this.oneTimeButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account One Time Transaction"));
 
         // signup button response action
-        this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Periodic Transaction"));
+        this.periodicButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account Periodic Transaction"));
 
         // transactionReport button response action
-        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("Financial Report"));
+        this.financialReportButton.addActionListener(e -> this.viewManager.setActiveViewName("Shared Account Financial Report"));
 
         // exit button response action
         this.logoutButton.addActionListener(e -> {

@@ -1,5 +1,6 @@
 package interface_adaptors;
 
+import app.FinancialReport.SharedAccountFinancialReportUseCaseFactory;
 import app.authentication.LoginUseCaseFactory;
 //import app.authentication.LogoutUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
@@ -324,13 +325,13 @@ public class ViewManagerModel {
                 views.put("Financial Report", financialReportView);
                 currentView = financialReportView;
                 break;
-//            case "Shared Account Financial Report":
-//                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
-//                SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
-//                        sharedAccountFinancialReportViewModel);
-//                views.put("Shared Account Financial Report", sharedAccountFinancialReportView);
-//                currentView = sharedAccountFinancialReportView;
-//                break;
+            case "Shared Account Financial Report":
+                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
+                SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
+                        sharedAccountFinancialReportViewModel);
+                views.put("Shared Account Financial Report", sharedAccountFinancialReportView);
+                currentView = sharedAccountFinancialReportView;
+                break;
         }
         if (currentView != null) {
             currentView.setVisible(true);
