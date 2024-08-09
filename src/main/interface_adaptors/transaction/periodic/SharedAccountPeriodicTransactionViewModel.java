@@ -26,7 +26,7 @@ public class SharedAccountPeriodicTransactionViewModel extends PeriodicTransacti
      * Constructs a SharedAccountPeriodicTransactionViewModel object with the view name set to "Shared Account Periodic Transaction".
      */
     public SharedAccountPeriodicTransactionViewModel() {
-        super("Periodic Transaction");
+        super("Shared Account Periodic Transaction");
         this.transactionState = new SharedAccountPeriodicTransactionState();
     }
 

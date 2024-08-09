@@ -39,7 +39,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     private static final String SHARED_ACCOUNT_CSV_FILE_PATH = "src/main/data/accounts/sharedAccounts.csv";
     private static final String SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH = "src/main/data/transaction/sharedAccountTransactions.csv";
     private static final String CSV_HEADER  = "sharedId,ids,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";
-    private static final String TRANSACTION_HEADER  = "id,amount,date,description,category,start date,period,end date";
+    private static final String TRANSACTION_HEADER  = "shareId;id,amount,date,description,category,start date,period,end date";
 
     public CSVSharedAccountDataAccessObject() {
         super(SHARED_ACCOUNT_CSV_FILE_PATH, SHARED_ACCOUNT_TRANSACTIONS_CSV_FILE_PATH, CSV_HEADER, TRANSACTION_HEADER);
@@ -61,13 +61,14 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             while (iterator.hasNext()) {
                 SharedAccount account = iterator.next();
                 if (account.getIdentification().equals(sharedAccountIdentification)) {
-                    return true;
+                    userExist = true;
+                    return userExist;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return userExist;
     }
 
     public static boolean existByuserId(String userId) {

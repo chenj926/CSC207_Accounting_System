@@ -34,6 +34,7 @@ public class SharedAccountSignupController extends AccountSignupController<
      */
     public void execute(String sharedAccountId, String sharedAccountPassword, Set<String> userIds) {
         // Create input data object for the shared account signup
+        System.out.println("in controller"+sharedAccountId+"\n"+sharedAccountPassword+"\n"+userIds.toString());
         SharedAccountSignupInputData sharedAccountSignupInputData = new SharedAccountSignupInputData(
                 sharedAccountId,
                 sharedAccountPassword,

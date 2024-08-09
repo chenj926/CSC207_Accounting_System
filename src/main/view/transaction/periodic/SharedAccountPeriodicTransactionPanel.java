@@ -81,27 +81,27 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         this.submitButton = new JButton(this.viewModel.getSubmitButton());
         buttons.add(this.submitButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButton());
-        buttons.add(this.submitButton);
-        this.selectUsersButton = new JButton(this.viewModel.getSELECT_USER()); // New button for selecting users
+//        buttons.add(this.submitButton);
+//        this.selectUsersButton = new JButton(this.viewModel.getSELECT_USER()); // New button for selecting users
 
         // Style buttons
         this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.selectUsersButton.setFont(new Font("Arial", Font.PLAIN, 16));
+//        this.selectUsersButton.setFont(new Font("Arial", Font.PLAIN, 16));
         this.submitButton.setBackground(new Color(100, 150, 200));
         this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.selectUsersButton.setBackground(new Color(150, 150, 200));
+//        this.selectUsersButton.setBackground(new Color(150, 150, 200));
         this.submitButton.setForeground(Color.WHITE);
         this.cancelButton.setForeground(Color.WHITE);
-        this.selectUsersButton.setForeground(Color.WHITE);
+//        this.selectUsersButton.setForeground(Color.WHITE);
 
         // Adjust environment for compatibility with MAC
         this.submitButton.setOpaque(true);
         this.submitButton.setBorderPainted(false);
         this.cancelButton.setOpaque(true);
         this.cancelButton.setBorderPainted(false);
-        this.selectUsersButton.setOpaque(true);
-        this.selectUsersButton.setBorderPainted(false);
+//        this.selectUsersButton.setOpaque(true);
+//        this.selectUsersButton.setBorderPainted(false);
     }
 
     /**
@@ -155,7 +155,7 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         constraints.gridy++;
         add(new JLabel(viewModel.getUSER_ID_FIELD_LABEL()), constraints);
         constraints.gridx = 1;
-        add(this.descriptionField, constraints);
+        add(this.userId, constraints);
 
         // Period drop down
         constraints.gridx = 0;
@@ -171,12 +171,12 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         constraints.gridx = 1;
         add(this.categoryButton, constraints);
 
-        // Select Users Button
-        constraints.gridx = 0;
-        constraints.gridy++;
-        constraints.gridwidth = 2;
-        constraints.anchor = GridBagConstraints.CENTER;
-        add(this.selectUsersButton, constraints);
+//        // Select Users Button
+//        constraints.gridx = 0;
+//        constraints.gridy++;
+//        constraints.gridwidth = 2;
+//        constraints.anchor = GridBagConstraints.CENTER;
+//        add(this.selectUsersButton, constraints);
 
         // Button panel for submit and cancel
         JPanel buttonsPanel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -208,7 +208,7 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
 
                     // check if is custom category
                     String category = (String) categoryButton.getSelectedItem();
-                    if ("custom".equals(category)) {
+                    if ("Custom".equals(category)) {
                         category = viewModel.getState().getTransactionCategory();
                     }
 
@@ -233,23 +233,23 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
             viewManager.setActiveViewName("Shared Account Homepage Two");
         });
 
-        selectUsersButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                // Simulate user selection dialog
-                String input = JOptionPane.showInputDialog(
-                        null,
-                        "Enter the IDs of responsible users separated by commas.",
-                        "Select Users",
-                        JOptionPane.PLAIN_MESSAGE
-                );
-
-                if (input != null && !input.trim().isEmpty()) {
-                    // Update the view model with the selected responsible users
-                    viewModel.getState().setIdentification(userId.getText());
-                }
-            }
-        });
+//        selectUsersButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent evt) {
+//                // Simulate user selection dialog
+//                String input = JOptionPane.showInputDialog(
+//                        null,
+//                        "Enter the IDs of responsible users separated by commas.",
+//                        "Select Users",
+//                        JOptionPane.PLAIN_MESSAGE
+//                );
+//
+//                if (input != null && !input.trim().isEmpty()) {
+//                    // Update the view model with the selected responsible users
+//                    viewModel.getState().setIdentification(userId.getText());
+//                }
+//            }
+//        });
 
         this.amountField.addKeyListener(new KeyListener() {
             @Override
