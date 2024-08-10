@@ -13,7 +13,6 @@ public class UserAccountSignupInputDataTest {
 
         assertEquals("Username doesn't match", "testUser", userAccountSignupInputData.getUsername());
         assertEquals("Password doesn't match", "testPass", userAccountSignupInputData.getPassword());
-        assertEquals("Identification doesn't match", "testID", userAccountSignupInputData.getIdentification());
     }
 }
 

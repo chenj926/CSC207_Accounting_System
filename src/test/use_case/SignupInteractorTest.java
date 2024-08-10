@@ -152,6 +152,11 @@ public class SignupInteractorTest {
         }
 
         @Override
+        public UserAccount getById(String identification) {
+            return null;
+        }
+
+        @Override
         public void save(UserAccount user) {
             userDatabase.put(user.getIdentification(), user);
         }
