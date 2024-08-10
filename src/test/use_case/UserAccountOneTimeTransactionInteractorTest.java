@@ -2,26 +2,30 @@ package use_case;
 
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionInputData;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionInteractor;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
+import use_case.transaction.one_time.OneTimeTransactionInputData;
+import use_case.transaction.one_time.OneTimeTransactionInteractor;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserAccountOneTimeTransactionInteractorTest {
+class OneTimeTransactionInteractorTest {
 
-    private UserAccountOneTimeTransactionInteractor interactor;
+    private OneTimeTransactionInteractor interactor;
     private UserAccountDataAccessInterface userAccountDataAccessObject;
-    private UserAccountOneTimeTransactionOutputBoundary presenter;
+    private OneTimeTransactionOutputBoundary presenter;
     private UserAccount userAccount;
 
     @BeforeEach
     void setUp() {
-        userAccount = new UserAccount("user1", "pass1", "id1");
+        userAccount = new UserAccount("user1", "pass1", "id999");
         userAccountDataAccessObject = new UserAccountDataAccessInterface() {
             @Override
             public boolean existById(String identification) {
@@ -46,14 +50,20 @@ class UserAccountOneTimeTransactionInteractorTest {
             }
 
             @Override
-            public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData, UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isOneTimeTransaction) {
+            public void saveTransaction(OneTimeTransactionOutputData oneTimeOutputData, PeriodicTransactionOutputData periodicOutputData, boolean isOneTimeTransaction) {
                 // Implementation for saveTransaction
+            }
+
+            @Override
+            public List<Transaction> readTransactions(String identification) {
+                List<Transaction> transactions = new ArrayList<>();
+                return transactions;
             }
         };
 
-        presenter = new UserAccountOneTimeTransactionOutputBoundary() {
+        presenter = new OneTimeTransactionOutputBoundary() {
             @Override
-            public void prepareSuccessView(UserAccountOneTimeTransactionOutputData outputData) {
+            public void prepareSuccessView(OneTimeTransactionOutputData outputData) {
             }
 
             @Override
@@ -62,12 +72,12 @@ class UserAccountOneTimeTransactionInteractorTest {
             }
         };
 
-        interactor = new UserAccountOneTimeTransactionInteractor(userAccountDataAccessObject, presenter, userAccount);
+        interactor = new OneTimeTransactionInteractor(userAccountDataAccessObject, presenter, userAccount);
     }
 
     @Test
     void testExecuteInflow() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("100.0", "01-01-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0", "01-01-2024", "Salary", "Income");
         interactor.execute(inputData);
         assertEquals(100.0f, userAccount.getTotalIncome());
         assertEquals(100.0f, userAccount.getTotalBalance());
@@ -75,7 +85,7 @@ class UserAccountOneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteOutflow() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("-50.0", "01-01-2024", "Rent", "Expense");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","-50.0", "01-01-2024", "Rent", "Expense");
         interactor.execute(inputData);
         assertEquals(-50.0f, userAccount.getTotalOutflow());
         assertEquals(-50.0f, userAccount.getTotalBalance());
@@ -83,24 +93,24 @@ class UserAccountOneTimeTransactionInteractorTest {
 
     @Test
     void testExecuteInvalidDate() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("100.0f", "invalid-date", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "invalid-date", "Salary", "Income");
         interactor.execute(inputData);
 
     }
 
     @Test
     void testExecuteInvalidDate1() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("100.0f", "29-02-2023", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "29-02-2023", "Salary", "Income");
         interactor.execute(inputData);
     }
     @Test
     void testExecuteInvalidDate2() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("100.0f", "32-12-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "32-12-2024", "Salary", "Income");
         interactor.execute(inputData);
     }
     @Test
     void testExecuteInvalidDate3() {
-        UserAccountOneTimeTransactionInputData inputData = new UserAccountOneTimeTransactionInputData("100.0f", "00-02-2024", "Salary", "Income");
+        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData("id999","100.0f", "00-02-2024", "Salary", "Income");
         interactor.execute(inputData);
     }
 

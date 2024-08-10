@@ -19,8 +19,8 @@ public class UserAccountPeriodicTransactionOutputDataTest {
 
     @BeforeEach
     public void setUp() {
-        periodicInflow = new PeriodicInflow("inflow1", 100.0f, LocalDate.of(2024, 1, 1), "Salary", LocalDate.of(2024, 12, 31), 30, "Auto");
-        periodicOutflow = new PeriodicOutflow("outflow1", 50.0f, LocalDate.of(2024, 1, 1), "Rent", LocalDate.of(2024, 12, 31), 30, "Auto");
+        periodicInflow = new PeriodicInflow("inflow1", 100.0f, LocalDate.of(2024, 1, 1), "Salary", LocalDate.of(2024, 12, 31), "MOUTH", "Auto");
+        periodicOutflow = new PeriodicOutflow("outflow1", 50.0f, LocalDate.of(2024, 1, 1), "Rent", LocalDate.of(2024, 12, 31), "MOUTH", "Auto");
         newBalance = 1000.0f;
     }
 
@@ -32,7 +32,7 @@ public class UserAccountPeriodicTransactionOutputDataTest {
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionDate());
         assertEquals("Salary", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
-        assertEquals(30, data.getTransactionPeriod());
+        assertEquals("MOUTH", data.getTransactionPeriod());
     }
 
     @Test
@@ -43,7 +43,7 @@ public class UserAccountPeriodicTransactionOutputDataTest {
         assertEquals(LocalDate.of(2024, 1, 1), data.getTransactionStartDate());
         assertEquals("Rent", data.getTransactionDescription());
         assertEquals(LocalDate.of(2024, 12, 31), data.getTransactionEndDate());
-        assertEquals(30, data.getTransactionPeriod());
+        assertEquals("MOUTH", data.getTransactionPeriod());
     }
 
     @Test
@@ -65,7 +65,7 @@ public class UserAccountPeriodicTransactionOutputDataTest {
         data.setTransactionEndDate(newEndDate);
         assertEquals(newEndDate, data.getTransactionEndDate());
 
-        int newPeriod = 15;
+        String newPeriod = "WEEK";
         data.setTransactionPeriod(newPeriod);
         assertEquals(newPeriod, data.getTransactionPeriod());
 
