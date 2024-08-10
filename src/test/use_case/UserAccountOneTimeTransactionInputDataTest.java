@@ -5,7 +5,21 @@ import use_case.transaction.one_time.OneTimeTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OneTimeTransactionInputDataTest {
+public class UserAccountOneTimeTransactionInputDataTest {
+    private class ConcreteOneTimeTransactionInputData extends OneTimeTransactionInputData {
+        /**
+         * Constructs a TransactionInputData object with the specified details.
+         *
+         * @param id
+         * @param transactionAmount      the amount of the transaction
+         * @param transactionDescription the description of the transaction
+         * @param transactionCategory    the category of the transaction
+         * @param transactionDate
+         */
+        public ConcreteOneTimeTransactionInputData(String id, String transactionAmount, String transactionDescription, String transactionCategory, String transactionDate) {
+            super(id, transactionAmount, transactionDescription, transactionCategory, transactionDate);
+        }
+    }
 
     @Test
     public void testOneTimeTransactionInputData() {
@@ -15,7 +29,7 @@ public class OneTimeTransactionInputDataTest {
         String transactionDescription = "Grocery Shopping";
         String transactionCategory = "Food";
 
-        OneTimeTransactionInputData inputData = new OneTimeTransactionInputData(
+        OneTimeTransactionInputData inputData = new ConcreteOneTimeTransactionInputData(
                 identification,
                 transactionAmount,
                 transactionDate,
