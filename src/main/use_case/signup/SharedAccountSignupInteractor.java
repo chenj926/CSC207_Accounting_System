@@ -1,130 +1,128 @@
 package use_case.signup;
 
-import data_access.authentication.UserSignupDataAccessInterface;
-import entity.account.UserAccount;
+import data_access.account.CSVSharedAccountDataAccessObject;
+import data_access.account.CSVUserAccountDataAccessObject;
+import data_access.account.SharedAccountDataAccessInterface;
+import data_access.authentication.SharedAccountSignupDataAccessInterface;
 import entity.account.SharedAccount;
 import entity.account.AccountFactory;
 
+import java.time.LocalDate;
+import java.util.Set;
+
 /**
- * The SharedAccountSignupInteractor class implements the SignupInputBoundary interface.
- * It handles the signup process for shared accounts by validating the input data,
- * interacting with the data access layer, and using the presenter to prepare the output views.
- * This class extends the functionality of the standard signup to include shared account logic.
+ * The SharedAccountSignupInteractor class handles the signup process for shared accounts.
+ * It validates input data, interacts with the data access layer, and uses the presenter to prepare output views.
+ * This class does not extend UserAccountSignupInteractor but follows a similar process.
+ * <p>
  * This class assumes that it will receive a SharedAccountSignupInputData type as input.
+ * </p>
+ *
+ * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupInteractor implements SignupInputBoundary {
-    final AccountFactory accountFactory;
-    final SignupOutputBoundary presenter;
-    final UserSignupDataAccessInterface userDataAccessObject;
+public class SharedAccountSignupInteractor extends SignupInteractor<
+        SharedAccountSignupDataAccessInterface,
+        SharedAccountSignupInputData> implements SharedAccountSignupInputBoundary {
+    private final SharedAccountSignupOutputBoundary presenter;
+    private final SharedAccountDataAccessInterface sharedDataAccessObject;
 
     /**
-     * Constructs a SharedAccountSignupInteractor object with the specified data access interface,
+     * Constructs a SharedAccountSignupInteractor object with the specified data access interfaces,
      * output boundary, and account factory.
      *
      * @param userSignupDataAccessInterface the data access interface for user data
+     * @param sharedDataAccessObject        the data access interface for shared accounts
      * @param signupOutputBoundary          the output boundary for presenting the signup results
      * @param accountFactory                the factory for creating user accounts
      */
-    public SharedAccountSignupInteractor(UserSignupDataAccessInterface userSignupDataAccessInterface,
-                                         SignupOutputBoundary signupOutputBoundary,
+    public SharedAccountSignupInteractor(SharedAccountSignupDataAccessInterface userSignupDataAccessInterface,
+                                         SharedAccountDataAccessInterface sharedDataAccessObject,
+                                         SharedAccountSignupOutputBoundary signupOutputBoundary,
                                          AccountFactory accountFactory) {
-        this.accountFactory = accountFactory;
-        this.userDataAccessObject = userSignupDataAccessInterface;
+        super(userSignupDataAccessInterface, accountFactory);
+        this.sharedDataAccessObject = sharedDataAccessObject;
         this.presenter = signupOutputBoundary;
     }
 
     /**
      * Executes the signup process with the given input data.
      *
-     * @param signupInputData the input data required for the signup process
+     * @param sharedSignupData the input data required for the signup process
      */
     @Override
-    public void execute(SignupInputData signupInputData) {
-        SharedAccountSignupInputData sharedSignupData = (SharedAccountSignupInputData) signupInputData;
+    public void execute(SharedAccountSignupInputData sharedSignupData) {
+        Set<String> userIds = sharedSignupData.getUserIds();
+        String shareAccountId = sharedSignupData.getId();
 
-        boolean userExists = userDataAccessObject.existById(sharedSignupData.getIdentification());
-        boolean sharedAccountExists = userDataAccessObject.existById(sharedSignupData.getSharedAccountId());
+        boolean validSharedAccountId = checkIdentification(shareAccountId);
+        boolean validSharedPassword = checkPassword(sharedSignupData.getPassword());
+        boolean validUserIds = this.checkUserIds(userIds);
 
-        boolean validUsername = this.checkUsername(sharedSignupData.getUsername());
-        boolean validPassword = this.checkPassword(sharedSignupData.getPassword());
-        boolean validIdentification = this.checkIdentification(sharedSignupData.getIdentification());
-        boolean validSharedAccountId = this.checkIdentification(sharedSignupData.getSharedAccountId());
+//
+//        boolean validUser1Id = checkIdentification(sharedSignupData.getUser1Id());
+//        boolean validUser2Id = checkIdentification(sharedSignupData.getUser2Id());
 
-        if (!validUsername || !validPassword || !validIdentification || !validSharedAccountId) {
-            // Simplified the error messages using a single check for all fields
-            if (!validUsername) {
-                presenter.prepareFailView("Username cannot be empty!");
-            }
-            if (!validPassword) {
-                presenter.prepareFailView("Password cannot be empty!");
-            }
-            if (!validIdentification) {
-                presenter.prepareFailView("Identification cannot be empty!");
-            }
-            if (!validSharedAccountId) {
-                presenter.prepareFailView("Shared Account ID cannot be empty!");
-            }
+        if (!validSharedAccountId || !validSharedPassword || !validUserIds) {
+            presenter.prepareFailView("All fields must be filled out!");
             return;
         }
 
-        if (userExists) {
-            UserAccount userAccount = userDataAccessObject.getById(sharedSignupData.getIdentification());
-
-            if (userAccount.getPassword().equals(sharedSignupData.getPassword())) {
-                if (sharedAccountExists) {
-                    // If both user and shared account exist, handle the user choice in the view
-                    SignupOutputData signupOutputData = new SharedAccountSignupOutputData(
-                            sharedSignupData.getUsername(), false, sharedSignupData.getSharedAccountId(), true);
-                    presenter.prepareSuccessView(signupOutputData);
-                } else {
-                    // Shared account does not exist, create it
-                    SharedAccount newSharedAccount = accountFactory.createSharedAccount(sharedSignupData.getSharedAccountId());
-                    userDataAccessObject.save(newSharedAccount);
-
-                    // Prepare success view for shared account creation
-                    SignupOutputData signupOutputData = new SharedAccountSignupOutputData(
-                            sharedSignupData.getUsername(), false, sharedSignupData.getSharedAccountId(), false);
-                    presenter.prepareSuccessView(signupOutputData);
-                }
-            } else {
-                // Password mismatch
-                presenter.prepareFailView("Incorrect password for existing user.");
-            }
-        } else {
-            // User does not exist, prepare fail view
-            presenter.prepareFailView("Please sign up an individual user account first.");
+        // Check if the shared account already exists
+        if (sharedDataAccessObject.existById(shareAccountId)) {
+            presenter.prepareFailView("A shared account with this ID already exists!");
+            return;
         }
+
+        // Verify that user accounts exist
+        boolean userIdsExist = this.checkUserIdsExist(userIds);
+        if (!userIdsExist) {
+            presenter.prepareFailView("All user accounts must exist before creating a shared account!");
+            return;
+        }
+
+        // Create a new shared account
+        SharedAccount newSharedAccount = accountFactory.createSharedAccount(
+                shareAccountId,
+                userIds,
+                sharedSignupData.getPassword()
+        );
+        // update the user account ids into newSharedAccount
+        this.addIdToShareAccount(newSharedAccount, userIds);
+        newSharedAccount.setLastLoginDate(LocalDate.now());
+        // Save the new shared account
+        sharedDataAccessObject.save(newSharedAccount);
+
+        // Prepare success view for shared account creation
+        SharedAccountSignupOutputData outputData = new SharedAccountSignupOutputData(
+                shareAccountId,
+                sharedSignupData.getUserIds());
+
+        presenter.prepareSuccessView(outputData);
     }
 
-
-    /**
-     * Checks if the provided username is valid (not null or empty).
-     *
-     * @param username the username to check
-     * @return true if the username is valid, false otherwise
-     */
-    private boolean checkUsername(String username) {
-        return username != null && !username.isEmpty();
+    private boolean checkUserIds(Set<String> userIds) {
+        for (String userId : userIds) {
+            if (!this.checkIdentification(userId)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    private boolean checkPassword(String password) {
-        return password != null && !password.isEmpty();
+    private boolean checkUserIdsExist(Set<String> userIds) {
+        CSVUserAccountDataAccessObject dao = new CSVUserAccountDataAccessObject();
+        for (String userId : userIds) {
+            if (!dao.existById(userId)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    private boolean checkIdentification(String id) {
-        return id != null && !id.isEmpty();
+    private void addIdToShareAccount(SharedAccount sharedAccount, Set<String> userIds) {
+        for (String userId : userIds) {
+            sharedAccount.addUserIdentification(userId);
+        }
     }
 }
 

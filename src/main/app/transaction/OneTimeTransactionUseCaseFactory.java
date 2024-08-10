@@ -4,11 +4,11 @@ import data_access.DAOFactory;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.OneTimeTransactionController;
-import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
-import use_case.transaction.one_time.OneTimeTransactionInteractor;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionInteractor;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
 import view.transaction.one_time.OneTimeTransactionView;
 
 import javax.swing.*;
@@ -18,26 +18,26 @@ public class OneTimeTransactionUseCaseFactory {
     private OneTimeTransactionUseCaseFactory() {}
 
     public static OneTimeTransactionView create(ViewManagerModel viewManagerModel,
-                                                OneTimeTransactionViewModel oneTimeTransactionViewModel) {
+                                                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) {
         try {
-            OneTimeTransactionController oneTimeTransactionController = createUserOneTimeUseCase(viewManagerModel,
-                    oneTimeTransactionViewModel);
-            return new OneTimeTransactionView(oneTimeTransactionViewModel, oneTimeTransactionController, viewManagerModel);
+            UserAccountOneTimeTransactionController userAccountOneTimeTransactionController = createUserOneTimeUseCase(viewManagerModel,
+                    userAccountOneTimeTransactionViewModel);
+            return new OneTimeTransactionView(userAccountOneTimeTransactionViewModel, userAccountOneTimeTransactionController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-    private static OneTimeTransactionController createUserOneTimeUseCase(ViewManagerModel viewManagerModel,
-                                                            OneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
+    private static UserAccountOneTimeTransactionController createUserOneTimeUseCase(ViewManagerModel viewManagerModel,
+                                                                                    UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
-        OneTimeTransactionOutputBoundary presenter = new OneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
+        UserAccountOneTimeTransactionOutputBoundary presenter = new UserAccountOneTimeTransactionPresenter(userAccountOneTimeTransactionViewModel, viewManagerModel);
 
         UserAccount userAccount = dataAccessObject.getById(viewManagerModel.getUserId());
 
-        OneTimeTransactionInteractor interactor = new OneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
-        return new OneTimeTransactionController(interactor, oneTimeTransactionViewModel);
+        UserAccountOneTimeTransactionInteractor interactor = new UserAccountOneTimeTransactionInteractor(dataAccessObject, presenter, userAccount);
+        return new UserAccountOneTimeTransactionController(interactor, userAccountOneTimeTransactionViewModel);
     }
 
 }

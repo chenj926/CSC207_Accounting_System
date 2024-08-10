@@ -1,19 +1,18 @@
 package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoController;
-import interface_adaptors.homepage.HomepageTwoState;
-import interface_adaptors.homepage.HomepageTwoViewModel;
+import interface_adaptors.homepage.UserAccountHomepageTwoController;
+import interface_adaptors.homepage.UserAccountHomepageTwoState;
+import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class HomepageTwoPanel extends JPanel{
 
-    private final HomepageTwoViewModel viewModel;
+    private final UserAccountHomepageTwoViewModel viewModel;
     private final ViewManagerModel viewManager;
-    private HomepageTwoController controller;
+    private UserAccountHomepageTwoController controller;
     private String[] basicUserInfo;
 //    private ViewManagerModel viewManager;
 
@@ -41,15 +40,15 @@ public class HomepageTwoPanel extends JPanel{
      * @param viewModel  the view model for the transaction view
      * @param viewManager the view manager for handling view transitions
      */
-    public HomepageTwoPanel(HomepageTwoViewModel viewModel, ViewManagerModel viewManager,
-                            HomepageTwoController homepageTwoController) {
+    public HomepageTwoPanel(UserAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager,
+                            UserAccountHomepageTwoController userAccountHomepageTwoController) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
-        this.controller = homepageTwoController;
+        this.controller = userAccountHomepageTwoController;
 
         this.viewModel.addPropertyChangeListener(evt -> {
             if ("state".equals(evt.getPropertyName())){
-                HomepageTwoState state = viewModel.getState();
+                UserAccountHomepageTwoState state = viewModel.getState();
                 this.basicUserInfo = state.getBasicUserInfo();
                 updateUI(); // Update the UI components when state changes
             }

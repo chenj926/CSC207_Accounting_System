@@ -1,20 +1,17 @@
 package interface_adaptors.homepage;
 
 public class HomepageTwoState {
-    private String id;
-    private String username;
-    private String totalIncome;
-    private String totalOutflow;
-    private String totalBalance;
-    private String[] basicUserInfo;
-    private String err;
+    protected String id;
+//    protected String username;
+    protected String totalIncome;
+    protected String totalOutflow;
+    protected String totalBalance;
+    protected String[] basicUserInfo;
+    protected String err;
 
     // getters
     public String getId() {
         return this.id;
-    }
-    public String getUsername() {
-        return this.username;
     }
     public String getTotalIncome() {
         return this.totalIncome;
@@ -36,9 +33,6 @@ public class HomepageTwoState {
     public void setId(String id) {
         this.id = id;
     }
-    public void setUsername(String username) {
-        this.username = username;
-    }
     public void setTotalIncome(String totalIncome) {
         this.totalIncome = totalIncome;
     }
@@ -55,4 +49,3 @@ public class HomepageTwoState {
         this.err = err;
     }
 }
-

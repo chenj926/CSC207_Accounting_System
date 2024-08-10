@@ -1,7 +1,11 @@
 package data_access.account;
 
 import data_access.authentication.UserSignupDataAccessInterface;
+import entity.account.SharedAccount;
 import entity.account.UserAccount;
+import entity.transaction.Transaction;
+import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.util.*;
 
@@ -18,7 +22,7 @@ import java.util.*;
  */
 
 // in memory DAO for test purposes
-public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccessInterface{
+public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccessInterface, UserAccountDataAccessInterface{
     private final Map<String, UserAccount> users = new HashMap<>();
 
     /**
@@ -41,6 +45,16 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
         users.put(newUser.getIdentification(), newUser);
     }
 
+    @Override
+    public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData, UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+
+    }
+
+    @Override
+    public List<Transaction> readTransactions(String userId) {
+        return List.of();
+    }
+
     /**
      * Deletes a user account by its unique identification.
      *
@@ -58,6 +72,17 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
      */
     public UserAccount getById(String identifier) {
         return users.get(identifier);
+    }
+
+    @Override
+    public void update(UserAccount account) {
+            // Check if the account exists before updating
+        if (users.containsKey(account.getIdentification())) {
+            users.put(account.getIdentification(), account);
+        } else {
+            // Handle the case where the account doesn't exist, if needed
+            throw new IllegalArgumentException("User account does not exist: " + account.getIdentification());
+        }
     }
 
     /**

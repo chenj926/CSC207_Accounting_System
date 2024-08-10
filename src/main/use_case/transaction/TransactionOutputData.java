@@ -16,7 +16,7 @@ public abstract class TransactionOutputData<TransactionType>{
     protected String transactionDescription;
     protected LocalDate transactionDate;
     protected String transactionCategory;
-    private String[] basicUserInfo;
+    protected String[] basicUserInfo;
 
     public TransactionOutputData(Transaction transaction){
         this.transactionAmount = transaction.getAmount();
@@ -24,6 +24,7 @@ public abstract class TransactionOutputData<TransactionType>{
         this.transactionDate = transaction.getDate();
         this.transactionCategory = transaction.getTransactionCategory();
         this.id = transaction.getIdentification();
+        this.basicUserInfo = null;
     }
 
 
@@ -70,6 +71,10 @@ public abstract class TransactionOutputData<TransactionType>{
      */
     public LocalDate getTransactionDate() {
         return this.transactionDate;
+    }
+
+    public String[] getBasicUserInfo() {
+        return this.basicUserInfo;
     }
 
     /**

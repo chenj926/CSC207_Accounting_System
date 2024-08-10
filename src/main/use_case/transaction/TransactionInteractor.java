@@ -1,29 +1,34 @@
 package use_case.transaction;
 
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import data_access.account.AccountDataAccessInterface;
+import entity.account.Account;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
-public abstract class TransactionInteractor{
-    protected final UserAccountDataAccessInterface userDataAccessObject;
-    protected UserAccount userAccount;
+public abstract class TransactionInteractor<
+        DAO extends AccountDataAccessInterface<A, O, P>,
+        A extends Account,
+        O extends OneTimeTransactionOutputData,
+        P extends PeriodicTransactionOutputData>{
+    protected final DAO userDataAccessObject;
+    protected A account;
 
     /**
      * Constructs a TransactionInteractor object with data access object,
      * and user account.
      *
-     * @param userAccountDataAccessInterface the data access interface for user data
-     * @param userAccount the user account associated with the transaction
+     * @param accountDataAccessInterface the data access interface for user data
+     * @param account the user account associated with the transaction
      */
-    public TransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                 UserAccount userAccount) {
-        this.userDataAccessObject = userAccountDataAccessInterface;
-        this.userAccount = userAccount;
+    public TransactionInteractor(DAO accountDataAccessInterface,
+                                 A account) {
+        this.userDataAccessObject = accountDataAccessInterface;
+        this.account = account;
     }
 
     /**

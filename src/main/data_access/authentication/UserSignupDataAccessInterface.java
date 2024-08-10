@@ -1,5 +1,6 @@
 package data_access.authentication;
 
+import data_access.account.AccountDataAccessInterface;
 import entity.account.UserAccount;
 
 /**
@@ -11,22 +12,6 @@ import entity.account.UserAccount;
  *
  * @author Eric
  */
-public interface UserSignupDataAccessInterface {
+public interface UserSignupDataAccessInterface extends AccountSignupDataAccessInterface<UserAccount> {
 
-    /**
-     * Checks whether a user account with the specified identification already exists.
-     *
-     * @param identification the unique identifier for the user account
-     * @return true if a user account with the specified identification exists, false otherwise
-     */
-    boolean existById(String identification);
-
-    UserAccount getById(String identification);
-
-    /**
-     * Saves a new user account to the data store.
-     *
-     * @param user the user account to be saved
-     */
-    void save(UserAccount user);
 }

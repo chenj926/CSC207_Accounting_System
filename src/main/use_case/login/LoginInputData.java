@@ -1,40 +1,21 @@
 package use_case.login;
 
-/**
- * The LoginInputData class represents the input data required for a login operation.
- *
- * @author Dana
- */
-public class LoginInputData {
-    private final String password;
-    private final String identification;
+import use_case.signup.SignupOutputData;
 
-    /**
-     * Constructs a LoginInputData object with the specified password and identification.
-     *
-     * @param password       the password for the login
-     * @param identification the identification for the login
-     */
-    public LoginInputData(String password, String identification){
-        this.password = password;
+public abstract class LoginInputData {
+    private String identification;
+    private String password;
+
+    public LoginInputData(String identification, String password) {
         this.identification = identification;
+        this.password = password;
     }
 
-    /**
-     * Gets the password for the login.
-     *
-     * @return the password for the login
-     */
-    public String getPassword() {
-        return this.password;
-    }
+    public String getIdentification() {return this.identification;}
 
-    /**
-     * Gets the identification for the login.
-     *
-     * @return the identification for the login
-     */
-    public String getIdentification() {
-        return this.identification;
-    }
+    public void setIdentification(String identification) {this.identification = identification;}
+
+    public String getPassword() {return this.password;}
+
+    public void setPassword(String password) {this.password = password;}
 }

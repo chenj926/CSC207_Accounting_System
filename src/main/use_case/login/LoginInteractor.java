@@ -1,33 +1,22 @@
 package use_case.login;
 
-import entity.account.UserAccount;
-import data_access.authentication.LoginDataAccessInterface;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+import data_access.account.AccountDataAccessInterface;
 
-import java.time.LocalDate;
+public abstract class LoginInteractor<
+        T,
+        O extends LoginOutputBoundary<LO>,
+        LO extends LoginOutputData,
+        I extends LoginInputData>{
+    protected T userDataAccessObject;
+    protected O presenter;
+    protected LoginMediator mediator;
 
-/**
- * The LoginInteractor class implements the LoginInputBoundary interface.
- * It handles the login process by validating the input data and interacting with the data access layer and the presenter.
- *
- * @author Dana
- * @author Eric
- */
-public class LoginInteractor implements LoginInputBoundary {
-    final LoginDataAccessInterface userDataAccessObject;
-    final LoginOutputBoundary presenter;
-    private LoginMediator mediator;
-
-    /**
-     * Constructs a LoginInteractor object with the specified data access interface and output boundary.
-     *
-     * @param LoginDataAccessInterface the data access interface for user data
-     * @param logInOutputBoundary      the output boundary for presenting the login results
-     */
-    public LoginInteractor(LoginDataAccessInterface LoginDataAccessInterface, LoginOutputBoundary logInOutputBoundary) {
-        this.userDataAccessObject = LoginDataAccessInterface;
-        this.presenter = logInOutputBoundary;
+    public LoginInteractor(T userDataAccessObject, O presenter) {
+        this.userDataAccessObject = userDataAccessObject;
+        this.presenter = presenter;
     }
+
+    public abstract void execute(I inputData);
 
     /**
      * Sets the mediator for the interactor.
@@ -37,60 +26,6 @@ public class LoginInteractor implements LoginInputBoundary {
     public void setMediator(LoginMediator mediator) {
         this.mediator = mediator;
     }
-
-    /**
-     * Executes the login process with the given input data.
-     *
-     * @param loginInputData the input data required for the login process
-     */
-    @Override
-    public void execute(LoginInputData loginInputData) {
-
-            // check if username or password or id is valid (not empty)
-            boolean validPassword = this.checkPassword(loginInputData.getPassword());
-            boolean validIdentification = this.checkIdentification(loginInputData.getIdentification());
-
-            if (!validPassword && !validIdentification) {
-                presenter.prepareFailView("Identification AND Password can not be empty!");
-                return;
-            } else if (!validPassword) {
-                presenter.prepareFailView("Password can not be empty!");
-                return;
-            } else if (!validIdentification) {
-                presenter.prepareFailView("Identification can not be empty!");
-                return;
-            } else {
-                if (!userDataAccessObject.existById(loginInputData.getIdentification())) {
-                    //User does not exist
-                    presenter.prepareFailView("User not found");
-                    return;
-                }
-
-                //User exists, fetch the user account
-                UserAccount userAccount = userDataAccessObject.getById(loginInputData.getIdentification());
-                if (userAccount != null && !userAccount.getPassword().equals(loginInputData.getPassword())) {
-                    presenter.prepareFailView("Incorrect Password!");
-                    return;
-                }
-
-                // attempt to login
-                boolean isLogin = userDataAccessObject.login(userAccount);
-
-                // if login failed, password wrong
-                if (!isLogin) {
-                    presenter.prepareFailView("Incorrect Password!");
-                } else {
-                    // Notify mediator on successful login
-                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccount.getIdentification(), LocalDate.now());
-                    mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
-
-                    // prepare output to presenter
-                    LoginOutputData loginOutputData = new LoginOutputData(userAccount.getIdentification(), true);
-                    presenter.prepareSuccessView(loginOutputData);
-                    }
-                }
-
-        }
 
     /**
      * Checks if the provided password is valid (not null or empty).
@@ -117,5 +52,4 @@ public class LoginInteractor implements LoginInputBoundary {
         }
         return true;
     }
-
 }

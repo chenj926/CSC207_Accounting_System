@@ -1,9 +1,9 @@
 package view.login;
 
 import interface_adaptors.*;
-import interface_adaptors.login.LoginController;
-import interface_adaptors.login.LoginState;
-import interface_adaptors.login.LoginViewModel;
+import interface_adaptors.login.AccountLoginController;
+import interface_adaptors.login.UserAccountLoginState;
+import interface_adaptors.login.UserAccountLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,16 +21,16 @@ import java.awt.event.KeyListener;
  * @author Eric
  */
 public class LoginPanel extends JPanel {
-    private final LoginViewModel viewModel;
-    private LoginController loginController;
+    private final UserAccountLoginViewModel viewModel;
+    protected AccountLoginController loginController;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
-    private JLabel titleLabel;
-    private JTextField identificationTextField;
-    private JPasswordField passwordField;
-    private JButton loginButton;
-    private JButton cancelButton;
+    protected JLabel titleLabel;
+    protected JTextField identificationTextField;
+    protected JPasswordField passwordField;
+    protected JButton loginButton;
+    protected JButton cancelButton;
+
 
     /**
      * Constructs a LoginPanel object with the specified view model, login controller, and view manager.
@@ -39,7 +39,7 @@ public class LoginPanel extends JPanel {
      * @param loginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public LoginPanel(LoginViewModel viewModel, LoginController loginController, ViewManagerModel viewManager) {
+    public LoginPanel(UserAccountLoginViewModel viewModel, AccountLoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
         this.viewManager = viewManager;
@@ -52,7 +52,7 @@ public class LoginPanel extends JPanel {
      * Initializes the components of the login panel, including labels, text fields, and buttons.
      * Styles the buttons with specific fonts and colors.
      */
-    private void initializeComponents() {
+    protected void initializeComponents() {
         // title layout
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
@@ -60,6 +60,8 @@ public class LoginPanel extends JPanel {
 
         this.identificationTextField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
+        this.identificationTextField.setToolTipText("Enter User Account ID");
+        this.passwordField.setToolTipText("Enter User Account Password");
 
         // add buttons
         JPanel buttons = new JPanel();
@@ -87,7 +89,7 @@ public class LoginPanel extends JPanel {
      * Sets up the user interface for the login panel, arranging components using a GridBagLayout.
      * Adds components such as labels, text fields, and buttons to the panel.
      */
-    private void setupUI() {
+    protected void setupUI() {
         setLayout(new GridBagLayout());
         GridBagConstraints constraints = new GridBagConstraints();
 //        constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -98,16 +100,12 @@ public class LoginPanel extends JPanel {
         constraints.gridy = 0;
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
-//        constraints.fill = GridBagConstraints.NONE; // This ensures the title label is not stretched horizontally
         add(this.titleLabel, constraints);
 
         // reset gridwidth and anchor for other components
-//        constraints.gridwidth = 1;
         constraints.anchor = GridBagConstraints.WEST;
-//        constraints.fill = GridBagConstraints.HORIZONTAL;
 
         // identification
-//        constraints.gridx = 0;
         constraints.gridy++;
         constraints.gridwidth = 1;
         add(new JLabel(this.viewModel.getIdentificationLabel()), constraints);
@@ -142,15 +140,16 @@ public class LoginPanel extends JPanel {
      * Sets up listeners for user interactions, including button clicks and key presses.
      * Updates the view model based on user input and handles actions for login and cancel buttons.
      */
-    private void setupListeners() {
+    protected void setupListeners() {
         // login in button response action
         loginButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
                     loginController.execute(
-                            String.valueOf(passwordField.getPassword()),
-                            identificationTextField.getText()
+                            identificationTextField.getText(),
+                            String.valueOf(passwordField.getPassword())
+//                            identificationTextField.getText()
                     );
                 }
             }
@@ -166,7 +165,7 @@ public class LoginPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        LoginState currentState = viewModel.getState();
+                        UserAccountLoginState currentState = viewModel.getState();
                         currentState.setIdentification(identificationTextField.getText() + evt.getKeyChar());
                         viewManager.setUserId(identificationTextField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
@@ -183,7 +182,7 @@ public class LoginPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        LoginState currentState = viewModel.getState();
+                        UserAccountLoginState currentState = viewModel.getState();
                         currentState.setPassword(String.valueOf(passwordField.getPassword()) + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }

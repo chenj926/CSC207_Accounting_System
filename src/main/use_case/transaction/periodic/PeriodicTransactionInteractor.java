@@ -1,62 +1,45 @@
 package use_case.transaction.periodic;
 
-import data_access.account.UserAccountDataAccessInterface;
-
-import entity.transaction.Transaction;
+import data_access.account.AccountDataAccessInterface;
+import entity.account.Account;
+import entity.transaction.one_time.OneTimeTransaction;
 import entity.transaction.periodic.PeriodicInflow;
 import entity.transaction.periodic.PeriodicOutflow;
-import entity.account.UserAccount;
 import entity.transaction.periodic.PeriodicTransaction;
 import use_case.transaction.TransactionInteractor;
+import use_case.transaction.one_time.OneTimeTransactionInputData;
+import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
-import java.util.ArrayList;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
+import java.util.ArrayList;
 
-/**
- * The PeriodicTransactionInteractor class implements the PeriodicTransactionInputBoundary interface.
- * It handles the process of creating a periodic transaction by validating the input data,
- * interacting with the data access layer, and using the presenter to prepare the output views.
- *
- * @author Eric
- * @author Dana
- */
-public class PeriodicTransactionInteractor extends TransactionInteractor implements PeriodicTransactionInputBoundary {
-    private final PeriodicTransactionOutputBoundary presenter;
+public abstract class PeriodicTransactionInteractor <
+        DAO extends AccountDataAccessInterface<A, O, P>,
+        A extends Account,
+        O extends OneTimeTransactionOutputData,
+        P extends PeriodicTransactionOutputData,
+        I extends PeriodicTransactionInputData> extends TransactionInteractor<DAO, A, O, P> implements PeriodicTransactionInputBoundary<I> {
 
-    /**
-     * Constructs a PeriodicTransactionInteractor object with the specified data access interface,
-     * output boundary, and user account.
-     *
-     * @param userAccountDataAccessInterface the data access interface for user data
-     * @param periodicTransactionOutputBoundary the output boundary for presenting the periodic transaction results
-     * @param userAccount the user account associated with the transaction
-     */
-    public PeriodicTransactionInteractor(UserAccountDataAccessInterface userAccountDataAccessInterface,
-                                         PeriodicTransactionOutputBoundary periodicTransactionOutputBoundary,
-                                         UserAccount userAccount) {
-        super(userAccountDataAccessInterface, userAccount);
-        this.presenter = periodicTransactionOutputBoundary;
+    protected final PeriodicTransactionOutputBoundary<P> presenter;
+
+    protected PeriodicTransactionInteractor(DAO dataAccessInterface,
+                                            PeriodicTransactionOutputBoundary<P> presenter,
+                                            A account) {
+        super(dataAccessInterface, account);
+        this.presenter = presenter;
     }
 
-    /**
-     * Executes the periodic transaction process with the given input data.
-     *
-     * @param periodicTransactionInputData the input data required for the periodic transaction process
-     */
     @Override
-    public void execute(PeriodicTransactionInputData periodicTransactionInputData) {
-        String identification = periodicTransactionInputData.getId();
-        String stringAmount = periodicTransactionInputData.getTransactionAmount();
-        String endDate = periodicTransactionInputData.getTransactionEndDate();
-        String description = periodicTransactionInputData.getTransactionDescription();
-        String startDate = periodicTransactionInputData.getTransactionStartDate();
-        String period = periodicTransactionInputData.getTransactionPeriod();
-        String category = periodicTransactionInputData.getTransactionCategory();
+    public void execute(I userAccountPeriodicTransactionInputData) {
+        String identification = userAccountPeriodicTransactionInputData.getId();
+        String stringAmount = userAccountPeriodicTransactionInputData.getTransactionAmount();
+        String endDate = userAccountPeriodicTransactionInputData.getTransactionEndDate();
+        String description = userAccountPeriodicTransactionInputData.getTransactionDescription();
+        String startDate = userAccountPeriodicTransactionInputData.getTransactionStartDate();
+        String period = userAccountPeriodicTransactionInputData.getTransactionPeriod();
+        String category = userAccountPeriodicTransactionInputData.getTransactionCategory();
 
         //Set currentDate to today
         LocalDate currentDate = LocalDate.now();
@@ -115,7 +98,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param period the transaction period as a string
      * @return the custom period as an integer, or 0 if it's a predefined period, or -1 if parsing fails
      */
-    private int validateAndParsePeriod(String period) {
+    protected int validateAndParsePeriod(String period) {
         ArrayList<String> periodTypes = new ArrayList<>();
         periodTypes.add("day");
         periodTypes.add("week");
@@ -146,7 +129,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param period the transaction period as a string
      * @return the corresponding ChronoUnit
      */
-    private ChronoUnit getChronoUnit(String period) {
+    protected ChronoUnit getChronoUnit(String period) {
         switch (period) {
             case "day":
                 return ChronoUnit.DAYS;
@@ -170,7 +153,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param endDate the end date
      * @return true if the period is valid, false otherwise
      */
-    private boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
+    protected boolean validatePeriod(ChronoUnit unit, int customPeriod, LocalDate startDate, LocalDate endDate) {
         long totalDaysBetween = ChronoUnit.DAYS.between(startDate, endDate);
 
         // if the start day and end day is the same day
@@ -210,7 +193,7 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
                                      LocalDate endDate, String description, String period, int customPeriod,
                                      ChronoUnit unit, String category, LocalDate currentDate) {
         LocalDate date = startDate;
-        PeriodicTransactionOutputData finalOutputData = null;
+        P finalOutputData = null;
 
         // add transactions while from start to current date and not after end date
         while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
@@ -252,8 +235,9 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param endDate the transaction end date
      * @param period the transaction period
      */
-    private PeriodicTransactionOutputData  processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
-                                          LocalDate endDate, String period, String category, LocalDate transactionDate) {
+    protected P processInflowTransaction(String identification, float amount, LocalDate startDate, String description,
+                                       LocalDate endDate, String period,
+                                       String category, LocalDate transactionDate) {
         // Create a new PeriodicInflow object
         PeriodicInflow periodicInflow = new PeriodicInflow(identification, amount, startDate, description, endDate,
                 period, category);
@@ -262,17 +246,17 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         periodicInflow.setDate(transactionDate);
 
         // Create a new PeriodicInflow object
-        float totalIncome = userAccount.getTotalIncome() + amount;
-        userAccount.setTotalIncome(totalIncome);
+        float totalIncome = this.account.getTotalIncome() + amount;
+        this.account.setTotalIncome(totalIncome);
 
         // Update the user's total income and balance
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);
+        float totalBalance = this.account.getTotalBalance() + amount;
+        this.account.setTotalBalance(totalBalance);
 
         // Prepare the output data
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicInflow);
+        P outputData = this.createOutputData(periodicInflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(account);
 
         return outputData;
     }
@@ -291,8 +275,8 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
      * @param endDate the transaction end date
      * @param period the transaction period
      */
-    private PeriodicTransactionOutputData  processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
-                                           LocalDate endDate, String period, String category, LocalDate transactionDate) {
+    protected P processOutflowTransaction(String identification, float amount, LocalDate currentDate, String description,
+                                                                               LocalDate endDate, String period, String category, LocalDate transactionDate) {
         // Create a new PeriodicOutflow object
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(identification, amount, currentDate, description, endDate,
                 period, category);
@@ -301,18 +285,20 @@ public class PeriodicTransactionInteractor extends TransactionInteractor impleme
         periodicOutflow.setDate(transactionDate);
 
         // Update the user's total outflow and balance
-        float totalOutflow = userAccount.getTotalOutflow() + amount;
-        userAccount.setTotalOutflow(totalOutflow);
+        float totalOutflow = account.getTotalOutflow() + amount;
+        account.setTotalOutflow(totalOutflow);
 
-        float totalBalance = userAccount.getTotalBalance() + amount;
-        userAccount.setTotalBalance(totalBalance);
+        float totalBalance = account.getTotalBalance() + amount;
+        account.setTotalBalance(totalBalance);
 
         // Prepare the output data
-        PeriodicTransactionOutputData outputData = new PeriodicTransactionOutputData(periodicOutflow);
+        P outputData = this.createOutputData(periodicOutflow);
         userDataAccessObject.saveTransaction(null, outputData, true);
-        userDataAccessObject.update(userAccount);
+        userDataAccessObject.update(account);
 
         return outputData;
     }
+
+    protected abstract P createOutputData(PeriodicTransaction transaction);
 
 }

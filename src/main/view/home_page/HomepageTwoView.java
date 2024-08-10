@@ -1,21 +1,22 @@
 package view.home_page;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.HomepageTwoController;
-import interface_adaptors.homepage.HomepageTwoState;
-import interface_adaptors.homepage.HomepageTwoViewModel;
+import interface_adaptors.homepage.UserAccountHomepageTwoController;
+import interface_adaptors.homepage.UserAccountHomepageTwoState;
+import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
 
 
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.Arrays;
 
 public class HomepageTwoView extends JFrame implements PropertyChangeListener {
 
-    private final HomepageTwoViewModel viewModel;
+    private final UserAccountHomepageTwoViewModel viewModel;
     private final HomepageTwoPanel homepageTwoPanel;
-    private HomepageTwoController controller;
+    private UserAccountHomepageTwoController controller;
     private final ViewManagerModel viewManager;
 
     /**
@@ -24,13 +25,16 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
      * @param viewModel the view model for the transaction view
      * @param viewManager           the view manager for handling view transitions
      */
-    public HomepageTwoView(HomepageTwoViewModel viewModel, ViewManagerModel viewManager,
-                           HomepageTwoController homepageTwoController) {
+    public HomepageTwoView(UserAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager,
+                           UserAccountHomepageTwoController userAccountHomepageTwoController) {
         super("Homepage Two");
         this.viewModel = viewModel;
         this.viewModel.addPropertyChangeListener(this);
         this.viewManager = viewManager;
-        this.controller = homepageTwoController;
+        this.controller = userAccountHomepageTwoController;
+
+        // debug
+        System.out.println("checking viewModel value"+Arrays.toString(this.viewModel.getBasicUserInfo()));
 
         this.homepageTwoPanel = new HomepageTwoPanel(this.viewModel, this.viewManager, this.controller);
 
@@ -56,7 +60,7 @@ public class HomepageTwoView extends JFrame implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         // Handle property changes here if needed
-        HomepageTwoState state = (HomepageTwoState) evt.getNewValue();
+        UserAccountHomepageTwoState state = (UserAccountHomepageTwoState) evt.getNewValue();
     }
 
     @Override
