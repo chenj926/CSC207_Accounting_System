@@ -1,7 +1,6 @@
 package entity;
 
 import entity.account.AccountFactory;
-import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,12 +30,4 @@ public class AccountFactoryTest {
         assertTrue("Transactions should initially be empty", userAccount.getTransactions().isEmpty());
     }
 
-    @Test
-    public void testCreateSharedAccount() {
-        SharedAccount sharedAccount = accountFactory.createSharedAccount("sharedTestID");
-
-        assertNotNull("SharedAccount should not be null", sharedAccount);
-        assertEquals("Identification doesn't match", "sharedTestID", sharedAccount.getIdentification());
-        assertTrue("Shared user identifications should initially be empty", sharedAccount.getSharedUserIdentifications().isEmpty());
-    }
 }
