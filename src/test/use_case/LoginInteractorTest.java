@@ -5,14 +5,12 @@ import entity.account.user_account.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.login.*;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginInteractorTest {
 
@@ -60,28 +58,6 @@ public class LoginInteractorTest {
         assertFalse(presenter.isSuccess());
     }
 
-//    @Test
-//    public void testUserFoundAndLoggedIn() {
-//        String username = "testUser";
-//        String password = "password123";
-//        String userId = "existentUser";
-//        UserAccount user = new UserAccount(username, password, userId);
-//        ((InMemoryLoginDataAccess) userDataAccessObject).addUser(user);
-//        LoginInputData inputData = new LoginInputData(password, userId);
-//        UserAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getPeriodicTransactionDAO();
-//        user.setLastLoginDate(LocalDate.now());
-//        periodicTransactionDataAccessObject.save(user);
-//        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
-//
-//        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
-//        loginInteractor.setMediator(loginMediator);
-//
-//
-//        loginInteractor.execute(inputData);
-
-//        assertTrue(presenter.isSuccess());
-//        assertEquals(userId, presenter.getData().getIdentification());
-//    }
 
     @Test
     public void testEmptyPassword() {
