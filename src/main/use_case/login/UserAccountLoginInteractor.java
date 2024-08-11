@@ -17,20 +17,21 @@ public class UserAccountLoginInteractor extends LoginInteractor<
         LoginDataAccessInterface,
         UserAcountLoginOutputBoundary,
         UserAccountLoginOutputData,
-        UserAccountLoginInputData> implements UserAccountLoginInputBoundary {
+        UserAccountLoginInputData,
+        UserAccountLoginMediator> implements UserAccountLoginInputBoundary {
 
 //    final LoginDataAccessInterface userDataAccessObject;
 //    final UserAcountLoginOutputBoundary presenter;
-//    private LoginMediator mediator;
+//    private UserAccountLoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
      *
-     * @param loginDataAccessInterface the data access interface for user data
-     * @param logInOutputBoundaryUser      the output boundary for presenting the login results
+     * @param loginDAO the data access interface for user data
+     * @param presenter      the output boundary for presenting the login results
      */
-    public UserAccountLoginInteractor(LoginDataAccessInterface loginDataAccessInterface, UserAcountLoginOutputBoundary logInOutputBoundaryUser) {
-        super(loginDataAccessInterface, logInOutputBoundaryUser);
+    public UserAccountLoginInteractor(LoginDataAccessInterface loginDAO, UserAcountLoginOutputBoundary presenter) {
+        super(loginDAO, presenter);
     }
 
     /**
@@ -55,21 +56,21 @@ public class UserAccountLoginInteractor extends LoginInteractor<
                 presenter.prepareFailView("Identification can not be empty!");
                 return;
             } else {
-                if (!userDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
+                if (!accountDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
                     //User does not exist
                     presenter.prepareFailView("User not found");
                     return;
                 }
 
                 //User exists, fetch the user account
-                UserAccount userAccount = userDataAccessObject.getById(userAccountLoginInputData.getIdentification());
+                UserAccount userAccount = accountDataAccessObject.getById(userAccountLoginInputData.getIdentification());
                 if (userAccount != null && !userAccount.getPassword().equals(userAccountLoginInputData.getPassword())) {
                     presenter.prepareFailView("Incorrect Password!");
                     return;
                 }
 
                 // attempt to login
-                boolean isLogin = userDataAccessObject.login(userAccount);
+                boolean isLogin = accountDataAccessObject.login(userAccount);
 
                 // if login failed, password wrong
                 if (!isLogin) {
