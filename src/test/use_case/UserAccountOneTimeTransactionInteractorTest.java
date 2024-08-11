@@ -86,7 +86,7 @@ class UserAccountOneTimeTransactionInteractorTest {
 
             @Override
             public void prepareFailView(String error) {
-                assertEquals("Invalid date format! Plz enter again", error);
+                assertEquals("Invalid date format! Please enter again.", error);
             }
         };
 
