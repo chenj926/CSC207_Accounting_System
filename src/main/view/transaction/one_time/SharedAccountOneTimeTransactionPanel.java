@@ -1,9 +1,9 @@
 package view.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,8 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * The SharedAccountOneTimeTransactionPanel class represents the user interface for a shared account one-time transaction form.

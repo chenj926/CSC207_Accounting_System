@@ -1,12 +1,14 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputData;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
-import entity.account.UserAccount;
 
 import java.time.LocalDate;
 

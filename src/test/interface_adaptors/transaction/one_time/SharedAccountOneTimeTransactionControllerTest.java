@@ -1,8 +1,10 @@
 package interface_adaptors.transaction.one_time;
 
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.SharedAccountOneTimeTransactionInputData;
+import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInputBoundary;
+import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

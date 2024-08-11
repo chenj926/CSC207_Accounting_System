@@ -2,8 +2,6 @@ package interface_adaptors.homepage;
 
 import use_case.homepage.HomepageTwoInputBoundary;
 import use_case.homepage.HomepageTwoInputData;
-import use_case.homepage.UserAccountHomepageTwoInputBoundary;
-import use_case.homepage.UserAccountHomepageTwoInputData;
 
 public abstract class HomepageTwoController<
         IB extends HomepageTwoInputBoundary<I>,

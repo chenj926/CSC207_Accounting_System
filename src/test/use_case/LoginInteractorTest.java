@@ -1,15 +1,12 @@
 package use_case;
 
-import data_access.DAOFactory;
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
-import data_access.authentication.LoginDataAccessInterface;
+import data_access.authentication.user_account.UserAccountLoginDataAccessInterface;
+import entity.account.user_account.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.login.*;
 import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginInteractorTest {
 
-    private LoginDataAccessInterface userDataAccessObject;
+    private UserAccountLoginDataAccessInterface userDataAccessObject;
     private SimplePresenter presenter;
     private LoginInteractor loginInteractor;
     private class ConcreteloginInteractor extends LoginInteractor{
@@ -154,7 +151,7 @@ public class LoginInteractorTest {
         assertFalse(presenter.isSuccess());
     }
 
-    private static class InMemoryLoginDataAccess implements LoginDataAccessInterface {
+    private static class InMemoryLoginDataAccess implements UserAccountLoginDataAccessInterface {
         private final Map<String, UserAccount> userDatabase = new HashMap<>();
         private boolean loginSuccess = true;
 

@@ -1,7 +1,19 @@
 package data_access;
 
-import data_access.account.*;
-import data_access.authentication.*;
+import data_access.account.shared_account.CSVSharedAccountDataAccessObject;
+import data_access.account.shared_account.InMemorySharedAccountDataAccessObject;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
+import data_access.account.user_account.CSVUserAccountDataAccessObject;
+import data_access.account.user_account.InMemoryUserAccountDataAccessObject;
+import data_access.account.user_account.UserAccountDataAccessInterface;
+import data_access.authentication.shared_account.CSVSharedAccountLoginDataAccessObject;
+import data_access.authentication.shared_account.InMemorySharedAccountLoginDataAccessObject;
+import data_access.authentication.shared_account.SharedAccountLoginDataAccessInterface;
+import data_access.authentication.shared_account.SharedAccountSignupDataAccessInterface;
+import data_access.authentication.user_account.CSVUserLoginDataAccessObject;
+import data_access.authentication.user_account.InMemoryLoginoutDataAccessObject;
+import data_access.authentication.user_account.UserAccountLoginDataAccessInterface;
+import data_access.authentication.user_account.UserSignupDataAccessInterface;
 import data_access.transaction.*;
 
 /**
@@ -117,15 +129,15 @@ public class DAOFactory {
     }
 
     /**
-     * Returns a singleton instance of {@link LoginDataAccessInterface}.
+     * Returns a singleton instance of {@link UserAccountLoginDataAccessInterface}.
      * <p>
      * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryLoginoutDataAccessObject}.
      * Otherwise, returns an instance of {@link CSVUserLoginDataAccessObject}.
      * </p>
      *
-     * @return the {@link LoginDataAccessInterface} instance
+     * @return the {@link UserAccountLoginDataAccessInterface} instance
      */
-    public static synchronized LoginDataAccessInterface getLoginDataAccessObject() {
+    public static synchronized UserAccountLoginDataAccessInterface getLoginDataAccessObject() {
         if (useInMemory) {
             if (inMemoryLoginoutDAO == null) {
                 inMemoryLoginoutDAO = new InMemoryLoginoutDataAccessObject();

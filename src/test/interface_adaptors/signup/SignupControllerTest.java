@@ -2,8 +2,8 @@
 //
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.Test;
-//import use_case.signup.SharedAccountSignupInputData;
-//import use_case.signup.SharedAccountSignupInteractor;
+//import use_case.signup.shared_account.SharedAccountSignupInputData;
+//import use_case.signup.shared_account.SharedAccountSignupInteractor;
 //import use_case.signup.SignupInputData;
 //import use_case.signup.SignupInteractor;
 //

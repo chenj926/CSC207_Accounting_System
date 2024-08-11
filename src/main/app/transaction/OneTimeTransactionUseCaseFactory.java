@@ -1,14 +1,14 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
+import data_access.account.user_account.UserAccountDataAccessInterface;
+import entity.account.user_account.UserAccount;
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionInteractor;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputBoundary;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInteractor;
+import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputBoundary;
 import view.transaction.one_time.OneTimeTransactionView;
 
 import javax.swing.*;

@@ -1,9 +1,9 @@
 package view.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;

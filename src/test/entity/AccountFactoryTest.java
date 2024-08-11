@@ -1,7 +1,7 @@
 package entity;
 
 import entity.account.AccountFactory;
-import entity.account.UserAccount;
+import entity.account.user_account.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
 

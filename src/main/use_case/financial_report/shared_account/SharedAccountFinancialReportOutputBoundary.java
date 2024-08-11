@@ -1,0 +1,7 @@
+package use_case.financial_report.shared_account;
+
+import use_case.financial_report.FinancialReportOutputBoundary;
+
+public interface SharedAccountFinancialReportOutputBoundary extends FinancialReportOutputBoundary<SharedAccountFinancialReportOutputData> {
+
+}

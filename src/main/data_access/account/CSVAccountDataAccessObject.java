@@ -1,8 +1,8 @@
 package data_access.account;
 
 import entity.account.Account;
-import entity.account.SharedAccount;
-import entity.account.UserAccount;
+import entity.account.shared_account.SharedAccount;
+import entity.account.user_account.UserAccount;
 import entity.transaction.Transaction;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
@@ -16,7 +16,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 

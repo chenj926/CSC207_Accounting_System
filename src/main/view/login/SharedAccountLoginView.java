@@ -1,9 +1,9 @@
 package view.login;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.login.SharedAccountLoginController;
-import interface_adaptors.login.SharedAccountLoginState;
-import interface_adaptors.login.SharedAccountLoginViewModel;
+import interface_adaptors.login.shared_account.SharedAccountLoginController;
+import interface_adaptors.login.shared_account.SharedAccountLoginState;
+import interface_adaptors.login.shared_account.SharedAccountLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;

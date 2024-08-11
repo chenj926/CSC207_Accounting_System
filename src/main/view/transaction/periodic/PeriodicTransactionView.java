@@ -1,8 +1,8 @@
 package view.transaction.periodic;
 
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionController;
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionState;
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionState;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;

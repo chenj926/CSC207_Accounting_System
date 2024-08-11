@@ -1,13 +1,15 @@
 package interface_adaptors.transaction.one_time;
 
-import com.google.api.services.drive.model.User;
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
-import entity.account.UserAccount;
+import entity.account.user_account.UserAccount;
 
 import java.time.LocalDate;
 

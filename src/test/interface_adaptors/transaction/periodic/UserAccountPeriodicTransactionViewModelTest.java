@@ -1,5 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionState;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

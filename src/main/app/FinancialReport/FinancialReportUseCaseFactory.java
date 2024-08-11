@@ -1,14 +1,14 @@
 package app.FinancialReport;
 
 import data_access.DAOFactory;
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
-import interface_adaptors.financial_report.UserAccountFinancialReportController;
-import interface_adaptors.financial_report.UserAccountFinancialReportPresenter;
-import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
+import data_access.account.user_account.UserAccountDataAccessInterface;
+import entity.account.user_account.UserAccount;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportPresenter;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
-import use_case.financial_report.UserAccountFinancialReportInteractor;
-import use_case.financial_report.UserAccountFinancialReportOutputBoundary;
+import use_case.financial_report.user_account.UserAccountFinancialReportInteractor;
+import use_case.financial_report.user_account.UserAccountFinancialReportOutputBoundary;
 import view.financial_report.FinancialReportView;
 
 import javax.swing.*;

@@ -1,8 +1,11 @@
 package interface_adaptors.transaction.periodic;
 
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionState;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionInputData;
+import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionInputBoundary;
+import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

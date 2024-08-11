@@ -1,10 +1,9 @@
 package view.transaction.one_time;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
-import interface_adaptors.transaction.periodic.PeriodicTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;

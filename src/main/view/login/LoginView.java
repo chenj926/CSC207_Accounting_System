@@ -1,9 +1,9 @@
 package view.login;
 
 import interface_adaptors.*;
-import interface_adaptors.login.UserAccountLoginController;
-import interface_adaptors.login.UserAccountLoginState;
-import interface_adaptors.login.UserAccountLoginViewModel;
+import interface_adaptors.login.user_account.UserAccountLoginController;
+import interface_adaptors.login.user_account.UserAccountLoginState;
+import interface_adaptors.login.user_account.UserAccountLoginViewModel;
 
 import javax.swing.*;
 import java.awt.*;

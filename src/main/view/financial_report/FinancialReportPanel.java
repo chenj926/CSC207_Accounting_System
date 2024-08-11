@@ -1,7 +1,7 @@
 package view.financial_report;
 
-import interface_adaptors.financial_report.UserAccountFinancialReportController;
-import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;

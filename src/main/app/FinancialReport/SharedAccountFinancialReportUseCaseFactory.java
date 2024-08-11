@@ -1,16 +1,14 @@
 package app.FinancialReport;
 
 import data_access.DAOFactory;
-import data_access.account.SharedAccountDataAccessInterface;
-import entity.account.SharedAccount;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
+import entity.account.shared_account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.financial_report.FinancialReportViewModel;
-import interface_adaptors.financial_report.SharedAccountFinancialReportController;
-import interface_adaptors.financial_report.SharedAccountFinancialReportPresenter;
-import interface_adaptors.financial_report.SharedAccountFinancialReportViewModel;
-import use_case.financial_report.SharedAccountFinancialReportInteractor;
-import use_case.financial_report.SharedAccountFinancialReportOutputBoundary;
-import view.financial_report.FinancialReportView;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportController;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportPresenter;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
+import use_case.financial_report.shared_account.SharedAccountFinancialReportInteractor;
+import use_case.financial_report.shared_account.SharedAccountFinancialReportOutputBoundary;
 import view.financial_report.SharedAccountFinancialReportView;
 
 import javax.swing.*;

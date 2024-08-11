@@ -1,0 +1,6 @@
+package use_case.update_periodic_at_login.shared_account;
+
+import use_case.update_periodic_at_login.AccountUpdatePeriodicAtLoginInputBoundary;
+
+public interface SharedAccountUpdatePeriodicAtLoginInputBoundary extends AccountUpdatePeriodicAtLoginInputBoundary<SharedAccountUpdatePeriodicAtLoginInputData> {
+}

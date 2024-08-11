@@ -1,8 +1,8 @@
 package view.signup;
 
-import interface_adaptors.signup.SharedAccountSignupController;
-import interface_adaptors.signup.SharedAccountSignupState;
-import interface_adaptors.signup.SharedAccountSignupViewModel;
+import interface_adaptors.signup.shared_account.SharedAccountSignupController;
+import interface_adaptors.signup.shared_account.SharedAccountSignupState;
+import interface_adaptors.signup.shared_account.SharedAccountSignupViewModel;
 import interface_adaptors.ViewManagerModel;
 
 import javax.swing.*;

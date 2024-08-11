@@ -1,7 +1,9 @@
 package view.financial_report;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.financial_report.*;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportController;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportState;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
 
 import javax.swing.*;
 import java.awt.*;

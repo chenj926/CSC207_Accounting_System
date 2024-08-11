@@ -1,5 +1,7 @@
 package interface_adaptors.transaction.periodic;
 
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionState;
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

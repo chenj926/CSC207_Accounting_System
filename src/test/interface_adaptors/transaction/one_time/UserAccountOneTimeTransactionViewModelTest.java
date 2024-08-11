@@ -1,5 +1,7 @@
 package interface_adaptors.transaction.one_time;
 
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

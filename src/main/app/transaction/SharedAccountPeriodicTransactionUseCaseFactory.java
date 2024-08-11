@@ -1,14 +1,14 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.account.SharedAccountDataAccessInterface;
-import entity.account.SharedAccount;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
+import entity.account.shared_account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionController;
-import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionPresenter;
-import interface_adaptors.transaction.periodic.SharedAccountPeriodicTransactionViewModel;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionInteractor;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputBoundary;
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionPresenter;
+import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
+import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionInteractor;
+import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionOutputBoundary;
 import view.transaction.periodic.SharedAccountPeriodicTransactionView;
 
 import javax.swing.*;
