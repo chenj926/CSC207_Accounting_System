@@ -57,6 +57,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     @Override
     public boolean existById(String sharedAccountIdentification) {
         boolean userExist = false;
+        System.out.println("in DAO"+sharedAccountIdentification);
         try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
             while (iterator.hasNext()) {
                 SharedAccount account = iterator.next();

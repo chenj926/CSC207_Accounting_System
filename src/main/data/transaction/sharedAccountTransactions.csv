@@ -2,3 +2,4 @@ shareId;id,amount,date,description,category,start date,period,end date
 1234;id0,999,2024-08-08,testing,Travel,,,
 1234;id0,1999.00,2024-01-01,lalalala,Food
 1234;idEric,9999.00,2024-08-01,Aug Income,Income
+sd0;id0,1234.00,2024-08-01,lalala,Entertainment
