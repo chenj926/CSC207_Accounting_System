@@ -17,9 +17,9 @@ public class SharedAccountLoginMediator extends LoginMediator<
         SharedAccountLoginInputData,
         SharedAccountUpdatePeriodicAtLoginInputData> {
 
-    SharedAccountLoginMediator(SharedAccountLoginInputBoundary loginInputData,
-                             SharedAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
-                             SharedAccountDataAccessInterface accountDataAccessObject){
+    public SharedAccountLoginMediator(SharedAccountLoginInputBoundary loginInputData,
+                                      SharedAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                                      SharedAccountDataAccessInterface accountDataAccessObject){
         super(loginInputData, updatePeriodicAtLoginInteractor, accountDataAccessObject);
     }
 

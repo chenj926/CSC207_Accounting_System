@@ -17,7 +17,7 @@ public class UserAccountLoginMediator extends LoginMediator<
         UserAccountLoginInputData,
         UserAccountUpdatePeriodicAtLoginInputData> {
 
-    UserAccountLoginMediator(UserAccountLoginInputBoundary loginInputData,
+    public UserAccountLoginMediator(UserAccountLoginInputBoundary loginInputData,
                              UserAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                              UserAccountDataAccessInterface accountDataAccessObject){
         super(loginInputData, updatePeriodicAtLoginInteractor, accountDataAccessObject);
