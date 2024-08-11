@@ -16,6 +16,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -222,8 +223,12 @@ public abstract class CSVAccountDataAccessObject<
 
                     }else if (account instanceof UserAccount){
                         String username = ((UserAccount)account).getUsername();
-                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
-                                income, outflow, balance, lastLoginDateString);
+                        Set<String> sharedIds = ((UserAccount)account).getSharedAccounts();
+                        System.out.println(sharedIds);
+                        String stringSharedIds = String.join(";", sharedIds);
+                        System.out.println(stringSharedIds);
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s", id, username, password,
+                                income, outflow, balance, lastLoginDateString, stringSharedIds);
                     }
 
                     lines.add(updatedLine);

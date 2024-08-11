@@ -51,7 +51,7 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
 
     protected static final String USER_CSV_FILE_PATH = "src/main/data/accounts/userAccounts.csv";
     protected static final String TRANSACTION_CSV_FILE_PATH = "src/main/data/transaction/userAccountTransactions.csv";
-    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate";
+    private static final String CSV_HEADER = "id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate,sharedId";
     private static final String TRANSACTION_HEADER = "id,amount,date,description,category,start date, period, end date";
 
     /**
@@ -100,6 +100,17 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
             // if csv not created, create it
             confirmCsvExistence(accountCsvPath, userInfo);
         }
+    }
+
+    protected void saveSharedId(String userIds, String sharedId){
+        String[] stringUserIds = userIds.split(";");
+        // update all related user accounts
+        for (String userId : stringUserIds) {
+            UserAccount account = getById(userId);
+            account.addSharedAccount(sharedId);
+            update(account);
+        }
+
     }
 
     private static String getUserAccountInfo(UserAccount userAccount) {
