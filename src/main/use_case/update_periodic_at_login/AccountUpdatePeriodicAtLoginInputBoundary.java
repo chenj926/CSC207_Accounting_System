@@ -1,7 +1,5 @@
 package use_case.update_periodic_at_login;
 
-import entity.account.Account;
-
 public interface AccountUpdatePeriodicAtLoginInputBoundary<D extends AccountUpdatePeriodicAtLoginInputData> {
     /**
      * Executes the periodic transaction update process with the given input data.

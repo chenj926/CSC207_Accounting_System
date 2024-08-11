@@ -78,8 +78,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         Path tempCsvPath = Paths.get(baseDir, "src/main/data/accounts/userAccounts.csv");
         try (SharedAccountIterator iterator = new SharedAccountIterator(tempCsvPath)) {
             while (iterator.hasNext()) {
-                UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(userId)) {
+                SharedAccount sharedAccount = iterator.next();
+                if (sharedAccount.getIdentification().equals(userId)) {
                     return true;
                 }
             }
