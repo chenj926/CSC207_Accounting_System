@@ -1,17 +1,17 @@
 package interface_adaptors.login;
 
-import use_case.login.LoginMediator;
+import use_case.login.UserAccountLoginMediator;
 
 public abstract class AccountLoginController {
-    protected final LoginMediator loginMediator;
+    protected final UserAccountLoginMediator userAccountLoginMediator;
 
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
-     * @param loginMediator the use case interactor(mediator) for user login
+     * @param userAccountLoginMediator the use case interactor(mediator) for user login
      */
-    public AccountLoginController(LoginMediator loginMediator) {
-        this.loginMediator = loginMediator;
+    public AccountLoginController(UserAccountLoginMediator userAccountLoginMediator) {
+        this.userAccountLoginMediator = userAccountLoginMediator;
     }
 
     public void execute (String identification, String password) {}

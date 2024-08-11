@@ -21,7 +21,7 @@ public class UserAccountLoginInteractor extends LoginInteractor<
 
 //    final LoginDataAccessInterface userDataAccessObject;
 //    final UserAcountLoginOutputBoundary presenter;
-//    private LoginMediator mediator;
+//    private UserAccountLoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.

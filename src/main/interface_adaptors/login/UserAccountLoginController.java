@@ -1,6 +1,6 @@
 package interface_adaptors.login;
 
-import use_case.login.LoginMediator;
+import use_case.login.UserAccountLoginMediator;
 import use_case.login.UserAccountLoginInputData;
 
 /**
@@ -16,10 +16,10 @@ public class UserAccountLoginController extends AccountLoginController {
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
-     * @param loginMediator the use case interactor(mediator) for user login
+     * @param userAccountLoginMediator the use case interactor(mediator) for user login
      */
-    public UserAccountLoginController(LoginMediator loginMediator) {
-        super(loginMediator);
+    public UserAccountLoginController(UserAccountLoginMediator userAccountLoginMediator) {
+        super(userAccountLoginMediator);
     }
 
     /**
@@ -31,6 +31,6 @@ public class UserAccountLoginController extends AccountLoginController {
     @Override
     public void execute(String id, String password) {
         UserAccountLoginInputData loginInputData = new UserAccountLoginInputData(id, password);
-        this.loginMediator.execute(loginInputData);
+        this.userAccountLoginMediator.execute(loginInputData);
     }
 }

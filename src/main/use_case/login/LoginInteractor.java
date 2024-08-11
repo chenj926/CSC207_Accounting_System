@@ -1,7 +1,5 @@
 package use_case.login;
 
-import data_access.account.AccountDataAccessInterface;
-
 public abstract class LoginInteractor<
         T,
         O extends LoginOutputBoundary<LO>,
@@ -9,7 +7,7 @@ public abstract class LoginInteractor<
         I extends LoginInputData>{
     protected T userDataAccessObject;
     protected O presenter;
-    protected LoginMediator mediator;
+    protected UserAccountLoginMediator mediator;
 
     public LoginInteractor(T userDataAccessObject, O presenter) {
         this.userDataAccessObject = userDataAccessObject;
@@ -21,9 +19,9 @@ public abstract class LoginInteractor<
     /**
      * Sets the mediator for the interactor.
      *
-     * @param mediator the LoginMediator instance to set
+     * @param mediator the UserAccountLoginMediator instance to set
      */
-    public void setMediator(LoginMediator mediator) {
+    public void setMediator(UserAccountLoginMediator mediator) {
         this.mediator = mediator;
     }
 

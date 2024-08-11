@@ -6,10 +6,10 @@ public class SharedAccountLoginController extends AccountLoginController {
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
-     * @param loginMediator the use case interactor(mediator) for user login
+     * @param userAccountLoginMediator the use case interactor(mediator) for user login
      */
-    public SharedAccountLoginController(LoginMediator loginMediator) {
-        super(loginMediator);
+    public SharedAccountLoginController(UserAccountLoginMediator userAccountLoginMediator) {
+        super(userAccountLoginMediator);
     }
 
     /**
@@ -21,6 +21,6 @@ public class SharedAccountLoginController extends AccountLoginController {
     @Override
     public void execute(String sharedIdentification, String sharedPassword) {
         SharedAccountLoginInputData sharedAccountLoginInputData = new SharedAccountLoginInputData(sharedIdentification, sharedPassword);
-        this.loginMediator.execute(sharedAccountLoginInputData);
+        this.userAccountLoginMediator.execute(sharedAccountLoginInputData);
     }
 }

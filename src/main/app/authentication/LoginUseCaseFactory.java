@@ -38,9 +38,9 @@ public class LoginUseCaseFactory {
 
         UserAccountUpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UserAccountUpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
-        LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
-        loginInteractor.setMediator(loginMediator);
-        return new UserAccountLoginController(loginMediator);
+        UserAccountLoginMediator userAccountLoginMediator = new UserAccountLoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        loginInteractor.setMediator(userAccountLoginMediator);
+        return new UserAccountLoginController(userAccountLoginMediator);
     }
 
     public static SharedAccountLoginView create(ViewManagerModel viewManagerModel,
@@ -64,9 +64,9 @@ public class LoginUseCaseFactory {
 
         UserAccountUpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UserAccountUpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
-        LoginMediator loginMediator = new LoginMediator(interactor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
-        interactor.setMediator(loginMediator);
-        return new SharedAccountLoginController(loginMediator);
+        UserAccountLoginMediator userAccountLoginMediator = new UserAccountLoginMediator(interactor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        interactor.setMediator(userAccountLoginMediator);
+        return new SharedAccountLoginController(userAccountLoginMediator);
     }
 
 }
