@@ -4,10 +4,8 @@ import entity.account.Account;
 import entity.account.SharedAccount;
 import entity.account.UserAccount;
 import entity.transaction.Transaction;
-import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -118,14 +116,13 @@ public abstract class CSVAccountDataAccessObject<
     public void saveTransaction(O oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
         if (!isPeriodic) {
             // create csv line with the user info
-            String userInfo = getTransactionInfo((OneTimeTransactionOutputData) oneTimeOutputData,
+            String userInfo = getTransactionInfo(oneTimeOutputData,
                     null, false);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
         } else{
             // create csv line with the user info
-            String userInfo = getTransactionInfo(null,
-                    (UserAccountPeriodicTransactionOutputData)periodicOutputData, true);
+            String userInfo = getTransactionInfo(null, periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 
@@ -152,7 +149,7 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
-    protected static String getPeriodicTransactionInfo(UserAccountPeriodicTransactionOutputData periodicOutputData) {
+    protected String getPeriodicTransactionInfo(P periodicOutputData) {
         String id = periodicOutputData.getId();
         float amount = periodicOutputData.getTransactionAmount();
         String startDate = valueOf(periodicOutputData.getTransactionStartDate());
@@ -164,7 +161,7 @@ public abstract class CSVAccountDataAccessObject<
         return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
     }
 
-    protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
+    protected String getOneTimeTransactionInfo(O oneTimeOutputData) {
         String id = oneTimeOutputData.getId();
         System.out.println("output id"+id);
         float amount = oneTimeOutputData.getTransactionAmount();
@@ -174,8 +171,8 @@ public abstract class CSVAccountDataAccessObject<
         return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
     }
 
-    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        UserAccountPeriodicTransactionOutputData periodicOutputData,
+    protected String getTransactionInfo(O oneTimeOutputData,
+                                        P periodicOutputData,
                                         boolean isPeriodic) {
         if (!isPeriodic) {
             return getOneTimeTransactionInfo(oneTimeOutputData);
