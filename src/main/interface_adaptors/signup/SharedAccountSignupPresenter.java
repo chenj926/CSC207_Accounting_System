@@ -1,7 +1,6 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.signup.SharedAccountSignupInputData;
 import use_case.signup.SharedAccountSignupOutputBoundary;
 import use_case.signup.SharedAccountSignupOutputData;
 
@@ -12,7 +11,7 @@ import use_case.signup.SharedAccountSignupOutputData;
  * - Xile
  * - Eric
  */
-public class SharedAccountSignupPresenter extends AccountSignupPresenter<
+public class SharedAccountSignupPresenter extends SignupPresenter<
         SharedAccountSignupViewModel,
         SharedAccountSignupOutputData,
         SharedAccountSignupState>

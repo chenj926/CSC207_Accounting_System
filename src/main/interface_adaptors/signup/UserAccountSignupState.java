@@ -7,7 +7,7 @@ package interface_adaptors.signup;
  * @author Chi Fong
  * @author Eric
  */
-public class UserAccountSignupState  extends AccountSignupState{
+public class UserAccountSignupState extends SignupState {
     private String username;
 
     /**

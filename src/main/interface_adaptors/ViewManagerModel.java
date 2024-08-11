@@ -18,11 +18,11 @@ import interface_adaptors.financial_report.SharedAccountFinancialReportViewModel
 import interface_adaptors.financial_report.UserAccountFinancialReportViewModel;
 import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
 import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
+import interface_adaptors.login.SharedAccountLoginViewModel;
 import interface_adaptors.login.UserAccountLoginViewModel;
-import interface_adaptors.login.SharedAccountLoginViewModel; // Import the SharedAccountLoginViewModel
 //import interface_adaptors.logout.LogoutViewModel;
-import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
+import interface_adaptors.signup.UserAccountSignupViewModel;
 import interface_adaptors.transaction.one_time.UserAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.one_time.SharedAccountOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
@@ -88,8 +88,8 @@ public class ViewManagerModel {
         UserAccountSignupViewModel userAccountSignupViewModel = new UserAccountSignupViewModel();
         this.viewModels.put("sign up", userAccountSignupViewModel);
 
-        SharedAccountSignupViewModel sharedSignupViewModel = new SharedAccountSignupViewModel();
-        this.viewModels.put("shared account sign up", sharedSignupViewModel);
+        SharedAccountSignupViewModel sharedAccountSignupViewModel = new SharedAccountSignupViewModel();
+        this.viewModels.put("shared account sign up", sharedAccountSignupViewModel);
 
         UserAccountLoginViewModel loginViewModel =  new UserAccountLoginViewModel();
         this.viewModels.put("log in", loginViewModel);
@@ -254,10 +254,10 @@ public class ViewManagerModel {
                 currentView = signupView;
                 break;
             case "shared account sign up":
-                SharedAccountSignupViewModel sharedSignupViewModel =
+                SharedAccountSignupViewModel sharedAccountSignupViewModel =
                         new SharedAccountSignupViewModel();
                 SharedAccountSignupView sharedSignupView = SignupUseCaseFactory.createSharedAccount(this,
-                        sharedSignupViewModel);
+                        sharedAccountSignupViewModel);
                 views.put("shared account sign up", sharedSignupView);
                 currentView = sharedSignupView;
                 break;

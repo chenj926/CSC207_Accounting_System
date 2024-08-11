@@ -3,14 +3,14 @@ package interface_adaptors.login;
 import interface_adaptors.ViewManagerModel;
 import use_case.login.LoginOutputData;
 
-public abstract class AccountLoginPresenter<
-        V extends AccountLoginViewModel,
+public abstract class LoginPresenter<
+        V extends LoginViewModel,
         O extends LoginOutputData,
-        S extends AccountLoginState>{
+        S extends LoginState>{
     protected final ViewManagerModel viewManagerModel;
     protected final  V accountLoginViewModel;
 
-    public AccountLoginPresenter(ViewManagerModel viewManagerModel, V accountLoginViewModel) {
+    public LoginPresenter(ViewManagerModel viewManagerModel, V accountLoginViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.accountLoginViewModel = accountLoginViewModel;
     }

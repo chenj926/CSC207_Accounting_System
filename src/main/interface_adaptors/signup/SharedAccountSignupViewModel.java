@@ -1,7 +1,5 @@
 package interface_adaptors.signup;
 
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import java.util.List;
  * The SharedAccountSignupViewModel class extends UserAccountSignupViewModel to add properties and methods specific to shared account signup.
  * It provides additional labels and state management for the shared account signup view.
  */
-public class SharedAccountSignupViewModel extends AccountSignupViewModel<SharedAccountSignupState> {
+public class SharedAccountSignupViewModel extends SignupViewModel<SharedAccountSignupState> {
 
     private final String TITLE_LABEL = "Shared Account Sign Up";
     private final String ID_LABEL = "Set shared account id";

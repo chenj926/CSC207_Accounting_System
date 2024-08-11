@@ -4,9 +4,8 @@ import interface_adaptors.ViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
-import java.util.List;
 
-public abstract class AccountSignupViewModel<S extends AccountSignupState> extends ViewModel {
+public abstract class SignupViewModel<S extends SignupState> extends ViewModel {
     protected final String TITLE_LABEL = "Sign Up";
     protected final String PASSWORD_LABEL = "Set password";
     protected final String ID_LABEL = "Set identification";
@@ -21,7 +20,7 @@ public abstract class AccountSignupViewModel<S extends AccountSignupState> exten
      *
      * @param viewName the name of the view
      */
-    public AccountSignupViewModel(String viewName) {
+    public SignupViewModel(String viewName) {
         super(viewName);
     }
 

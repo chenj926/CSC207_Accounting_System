@@ -1,9 +1,9 @@
 package view.signup;
 
 import interface_adaptors.signup.SharedAccountSignupController;
+import interface_adaptors.signup.SharedAccountSignupState;
 import interface_adaptors.signup.SharedAccountSignupViewModel;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.signup.SharedAccountSignupState;
 
 import javax.swing.*;
 import java.awt.*;
@@ -41,12 +41,12 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
      * Constructs a SharedAccountSignupPanel object with the specified view model, controller, and view manager.
      *
      * @param viewModel              the view model for the signup panel
-     * @param sharedSignupController the controller for handling signup actions
+     * @param sharedAccountSignupController the controller for handling signup actions
      * @param viewManager            the view manager for managing view transitions
      */
-    public SharedAccountSignupPanel(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedSignupController, ViewManagerModel viewManager) {
+    public SharedAccountSignupPanel(SharedAccountSignupViewModel viewModel, SharedAccountSignupController sharedAccountSignupController, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
-        this.signupController = sharedSignupController;
+        this.signupController = sharedAccountSignupController;
         this.viewManager = viewManager;
         this.viewModel.addPropertyChangeListener(this);
 
@@ -72,13 +72,42 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         this.sharedAccountPasswordField.setToolTipText("Set a secret password");
         this.user1IdField.setToolTipText("Enter at least 2 or more user account id to create a shared account between users");
 
-        signupButton = new JButton(viewModel.getSignupButtonLabel());
-        cancelButton = new JButton(viewModel.getCancelButtonLabel());
-        addUserButton = new JButton("+");
-        deleteUserButton = new JButton("-");
+        // add buttons
+        JPanel buttons = new JPanel();
+        this.signupButton = new JButton(viewModel.getSignupButtonLabel());
+        buttons.add(this.signupButton);
+        this.cancelButton = new JButton(viewModel.getCancelButtonLabel());
+        buttons.add(this.cancelButton);
+        this.addUserButton = new JButton("+ User ID");
+        buttons.add(this.addUserButton);
+        this.deleteUserButton = new JButton("-");
+        buttons.add(this.deleteUserButton);
 
         additionalUsersPanel = new JPanel(new GridBagLayout());
         additionalUserFields = new LinkedHashSet<>();  // Use LinkedHashSet to maintain insertion order
+
+        // Style buttons
+        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.addUserButton.setFont(new Font("Arial", Font.PLAIN, 16));
+        this.signupButton.setBackground(new Color(100, 150, 200));
+        this.cancelButton.setBackground(new Color(200, 100, 100));
+        this.addUserButton.setBackground(new Color(150, 200, 100));
+        this.deleteUserButton.setBackground(new Color(0, 0, 0));
+        this.signupButton.setForeground(Color.WHITE);
+        this.cancelButton.setForeground(Color.WHITE);
+        this.addUserButton.setForeground(Color.WHITE);
+        this.deleteUserButton.setForeground(Color.WHITE);
+
+        // adjust environment to compile MAC
+        this.signupButton.setOpaque(true);
+        this.signupButton.setBorderPainted(false);
+        this.cancelButton.setOpaque(true);
+        this.cancelButton.setBorderPainted(false);
+        this.addUserButton.setOpaque(true);
+        this.addUserButton.setBorderPainted(false);
+        this.deleteUserButton.setOpaque(true);
+        this.deleteUserButton.setBorderPainted(false);
     }
 
     /**
@@ -112,14 +141,14 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         // User 1 ID
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(viewModel.getUserIdsLabel()), constraints);
+        add(new JLabel("User ID 1"), constraints);
         constraints.gridx = 1;
         add(user1IdField, constraints);
 
         // User 2 ID
         constraints.gridx = 0;
         constraints.gridy++;
-        add(new JLabel(""), constraints);
+        add(new JLabel("User ID 2"), constraints);
         constraints.gridx = 1;
         add(user2IdField, constraints);
 
