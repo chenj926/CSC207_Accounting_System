@@ -87,30 +87,4 @@ public class UserAccountLoginInteractor extends LoginInteractor<
 
         }
 
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    public boolean checkPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    public boolean checkIdentification(String id) {
-        if (id == null || id.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
 }
