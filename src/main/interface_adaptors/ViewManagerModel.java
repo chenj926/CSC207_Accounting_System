@@ -326,7 +326,7 @@ public class ViewManagerModel {
                 currentView = financialReportView;
                 break;
             case "Shared Account Financial Report":
-                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
+                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
                 SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
                         sharedAccountFinancialReportViewModel);
                 views.put("Shared Account Financial Report", sharedAccountFinancialReportView);

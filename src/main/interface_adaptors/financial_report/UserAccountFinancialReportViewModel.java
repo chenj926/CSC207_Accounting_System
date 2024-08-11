@@ -41,6 +41,7 @@ public class UserAccountFinancialReportViewModel extends FinancialReportViewMode
      *
      * @param state the new state
      */
+    @Override
     public void setState(UserAccountFinancialReportState state) {
         this.state = state;
     }
