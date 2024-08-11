@@ -5,3 +5,9 @@ shareId;id,amount,date,description,category,start date,period,end date
 jes;jess,50.00,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
 jes;jess,50.00,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
 sd0;id0,1234.00,2024-08-01,lalala,Entertainment
+sd3;id0,888.00,2024-01-01,afwe,Food
+sd3;idEric,1.88,2024-01-01,yes,Income,2024-01-01,week,2024-02-01
+sd3;idEric,1.88,2024-01-08,yes,Income,2024-01-01,week,2024-02-01
+sd3;idEric,1.88,2024-01-15,yes,Income,2024-01-01,week,2024-02-01
+sd3;idEric,1.88,2024-01-22,yes,Income,2024-01-01,week,2024-02-01
+sd3;idEric,1.88,2024-01-29,yes,Income,2024-01-01,week,2024-02-01
