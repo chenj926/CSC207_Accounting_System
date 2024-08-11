@@ -41,7 +41,7 @@ public class SharedAccountIterator implements Iterator<SharedAccount>, AutoClose
      */
     @Override
     public boolean hasNext() {
-        return currentLine != null;
+        return currentLine != null && !currentLine.isEmpty();
     }
 
     /**
