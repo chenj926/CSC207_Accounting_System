@@ -1,6 +1,4 @@
 package entity.account;
-
-import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -11,9 +9,8 @@ import java.util.Set;
  * @author Jessica
  * @author Eric
  */
-public class SharedAccount extends UserAccount {
+public class SharedAccount extends Account {
     private Set<String> sharedUserIdentifications;
-//    private String sharedAccountPassword;
 
     /**
      * Constructs a SharedAccount object with the specified shared account identification.
@@ -24,7 +21,6 @@ public class SharedAccount extends UserAccount {
     public SharedAccount(String shareAccountIdentification, Set<String> userIds, String sharedAccountPassword) {
         super(null, sharedAccountPassword, shareAccountIdentification); // SharedAccount have own shared account id
         this.sharedUserIdentifications = userIds;
-//        this.sharedAccountPassword = sharedAccountPassword;
     }
 
     public SharedAccount(String shareAccountIdentification, Set<String> userIds, String sharedAccountPassword,
@@ -32,7 +28,6 @@ public class SharedAccount extends UserAccount {
         super(null, sharedAccountPassword, shareAccountIdentification,
                 totalIncome, totalOutflow, totalBalance); // SharedAccount have own shared account id
         this.sharedUserIdentifications = userIds;
-//        this.sharedAccountPassword = sharedAccountPassword;
     }
 
     /**
@@ -70,23 +65,4 @@ public class SharedAccount extends UserAccount {
     public void setSharedUserIdentifications(Set<String> sharedUserIdentifications) {
         this.sharedUserIdentifications = sharedUserIdentifications;
     }
-
-//    /**
-//     * Gets the shared password for this shared account.
-//     *
-//     * @return the shared account password
-//     */
-//    public String getSharedAccountPassword() {
-//        return this.sharedAccountPassword;
-//    }
-//
-//    /**
-//     * Sets a new shared password for this shared account.
-//     *
-//     * @param sharedAccountPassword the new password for the shared account
-//     */
-//    public void setSharedAccountPassword(String sharedAccountPassword) {
-//        this.sharedAccountPassword = sharedAccountPassword;
-//    }
-
 }

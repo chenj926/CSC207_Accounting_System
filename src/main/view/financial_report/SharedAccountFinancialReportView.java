@@ -18,7 +18,7 @@ public class SharedAccountFinancialReportView extends JFrame implements Property
     public SharedAccountFinancialReportView(SharedAccountFinancialReportViewModel viewModel,
                                             SharedAccountFinancialReportController controller,
                                             ViewManagerModel viewManager){
-        super("Financial Report");
+        super("Shared Account Financial Report");
         this.viewModel = viewModel;
         this.viewManager = viewManager;
         this.viewModel.addPropertyChangeListener(this);
@@ -38,7 +38,7 @@ public class SharedAccountFinancialReportView extends JFrame implements Property
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        UserAccountFinancialReportState state = (UserAccountFinancialReportState) evt.getNewValue();
+        SharedAccountFinancialReportState state = (SharedAccountFinancialReportState) evt.getNewValue();
     }
 
     /**

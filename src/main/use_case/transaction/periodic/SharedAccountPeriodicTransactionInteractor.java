@@ -121,39 +121,41 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
     private void processTransactions(boolean isInflow, String userId, String shareId, float amount, LocalDate startDate,
                                      LocalDate endDate, String description, String period, int customPeriod,
                                      ChronoUnit unit, String category, LocalDate currentDate) {
-        LocalDate date = startDate;
+        // check is the userIds are correct
         if(!checkValidUserId(shareId, userId)) {
             presenter.prepareFailView("This user is not in this Shared Account!");
             return;
         }
-        String userIds = shareId + ";" + userId;
 
+        LocalDate date = startDate;
+        String userIds = shareId + ";" + userId;
         SharedAccountPeriodicTransactionOutputData finalOutputData = null;
 
         while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
             if (isInflow) {
-                finalOutputData = this.processInflowTransaction(userIds, amount, startDate, description, endDate,
+                finalOutputData = processInflowTransaction(userIds, amount, startDate, description, endDate,
                         period, category, date);
             } else {
-                finalOutputData = this.processOutflowTransaction(userIds, amount, startDate, description, endDate,
+                finalOutputData = processOutflowTransaction(userIds, amount, startDate, description, endDate,
                         period, category, date);
-
-                // Update current date
-                if (unit != ChronoUnit.DAYS) {
-                    currentDate = currentDate.plus(1, unit);
-                } else if (customPeriod == 0) {
-                    currentDate = currentDate.plus(1, unit);
-                } else {
-                    currentDate = currentDate.plusDays(customPeriod);
-                }
             }
-
-            // update the success view only after all transactions are done
-            if (finalOutputData != null) {
-                this.presenter.prepareSuccessView(finalOutputData);
+            // Update current date
+            if (unit != ChronoUnit.DAYS) {
+                date = date.plus(1, unit);
+            } else if (customPeriod == 0) {
+                date = date.plus(1, unit);
+            } else {
+                date = date.plusDays(customPeriod);
             }
         }
+
+        // update the success view only after all transactions are done
+        if (finalOutputData != null) {
+            this.presenter.prepareSuccessView(finalOutputData);
+        }
     }
+
+
 
     private boolean checkValidUserId(String sharedId, String userId) {
         SharedAccount account = this.userDataAccessObject.getById(sharedId);

@@ -2,13 +2,13 @@ package interface_adaptors.login;
 
 import use_case.login.*;
 
-public class SharedAccountLoginController extends AccountLoginController {
+public class SharedAccountLoginController extends AccountLoginController<SharedAccountLoginMediator> {
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
      * @param loginMediator the use case interactor(mediator) for user login
      */
-    public SharedAccountLoginController(LoginMediator loginMediator) {
+    public SharedAccountLoginController(SharedAccountLoginMediator loginMediator) {
         super(loginMediator);
     }
 

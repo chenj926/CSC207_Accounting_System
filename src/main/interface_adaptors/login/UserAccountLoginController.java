@@ -1,6 +1,6 @@
 package interface_adaptors.login;
 
-import use_case.login.LoginMediator;
+import use_case.login.UserAccountLoginMediator;
 import use_case.login.UserAccountLoginInputData;
 
 /**
@@ -11,14 +11,14 @@ import use_case.login.UserAccountLoginInputData;
  * @author Dana
  * @author Jessica
  */
-public class UserAccountLoginController extends AccountLoginController {
+public class UserAccountLoginController extends AccountLoginController<UserAccountLoginMediator> {
 
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
      * @param loginMediator the use case interactor(mediator) for user login
      */
-    public UserAccountLoginController(LoginMediator loginMediator) {
+    public UserAccountLoginController(UserAccountLoginMediator loginMediator) {
         super(loginMediator);
     }
 

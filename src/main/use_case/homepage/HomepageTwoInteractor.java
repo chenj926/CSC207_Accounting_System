@@ -4,6 +4,8 @@ import data_access.account.AccountDataAccessInterface;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.Account;
 import entity.account.UserAccount;
+import use_case.transaction.one_time.OneTimeTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 public abstract class HomepageTwoInteractor<
         DAO extends AccountDataAccessInterface,

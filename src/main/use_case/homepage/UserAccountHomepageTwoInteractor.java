@@ -1,6 +1,5 @@
 package use_case.homepage;
 
-import com.sun.security.auth.NTSidUserPrincipal;
 import data_access.account.UserAccountDataAccessInterface;
 import entity.account.UserAccount;
 
@@ -23,8 +22,9 @@ public class UserAccountHomepageTwoInteractor extends HomepageTwoInteractor<
         String totalIncome = String.valueOf(user.getTotalIncome());
         String totalOutflow = String.valueOf(user.getTotalOutflow());
         String totalBalance = String.valueOf(user.getTotalBalance());
+        String sharedIds = user.getSharedAccounts().toString();
 
-        String[] basicUserInfo = {username, totalIncome, totalOutflow, totalBalance};
+        String[] basicUserInfo = {username, totalIncome, totalOutflow, totalBalance, sharedIds};
         UserAccountHomepageTwoOutputData outputData = new UserAccountHomepageTwoOutputData(basicUserInfo);
         this.presenter.prepareSuccessView(outputData);
     }

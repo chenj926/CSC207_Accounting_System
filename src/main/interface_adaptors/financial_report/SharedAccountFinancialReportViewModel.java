@@ -8,11 +8,12 @@ public class SharedAccountFinancialReportViewModel extends FinancialReportViewMo
         this.state = new SharedAccountFinancialReportState();
     }
 
-
+    @Override
     public SharedAccountFinancialReportState getState(){
         return this.state;
     }
 
+    @Override
     public void setState(SharedAccountFinancialReportState state){
         this.state = state;
     }

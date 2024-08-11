@@ -57,6 +57,7 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
     @Override
     public boolean existById(String sharedAccountIdentification) {
         boolean userExist = false;
+        System.out.println("in DAO"+sharedAccountIdentification); // debug
         try (SharedAccountIterator iterator = new SharedAccountIterator(accountCsvPath)) {
             while (iterator.hasNext()) {
                 SharedAccount account = iterator.next();
@@ -77,8 +78,8 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         Path tempCsvPath = Paths.get(baseDir, "src/main/data/accounts/userAccounts.csv");
         try (SharedAccountIterator iterator = new SharedAccountIterator(tempCsvPath)) {
             while (iterator.hasNext()) {
-                UserAccount userAccount = iterator.next();
-                if (userAccount.getIdentification().equals(userId)) {
+                SharedAccount sharedAccount = iterator.next();
+                if (sharedAccount.getIdentification().equals(userId)) {
                     return true;
                 }
             }
@@ -103,6 +104,12 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
             String userInfo = getSharedAccountInfo(newSharedAccount);
             // if csv not created, create it
             confirmCsvExistence(this.accountCsvPath, userInfo);
+
+            // save the sharedId into userCSV
+            CSVUserAccountDataAccessObject userAccountDataAccessObject = new CSVUserAccountDataAccessObject();
+            String[] stringUserInfo = userInfo.split(",");
+            System.out.println("save"+stringUserInfo[0]);
+            userAccountDataAccessObject.saveSharedId(stringUserInfo[1], stringUserInfo[0]);
         }
     }
 

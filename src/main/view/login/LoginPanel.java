@@ -2,6 +2,7 @@ package view.login;
 
 import interface_adaptors.*;
 import interface_adaptors.login.AccountLoginController;
+import interface_adaptors.login.UserAccountLoginController;
 import interface_adaptors.login.UserAccountLoginState;
 import interface_adaptors.login.UserAccountLoginViewModel;
 
@@ -22,7 +23,7 @@ import java.awt.event.KeyListener;
  */
 public class LoginPanel extends JPanel {
     private final UserAccountLoginViewModel viewModel;
-    protected AccountLoginController loginController;
+    protected UserAccountLoginController loginController;
     private final ViewManagerModel viewManager;
 
     protected JLabel titleLabel;
@@ -39,7 +40,7 @@ public class LoginPanel extends JPanel {
      * @param loginController  the controller handling login actions
      * @param viewManager      the view manager for managing view transitions
      */
-    public LoginPanel(UserAccountLoginViewModel viewModel, AccountLoginController loginController, ViewManagerModel viewManager) {
+    public LoginPanel(UserAccountLoginViewModel viewModel, UserAccountLoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
         this.viewModel = viewModel;
         this.viewManager = viewManager;

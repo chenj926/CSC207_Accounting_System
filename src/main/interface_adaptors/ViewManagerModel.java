@@ -1,7 +1,8 @@
 package interface_adaptors;
 
 import app.FinancialReport.SharedAccountFinancialReportUseCaseFactory;
-import app.authentication.LoginUseCaseFactory;
+import app.authentication.SharedAccountLoginUseCaseFactory;
+import app.authentication.UserAccountLoginUseCaseFactory;
 //import app.authentication.LogoutUseCaseFactory;
 import app.authentication.SignupUseCaseFactory;
 import app.home_page.HomePageUseCaseFactory;
@@ -262,14 +263,14 @@ public class ViewManagerModel {
                 break;
             case "log in":
                 UserAccountLoginViewModel loginViewModel =  new UserAccountLoginViewModel();
-                LoginView loginView = LoginUseCaseFactory.create(this, loginViewModel);
+                LoginView loginView = UserAccountLoginUseCaseFactory.create(this, loginViewModel);
                 views.put("log in", loginView);
                 currentView = loginView;
                 break;
             case "shared account log in":
                 SharedAccountLoginViewModel sharedAccountLoginViewModel =
                         new SharedAccountLoginViewModel();
-                SharedAccountLoginView sharedAccountLoginView = LoginUseCaseFactory.create(this,
+                SharedAccountLoginView sharedAccountLoginView = SharedAccountLoginUseCaseFactory.create(this,
                         sharedAccountLoginViewModel);
                 views.put("shared account log in", sharedAccountLoginView);
                 currentView = sharedAccountLoginView;
@@ -326,7 +327,7 @@ public class ViewManagerModel {
                 currentView = financialReportView;
                 break;
             case "Shared Account Financial Report":
-                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = (SharedAccountFinancialReportViewModel) this.viewModels.get("Shared Account Financial Report");
+                SharedAccountFinancialReportViewModel sharedAccountFinancialReportViewModel = new SharedAccountFinancialReportViewModel();
                 SharedAccountFinancialReportView sharedAccountFinancialReportView = SharedAccountFinancialReportUseCaseFactory.create(this,
                         sharedAccountFinancialReportViewModel);
                 views.put("Shared Account Financial Report", sharedAccountFinancialReportView);

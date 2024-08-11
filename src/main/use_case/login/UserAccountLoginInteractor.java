@@ -2,7 +2,7 @@ package use_case.login;
 
 import entity.account.UserAccount;
 import data_access.authentication.LoginDataAccessInterface;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
 
@@ -17,20 +17,21 @@ public class UserAccountLoginInteractor extends LoginInteractor<
         LoginDataAccessInterface,
         UserAcountLoginOutputBoundary,
         UserAccountLoginOutputData,
-        UserAccountLoginInputData> implements UserAccountLoginInputBoundary {
+        UserAccountLoginInputData,
+        UserAccountLoginMediator> implements UserAccountLoginInputBoundary {
 
 //    final LoginDataAccessInterface userDataAccessObject;
 //    final UserAcountLoginOutputBoundary presenter;
-//    private LoginMediator mediator;
+//    private UserAccountLoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
      *
-     * @param loginDataAccessInterface the data access interface for user data
-     * @param logInOutputBoundaryUser      the output boundary for presenting the login results
+     * @param loginDAO the data access interface for user data
+     * @param presenter      the output boundary for presenting the login results
      */
-    public UserAccountLoginInteractor(LoginDataAccessInterface loginDataAccessInterface, UserAcountLoginOutputBoundary logInOutputBoundaryUser) {
-        super(loginDataAccessInterface, logInOutputBoundaryUser);
+    public UserAccountLoginInteractor(LoginDataAccessInterface loginDAO, UserAcountLoginOutputBoundary presenter) {
+        super(loginDAO, presenter);
     }
 
     /**
@@ -55,21 +56,21 @@ public class UserAccountLoginInteractor extends LoginInteractor<
                 presenter.prepareFailView("Identification can not be empty!");
                 return;
             } else {
-                if (!userDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
+                if (!accountDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
                     //User does not exist
                     presenter.prepareFailView("User not found");
                     return;
                 }
 
                 //User exists, fetch the user account
-                UserAccount userAccount = userDataAccessObject.getById(userAccountLoginInputData.getIdentification());
+                UserAccount userAccount = accountDataAccessObject.getById(userAccountLoginInputData.getIdentification());
                 if (userAccount != null && !userAccount.getPassword().equals(userAccountLoginInputData.getPassword())) {
                     presenter.prepareFailView("Incorrect Password!");
                     return;
                 }
 
                 // attempt to login
-                boolean isLogin = userDataAccessObject.login(userAccount);
+                boolean isLogin = accountDataAccessObject.login(userAccount);
 
                 // if login failed, password wrong
                 if (!isLogin) {
@@ -80,37 +81,11 @@ public class UserAccountLoginInteractor extends LoginInteractor<
                     presenter.prepareSuccessView(userAccountLoginOutputData);
 
                     // Notify mediator on successful login
-                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
-                    mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
+                    UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
+                    mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
                     }
                 }
 
         }
-
-    /**
-     * Checks if the provided password is valid (not null or empty).
-     *
-     * @param password the password to check
-     * @return true if the password is valid, false otherwise
-     */
-    public boolean checkPassword(String password) {
-        if (password == null || password.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Checks if the provided identification is valid (not null or empty).
-     *
-     * @param id the identification to check
-     * @return true if the identification is valid, false otherwise
-     */
-    public boolean checkIdentification(String id) {
-        if (id == null || id.isEmpty()) {
-            return false;
-        }
-        return true;
-    }
 
 }
