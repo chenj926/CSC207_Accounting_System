@@ -16,35 +16,35 @@ import java.time.temporal.ChronoUnit;
 import java.util.Map;
 
 /**
- * The UpdatePeriodicAtLoginInteractor class is responsible for updating periodic transactions
+ * The UserAccountUpdatePeriodicAtLoginInteractor class is responsible for updating periodic transactions
  * when a user logs in. It processes both inflow and outflow transactions based on their periodicity
  * and ensures that the user's account balances are updated accordingly.
  *
  * @author
  * Jessica Chen and Eric Chen
  */
-public class UpdatePeriodicAtLoginInteractor implements UpdatePeriodicAtLoginInputBoundary {
+public class UserAccountUpdatePeriodicAtLoginInteractor implements UserAccountUpdatePeriodicAtLoginInputBoundary {
     private final UserAccountDataAccessInterface userDataAccessObject;
 
     /**
-     * Constructs an UpdatePeriodicAtLoginInteractor with the given UserAccountDataAccessInterface.
+     * Constructs an UserAccountUpdatePeriodicAtLoginInteractor with the given UserAccountDataAccessInterface.
      *
      * @param userDataAccessObject the data access object for user accounts
      */
-    public UpdatePeriodicAtLoginInteractor(UserAccountDataAccessInterface userDataAccessObject) {
+    public UserAccountUpdatePeriodicAtLoginInteractor(UserAccountDataAccessInterface userDataAccessObject) {
         this.userDataAccessObject = userDataAccessObject;
     }
 
     /**
      * Executes the update of periodic transactions for the given user based on the provided input data.
      *
-     * @param updatePeriodicAtLoginInputData the input data containing user identification and current date
+     * @param userAccountUpdatePeriodicAtLoginInputData the input data containing user identification and current date
      */
     @Override
-    public void execute(UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {
+    public void execute(UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData) {
         // Get the information from the input data
-        String userId = updatePeriodicAtLoginInputData.getIdentification();
-        LocalDate currentDate = updatePeriodicAtLoginInputData.getCurrentDate();
+        String userId = userAccountUpdatePeriodicAtLoginInputData.getIdentification();
+        LocalDate currentDate = userAccountUpdatePeriodicAtLoginInputData.getCurrentDate();
 
         // get the user account, transactions
         UserAccount userAccount = userDataAccessObject.getById(userId);

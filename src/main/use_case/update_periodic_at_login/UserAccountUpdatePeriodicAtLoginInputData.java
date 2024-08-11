@@ -3,22 +3,22 @@ package use_case.update_periodic_at_login;
 import java.time.LocalDate;
 
 /**
- * The UpdatePeriodicAtLoginInputData class represents the input data required for updating periodic transaction at login operation.
+ * The UserAccountUpdatePeriodicAtLoginInputData class represents the input data required for updating periodic transaction at login operation.
  * It includes details such as the user identification and the current date.
  *
  * @author Jessica
  */
-public class UpdatePeriodicAtLoginInputData {
+public class UserAccountUpdatePeriodicAtLoginInputData {
     private String identification;
     private LocalDate currentDate;
 
     /**
-     * Constructs a UpdatePeriodicAtLoginInputData object with the specified details.
+     * Constructs a UserAccountUpdatePeriodicAtLoginInputData object with the specified details.
      *
      * @param identification identification of the user
      * @param currentDate date of the login
      */
-    public UpdatePeriodicAtLoginInputData(String identification, LocalDate currentDate) {
+    public UserAccountUpdatePeriodicAtLoginInputData(String identification, LocalDate currentDate) {
         this.identification = identification;
         this.currentDate = currentDate;
     }

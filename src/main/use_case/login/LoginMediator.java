@@ -1,8 +1,8 @@
 package use_case.login;
 
 import data_access.account.UserAccountDataAccessInterface;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputBoundary;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputBoundary;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputData;
 
 /**
  * The LoginMediator class mediates the interaction between the login process and periodic transaction updates.
@@ -13,7 +13,7 @@ import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
 public class LoginMediator {
     private final UserAccountLoginInputBoundary loginInteractor;
     private final SharedAccountLoginInputBoundary sharedLoginInteractor;
-    private final UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
+    private final UserAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor;
     private final UserAccountDataAccessInterface periodicTransactionDataAccessObject;
 
     /**
@@ -23,7 +23,7 @@ public class LoginMediator {
      * @param periodicTransactionDataAccessObject the periodic transaction interactor
      */
     public LoginMediator(UserAccountLoginInputBoundary loginInteractor,
-                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                          UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = loginInteractor;
         this.sharedLoginInteractor = null;
@@ -32,7 +32,7 @@ public class LoginMediator {
     }
 
     public LoginMediator(SharedAccountLoginInputBoundary interactor,
-                         UpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
+                         UserAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                          UserAccountDataAccessInterface periodicTransactionDataAccessObject) {
         this.loginInteractor = null;
         this.sharedLoginInteractor = interactor;
@@ -48,9 +48,9 @@ public class LoginMediator {
         this.sharedLoginInteractor.execute(sharedAccountLoginInputData);
     }
 
-    public void notifyLoginResult(boolean success, UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData) {
+    public void notifyLoginResult(boolean success, UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData) {
         if (success) {
-            updatePeriodicAtLoginInteractor.execute(updatePeriodicAtLoginInputData);
+            updatePeriodicAtLoginInteractor.execute(userAccountUpdatePeriodicAtLoginInputData);
         }
     }
 }

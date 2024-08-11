@@ -8,7 +8,7 @@ import interface_adaptors.ViewManagerModel;
 import interface_adaptors.login.*;
 import interface_adaptors.login.UserAccountLoginPresenter;
 import use_case.login.*;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInteractor;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInteractor;
 import view.login.LoginView;
 import view.login.SharedAccountLoginView;
 
@@ -36,7 +36,7 @@ public class LoginUseCaseFactory {
         UserAcountLoginOutputBoundary loginPresenter = new UserAccountLoginPresenter(viewManagerModel, loginViewModel);
         UserAccountLoginInteractor loginInteractor = new UserAccountLoginInteractor(loginDataAccessObject, loginPresenter);
 
-        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
+        UserAccountUpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UserAccountUpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
         LoginMediator loginMediator = new LoginMediator(loginInteractor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
         loginInteractor.setMediator(loginMediator);
@@ -62,7 +62,7 @@ public class LoginUseCaseFactory {
         SharedAccountLoginOutputBoundary presenter = new SharedAccountLoginPresenter(viewManagerModel, viewModel);
         SharedAccountLoginInteractor interactor = new SharedAccountLoginInteractor(loginDataAccessObject, presenter);
 
-        UpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
+        UserAccountUpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new UserAccountUpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
 
         LoginMediator loginMediator = new LoginMediator(interactor, updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
         interactor.setMediator(loginMediator);
