@@ -11,7 +11,7 @@ import use_case.login.user_account.UserAccountLoginInteractor;
 import use_case.login.user_account.UserAccountLoginMediator;
 import use_case.login.user_account.UserAcountLoginOutputBoundary;
 import use_case.update_periodic_at_login.user_account.UserAccountUpdatePeriodicAtLoginInteractor;
-import view.login.LoginView;
+import view.login.user_account.UserAccountLoginView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -20,10 +20,10 @@ public class UserAccountLoginUseCaseFactory {
 
     private UserAccountLoginUseCaseFactory() {}
 
-    public static LoginView create(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) {
+    public static UserAccountLoginView create(ViewManagerModel viewManagerModel, UserAccountLoginViewModel loginViewModel) {
         try {
             UserAccountLoginController loginController = createUserLoginUseCase(viewManagerModel, loginViewModel);
-            return new LoginView(loginViewModel, loginController, viewManagerModel);
+            return new UserAccountLoginView(loginViewModel, loginController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

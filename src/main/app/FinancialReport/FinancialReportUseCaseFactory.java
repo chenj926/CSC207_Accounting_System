@@ -9,7 +9,7 @@ import interface_adaptors.financial_report.user_account.UserAccountFinancialRepo
 import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.user_account.UserAccountFinancialReportInteractor;
 import use_case.financial_report.user_account.UserAccountFinancialReportOutputBoundary;
-import view.financial_report.FinancialReportView;
+import view.financial_report.user_account.UserAccountFinancialReportView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -18,11 +18,11 @@ public class FinancialReportUseCaseFactory {
 
     private FinancialReportUseCaseFactory() {}
 
-    public static FinancialReportView create(ViewManagerModel viewManagerModel,
-                                             UserAccountFinancialReportViewModel viewModel) {
+    public static UserAccountFinancialReportView create(ViewManagerModel viewManagerModel,
+                                                        UserAccountFinancialReportViewModel viewModel) {
         try {
             UserAccountFinancialReportController userAccountFinancialReportController = createFinancialReportUseCase(viewManagerModel, viewModel);
-            return new FinancialReportView(viewModel, userAccountFinancialReportController, viewManagerModel);
+            return new UserAccountFinancialReportView(viewModel, userAccountFinancialReportController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

@@ -2,7 +2,7 @@ package app.transaction;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.SharedAccountTransactionViewModel;
-import view.transaction.SharedAccountTransactionView;
+import view.transaction.shared_account.SharedAccountTransactionView;
 
 public class SharedAccountTransactionUseCaseFactory {
 

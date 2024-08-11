@@ -9,7 +9,7 @@ import interface_adaptors.financial_report.shared_account.SharedAccountFinancial
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
 import use_case.financial_report.shared_account.SharedAccountFinancialReportInteractor;
 import use_case.financial_report.shared_account.SharedAccountFinancialReportOutputBoundary;
-import view.financial_report.SharedAccountFinancialReportView;
+import view.financial_report.shared_account.SharedAccountFinancialReportView;
 
 import javax.swing.*;
 import java.io.IOException;

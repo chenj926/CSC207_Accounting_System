@@ -11,7 +11,7 @@ import use_case.login.shared_account.SharedAccountLoginInteractor;
 import use_case.login.shared_account.SharedAccountLoginMediator;
 import use_case.login.shared_account.SharedAccountLoginOutputBoundary;
 import use_case.update_periodic_at_login.shared_account.SharedAccountUpdatePeriodicAtLoginInteractor;
-import view.login.SharedAccountLoginView;
+import view.login.shared_account.SharedAccountLoginView;
 
 import javax.swing.*;
 import java.io.IOException;

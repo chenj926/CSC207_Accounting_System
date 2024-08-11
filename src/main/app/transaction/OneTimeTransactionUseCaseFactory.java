@@ -9,7 +9,7 @@ import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTr
 import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInteractor;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputBoundary;
-import view.transaction.one_time.OneTimeTransactionView;
+import view.transaction.one_time.user_account.UserAccountOneTimeTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -17,12 +17,12 @@ import java.io.IOException;
 public class OneTimeTransactionUseCaseFactory {
     private OneTimeTransactionUseCaseFactory() {}
 
-    public static OneTimeTransactionView create(ViewManagerModel viewManagerModel,
-                                                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) {
+    public static UserAccountOneTimeTransactionView create(ViewManagerModel viewManagerModel,
+                                                           UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) {
         try {
             UserAccountOneTimeTransactionController userAccountOneTimeTransactionController = createUserOneTimeUseCase(viewManagerModel,
                     userAccountOneTimeTransactionViewModel);
-            return new OneTimeTransactionView(userAccountOneTimeTransactionViewModel, userAccountOneTimeTransactionController, viewManagerModel);
+            return new UserAccountOneTimeTransactionView(userAccountOneTimeTransactionViewModel, userAccountOneTimeTransactionController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

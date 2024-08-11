@@ -7,7 +7,7 @@ import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoContro
 import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoPresenter;
 import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoViewModel;
 import use_case.homepage.shared_account.SharedAccountHomepageTwoInteractor;
-import view.home_page.SharedAccountHomepageTwoView;
+import view.home_page.shared_account.SharedAccountHomepageTwoView;
 
 import javax.swing.*;
 import java.io.IOException;

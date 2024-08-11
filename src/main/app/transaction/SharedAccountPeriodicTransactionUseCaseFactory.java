@@ -9,7 +9,7 @@ import interface_adaptors.transaction.periodic.shared_account.SharedAccountPerio
 import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionInteractor;
 import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionOutputBoundary;
-import view.transaction.periodic.SharedAccountPeriodicTransactionView;
+import view.transaction.periodic.shared_account.SharedAccountPeriodicTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;

@@ -9,7 +9,7 @@ import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTi
 import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInteractor;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputBoundary;
-import view.transaction.one_time.SharedAccountOneTimeTransactionView;
+import view.transaction.one_time.shared_account.SharedAccountOneTimeTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;
