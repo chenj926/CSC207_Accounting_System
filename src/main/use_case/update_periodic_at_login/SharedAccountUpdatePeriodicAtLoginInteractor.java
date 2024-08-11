@@ -71,7 +71,7 @@ public class SharedAccountUpdatePeriodicAtLoginInteractor extends AccountUpdateP
 
         // Create new periodic inflow
         PeriodicInflow periodicInflow = new PeriodicInflow(
-                sharedAccount.getIdentification(),
+                periodicTransaction.getIdentification(),
                 periodicTransaction.getAmount(),
                 periodicTransaction.getStartDate(),
                 periodicTransaction.getDescription(),
@@ -109,7 +109,7 @@ public class SharedAccountUpdatePeriodicAtLoginInteractor extends AccountUpdateP
                                   SharedAccountDataAccessInterface sharedDataAccessObject, LocalDate date){
         // Create new periodic outflow
         PeriodicOutflow periodicOutflow = new PeriodicOutflow(
-                sharedAccount.getIdentification(),
+                periodicTransaction.getIdentification(),
                 periodicTransaction.getAmount(),
                 periodicTransaction.getStartDate(),
                 periodicTransaction.getDescription(),
