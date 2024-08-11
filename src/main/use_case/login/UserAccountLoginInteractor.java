@@ -2,7 +2,7 @@ package use_case.login;
 
 import entity.account.UserAccount;
 import data_access.authentication.LoginDataAccessInterface;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
 
@@ -80,8 +80,8 @@ public class UserAccountLoginInteractor extends LoginInteractor<
                     presenter.prepareSuccessView(userAccountLoginOutputData);
 
                     // Notify mediator on successful login
-                    UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
-                    mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
+                    UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
+                    mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
                     }
                 }
 

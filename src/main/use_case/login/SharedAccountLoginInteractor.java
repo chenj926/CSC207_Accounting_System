@@ -1,10 +1,9 @@
 package use_case.login;
 
-import data_access.authentication.LoginDataAccessInterface;
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.SharedAccount;
 ;
-import use_case.update_periodic_at_login.UpdatePeriodicAtLoginInputData;
+import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
 
@@ -72,8 +71,8 @@ public class SharedAccountLoginInteractor extends LoginInteractor<
                 this.presenter.prepareSuccessView(sharedLoginOutputData);
 
                 // Notify mediator on successful login
-                UpdatePeriodicAtLoginInputData updatePeriodicAtLoginInputData = new UpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
-                mediator.notifyLoginResult(true, updatePeriodicAtLoginInputData);
+                UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
+                mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
             }
         }
     }
