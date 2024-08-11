@@ -140,8 +140,8 @@ public class SharedAccountLoginPanel extends JPanel {
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
                     sharedLoginController.execute(
-                            String.valueOf(passwordField.getPassword()),
-                            sharedAccountIdField.getText() // Use shared account ID
+                            sharedAccountIdField.getText(), // Use shared account ID
+                            String.valueOf(passwordField.getPassword())
                     );
                 }
             }
