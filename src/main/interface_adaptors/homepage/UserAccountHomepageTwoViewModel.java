@@ -14,6 +14,7 @@ import java.beans.PropertyChangeSupport;
 public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAccountHomepageTwoState> {
     // labels
     private final String TITLE_LABEL = "User Account";
+    private final String SHAREDIDS_LABEL = "Related Shared Account Ids: ";
 
     /**
      * Constructs a TransactionViewModel object with the view name set to "Transaction".
@@ -30,6 +31,10 @@ public class UserAccountHomepageTwoViewModel extends HomepageTwoViewModel<UserAc
      */
     public String getTITLE_LABEL() {
         return this.TITLE_LABEL;
+    }
+
+    public String getSHAREDIDS_LABEL() {
+        return this.SHAREDIDS_LABEL;
     }
 
     /**

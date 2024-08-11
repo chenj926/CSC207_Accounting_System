@@ -4,6 +4,7 @@ import interface_adaptors.ViewManagerModel;
 import interface_adaptors.homepage.UserAccountHomepageTwoController;
 import interface_adaptors.homepage.UserAccountHomepageTwoState;
 import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
+import org.checkerframework.checker.units.qual.K;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,11 +23,13 @@ public class HomepageTwoPanel extends JPanel{
     private JLabel balanceLabel;
     private JLabel incomeLabel;
     private JLabel outflowLabel;
+    private JLabel sharedIdsLabel;
     // value
     private JLabel usernameValueLabel;
     private JLabel balanceValueLabel;
     private JLabel incomeValueLabel;
     private JLabel outflowValueLabel;
+    private JLabel sharedIdsValueLabel;
     //button
     private JButton oneTimeButton;
     private JButton periodicButton;
@@ -73,12 +76,14 @@ public class HomepageTwoPanel extends JPanel{
         this.incomeLabel = new JLabel(this.viewModel.getINCOME_LABEL());
         this.outflowLabel = new JLabel(this.viewModel.getOUTFLOW_LABEL());
         this.balanceLabel = new JLabel(this.viewModel.getBALANCE_LABEL());
+        this.sharedIdsLabel = new JLabel(this.viewModel.getSHAREDIDS_LABEL());
 
         // 先假装get到了basic info
         this.usernameValueLabel = new JLabel(" User ");
         this.incomeValueLabel = new JLabel(" 0.00 ");
         this.outflowValueLabel = new JLabel(" 0.00 ");
         this.balanceValueLabel = new JLabel(" 0.00 ");
+        this.sharedIdsValueLabel = new JLabel("No Related Shared Account Yet");
 
         JPanel buttons = new JPanel();
         this.oneTimeButton = new JButton(this.viewModel.getONE_TIME_BUTTON_LABEL());
@@ -169,6 +174,13 @@ public class HomepageTwoPanel extends JPanel{
         constraints.gridx = 1;
         add(this.balanceValueLabel, constraints);
 
+        // SharedIds Label and Field
+        constraints.gridx = 0;
+        constraints.gridy++;
+        add(this.sharedIdsLabel, constraints);
+        constraints.gridx = 1;
+        add(this.sharedIdsValueLabel, constraints);
+
         // One Time Button
         constraints.gridx = 0;
         constraints.gridy++;
@@ -226,11 +238,12 @@ public class HomepageTwoPanel extends JPanel{
      */
     @Override
     public void updateUI() {
-        if (this.basicUserInfo != null && this.basicUserInfo.length == 4) {
+        if (this.basicUserInfo != null && this.basicUserInfo.length >= 4) {
             this.usernameValueLabel.setText(this.basicUserInfo[0]);
             this.incomeValueLabel.setText(this.basicUserInfo[1]);
             this.outflowValueLabel.setText(this.basicUserInfo[2]);
             this.balanceValueLabel.setText(this.basicUserInfo[3]);
+            this.sharedIdsValueLabel.setText(this.basicUserInfo[4]);
         }
     }
 }
