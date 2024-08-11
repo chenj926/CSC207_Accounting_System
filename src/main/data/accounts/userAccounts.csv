@@ -1,4 +1,4 @@
-id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate
-idEric,Eric,1234,99,-12.04,86.96,2024-08-08
-id0,eric,1234,1314.00,-11960.00,-10646.00,2024-08-10
-id1,chenz623,1111,0.36,-1701.00,-1700.64,2024-08-11
+id,username,password,totalIncome,totalOutflow,totalBalance,lastLoginDate,sharedId
+idEric,Eric,1234,99,-12.04,86.96,2024-08-08,
+id0,eric,1234,1314.00,-11960.00,-10646.00,2024-08-10,sd0
+id1,chenz623,1111,0.36,-1701.00,-1700.64,2024-08-11,sd0

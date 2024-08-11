@@ -44,7 +44,7 @@ public class UserAccount extends Account {
     }
 
     public Set<String> getSharedAccounts() {
-        return sharedAccounts;
+        return this.sharedAccounts;
     }
 
     public void setSharedAccounts(Set<String> sharedAccounts) {

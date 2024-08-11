@@ -59,10 +59,18 @@ public class UserAccountIterator implements Iterator<UserAccount>, AutoCloseable
                 Float.parseFloat(values[3]), Float.parseFloat(values[4]),
                 Float.parseFloat(values[5]));
 
-        if (values.length >= 6 && values[6] != null && !values[6].isEmpty()) {
+        if (values.length >= 7 && values[6] != null && !values[6].isEmpty()) {
             userAccount.setLastLoginDate(LocalDate.parse(values[6]));
         } else {
             userAccount.setLastLoginDate(LocalDate.now());
+        }
+
+        // if user has 1+ shared accounts
+        if (values.length >= 8) {
+            String[] sharedIds = values[7].split(";");
+            for (String sharedId : sharedIds) {
+                userAccount.addSharedAccount(sharedId);
+            }
         }
 
         try {
