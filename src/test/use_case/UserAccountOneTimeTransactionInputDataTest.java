@@ -39,6 +39,7 @@ public class UserAccountOneTimeTransactionInputDataTest {
 
         assertEquals(transactionAmount, inputData.getTransactionAmount());
         assertEquals(identification, inputData.getId());
+        System.out.println(inputData.getTransactionDate());
         assertEquals(transactionDate, inputData.getTransactionDate());
         assertEquals(transactionDescription, inputData.getTransactionDescription());
         assertEquals(transactionCategory, inputData.getTransactionCategory());
