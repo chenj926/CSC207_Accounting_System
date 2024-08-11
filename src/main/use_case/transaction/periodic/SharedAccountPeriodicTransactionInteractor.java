@@ -133,10 +133,10 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
 
         while (!date.isAfter(currentDate) && !date.isAfter(endDate)) {
             if (isInflow) {
-                finalOutputData = this.processInflowTransaction(userIds, amount, startDate, description, endDate,
+                finalOutputData = processInflowTransaction(userIds, amount, startDate, description, endDate,
                         period, category, date);
             } else {
-                finalOutputData = this.processOutflowTransaction(userIds, amount, startDate, description, endDate,
+                finalOutputData = processOutflowTransaction(userIds, amount, startDate, description, endDate,
                         period, category, date);
             }
             // Update current date
