@@ -15,9 +15,9 @@ import java.beans.PropertyChangeSupport;
 public class HomePageViewModel extends ViewModel {
 
     private final String titleLabel = "Welcome to Accounting System";
-    private final String signupButtonLabel = "Sign Up";
+    private final String signupButtonLabel = "User Account Sign Up";
     private final String sharedAccountSignupButtonLabel = "Shared Account Sign Up";
-    private final String loginButtonLabel = "Log In";
+    private final String loginButtonLabel = "User Account Log In";
     private final String sharedAccountLoginButtonLabel = "Shared Account Log In";
     private final String exitButtonLabel = "Exit";
 

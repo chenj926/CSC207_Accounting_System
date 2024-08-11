@@ -119,10 +119,10 @@ public class HomePagePanel extends JPanel {
         centerPanel.add(loginButton, constraints);
 
         constraints.gridy++;
-        centerPanel.add(sharedAccountLoginButton, constraints);
+        centerPanel.add(signupButton, constraints);
 
         constraints.gridy++;
-        centerPanel.add(signupButton, constraints);
+        centerPanel.add(sharedAccountLoginButton, constraints);
 
         constraints.gridy++;
         centerPanel.add(sharedAccountSignupButton, constraints);
