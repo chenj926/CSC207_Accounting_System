@@ -38,7 +38,7 @@ public class UserAccountIterator implements Iterator<UserAccount>, AutoCloseable
      */
     @Override
     public boolean hasNext() {
-        return currentLine != null;
+        return currentLine != null && !currentLine.isEmpty();
     }
 
     /**
