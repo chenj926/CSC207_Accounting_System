@@ -1,7 +1,5 @@
-package interface_adaptors.transaction.periodic;
+package interface_adaptors.transaction.periodic.shared_account;
 
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionController;
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionState;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionInputBoundary;
@@ -37,9 +35,9 @@ class SharedAccountPeriodicTransactionControllerTest {
         String id = "user789";
         String amount = "100.00";
         String startDate = "2023-07-25";
-        String description = "2024-07-25";
+        String description = "Subscription";
         String period = "Monthly";
-        String endDate = "Subscription";
+        String endDate = "2024-07-25";
         String category = "Entertainment";
         String sharedAccountId = "123";
         String date = "2023-07-25";

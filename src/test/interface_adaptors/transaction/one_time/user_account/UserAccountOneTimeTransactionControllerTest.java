@@ -1,7 +1,5 @@
-package interface_adaptors.transaction.one_time;
+package interface_adaptors.transaction.one_time.user_account;
 
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInputBoundary;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInputData;

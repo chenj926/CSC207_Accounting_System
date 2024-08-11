@@ -1,9 +1,6 @@
-package interface_adaptors.transaction.periodic;
+package interface_adaptors.transaction.periodic.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionPresenter;
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionState;
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionOutputData;
@@ -46,7 +43,7 @@ class SharedAccountPeriodicTransactionPresenterTest {
         assertEquals("Income", viewModel.getState().getTransactionCategory());
 
         // Verify the view manager changes view
-        assertEquals("Shared Account Transaction", viewManager.getActiveViewName());
+        assertEquals("Shared Account Homepage Two", viewManager.getActiveViewName());
     }
 
     @Test
@@ -68,7 +65,7 @@ class SharedAccountPeriodicTransactionPresenterTest {
         assertEquals("Expense", viewModel.getState().getTransactionCategory());
 
         // Verify the view manager changes view
-        assertEquals("Shared Account Transaction", viewManager.getActiveViewName());
+        assertEquals("Shared Account Homepage Two", viewManager.getActiveViewName());
     }
 
     @Test

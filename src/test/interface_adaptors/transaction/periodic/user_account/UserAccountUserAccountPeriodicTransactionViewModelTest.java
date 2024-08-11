@@ -1,7 +1,5 @@
-package interface_adaptors.transaction.periodic;
+package interface_adaptors.transaction.periodic.user_account;
 
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionState;
-import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +8,13 @@ import java.beans.PropertyChangeListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SharedAccountUserAccountPeriodicTransactionViewModelTest {
+class UserAccountUserAccountPeriodicTransactionViewModelTest {
 
-    private SharedAccountPeriodicTransactionViewModel viewModel;
+    private UserAccountPeriodicTransactionViewModel viewModel;
 
     @BeforeEach
     void setUp() {
-        viewModel = new SharedAccountPeriodicTransactionViewModel();
+        viewModel = new UserAccountPeriodicTransactionViewModel();
     }
 
     @Test
@@ -29,13 +27,11 @@ class SharedAccountUserAccountPeriodicTransactionViewModelTest {
         assertEquals("Period", viewModel.getPeriod());
         assertEquals("Submit Transaction", viewModel.getSubmitButton());
         assertEquals("Cancel", viewModel.getCancelButton());
-        assertEquals("User ID", viewModel.getUSER_ID_FIELD_LABEL());
-        assertEquals("Users", viewModel.getSELECT_USER());
     }
 
     @Test
     void testGetAndSetState() {
-        SharedAccountPeriodicTransactionState state = new SharedAccountPeriodicTransactionState();
+        UserAccountPeriodicTransactionState state = new UserAccountPeriodicTransactionState();
         viewModel.setState(state);
         assertEquals(state, viewModel.getState());
     }
@@ -52,7 +48,7 @@ class SharedAccountUserAccountPeriodicTransactionViewModelTest {
 
     @Test
     void testResetState() {
-        SharedAccountPeriodicTransactionState state = new SharedAccountPeriodicTransactionState();
+        UserAccountPeriodicTransactionState state = new UserAccountPeriodicTransactionState();
         state.setTransactionAmount("100.0");
         viewModel.setState(state);
 
