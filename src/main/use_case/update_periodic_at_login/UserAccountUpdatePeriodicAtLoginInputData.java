@@ -8,10 +8,7 @@ import java.time.LocalDate;
  *
  * @author Jessica
  */
-public class UserAccountUpdatePeriodicAtLoginInputData {
-    private String identification;
-    private LocalDate currentDate;
-
+public class UserAccountUpdatePeriodicAtLoginInputData extends AccountUpdatePeriodicAtLoginInputData {
     /**
      * Constructs a UserAccountUpdatePeriodicAtLoginInputData object with the specified details.
      *
@@ -19,25 +16,6 @@ public class UserAccountUpdatePeriodicAtLoginInputData {
      * @param currentDate date of the login
      */
     public UserAccountUpdatePeriodicAtLoginInputData(String identification, LocalDate currentDate) {
-        this.identification = identification;
-        this.currentDate = currentDate;
-    }
-
-    /**
-     * Gets the identification of the user.
-     *
-     * @return identification of the user
-     */
-    public String getIdentification() {
-        return identification;
-    }
-
-    /**
-     * Gets current date of the login.
-     *
-     * @return the current date of the login
-     */
-    public LocalDate getCurrentDate() {
-        return currentDate;
+        super(identification, currentDate);
     }
 }
