@@ -6,11 +6,5 @@ package use_case.update_periodic_at_login;
  *
  * @author Jessica
  */
-public interface UserAccountUpdatePeriodicAtLoginInputBoundary {
-    /**
-     * Executes the periodic transaction update process with the given input data.
-     *
-     * @param userAccountUpdatePeriodicAtLoginInputData the input data required for the update process
-     */
-    void execute(UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData);
+public interface UserAccountUpdatePeriodicAtLoginInputBoundary extends AccountUpdatePeriodicAtLoginInputBoundary<UserAccountUpdatePeriodicAtLoginInputData> {
 }
