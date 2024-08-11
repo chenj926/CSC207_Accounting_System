@@ -1,16 +1,7 @@
 shareId;id,amount,date,description,category,start date,period,end date
-1234;id0,999,2024-08-08,testing,Travel,,,
-1234;id0,1999.00,2024-01-01,lalalala,Food
-1234;idEric,9999.00,2024-08-01,Aug Income,Income
-jes;jess,50.00,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
-jes;jess,50.00,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
-sd0;id0,1234.00,2024-08-01,lalala,Entertainment
-sd3;id0,888.00,2024-01-01,afwe,Food
-sd3;idEric,1.88,2024-01-01,yes,Income,2024-01-01,week,2024-02-01
-sd3;idEric,1.88,2024-01-08,yes,Income,2024-01-01,week,2024-02-01
-sd3;idEric,1.88,2024-01-15,yes,Income,2024-01-01,week,2024-02-01
-sd3;idEric,1.88,2024-01-22,yes,Income,2024-01-01,week,2024-02-01
-sd3;idEric,1.88,2024-01-29,yes,Income,2024-01-01,week,2024-02-01
+jes;jess,50,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
+jes;jess,50,2023-10-01,test,Personal item,2023-10-01,month,2024-10-01
+sd0;id0,-74.59,2024-01-01,awfar,Food
 jes;jess,10.00,2023-10-01,1,Auto,2023-10-01,week,2024-10-01
 jes;jess,10.00,2023-10-08,1,Auto,2023-10-01,week,2024-10-01
 jes;jess,10.00,2023-10-15,1,Auto,2023-10-01,week,2024-10-01

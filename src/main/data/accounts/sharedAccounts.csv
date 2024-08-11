@@ -1,5 +1,5 @@
 sharedId,ids,password,totalIncome,totalOutflow,totalBalance,lastLoginDate
-sd0,id0;id1;idEric,1234,11233.00,0.00,11233.00,2024-08-08
+sd0,id0;id1,1234,0.00,-74.59,74.59,2024-08-11
 sd1,idEric;id1,1111,0,0,0,2024-08-08
 sd2,id0;id1,2222,0.00,0.00,0.00,2024-08-08
 sd3,id0;id1;idEric,3333,897.40,0.00,897.40,2024-08-11
