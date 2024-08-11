@@ -38,8 +38,8 @@ public abstract class CSVAccountDataAccessObject<
         this.transactionHeader = transactionHeader;
 
         try {
-            initializeCsvFile(accountCsvPath, csvHeader);
-            initializeTransactionFile(transactionCsvPath, transactionHeader);
+            initializeCsvFile(accountCsvPath, this.csvHeader);
+            initializeTransactionFile(transactionCsvPath, this.transactionHeader);
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to initialize CSV file: " + e.getMessage());
