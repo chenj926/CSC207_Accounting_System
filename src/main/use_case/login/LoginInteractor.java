@@ -4,13 +4,14 @@ public abstract class LoginInteractor<
         T,
         O extends LoginOutputBoundary<LO>,
         LO extends LoginOutputData,
-        I extends LoginInputData>{
-    protected T userDataAccessObject;
+        I extends LoginInputData,
+        LM extends LoginMediator>{
+    protected T accountDataAccessObject;
     protected O presenter;
-    protected UserAccountLoginMediator mediator;
+    protected LM mediator;
 
-    public LoginInteractor(T userDataAccessObject, O presenter) {
-        this.userDataAccessObject = userDataAccessObject;
+    public LoginInteractor(T accountDataAccessObject, O presenter) {
+        this.accountDataAccessObject = accountDataAccessObject;
         this.presenter = presenter;
     }
 
@@ -21,7 +22,7 @@ public abstract class LoginInteractor<
      *
      * @param mediator the UserAccountLoginMediator instance to set
      */
-    public void setMediator(UserAccountLoginMediator mediator) {
+    public void setMediator(LM mediator) {
         this.mediator = mediator;
     }
 

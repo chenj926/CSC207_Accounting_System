@@ -3,6 +3,7 @@ package use_case.login;
 import data_access.authentication.SharedAccountLoginDataAccessInterface;
 import entity.account.SharedAccount;
 ;
+import use_case.update_periodic_at_login.SharedAccountUpdatePeriodicAtLoginInputData;
 import use_case.update_periodic_at_login.UserAccountUpdatePeriodicAtLoginInputData;
 
 import java.time.LocalDate;
@@ -17,17 +18,18 @@ public class SharedAccountLoginInteractor extends LoginInteractor<
         SharedAccountLoginDataAccessInterface,
         SharedAccountLoginOutputBoundary,
         SharedAccountLoginOutputData,
-        SharedAccountLoginInputData>implements SharedAccountLoginInputBoundary{
+        SharedAccountLoginInputData,
+        SharedAccountLoginMediator>implements SharedAccountLoginInputBoundary{
 
     /**
      * Constructs a SharedAccountLoginInteractor object with the specified data access interfaces and output boundary.
      *
-     * @param sharedAccountLoginDataAccessInterface      the data access interface for user data
-     * @param sharedLoginOutputBoundary           the output boundary for presenting the login results
+     * @param sharedAccountLoginDAO      the data access interface for user data
+     * @param presenter           the output boundary for presenting the login results
      */
-    public SharedAccountLoginInteractor(SharedAccountLoginDataAccessInterface sharedAccountLoginDataAccessInterface,
-                                        SharedAccountLoginOutputBoundary sharedLoginOutputBoundary) {
-        super(sharedAccountLoginDataAccessInterface, sharedLoginOutputBoundary);
+    public SharedAccountLoginInteractor(SharedAccountLoginDataAccessInterface sharedAccountLoginDAO,
+                                        SharedAccountLoginOutputBoundary presenter) {
+        super(sharedAccountLoginDAO, presenter);
     }
 
     /**
@@ -51,18 +53,18 @@ public class SharedAccountLoginInteractor extends LoginInteractor<
             this.presenter.prepareFailView("Identification can not be empty!");
             return;
         } else {
-            if (!this.userDataAccessObject.existById(sharedLoginInputData.getIdentification())) {
+            if (!this.accountDataAccessObject.existById(sharedLoginInputData.getIdentification())) {
                 this.presenter.prepareFailView("Shared Account not found");
                 return;
             }
 
-            SharedAccount sharedAccount = this.userDataAccessObject.getById(sharedLoginInputData.getIdentification());
+            SharedAccount sharedAccount = this.accountDataAccessObject.getById(sharedLoginInputData.getIdentification());
             if (sharedAccount != null && !sharedAccount.getPassword().equals(sharedLoginInputData.getPassword())) {
                 this.presenter.prepareFailView("Incorrect Password!");
                 return;
             }
 
-            boolean isLogin = this.userDataAccessObject.login(sharedAccount);
+            boolean isLogin = this.accountDataAccessObject.login(sharedAccount);
 
             if (!isLogin) {
                 this.presenter.prepareFailView("Incorrect Account Password!");
@@ -71,8 +73,8 @@ public class SharedAccountLoginInteractor extends LoginInteractor<
                 this.presenter.prepareSuccessView(sharedLoginOutputData);
 
                 // Notify mediator on successful login
-                UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
-                mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
+                SharedAccountUpdatePeriodicAtLoginInputData sharedAccountUpdatePeriodicAtLoginInputData = new SharedAccountUpdatePeriodicAtLoginInputData(sharedLoginInputData.getIdentification(), LocalDate.now());
+                mediator.notifyLoginResult(true, sharedAccountUpdatePeriodicAtLoginInputData);
             }
         }
     }
