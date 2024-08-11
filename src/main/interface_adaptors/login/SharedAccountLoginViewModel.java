@@ -25,4 +25,21 @@ public class SharedAccountLoginViewModel extends AccountLoginViewModel<SharedAcc
         state = new SharedAccountLoginState();
     }
 
+    @Override
+    public String getTitleLabel() {
+        return this.titleLabel;
+    }
+
+    @Override
+    public String getIdentificationLabel() {
+        return this.identificationLabel;
+    }
+
+    @Override
+    public String getPasswordLabel() {
+        return this.passwordLabel;
+    }
+
+
+
 }

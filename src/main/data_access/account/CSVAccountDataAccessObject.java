@@ -19,6 +19,7 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.String.valueOf;
 
@@ -216,8 +217,10 @@ public abstract class CSVAccountDataAccessObject<
                     String lastLoginDateString = valueOf(lastLoginDate);
 
                     if (account instanceof SharedAccount) {
-                        String userIds = ((SharedAccount) account).getSharedUserIdentifications().toString();
-                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, userIds, password,
+                        Set<String> userIds = ((SharedAccount) account).getSharedUserIdentifications();
+                        String stringUserIds = String.join(";", userIds);;
+
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
                                 income, outflow, balance, lastLoginDateString);
 
                     }else if (account instanceof UserAccount){

@@ -37,7 +37,7 @@ public class SharedAccountPeriodicTransactionController extends PeriodicTransact
                         String category, String transactionDate, String sharedAccountId, String userId) {
         // Create input data object for the transaction
         SharedAccountPeriodicTransactionInputData inputData = new SharedAccountPeriodicTransactionInputData(
-                amount, startDate, description, period, endDate, category, transactionDate, sharedAccountId, userId
+                amount, startDate, endDate, period, description, category, transactionDate, sharedAccountId, userId
         );
 
         // Execute the transaction process using the interactor

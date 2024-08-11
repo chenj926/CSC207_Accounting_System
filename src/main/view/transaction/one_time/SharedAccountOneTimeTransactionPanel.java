@@ -194,7 +194,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         });
 
         // Cancel button action
-        cancelButton.addActionListener(e -> viewManager.setActiveViewName("Transaction"));
+        cancelButton.addActionListener(e -> viewManager.setActiveViewName("Shared Account Homepage Two"));
 
 //        // Select Users button action
 //        selectUsersComb.addActionListener(new ActionListener() {

@@ -25,7 +25,7 @@ public class SharedAccountSignupInputData extends SignupInputData {
 //     * @param user2Id         the identification for the second user
      */
     public SharedAccountSignupInputData(String sharedAccountId, String sharedPassword, Set<String> userIds) {
-        super(sharedAccountId, sharedPassword);
+        super(sharedPassword, sharedAccountId);
 //        this.user1Id = user1Id;
 //        this.user2Id = user2Id;
         this.userIds = userIds;
