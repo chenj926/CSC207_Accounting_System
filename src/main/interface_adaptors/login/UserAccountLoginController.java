@@ -11,15 +11,15 @@ import use_case.login.UserAccountLoginInputData;
  * @author Dana
  * @author Jessica
  */
-public class UserAccountLoginController extends AccountLoginController {
+public class UserAccountLoginController extends AccountLoginController<UserAccountLoginMediator> {
 
     /**
      * Constructs a LoginController object with the specified use case interactor(mediator).
      *
-     * @param userAccountLoginMediator the use case interactor(mediator) for user login
+     * @param loginMediator the use case interactor(mediator) for user login
      */
-    public UserAccountLoginController(UserAccountLoginMediator userAccountLoginMediator) {
-        super(userAccountLoginMediator);
+    public UserAccountLoginController(UserAccountLoginMediator loginMediator) {
+        super(loginMediator);
     }
 
     /**
@@ -31,6 +31,6 @@ public class UserAccountLoginController extends AccountLoginController {
     @Override
     public void execute(String id, String password) {
         UserAccountLoginInputData loginInputData = new UserAccountLoginInputData(id, password);
-        this.userAccountLoginMediator.execute(loginInputData);
+        this.loginMediator.execute(loginInputData);
     }
 }
