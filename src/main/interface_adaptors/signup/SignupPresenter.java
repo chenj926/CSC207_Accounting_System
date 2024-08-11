@@ -1,14 +1,12 @@
 package interface_adaptors.signup;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupOutputData;
-import use_case.signup.UserAccountSignupOutputData;
 
-public abstract class AccountSignupPresenter<
-        V extends AccountSignupViewModel,
+public abstract class SignupPresenter<
+        V extends SignupViewModel,
         O extends SignupOutputData,
-        S extends AccountSignupState> {
+        S extends SignupState> {
     protected final ViewManagerModel viewManagerModel;
     protected final V accountSignupViewModel;
 
@@ -18,7 +16,7 @@ public abstract class AccountSignupPresenter<
      * @param viewManagerModel the view manager model to manage view transitions
      * @param accountSignupViewModel  the signup view model to update the signup state
      */
-    public AccountSignupPresenter(ViewManagerModel viewManagerModel, V accountSignupViewModel) {
+    public SignupPresenter(ViewManagerModel viewManagerModel, V accountSignupViewModel) {
         this.viewManagerModel = viewManagerModel;
         this.accountSignupViewModel = accountSignupViewModel;
     }

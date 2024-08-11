@@ -10,7 +10,7 @@ import java.util.Set;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountSignupController extends AccountSignupController<
+public class SharedAccountSignupController extends SignupController<
         SharedAccountSignupInputBoundary,
         SharedAccountSignupInteractor> {
 

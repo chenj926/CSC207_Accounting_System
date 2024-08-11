@@ -7,7 +7,7 @@ package interface_adaptors.signup;
  * @author Chi Fong
  * @author Eric
  */
-public abstract class AccountSignupState {
+public abstract class SignupState {
     protected String identification;
     protected String password;
 
@@ -17,7 +17,7 @@ public abstract class AccountSignupState {
     /**
      * Constructs a UserAccountSignupState object with default values.
      */
-    public AccountSignupState() {
+    public SignupState() {
         this.identification = "";
         this.password = "";
         this.stateError = null;

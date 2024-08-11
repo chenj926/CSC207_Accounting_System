@@ -5,7 +5,7 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AccountLoginViewModel<S extends AccountLoginState> extends ViewModel {
+public abstract class LoginViewModel<S extends LoginState> extends ViewModel {
     protected final String titleLabel = "ACCOUNT LOGIN";
     protected final String identificationLabel = "Enter account ID";
     protected final String passwordLabel = "Enter account password";
@@ -20,7 +20,7 @@ public abstract class AccountLoginViewModel<S extends AccountLoginState> extends
     /**
      * Constructs a LoginViewModel object with the view name set to "login".
      */
-    public AccountLoginViewModel(String viewModelName) {
+    public LoginViewModel(String viewModelName) {
         super(viewModelName);
     }
 

@@ -1,7 +1,6 @@
 package view.login;
 
 import interface_adaptors.*;
-import interface_adaptors.login.AccountLoginController;
 import interface_adaptors.login.UserAccountLoginController;
 import interface_adaptors.login.UserAccountLoginState;
 import interface_adaptors.login.UserAccountLoginViewModel;

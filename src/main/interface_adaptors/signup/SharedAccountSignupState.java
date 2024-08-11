@@ -11,7 +11,7 @@ import java.util.Set;
  * @version 1.0
  * @since 2024-08-03
  */
-public class SharedAccountSignupState extends AccountSignupState {
+public class SharedAccountSignupState extends SignupState {
     private Set<String> userIds;
 
     /**

@@ -1,6 +1,6 @@
 package interface_adaptors.login;
 
-public abstract class AccountLoginState {
+public abstract class LoginState {
     protected String identification;
     protected String password;
     protected String stateError;
@@ -9,7 +9,7 @@ public abstract class AccountLoginState {
     /**
      * Constructs a LoginState object with default values.
      */
-    public AccountLoginState() {
+    public LoginState() {
         this.identification = "";
         this.password = "";
         this.stateError = null;

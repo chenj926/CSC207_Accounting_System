@@ -23,16 +23,16 @@ public class SharedAccountLoginView extends JFrame implements PropertyChangeList
      * Constructs a SharedAccountLoginView object with the specified view model, login controller, and view manager.
      *
      * @param sharedViewModel       the shared account login view model
-     * @param sharedLoginController the controller handling login actions
+     * @param sharedAccountLoginController the controller handling login actions
      * @param viewManager     the view manager for managing view transitions
      */
-    public SharedAccountLoginView(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedLoginController, ViewManagerModel viewManager) {
+    public SharedAccountLoginView(SharedAccountLoginViewModel sharedViewModel, SharedAccountLoginController sharedAccountLoginController, ViewManagerModel viewManager) {
         super(sharedViewModel.getTitleLabel());
         this.sharedViewModel = sharedViewModel;
-//        this.sharedLoginController = sharedLoginController;
+//        this.sharedAccountLoginController = sharedAccountLoginController;
         this.sharedViewModel.addPropertyChangeListener(this);
 
-        sharedAccountLoginPanel = new SharedAccountLoginPanel(sharedViewModel, sharedLoginController, viewManager);
+        sharedAccountLoginPanel = new SharedAccountLoginPanel(sharedViewModel, sharedAccountLoginController, viewManager);
 
         setupUI();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

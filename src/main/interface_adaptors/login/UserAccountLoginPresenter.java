@@ -10,7 +10,7 @@ import use_case.login.UserAccountLoginOutputData;
  *
  * @author Eric Chen
  */
-public class UserAccountLoginPresenter extends AccountLoginPresenter<UserAccountLoginViewModel,
+public class UserAccountLoginPresenter extends LoginPresenter<UserAccountLoginViewModel,
         UserAccountLoginOutputData,
         UserAccountLoginState> implements UserAcountLoginOutputBoundary {
 
@@ -18,11 +18,11 @@ public class UserAccountLoginPresenter extends AccountLoginPresenter<UserAccount
      * Constructs a LoginPresenter object with the specified view manager model and login view model.
      *
      * @param viewManagerModel the view manager model to manage view transitions
-     * @param userLoginViewModel   the login view model to update the login state
+     * @param userAccountLoginViewModel   the login view model to update the login state
      */
     public UserAccountLoginPresenter(ViewManagerModel viewManagerModel,
-                                     UserAccountLoginViewModel userLoginViewModel){
-        super(viewManagerModel, userLoginViewModel);
+                                     UserAccountLoginViewModel userAccountLoginViewModel){
+        super(viewManagerModel, userAccountLoginViewModel);
     }
 
     /**

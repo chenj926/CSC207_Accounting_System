@@ -16,7 +16,7 @@ import java.awt.event.KeyListener;
  */
 public class SharedAccountLoginPanel extends JPanel {
     private final SharedAccountLoginViewModel sharedViewModel;
-    private final SharedAccountLoginController sharedLoginController;
+    private final SharedAccountLoginController sharedAccountLoginController;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -29,14 +29,14 @@ public class SharedAccountLoginPanel extends JPanel {
      * Constructs a SharedAccountLoginPanel object with the specified view model, login controller, and view manager.
      *
      * @param sharedViewModel        the view model for the shared account login panel
-     * @param sharedLoginController  the controller handling login actions
+     * @param sharedAccountLoginController  the controller handling login actions
      * @param viewManager            the view manager for managing view transitions
      */
     public SharedAccountLoginPanel(SharedAccountLoginViewModel sharedViewModel,
-                                   SharedAccountLoginController sharedLoginController,
+                                   SharedAccountLoginController sharedAccountLoginController,
                                    ViewManagerModel viewManager) {
         this.sharedViewModel = sharedViewModel;
-        this.sharedLoginController = sharedLoginController;
+        this.sharedAccountLoginController = sharedAccountLoginController;
         this.viewManager = viewManager;
 
         initializeComponents();
@@ -139,7 +139,7 @@ public class SharedAccountLoginPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 if (evt.getSource().equals(loginButton)) {
-                    sharedLoginController.execute(
+                    sharedAccountLoginController.execute(
                             sharedAccountIdField.getText(), // Use shared account ID
                             String.valueOf(passwordField.getPassword())
                     );

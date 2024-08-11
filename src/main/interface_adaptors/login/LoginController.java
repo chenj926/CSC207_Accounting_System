@@ -2,7 +2,7 @@ package interface_adaptors.login;
 
 import use_case.login.LoginMediator;
 
-public abstract class AccountLoginController<LM extends LoginMediator> {
+public abstract class LoginController<LM extends LoginMediator> {
     protected final LM loginMediator;
 
     /**
@@ -10,7 +10,7 @@ public abstract class AccountLoginController<LM extends LoginMediator> {
      *
      * @param userAccountLoginMediator the use case interactor(mediator) for user login
      */
-    public AccountLoginController(LM userAccountLoginMediator) {
+    public LoginController(LM userAccountLoginMediator) {
         this.loginMediator = userAccountLoginMediator;
     }
 

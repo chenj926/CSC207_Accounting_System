@@ -9,9 +9,9 @@ import use_case.signup.*;
 // * This controller uses both a general signup interactor and a shared account signup interactor
 // * to handle different signup scenarios.
  */
-public class UserAccountSignupController extends AccountSignupController<
+public class UserAccountSignupController extends SignupController<
         UserAccountSignupInputBoundary,
-        UserAccountSignupInteractor>{
+        UserAccountSignupInteractor> {
 
     /**
      * Constructs a UserAccountSignupController object with the specified use case interactors.

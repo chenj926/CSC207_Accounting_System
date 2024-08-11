@@ -29,10 +29,10 @@ public class SignupUseCaseFactory {
         return null;
     }
 
-    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) {
+    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) {
         try {
-            SharedAccountSignupController sharedSignupController = createSharedAccountSignupUseCase(viewManagerModel, sharedSignupViewModel);
-            return new SharedAccountSignupView(sharedSignupViewModel, sharedSignupController, viewManagerModel);
+            SharedAccountSignupController sharedAccountSignupController = createSharedAccountSignupUseCase(viewManagerModel, sharedAccountSignupViewModel);
+            return new SharedAccountSignupView(sharedAccountSignupViewModel, sharedAccountSignupController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
@@ -51,10 +51,10 @@ public class SignupUseCaseFactory {
         return new UserAccountSignupController(signupInteractor); // Pass null for Interactor
     }
 
-    private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
+    private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) throws IOException {
         SharedAccountSignupDataAccessInterface dataAccessObject = DAOFactory.getSharedAccountSignupDataAccessObject();
         SharedAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
-        SharedAccountSignupOutputBoundary presenter = new SharedAccountSignupPresenter(viewManagerModel, sharedSignupViewModel);
+        SharedAccountSignupOutputBoundary presenter = new SharedAccountSignupPresenter(viewManagerModel, sharedAccountSignupViewModel);
         AccountFactory accountFactory = new AccountFactory();
 
         SharedAccountSignupInteractor signupInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, presenter, accountFactory);

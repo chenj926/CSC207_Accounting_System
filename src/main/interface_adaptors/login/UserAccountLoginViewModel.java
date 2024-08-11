@@ -1,11 +1,5 @@
 package interface_adaptors.login;
 
-import entity.account.UserAccount;
-import interface_adaptors.ViewModel;
-
-import java.beans.PropertyChangeListener;
-import java.beans.PropertyChangeSupport;
-
 
 /**
  * The LoginViewModel class extends the ViewModel class and manages the state and labels for the login view.
@@ -15,7 +9,7 @@ import java.beans.PropertyChangeSupport;
  * @author Eric
  * @author Dana
  */
-public class UserAccountLoginViewModel extends AccountLoginViewModel<UserAccountLoginState> {
+public class UserAccountLoginViewModel extends LoginViewModel<UserAccountLoginState> {
 
     private final String titleLabel = "USER ACCOUNT LOGIN";
     private final String identificationLabel = "Enter user account ID";

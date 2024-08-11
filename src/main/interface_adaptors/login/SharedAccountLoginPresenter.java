@@ -1,9 +1,7 @@
 package interface_adaptors.login;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.login.LoginOutputBoundary;
 import use_case.login.SharedAccountLoginOutputBoundary;
-import use_case.login.LoginOutputData;
 import use_case.login.SharedAccountLoginOutputData;
 
 /**
@@ -12,7 +10,7 @@ import use_case.login.SharedAccountLoginOutputData;
  *
  * @author Xile Chen, Eric Chen
  */
-public class SharedAccountLoginPresenter extends AccountLoginPresenter<
+public class SharedAccountLoginPresenter extends LoginPresenter<
         SharedAccountLoginViewModel,
         SharedAccountLoginOutputData,
         SharedAccountLoginState> implements SharedAccountLoginOutputBoundary {
