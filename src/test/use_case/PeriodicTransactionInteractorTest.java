@@ -105,8 +105,6 @@ public class PeriodicTransactionInteractorTest {
                 "month", "01-12-2023", "Auto", LocalDate.now().toString()
         );
         interactor.execute(inputData);
-        System.out.println(userAccount.getTotalIncome());
-        System.out.println(userAccount.getTotalBalance());
         assertEquals(1200.0f, userAccount.getTotalIncome());
         assertEquals(1200.0f, userAccount.getTotalBalance());
     }
