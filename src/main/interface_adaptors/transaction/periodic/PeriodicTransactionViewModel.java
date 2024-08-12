@@ -6,18 +6,12 @@ import interface_adaptors.transaction.TransactionViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class PeriodicTransactionViewModel<S extends PeriodicTransactionState> extends ViewModel {
+public abstract class PeriodicTransactionViewModel<S extends PeriodicTransactionState> extends TransactionViewModel {
     // labels
     protected final String TITLE_LABEL = "Periodic Transaction";
-    protected final String AMOUNT = "Transaction Amount";
     protected final String STARTDATE = "Transaction Start Date";
     protected final String ENDDATE = "Transaction End Date";
-    protected final String DESCRIPTION = "Description";
     protected final String PERIOD = "Period";
-    protected final String CATEGORY_BUTTON = "Transaction Category";
-
-    protected final String SUBMIT_BUTTON = "Submit Transaction";
-    protected final String CANCEL_BUTTON = "Cancel";
 
     protected S transactionState;
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -40,15 +34,6 @@ public abstract class PeriodicTransactionViewModel<S extends PeriodicTransaction
     }
 
     /**
-     * Gets the amount label.
-     *
-     * @return the amount label
-     */
-    public String getAmount() {
-        return this.AMOUNT;
-    }
-
-    /**
      * Gets the start date label.
      *
      * @return the start date label
@@ -63,33 +48,7 @@ public abstract class PeriodicTransactionViewModel<S extends PeriodicTransaction
      * @return the end date label
      */
     public String getEndDate() {
-        return this.ENDDATE; }
-
-    /**
-     * Gets the description label.
-     *
-     * @return the description label
-     */
-    public String getDescription() {
-        return this.DESCRIPTION;
-    }
-
-    /**
-     * Gets the submit button label.
-     *
-     * @return the submit button label
-     */
-    public String getSubmitButton() {
-        return this.SUBMIT_BUTTON;
-    }
-
-    /**
-     * Gets the cancel button label.
-     *
-     * @return the cancel button label
-     */
-    public String getCancelButton() {
-        return this.CANCEL_BUTTON;
+        return this.ENDDATE;
     }
 
     /**

@@ -42,9 +42,9 @@ public class SharedAccountPeriodicTransactionPresenter
         sharedState.setTransactionPeriod(String.valueOf(data.getTransactionPeriod()));
         sharedState.setTransactionEndDate(data.getTransactionEndDate().toString());
         sharedState.setTransactionCategory(data.getTransactionCategory());
-        sharedState.setIdentification(data.getId());
+        sharedState.setId(data.getId());
         sharedState.setSuccessMessage("Shared Account Periodic Transaction Recorded successfully!");
-        sharedState.setError(null); // Clear error message on success
+        sharedState.setErrorMessage(null); // Clear error message on success
 
         // Fire property change
         viewModel.setState(sharedState);

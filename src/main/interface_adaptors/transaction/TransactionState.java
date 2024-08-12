@@ -1,48 +1,67 @@
 package interface_adaptors.transaction;
 
-/**
- * The TransactionState class represents the state of a transaction,
- * indicating whether a one-time or periodic transaction is selected.
- *
- * @author Xile
- */
-public class TransactionState {
-    private boolean isOneTimeSelected;
-    private boolean isPeriodicSelected;
 
-    /**
-     * Checks if a one-time transaction is selected.
-     *
-     * @return true if a one-time transaction is selected, false otherwise
-     */
-    public boolean isOneTimeSelected() {
-        return isOneTimeSelected;
+public abstract class TransactionState {
+    protected String id;
+    protected String transactionAmount;
+    protected String transactionDescription;
+    protected String transactionCategory;
+    protected String successMessage;
+    protected String errorMessage;
+
+    public TransactionState(){
+        this.id = "";
+        this.transactionAmount = "0";
+        this.transactionDescription = "";
+        this.transactionCategory = "";
+        this.errorMessage = null;
+        this.successMessage = null;
     }
 
-    /**
-     * Sets the state of the one-time transaction selection.
-     *
-     * @param oneTimeSelected the new state of the one-time transaction selection
-     */
-    public void setOneTimeSelected(boolean oneTimeSelected) {
-        isOneTimeSelected = oneTimeSelected;
+    // getters
+    public String getId() {
+        return this.id;
+    }
+    public String getTransactionAmount() {
+        return this.transactionAmount;
+    }
+    public String getTransactionDescription() {
+        return this.transactionDescription;
+    }
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
+    public String getSuccessMessage() {
+        return this.successMessage;
+    }
+    public String getErrorMessage() {
+        return this.errorMessage;
     }
 
-    /**
-     * Checks if a periodic transaction is selected.
-     *
-     * @return true if a periodic transaction is selected, false otherwise
-     */
-    public boolean isPeriodicSelected() {
-        return isPeriodicSelected;
+    // setters
+
+    public void setId(String id) {
+        this.id = id;
     }
 
-    /**
-     * Sets the state of the periodic transaction selection.
-     *
-     * @param periodicSelected the new state of the periodic transaction selection
-     */
-    public void setPeriodicSelected(boolean periodicSelected) {
-        isPeriodicSelected = periodicSelected;
+    public void setTransactionAmount(String transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+
+    public void setTransactionDescription(String transactionDescription) {
+        this.transactionDescription = transactionDescription;
+    }
+
+    public void setTransactionCategory(String transactionCategory) {
+        this.transactionCategory = transactionCategory;
+    }
+
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
+

@@ -42,7 +42,7 @@ public class SharedAccountPeriodicTransactionController extends PeriodicTransact
         );
 
         // Execute the transaction process using the interactor
-        periodicTransactionInputBoundary.execute(inputData);
+        this.transactionInputBoundary.execute(inputData);
         this.viewModel.resetState();
     }
 }

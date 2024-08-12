@@ -39,7 +39,7 @@ public class UserAccountPeriodicTransactionController extends PeriodicTransactio
     public void execute(String id, String amount, String startDate, String description, String period, String endDate, String category, String date) {
         UserAccountPeriodicTransactionInputData userAccountPeriodicTransactionInputData = new UserAccountPeriodicTransactionInputData(id,
                 amount, startDate, description, period, endDate, category, date);
-        periodicTransactionInputBoundary.execute(userAccountPeriodicTransactionInputData);
+        this.transactionInputBoundary.execute(userAccountPeriodicTransactionInputData);
         this.viewModel.resetState();
     }
 }

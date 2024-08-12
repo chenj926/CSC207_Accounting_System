@@ -57,12 +57,12 @@ public class SharedAccountPeriodicTransactionView extends JFrame implements Prop
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         SharedAccountPeriodicTransactionState state = (SharedAccountPeriodicTransactionState) evt.getNewValue();
-        if (state.getErrorMsg() == null) {
+        if (state.getErrorMessage() == null) {
             String successMsg = state.getSuccessMessage();
             System.out.println(successMsg);
             JOptionPane.showMessageDialog(this, successMsg, "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            String errMsg = state.getErrorMsg();
+            String errMsg = state.getErrorMessage();
             JOptionPane.showMessageDialog(this, errMsg, "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }

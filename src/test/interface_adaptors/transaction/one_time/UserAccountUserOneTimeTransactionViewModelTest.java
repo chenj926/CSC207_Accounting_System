@@ -1,7 +1,7 @@
 package interface_adaptors.transaction.one_time;
 
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,13 +10,13 @@ import java.beans.PropertyChangeListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserAccountUserAccountOneTimeTransactionViewModelTest {
+class UserAccountUserOneTimeTransactionViewModelTest {
 
-    private UserAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
 
     @BeforeEach
     void setUp() {
-        viewModel = new UserAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
     }
 
     @Test
@@ -32,7 +32,7 @@ class UserAccountUserAccountOneTimeTransactionViewModelTest {
 
     @Test
     void testGetAndSetState() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
         viewModel.setState(state);
         assertEquals(state, viewModel.getState());
     }
@@ -49,7 +49,7 @@ class UserAccountUserAccountOneTimeTransactionViewModelTest {
 
     @Test
     void testResetState() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
         state.setTransactionAmount("100.0");
         viewModel.setState(state);
 
