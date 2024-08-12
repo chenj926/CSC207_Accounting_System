@@ -13,14 +13,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The SharedAccountLoginPanel class manages the shared account login.
- * It includes additional fields for shared account ID and specific logic for handling shared accounts.
+ * The {@code SharedAccountLoginPanel} class manages the user interface for logging into a shared account.
+ * It provides fields for entering the shared account ID and password, and handles the logic for initiating the login process.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation of concerns.
+ * It interacts with the {@link SharedAccountLoginViewModel} to reflect the state of the application, and with the
+ * {@link ViewManagerModel} to manage view transitions.
+ * </p>
+ *
+ * <p><b>Authors:</b> Xile Chen, Eric Chen</p>
  */
 public class SharedAccountLoginPanel extends JPanel {
     private final SharedAccountLoginViewModel sharedViewModel;
     private final SharedAccountLoginController sharedAccountLoginController;
     private final ViewManagerModel viewManager;
 
+    // UI components for labels, text fields, and buttons
     private JLabel titleLabel;
     private JTextField sharedAccountIdField;
     private JPasswordField passwordField;
@@ -28,11 +36,11 @@ public class SharedAccountLoginPanel extends JPanel {
     private JButton cancelButton;
 
     /**
-     * Constructs a SharedAccountLoginPanel object with the specified view model, login controller, and view manager.
+     * Constructs a {@code SharedAccountLoginPanel} with the specified view model, login controller, and view manager.
      *
-     * @param sharedViewModel        the view model for the shared account login panel
-     * @param sharedAccountLoginController  the controller handling login actions
-     * @param viewManager            the view manager for managing view transitions
+     * @param sharedViewModel           the view model for the shared account login panel, providing data and state information
+     * @param sharedAccountLoginController the controller handling shared account login actions and business logic
+     * @param viewManager               the view manager for managing view transitions within the application
      */
     public SharedAccountLoginPanel(SharedAccountLoginViewModel sharedViewModel,
                                    SharedAccountLoginController sharedAccountLoginController,
@@ -47,7 +55,8 @@ public class SharedAccountLoginPanel extends JPanel {
     }
 
     /**
-     * Initializes components specific to the shared account login panel.
+     * Initializes components specific to the shared account login panel, including the title, text fields, and buttons.
+     * This method also styles the buttons to match the application's design guidelines.
      */
     protected void initializeComponents() {
         // Title layout
@@ -55,35 +64,37 @@ public class SharedAccountLoginPanel extends JPanel {
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Initialize text fields for shared account ID and password
         this.sharedAccountIdField = new JTextField(20);
         this.passwordField = new JPasswordField(20);
         this.sharedAccountIdField.setToolTipText("Enter Shared Account ID");
         this.passwordField.setToolTipText("Enter Shared Account Password");
 
-        // Add buttons
-        JPanel buttons = new JPanel();
+        // Initialize buttons for login and cancel actions
         this.loginButton = new JButton(this.sharedViewModel.getLoginButtonLabel());
-        buttons.add(this.loginButton);
         this.cancelButton = new JButton(this.sharedViewModel.getCancelButtonLabel());
-        buttons.add(this.cancelButton);
 
         // Style buttons
-        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.loginButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.loginButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-
-        // Adjust environment to compile on Mac
-        this.loginButton.setOpaque(true);
-        this.loginButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
+        styleButton(this.loginButton, new Color(100, 150, 200));
+        styleButton(this.cancelButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the user interface for the shared account login panel, arranging components using a GridBagLayout.
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Sets up the user interface for the shared account login panel, arranging components using a {@link GridBagLayout}.
      * Adds components such as labels, text fields, and buttons to the panel.
      */
     protected void setupUI() {
@@ -188,7 +199,8 @@ public class SharedAccountLoginPanel extends JPanel {
     }
 
     /**
-     * Clears the text fields for identification, password, and shared account ID.
+     * Clears the text fields for the shared account ID and password.
+     * This method is typically called when the login panel is made visible again to ensure no old data remains.
      */
     public void clearFields() {
         passwordField.setText("");
