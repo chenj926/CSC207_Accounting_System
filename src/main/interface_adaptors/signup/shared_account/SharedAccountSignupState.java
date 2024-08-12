@@ -6,18 +6,26 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * The SharedAccountSignupState class manages the state information during the shared account signup process.
- * It includes fields for shared account ID, password, user IDs, and additional users.
- * This class provides methods to update and retrieve the state information.
+ * The {@code SharedAccountSignupState} class manages the state information
+ * during the shared account signup process. It includes fields for managing
+ * user IDs associated with the shared account and provides methods to update
+ * and retrieve this state information.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture,
+ * ensuring that the state of the shared account signup process is maintained
+ * and can be easily accessed and manipulated by other components in the application.
+ * </p>
  *
- * @version 1.0
- * @since 2024-08-03
+ * <p>
+ * <b>Author:</b> Xile Chen
+ * </p>
  */
 public class SharedAccountSignupState extends SignupState {
     private Set<String> userIds;
 
     /**
-     * Constructs a SharedAccountSignupState object with initial empty or null values.
+     * Constructs a {@code SharedAccountSignupState} object with initial empty values.
+     * Initializes the set of user IDs to an empty {@code HashSet}.
      */
     public SharedAccountSignupState() {
         super();
@@ -25,18 +33,18 @@ public class SharedAccountSignupState extends SignupState {
     }
 
     /**
-     * Gets the ID of the first user.
+     * Gets the set of user IDs associated with the shared account.
      *
-     * @return the ID of the first user, or null if not set
+     * @return the set of user IDs, or an empty set if none are set.
      */
     public Set<String> getUserId() {
         return this.userIds;
     }
 
     /**
-     * Adds a new user ID to the set of additional user IDs.
+     * Adds a new user ID to the set of user IDs for the shared account.
      *
-     * @param userId the user ID to add
+     * @param userId the user ID to add.
      */
     public void addUserId(String userId) {
         this.userIds.add(userId);
@@ -79,6 +87,7 @@ public class SharedAccountSignupState extends SignupState {
 
     /**
      * Resets the state to its initial empty values.
+     * This includes clearing all user IDs and resetting other state fields.
      */
     public void reset() {
         super.reset();
