@@ -1,72 +1,79 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputData;
+import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
 import entity.transaction.one_time.OneTimeInflow;
 import entity.transaction.one_time.OneTimeOutflow;
+import entity.account.user_account.UserAccount;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SharedAccountOneTimeTransactionPresenterTest {
+class UserOneTimeTransactionPresenterTest {
 
-    private SharedAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
-    private SharedAccountOneTimeTransactionPresenter presenter;
+    private UserOneTimeTransactionPresenter presenter;
 
     @BeforeEach
     void setUp() {
-        viewModel = new SharedAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new SharedAccountOneTimeTransactionPresenter(viewModel, viewManager);
+        presenter = new UserOneTimeTransactionPresenter(viewModel, viewManager);
     }
 
     @Test
     void testPrepareSuccessViewWithInflow() {
-        // Create a OneTimeInflow entity
+        // Mock a UserAccount
+        UserAccount mockUserAccount = createMockUserAccount();
+
+        // Create a OneTimeInflow entity with the mocked UserAccount
         OneTimeInflow inflow = new OneTimeInflow("mockUserId", 150.00f, LocalDate.of(2023, 8, 1), "Salary", "Income");
-        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(inflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(inflow);
 
         // Execute method
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Salary", state.getTransactionDescription());
         assertEquals("Income", state.getTransactionCategory());
-        assertEquals("Shared account one-time transaction recorded successfully!", state.getSuccessMessage());
+        assertEquals("One time transaction recorded successfully!", state.getSuccessMessage());
 
         // Verify the view manager changes view
-        assertEquals("Shared Account Transaction", viewManager.getActiveViewName());
+        assertEquals("Homepage Two", viewManager.getActiveViewName());
     }
 
     @Test
     void testPrepareSuccessViewWithOutflow() {
-        // Create a OneTimeOutflow entity
+        // Mock a UserAccount
+        UserAccount mockUserAccount = createMockUserAccount();
+
+        // Create a OneTimeOutflow entity with the mocked UserAccount
         OneTimeOutflow outflow = new OneTimeOutflow("mockUserId", 100.00f, LocalDate.of(2023, 8, 1), "Groceries", "Food");
-        SharedAccountOneTimeTransactionOutputData outputData = new SharedAccountOneTimeTransactionOutputData(outflow);
+        UserAccountOneTimeTransactionOutputData outputData = new UserAccountOneTimeTransactionOutputData(outflow);
 
         // Execute method
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Groceries", state.getTransactionDescription());
         assertEquals("Food", state.getTransactionCategory());
-        assertEquals("Shared account one-time transaction recorded successfully!", state.getSuccessMessage());
+        assertEquals("One time transaction recorded successfully!", state.getSuccessMessage());
 
         // Verify the view manager changes view
-        assertEquals("Shared Account Transaction", viewManager.getActiveViewName());
+        assertEquals("Homepage Two", viewManager.getActiveViewName());
     }
 
     @Test
@@ -78,14 +85,14 @@ class SharedAccountOneTimeTransactionPresenterTest {
         presenter.prepareFailView(errorMessage);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals(errorMessage, state.getErrorMessage());
         assertNull(state.getSuccessMessage());
     }
 
     @Test
     void testOneTimeTransactionStateSetters() {
-        SharedAccountOneTimeTransactionState state = new SharedAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
 
         // Test setters
         state.setId("1");
@@ -98,5 +105,21 @@ class SharedAccountOneTimeTransactionPresenterTest {
         state.setErrorMessage("No error");
         state.setSuccessMessage("Transaction successful");
     }
+
+    /**
+     * Helper method to create a mock UserAccount.
+     */
+    private UserAccount createMockUserAccount() {
+        UserAccount mockUser = new UserAccount("mockUserId", "mockUsername", "mockPassword");
+        // Mock or set additional fields if needed
+        return mockUser;
+    }
 }
+
+
+
+
+
+
+
 

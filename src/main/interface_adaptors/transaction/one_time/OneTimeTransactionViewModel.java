@@ -1,28 +1,21 @@
 package interface_adaptors.transaction.one_time;
 
-import interface_adaptors.ViewModel;
 import interface_adaptors.transaction.TransactionViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTimeTransactionState> extends TransactionViewModel {
+public abstract class OneTimeTransactionViewModel<S extends OneTimeTransactionState> extends TransactionViewModel {
     protected final String TITLE_LABEL = "One Time Transaction";
-    protected final String AMOUNT = "Transaction Amount";
     protected final String DATE = "Transaction Date";
-    protected final String DESCRIPTION = "Description";
-    protected final String CATEGORY_BUTTON = "Transaction Category";
-
-    protected final String SUBMIT_BUTTON = "Submit Transaction";
-    protected final String CANCEL_BUTTON = "Cancel";
 
     protected S state;
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a AccountOneTimeTransactionViewModel object with the view name set to "One Time Transaction".
+     * Constructs a OneTimeTransactionViewModel object with the view name set to "One Time Transaction".
      */
-    public AccountOneTimeTransactionViewModel(String viewName) {
+    public OneTimeTransactionViewModel(String viewName) {
         super(viewName);
     }
 
@@ -36,15 +29,6 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     }
 
     /**
-     * Gets the amount label.
-     *
-     * @return the amount label
-     */
-    public String getAmount() {
-        return this.AMOUNT;
-    }
-
-    /**
      * Gets the date label.
      *
      * @return the date label
@@ -54,39 +38,12 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     }
 
     /**
-     * Gets the description label.
-     *
-     * @return the description label
-     */
-    public String getDescription() {
-        return this.DESCRIPTION;
-    }
-
-    /**
      * Gets the category label.
      *
      * @return the category label
      */
     public String getCategoryButton() {
         return this.CATEGORY_BUTTON;
-    }
-
-    /**
-     * Gets the submit button label.
-     *
-     * @return the submit button label
-     */
-    public String getSubmitButton() {
-        return this.SUBMIT_BUTTON;
-    }
-
-    /**
-     * Gets the cancel button label.
-     *
-     * @return the cancel button label
-     */
-    public String getCancelButton() {
-        return this.CANCEL_BUTTON;
     }
 
     /**

@@ -1,30 +1,30 @@
 package interface_adaptors.transaction.one_time.user_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.AccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputBoundary;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
 
 /**
- * The UserAccountOneTimeTransactionPresenter class implements the UserAccountOneTimeTransactionOutputBoundary interface.
+ * The UserOneTimeTransactionPresenter class implements the UserAccountOneTimeTransactionOutputBoundary interface.
  * It handles the presentation logic for one-time transactions, updating the view model and managing view transitions.
  *
  * @author Xile
  * @author Eric
  */
-public class UserAccountOneTimeTransactionPresenter extends AccountOneTimeTransactionPresenter<
-        UserAccountOneTimeTransactionViewModel,
-        UserAccountOneTimeTransactionState>
+public class UserOneTimeTransactionPresenter extends OneTimeTransactionPresenter<
+        UserOneTimeTransactionViewModel,
+        UserOneTimeTransactionState>
         implements UserAccountOneTimeTransactionOutputBoundary {
 
 
     /**
-     * Constructs a UserAccountOneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a UserOneTimeTransactionPresenter object with the specified view model and view manager model.
      *
      * @param viewModel   the view model to update the one-time transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public UserAccountOneTimeTransactionPresenter(UserAccountOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
+    public UserOneTimeTransactionPresenter(UserOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel, viewManager);
     }
 
@@ -37,7 +37,7 @@ public class UserAccountOneTimeTransactionPresenter extends AccountOneTimeTransa
     @Override
     public void prepareSuccessView(UserAccountOneTimeTransactionOutputData data) {
         // update the current transaction sate
-        UserAccountOneTimeTransactionState oneTimeState = (UserAccountOneTimeTransactionState) viewModel.getState();
+        UserOneTimeTransactionState oneTimeState = (UserOneTimeTransactionState) viewModel.getState();
 
         // set info
         oneTimeState.setId(data.getId());

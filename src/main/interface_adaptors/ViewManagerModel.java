@@ -23,8 +23,8 @@ import interface_adaptors.login.user_account.UserAccountLoginViewModel;
 //import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.shared_account.SharedAccountSignupViewModel;
 import interface_adaptors.signup.user_account.UserAccountSignupViewModel;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import view.financial_report.user_account.UserAccountFinancialReportView;
@@ -103,10 +103,10 @@ public class ViewManagerModel {
         SharedAccountHomepageTwoViewModel sharedAccounthomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
         this.viewModels.put("Share Account Homepage Two", sharedAccounthomepageTwoViewModel);
 
-        UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserAccountOneTimeTransactionViewModel();
+        UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserOneTimeTransactionViewModel();
         this.viewModels.put("One Time Transaction", userAccountOneTimeTransactionViewModel);
 
-        SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
+        SharedOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedOneTimeTransactionViewModel();
         this.viewModels.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionViewModel);
 
         UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel = new UserAccountPeriodicTransactionViewModel();
@@ -288,16 +288,16 @@ public class ViewManagerModel {
                 currentView = sharedAccountHomepageTwoView;
                 break;
             case "One Time Transaction":
-                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
-                       new UserAccountOneTimeTransactionViewModel();
+                UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
+                       new UserOneTimeTransactionViewModel();
                 UserAccountOneTimeTransactionView userAccountOneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(
                         this, userAccountOneTimeTransactionViewModel);
                 views.put("One Time Transaction", userAccountOneTimeTransactionView);
                 currentView = userAccountOneTimeTransactionView;
                 break;
             case "Shared Account One Time Transaction":
-                SharedAccountOneTimeTransactionViewModel sharedAccountoneTimeTransactionViewModel =
-                        new SharedAccountOneTimeTransactionViewModel();
+                SharedOneTimeTransactionViewModel sharedAccountoneTimeTransactionViewModel =
+                        new SharedOneTimeTransactionViewModel();
                 SharedAccountOneTimeTransactionView sharedAccountoneTimeTransactionView = SharedAccountOneTimeTransactionUseCaseFactory.create(
                         this, sharedAccountoneTimeTransactionViewModel);
                 views.put("Shared Account One Time Transaction", sharedAccountoneTimeTransactionView);
