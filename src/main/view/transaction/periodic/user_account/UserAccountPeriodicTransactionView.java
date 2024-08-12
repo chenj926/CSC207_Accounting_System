@@ -59,11 +59,11 @@ public class UserAccountPeriodicTransactionView extends JFrame implements Proper
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         UserAccountPeriodicTransactionState state = (UserAccountPeriodicTransactionState) evt.getNewValue();
-        if (state.getErrorMsg() == null) {
+        if (state.getErrorMessage() == null) {
             String successMsg = state.getSuccessMessage();
             JOptionPane.showMessageDialog(this, successMsg, "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            String errMsg = state.getErrorMsg();
+            String errMsg = state.getErrorMessage();
             JOptionPane.showMessageDialog(this, errMsg, "Error", JOptionPane.INFORMATION_MESSAGE);
         }
     }

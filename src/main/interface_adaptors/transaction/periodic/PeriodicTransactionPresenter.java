@@ -27,7 +27,7 @@ public abstract class PeriodicTransactionPresenter<V extends PeriodicTransaction
      */
     public void prepareFailView(String error) {
         S periodicState = (S) this.viewModel.getState();
-        periodicState.setError(error);
+        periodicState.setErrorMessage(error);
         periodicState.setSuccessMessage(null); // Clear success message on failure
         this.viewModel.setState(periodicState);
         this.viewModel.firePropertyChanged();

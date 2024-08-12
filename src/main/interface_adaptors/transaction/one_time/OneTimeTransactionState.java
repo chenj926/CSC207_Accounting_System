@@ -1,45 +1,18 @@
 package interface_adaptors.transaction.one_time;
 
-public abstract class OneTimeTransactionState {
-    protected String id;
-    protected String transactionAmount;
+import interface_adaptors.transaction.TransactionState;
+
+public abstract class OneTimeTransactionState extends TransactionState {
     protected String transactionDate;
-    protected String transactionDescription;
-    protected String transactionCategory;
     protected float newBalance;
     protected boolean useCaseFailed;
-    protected String errorMessage;
-    protected String successMessage;
 
     /**
      * Constructs a UserOneTimeTransactionState object with default values.
      */
     public OneTimeTransactionState() {
-        this.id = "";
-        this.transactionAmount = "0";
+        super();
         this.transactionDate = null;
-        this.transactionDescription = "";
-        this.transactionCategory = "";
-        this.errorMessage = null;
-        this.successMessage = null;
-    }
-
-    /**
-     * Gets the transaction ID.
-     *
-     * @return the transaction ID
-     */
-    public String getId() {
-        return this.id;
-    }
-
-    /**
-     * Gets the transaction amount.
-     *
-     * @return the transaction amount
-     */
-    public String getTransactionAmount() {
-        return this.transactionAmount;
     }
 
     /**
@@ -49,24 +22,6 @@ public abstract class OneTimeTransactionState {
      */
     public String getTransactionDate() {
         return this.transactionDate;
-    }
-
-    /**
-     * Gets the transaction description.
-     *
-     * @return the transaction description
-     */
-    public String getTransactionDescription() {
-        return this.transactionDescription;
-    }
-
-    /**
-     * Gets the transaction category.
-     *
-     * @return the transaction category
-     */
-    public String getTransactionCategory() {
-        return this.transactionCategory;
     }
 
     /**
@@ -85,62 +40,6 @@ public abstract class OneTimeTransactionState {
      */
     public boolean isUseCaseFailed() {
         return this.useCaseFailed;
-    }
-
-    /**
-     * Gets the error message.
-     *
-     * @return the error message
-     */
-    public String getErrorMessage() {
-        return this.errorMessage;
-    }
-
-    /**
-     * Gets the success message.
-     *
-     * @return the success message
-     */
-    public String getSuccessMessage() {
-        return this.successMessage;
-    }
-
-
-
-    /**
-     * Sets the transaction ID.
-     *
-     * @param id the new transaction ID
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Sets the transaction amount.
-     *
-     * @param transactionAmount the new transaction amount
-     */
-    public void setTransactionAmount(String transactionAmount) {
-        this.transactionAmount = transactionAmount;
-    }
-
-    /**
-     * Sets the transaction description.
-     *
-     * @param transactionDescription the new transaction description
-     */
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
-    }
-
-    /**
-     * Sets the transaction category.
-     *
-     * @param transactionCategory the new transaction category
-     */
-    public void setTransactionCategory(String transactionCategory) {
-        this.transactionCategory = transactionCategory;
     }
 
     /**
@@ -168,23 +67,5 @@ public abstract class OneTimeTransactionState {
      */
     public void setTransactionDate(String transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    /**
-     * Sets the error message.
-     *
-     * @param error the new error message
-     */
-    public void setErrorMessage(String error) {
-        this.errorMessage = error;
-    }
-
-    /**
-     * Sets the success message.
-     *
-     * @param successMessage the new success message
-     */
-    public void setSuccessMessage(String successMessage) {
-        this.successMessage = successMessage;
     }
 }
