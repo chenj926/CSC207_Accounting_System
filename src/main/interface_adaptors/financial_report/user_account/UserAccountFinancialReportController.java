@@ -5,9 +5,17 @@ import use_case.financial_report.user_account.UserAccountFinancialReportInputBou
 import use_case.financial_report.user_account.UserAccountFinancialReportInputData;
 
 /**
- * Controller for handling financial report generation requests.
+ * The {@code UserAccountFinancialReportController} class is responsible for handling user requests
+ * to generate financial reports for a specific user account. It extends the generic
+ * {@link FinancialReportController} class and uses a user account-specific interactor to perform
+ * the report generation.
  *
- * @author :Chi Fong Dana Eric
+ * <p>This controller is a crucial component in the interface adapters layer of Clean Architecture,
+ * serving as the mediator between the UI and the use case interactor for financial report generation.
+ * It processes input data from the user, initiates the generation of the report, and ensures that
+ * the results are passed back to the view model for presentation.</p>
+ *
+ * <p><b>Authors:</b> Dana Huang, Eric Chen</p>
  */
 public class UserAccountFinancialReportController extends FinancialReportController<
         UserAccountFinancialReportInputBoundary,
@@ -15,11 +23,12 @@ public class UserAccountFinancialReportController extends FinancialReportControl
         UserAccountFinancialReportInputData,
         UserAccountFinancialReportState> {
 
-
     /**
-     * Constructs a FinancialReportController with the specified interactor.
+     * Constructs a {@code UserAccountFinancialReportController} with the specified interactor
+     * and view model.
      *
-     * @param userAccountFinancialReportInteractor the use case interactor for generating financial reports
+     * @param userAccountFinancialReportInteractor the use case interactor responsible for generating financial reports
+     * @param viewModel                            the view model that will be updated with the results of the financial report
      */
     public UserAccountFinancialReportController(UserAccountFinancialReportInputBoundary
                                                         userAccountFinancialReportInteractor,
@@ -28,16 +37,15 @@ public class UserAccountFinancialReportController extends FinancialReportControl
     }
 
     /**
-     * Generates a financial report for the specified account and date range.
+     * Executes the financial report generation process for the specified account.
+     * This method creates a {@link UserAccountFinancialReportInputData} object with the provided
+     * identification and passes it to the interactor to generate the report.
      *
-//     * @param userName the account ID
-//     * @param startDate the start date of the report period
-//     * @param endDate the end date of the report period
+     * @param identification the unique identifier for the user account for which the financial report is generated
      */
     public void execute(String identification) {
         UserAccountFinancialReportInputData userAccountFinancialReportInputData = new UserAccountFinancialReportInputData(identification);
         financialReportInteractor.execute(userAccountFinancialReportInputData);
-//        this.viewModel.resetState();
     }
 }
 
