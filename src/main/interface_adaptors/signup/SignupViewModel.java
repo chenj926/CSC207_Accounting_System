@@ -6,11 +6,11 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 public abstract class SignupViewModel<S extends SignupState> extends ViewModel {
-    protected final String TITLE_LABEL = "Sign Up";
-    protected final String PASSWORD_LABEL = "Set password";
-    protected final String ID_LABEL = "Set identification";
+    protected final String TITLE_LABEL = "Shared Account Sign Up";
+    protected final String PASSWORD_LABEL = "Set shared account password";
+    protected final String ID_LABEL = "Set shared account identification";
 
-    protected final String SIGNUP_BUTTON_LABEL = "Sign up account";
+    protected final String SIGNUP_BUTTON_LABEL = "Sign up shared account";
     protected final String CANCEL_BUTTON_LABEL = "Cancel";
 
     protected S state;
