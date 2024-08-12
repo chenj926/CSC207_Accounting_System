@@ -6,23 +6,31 @@ import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionO
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
 
 /**
- * The UserOneTimeTransactionPresenter class implements the UserAccountOneTimeTransactionOutputBoundary interface.
- * It handles the presentation logic for one-time transactions, updating the view model and managing view transitions.
+ * The {@code UserOneTimeTransactionPresenter} class implements the {@code UserAccountOneTimeTransactionOutputBoundary}
+ * interface and handles the presentation logic for one-time transactions specific to user accounts.
+ * It updates the view model with the transaction details and manages view transitions based on the
+ * outcome of the transaction process.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that the user
+ * interface reflects the current state of one-time transactions and that view transitions are
+ * handled smoothly based on the transaction results.
+ * </p>
  *
- * @author Xile
- * @author Eric
+ * <p>
+ * <b>Author:</b> Jessica Chen, Xile Chen, Eric Chen
+ * </p>
  */
 public class UserOneTimeTransactionPresenter extends OneTimeTransactionPresenter<
         UserOneTimeTransactionViewModel,
         UserOneTimeTransactionState>
         implements UserAccountOneTimeTransactionOutputBoundary {
 
-
     /**
-     * Constructs a UserOneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a {@code UserOneTimeTransactionPresenter} object with the specified view model
+     * and view manager model.
      *
-     * @param viewModel   the view model to update the one-time transaction state
-     * @param viewManager the view manager model to manage view transitions
+     * @param viewModel   the view model to update the one-time transaction state.
+     * @param viewManager the view manager model to manage view transitions.
      */
     public UserOneTimeTransactionPresenter(UserOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel, viewManager);
@@ -30,9 +38,10 @@ public class UserOneTimeTransactionPresenter extends OneTimeTransactionPresenter
 
     /**
      * Prepares the success view with the given one-time transaction output data.
-     * Updates the transaction state and changes the view to the transaction view.
+     * Updates the transaction state in the view model with the details from the output data
+     * and changes the active view to the transaction view.
      *
-     * @param data the one-time transaction output data containing transaction details and success status
+     * @param data the one-time transaction output data containing transaction details and success status.
      */
     @Override
     public void prepareSuccessView(UserAccountOneTimeTransactionOutputData data) {

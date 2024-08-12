@@ -13,18 +13,21 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The UserAccountPeriodicTransactionPanel class represents the panel used to input and manage periodic transactions.
- * It includes fields for transaction amount, start and end dates, description, and period, along with
- * submit and cancel buttons.
+ * The {@code UserAccountPeriodicTransactionPanel} class provides the graphical user interface for managing
+ * periodic transactions within a user account. It extends {@link JPanel} and includes input fields for transaction
+ * amount, start and end dates, description, and period, along with submit and cancel buttons.
+ * <p>
+ * This class is part of the user interface layer in the Clean Architecture structure. It interacts with the
+ * {@link UserAccountPeriodicTransactionViewModel} to display data and the {@link UserAccountPeriodicTransactionController}
+ * to handle user actions related to periodic transactions.
+ * </p>
  *
- * @author Eric
- * @author Jessica
+ * <p><b>Authors:</b> Eric Chen, Jessica Chen</p>
  */
 public class UserAccountPeriodicTransactionPanel extends JPanel {
     private final UserAccountPeriodicTransactionViewModel viewModel;
     private final UserAccountPeriodicTransactionController userAccountPeriodicTransactionController;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
     private JTextField amountField;
@@ -36,9 +39,11 @@ public class UserAccountPeriodicTransactionPanel extends JPanel {
     private JButton submitButton;
     private JButton cancelButton;
 
-
     /**
-     * Constructs a UserAccountPeriodicTransactionPanel with the specified view model, controller, and view manager.
+     * Constructs a {@code UserAccountPeriodicTransactionPanel} with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the panel with the necessary UI components and sets up the layout and event listeners.
+     * </p>
      *
      * @param viewModel                   the view model for the periodic transaction panel
      * @param userAccountPeriodicTransactionController the controller handling periodic transaction actions
@@ -56,7 +61,11 @@ public class UserAccountPeriodicTransactionPanel extends JPanel {
     }
 
     /**
-     * Initializes the components for the panel, including labels, text fields, and buttons.
+     * Initializes the components for the panel, including labels, text fields, dropdown menus, and buttons.
+     * <p>
+     * This method configures the individual components that will be added to the panel, such as the input fields
+     * for transaction details and the buttons for submitting or canceling the transaction.
+     * </p>
      */
     private void initializeComponents() {
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
@@ -83,22 +92,34 @@ public class UserAccountPeriodicTransactionPanel extends JPanel {
         buttons.add(this.cancelButton);
 
         // Style buttons
-        this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.submitButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.submitButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-
-        // adjust environment to compile MAC
-        this.submitButton.setOpaque(true);
-        this.submitButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
+        this.styleButton(this.submitButton, new Color(100, 150, 200));
+        this.styleButton(this.cancelButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the layout and UI components of the panel using GridBagLayout.
+     * Styles the given button with the specified background color.
+     * <p>
+     * This method sets the font, background color, and foreground color of the button, and ensures
+     * it is opaque with no border painting.
+     * </p>
+     *
+     * @param button the button to style
+     * @param color  the background color for the button
+     */
+    private void styleButton(JButton button, Color color) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Sets up the layout and user interface components of the panel using {@link GridBagLayout}.
+     * <p>
+     * This method arranges the components in the panel, such as the input fields and buttons, and positions them using
+     * a flexible grid-based layout.
+     * </p>
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -172,7 +193,11 @@ public class UserAccountPeriodicTransactionPanel extends JPanel {
     }
 
     /**
-     * Sets up the action listeners for the buttons and fields.
+     * Sets up the action listeners for the buttons and input fields to handle user interactions.
+     * <p>
+     * This method defines the behavior of the submit and cancel buttons, as well as handling key events in the text fields.
+     * It ensures that the state of the transaction is updated based on user input.
+     * </p>
      */
     private void setupListeners() {
         submitButton.addActionListener(new ActionListener() {
@@ -313,7 +338,10 @@ public class UserAccountPeriodicTransactionPanel extends JPanel {
     }
 
     /**
-     * Clears all text fields in the panel.
+     * Clears all input fields in the panel.
+     * <p>
+     * This method resets the text fields to be empty, preparing the panel for new input.
+     * </p>
      */
     public void clearFields() {
         amountField.setText("");

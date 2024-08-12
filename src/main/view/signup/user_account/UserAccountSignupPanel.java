@@ -13,7 +13,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The UserAccountSignupPanel class represents the panel for user signup. It contains fields for user input and buttons for signup and cancel actions.
+ * The {@code UserAccountSignupPanel} class represents the panel used for user signup in the application.
+ * It contains fields for user input, including username, password, and identification, as well as buttons
+ * for submitting the signup form and canceling the action.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, interacting with the {@link UserAccountSignupViewModel}
+ * to display and manage user input, and with the {@link UserAccountSignupController} to handle the business logic
+ * for user account creation.
+ * </p>
+ *
+ * <p><b>Authors:</b> Eric Chen, Jessica Chen, Xile Chen</p>
  */
 public class UserAccountSignupPanel extends JPanel {
     private final UserAccountSignupViewModel viewModel;
@@ -28,11 +37,11 @@ public class UserAccountSignupPanel extends JPanel {
     private JButton cancelButton;
 
     /**
-     * Constructs a UserAccountSignupPanel object with the specified view model, controller, and view manager.
+     * Constructs a {@code UserAccountSignupPanel} object with the specified view model, controller, and view manager.
      *
-     * @param viewModel        the view model for the signup panel
-     * @param userAccountSignupController the controller for handling signup actions
-     * @param viewManager      the view manager for managing view transitions
+     * @param viewModel        the view model for the signup panel, providing data and state management
+     * @param userAccountSignupController the controller for handling the signup actions and business logic
+     * @param viewManager      the view manager for managing view transitions within the application
      */
     public UserAccountSignupPanel(UserAccountSignupViewModel viewModel, UserAccountSignupController userAccountSignupController, ViewManagerModel viewManager) {
         this.userAccountSignupController = userAccountSignupController;
@@ -45,7 +54,8 @@ public class UserAccountSignupPanel extends JPanel {
     }
 
     /**
-     * Initializes the UI components for the signup panel.
+     * Initializes the UI components for the signup panel, including the input fields and buttons.
+     * This method also styles the buttons to match the application's design.
      */
     private void initializeComponents() {
         // title layout
@@ -57,35 +67,37 @@ public class UserAccountSignupPanel extends JPanel {
         this.passwordField = new JPasswordField(20);
         this.idenficationField = new JTextField(20);
 
-        // tip explanation to users
+        // Tooltips explanation to users
         this.usernameTextField.setToolTipText("Set a nick-name for your account");
         this.passwordField.setToolTipText("Set a secret password");
         this.idenficationField.setToolTipText("Set a unique ID for you to login");
 
         // add buttons
-        JPanel buttons = new JPanel();
         this.signupButton = new JButton(this.viewModel.getSignupButtonLabel());
-        buttons.add(this.signupButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButtonLabel());
-        buttons.add(this.cancelButton);
 
         // Style buttons
-        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.signupButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.signupButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-
-        // adjust environment to compile MAC
-        this.signupButton.setOpaque(true);
-        this.signupButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
+        styleButton(this.signupButton, new Color(100, 150, 200));
+        styleButton(this.cancelButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the UI layout for the signup panel.
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Sets up the layout of the signup panel using {@link GridBagLayout}.
+     * This method arranges the labels, text fields, and buttons on the panel.
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -138,7 +150,8 @@ public class UserAccountSignupPanel extends JPanel {
     }
 
     /**
-     * Sets up listeners for the signup and cancel buttons, and for key events in the text fields.
+     * Sets up listeners for the signup and cancel buttons, as well as key events in the text fields.
+     * This method updates the view model based on user input and handles the actions for the buttons.
      */
     private void setupListeners() {
         // sign up button response action
@@ -210,6 +223,7 @@ public class UserAccountSignupPanel extends JPanel {
 
     /**
      * Clears the text fields in the signup panel.
+     * This method is typically called when the view is made visible to ensure the fields are reset.
      */
     public void clearFields() {
         usernameTextField.setText("");

@@ -2,11 +2,30 @@ package interface_adaptors.transaction.periodic;
 
 import interface_adaptors.transaction.TransactionState;
 
+/**
+ * The {@code PeriodicTransactionState} class extends {@code TransactionState} to manage
+ * the state information specific to periodic transactions. It includes fields for the
+ * transaction start date, end date, and period, allowing for the management of recurring
+ * transactions over time.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the state of periodic transactions is maintained and can be easily accessed and modified
+ * by other components in the application.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Jessica Chen, Xile Chen
+ * </p>
+ */
 public abstract class PeriodicTransactionState extends TransactionState {
     protected String transactionStartDate;
     protected String transactionEndDate;
     protected String transactionPeriod;
 
+    /**
+     * Constructs a {@code PeriodicTransactionState} object with default values.
+     * Initializes the start date, end date, and period to empty strings.
+     */
     public PeriodicTransactionState() {
         super();
         this.transactionStartDate = "";

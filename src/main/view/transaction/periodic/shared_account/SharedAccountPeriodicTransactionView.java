@@ -11,16 +11,26 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * The SharedAccountPeriodicTransactionView class represents the user interface for managing shared account periodic transactions.
- * It extends JFrame and listens for changes in the associated view model to update the UI accordingly.
+ * The {@code SharedAccountPeriodicTransactionView} class provides the graphical user interface for managing
+ * periodic transactions within a shared account. It extends {@link JFrame} and implements {@link PropertyChangeListener}
+ * to respond to changes in the associated {@link SharedAccountPeriodicTransactionViewModel}.
+ * <p>
+ * This class is part of the user interface layer in the Clean Architecture structure. It is responsible for displaying
+ * the current state of shared account periodic transactions and for handling user interactions that may alter that state.
+ * </p>
  *
+ * <p><b>Author:</b> Xile Chen</p>
  */
 public class SharedAccountPeriodicTransactionView extends JFrame implements PropertyChangeListener {
     private SharedAccountPeriodicTransactionPanel sharedAccountPeriodicTransactionPanel;
     private SharedAccountPeriodicTransactionViewModel viewModel;
 
     /**
-     * Constructs a SharedAccountPeriodicTransactionView object with the specified view model, controller, and view manager.
+     * Constructs a {@code SharedAccountPeriodicTransactionView} object with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the view by setting up the panel with the necessary UI components and registers
+     * itself as a listener to the view model for property changes.
+     * </p>
      *
      * @param viewModel the view model for the shared account periodic transaction view
      * @param sharedAccountPeriodicTransactionController the controller handling shared account periodic transaction actions
@@ -43,14 +53,20 @@ public class SharedAccountPeriodicTransactionView extends JFrame implements Prop
 
     /**
      * Sets up the user interface layout for the shared account periodic transaction view.
+     * <p>
+     * This method arranges the panel within the frame and prepares the UI components for interaction.
+     * </p>
      */
     private void setupUI() {
         this.getContentPane().add(sharedAccountPeriodicTransactionPanel, BorderLayout.CENTER);
     }
 
     /**
-     * Responds to property changes in the view model by updating the UI.
-     * Displays a message dialog with the success or error message from the state.
+     * Responds to property changes in the view model by updating the UI accordingly.
+     * <p>
+     * This method listens for changes in the {@link SharedAccountPeriodicTransactionViewModel} and displays appropriate
+     * messages to the user based on the success or error state of the transaction.
+     * </p>
      *
      * @param evt the property change event containing the new state
      */
@@ -69,6 +85,10 @@ public class SharedAccountPeriodicTransactionView extends JFrame implements Prop
 
     /**
      * Makes the view visible and clears the fields in the shared account periodic transaction panel when the view becomes visible.
+     * <p>
+     * This method ensures that the input fields are cleared each time the view is displayed,
+     * providing a fresh start for entering transaction details.
+     * </p>
      *
      * @param visible whether the view should be visible
      */

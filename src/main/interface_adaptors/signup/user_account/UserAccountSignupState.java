@@ -3,17 +3,26 @@ package interface_adaptors.signup.user_account;
 import interface_adaptors.signup.SignupState;
 
 /**
- * The UserAccountSignupState class represents the state of the signup process,
- * including user details, error messages, and success messages.
+ * The {@code UserAccountSignupState} class extends {@code SignupState} to include
+ * additional information specific to user account signups, such as the username.
+ * It manages the state of the user account signup process, including user details,
+ * error messages, and success messages.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture,
+ * ensuring that the state of the user account signup process is maintained and
+ * can be easily accessed and modified by other components in the application.
+ * </p>
  *
- * @author Chi Fong
- * @author Eric
+ * <p>
+ * <b>Author:</b> Jessica Chen
+ * </p>
  */
 public class UserAccountSignupState extends SignupState {
     private String username;
 
     /**
-     * Constructs a UserAccountSignupState object with default values.
+     * Constructs a {@code UserAccountSignupState} object with default values.
+     * This includes initializing the username to an empty string.
      */
     public UserAccountSignupState() {
         super();
@@ -37,7 +46,7 @@ public class UserAccountSignupState extends SignupState {
     public void setUsername(String username) { this.username = username;}
 
     /**
-     * Resets the signup state to default values.
+     * Resets the signup state to its default values, including resetting the username.
      */
     public void reset() {
         super.reset();

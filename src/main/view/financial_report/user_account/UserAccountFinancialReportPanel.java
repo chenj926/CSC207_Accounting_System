@@ -8,10 +8,18 @@ import javax.swing.*;
 import java.awt.*;
 
 /**
- * The panel for displaying the financial report. This class is responsible for setting up
- * the UI components, updating the view with report data, and handling user interactions.
+ * The {@code UserAccountFinancialReportPanel} class represents the panel that displays the financial
+ * report of a user account. It is responsible for setting up the user interface components, updating
+ * the view with the report data from the {@link UserAccountFinancialReportViewModel}, and handling
+ * user interactions such as navigating back to the previous view.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation
+ * of concerns by interacting with the {@link UserAccountFinancialReportController} to refresh the data and manage user actions.
+ * The view model {@link UserAccountFinancialReportViewModel} is observed to update the display when the underlying
+ * data changes.
+ * </p>
  *
- * @author Eric Chen
+ * <p><b>Author:</b> Eric Chen</p>
  */
 public class UserAccountFinancialReportPanel extends JPanel {
     private final UserAccountFinancialReportViewModel viewModel;

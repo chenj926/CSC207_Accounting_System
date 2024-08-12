@@ -13,20 +13,22 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The UserAccountOneTimeTransactionPanel class represents the user interface for a one-time transaction form.
- * It extends JPanel and handles user inputs and interactions related to one-time transactions.
+ * The {@code UserAccountOneTimeTransactionPanel} class represents the user interface for managing one-time transactions
+ * within a user account. It extends {@link JPanel} and handles user inputs and interactions related to one-time transactions.
+ * <p>
+ * This class is a part of the Clean Architecture's user interface layer, where it interacts with the
+ * {@link UserOneTimeTransactionViewModel} to retrieve and display data, and the {@link UserOneTimeTransactionController}
+ * to execute transaction-related actions.
+ * </p>
  *
- * @author Jessica
- * @author Eric
+ * <p><b>Authors:</b> Jessica Chen, Eric Chen</p>
  */
 public class UserAccountOneTimeTransactionPanel extends JPanel {
     private final UserOneTimeTransactionViewModel viewModel;
     private final UserOneTimeTransactionController oneTimeTransactionController;
     private final ViewManagerModel viewManager;
-//    private ViewManagerModel viewManager;
 
     private JLabel titleLabel;
-//    private JTextField idField;
     private JTextField amountField;
     private JTextField dateField;
     private JTextField descriptionField;
@@ -35,7 +37,11 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
     private JButton cancelButton;
 
     /**
-     * Constructs a UserAccountOneTimeTransactionPanel object with the specified view model, controller, and view manager.
+     * Constructs a {@code UserAccountOneTimeTransactionPanel} object with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the components, sets up the user interface layout, and configures the event listeners
+     * to manage user interactions for the one-time transaction functionality.
+     * </p>
      *
      * @param viewModel                  the view model for the one-time transaction panel
      * @param oneTimeTransactionController the controller handling one-time transaction actions
@@ -53,7 +59,11 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
     }
 
     /**
-     * Initializes the components for the one-time transaction panel, including labels, text fields, and buttons.
+     * Initializes the UI components for the one-time transaction panel, including labels, text fields, and buttons.
+     * <p>
+     * This method sets up the labels, text fields, buttons, and the category combo box that are required
+     * for the user to input transaction details.
+     * </p>
      */
     private void initializeComponents() {
         // title layout
@@ -61,17 +71,13 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-//        this.idField = new JTextField(20);
         this.amountField = new JTextField(20);
         this.dateField = new JTextField(20);
         this.descriptionField = new JTextField(20);
 
         // add buttons
-        JPanel buttons = new JPanel();
         this.submitButton = new JButton(this.viewModel.getSubmitButton());
-        buttons.add(this.submitButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButton());
-        buttons.add(this.cancelButton);
 
         // add ComboBox for category
         String[] category = {"Auto", "Personal item", "Food", "Transport", "Income", "entertainment", "Travel",
@@ -79,22 +85,28 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
         this.categoryButton = new JComboBox<>(category);
 
         // Style buttons
-        this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.submitButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.submitButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-
-        // adjust environment to compile MAC
-        this.submitButton.setOpaque(true);
-        this.submitButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
+        styleButton(this.submitButton, new Color(100, 150, 200));
+        styleButton(this.cancelButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the user interface layout for the one-time transaction panel.
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+    }
+
+    /**
+     * Sets up the user interface layout for the one-time transaction panel using a {@link GridBagLayout}.
+     * <p>
+     * This method arranges the UI components within the panel, ensuring a logical flow and alignment for user interactions.
+     * </p>
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -155,7 +167,12 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
     }
 
     /**
-     * Sets up listeners for user interactions, including submit and cancel actions.
+     * Sets up listeners for handling user interactions, including submit and cancel actions,
+     * and updates to the form fields.
+     * <p>
+     * This method configures event listeners for the buttons and form fields, allowing the
+     * panel to react to user inputs and to interact with the controller and view model.
+     * </p>
      */
     private void setupListeners() {
         submitButton.addActionListener(new ActionListener() {
@@ -256,6 +273,10 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
 
     /**
      * Clears all input fields in the one-time transaction panel.
+     * <p>
+     * This method resets the text fields for the amount, date, and description to ensure
+     * that the form is ready for a new transaction entry.
+     * </p>
      */
     public void clearFields() {
         amountField.setText("");

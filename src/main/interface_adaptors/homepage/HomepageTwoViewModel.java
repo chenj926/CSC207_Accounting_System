@@ -5,6 +5,17 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The {@code HomepageTwoViewModel} class represents the view model for the homepage view.
+ * It manages the state and labels used in the homepage view, including user information,
+ * financial data, and various action buttons. This class is responsible for notifying
+ * listeners of changes in the state to update the user interface accordingly.
+ *
+ * <p>This abstract class is designed to be extended by concrete implementations that define
+ * the specific state management for different types of homepage views.</p>
+ *
+ * <p><b>Author:</b> Eric Chen</p>
+ */
 public abstract class HomepageTwoViewModel<S extends HomepageTwoState> extends ViewModel {
     // labels
     protected final String USERNAME_LABEL = "User:";
@@ -19,11 +30,16 @@ public abstract class HomepageTwoViewModel<S extends HomepageTwoState> extends V
 
     protected String[] basicUserInfo;
     /**
-     * Notifies listeners that the signup state has changed.
+     * Property change support to notify listeners of state changes.
      */
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
     protected S state;
 
+    /**
+     * Constructs a {@code HomepageTwoViewModel} object with the specified view name.
+     *
+     * @param viewName the name of the view associated with this view model
+     */
     public HomepageTwoViewModel(String viewName) {
         super(viewName);
     }
@@ -130,7 +146,7 @@ public abstract class HomepageTwoViewModel<S extends HomepageTwoState> extends V
     /**
      * Adds a property change listener to the listener list.
      *
-     * @param listener the PropertyChangeListener to be added
+     * @param listener the {@code PropertyChangeListener} to be added
      */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

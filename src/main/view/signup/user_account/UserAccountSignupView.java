@@ -11,7 +11,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * The UserAccountSignupView class represents the GUI for user signup. It extends JFrame and manages the signup panel.
+ * The {@code UserAccountSignupView} class represents the graphical user interface (GUI) for user account signup.
+ * It extends {@link JFrame} and manages the signup panel, allowing users to create a new account.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, interacting with the {@link UserAccountSignupViewModel}
+ * to display data and handle user interactions. It also listens to property changes to respond to state updates.
+ * </p>
+ *
+ * <p><b>Authors:</b> Eric Chen, Jessica Chen, Xile Chen</p>
  */
 public class UserAccountSignupView extends JFrame implements PropertyChangeListener {
     protected final UserAccountSignupViewModel viewModel;
@@ -20,11 +27,11 @@ public class UserAccountSignupView extends JFrame implements PropertyChangeListe
     private final UserAccountSignupPanel userAccountSignupPanel;
 
     /**
-     * Constructs a UserAccountSignupView object with the specified view model, controller, and view manager.
+     * Constructs a {@code UserAccountSignupView} object with the specified view model, controller, and view manager.
      *
-     * @param viewModel        the view model for the signup view
-     * @param userAccountSignupController the controller for handling signup actions
-     * @param viewManager      the view manager for managing view transitions
+     * @param viewModel                  the view model for the signup view, providing the necessary data and state
+     * @param userAccountSignupController the controller for handling signup actions and business logic
+     * @param viewManager                the view manager for managing view transitions within the application
      */
     public UserAccountSignupView(UserAccountSignupViewModel viewModel, UserAccountSignupController userAccountSignupController, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
@@ -43,15 +50,17 @@ public class UserAccountSignupView extends JFrame implements PropertyChangeListe
 
     /**
      * Sets up the UI components for the signup view.
+     * This method adds the {@link UserAccountSignupPanel} to the frame's content pane.
      */
     protected void setupUI() {
         this.getContentPane().add(userAccountSignupPanel, BorderLayout.CENTER);
     }
 
     /**
-     * Property change event handling for signup results.
+     * Handles property change events to update the signup view based on the {@link UserAccountSignupState}.
+     * If the state indicates an error, it shows an error message. Otherwise, it shows a success message.
      *
-     * @param evt the property change event
+     * @param evt the property change event that contains the new state
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
@@ -61,39 +70,14 @@ public class UserAccountSignupView extends JFrame implements PropertyChangeListe
             JOptionPane.showMessageDialog(this, state.getStateError());
         } else {
             String successMsg = state.getSuccessMsg();
-
-//            if (successMsg.contains("Shared account already exists")) {
-//                // Show choice dialog for shared account existing case
-//                int choice = JOptionPane.showOptionDialog(
-//                        this,
-//                        "Shared account already exists. Would you like to add to it or create a new shared account?",
-//                        "Choose Action",
-//                        JOptionPane.YES_NO_OPTION,
-//                        JOptionPane.QUESTION_MESSAGE,
-//                        null,
-//                        new String[]{"Add to Existing", "Create New"},
-//                        "Add to Existing"
-//                );
-//
-//                if (choice == JOptionPane.YES_OPTION) {
-//                    JOptionPane.showMessageDialog(this, "Added to shared account successfully.");
-//                    // Handle adding logic here
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Create a new shared account.");
-//                    // Handle creation logic here
-//                }
-//            } else {
-//                // Normal success message
             JOptionPane.showMessageDialog(this, successMsg);
-//                viewManager.setActiveViewName("home page");
-//            }
         }
     }
 
     /**
-     * Overrides the setVisible method to clear fields when the view becomes visible.
+     * Overrides the {@code setVisible} method to clear the input fields when the view becomes visible.
      *
-     * @param visible true to make the view visible, false to make it invisible
+     * @param visible {@code true} to make the view visible, {@code false} to make it invisible
      */
     @Override
     public void setVisible(boolean visible) {

@@ -5,11 +5,18 @@ import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionI
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInputData;
 
 /**
- * The UserOneTimeTransactionController class is responsible for handling user interactions related to one-time transactions.
- * It communicates with the use case interactor to execute the one-time transaction process.
+ * The {@code UserOneTimeTransactionController} class handles user interactions related to
+ * one-time transactions for user accounts. It communicates with the use case interactor
+ * to execute the one-time transaction process and updates the view model accordingly.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the user interface correctly handles user inputs for one-time transactions and that the
+ * transaction process is executed according to the business logic.
+ * </p>
  *
- * @author Xile
- * @author Eric
+ * <p>
+ * <b>Author:</b> Jessica Chen, Eric Chen
+ * </p>
  */
 public class UserOneTimeTransactionController extends
         OneTimeTransactionController<
@@ -17,10 +24,11 @@ public class UserOneTimeTransactionController extends
                 UserOneTimeTransactionViewModel> {
 
     /**
-     * Constructs a UserOneTimeTransactionController object with the specified use case interactor and view model.
+     * Constructs a {@code UserOneTimeTransactionController} object with the specified use case interactor
+     * and view model.
      *
-     * @param userOneTimeTransactionUseCaseInteractor the use case interactor for one-time transactions
-     * @param viewModel                               the view model to update the transaction state
+     * @param userOneTimeTransactionUseCaseInteractor the use case interactor responsible for handling one-time transactions.
+     * @param viewModel                               the view model used to update the transaction state.
      */
     public UserOneTimeTransactionController(UserAccountOneTimeTransactionInputBoundary userOneTimeTransactionUseCaseInteractor,
                                             UserOneTimeTransactionViewModel viewModel) {
@@ -29,11 +37,14 @@ public class UserOneTimeTransactionController extends
 
     /**
      * Executes the one-time transaction process with the given transaction details.
+     * This method creates a {@code UserAccountOneTimeTransactionInputData} object containing the
+     * transaction details and passes it to the interactor for execution. It then resets the view model state.
      *
-     * @param amount               the amount of the transaction
-     * @param transactionDate      the date of the transaction
-     * @param transactionDescription the description of the transaction
-     * @param transactionCategory  the category of the transaction
+     * @param id                   the ID of the transaction.
+     * @param amount               the amount of the transaction.
+     * @param transactionDate      the date of the transaction.
+     * @param transactionDescription the description of the transaction.
+     * @param transactionCategory  the category of the transaction.
      */
     public void execute(String id, String amount, String transactionDate, String transactionDescription,
                         String transactionCategory) {

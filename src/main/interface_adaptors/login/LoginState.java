@@ -1,5 +1,16 @@
 package interface_adaptors.login;
 
+/**
+ * The {@code LoginState} class represents the state of the login process. This class
+ * stores the user identification, password, any error messages, and success messages
+ * related to the login attempt. It provides methods to access and modify these fields,
+ * allowing for the management of login-related state information in a clean architecture.
+ *
+ * <p>This class is intended to be extended by more specific implementations of login
+ * states that may include additional information or behavior.</p>
+ *
+ * <p><b>Author:</b> Jessica Chen</p>
+ */
 public abstract class LoginState {
     protected String identification;
     protected String password;
@@ -7,7 +18,9 @@ public abstract class LoginState {
     protected String successMsg;
 
     /**
-     * Constructs a LoginState object with default values.
+     * Constructs a {@code LoginState} object with default values.
+     * The identification and password are initialized to empty strings,
+     * while the error and success messages are initialized to {@code null}.
      */
     public LoginState() {
         this.identification = "";

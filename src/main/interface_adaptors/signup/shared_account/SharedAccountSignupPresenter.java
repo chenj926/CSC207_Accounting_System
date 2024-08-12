@@ -6,11 +6,19 @@ import use_case.signup.shared_account.SharedAccountSignupOutputBoundary;
 import use_case.signup.shared_account.SharedAccountSignupOutputData;
 
 /**
- * The SharedAccountSignupPresenter class extends UserAccountSignupPresenter to handle specific logic for shared account signups.
+ * The {@code SharedAccountSignupPresenter} class handles the presentation logic
+ * specific to shared account signups, extending the functionality of {@code SignupPresenter}.
+ * It updates the shared account signup state and manages view transitions after the
+ * signup process is completed.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring
+ * that the user interface reflects the outcome of the shared account signup process
+ * and navigates the user to the appropriate view.
+ * </p>
  *
- * Authors:
- * - Xile
- * - Eric
+ * <p>
+ * <b>Author:</b> Xile Chen, Jessica Chen
+ * </p>
  */
 public class SharedAccountSignupPresenter extends SignupPresenter<
         SharedAccountSignupViewModel,
@@ -19,10 +27,11 @@ public class SharedAccountSignupPresenter extends SignupPresenter<
         implements SharedAccountSignupOutputBoundary{
 
     /**
-     * Constructs a SharedAccountSignupPresenter with the specified view manager model and shared account signup view model.
+     * Constructs a {@code SharedAccountSignupPresenter} with the specified view manager model
+     * and shared account signup view model.
      *
-     * @param viewManagerModel             the view manager model to manage view transitions
-     * @param sharedAccountSignupViewModel the shared account signup view model to update the shared account signup state
+     * @param viewManagerModel             the view manager model responsible for managing view transitions.
+     * @param sharedAccountSignupViewModel the shared account signup view model used to update the shared account signup state.
      */
     public SharedAccountSignupPresenter(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) {// Call parent constructor
         super(viewManagerModel, sharedAccountSignupViewModel);
@@ -30,9 +39,10 @@ public class SharedAccountSignupPresenter extends SignupPresenter<
 
     /**
      * Prepares the success view specifically for shared account signup.
-     * Updates the shared account signup state and changes the view as needed.
+     * Updates the shared account signup state to reflect a successful signup and navigates
+     * the user to the home page.
      *
-     * @param data the shared account signup output data
+     * @param data the shared account signup output data containing the outcome of the signup process.
      */
     @Override
     public void prepareSuccessView(SharedAccountSignupOutputData data) {
