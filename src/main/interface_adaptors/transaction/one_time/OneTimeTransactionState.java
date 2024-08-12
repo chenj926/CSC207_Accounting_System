@@ -2,13 +2,29 @@ package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.transaction.TransactionState;
 
+/**
+ * The {@code OneTimeTransactionState} class extends {@code TransactionState} to manage
+ * the state information specific to one-time transactions. It includes fields for the
+ * transaction date, new balance after the transaction, and a flag indicating whether the
+ * use case failed.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the state of one-time transactions is maintained and can be easily accessed and modified
+ * by other components in the application.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Jessica Chen, Xile Chen, Eric Chen
+ * </p>
+ */
 public abstract class OneTimeTransactionState extends TransactionState {
     protected String transactionDate;
     protected float newBalance;
     protected boolean useCaseFailed;
 
     /**
-     * Constructs a UserOneTimeTransactionState object with default values.
+     * Constructs a {@code OneTimeTransactionState} object with default values.
+     * Initializes the transaction date to {@code null} and other fields to their default values.
      */
     public OneTimeTransactionState() {
         super();
@@ -18,7 +34,7 @@ public abstract class OneTimeTransactionState extends TransactionState {
     /**
      * Gets the transaction date.
      *
-     * @return the transaction date
+     * @return the transaction date.
      */
     public String getTransactionDate() {
         return this.transactionDate;
