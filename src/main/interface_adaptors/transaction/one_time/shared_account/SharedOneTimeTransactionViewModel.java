@@ -1,9 +1,9 @@
 package interface_adaptors.transaction.one_time.shared_account;
 
-import interface_adaptors.transaction.one_time.AccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.OneTimeTransactionViewModel;
 
 /**
- * The SharedAccountOneTimeTransactionViewModel class extends the ViewModel class
+ * The SharedOneTimeTransactionViewModel class extends the ViewModel class
  * and manages the state and labels for the shared account one-time transaction view.
  * It provides getters for various labels used in the shared account one-time transaction view
  * and supports property change notifications.
@@ -11,18 +11,18 @@ import interface_adaptors.transaction.one_time.AccountOneTimeTransactionViewMode
  * This view model specifically adds functionality for managing user selections,
  * allowing the specification of which users are responsible for the transaction.
  *
- * @see AccountOneTimeTransactionViewModel
+ * @see OneTimeTransactionViewModel
  */
-public class SharedAccountOneTimeTransactionViewModel extends
-        AccountOneTimeTransactionViewModel<SharedAccountOneTimeTransactionState> { ;
+public class SharedOneTimeTransactionViewModel extends
+        OneTimeTransactionViewModel<SharedOneTimeTransactionState> { ;
     private final String USER_ID_FIELD_LABEL = "User ID";
 
     /**
-     * Constructs a SharedAccountOneTimeTransactionViewModel object with the view name set to "Shared Account One Time Transaction".
+     * Constructs a SharedOneTimeTransactionViewModel object with the view name set to "Shared Account One Time Transaction".
      */
-    public SharedAccountOneTimeTransactionViewModel() {
+    public SharedOneTimeTransactionViewModel() {
         super("Shared Account One Time Transaction");
-        this.state = new SharedAccountOneTimeTransactionState();
+        this.state = new SharedOneTimeTransactionState();
     }
 
     /**
@@ -48,7 +48,7 @@ public class SharedAccountOneTimeTransactionViewModel extends
      */
     @Override
     public void resetState() {
-        setState(new SharedAccountOneTimeTransactionState());
+        setState(new SharedOneTimeTransactionState());
     }
 }
 

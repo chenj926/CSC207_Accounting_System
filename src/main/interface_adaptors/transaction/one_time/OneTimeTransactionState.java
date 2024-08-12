@@ -1,6 +1,6 @@
 package interface_adaptors.transaction.one_time;
 
-public abstract class AccountOneTimeTransactionState {
+public abstract class OneTimeTransactionState {
     protected String id;
     protected String transactionAmount;
     protected String transactionDate;
@@ -12,9 +12,9 @@ public abstract class AccountOneTimeTransactionState {
     protected String successMessage;
 
     /**
-     * Constructs a UserAccountOneTimeTransactionState object with default values.
+     * Constructs a UserOneTimeTransactionState object with default values.
      */
-    public AccountOneTimeTransactionState() {
+    public OneTimeTransactionState() {
         this.id = "";
         this.transactionAmount = "0";
         this.transactionDate = null;

@@ -1,30 +1,30 @@
 package interface_adaptors.transaction.one_time.shared_account;
 
-import interface_adaptors.transaction.one_time.AccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.OneTimeTransactionController;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInputBoundary;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInputData;
 
 /**
- * The SharedAccountOneTimeTransactionController class is responsible for handling user interactions
+ * The SharedOneTimeTransactionController class is responsible for handling user interactions
  * related to one-time transactions for shared accounts. It communicates with the use case interactor
  * to execute the shared account one-time transaction process.
  *
  * This controller extends functionality to support the selection of responsible users for the transaction.
  */
-public class SharedAccountOneTimeTransactionController extends AccountOneTimeTransactionController<
+public class SharedOneTimeTransactionController extends OneTimeTransactionController<
         SharedAccountOneTimeTransactionInputBoundary,
-        SharedAccountOneTimeTransactionViewModel> {
+        SharedOneTimeTransactionViewModel> {
 
     /**
-     * Constructs a SharedAccountOneTimeTransactionController object with the specified use case interactor
+     * Constructs a SharedOneTimeTransactionController object with the specified use case interactor
      * and view model.
      *
      * @param sharedAccountTransactionInteractor the use case interactor for shared account one-time transactions
      * @param viewModel                          the view model to update the transaction state
      */
-    public SharedAccountOneTimeTransactionController(
+    public SharedOneTimeTransactionController(
             SharedAccountOneTimeTransactionInputBoundary sharedAccountTransactionInteractor,
-            SharedAccountOneTimeTransactionViewModel viewModel) {
+            SharedOneTimeTransactionViewModel viewModel) {
         super(sharedAccountTransactionInteractor, viewModel);
     }
 

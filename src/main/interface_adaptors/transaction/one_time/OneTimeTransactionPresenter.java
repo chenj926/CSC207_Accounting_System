@@ -2,20 +2,20 @@ package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
 
-public abstract class AccountOneTimeTransactionPresenter<
-        V extends AccountOneTimeTransactionViewModel<S>,
-        S extends AccountOneTimeTransactionState>{
+public abstract class OneTimeTransactionPresenter<
+        V extends OneTimeTransactionViewModel<S>,
+        S extends OneTimeTransactionState>{
 
     protected final V viewModel;
     protected final ViewManagerModel viewManager;
 
     /**
-     * Constructs a UserAccountOneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a UserOneTimeTransactionPresenter object with the specified view model and view manager model.
      *
      * @param viewModel   the view model to update the one-time transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public AccountOneTimeTransactionPresenter(V viewModel, ViewManagerModel viewManager) {
+    public OneTimeTransactionPresenter(V viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.viewManager = viewManager;
     }

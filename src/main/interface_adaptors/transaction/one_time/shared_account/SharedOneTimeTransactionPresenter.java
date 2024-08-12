@@ -1,27 +1,27 @@
 package interface_adaptors.transaction.one_time.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.AccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.OneTimeTransactionPresenter;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputBoundary;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputData;
 
 /**
- * The SharedAccountOneTimeTransactionPresenter class implements the SharedAccountOneTimeTransactionOutputBoundary interface.
+ * The SharedOneTimeTransactionPresenter class implements the SharedAccountOneTimeTransactionOutputBoundary interface.
  * It handles the presentation logic for shared account one-time transactions, updating the view model and managing view transitions.
  */
-public class SharedAccountOneTimeTransactionPresenter extends AccountOneTimeTransactionPresenter<
-        SharedAccountOneTimeTransactionViewModel,
-        SharedAccountOneTimeTransactionState>
+public class SharedOneTimeTransactionPresenter extends OneTimeTransactionPresenter<
+        SharedOneTimeTransactionViewModel,
+        SharedOneTimeTransactionState>
         implements SharedAccountOneTimeTransactionOutputBoundary {
 
 
     /**
-     * Constructs a SharedAccountOneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a SharedOneTimeTransactionPresenter object with the specified view model and view manager model.
      *
      * @param viewModel   the view model to update the shared account one-time transaction state
      * @param viewManager the view manager model to manage view transitions
      */
-    public SharedAccountOneTimeTransactionPresenter(SharedAccountOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
+    public SharedOneTimeTransactionPresenter(SharedOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel, viewManager);
     }
 
@@ -34,7 +34,7 @@ public class SharedAccountOneTimeTransactionPresenter extends AccountOneTimeTran
     @Override
     public void prepareSuccessView(SharedAccountOneTimeTransactionOutputData data) {
         // Update the current transaction state
-        SharedAccountOneTimeTransactionState transactionState = viewModel.getState();
+        SharedOneTimeTransactionState transactionState = viewModel.getState();
 
         // Set transaction information
         transactionState.setTransactionDate(data.getTransactionDate().toString());

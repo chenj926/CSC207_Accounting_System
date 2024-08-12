@@ -111,7 +111,7 @@ public class TransactionViewModel extends ViewModel {
 //    public void selectOneTimeTransaction() {
 //        transactionState.setOneTimeSelected(true);
 //        transactionState.setPeriodicSelected(false);
-//        setCurrentViewModel(new UserAccountOneTimeTransactionViewModel());
+//        setCurrentViewModel(new UserOneTimeTransactionViewModel());
 //    }
 //
 //    // Method to handle button click for periodic transaction
