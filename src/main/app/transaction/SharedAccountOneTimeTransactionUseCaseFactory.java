@@ -4,9 +4,9 @@ import data_access.DAOFactory;
 import data_access.account.shared_account.SharedAccountDataAccessInterface;
 import entity.account.shared_account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInteractor;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputBoundary;
 import view.transaction.one_time.shared_account.SharedAccountOneTimeTransactionView;
@@ -18,9 +18,9 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
     private SharedAccountOneTimeTransactionUseCaseFactory() {}
 
     public static SharedAccountOneTimeTransactionView create(ViewManagerModel viewManagerModel,
-                                                SharedAccountOneTimeTransactionViewModel oneTimeTransactionViewModel) {
+                                                SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) {
         try {
-            SharedAccountOneTimeTransactionController oneTimeTransactionController = createSharedAccountOneTimeUseCase(viewManagerModel,
+            SharedOneTimeTransactionController oneTimeTransactionController = createSharedAccountOneTimeUseCase(viewManagerModel,
                     oneTimeTransactionViewModel);
             return new SharedAccountOneTimeTransactionView(oneTimeTransactionViewModel, oneTimeTransactionController, viewManagerModel);
         } catch (IOException e) {
@@ -29,13 +29,13 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
         return null;
     }
 
-    private static SharedAccountOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
-                                                                         SharedAccountOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
+    private static SharedOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
+                                                                                        SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
-        SharedAccountOneTimeTransactionOutputBoundary presenter = new SharedAccountOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
+        SharedAccountOneTimeTransactionOutputBoundary presenter = new SharedOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
         SharedAccount sharedAccount = dataAccessObject.getById(viewManagerModel.getUserId());
         SharedAccountOneTimeTransactionInteractor interactor = new SharedAccountOneTimeTransactionInteractor(dataAccessObject, presenter, sharedAccount);
-        return new SharedAccountOneTimeTransactionController(interactor, oneTimeTransactionViewModel);
+        return new SharedOneTimeTransactionController(interactor, oneTimeTransactionViewModel);
     }
 
 }

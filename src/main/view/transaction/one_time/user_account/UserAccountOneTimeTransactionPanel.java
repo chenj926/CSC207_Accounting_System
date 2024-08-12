@@ -1,9 +1,9 @@
 package view.transaction.one_time.user_account;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +20,8 @@ import java.awt.event.KeyListener;
  * @author Eric
  */
 public class UserAccountOneTimeTransactionPanel extends JPanel {
-    private final UserAccountOneTimeTransactionViewModel viewModel;
-    private final UserAccountOneTimeTransactionController oneTimeTransactionController;
+    private final UserOneTimeTransactionViewModel viewModel;
+    private final UserOneTimeTransactionController oneTimeTransactionController;
     private final ViewManagerModel viewManager;
 //    private ViewManagerModel viewManager;
 
@@ -41,8 +41,8 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
      * @param oneTimeTransactionController the controller handling one-time transaction actions
      * @param viewManager                the view manager for handling view transitions
      */
-    public UserAccountOneTimeTransactionPanel(UserAccountOneTimeTransactionViewModel viewModel,
-                                              UserAccountOneTimeTransactionController oneTimeTransactionController,
+    public UserAccountOneTimeTransactionPanel(UserOneTimeTransactionViewModel viewModel,
+                                              UserOneTimeTransactionController oneTimeTransactionController,
                                               ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.oneTimeTransactionController = oneTimeTransactionController;
@@ -188,7 +188,7 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
+                        UserOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
                     }
                     @Override
@@ -203,7 +203,7 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
+                        UserOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }
@@ -219,7 +219,7 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
                 new KeyListener() {
                     @Override
                     public void keyTyped(KeyEvent evt) {
-                        UserAccountOneTimeTransactionState currentState = viewModel.getState();
+                        UserOneTimeTransactionState currentState = viewModel.getState();
                         currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                         viewModel.setState(currentState);
                     }
@@ -233,7 +233,7 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
         this.categoryButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                UserAccountOneTimeTransactionState currentState = viewModel.getState();
+                UserOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "custom"
                 if ("Custom".equals(categoryButton.getSelectedItem())) {

@@ -1,14 +1,14 @@
 package interface_adaptors.transaction.one_time;
 
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInputBoundary;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UserAccountOneTimeTransactionControllerTest {
+class UserOneTimeTransactionControllerTest {
 
     @Test
     void testExecute() {
@@ -26,7 +26,7 @@ class UserAccountOneTimeTransactionControllerTest {
         };
 
         // Create a mock view model, if you want to check reset state behavior
-        UserAccountOneTimeTransactionViewModel testViewModel = new UserAccountOneTimeTransactionViewModel() {
+        UserOneTimeTransactionViewModel testViewModel = new UserOneTimeTransactionViewModel() {
             @Override
             public void resetState() {
                 // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value
@@ -34,7 +34,7 @@ class UserAccountOneTimeTransactionControllerTest {
         };
 
         // Create the controller with the mock implementations
-        UserAccountOneTimeTransactionController controller = new UserAccountOneTimeTransactionController(testInteractor, testViewModel);
+        UserOneTimeTransactionController controller = new UserOneTimeTransactionController(testInteractor, testViewModel);
 
         // Test data
         String id = "123";

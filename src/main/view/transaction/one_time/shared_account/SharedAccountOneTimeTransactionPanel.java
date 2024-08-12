@@ -1,9 +1,9 @@
 package view.transaction.one_time.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,8 +18,8 @@ import java.awt.event.KeyListener;
  *
  */
 public class SharedAccountOneTimeTransactionPanel extends JPanel {
-    private final SharedAccountOneTimeTransactionViewModel viewModel;
-    private final SharedAccountOneTimeTransactionController controller;
+    private final SharedOneTimeTransactionViewModel viewModel;
+    private final SharedOneTimeTransactionController controller;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -39,8 +39,8 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
      * @param controller the controller handling shared account one-time transaction actions
      * @param viewManager the view manager for handling view transitions
      */
-    public SharedAccountOneTimeTransactionPanel(SharedAccountOneTimeTransactionViewModel viewModel,
-                                                SharedAccountOneTimeTransactionController controller,
+    public SharedAccountOneTimeTransactionPanel(SharedOneTimeTransactionViewModel viewModel,
+                                                SharedOneTimeTransactionController controller,
                                                 ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.controller = controller;
@@ -226,7 +226,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.amountField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
             }
             @Override
@@ -239,7 +239,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.dateField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -253,7 +253,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.descriptionField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -267,7 +267,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "Custom"
                 if ("Custom".equals(categoryComb.getSelectedItem())) {

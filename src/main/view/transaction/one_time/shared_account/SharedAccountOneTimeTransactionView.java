@@ -1,9 +1,9 @@
 package view.transaction.one_time.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,7 +16,7 @@ import java.beans.PropertyChangeListener;
  */
 public class SharedAccountOneTimeTransactionView extends JFrame implements PropertyChangeListener {
     private SharedAccountOneTimeTransactionPanel sharedAccountOneTimeTransactionPanel;
-    private SharedAccountOneTimeTransactionViewModel viewModel;
+    private SharedOneTimeTransactionViewModel viewModel;
 
     /**
      * Constructs a SharedAccountOneTimeTransactionView object with the specified view model, controller, and view manager.
@@ -25,8 +25,8 @@ public class SharedAccountOneTimeTransactionView extends JFrame implements Prope
      * @param sharedAccountOneTimeTransactionController the controller handling shared account one-time transaction actions
      * @param viewManager the view manager for handling view transitions
      */
-    public SharedAccountOneTimeTransactionView(SharedAccountOneTimeTransactionViewModel viewModel,
-                                               SharedAccountOneTimeTransactionController sharedAccountOneTimeTransactionController,
+    public SharedAccountOneTimeTransactionView(SharedOneTimeTransactionViewModel viewModel,
+                                               SharedOneTimeTransactionController sharedAccountOneTimeTransactionController,
                                                ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
@@ -55,7 +55,7 @@ public class SharedAccountOneTimeTransactionView extends JFrame implements Prope
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        SharedAccountOneTimeTransactionState state = (SharedAccountOneTimeTransactionState) evt.getNewValue();
+        SharedOneTimeTransactionState state = (SharedOneTimeTransactionState) evt.getNewValue();
         if (state.getSuccessMessage() == null) {
             JOptionPane.showMessageDialog(this, state.getErrorMessage());
         } else {

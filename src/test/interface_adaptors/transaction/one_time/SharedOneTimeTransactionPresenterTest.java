@@ -1,9 +1,9 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputData;
@@ -14,17 +14,17 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SharedAccountOneTimeTransactionPresenterTest {
+class SharedOneTimeTransactionPresenterTest {
 
-    private SharedAccountOneTimeTransactionViewModel viewModel;
+    private SharedOneTimeTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
-    private SharedAccountOneTimeTransactionPresenter presenter;
+    private SharedOneTimeTransactionPresenter presenter;
 
     @BeforeEach
     void setUp() {
-        viewModel = new SharedAccountOneTimeTransactionViewModel();
+        viewModel = new SharedOneTimeTransactionViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new SharedAccountOneTimeTransactionPresenter(viewModel, viewManager);
+        presenter = new SharedOneTimeTransactionPresenter(viewModel, viewManager);
     }
 
     @Test
@@ -37,7 +37,7 @@ class SharedAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        SharedOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Salary", state.getTransactionDescription());
@@ -58,7 +58,7 @@ class SharedAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        SharedOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Groceries", state.getTransactionDescription());
@@ -78,14 +78,14 @@ class SharedAccountOneTimeTransactionPresenterTest {
         presenter.prepareFailView(errorMessage);
 
         // Verify the view model state
-        SharedAccountOneTimeTransactionState state = viewModel.getState();
+        SharedOneTimeTransactionState state = viewModel.getState();
         assertEquals(errorMessage, state.getErrorMessage());
         assertNull(state.getSuccessMessage());
     }
 
     @Test
     void testOneTimeTransactionStateSetters() {
-        SharedAccountOneTimeTransactionState state = new SharedAccountOneTimeTransactionState();
+        SharedOneTimeTransactionState state = new SharedOneTimeTransactionState();
 
         // Test setters
         state.setId("1");

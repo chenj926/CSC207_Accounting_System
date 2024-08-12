@@ -1,9 +1,9 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
@@ -15,17 +15,17 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserAccountOneTimeTransactionPresenterTest {
+class UserOneTimeTransactionPresenterTest {
 
-    private UserAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
-    private UserAccountOneTimeTransactionPresenter presenter;
+    private UserOneTimeTransactionPresenter presenter;
 
     @BeforeEach
     void setUp() {
-        viewModel = new UserAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new UserAccountOneTimeTransactionPresenter(viewModel, viewManager);
+        presenter = new UserOneTimeTransactionPresenter(viewModel, viewManager);
     }
 
     @Test
@@ -41,7 +41,7 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Salary", state.getTransactionDescription());
@@ -65,7 +65,7 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Groceries", state.getTransactionDescription());
@@ -85,14 +85,14 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareFailView(errorMessage);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals(errorMessage, state.getErrorMessage());
         assertNull(state.getSuccessMessage());
     }
 
     @Test
     void testOneTimeTransactionStateSetters() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
 
         // Test setters
         state.setId("1");
