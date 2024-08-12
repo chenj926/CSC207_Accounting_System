@@ -14,6 +14,10 @@ import java.util.Set;
 /**
  * The SharedAccountOneTimeTransactionInteractor class implements the TransactionInputBoundary
  * interface for handling one-time transactions for a shared account.
+ *
+ * @author Rita
+ * @author Xile
+ * @author Eric
  */
 public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactionInteractor<
         SharedAccountDataAccessInterface,
@@ -52,14 +56,12 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      */
     @Override
     public void execute(SharedAccountOneTimeTransactionInputData inputData) {
-        // Extract transaction details
         String sharedId = inputData.getSharedAccountId();
         String userId = inputData.getId();
         String stringAmount = inputData.getTransactionAmount();
         String date = inputData.getTransactionDate();
         String description = inputData.getTransactionDescription();
         String category = inputData.getTransactionCategory();
-//        Set<String> responsibleUserIds = inputData.getResponsibleUserIds();
 
         // Validate input fields
         if (!checkValid(stringAmount) || !checkValid(date) || !checkValid(description) || !checkValid(category)) {
@@ -81,12 +83,6 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
             return;
         }
 
-//        // Check if any responsible users are specified
-//        if (responsibleUserIds == null || responsibleUserIds.isEmpty()) {
-//            presenter.prepareFailView("At least one user must be responsible for the transaction.");
-//            return;
-//        }
-
         // Determine transaction type
         boolean isInflow = amount >= 0.0;
 
@@ -105,7 +101,6 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param date                 the transaction date
      * @param description          the transaction description
      * @param category             the transaction category
-//     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
     private void processInflow(String sharedId, String userId, float amount, LocalDate date, String description,
                                String category) {
@@ -142,7 +137,6 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
      * @param date                 the transaction date
      * @param description          the transaction description
      * @param category             the transaction category
-//     * @param responsibleUserIds   the set of user IDs responsible for the transaction
      */
     private void processOutflow(String sharedId, String userId, float amount, LocalDate date, String description,
                                 String category) {
@@ -170,6 +164,13 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         presenter.prepareSuccessView(outputData);
     }
 
+    /**
+     * Checks if the given user ID is valid within the specified shared account.
+     *
+     * @param sharedId the ID of the shared account
+     * @param userId   the ID of the user to check
+     * @return true if the user ID is valid within the shared account, false otherwise
+     */
     private boolean checkValidUserId(String sharedId, String userId) {
         SharedAccount account = this.userDataAccessObject.getById(sharedId);
         Set<String> userIds = account.getSharedUserIdentifications();
@@ -180,6 +181,13 @@ public class SharedAccountOneTimeTransactionInteractor extends OneTimeTransactio
         }
         return false;
     }
+
+    /**
+     * Creates an instance of SharedAccountOneTimeTransactionOutputData using the specified one-time transaction.
+     *
+     * @param transaction the one-time transaction used to create the output data
+     * @return a SharedAccountOneTimeTransactionOutputData object containing the transaction details
+     */
     @Override
     protected SharedAccountOneTimeTransactionOutputData createOutputData(OneTimeTransaction transaction) {
         return new SharedAccountOneTimeTransactionOutputData(transaction);

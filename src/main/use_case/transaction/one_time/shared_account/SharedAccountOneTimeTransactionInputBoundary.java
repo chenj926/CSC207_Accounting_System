@@ -8,6 +8,8 @@ import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
  * Implementations of this interface will handle the process of creating a one-time transaction using the provided input data,
  * with additional logic for handling shared accounts.
  *
+ * @author Rita
+ * @author Jessica
  */
 public interface SharedAccountOneTimeTransactionInputBoundary extends OneTimeTransactionInputBoundary<SharedAccountOneTimeTransactionInputData> {
 }

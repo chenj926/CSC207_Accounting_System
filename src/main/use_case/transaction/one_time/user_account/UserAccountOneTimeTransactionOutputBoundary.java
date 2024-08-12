@@ -8,13 +8,7 @@ import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
  *
  * @author Dana
  * @author Jessica
+ * @author Eric
  */
 public interface UserAccountOneTimeTransactionOutputBoundary extends OneTimeTransactionOutputBoundary<UserAccountOneTimeTransactionOutputData> {
-    // methods defined in TransactionOutputBoundary interface
-    /**
-     * Prepares the success view with the given transaction output data.
-     *
-     * @param outputData the transaction output data containing transaction information and new balance
-     */
-    void prepareSuccessView(UserAccountOneTimeTransactionOutputData outputData);
 }

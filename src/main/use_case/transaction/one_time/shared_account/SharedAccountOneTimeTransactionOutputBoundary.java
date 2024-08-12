@@ -8,12 +8,8 @@ import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
  * Implementations of this interface will handle the presentation logic for successful and failed one-time transaction
  * attempts for shared accounts.
  *
+ * @author Rita
+ * @author Eric
  */
 public interface SharedAccountOneTimeTransactionOutputBoundary extends OneTimeTransactionOutputBoundary<SharedAccountOneTimeTransactionOutputData> {
-    /**
-     * Prepares the success view with the given transaction output data.
-     *
-     * @param outputData the transaction output data containing transaction information and new balance
-     */
-    void prepareSuccessView(SharedAccountOneTimeTransactionOutputData outputData);
 }

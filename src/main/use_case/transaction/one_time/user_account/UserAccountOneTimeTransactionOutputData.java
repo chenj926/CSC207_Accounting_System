@@ -13,9 +13,6 @@ import use_case.transaction.one_time.OneTimeTransactionOutputData;
  */
 public class UserAccountOneTimeTransactionOutputData extends OneTimeTransactionOutputData {
 
-    // private float newBalance;
-    // private boolean useCaseFailed;
-
     /**
      * Constructs a UserAccountOneTimeTransactionOutputData object for an outflow transaction with the specified details.
      *
@@ -25,20 +22,4 @@ public class UserAccountOneTimeTransactionOutputData extends OneTimeTransactionO
         super(oneTimeTransaction);
         // this.useCaseFailed = false;
     }
-
-//    /**
-//     * Checks if the use case has failed.
-//     *
-//     * @return true if the use case has failed, false otherwise
-//     */
-//    public boolean isUseCaseFailed() {
-//        return this.useCaseFailed;
-//    }
-//
-//    /**
-//     * Sets the status of the use case failure.
-//     *
-//     * @param useCaseFailed the new status of the use case failure
-//     */
-//    public void setUseCaseFailed(boolean useCaseFailed) { this.useCaseFailed = useCaseFailed; }
 }

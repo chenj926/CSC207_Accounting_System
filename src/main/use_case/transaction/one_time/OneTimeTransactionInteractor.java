@@ -17,6 +17,8 @@ import java.time.LocalDate;
  *
  * @param <A> The type of account.
  * @param <O> The type of one-time transaction output data.
+ *
+ * @author Eric
  */
 public abstract class OneTimeTransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
@@ -41,6 +43,18 @@ public abstract class OneTimeTransactionInteractor<
         this.presenter = presenter;
     }
 
+    /**
+     * Executes the one-time transaction based on the provided input data.
+     * <p>
+     * This method validates the input data, parses the transaction amount and date, and then
+     * determines whether the transaction is an inflow or outflow. Depending on the type of transaction,
+     * it delegates the processing to either {@link #processInflow(String, float, LocalDate, String, String)}
+     * or {@link #processOutflow(String, float, LocalDate, String, String)}.
+     * </p>
+     *
+     * @param inputData the input data for the one-time transaction, which includes details such as the transaction amount,
+     *                  date, description, and category
+     */
     @Override
     public void execute(I inputData) {
         String identification = inputData.getId();
@@ -75,6 +89,19 @@ public abstract class OneTimeTransactionInteractor<
         }
     }
 
+    /**
+     * Processes an inflow transaction.
+     * <p>
+     * This method updates the account's total income and balance, creates an {@link OneTimeInflow} object,
+     * saves the transaction, and updates the account information in the database.
+     * </p>
+     *
+     * @param identification the unique identifier of the transaction
+     * @param amount the amount of the inflow transaction
+     * @param date the date of the transaction
+     * @param description the description of the transaction
+     * @param category the category of the transaction
+     */
     protected void processInflow(String identification, float amount, LocalDate date, String description, String category) {
         float totalIncome = this.account.getTotalIncome() + amount;
         this.account.setTotalIncome(totalIncome);  // update the total income
@@ -94,6 +121,19 @@ public abstract class OneTimeTransactionInteractor<
         presenter.prepareSuccessView(outputData);
     }
 
+    /**
+     * Processes an outflow transaction.
+     * <p>
+     * This method updates the account's total outflow and balance, creates an {@link OneTimeOutflow} object,
+     * saves the transaction, and updates the account information in the database.
+     * </p>
+     *
+     * @param identification the unique identifier of the transaction
+     * @param amount the amount of the outflow transaction
+     * @param date the date of the transaction
+     * @param description the description of the transaction
+     * @param category the category of the transaction
+     */
     protected void processOutflow(String identification, float amount, LocalDate date, String description, String category) {
         float totalOutflow = this.account.getTotalOutflow() + amount;
         this.account.setTotalOutflow(totalOutflow);  // update the total outflow
@@ -113,6 +153,16 @@ public abstract class OneTimeTransactionInteractor<
         presenter.prepareSuccessView(outputData);
     }
 
+    /**
+     * Creates output data for a one-time transaction.
+     * <p>
+     * This method should be implemented by subclasses to create the appropriate output data for the specific
+     * one-time transaction type.
+     * </p>
+     *
+     * @param transaction the one-time transaction to create output data for
+     * @return the output data for the one-time transaction
+     */
     protected abstract O createOutputData(OneTimeTransaction transaction);
 
 }

@@ -7,10 +7,13 @@ import use_case.transaction.one_time.OneTimeTransactionInputData;
  * that involves a shared account.
  * It includes details such as the transaction amount, date, description, category, the shared account identifier,
  * and the set of users responsible for the transaction.
+ *
+ * @author Rita
+ * @author Xile
+ * @author Eric
  */
 public class SharedAccountOneTimeTransactionInputData extends OneTimeTransactionInputData {
     private final String sharedAccountId;
-//    private final Set<String> userIds; // Changed from Map to Set to reflect user responsibilities
 
     /**
      * Constructs a SharedAccountOneTimeTransactionInputData object with the specified details.
@@ -30,10 +33,7 @@ public class SharedAccountOneTimeTransactionInputData extends OneTimeTransaction
             String sharedAccountId,
             String userId) {
         super(userId, transactionAmount, transactionDescription, transactionCategory, transactionDate);
-//        this.userIds = userIds;
         this.sharedAccountId = sharedAccountId;
-        // 需要user输入自己的id
-        // DAO 也要随之而改了
     }
 
     /**
@@ -44,14 +44,5 @@ public class SharedAccountOneTimeTransactionInputData extends OneTimeTransaction
     public String getSharedAccountId() {
         return sharedAccountId;
     }
-
-    /**
-     * Gets the set of user IDs responsible for the transaction.
-     *
-     * @return a set of user IDs responsible for the transaction
-     */
-//    public Set<String> getResponsibleUserIds() {
-//        return this.userIds;
-//    }
 }
 

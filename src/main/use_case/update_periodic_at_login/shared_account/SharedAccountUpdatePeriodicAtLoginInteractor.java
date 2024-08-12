@@ -11,6 +11,18 @@ import use_case.update_periodic_at_login.AccountUpdatePeriodicAtLoginInteractor;
 import java.time.LocalDate;
 import java.util.Map;
 
+/**
+ * The SharedAccountUpdatePeriodicAtLoginInteractor class handles the update of periodic transactions for shared accounts
+ * when a user logs in. It extends {@link AccountUpdatePeriodicAtLoginInteractor} and implements the
+ * {@link SharedAccountUpdatePeriodicAtLoginInputBoundary} interface.
+ * <p>
+ * This class processes periodic transactions based on the user’s login date, updating the shared account’s total income,
+ * total outflow, and balance. It interacts with the data access interface for shared accounts to read and save transactions
+ * and update account details.
+ * </p>
+ *
+ * @author Jessica
+ */
 public class SharedAccountUpdatePeriodicAtLoginInteractor extends AccountUpdatePeriodicAtLoginInteractor<
         SharedAccountDataAccessInterface,
         SharedAccount,
