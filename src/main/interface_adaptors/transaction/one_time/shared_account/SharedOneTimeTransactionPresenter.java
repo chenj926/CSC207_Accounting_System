@@ -6,20 +6,31 @@ import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransact
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputData;
 
 /**
- * The SharedOneTimeTransactionPresenter class implements the SharedAccountOneTimeTransactionOutputBoundary interface.
- * It handles the presentation logic for shared account one-time transactions, updating the view model and managing view transitions.
+ * The {@code SharedOneTimeTransactionPresenter} class implements the {@code SharedAccountOneTimeTransactionOutputBoundary}
+ * interface and handles the presentation logic for one-time transactions within shared accounts.
+ * It updates the view model with the transaction details and manages view transitions based on
+ * the outcome of the transaction process.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that the user
+ * interface reflects the current state of shared account one-time transactions and that view
+ * transitions are handled smoothly based on the transaction results.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Eric Chen, Xile Chen, Jessica
+ * </p>
  */
 public class SharedOneTimeTransactionPresenter extends OneTimeTransactionPresenter<
         SharedOneTimeTransactionViewModel,
         SharedOneTimeTransactionState>
         implements SharedAccountOneTimeTransactionOutputBoundary {
 
-
     /**
-     * Constructs a SharedOneTimeTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a {@code SharedOneTimeTransactionPresenter} object with the specified view model
+     * and view manager model.
      *
-     * @param viewModel   the view model to update the shared account one-time transaction state
-     * @param viewManager the view manager model to manage view transitions
+     * @param viewModel   the view model to update the shared account one-time transaction state.
+     * @param viewManager the view manager model to manage view transitions.
      */
     public SharedOneTimeTransactionPresenter(SharedOneTimeTransactionViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel, viewManager);
@@ -27,9 +38,10 @@ public class SharedOneTimeTransactionPresenter extends OneTimeTransactionPresent
 
     /**
      * Prepares the success view with the given shared account one-time transaction output data.
-     * Updates the transaction state and changes the view to the transaction view.
+     * Updates the transaction state in the view model with the details from the output data
+     * and changes the active view to the transaction view.
      *
-     * @param data the shared account one-time transaction output data containing transaction details and success status
+     * @param data the shared account one-time transaction output data containing transaction details and success status.
      */
     @Override
     public void prepareSuccessView(SharedAccountOneTimeTransactionOutputData data) {

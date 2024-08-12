@@ -5,22 +5,28 @@ import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransact
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInputData;
 
 /**
- * The SharedOneTimeTransactionController class is responsible for handling user interactions
+ * The {@code SharedOneTimeTransactionController} class is responsible for handling user interactions
  * related to one-time transactions for shared accounts. It communicates with the use case interactor
- * to execute the shared account one-time transaction process.
+ * to execute the shared account one-time transaction process and updates the view model accordingly.
+ * <p>
+ * This controller extends functionality to support the selection of responsible users for the transaction,
+ * ensuring that the transaction is correctly processed and reflected in the shared account.
+ * </p>
  *
- * This controller extends functionality to support the selection of responsible users for the transaction.
+ * <p>
+ * <b>Author:</b> Xile Chen, Eric Chen, Jessica Chen
+ * </p>
  */
 public class SharedOneTimeTransactionController extends OneTimeTransactionController<
         SharedAccountOneTimeTransactionInputBoundary,
         SharedOneTimeTransactionViewModel> {
 
     /**
-     * Constructs a SharedOneTimeTransactionController object with the specified use case interactor
+     * Constructs a {@code SharedOneTimeTransactionController} object with the specified use case interactor
      * and view model.
      *
-     * @param sharedAccountTransactionInteractor the use case interactor for shared account one-time transactions
-     * @param viewModel                          the view model to update the transaction state
+     * @param sharedAccountTransactionInteractor the use case interactor for shared account one-time transactions.
+     * @param viewModel                          the view model used to update the transaction state.
      */
     public SharedOneTimeTransactionController(
             SharedAccountOneTimeTransactionInputBoundary sharedAccountTransactionInteractor,
@@ -30,13 +36,15 @@ public class SharedOneTimeTransactionController extends OneTimeTransactionContro
 
     /**
      * Executes the shared account one-time transaction process with the given transaction details.
+     * This method creates a {@code SharedAccountOneTimeTransactionInputData} object containing the
+     * transaction details and passes it to the interactor for execution. It then resets the view model state.
      *
-     * @param amount               the amount of the transaction
-     * @param transactionDate      the date of the transaction
-     * @param transactionDescription the description of the transaction
-     * @param transactionCategory  the category of the transaction
-     * @param sharedAccountId      the identifier of the shared account
-     * @param userId   the set of user IDs responsible for the transaction
+     * @param amount               the amount of the transaction.
+     * @param transactionDate      the date of the transaction.
+     * @param transactionDescription the description of the transaction.
+     * @param transactionCategory  the category of the transaction.
+     * @param sharedAccountId      the identifier of the shared account.
+     * @param userId               the set of user IDs responsible for the transaction.
      */
     public void execute(
             String amount,
