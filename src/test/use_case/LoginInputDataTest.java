@@ -9,7 +9,6 @@ import use_case.login.LoginOutputData;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LoginInputDataTest {
-    private LoginInteractorTest.SimplePresenter presenter;
     private class ConcreteLoginInputData extends LoginInputData {
         public ConcreteLoginInputData(String identification, String password) {
             super(identification, password);
@@ -20,7 +19,6 @@ public class LoginInputDataTest {
     public void testConstructorAndGetters() {
         String password = "password123";
         String identification = "user123";
-        presenter = new LoginInteractorTest.SimplePresenter();
         ConcreteLoginInputData inputData = new ConcreteLoginInputData(identification, password);
 
         assertEquals(password, inputData.getPassword());

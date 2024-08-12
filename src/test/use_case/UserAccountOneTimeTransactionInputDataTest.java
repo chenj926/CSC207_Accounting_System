@@ -32,9 +32,9 @@ public class UserAccountOneTimeTransactionInputDataTest {
         OneTimeTransactionInputData inputData = new ConcreteOneTimeTransactionInputData(
                 identification,
                 transactionAmount,
-                transactionDate,
                 transactionDescription,
-                transactionCategory
+                transactionCategory,
+                transactionDate
         );
 
         assertEquals(transactionAmount, inputData.getTransactionAmount());
