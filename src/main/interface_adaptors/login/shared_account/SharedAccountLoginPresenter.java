@@ -6,10 +6,20 @@ import use_case.login.shared_account.SharedAccountLoginOutputBoundary;
 import use_case.login.shared_account.SharedAccountLoginOutputData;
 
 /**
- * The SharedAccountLoginPresenter class implements the LoginOutputBoundary interface.
- * It handles the presentation logic specifically for shared account login.
+ * The {@code SharedAccountLoginPresenter} class handles the presentation logic
+ * for shared account login, implementing the {@code SharedAccountLoginOutputBoundary}
+ * interface. It updates the view model and manages view transitions upon successful
+ * login.
+ * <p>
+ * This presenter is part of the presentation layer in the Clean Architecture, ensuring that
+ * the presentation logic is separated from the core business logic. It interacts with the
+ * view model to reflect the current state of the shared account login process and
+ * coordinates the transition to the appropriate view.
+ * </p>
  *
- * @author Xile Chen, Eric Chen
+ * <p>
+ * <b>Author:</b> Xile Chen, Jessica Chen, Eric Chen
+ * </p>
  */
 public class SharedAccountLoginPresenter extends LoginPresenter<
         SharedAccountLoginViewModel,
@@ -17,20 +27,22 @@ public class SharedAccountLoginPresenter extends LoginPresenter<
         SharedAccountLoginState> implements SharedAccountLoginOutputBoundary {
 
     /**
-     * Constructs a SharedAccountLoginPresenter object with the specified view manager model and shared account login view model.
+     * Constructs a {@code SharedAccountLoginPresenter} object with the specified view manager model
+     * and shared account login view model.
      *
-     * @param viewManagerModel            the view manager model to manage view transitions
-     * @param sharedAccountLoginViewModel the shared account login view model to update the shared account login state
+     * @param viewManagerModel            the view manager model responsible for managing view transitions.
+     * @param sharedAccountLoginViewModel the shared account login view model that updates the shared account login state.
      */
     public SharedAccountLoginPresenter(ViewManagerModel viewManagerModel, SharedAccountLoginViewModel sharedAccountLoginViewModel) {
         super(viewManagerModel, sharedAccountLoginViewModel);
     }
 
     /**
-     * Prepares the success view with the given shared account login output data.
-     * Updates the shared account login state and changes the view to the transaction view.
+     * Prepares the success view using the provided shared account login output data.
+     * This method updates the shared account login state with the identification and success message,
+     * triggers a property change event, and changes the active view to the shared account homepage.
      *
-     * @param userInfo the login output data containing user information and success status
+     * @param userInfo the login output data containing user information and success status.
      */
     @Override
     public void prepareSuccessView(SharedAccountLoginOutputData userInfo) {
