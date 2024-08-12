@@ -1,5 +1,28 @@
 package use_case.login;
 
+/**
+ * Abstract interactor class for handling the logic of the login use case.
+ * <p>
+ * This class defines the core structure for interacting with account data, processing login requests, and preparing the output view.
+ * It follows the input/output boundary pattern and is intended to be extended by specific implementations for different types of accounts or login mechanisms.
+ * </p>
+ *
+ * @param <T> the type of the data access object used to retrieve account data
+ * @param <O> the type of the output boundary for preparing the view
+ * @param <LO> the type of the output data for the login use case
+ * @param <I> the type of the input data required for the login use case
+ * @param <LM> the type of the mediator used to facilitate communication between components
+ *
+ * @see LoginInputBoundary
+ * @see LoginOutputBoundary
+ * @see LoginInputData
+ * @see LoginOutputData
+ * @see LoginMediator
+ *
+ * @author Eric
+ * @author Jessica
+ * @author Dana
+ */
 public abstract class LoginInteractor<
         T,
         O extends LoginOutputBoundary<LO>,

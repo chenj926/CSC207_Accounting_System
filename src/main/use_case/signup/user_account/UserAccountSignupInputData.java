@@ -5,7 +5,10 @@ import use_case.signup.SignupInputData;
 /**
  * The UserAccountSignupInputData class represents the base input data required for a signup operation.
  * It includes the username, password, and identification of the user.
- * This class serves as a superclass for specific signup types.
+ *
+ * @author Eric
+ * @author Dana
+ * @author Jessica
  */
 public class UserAccountSignupInputData extends SignupInputData {
     private final String username;
