@@ -51,7 +51,7 @@ public class SharedOneTimeTransactionController extends OneTimeTransactionContro
                 amount, transactionDate, transactionDescription, transactionCategory, sharedAccountId, userId);
 
         // Execute the transaction process using the interactor
-        oneTimeTransactionInteractor.execute(transactionInputData);
+        this.transactionInputBoundary.execute(transactionInputData);
 
         // Reset the view model state after processing the transaction
         this.viewModel.resetState();

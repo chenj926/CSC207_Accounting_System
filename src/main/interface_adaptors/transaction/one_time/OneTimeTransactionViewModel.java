@@ -7,13 +7,7 @@ import java.beans.PropertyChangeSupport;
 
 public abstract class OneTimeTransactionViewModel<S extends OneTimeTransactionState> extends TransactionViewModel {
     protected final String TITLE_LABEL = "One Time Transaction";
-    protected final String AMOUNT = "Transaction Amount";
     protected final String DATE = "Transaction Date";
-    protected final String DESCRIPTION = "Description";
-    protected final String CATEGORY_BUTTON = "Transaction Category";
-
-    protected final String SUBMIT_BUTTON = "Submit Transaction";
-    protected final String CANCEL_BUTTON = "Cancel";
 
     protected S state;
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
@@ -35,15 +29,6 @@ public abstract class OneTimeTransactionViewModel<S extends OneTimeTransactionSt
     }
 
     /**
-     * Gets the amount label.
-     *
-     * @return the amount label
-     */
-    public String getAmount() {
-        return this.AMOUNT;
-    }
-
-    /**
      * Gets the date label.
      *
      * @return the date label
@@ -53,39 +38,12 @@ public abstract class OneTimeTransactionViewModel<S extends OneTimeTransactionSt
     }
 
     /**
-     * Gets the description label.
-     *
-     * @return the description label
-     */
-    public String getDescription() {
-        return this.DESCRIPTION;
-    }
-
-    /**
      * Gets the category label.
      *
      * @return the category label
      */
     public String getCategoryButton() {
         return this.CATEGORY_BUTTON;
-    }
-
-    /**
-     * Gets the submit button label.
-     *
-     * @return the submit button label
-     */
-    public String getSubmitButton() {
-        return this.SUBMIT_BUTTON;
-    }
-
-    /**
-     * Gets the cancel button label.
-     *
-     * @return the cancel button label
-     */
-    public String getCancelButton() {
-        return this.CANCEL_BUTTON;
     }
 
     /**

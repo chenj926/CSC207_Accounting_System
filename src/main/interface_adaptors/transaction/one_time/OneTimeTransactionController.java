@@ -1,13 +1,11 @@
 package interface_adaptors.transaction.one_time;
 
+import interface_adaptors.transaction.TransactionController;
 import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
 
 public abstract class OneTimeTransactionController<
         I extends OneTimeTransactionInputBoundary,
-        V extends OneTimeTransactionViewModel> {
-
-    protected final I oneTimeTransactionInteractor;
-    protected final V viewModel;
+        V extends OneTimeTransactionViewModel> extends TransactionController<I, V> {
 
     /**
      * Constructs a OneTimeTransactionController object with the specified use case interactor and view model.
@@ -17,8 +15,7 @@ public abstract class OneTimeTransactionController<
      */
     public OneTimeTransactionController(I oneTimeTransactionInteractor,
                                         V viewModel) {
-        this.oneTimeTransactionInteractor = oneTimeTransactionInteractor;
-        this.viewModel = viewModel;
+        super(oneTimeTransactionInteractor, viewModel);
     }
 
 }

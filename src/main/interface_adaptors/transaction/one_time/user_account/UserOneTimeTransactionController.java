@@ -40,7 +40,7 @@ public class UserOneTimeTransactionController extends
         UserAccountOneTimeTransactionInputData userAccountOneTimeTransactionInputData = new UserAccountOneTimeTransactionInputData(
                 id, amount, transactionDate, transactionDescription, transactionCategory
         );
-        oneTimeTransactionInteractor.execute(userAccountOneTimeTransactionInputData);
+        this.transactionInputBoundary.execute(userAccountOneTimeTransactionInputData);
         this.viewModel.resetState();
     }
 }

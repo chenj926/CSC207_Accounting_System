@@ -1,23 +1,16 @@
 package interface_adaptors.transaction;
 
-/**
- * The TransactionController class is responsible for handling user interactions related to transactions.
- * It communicates with the ViewModel to update the transaction state.
- *
- * @author Xile
- */
-public class TransactionController {
-//    private final TransactionViewModel viewModel;
-//
-//    public TransactionController(TransactionViewModel viewModel) {
-//        this.viewModel = viewModel;
-//    }
-//
-//    public void selectOneTimeTransaction() {
-//        viewModel.selectOneTimeTransaction();
-//    }
-//
-//    public void selectPeriodicTransaction() {
-//        viewModel.selectPeriodicTransaction();
-//    }
+import use_case.transaction.TransactionInputBoundary;
+
+public abstract class TransactionController<
+        I extends TransactionInputBoundary,
+        V extends TransactionViewModel> {
+    protected final I transactionInputBoundary;
+    protected final V viewModel;
+
+    public TransactionController(I transactionInputBoundary, V viewModel) {
+        this.transactionInputBoundary = transactionInputBoundary;
+        this.viewModel = viewModel;
+    }
+
 }
