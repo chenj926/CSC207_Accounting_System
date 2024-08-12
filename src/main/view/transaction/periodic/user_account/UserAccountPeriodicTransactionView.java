@@ -11,18 +11,27 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * The UserAccountPeriodicTransactionView class represents the user interface for managing periodic transactions.
- * It extends JFrame and listens for changes in the associated view model to update the UI accordingly.
+ * The {@code UserAccountPeriodicTransactionView} class provides the graphical user interface for managing periodic transactions
+ * within a user account. This class extends {@link JFrame} and listens for changes in the associated view model to update
+ * the UI accordingly.
+ * <p>
+ * This class is part of the Clean Architecture's user interface layer, interacting with the
+ * {@link UserAccountPeriodicTransactionViewModel} to display data, and the {@link UserAccountPeriodicTransactionController}
+ * to handle transaction-related actions.
+ * </p>
  *
- * @author Jessica
- * @author Eric
+ * <p><b>Authors:</b> Jessica Chen, Eric Chen</p>
  */
 public class UserAccountPeriodicTransactionView extends JFrame implements PropertyChangeListener {
     private UserAccountPeriodicTransactionPanel userAccountPeriodicTransactionPanel;
     private UserAccountPeriodicTransactionViewModel viewModel;
 
     /**
-     * Constructs a UserAccountPeriodicTransactionView object with the specified view model, controller, and view manager.
+     * Constructs a {@code UserAccountPeriodicTransactionView} object with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the view with the necessary components and sets up event listeners to handle
+     * user interactions and updates from the view model.
+     * </p>
      *
      * @param viewModel                  the view model for the periodic transaction view
      * @param userAccountPeriodicTransactionController the controller handling periodic transaction actions
@@ -45,6 +54,9 @@ public class UserAccountPeriodicTransactionView extends JFrame implements Proper
 
     /**
      * Sets up the user interface layout for the periodic transaction view.
+     * <p>
+     * This method adds the {@code UserAccountPeriodicTransactionPanel} to the frame and configures the layout.
+     * </p>
      */
     private void setupUI() {
         this.getContentPane().add(userAccountPeriodicTransactionPanel, BorderLayout.CENTER);
@@ -52,7 +64,10 @@ public class UserAccountPeriodicTransactionView extends JFrame implements Proper
 
     /**
      * Responds to property changes in the view model by updating the UI.
-     * Displays a message dialog with the success or error message from the state.
+     * <p>
+     * This method listens for changes in the {@link UserAccountPeriodicTransactionViewModel} and
+     * displays either a success or error message in a dialog box based on the state of the transaction.
+     * </p>
      *
      * @param evt the property change event containing the new state
      */
@@ -70,6 +85,9 @@ public class UserAccountPeriodicTransactionView extends JFrame implements Proper
 
     /**
      * Makes the view visible and clears the fields in the periodic transaction panel when the view becomes visible.
+     * <p>
+     * This method ensures that all fields are reset when the view is displayed, preparing it for new user input.
+     * </p>
      *
      * @param visible whether the view should be visible
      */
