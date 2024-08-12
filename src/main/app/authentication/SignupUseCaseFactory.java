@@ -1,74 +1,51 @@
 package app.authentication;
 
 import data_access.DAOFactory;
-import data_access.account.SharedAccountDataAccessInterface;
-import data_access.authentication.SharedAccountSignupDataAccessInterface;
-import data_access.authentication.UserSignupDataAccessInterface;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
+import data_access.authentication.shared_account.SharedAccountSignupDataAccessInterface;
+import data_access.authentication.user_account.UserSignupDataAccessInterface;
 import entity.account.AccountFactory;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.signup.*;
-import interface_adaptors.signup.UserAccountSignupViewModel;
-import use_case.signup.*;
-import view.signup.SignupView;
-import view.signup.SharedAccountSignupView;
+import interface_adaptors.signup.shared_account.SharedAccountSignupController;
+import interface_adaptors.signup.shared_account.SharedAccountSignupPresenter;
+import interface_adaptors.signup.shared_account.SharedAccountSignupViewModel;
+import interface_adaptors.signup.user_account.UserAccountSignupController;
+import interface_adaptors.signup.user_account.UserAccountSignupPresenter;
+import interface_adaptors.signup.user_account.UserAccountSignupViewModel;
+import use_case.signup.shared_account.SharedAccountSignupInteractor;
+import use_case.signup.shared_account.SharedAccountSignupOutputBoundary;
+import use_case.signup.user_account.UserAccountSignupInteractor;
+import use_case.signup.user_account.UserAccountSignupOutputBoundary;
+import view.signup.user_account.UserAccountSignupView;
+import view.signup.shared_account.SharedAccountSignupView;
 
 import javax.swing.*;
 import java.io.IOException;
 
-/**
- * The SignupUseCaseFactory class is responsible for creating instances of SignupView and SharedAccountSignupView.
- * It also creates the necessary components for handling user account signup and shared account signup use cases.
- * This class ensures the proper initialization of the signup controllers and their dependencies.
- * @author Jessica
- * @author Eric
- * @author Zella
- */
 public class SignupUseCaseFactory {
 
     private SignupUseCaseFactory() {}
 
-    /**
-     * Creates and returns an instance of SignupView for user account signup.
-     *
-     * @param viewManagerModel the view manager model to manage view transitions
-     * @param userAccountSignupViewModel the view model to update the signup state
-     * @return an instance of SignupView
-     */
-    public static SignupView create(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
+    public static UserAccountSignupView create(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
         try {
             UserAccountSignupController userAccountSignupController = createUserSignupUseCase(viewManagerModel, userAccountSignupViewModel);
-            return new SignupView(userAccountSignupViewModel, userAccountSignupController, viewManagerModel);
+            return new UserAccountSignupView(userAccountSignupViewModel, userAccountSignupController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-    /**
-     * Creates and returns an instance of SharedAccountSignupView for shared account signup.
-     *
-     * @param viewManagerModel the view manager model to manage view transitions
-     * @param sharedSignupViewModel the view model to update the shared account signup state
-     * @return an instance of SharedAccountSignupView
-     */
-    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) {
+    public static SharedAccountSignupView createSharedAccount(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) {
         try {
-            SharedAccountSignupController sharedSignupController = createSharedAccountSignupUseCase(viewManagerModel, sharedSignupViewModel);
-            return new SharedAccountSignupView(sharedSignupViewModel, sharedSignupController, viewManagerModel);
+            SharedAccountSignupController sharedAccountSignupController = createSharedAccountSignupUseCase(viewManagerModel, sharedAccountSignupViewModel);
+            return new SharedAccountSignupView(sharedAccountSignupViewModel, sharedAccountSignupController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
         return null;
     }
 
-    /**
-     * Creates and returns an instance of UserAccountSignupController for user account signup.
-     *
-     * @param viewManagerModel the view manager model to manage view transitions
-     * @param userAccountSignupViewModel the view model to update the signup state
-     * @return an instance of UserAccountSignupController
-     * @throws IOException if an I/O error occurs
-     */
     private static UserAccountSignupController createUserSignupUseCase(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) throws IOException {
         UserSignupDataAccessInterface dataAccessObject = DAOFactory.getUserSignupDataAccessObject();
         UserAccountSignupOutputBoundary presenter = new UserAccountSignupPresenter(viewManagerModel, userAccountSignupViewModel);
@@ -78,28 +55,19 @@ public class SignupUseCaseFactory {
         UserAccountSignupInteractor signupInteractor = new UserAccountSignupInteractor(dataAccessObject, presenter, accountFactory);
 
         // Return the controller for standard signup
-        return new UserAccountSignupController(signupInteractor);
+        return new UserAccountSignupController(signupInteractor); // Pass null for Interactor
     }
 
-    /**
-     * Creates and returns an instance of SharedAccountSignupController for shared account signup.
-     *
-     * @param viewManagerModel the view manager model to manage view transitions
-     * @param sharedSignupViewModel the view model to update the shared account signup state
-     * @return an instance of SharedAccountSignupController
-     * @throws IOException if an I/O error occurs
-     */
-    private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedSignupViewModel) throws IOException {
+    private static SharedAccountSignupController createSharedAccountSignupUseCase(ViewManagerModel viewManagerModel, SharedAccountSignupViewModel sharedAccountSignupViewModel) throws IOException {
         SharedAccountSignupDataAccessInterface dataAccessObject = DAOFactory.getSharedAccountSignupDataAccessObject();
         SharedAccountDataAccessInterface sharedDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
-        SharedAccountSignupOutputBoundary presenter = new SharedAccountSignupPresenter(viewManagerModel, sharedSignupViewModel);
+        SharedAccountSignupOutputBoundary presenter = new SharedAccountSignupPresenter(viewManagerModel, sharedAccountSignupViewModel);
         AccountFactory accountFactory = new AccountFactory();
 
         SharedAccountSignupInteractor signupInteractor = new SharedAccountSignupInteractor(dataAccessObject, sharedDataAccessObject, presenter, accountFactory);
-        return new SharedAccountSignupController(signupInteractor);
+        return new SharedAccountSignupController(signupInteractor); // Pass null for sharedInteractor
     }
 }
-
 
 
 

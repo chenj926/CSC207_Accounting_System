@@ -1,12 +1,11 @@
 package data_access.account;
 
 import entity.account.Account;
-import entity.account.SharedAccount;
-import entity.account.UserAccount;
+import entity.account.shared_account.SharedAccount;
+import entity.account.user_account.UserAccount;
 import entity.transaction.Transaction;
-import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
+import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,10 +17,14 @@ import java.nio.file.StandardOpenOption;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.lang.String.valueOf;
 
-public abstract class CSVAccountDataAccessObject<A extends Account, O extends TransactionOutputData, P extends TransactionOutputData> {
+public abstract class CSVAccountDataAccessObject<
+        A extends Account,
+        O extends OneTimeTransactionOutputData,
+        P extends PeriodicTransactionOutputData> {
     protected final Path accountCsvPath;
     protected final Path transactionCsvPath;
     private final String csvHeader;
@@ -35,8 +38,8 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         this.transactionHeader = transactionHeader;
 
         try {
-            initializeCsvFile(accountCsvPath, csvHeader);
-            initializeTransactionFile(transactionCsvPath, transactionHeader);
+            initializeCsvFile(accountCsvPath, this.csvHeader);
+            initializeTransactionFile(transactionCsvPath, this.transactionHeader);
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Failed to initialize CSV file: " + e.getMessage());
@@ -113,14 +116,13 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
     public void saveTransaction(O oneTimeOutputData, P periodicOutputData, boolean isPeriodic) {
         if (!isPeriodic) {
             // create csv line with the user info
-            String userInfo = getTransactionInfo((OneTimeTransactionOutputData) oneTimeOutputData,
+            String userInfo = getTransactionInfo(oneTimeOutputData,
                     null, false);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
         } else{
             // create csv line with the user info
-            String userInfo = getTransactionInfo(null,
-                    (UserAccountPeriodicTransactionOutputData)periodicOutputData, true);
+            String userInfo = getTransactionInfo(null, periodicOutputData, true);
             // if csv not created, create it
             confirmCsvExistence(transactionCsvPath, userInfo);
 
@@ -147,7 +149,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         }
     }
 
-    protected static String getPeriodicTransactionInfo(UserAccountPeriodicTransactionOutputData periodicOutputData) {
+    protected String getPeriodicTransactionInfo(P periodicOutputData) {
         String id = periodicOutputData.getId();
         float amount = periodicOutputData.getTransactionAmount();
         String startDate = valueOf(periodicOutputData.getTransactionStartDate());
@@ -159,7 +161,7 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
     }
 
-    protected static String getOneTimeTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData) {
+    protected String getOneTimeTransactionInfo(O oneTimeOutputData) {
         String id = oneTimeOutputData.getId();
         System.out.println("output id"+id);
         float amount = oneTimeOutputData.getTransactionAmount();
@@ -169,8 +171,8 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
         return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
     }
 
-    protected String getTransactionInfo(OneTimeTransactionOutputData oneTimeOutputData,
-                                        UserAccountPeriodicTransactionOutputData periodicOutputData,
+    protected String getTransactionInfo(O oneTimeOutputData,
+                                        P periodicOutputData,
                                         boolean isPeriodic) {
         if (!isPeriodic) {
             return getOneTimeTransactionInfo(oneTimeOutputData);
@@ -212,14 +214,20 @@ public abstract class CSVAccountDataAccessObject<A extends Account, O extends Tr
                     String lastLoginDateString = valueOf(lastLoginDate);
 
                     if (account instanceof SharedAccount) {
-                        String userIds = ((SharedAccount) account).getSharedUserIdentifications().toString();
-                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, userIds, password,
+                        Set<String> userIds = ((SharedAccount) account).getSharedUserIdentifications();
+                        String stringUserIds = String.join(";", userIds);;
+
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, stringUserIds, password,
                                 income, outflow, balance, lastLoginDateString);
 
                     }else if (account instanceof UserAccount){
                         String username = ((UserAccount)account).getUsername();
-                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s", id, username, password,
-                                income, outflow, balance, lastLoginDateString);
+                        Set<String> sharedIds = ((UserAccount)account).getSharedAccounts();
+                        System.out.println(sharedIds);
+                        String stringSharedIds = String.join(";", sharedIds);
+                        System.out.println(stringSharedIds);
+                        updatedLine = String.format("%s,%s,%s,%.2f,%.2f,%.2f,%s,%s", id, username, password,
+                                income, outflow, balance, lastLoginDateString, stringSharedIds);
                     }
 
                     lines.add(updatedLine);

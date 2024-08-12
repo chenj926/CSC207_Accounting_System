@@ -1,9 +1,6 @@
 package interface_adaptors.transaction.one_time;
 
 import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionInteractor;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionInputBoundary;
 
 public abstract class AccountOneTimeTransactionController<
         I extends OneTimeTransactionInputBoundary,

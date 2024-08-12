@@ -1,7 +1,7 @@
 package use_case;
 
 import org.junit.Test;
-import use_case.signup.UserAccountSignupOutputData;
+import use_case.signup.user_account.UserAccountSignupOutputData;
 
 import static org.junit.Assert.*;
 

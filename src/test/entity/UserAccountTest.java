@@ -1,12 +1,8 @@
 package entity;
 
-import entity.account.UserAccount;
-import entity.transaction.Transaction;
+import entity.account.user_account.UserAccount;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 

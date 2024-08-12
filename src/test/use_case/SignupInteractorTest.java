@@ -1,14 +1,14 @@
 package use_case;
 
-import entity.account.UserAccount;
+import entity.account.user_account.UserAccount;
 import entity.account.AccountFactory;
-import data_access.authentication.UserSignupDataAccessInterface;
+import data_access.authentication.user_account.UserSignupDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.signup.UserAccountSignupInputData;
-import use_case.signup.UserAccountSignupInteractor;
-import use_case.signup.UserAccountSignupOutputBoundary;
-import use_case.signup.UserAccountSignupOutputData;
+import use_case.signup.user_account.UserAccountSignupInputData;
+import use_case.signup.user_account.UserAccountSignupInteractor;
+import use_case.signup.user_account.UserAccountSignupOutputBoundary;
+import use_case.signup.user_account.UserAccountSignupOutputData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -149,6 +149,11 @@ public class SignupInteractorTest {
         @Override
         public boolean existById(String identification) {
             return userDatabase.containsKey(identification);
+        }
+
+        @Override
+        public UserAccount getById(String identification) {
+            return null;
         }
 
         @Override

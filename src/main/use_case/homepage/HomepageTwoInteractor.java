@@ -1,9 +1,6 @@
 package use_case.homepage;
 
 import data_access.account.AccountDataAccessInterface;
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.Account;
-import entity.account.UserAccount;
 
 public abstract class HomepageTwoInteractor<
         DAO extends AccountDataAccessInterface,

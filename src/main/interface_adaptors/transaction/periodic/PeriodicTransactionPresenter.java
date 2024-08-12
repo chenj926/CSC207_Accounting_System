@@ -1,11 +1,8 @@
 package interface_adaptors.transaction.periodic;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.transaction.periodic.SharedAccountPeriodicTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
-import view.transaction.periodic.PeriodicTransactionView;
 
-public class PeriodicTransactionPresenter<V extends PeriodicTransactionViewModel,
+public abstract class PeriodicTransactionPresenter<V extends PeriodicTransactionViewModel,
         S extends PeriodicTransactionState> {
     protected final V viewModel;
     protected final ViewManagerModel viewManager;

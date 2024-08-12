@@ -33,8 +33,8 @@ public class TransactionViewModel extends ViewModel {
     /**
      * Constructs a TransactionViewModel object with the view name set to "Transaction".
      */
-    public TransactionViewModel() {
-        super("Transaction");
+    public TransactionViewModel(String viewName) {
+        super(viewName);
     }
 
     /**

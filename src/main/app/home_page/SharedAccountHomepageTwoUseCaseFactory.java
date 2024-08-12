@@ -1,14 +1,13 @@
 package app.home_page;
 
 import data_access.DAOFactory;
-import data_access.account.SharedAccountDataAccessInterface;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.SharedAccountHomepageTwoController;
-import interface_adaptors.homepage.SharedAccountHomepageTwoPresenter;
-import interface_adaptors.homepage.SharedAccountHomepageTwoViewModel;
-import use_case.homepage.SharedAccountHomepageTwoInteractor;
-import view.home_page.HomepageTwoView;
-import view.home_page.SharedAccountHomepageTwoView;
+import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoController;
+import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoPresenter;
+import interface_adaptors.homepage.shared_account.SharedAccountHomepageTwoViewModel;
+import use_case.homepage.shared_account.SharedAccountHomepageTwoInteractor;
+import view.home_page.shared_account.SharedAccountHomepageTwoView;
 
 import javax.swing.*;
 import java.io.IOException;
