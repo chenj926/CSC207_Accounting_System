@@ -1,4 +1,4 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financialReport;
 
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;

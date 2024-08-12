@@ -1,4 +1,4 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financialReport;
 
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportController;
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;

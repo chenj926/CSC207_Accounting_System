@@ -1,6 +1,5 @@
-package interface_adaptors.FinancialReport;
+package interface_adaptors.financialReport;
 
-import data_access.financial_report_api_accessor.TextToSpeech;
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportPresenter;
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportState;
