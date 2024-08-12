@@ -103,6 +103,16 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Associates a shared account ID with multiple user accounts.
+     * <p>
+     * This method takes a semicolon-separated string of user IDs and a shared account ID.
+     * It updates each user account to associate it with the specified shared account ID.
+     * </p>
+     *
+     * @param userIds a semicolon-separated string of user IDs to be associated with the shared account
+     * @param sharedId the unique identifier of the shared account to be associated with the user accounts
+     */
     public void saveSharedId(String userIds, String sharedId){
         String[] stringUserIds = userIds.split(";");
         // update all related user accounts
@@ -114,6 +124,17 @@ public class CSVUserAccountDataAccessObject extends CSVAccountDataAccessObject<
 
     }
 
+    /**
+     * Generates a CSV-formatted string containing the information of a user account.
+     * <p>
+     * This method retrieves various details from the provided {@link UserAccount} object, including
+     * the identification, username, password, financial information, last login date, and associated shared account IDs.
+     * It formats these details into a single string suitable for CSV output.
+     * </p>
+     *
+     * @param userAccount the {@link UserAccount} object containing the account details
+     * @return a CSV-formatted string representing the user account's information
+     */
     private static String getUserAccountInfo(UserAccount userAccount) {
         LocalDate lastLoginDate = userAccount.getLastLoginDate();
         String stringLastLoginDate = valueOf(lastLoginDate);

@@ -18,6 +18,13 @@ public class SharedAccountLoginMediator extends LoginMediator<
         SharedAccountLoginInputData,
         SharedAccountUpdatePeriodicAtLoginInputData> {
 
+    /**
+     * Constructs a {@code SharedAccountLoginMediator} with the specified interactors and data access interface.
+     *
+     * @param loginInputData the login input data
+     * @param updatePeriodicAtLoginInteractor the periodic transaction updater
+     * @param accountDataAccessObject the data access interface for shared accounts
+     */
     public SharedAccountLoginMediator(SharedAccountLoginInputBoundary loginInputData,
                                       SharedAccountUpdatePeriodicAtLoginInputBoundary updatePeriodicAtLoginInteractor,
                                       SharedAccountDataAccessInterface accountDataAccessObject){

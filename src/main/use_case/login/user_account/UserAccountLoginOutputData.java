@@ -22,22 +22,4 @@ public class UserAccountLoginOutputData extends LoginOutputData {
         super(identification, success);
 
     }
-
-//    /**
-//     * Checks if the login attempt was successful.
-//     *
-//     * @return true if the login attempt was successful, false otherwise
-//     */
-//    public String getIdentification() {
-//        return this.identification;
-//    }
-//
-//    /**
-//     * Checks if the login attempt was successful.
-//     *
-//     * @return true if the login attempt was successful, false otherwise
-//     */
-//    public boolean isSuccess() {
-//        return this.success;
-//    }
 }

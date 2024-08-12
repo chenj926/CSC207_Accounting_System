@@ -22,7 +22,9 @@ import java.util.List;
  * @see UserAccount
  * @see Transaction
  *
- * @author Chi Fong, Eric
+ * @author Chi Fong
+ * @author Eric
+ * @author Dana
  */
 public class UserAccountFinancialReportInteractor extends FinancialReportInteractor<
         UserAccountDataAccessInterface,
@@ -46,21 +48,6 @@ public class UserAccountFinancialReportInteractor extends FinancialReportInterac
                                                 UserAccountDataAccessInterface userAccountDataAccessInterface) {
         super(account, presenter, userAccountDataAccessInterface);
     }
-
-//    /**
-//     * Generates a financial report based on the provided input data and sends it to the output boundary.
-//     *
-//     *
-//     */
-//    @Override
-//    public void execute(UserAccountFinancialReportInputData inputData) {
-//        String reportContent = generateReportContent(inputData);
-//        // if there is at least 1 transaction
-//        if (!reportContent.equals("No transactions yet!")) {
-//            UserAccountFinancialReportOutputData outputData = this.createOutputData(reportContent);
-//            this.presenter.prepareSuccessView(outputData);
-//        }
-//    }
 
     /**
      * Generates the content of the financial report as a string.
@@ -106,6 +93,16 @@ public class UserAccountFinancialReportInteractor extends FinancialReportInterac
         return report.toString();
     }
 
+    /**
+     * Creates the output data object for the user account financial report based on the report content.
+     * <p>
+     * This method returns a new instance of {@link UserAccountFinancialReportOutputData} containing the generated
+     * report content.
+     * </p>
+     *
+     * @param reportContent the content of the financial report
+     * @return a {@link UserAccountFinancialReportOutputData} object containing the report content
+     */
     @Override
     protected UserAccountFinancialReportOutputData createOutputData(String reportContent) {
         return new UserAccountFinancialReportOutputData(reportContent);

@@ -21,22 +21,8 @@ import java.util.Map;
  * @author Eric
  * @author Jessica
  */
-
-// in memory DAO for test purposes
 public class InMemorySharedAccountDataAccessObject implements SharedAccountSignupDataAccessInterface, SharedAccountDataAccessInterface {
     private final Map<String, SharedAccount> shareAcc = new HashMap<>();
-
-
-
-//    @Override
-//    public boolean login(SharedAccount sharedAccount) {
-//        return shareAcc.containsKey(sharedAccount.getUsername());
-//    }
-//
-//    @Override
-//    public void saveTransaction(SharedAccountOneTimeTransactionOutputData outputData, SharedAccountPeriodicTransactionOutputData sharedPeriodicOutputData, boolean isPeriodic) {
-//
-//    }
 
 
     /**
@@ -59,12 +45,23 @@ public class InMemorySharedAccountDataAccessObject implements SharedAccountSignu
         shareAcc.put(newSharedAcc.getIdentification(), newSharedAcc);
     }
 
-
+    /**
+     * Saves a transaction for the shared account. The transaction can be either a one-time or periodic transaction.
+     *
+     * @param oneTimeOutputData the output data of the one-time transaction to be saved
+     * @param periodicOutputData the output data of the periodic transaction to be saved
+     * @param isPeriodic a flag indicating if the transaction is periodic
+     */
     public void saveTransaction(SharedAccountOneTimeTransactionOutputData oneTimeOutputData, SharedAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
 
     }
 
-
+    /**
+     * Reads transactions associated with a specific user ID.
+     *
+     * @param userId the unique identifier of the user whose transactions are to be retrieved
+     * @return a list of transactions associated with the specified user ID
+     */
     public List<Transaction> readTransactions(String userId) {
         return List.of();
     }
@@ -100,7 +97,12 @@ public class InMemorySharedAccountDataAccessObject implements SharedAccountSignu
         return shareAcc;
     }
 
-
+    /**
+     * Updates an existing shared account. If the account does not exist, an {@link IllegalArgumentException} is thrown.
+     *
+     * @param sharedAccount the {@link SharedAccount} object containing updated information
+     * @throws IllegalArgumentException if the shared account does not exist
+     */
     public void update(SharedAccount sharedAccount) {
         // Check if the account exists before updating
         if (shareAcc.containsKey(sharedAccount.getIdentification())) {

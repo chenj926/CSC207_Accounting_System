@@ -10,29 +10,30 @@
      * </p>
      *
      * @author Dana
+     * @author Eric
      */
     public interface SharedAccountLoginDataAccessInterface{
 
         /**
-         * Checks if a user account exists for the given identification.
+         * Checks if a shared account exists for the given identification.
          *
-         * @param identification the unique identifier for the user account
-         * @return {@code true} if a user account exists with the specified identification; {@code false} otherwise
+         * @param identification the unique identifier for the shared account
+         * @return {@code true} if a shared account exists with the specified identification; {@code false} otherwise
          */
         boolean existById(String identification);
 
         /**
-         * Retrieves a user account by its unique identification.
+         * Retrieves a shared account by its unique identification.
          *
-         * @param identification the unique identifier for the user account
-         * @return the UserAccount associated with the specified identification
+         * @param identification the unique identifier for the shared account
+         * @return the SharedAccount associated with the specified identification
          */
         SharedAccount getById(String identification);
 
         /**
-         * Performs login operations for the specified user account.
+         * Performs login operations for the specified shared account.
          *
-         * @param sharedAccount the UserAccount to be logged in
+         * @param sharedAccount the SharedAccount to be logged in
          * @return {@code true} if the login is successful; {@code false} otherwise
          */
         boolean login(SharedAccount sharedAccount);

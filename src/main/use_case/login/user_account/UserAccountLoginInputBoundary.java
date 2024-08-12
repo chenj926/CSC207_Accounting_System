@@ -9,11 +9,4 @@ import use_case.login.LoginInputBoundary;
  * @author Dana
  */
 public interface UserAccountLoginInputBoundary extends LoginInputBoundary<UserAccountLoginInputData> {
-//
-//    /**
-//     * Executes the login process with the given input data.
-//     *
-//     * @param loginInputData the input data required for the login process
-//     */
-//    void execute(UserAccountLoginInputData loginInputData);
 }

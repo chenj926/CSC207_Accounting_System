@@ -3,7 +3,8 @@ package use_case.financial_report;
 /**
  * Output data for presenting financial reports.
  *
- * @author :Dana
+ * @author Dana
+ * @author Chi Fong
  */
 public abstract class FinancialReportOutputData {
     private final String reportContent;

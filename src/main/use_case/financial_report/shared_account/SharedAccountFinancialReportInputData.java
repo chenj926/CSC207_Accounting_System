@@ -5,7 +5,7 @@ import use_case.financial_report.FinancialReportInputData;
 /**
  * Input data for generating financial reports.
  *
- * @author :Dana
+ * @author Dana
  */
 public class SharedAccountFinancialReportInputData extends FinancialReportInputData {
 
@@ -14,7 +14,6 @@ public class SharedAccountFinancialReportInputData extends FinancialReportInputD
      *
      * @param identification the account ID
      */
-
     public SharedAccountFinancialReportInputData(String identification) {
         super(identification);
     }

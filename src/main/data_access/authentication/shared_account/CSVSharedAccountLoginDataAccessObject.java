@@ -7,6 +7,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
 
+/**
+ * Data access object (DAO) for handling login operations for shared accounts using CSV files.
+ * <p>
+ * This class extends {@link CSVSharedAccountDataAccessObject} and implements {@link SharedAccountLoginDataAccessInterface}.
+ * It provides functionality to log in users by verifying their identification and password against the data stored in a CSV file.
+ * </p>
+ *
+ * @author Eric
+ */
 public class CSVSharedAccountLoginDataAccessObject extends CSVSharedAccountDataAccessObject implements SharedAccountLoginDataAccessInterface {
 
     /**

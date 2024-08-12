@@ -97,6 +97,16 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
         System.out.println("not implemented yet");
     }
 
+    /**
+     * Reads transactions associated with a specific user ID.
+     * <p>
+     * This method retrieves all one-time transactions associated with the provided user ID.
+     * Periodic transactions are excluded from the results.
+     * </p>
+     *
+     * @param userId the unique identifier of the user whose transactions are to be retrieved
+     * @return a list of transactions associated with the specified user ID, excluding periodic transactions
+     */
     @Override
     public List<Transaction> readTransactions(String userId) {
         List<Transaction> transactions = new ArrayList<>();
@@ -104,10 +114,4 @@ public class InMemoryPeriodicDataAccessObject implements UserAccountDataAccessIn
         transactions.removeIf(transaction -> transaction instanceof OneTimeTransaction);
         return transactions;
     }
-
-//    @Override
-//    public List<Transaction> readTransactions(String identification) {
-//        List<Transaction> transactions = new ArrayList<>();
-//        return transactions;
-//    }
 }
