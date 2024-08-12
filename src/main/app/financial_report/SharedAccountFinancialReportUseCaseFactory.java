@@ -1,4 +1,4 @@
-package app.FinancialReport;
+package app.financial_report;
 
 import data_access.DAOFactory;
 import data_access.account.shared_account.SharedAccountDataAccessInterface;

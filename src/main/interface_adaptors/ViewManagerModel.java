@@ -1,6 +1,6 @@
 package interface_adaptors;
 
-import app.FinancialReport.SharedAccountFinancialReportUseCaseFactory;
+import app.financial_report.SharedAccountFinancialReportUseCaseFactory;
 import app.authentication.SharedAccountLoginUseCaseFactory;
 import app.authentication.UserAccountLoginUseCaseFactory;
 //import app.authentication.LogoutUseCaseFactory;
@@ -11,7 +11,7 @@ import app.home_page.SharedAccountHomepageTwoUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
-import app.FinancialReport.FinancialReportUseCaseFactory;
+import app.financial_report.FinancialReportUseCaseFactory;
 import app.transaction.SharedAccountOneTimeTransactionUseCaseFactory;
 import app.transaction.SharedAccountPeriodicTransactionUseCaseFactory;
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
