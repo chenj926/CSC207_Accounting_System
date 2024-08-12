@@ -2,7 +2,6 @@ package interface_adaptors.financial_report;
 
 import interface_adaptors.ViewManagerModel;
 import use_case.financial_report.FinancialReportOutputData;
-import use_case.financial_report.UserAccountFinancialReportOutputData;
 
 
 public abstract class FinancialReportPresenter<

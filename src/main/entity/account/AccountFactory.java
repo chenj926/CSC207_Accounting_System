@@ -1,5 +1,8 @@
 package entity.account;
 
+import entity.account.shared_account.SharedAccount;
+import entity.account.user_account.UserAccount;
+
 import java.util.Set;
 
 /**

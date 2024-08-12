@@ -1,9 +1,6 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.transaction.one_time.OneTimeTransactionOutputBoundary;
-import use_case.transaction.one_time.OneTimeTransactionOutputData;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
 
 public abstract class AccountOneTimeTransactionPresenter<
         V extends AccountOneTimeTransactionViewModel<S>,

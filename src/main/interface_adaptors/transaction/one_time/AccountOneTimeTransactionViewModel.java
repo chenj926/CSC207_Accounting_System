@@ -1,11 +1,12 @@
 package interface_adaptors.transaction.one_time;
 
 import interface_adaptors.ViewModel;
+import interface_adaptors.transaction.TransactionViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTimeTransactionState> extends ViewModel {
+public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTimeTransactionState> extends TransactionViewModel {
     protected final String TITLE_LABEL = "One Time Transaction";
     protected final String AMOUNT = "Transaction Amount";
     protected final String DATE = "Transaction Date";

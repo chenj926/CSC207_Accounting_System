@@ -1,7 +1,7 @@
 package use_case;
 
 import org.junit.jupiter.api.Test;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionInputData;
+import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionInputData;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

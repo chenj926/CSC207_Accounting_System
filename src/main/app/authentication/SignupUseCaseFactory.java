@@ -1,16 +1,23 @@
 package app.authentication;
 
 import data_access.DAOFactory;
-import data_access.account.SharedAccountDataAccessInterface;
-import data_access.authentication.SharedAccountSignupDataAccessInterface;
-import data_access.authentication.UserSignupDataAccessInterface;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
+import data_access.authentication.shared_account.SharedAccountSignupDataAccessInterface;
+import data_access.authentication.user_account.UserSignupDataAccessInterface;
 import entity.account.AccountFactory;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.signup.*;
-import interface_adaptors.signup.UserAccountSignupViewModel;
-import use_case.signup.*;
-import view.signup.SignupView;
-import view.signup.SharedAccountSignupView;
+import interface_adaptors.signup.shared_account.SharedAccountSignupController;
+import interface_adaptors.signup.shared_account.SharedAccountSignupPresenter;
+import interface_adaptors.signup.shared_account.SharedAccountSignupViewModel;
+import interface_adaptors.signup.user_account.UserAccountSignupController;
+import interface_adaptors.signup.user_account.UserAccountSignupPresenter;
+import interface_adaptors.signup.user_account.UserAccountSignupViewModel;
+import use_case.signup.shared_account.SharedAccountSignupInteractor;
+import use_case.signup.shared_account.SharedAccountSignupOutputBoundary;
+import use_case.signup.user_account.UserAccountSignupInteractor;
+import use_case.signup.user_account.UserAccountSignupOutputBoundary;
+import view.signup.user_account.UserAccountSignupView;
+import view.signup.shared_account.SharedAccountSignupView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -19,10 +26,10 @@ public class SignupUseCaseFactory {
 
     private SignupUseCaseFactory() {}
 
-    public static SignupView create(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
+    public static UserAccountSignupView create(ViewManagerModel viewManagerModel, UserAccountSignupViewModel userAccountSignupViewModel) {
         try {
             UserAccountSignupController userAccountSignupController = createUserSignupUseCase(viewManagerModel, userAccountSignupViewModel);
-            return new SignupView(userAccountSignupViewModel, userAccountSignupController, viewManagerModel);
+            return new UserAccountSignupView(userAccountSignupViewModel, userAccountSignupController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

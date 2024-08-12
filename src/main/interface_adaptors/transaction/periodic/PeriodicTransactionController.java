@@ -1,9 +1,6 @@
 package interface_adaptors.transaction.periodic;
 
 import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.PeriodicTransactionInputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionInputBoundary;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionInputData;
 
 public abstract class PeriodicTransactionController<
         I extends PeriodicTransactionInputBoundary,

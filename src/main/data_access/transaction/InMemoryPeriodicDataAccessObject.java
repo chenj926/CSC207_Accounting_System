@@ -1,12 +1,11 @@
 package data_access.transaction;
 
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
+import data_access.account.user_account.UserAccountDataAccessInterface;
+import entity.account.user_account.UserAccount;
 import entity.transaction.Transaction;
 import entity.transaction.one_time.OneTimeTransaction;
-import entity.transaction.periodic.PeriodicTransaction;
-import use_case.transaction.one_time.UserAccountOneTimeTransactionOutputData;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputData;
+import use_case.transaction.one_time.user_account.UserAccountOneTimeTransactionOutputData;
+import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionOutputData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,15 +1,15 @@
 package app.transaction;
 
 import data_access.DAOFactory;
-import data_access.account.UserAccountDataAccessInterface;
-import entity.account.UserAccount;
+import data_access.account.user_account.UserAccountDataAccessInterface;
+import entity.account.user_account.UserAccount;
 import interface_adaptors.*;
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionController;
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionPresenter;
-import interface_adaptors.transaction.periodic.UserAccountPeriodicTransactionViewModel;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionInteractor;
-import use_case.transaction.periodic.UserAccountPeriodicTransactionOutputBoundary;
-import view.transaction.periodic.PeriodicTransactionView;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionController;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionPresenter;
+import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionViewModel;
+import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionInteractor;
+import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionOutputBoundary;
+import view.transaction.periodic.user_account.UserAccountPeriodicTransactionView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -17,12 +17,12 @@ import java.io.IOException;
 public class PeriodicTransactionUseCaseFactory {
     private PeriodicTransactionUseCaseFactory() {}
 
-    public static PeriodicTransactionView create(ViewManagerModel viewManagerModel,
-                                                 UserAccountPeriodicTransactionViewModel viewModel) {
+    public static UserAccountPeriodicTransactionView create(ViewManagerModel viewManagerModel,
+                                                            UserAccountPeriodicTransactionViewModel viewModel) {
         try {
             UserAccountPeriodicTransactionController userAccountPeriodicTransactionController = createUserPeriodicUseCase(viewManagerModel,
                     viewModel);
-            return new PeriodicTransactionView(viewModel, userAccountPeriodicTransactionController, viewManagerModel);
+            return new UserAccountPeriodicTransactionView(viewModel, userAccountPeriodicTransactionController, viewManagerModel);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }

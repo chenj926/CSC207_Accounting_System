@@ -1,13 +1,13 @@
 package app.home_page;
 
 import data_access.DAOFactory;
-import data_access.account.UserAccountDataAccessInterface;
+import data_access.account.user_account.UserAccountDataAccessInterface;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.homepage.UserAccountHomepageTwoController;
-import interface_adaptors.homepage.UserAccountHomepageTwoPresenter;
-import interface_adaptors.homepage.UserAccountHomepageTwoViewModel;
-import use_case.homepage.UserAccountHomepageTwoInteractor;
-import view.home_page.HomepageTwoView;
+import interface_adaptors.homepage.user_account.UserAccountHomepageTwoController;
+import interface_adaptors.homepage.user_account.UserAccountHomepageTwoPresenter;
+import interface_adaptors.homepage.user_account.UserAccountHomepageTwoViewModel;
+import use_case.homepage.user_account.UserAccountHomepageTwoInteractor;
+import view.home_page.user_account.UserAccountHomepageTwoView;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -16,11 +16,11 @@ public class HomepageTwoUseCaseFactory {
     private HomepageTwoUseCaseFactory() {
     }
 
-    public static HomepageTwoView create(ViewManagerModel viewManagerModel,
-                                             UserAccountHomepageTwoViewModel viewModel) {
+    public static UserAccountHomepageTwoView create(ViewManagerModel viewManagerModel,
+                                                    UserAccountHomepageTwoViewModel viewModel) {
         try {
             UserAccountHomepageTwoController userAccountHomepageTwoController = createHomepageTwoUseCase(viewManagerModel, viewModel);
-            return new HomepageTwoView(viewModel, viewManagerModel, userAccountHomepageTwoController);
+            return new UserAccountHomepageTwoView(viewModel, viewManagerModel, userAccountHomepageTwoController);
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, "Could not open user data file.");
         }
