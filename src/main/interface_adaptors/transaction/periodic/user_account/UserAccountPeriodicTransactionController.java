@@ -5,11 +5,27 @@ import use_case.transaction.periodic.user_account.UserAccountPeriodicTransaction
 import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionInputData;
 
 /**
- * The UserAccountPeriodicTransactionController class is responsible for handling user interactions related to periodic transactions.
- * It communicates with the use case interactor to execute the periodic transaction process.
+ * The {@code UserAccountPeriodicTransactionController} class is responsible for handling user interactions
+ * related to periodic transactions within the context of a user account. Adhering to the principles of
+ * Clean Architecture, this controller serves as a mediator between the UI and the use case interactor,
+ * ensuring that the business logic is decoupled from the presentation layer.
  *
- * @author Xile
- * @author Eric
+ * <p>This controller interacts with the {@link UserAccountPeriodicTransactionInputBoundary} to execute the
+ * periodic transaction process and updates the state of the view through the
+ * {@link UserAccountPeriodicTransactionViewModel}.</p>
+ *
+ * <p>Note that this class is authored by Jessica Chen and adheres to Clean Architecture by ensuring a clear
+ * separation of concerns.</p>
+ *
+ * <p>Jessica Chen's role in the project is to maintain a clean and maintainable codebase while applying
+ * best practices in software architecture.</p>
+ *
+ * <p>The class is also co-authored by Eric Chen, contributing to the implementation of the periodic transaction
+ * process.</p>
+ *
+ * @see PeriodicTransactionController
+ * @see UserAccountPeriodicTransactionInputBoundary
+ * @see UserAccountPeriodicTransactionViewModel
  */
 public class UserAccountPeriodicTransactionController extends PeriodicTransactionController<
         UserAccountPeriodicTransactionInputBoundary,

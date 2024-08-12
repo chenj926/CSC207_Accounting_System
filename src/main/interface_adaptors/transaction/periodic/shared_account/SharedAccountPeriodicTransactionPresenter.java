@@ -6,16 +6,33 @@ import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransac
 import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransactionOutputData;
 
 /**
- * The SharedAccountPeriodicTransactionPresenter class implements the UserAccountPeriodicTransactionOutputBoundary interface.
- * It handles the presentation logic for shared account periodic transactions, updating the view model and managing view transitions.
+ * The {@code SharedAccountPeriodicTransactionPresenter} class implements the {@link SharedAccountPeriodicTransactionOutputBoundary}
+ * interface and is responsible for handling the presentation logic associated with shared account periodic transactions.
+ * This class adheres to Clean Architecture principles by ensuring that the presentation layer is decoupled from
+ * the business logic, allowing for a more maintainable and scalable application structure.
  *
+ * <p>This presenter updates the {@link SharedAccountPeriodicTransactionViewModel} with transaction details
+ * and manages view transitions through the {@link ViewManagerModel}. It is designed to handle the flow of
+ * data from the output boundary to the user interface, preparing the success view and managing any necessary
+ * state changes within the view model.</p>
+ *
+ * <p>The {@code SharedAccountPeriodicTransactionPresenter} class is authored by Xile Chen, Jessica Chen,
+ * and Eric Chen, with a focus on following Clean Architecture principles to maintain a clean, maintainable,
+ * and scalable codebase.</p>
+ *
+ * @see SharedAccountPeriodicTransactionOutputBoundary
+ * @see PeriodicTransactionPresenter
+ * @see SharedAccountPeriodicTransactionViewModel
+ * @see ViewManagerModel
  */
 public class SharedAccountPeriodicTransactionPresenter
         extends PeriodicTransactionPresenter<SharedAccountPeriodicTransactionViewModel, SharedAccountPeriodicTransactionState>
         implements SharedAccountPeriodicTransactionOutputBoundary {
 
     /**
-     * Constructs a SharedAccountPeriodicTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a {@code SharedAccountPeriodicTransactionPresenter} object with the specified view model
+     * and view manager model. This constructor initializes the presenter, ensuring that the view model
+     * and view manager are appropriately linked for handling shared account periodic transaction presentations.
      *
      * @param viewModel   the view model to update the shared account periodic transaction state
      * @param viewManager the view manager model to manage view transitions
@@ -25,8 +42,9 @@ public class SharedAccountPeriodicTransactionPresenter
     }
 
     /**
-     * Prepares the success view with the given shared account periodic transaction output data.
-     * Updates the transaction state and changes the view to the transaction view.
+     * Prepares the success view with the given shared account periodic transaction output data. This method
+     * updates the transaction state in the view model and triggers the appropriate view transition to display
+     * the transaction results to the user.
      *
      * @param data the shared account periodic transaction output data containing transaction details and success status
      */
