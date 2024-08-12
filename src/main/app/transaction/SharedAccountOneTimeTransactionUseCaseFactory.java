@@ -14,9 +14,32 @@ import view.transaction.one_time.shared_account.SharedAccountOneTimeTransactionV
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The SharedAccountOneTimeTransactionUseCaseFactory class is responsible for creating and initializing the components
+ * required for handling one-time transactions in shared accounts. This factory class sets up the interactor, presenter,
+ * controller, and view for the one-time transaction use case.
+ * <p>
+ * It provides a static method to create a view, which internally sets up all the necessary components using a factory
+ * method and handles potential exceptions related to file operations.
+ * </p>
+ *
+ * @author Xile
+ * @author Eric
+ */
 public class SharedAccountOneTimeTransactionUseCaseFactory {
+
+    /**
+     * Private constructor to prevent instantiation of this factory class.
+     */
     private SharedAccountOneTimeTransactionUseCaseFactory() {}
 
+    /**
+     * Creates and returns a {@link SharedAccountOneTimeTransactionView} initialized with the required components.
+     *
+     * @param viewManagerModel the view manager model used to manage the view state
+     * @param oneTimeTransactionViewModel the view model for one-time transactions
+     * @return a {@link SharedAccountOneTimeTransactionView} instance if successful, or null if an IOException occurs
+     */
     public static SharedAccountOneTimeTransactionView create(ViewManagerModel viewManagerModel,
                                                 SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) {
         try {
@@ -29,6 +52,15 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and initializes the components required for handling one-time transactions in shared accounts.
+     * This includes creating the data access object, presenter, interactor, and controller.
+     *
+     * @param viewManagerModel the view manager model used to manage the view state
+     * @param oneTimeTransactionViewModel the view model for one-time transactions
+     * @return a {@link SharedOneTimeTransactionController} instance
+     * @throws IOException if an error occurs while accessing user data
+     */
     private static SharedOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
                                                                                         SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();

@@ -14,12 +14,31 @@ import view.financial_report.shared_account.SharedAccountFinancialReportView;
 import javax.swing.*;
 import java.io.IOException;
 
-
+/**
+ * The SharedAccountFinancialReportUseCaseFactory class is responsible for creating and initializing
+ * the components required for generating financial reports for shared accounts. This factory sets up
+ * the interactor, presenter, controller, and view needed for this use case.
+ * <p>
+ * It provides a static method to create a view, which internally sets up all the necessary components and handles
+ * potential exceptions related to file operations.
+ * </p>
+ *
+ * @author Eric
+ */
 public class SharedAccountFinancialReportUseCaseFactory {
+
+    /**
+     * Private constructor to prevent instantiation of this factory class.
+     */
     private SharedAccountFinancialReportUseCaseFactory() {}
 
-    // ia很多没写所以红了，先comment掉
-
+    /**
+     * Creates and returns a {@link SharedAccountFinancialReportView} initialized with the required components.
+     *
+     * @param viewManager the view manager model used to manage the view state
+     * @param viewModel the view model for the financial report functionality
+     * @return a {@link SharedAccountFinancialReportView} instance if successful, or null if an IOException occurs
+     */
     public static SharedAccountFinancialReportView create(ViewManagerModel viewManager,
                                                           SharedAccountFinancialReportViewModel viewModel) {
         try {
@@ -31,6 +50,15 @@ public class SharedAccountFinancialReportUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and initializes the components required for generating financial reports for shared accounts.
+     * This includes creating the data access object, presenter, interactor, and controller.
+     *
+     * @param viewManagerModel the view manager used to manage the view state
+     * @param viewModel the view model for the financial report functionality
+     * @return a {@link SharedAccountFinancialReportController} instance
+     * @throws IOException if an error occurs while accessing user data
+     */
     private static SharedAccountFinancialReportController createSharedAccountFinancialReportUseCase(ViewManagerModel viewManagerModel,
                                                                           SharedAccountFinancialReportViewModel viewModel) throws IOException {
         SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getSharedAccountFinancialReportDAO();

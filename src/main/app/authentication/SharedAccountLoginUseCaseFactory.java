@@ -16,8 +16,28 @@ import view.login.shared_account.SharedAccountLoginView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The SharedAccountLoginUseCaseFactory class is responsible for creating and initializing
+ * the components required for shared account login functionality. This factory sets up
+ * the interactors, controllers, presenters, and views necessary for shared account login.
+ * <p>
+ * It provides a static method to create a view for shared account login and handles
+ * any potential exceptions related to file operations.
+ * </p>
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class SharedAccountLoginUseCaseFactory {
 
+    /**
+     * Creates and returns a {@link SharedAccountLoginView} initialized with the required components
+     * for shared account login functionality.
+     *
+     * @param viewManagerModel the view manager model used to manage the view state
+     * @param viewModel the view model for shared account login functionality
+     * @return a {@link SharedAccountLoginView} instance if successful, or null if an IOException occurs
+     */
     public static SharedAccountLoginView create(ViewManagerModel viewManagerModel,
                                                 SharedAccountLoginViewModel viewModel) {
         try {
@@ -29,6 +49,15 @@ public class SharedAccountLoginUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and initializes the components required for shared account login functionality.
+     * This includes creating the data access objects, interactor, presenter, and controller.
+     *
+     * @param viewManagerModel the view manager used to manage the view state
+     * @param viewModel the view model for shared account login functionality
+     * @return a {@link SharedAccountLoginController} instance
+     * @throws IOException if an error occurs while accessing user data
+     */
     private static SharedAccountLoginController createSharedAccountUserLoginUseCase(ViewManagerModel viewManagerModel,
                                                                                     SharedAccountLoginViewModel viewModel) throws IOException {
         SharedAccountLoginDataAccessInterface loginDataAccessObject = DAOFactory.getSharedAccountLoginDataAccessObject();

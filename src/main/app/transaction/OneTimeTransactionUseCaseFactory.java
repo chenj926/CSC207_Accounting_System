@@ -14,9 +14,23 @@ import view.transaction.one_time.user_account.UserAccountOneTimeTransactionView;
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The OneTimeTransactionUseCaseFactory class is responsible for creating and initializing the components required
+ * for handling one-time transactions in user accounts. This factory sets up the interactor, presenter, controller,
+ * and view for the one-time transaction use case.
+ * <p>
+ * It provides a static method to create a view, which internally sets up all the necessary components and handles
+ * potential exceptions related to file operations.
+ * </p>
+ *
+ * @author Eric
+ */
 public class OneTimeTransactionUseCaseFactory {
     private OneTimeTransactionUseCaseFactory() {}
 
+    /**
+     * Private constructor to prevent instantiation of this factory class.
+     */
     public static UserAccountOneTimeTransactionView create(ViewManagerModel viewManagerModel,
                                                            UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) {
         try {
@@ -29,6 +43,13 @@ public class OneTimeTransactionUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and returns a {@link UserAccountOneTimeTransactionView} initialized with the required components.
+     *
+     * @param viewManagerModel the view manager model used to manage the view state
+     * @param userAccountOneTimeTransactionViewModel the view model for one-time transactions
+     * @return a {@link UserAccountOneTimeTransactionView} instance if successful, or null if an IOException occurs
+     */
     private static UserOneTimeTransactionController createUserOneTimeUseCase(ViewManagerModel viewManagerModel,
                                                                              UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getOneTimeTransactionDAO();
