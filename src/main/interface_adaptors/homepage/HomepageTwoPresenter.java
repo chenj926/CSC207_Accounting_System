@@ -1,7 +1,7 @@
 package interface_adaptors.homepage;
 
 import interface_adaptors.ViewManagerModel;
-import use_case.homepage.HomepageTwoOutBoundary;
+import use_case.homepage.HomepageTwoOutputBoundary;
 import use_case.homepage.HomepageTwoOutputData;
 
 /**
@@ -23,7 +23,7 @@ import use_case.homepage.HomepageTwoOutputData;
 public abstract class HomepageTwoPresenter<
         O extends HomepageTwoOutputData,
         V extends HomepageTwoViewModel<S>,
-        S extends HomepageTwoState> implements HomepageTwoOutBoundary<O> {
+        S extends HomepageTwoState> implements HomepageTwoOutputBoundary<O> {
 
     /**
      * The basic user information array that is populated from the output data.

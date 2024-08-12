@@ -5,7 +5,7 @@ import java.util.Date;
 /**
  * Input data for generating financial reports.
  *
- * @author :Dana
+ * @author Dana
  */
 public abstract class FinancialReportInputData {
     private final String identification;

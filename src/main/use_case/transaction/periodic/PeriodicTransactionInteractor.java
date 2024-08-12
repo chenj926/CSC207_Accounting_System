@@ -15,6 +15,22 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
+/**
+ * Abstract base class for handling periodic transactions.
+ * <p>
+ * This class provides the implementation for executing periodic transactions, including validation,
+ * processing inflows and outflows, and interacting with the data access object.
+ * </p>
+ *
+ * @param <DAO> the type of data access interface
+ * @param <A> the type of account
+ * @param <O> the type of one-time transaction output data
+ * @param <P> the type of periodic transaction output data
+ * @param <I> the type of periodic transaction input data
+ *
+ * @author Eric
+ * @author Jessica
+ */
 public abstract class PeriodicTransactionInteractor <
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,
@@ -24,6 +40,14 @@ public abstract class PeriodicTransactionInteractor <
 
     protected final PeriodicTransactionOutputBoundary<P> presenter;
 
+    /**
+     * Constructs a PeriodicTransactionInteractor object with the specified data access interface,
+     * presenter, and account.
+     *
+     * @param dataAccessInterface the data access interface for user data
+     * @param presenter the output boundary for periodic transactions
+     * @param account the user account associated with the transactions
+     */
     protected PeriodicTransactionInteractor(DAO dataAccessInterface,
                                             PeriodicTransactionOutputBoundary<P> presenter,
                                             A account) {
@@ -31,6 +55,17 @@ public abstract class PeriodicTransactionInteractor <
         this.presenter = presenter;
     }
 
+    /**
+     * Executes the periodic transaction use case.
+     * <p>
+     * This method validates the input data, including amount, start date, end date, description,
+     * period, and category. It processes either inflow or outflow transactions based on the amount
+     * and updates the user's account balance accordingly. It handles different periods, including custom
+     * periods in days, and ensures that transactions are created within the specified date range.
+     * </p>
+     *
+     * @param userAccountPeriodicTransactionInputData the input data for the periodic transaction
+     */
     @Override
     public void execute(I userAccountPeriodicTransactionInputData) {
         String identification = userAccountPeriodicTransactionInputData.getId();
@@ -299,6 +334,16 @@ public abstract class PeriodicTransactionInteractor <
         return outputData;
     }
 
+    /**
+     * Creates output data for a given periodic transaction.
+     * <p>
+     * This method is intended to be overridden by subclasses to provide specific implementation details
+     * for creating the output data.
+     * </p>
+     *
+     * @param transaction the periodic transaction to create output data for
+     * @return the output data for the periodic transaction
+     */
     protected abstract P createOutputData(PeriodicTransaction transaction);
 
 }

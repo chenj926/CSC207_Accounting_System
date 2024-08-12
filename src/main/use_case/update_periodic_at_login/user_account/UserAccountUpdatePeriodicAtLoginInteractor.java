@@ -16,8 +16,7 @@ import java.util.Map;
  * when a user logs in. It processes both inflow and outflow transactions based on their periodicity
  * and ensures that the user's account balances are updated accordingly.
  *
- * @author
- * Jessica Chen and Eric Chen
+ * @author Jessica
  */
 public class UserAccountUpdatePeriodicAtLoginInteractor extends AccountUpdatePeriodicAtLoginInteractor<
         UserAccountDataAccessInterface,

@@ -13,12 +13,13 @@ import java.util.Set;
 /**
  * The SharedAccountSignupInteractor class handles the signup process for shared accounts.
  * It validates input data, interacts with the data access layer, and uses the presenter to prepare output views.
- * This class does not extend UserAccountSignupInteractor but follows a similar process.
  * <p>
  * This class assumes that it will receive a SharedAccountSignupInputData type as input.
  * </p>
  *
- * @author Xile Chen, Eric Chen
+ * @author Xile
+ * @author Eric
+ * @author Jessica
  */
 public class SharedAccountSignupInteractor extends SignupInteractor<
         SharedAccountSignupDataAccessInterface,
@@ -58,10 +59,6 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         boolean validSharedPassword = checkPassword(sharedSignupData.getPassword());
         boolean validUserIds = this.checkUserIds(userIds);
 
-//
-//        boolean validUser1Id = checkIdentification(sharedSignupData.getUser1Id());
-//        boolean validUser2Id = checkIdentification(sharedSignupData.getUser2Id());
-
         if (!validSharedAccountId || !validSharedPassword || !validUserIds) {
             presenter.prepareFailView("All fields must be filled out!");
             return;
@@ -100,6 +97,12 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         presenter.prepareSuccessView(outputData);
     }
 
+    /**
+     * Checks if all user IDs in the given set are valid.
+     *
+     * @param userIds the set of user IDs to check
+     * @return true if all user IDs are valid, false otherwise
+     */
     private boolean checkUserIds(Set<String> userIds) {
         for (String userId : userIds) {
             if (!this.checkIdentification(userId)) {
@@ -109,6 +112,12 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         return true;
     }
 
+    /**
+     * Checks if all user IDs in the given set exist in the data source.
+     *
+     * @param userIds the set of user IDs to check
+     * @return true if all user IDs exist in the data source, false otherwise
+     */
     private boolean checkUserIdsExist(Set<String> userIds) {
         CSVUserAccountDataAccessObject dao = new CSVUserAccountDataAccessObject();
         for (String userId : userIds) {
@@ -119,6 +128,12 @@ public class SharedAccountSignupInteractor extends SignupInteractor<
         return true;
     }
 
+    /**
+     * Adds user IDs to the specified shared account.
+     *
+     * @param sharedAccount the shared account to which user IDs will be added
+     * @param userIds the set of user IDs to add
+     */
     private void addIdToShareAccount(SharedAccount sharedAccount, Set<String> userIds) {
         for (String userId : userIds) {
             sharedAccount.addUserIdentification(userId);

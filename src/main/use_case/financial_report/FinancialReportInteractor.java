@@ -5,6 +5,25 @@ import entity.account.Account;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
+/**
+ * Abstract interactor class for generating financial reports.
+ * <p>
+ * This class defines the core logic for generating financial reports by interacting with account data
+ * and preparing the output view. It follows the input/output boundary pattern and is intended to be extended
+ * by specific implementations for different types of accounts and reports.
+ * </p>
+ *
+ * @param <DAO> the type of the data access object used to retrieve account and transaction data
+ * @param <A> the type of the account
+ * @param <O> the type of the one-time transaction output data
+ * @param <P> the type of the periodic transaction output data
+ * @param <I> the type of the input data required for generating the financial report
+ * @param <PRE> the type of the output boundary for preparing the view
+ * @param <FO> the type of the output data for the financial report
+ *
+ * @author Eric
+ * @author Chi Fong
+ */
 public abstract class FinancialReportInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,

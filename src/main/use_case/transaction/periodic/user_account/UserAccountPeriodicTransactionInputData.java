@@ -11,10 +11,6 @@ import use_case.transaction.periodic.PeriodicTransactionInputData;
  * @author Jessica
  */
 public class UserAccountPeriodicTransactionInputData extends PeriodicTransactionInputData {
-//    private String transactionStartDate;
-//    private String transactionEndDate;
-//    private String transactionPeriod;
-//    private String transactionDate;
 
     /**
      * Constructs a UserAccountOneTimeTransactionInputData object with the specified details.
@@ -33,45 +29,5 @@ public class UserAccountPeriodicTransactionInputData extends PeriodicTransaction
                                                    String transactionEndDate, String transactionCategory, String transactionDate) {
         super(transactionIdentification, transactionAmount, transactionStartDate, transactionDescription,
                 transactionPeriod, transactionEndDate, transactionCategory, transactionDate);
-//        this.transactionStartDate = transactionStartDate;
-//        this.transactionEndDate = transactionEndDate;
-//        this.transactionPeriod = transactionPeriod;
-//        this.transactionDate = transactionDate;
     }
-
-//    /**
-//     * Gets the start date of the transaction.
-//     *
-//     * @return the date of the transaction
-//     */
-//    public String getTransactionStartDate() {
-//        return this.transactionStartDate;
-//    }
-//
-//    /**
-//     * Gets the end date of the transaction.
-//     *
-//     * @return the end date of the transaction
-//     */
-//    public String getTransactionEndDate() {
-//        return this.transactionEndDate;
-//    }
-//
-//    /**
-//     * Gets the period(frequency) of the transaction.
-//     *
-//     * @return the period of the transaction
-//     */
-//    public String getTransactionPeriod() {
-//        return this.transactionPeriod;
-//    }
-//
-//    /**
-//     * Gets the date of the transaction.
-//     *
-//     * @return the date of the transaction
-//     */
-//    public String getTransactionDate() {
-//        return this.transactionDate;
-//    }
 }

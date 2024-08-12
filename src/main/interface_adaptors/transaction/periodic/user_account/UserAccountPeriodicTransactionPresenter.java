@@ -6,18 +6,31 @@ import use_case.transaction.periodic.user_account.UserAccountPeriodicTransaction
 import use_case.transaction.periodic.user_account.UserAccountPeriodicTransactionOutputData;
 
 /**
- * The UserAccountPeriodicTransactionPresenter class implements the UserAccountPeriodicTransactionOutputBoundary interface.
- * It handles the presentation logic for periodic transactions, updating the view model and managing view transitions.
+ * The {@code UserAccountPeriodicTransactionPresenter} class implements the {@link UserAccountPeriodicTransactionOutputBoundary}
+ * interface and handles the presentation logic for periodic transactions within the context of a user account.
+ * This class adheres to the principles of Clean Architecture by decoupling the presentation layer from the
+ * business logic, ensuring a clear separation of concerns.
  *
- * @author Eric
- * @author Xile
+ * <p>This presenter updates the {@link UserAccountPeriodicTransactionViewModel} with transaction details
+ * and manages view transitions through the {@link ViewManagerModel}. It is responsible for preparing the
+ * success view and handling the flow of data from the output boundary to the user interface.</p>
+ *
+ * <p>The {@code UserAccountPeriodicTransactionPresenter} class is authored by Xile Chen, Eric Chen, and Jessica Chen,
+ * and follows Clean Architecture principles to maintain a clean, scalable, and maintainable codebase.</p>
+ *
+ * @see UserAccountPeriodicTransactionOutputBoundary
+ * @see PeriodicTransactionPresenter
+ * @see UserAccountPeriodicTransactionViewModel
+ * @see ViewManagerModel
  */
 public class UserAccountPeriodicTransactionPresenter
         extends PeriodicTransactionPresenter<UserAccountPeriodicTransactionViewModel, UserAccountPeriodicTransactionState>
         implements UserAccountPeriodicTransactionOutputBoundary {
 
     /**
-     * Constructs a UserAccountPeriodicTransactionPresenter object with the specified view model and view manager model.
+     * Constructs a {@code UserAccountPeriodicTransactionPresenter} object with the specified view model
+     * and view manager model. This constructor initializes the presenter, ensuring that the view model
+     * and view manager are appropriately linked for handling periodic transaction presentations.
      *
      * @param viewModel  the view model to update the periodic transaction state
      * @param viewManager the view manager model to manage view transitions
@@ -27,8 +40,9 @@ public class UserAccountPeriodicTransactionPresenter
     }
 
     /**
-     * Prepares the success view with the given periodic transaction output data.
-     * Updates the transaction state and changes the view to the transaction view.
+     * Prepares the success view with the given periodic transaction output data. This method updates the
+     * transaction state in the view model and triggers the appropriate view transition to display the
+     * transaction results to the user.
      *
      * @param data the periodic transaction output data containing transaction details and success status
      */

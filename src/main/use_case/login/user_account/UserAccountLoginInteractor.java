@@ -13,6 +13,7 @@ import java.time.LocalDate;
  *
  * @author Dana
  * @author Eric
+ * @author Jessica
  */
 public class UserAccountLoginInteractor extends LoginInteractor<
         UserAccountLoginDataAccessInterface,
@@ -20,10 +21,6 @@ public class UserAccountLoginInteractor extends LoginInteractor<
         UserAccountLoginOutputData,
         UserAccountLoginInputData,
         UserAccountLoginMediator> implements UserAccountLoginInputBoundary {
-
-//    final UserAccountLoginDataAccessInterface userDataAccessObject;
-//    final UserAcountLoginOutputBoundary presenter;
-//    private UserAccountLoginMediator mediator;
 
     /**
      * Constructs a LoginInteractor object with the specified data access interface and output boundary.
@@ -43,50 +40,45 @@ public class UserAccountLoginInteractor extends LoginInteractor<
     @Override
     public void execute(UserAccountLoginInputData userAccountLoginInputData) {
 
-            // check if username or password or id is valid (not empty)
-            boolean validPassword = this.checkPassword(userAccountLoginInputData.getPassword());
-            boolean validIdentificaiton = this.checkIdentification(userAccountLoginInputData.getIdentification());
+        // check if username or password or id is valid (not empty)
+        boolean validPassword = this.checkPassword(userAccountLoginInputData.getPassword());
+        boolean validIdentificaiton = this.checkIdentification(userAccountLoginInputData.getIdentification());
 
-            if (!validPassword && !validIdentificaiton) {
-                presenter.prepareFailView("Identification AND Password can not be empty!");
+        if (!validPassword && !validIdentificaiton) {
+            presenter.prepareFailView("Identification AND Password can not be empty!");
+        } else if (!validPassword) {
+            presenter.prepareFailView("Password can not be empty!");
+        } else if (!validIdentificaiton) {
+            presenter.prepareFailView("Identification can not be empty!");
+        } else {
+            if (!accountDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
+                //User does not exist
+                presenter.prepareFailView("User not found");
                 return;
-            } else if (!validPassword) {
-                presenter.prepareFailView("Password can not be empty!");
+            }
+
+            //User exists, fetch the user account
+            UserAccount userAccount = accountDataAccessObject.getById(userAccountLoginInputData.getIdentification());
+            if (userAccount != null && !userAccount.getPassword().equals(userAccountLoginInputData.getPassword())) {
+                presenter.prepareFailView("Incorrect Password!");
                 return;
-            } else if (!validIdentificaiton) {
-                presenter.prepareFailView("Identification can not be empty!");
-                return;
+            }
+
+            // attempt to login
+            boolean isLogin = accountDataAccessObject.login(userAccount);
+
+            // if login failed, password wrong
+            if (!isLogin) {
+                presenter.prepareFailView("Incorrect Password!");
             } else {
-                if (!accountDataAccessObject.existById(userAccountLoginInputData.getIdentification())) {
-                    //User does not exist
-                    presenter.prepareFailView("User not found");
-                    return;
-                }
+                // prepare output to presenter
+                UserAccountLoginOutputData userAccountLoginOutputData = new UserAccountLoginOutputData(userAccountLoginInputData.getIdentification(), true);
+                presenter.prepareSuccessView(userAccountLoginOutputData);
 
-                //User exists, fetch the user account
-                UserAccount userAccount = accountDataAccessObject.getById(userAccountLoginInputData.getIdentification());
-                if (userAccount != null && !userAccount.getPassword().equals(userAccountLoginInputData.getPassword())) {
-                    presenter.prepareFailView("Incorrect Password!");
-                    return;
-                }
-
-                // attempt to login
-                boolean isLogin = accountDataAccessObject.login(userAccount);
-
-                // if login failed, password wrong
-                if (!isLogin) {
-                    presenter.prepareFailView("Incorrect Password!");
-                } else {
-                    // prepare output to presenter
-                    UserAccountLoginOutputData userAccountLoginOutputData = new UserAccountLoginOutputData(userAccountLoginInputData.getIdentification(), true);
-                    presenter.prepareSuccessView(userAccountLoginOutputData);
-
-                    // Notify mediator on successful login
-                    UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
-                    mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
-                    }
-                }
-
+                // Notify mediator on successful login
+                UserAccountUpdatePeriodicAtLoginInputData userAccountUpdatePeriodicAtLoginInputData = new UserAccountUpdatePeriodicAtLoginInputData(userAccountLoginInputData.getIdentification(), LocalDate.now());
+                mediator.notifyLoginResult(true, userAccountUpdatePeriodicAtLoginInputData);
+            }
         }
-
+    }
 }

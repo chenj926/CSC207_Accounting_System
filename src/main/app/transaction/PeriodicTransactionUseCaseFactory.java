@@ -14,9 +14,31 @@ import view.transaction.periodic.user_account.UserAccountPeriodicTransactionView
 import javax.swing.*;
 import java.io.IOException;
 
+/**
+ * The PeriodicTransactionUseCaseFactory class is responsible for creating and initializing the components required
+ * for handling periodic transactions in user accounts. This factory sets up the interactor, presenter, controller,
+ * and view for the periodic transaction use case.
+ * <p>
+ * It provides a static method to create a view, which internally sets up all the necessary components and handles
+ * potential exceptions related to file operations.
+ * </p>
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class PeriodicTransactionUseCaseFactory {
+    /**
+     * Private constructor to prevent instantiation of this factory class.
+     */
     private PeriodicTransactionUseCaseFactory() {}
 
+    /**
+     * Creates and returns a {@link UserAccountPeriodicTransactionView} initialized with the required components.
+     *
+     * @param viewManagerModel the view manager model used to manage the view state
+     * @param viewModel the view model for periodic transactions
+     * @return a {@link UserAccountPeriodicTransactionView} instance if successful, or null if an IOException occurs
+     */
     public static UserAccountPeriodicTransactionView create(ViewManagerModel viewManagerModel,
                                                             UserAccountPeriodicTransactionViewModel viewModel) {
         try {
@@ -29,6 +51,15 @@ public class PeriodicTransactionUseCaseFactory {
         return null;
     }
 
+    /**
+     * Creates and initializes the components required for handling periodic transactions in user accounts.
+     * This includes creating the data access object, presenter, interactor, and controller.
+     *
+     * @param viewManager the view manager used to manage the view state
+     * @param viewModel the view model for periodic transactions
+     * @return a {@link UserAccountPeriodicTransactionController} instance
+     * @throws IOException if an error occurs while accessing user data
+     */
     private static UserAccountPeriodicTransactionController createUserPeriodicUseCase(ViewManagerModel viewManager,
                                                                                       UserAccountPeriodicTransactionViewModel viewModel) throws IOException {
         UserAccountDataAccessInterface dataAccessObject = DAOFactory.getPeriodicTransactionDAO();

@@ -10,7 +10,6 @@ import use_case.transaction.one_time.OneTimeTransactionInputData;
  * @author Eric
  */
 public class UserAccountOneTimeTransactionInputData extends OneTimeTransactionInputData {
-//    private String transactionDate;
 
     /**
      * Constructs a UserAccountOneTimeTransactionInputData object with the specified details.
@@ -23,6 +22,5 @@ public class UserAccountOneTimeTransactionInputData extends OneTimeTransactionIn
     public UserAccountOneTimeTransactionInputData(String id, String transactionAmount, String transactionDate,
                                                   String transactionDescription, String transactionCategory) {
         super(id, transactionAmount, transactionDescription, transactionCategory, transactionDate);
-//        this.transactionDate = transactionDate;
     }
 }

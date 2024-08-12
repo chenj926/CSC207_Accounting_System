@@ -5,6 +5,15 @@ import entity.account.AccountFactory;
 
 /**
  * Abstract base class for account sign-up interactors.
+ * Provides common functionality for sign-up processes, including validation
+ * methods for the identification and password fields.
+ *
+ * @param <T> the type of data access interface for account signup
+ * @param <I> the type of input data that extends {@link SignupInputData}
+ *
+ * @author Dana
+ * @author Eric
+ * @author Jessica
  */
 public abstract class SignupInteractor<
         T extends AccountSignupDataAccessInterface,
@@ -12,6 +21,13 @@ public abstract class SignupInteractor<
     protected final AccountFactory accountFactory;
     protected final T userDataAccessObject;
 
+    /**
+     * Constructs a SignupInteractor object with the specified data access interface
+     * and account factory.
+     *
+     * @param userSignupDataAccessInterface the data access interface for account signup
+     * @param accountFactory                 the factory for creating account entities
+     */
     public SignupInteractor(T userSignupDataAccessInterface,
                                    AccountFactory accountFactory) {
         this.accountFactory = accountFactory;

@@ -13,5 +13,4 @@ import entity.account.shared_account.SharedAccount;
  * @author Jessica
  */
 public interface SharedAccountSignupDataAccessInterface extends AccountSignupDataAccessInterface<SharedAccount> {
-
 }

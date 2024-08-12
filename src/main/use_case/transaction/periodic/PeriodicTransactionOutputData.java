@@ -6,11 +6,24 @@ import use_case.transaction.TransactionOutputData;
 
 import java.time.LocalDate;
 
+/**
+ * The PeriodicTransactionOutputData class represents the output data for periodic transactions.
+ * It includes information about the transaction's start date, end date, and period.
+ * This class extends {@link TransactionOutputData} to provide specific details for periodic transactions.
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public class PeriodicTransactionOutputData extends TransactionOutputData<Transaction> {
     protected LocalDate transactionStartDate;
     protected LocalDate transactionEndDate;
     protected String transactionPeriod;
 
+    /**
+     * Constructs a PeriodicTransactionOutputData object with the specified periodic transaction.
+     *
+     * @param periodicTransaction the periodic transaction to initialize the output data
+     */
     public PeriodicTransactionOutputData(PeriodicTransaction periodicTransaction) {
         super(periodicTransaction);
         this.transactionStartDate = periodicTransaction.getStartDate();

@@ -5,6 +5,7 @@ package use_case.transaction;
  * It includes details such as the transaction amount, description, and category.
  *
  * @author Jessica
+ * @author Eric
  */
 public abstract class TransactionInputData {
     protected String id;
