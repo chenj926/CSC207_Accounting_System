@@ -9,6 +9,7 @@ import entity.account.user_account.UserAccount;
  * </p>
  *
  * @author Dana
+ * @author Jessica
  */
 public interface UserAccountLogoutDataAccessInterface {
 

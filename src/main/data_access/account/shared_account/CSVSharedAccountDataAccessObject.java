@@ -23,7 +23,7 @@ import static java.lang.String.valueOf;
 /**
  * A CSV-based implementation of data access for shared accounts.
  * <p>
- * This class extends {@link CSVUserAccountDataAccessObject} and implements {@link SharedAccountDataAccessInterface}.
+ * This class extends {@link CSVAccountDataAccessObject}.
  * It provides methods to manage shared accounts, including saving, updating, deleting, and retrieving shared account
  * information from CSV files.
  * </p>
@@ -73,8 +73,19 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         return userExist;
     }
 
-    public static boolean existByuserId(String userId) {
-        boolean userExist = false;
+    /**
+     * Checks if a user exists by their user ID.
+     * <p>
+     * This method searches through the "userAccounts.csv" file to determine if a user with the
+     * specified user ID exists. It returns {@code true} if the user is found, otherwise {@code false}.
+     * </p>
+     *
+     * @param userId the unique identifier of the user to search for
+     * @return {@code true} if a user with the given ID exists, {@code false} otherwise
+     *
+     * @throws IOException if an I/O error occurs while reading the file
+     */
+    public static boolean existByUserId(String userId) {
         String baseDir = System.getProperty("user.dir");
         Path tempCsvPath = Paths.get(baseDir, "src/main/data/accounts/userAccounts.csv");
         try (SharedAccountIterator iterator = new SharedAccountIterator(tempCsvPath)) {
@@ -114,6 +125,17 @@ public class CSVSharedAccountDataAccessObject extends CSVAccountDataAccessObject
         }
     }
 
+    /**
+     * Generates a CSV-formatted string containing the information of a shared account.
+     * <p>
+     * This method retrieves various details from the provided {@link SharedAccount} object, including
+     * the identification, shared user identifications, password, financial information, and last login date.
+     * It formats these details into a single string suitable for CSV output.
+     * </p>
+     *
+     * @param newSharedAccount the {@link SharedAccount} object containing the account details
+     * @return a CSV-formatted string representing the shared account's information
+     */
     private static String getSharedAccountInfo(SharedAccount newSharedAccount) {
         // user info
         String id = newSharedAccount.getIdentification();

@@ -62,7 +62,6 @@ public class DAOFactory {
      *
      * @return the {@link UserSignupDataAccessInterface} instance
      */
-    // synchronized such that only 2 DAO is operating at once
     public static synchronized UserSignupDataAccessInterface getUserSignupDataAccessObject() {
         if (useInMemory) {
             if (inMemoryUserAccountDAO == null) {
@@ -77,6 +76,15 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link SharedAccountSignupDataAccessInterface}.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemorySharedAccountDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link SharedAccountSignupDataAccessInterface} instance
+     */
     public static synchronized SharedAccountSignupDataAccessInterface getSharedAccountSignupDataAccessObject() {
         if (useInMemory) {
             if (inMemorySharedAccountDAO == null) {
@@ -114,6 +122,15 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link UserAccountDataAccessInterface}.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemoryUserAccountDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVUserAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link UserAccountDataAccessInterface} instance
+     */
     public static synchronized UserAccountDataAccessInterface getUserAccountDataAccessObject() {
         if (useInMemory) {
             if (inMemoryUserAccountDAO == null) {
@@ -151,6 +168,15 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link SharedAccountLoginDataAccessInterface}.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns an instance of {@link InMemorySharedAccountLoginDataAccessObject}.
+     * Otherwise, returns an instance of {@link CSVSharedAccountLoginDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link SharedAccountLoginDataAccessInterface} instance
+     */
     public static synchronized SharedAccountLoginDataAccessInterface getSharedAccountLoginDataAccessObject() {
         if (useInMemory) {
             if (inMemorySharedAccountLoginDataAccessObject == null) {
@@ -211,11 +237,17 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link UserAccountDataAccessInterface} for generating financial reports.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns the appropriate in-memory DAO.
+     * Otherwise, returns an instance of {@link CSVUserAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link UserAccountDataAccessInterface} instance for financial reports
+     */
     public static synchronized UserAccountDataAccessInterface getFinancialReportDAO() {
         if (useInMemory) {
-//            if (inMemoryPeriodicDataAccessObject == null) {
-//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
-//            }
             return inMemoryPeriodicDataAccessObject;
         } else {
             if (csvUserAccountDAO == null) {
@@ -225,11 +257,17 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link SharedAccountDataAccessInterface} for generating shared account financial reports.
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns the appropriate in-memory DAO.
+     * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link SharedAccountDataAccessInterface} instance for shared account financial reports
+     */
     public static synchronized SharedAccountDataAccessInterface getSharedAccountFinancialReportDAO() {
         if (useInMemory) {
-//            if (inMemoryPeriodicDataAccessObject == null) {
-//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
-//            }
             return inMemorySharedAccountDAO;
         } else {
             if (csvSharedAccountDAO == null) {
@@ -239,11 +277,17 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link UserAccountDataAccessInterface} for the homepage view (option two).
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns the appropriate in-memory DAO.
+     * Otherwise, returns an instance of {@link CSVUserAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link UserAccountDataAccessInterface} instance for the homepage view (option two)
+     */
     public static synchronized UserAccountDataAccessInterface getHomepageTwoDAO() {
         if (useInMemory) {
-//            if (inMemoryPeriodicDataAccessObject == null) {
-//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
-//            }
             return inMemoryPeriodicDataAccessObject;
         } else {
             if (csvUserAccountDAO == null) {
@@ -253,11 +297,17 @@ public class DAOFactory {
         }
     }
 
+    /**
+     * Returns a singleton instance of {@link SharedAccountDataAccessInterface} for the shared account homepage view (option two).
+     * <p>
+     * If {@code useInMemory} is {@code true}, returns the appropriate in-memory DAO.
+     * Otherwise, returns an instance of {@link CSVSharedAccountDataAccessObject}.
+     * </p>
+     *
+     * @return the {@link SharedAccountDataAccessInterface} instance for the shared account homepage view (option two)
+     */
     public static synchronized SharedAccountDataAccessInterface getSharedAccountHomepageTwoDAO() {
         if (useInMemory) {
-//            if (inMemoryPeriodicDataAccessObject == null) {
-//                inMemoryPeriodicDataAccessObject = new InMemoryPeriodicDataAccessObject();
-//            }
             return inMemorySharedAccountDAO;
         } else {
             if (csvSharedAccountDAO == null) {

@@ -18,7 +18,6 @@ import java.util.*;
  * @author Eric
  * @author Jessica
  */
-
 public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAccessObject implements UserAccountLogoutDataAccessInterface, UserAccountLoginDataAccessInterface {
     private static Map<String, Boolean> userLogin;
 
@@ -52,17 +51,6 @@ public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAcc
         return false;
     }
 
-//    @Override
-//    public boolean login(SharedAccount account) {
-//        String identifier = account.getIdentification();
-//        if (existById(identifier)) {
-//            userLogin.put(identifier, true); // Mark the account as logged in
-//            return true;
-//        }
-//        return false;
-//    }
-
-
     /**
      * Logs out a user account, marking the account as logged out.
      *
@@ -84,16 +72,43 @@ public class InMemoryLoginoutDataAccessObject extends InMemoryUserAccountDataAcc
         return super.getById(identification);
     }
 
+    /**
+     * Updates an existing user account in the in-memory data store.
+     * <p>
+     * This method is intended to update the details of a user account. However, the implementation is currently missing.
+     * </p>
+     *
+     * @param account the user account with updated information
+     */
     @Override
     public void update(UserAccount account) {
 
     }
 
+    /**
+     * Saves a transaction for a user account. This method can handle both one-time and periodic transactions.
+     * <p>
+     * This method is intended to save transaction data to the in-memory store. However, the implementation is currently missing.
+     * </p>
+     *
+     * @param oneTimeOutputData the one-time transaction data to be saved
+     * @param periodicOutputData the periodic transaction data to be saved
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     */
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData, UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
 
     }
 
+    /**
+     * Reads transactions associated with a specific user ID.
+     * <p>
+     * This method is intended to retrieve a list of transactions for a user account. However, the implementation is currently missing.
+     * </p>
+     *
+     * @param userId the unique identifier of the user whose transactions are to be retrieved
+     * @return a list of transactions associated with the specified user ID
+     */
     @Override
     public List<Transaction> readTransactions(String userId) {
         return List.of();
