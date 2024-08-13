@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -34,6 +35,13 @@ class ViewManagerModelTest {
     }
 
     @Test
+    void testGetAndSetBasicUserInfo() {
+        String[] basicUserInfo = {"user123", "user@example.com"};
+        viewManager.setBasicUserInfo(basicUserInfo);
+        assertArrayEquals(basicUserInfo, viewManager.getBasicUserInfo());
+    }
+
+    @Test
     void testAddAndRemovePropertyChangeListener() {
         TestPropertyChangeListener listener = new TestPropertyChangeListener();
         viewManager.addPropertyChangeListener(listener);
@@ -57,6 +65,15 @@ class ViewManagerModelTest {
     }
 
     @Test
+    void testReset() {
+        viewManager.setUserId("user123");
+        viewManager.setActiveViewName("home page");
+        viewManager.reset();
+        assertNull(viewManager.getUserId());
+        assertNull(viewManager.getActiveViewName());
+    }
+
+    @Test
     void testViewModelGetViewName() {
         assertEquals("Test View", testViewModel.getViewName());
     }
@@ -75,12 +92,21 @@ class ViewManagerModelTest {
         assertFalse(listener.isPropertyChanged());
     }
 
+
+    @Test
+    void testUpdateViewModelException() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            viewManager.updateViewModel("NonExistentView", testViewModel);
+        });
+        assertEquals("No ViewModel found with the name: NonExistentView", exception.getMessage());
+    }
+
     @Test
     void testCreateView() {
         // Test creating and changing to multiple views
         String[] viewNames = {
-                "home page", "sign up", "log in", "Transaction",
-                "One Time Transaction", "Periodic Transaction", "log out"
+                "home page", "sign up", "log in", "One Time Transaction",
+                "Periodic Transaction", "Shared Account Financial Report"
         };
 
         for (String viewName : viewNames) {
@@ -116,6 +142,7 @@ class ViewManagerModelTest {
         }
     }
 }
+
 
 
 
