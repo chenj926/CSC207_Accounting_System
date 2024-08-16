@@ -39,7 +39,7 @@ public class SharedAccountFinancialReportPanel extends JPanel {
 
 
     private MediaPlayer mediaPlayer; // Added for audio playback
-    private static boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
+//    private static boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
 
     /**
      * Constructs a {@code SharedAccountFinancialReportPanel} with the specified view model, controller, and view manager.
@@ -143,10 +143,11 @@ public class SharedAccountFinancialReportPanel extends JPanel {
 
     // Method to initialize JavaFX, but only once
     private void initializeJavaFX() {
-        if (!isJavaFXInitialized) {
+        if (!this.viewManager.isJavaFXInitialized()) {
             Platform.startup(() -> {
                 // JavaFX Toolkit initialized
-                isJavaFXInitialized = true;
+//                isJavaFXInitialized = true;
+                this.viewManager.setJavaFXInitialized(true);
             });
         }
     }

@@ -69,6 +69,8 @@ public class ViewManagerModel {
     private final Map<String, JFrame> views;
     private final Map<String, ViewModel> viewModels;
 
+    private boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
+
     /**
      * Constructs a ViewManagerModel object with no initial views.
      */
@@ -160,6 +162,10 @@ public class ViewManagerModel {
 //        return this.sharedAccountId;
 //    }
 
+    public Boolean isJavaFXInitialized() {
+        return this.isJavaFXInitialized;
+    }
+
     /**
      * Sets the name of the active view and notifies listeners of the change.
      *
@@ -189,6 +195,11 @@ public class ViewManagerModel {
 //    public void setSharedAccountId(String sharedAccountId) {
 //        this.sharedAccountId = sharedAccountId;
 //    }
+
+
+    public void setJavaFXInitialized(boolean javaFXInitialized) {
+        isJavaFXInitialized = javaFXInitialized;
+    }
 
     /**
      * Adds a property change listener to the listener list.

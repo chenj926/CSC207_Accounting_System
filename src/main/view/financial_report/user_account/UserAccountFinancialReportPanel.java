@@ -1,12 +1,10 @@
 package view.financial_report.user_account;
 
 import data_access.financial_report_api_accessor.TextToSpeech;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
-import javafx.application.Platform;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.application.Platform;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -41,7 +39,7 @@ public class UserAccountFinancialReportPanel extends JPanel {
     private JScrollPane scrollPane;
 
     private MediaPlayer mediaPlayer; // Added for audio playback
-    private static boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
+//    private static boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
 
     /**
      * Constructs a UserAccountFinancialReportPanel with the specified view model, controller, and view manager.
@@ -140,10 +138,11 @@ public class UserAccountFinancialReportPanel extends JPanel {
 
     // Method to initialize JavaFX, but only once
     private void initializeJavaFX() {
-        if (!isJavaFXInitialized) {
+        if (!this.viewManager.isJavaFXInitialized()) {
             Platform.startup(() -> {
                 // JavaFX Toolkit initialized
-                isJavaFXInitialized = true;
+//                isJavaFXInitialized = true;
+                viewManager.setJavaFXInitialized(true);
             });
         }
     }

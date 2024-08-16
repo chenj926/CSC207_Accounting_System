@@ -1,6 +1,7 @@
 package interface_adaptors.financial_report;
 
 import interface_adaptors.ViewModel;
+import javafx.scene.media.MediaPlayer;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
