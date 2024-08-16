@@ -1,6 +1,7 @@
 package interface_adaptors.financial_report;
 
 import interface_adaptors.ViewModel;
+import javafx.scene.media.MediaPlayer;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -113,8 +114,5 @@ public abstract class FinancialReportViewModel<S extends FinancialReportState> e
      * reflects the latest data.
      * </p>
      */
-    public void firePropertyChange(){
-        support.firePropertyChange("state", null, this.state);
-    }
-
+    public abstract void firePropertyChange();
 }

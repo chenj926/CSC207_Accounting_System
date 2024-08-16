@@ -54,5 +54,10 @@ public class SharedAccountFinancialReportViewModel extends FinancialReportViewMo
     public void resetState() {
         setState(new SharedAccountFinancialReportState());
     }
+
+    @Override
+    public void firePropertyChange(){
+        support.firePropertyChange("sharedAccountFinancialReport", null, this.state);
+    }
 }
 
