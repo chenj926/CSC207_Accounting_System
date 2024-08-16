@@ -59,4 +59,9 @@ public class UserAccountFinancialReportViewModel extends FinancialReportViewMode
         UserAccountFinancialReportState newState = new UserAccountFinancialReportState();
         setState(newState);
     }
+
+    @Override
+    public void firePropertyChange(){
+        support.firePropertyChange("userAccountFinancialReport", null, this.state);
+    }
 }

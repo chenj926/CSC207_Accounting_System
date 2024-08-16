@@ -52,9 +52,6 @@ public class UserAccountFinancialReportPresenter extends FinancialReportPresente
         this.viewModel.firePropertyChange();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
-
-        TextToSpeech TTS = new TextToSpeech();
-        TTS.speak(reportContent);
     }
 
     /**
@@ -74,15 +71,6 @@ public class UserAccountFinancialReportPresenter extends FinancialReportPresente
         this.viewModel.firePropertyChange();
 
         this.viewManager.setActiveViewName(viewModel.getViewName());
-    }
-
-    /**
-     * Returns the current financial report content.
-     *
-     * @return the financial report content
-     */
-    public String getReportContent() {
-        return reportContent;
     }
 }
 

@@ -113,8 +113,5 @@ public abstract class FinancialReportViewModel<S extends FinancialReportState> e
      * reflects the latest data.
      * </p>
      */
-    public void firePropertyChange(){
-        support.firePropertyChange("state", null, this.state);
-    }
-
+    public abstract void firePropertyChange();
 }
