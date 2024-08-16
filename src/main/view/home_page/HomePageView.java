@@ -8,21 +8,27 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 /**
- * The HomePageView class represents the GUI for the home page. It extends JFrame and implements PropertyChangeListener
- * to update the view based on changes in the view model.
+ * The {@code HomePageView} class represents the graphical user interface for the home page of the application.
+ * It extends {@link JFrame} and implements {@link PropertyChangeListener} to respond to changes in the
+ * {@link HomePageViewModel}.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation of
+ * concerns. It interacts with the {@link HomePageViewModel} to reflect the state of the application and with the
+ * {@link ViewManagerModel} to manage view transitions.
+ * </p>
  *
- * @author Dana
- * @author Eric
+ * <p><b>Authors:</b> Eric Chen, Dana Huang</p>
  */
 public class HomePageView extends JFrame implements PropertyChangeListener {
     private HomePageViewModel viewModel;
     private HomePagePanel homePagePanel;
 
     /**
-     * Constructs a HomePageView object with the specified view model and view manager.
+     * Constructs a {@code HomePageView} object with the specified view model and view manager.
+     * This constructor sets up the home page's UI components and initializes the window.
      *
-     * @param viewModel   the view model for the home page view
-     * @param viewManager the view manager for managing view transitions
+     * @param viewModel   the view model for the home page view, providing data and state information
+     * @param viewManager the view manager for handling view transitions within the application
      */
     public HomePageView(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
@@ -39,16 +45,17 @@ public class HomePageView extends JFrame implements PropertyChangeListener {
     }
 
     /**
-     * Sets up the UI components for the home page view.
+     * Sets up the UI components for the home page view by adding the {@link HomePagePanel} to the frame's content pane.
      */
     private void setupUI() {
         this.getContentPane().add(homePagePanel, BorderLayout.CENTER);
     }
 
     /**
-     * Called when a bound property is changed. Currently, this method does not perform any actions.
+     * Responds to property changes in the view model. Currently, this method does not perform any actions
+     * but can be extended in the future to handle specific property changes in the {@link HomePageViewModel}.
      *
-     * @param evt the event that characterizes the change.
+     * @param evt the event that characterizes the change
      */
     @Override
     public void propertyChange(PropertyChangeEvent evt) {

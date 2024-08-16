@@ -10,6 +10,4 @@ import use_case.transaction.periodic.PeriodicTransactionOutputBoundary;
  * @author Jessica
  */
 public interface UserAccountPeriodicTransactionOutputBoundary extends PeriodicTransactionOutputBoundary<UserAccountPeriodicTransactionOutputData> {
-    // methods defined in TransactionOutputBoundary interface
-    void prepareSuccessView(UserAccountPeriodicTransactionOutputData outputData);
 }

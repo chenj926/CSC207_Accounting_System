@@ -1,6 +1,6 @@
 package interface_adaptors;
 
-import app.FinancialReport.SharedAccountFinancialReportUseCaseFactory;
+import app.financial_report.SharedAccountFinancialReportUseCaseFactory;
 import app.authentication.SharedAccountLoginUseCaseFactory;
 import app.authentication.UserAccountLoginUseCaseFactory;
 //import app.authentication.LogoutUseCaseFactory;
@@ -11,7 +11,7 @@ import app.home_page.SharedAccountHomepageTwoUseCaseFactory;
 import app.transaction.OneTimeTransactionUseCaseFactory;
 import app.transaction.PeriodicTransactionUseCaseFactory;
 //import app.transaction.TransactionUseCaseFactory;
-import app.FinancialReport.FinancialReportUseCaseFactory;
+import app.financial_report.FinancialReportUseCaseFactory;
 import app.transaction.SharedAccountOneTimeTransactionUseCaseFactory;
 import app.transaction.SharedAccountPeriodicTransactionUseCaseFactory;
 import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
@@ -23,8 +23,8 @@ import interface_adaptors.login.user_account.UserAccountLoginViewModel;
 //import interface_adaptors.logout.LogoutViewModel;
 import interface_adaptors.signup.shared_account.SharedAccountSignupViewModel;
 import interface_adaptors.signup.user_account.UserAccountSignupViewModel;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import interface_adaptors.transaction.periodic.user_account.UserAccountPeriodicTransactionViewModel;
 import interface_adaptors.transaction.periodic.shared_account.SharedAccountPeriodicTransactionViewModel;
 import view.financial_report.user_account.UserAccountFinancialReportView;
@@ -69,6 +69,8 @@ public class ViewManagerModel {
     private final Map<String, JFrame> views;
     private final Map<String, ViewModel> viewModels;
 
+    private boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
+
     /**
      * Constructs a ViewManagerModel object with no initial views.
      */
@@ -103,10 +105,10 @@ public class ViewManagerModel {
         SharedAccountHomepageTwoViewModel sharedAccounthomepageTwoViewModel = new SharedAccountHomepageTwoViewModel();
         this.viewModels.put("Share Account Homepage Two", sharedAccounthomepageTwoViewModel);
 
-        UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserAccountOneTimeTransactionViewModel();
+        UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel = new UserOneTimeTransactionViewModel();
         this.viewModels.put("One Time Transaction", userAccountOneTimeTransactionViewModel);
 
-        SharedAccountOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedAccountOneTimeTransactionViewModel();
+        SharedOneTimeTransactionViewModel sharedAccountOneTimeTransactionViewModel = new SharedOneTimeTransactionViewModel();
         this.viewModels.put("Shared Account One Time Transaction", sharedAccountOneTimeTransactionViewModel);
 
         UserAccountPeriodicTransactionViewModel userAccountPeriodicTransactionViewModel = new UserAccountPeriodicTransactionViewModel();
@@ -160,6 +162,10 @@ public class ViewManagerModel {
 //        return this.sharedAccountId;
 //    }
 
+    public Boolean isJavaFXInitialized() {
+        return this.isJavaFXInitialized;
+    }
+
     /**
      * Sets the name of the active view and notifies listeners of the change.
      *
@@ -189,6 +195,11 @@ public class ViewManagerModel {
 //    public void setSharedAccountId(String sharedAccountId) {
 //        this.sharedAccountId = sharedAccountId;
 //    }
+
+
+    public void setJavaFXInitialized(boolean javaFXInitialized) {
+        isJavaFXInitialized = javaFXInitialized;
+    }
 
     /**
      * Adds a property change listener to the listener list.
@@ -288,16 +299,16 @@ public class ViewManagerModel {
                 currentView = sharedAccountHomepageTwoView;
                 break;
             case "One Time Transaction":
-                UserAccountOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
-                       new UserAccountOneTimeTransactionViewModel();
+                UserOneTimeTransactionViewModel userAccountOneTimeTransactionViewModel =
+                       new UserOneTimeTransactionViewModel();
                 UserAccountOneTimeTransactionView userAccountOneTimeTransactionView = OneTimeTransactionUseCaseFactory.create(
                         this, userAccountOneTimeTransactionViewModel);
                 views.put("One Time Transaction", userAccountOneTimeTransactionView);
                 currentView = userAccountOneTimeTransactionView;
                 break;
             case "Shared Account One Time Transaction":
-                SharedAccountOneTimeTransactionViewModel sharedAccountoneTimeTransactionViewModel =
-                        new SharedAccountOneTimeTransactionViewModel();
+                SharedOneTimeTransactionViewModel sharedAccountoneTimeTransactionViewModel =
+                        new SharedOneTimeTransactionViewModel();
                 SharedAccountOneTimeTransactionView sharedAccountoneTimeTransactionView = SharedAccountOneTimeTransactionUseCaseFactory.create(
                         this, sharedAccountoneTimeTransactionViewModel);
                 views.put("Shared Account One Time Transaction", sharedAccountoneTimeTransactionView);

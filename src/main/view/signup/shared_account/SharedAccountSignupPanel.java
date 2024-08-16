@@ -17,7 +17,16 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * The SharedAccountSignupPanel class handles UI for shared account signup, allowing for dynamic user field addition.
+ * The {@code SharedAccountSignupPanel} class handles the user interface for shared account signup,
+ * allowing for dynamic user field addition. This class extends {@link JPanel} and implements
+ * {@link PropertyChangeListener} to update the UI based on changes in the {@link SharedAccountSignupViewModel}.
+ * <p>
+ * As part of the Clean Architecture, this class resides in the view layer, interacting with the
+ * {@link SharedAccountSignupViewModel} to display data and handle user input, and the
+ * {@link SharedAccountSignupController} to manage the business logic related to the shared account signup process.
+ * </p>
+ *
+ * <p><b>Authors:</b> Xile Chen, Eric Chen</p>
  */
 public class SharedAccountSignupPanel extends JPanel implements PropertyChangeListener {
     protected final SharedAccountSignupViewModel viewModel;
@@ -38,7 +47,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
     protected Set<JTextField> additionalUserFields;
 
     /**
-     * Constructs a SharedAccountSignupPanel object with the specified view model, controller, and view manager.
+     * Constructs a {@code SharedAccountSignupPanel} object with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the shared account signup panel with the provided view model, controller, and view manager,
+     * and sets up the user interface components, event listeners, and UI layout.
+     * </p>
      *
      * @param viewModel              the view model for the signup panel
      * @param sharedAccountSignupController the controller for handling signup actions
@@ -57,6 +70,10 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
 
     /**
      * Initializes the UI components for the shared account signup panel.
+     * <p>
+     * This method sets up the labels, text fields, buttons, and other components used in the shared account signup process.
+     * The components are styled and organized for optimal user interaction.
+     * </p>
      */
     protected void initializeComponents() {
         titleLabel = new JLabel(viewModel.getTitleLabel());
@@ -73,45 +90,41 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
         this.user1IdField.setToolTipText("Enter at least 2 or more user account id to create a shared account between users");
 
         // add buttons
-        JPanel buttons = new JPanel();
         this.signupButton = new JButton(viewModel.getSignupButtonLabel());
-        buttons.add(this.signupButton);
         this.cancelButton = new JButton(viewModel.getCancelButtonLabel());
-        buttons.add(this.cancelButton);
         this.addUserButton = new JButton("+ User ID");
-        buttons.add(this.addUserButton);
         this.deleteUserButton = new JButton("-");
-        buttons.add(this.deleteUserButton);
 
         additionalUsersPanel = new JPanel(new GridBagLayout());
         additionalUserFields = new LinkedHashSet<>();  // Use LinkedHashSet to maintain insertion order
 
         // Style buttons
-        this.signupButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.addUserButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.signupButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.addUserButton.setBackground(new Color(150, 200, 100));
-        this.deleteUserButton.setBackground(new Color(0, 0, 0));
-        this.signupButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-        this.addUserButton.setForeground(Color.WHITE);
-        this.deleteUserButton.setForeground(Color.WHITE);
+        styleButton(this.signupButton, new Color(100, 150, 200));
+        styleButton(this.cancelButton, new Color(200, 100, 100));
+        styleButton(this.addUserButton, new Color(150, 200, 100));
+        styleButton(this.deleteUserButton, new Color(0, 0, 0));
+    }
 
-        // adjust environment to compile MAC
-        this.signupButton.setOpaque(true);
-        this.signupButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
-        this.addUserButton.setOpaque(true);
-        this.addUserButton.setBorderPainted(false);
-        this.deleteUserButton.setOpaque(true);
-        this.deleteUserButton.setBorderPainted(false);
+    /**
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
     }
 
     /**
      * Sets up the UI layout for the shared account signup panel.
+     * <p>
+     * This method arranges the UI components within the panel using a {@link GridBagLayout},
+     * ensuring a structured and user-friendly interface.
+     * </p>
      */
     protected void setupUI() {
         setLayout(new GridBagLayout());
@@ -171,6 +184,10 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
 
     /**
      * Sets up listeners for the signup, add user, and delete user buttons, and for key events in the text fields.
+     * <p>
+     * This method ensures that user interactions are handled appropriately, including managing dynamic
+     * user field additions and responding to signup and cancellation actions.
+     * </p>
      */
     protected void setupListeners() {
         signupButton.addActionListener(new ActionListener() {
@@ -244,7 +261,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
     }
 
     /**
-     * Updates the panel for additional user fields.
+     * Sets up listeners for the signup, add user, and delete user buttons, and for key events in the text fields.
+     * <p>
+     * This method ensures that user interactions are handled appropriately, including managing dynamic
+     * user field additions and responding to signup and cancellation actions.
+     * </p>
      */
     private void updateAdditionalUsersPanel() {
         additionalUsersPanel.removeAll();
@@ -281,7 +302,11 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
     }
 
     /**
-     * Property change event handling specific for shared account signup results.
+     * Handles property change events specific to shared account signup results.
+     * <p>
+     * This method displays error messages if the signup process is incomplete or
+     * success messages when the signup is successful.
+     * </p>
      *
      * @param evt the property change event
      */
@@ -300,6 +325,9 @@ public class SharedAccountSignupPanel extends JPanel implements PropertyChangeLi
 
     /**
      * Clears the text fields in the shared account signup panel.
+     * <p>
+     * This method resets all input fields, preparing the form for new input.
+     * </p>
      */
     public void clearFields() {
         sharedAccountIdField.setText("");

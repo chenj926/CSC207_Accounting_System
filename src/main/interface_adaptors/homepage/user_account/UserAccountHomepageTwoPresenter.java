@@ -6,10 +6,13 @@ import use_case.homepage.user_account.UserAccountHomepageTwoOutputBoundary;
 import use_case.homepage.user_account.UserAccountHomepageTwoOutputData;
 
 /**
- * The presenter for the second homepage view. This class is responsible for handling
- * the output data and updating the view model and view manager with the basic user information.
+ * The {@code UserAccountHomepageTwoPresenter} class is responsible for presenting the output data for the user account homepage.
+ * It updates the associated view model and view manager with the basic user information provided by the output data.
  *
- * @author Eric Chen
+ * <p>This class implements the {@link UserAccountHomepageTwoOutputBoundary} interface and extends the {@link HomepageTwoPresenter} class
+ * to adhere to the principles of Clean Architecture.</p>
+ *
+ * <p><b>Author:</b> Eric Chen</p>
  */
 public class UserAccountHomepageTwoPresenter extends HomepageTwoPresenter<
         UserAccountHomepageTwoOutputData,
@@ -17,10 +20,10 @@ public class UserAccountHomepageTwoPresenter extends HomepageTwoPresenter<
         UserAccountHomepageTwoState> implements UserAccountHomepageTwoOutputBoundary {
 
     /**
-     * Constructs a new UserAccountHomepageTwoPresenter with the specified view model and view manager.
+     * Constructs a new {@code UserAccountHomepageTwoPresenter} with the specified view model and view manager.
      *
-     * @param viewModel the view model to be updated
-     * @param viewManager the view manager to be updated
+     * @param viewModel the view model to be updated with the output data
+     * @param viewManager the view manager responsible for managing view transitions and updates
      */
     public UserAccountHomepageTwoPresenter(UserAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager) {
         super(viewModel, viewManager);

@@ -21,6 +21,21 @@ import java.util.Set;
 
 import static java.lang.String.valueOf;
 
+/**
+ * Abstract base class for CSV-based data access objects (DAOs) for accounts.
+ * <p>
+ * This class provides common functionality for reading, writing, and updating accounts and transactions in CSV files.
+ * It is intended to be extended by specific implementations for different types of accounts, such as {@link UserAccount}
+ * or {@link SharedAccount}.
+ * </p>
+ *
+ * @param <A> the type of the account
+ * @param <O> the type of the one-time transaction output data
+ * @param <P> the type of the periodic transaction output data
+ *
+ * @author Eric
+ * @author Jessica
+ */
 public abstract class CSVAccountDataAccessObject<
         A extends Account,
         O extends OneTimeTransactionOutputData,
@@ -30,6 +45,14 @@ public abstract class CSVAccountDataAccessObject<
     private final String csvHeader;
     private final String transactionHeader;
 
+    /**
+     * Constructs a new CSVAccountDataAccessObject with the specified file paths and headers.
+     *
+     * @param accountCsvFilePath the file path for the accounts CSV file
+     * @param transactionCsvFilePath the file path for the transactions CSV file
+     * @param csvHeader the header to be used in the accounts CSV file
+     * @param transactionHeader the header to be used in the transactions CSV file
+     */
     public CSVAccountDataAccessObject(String accountCsvFilePath, String transactionCsvFilePath, String csvHeader, String transactionHeader) {
         String baseDir = System.getProperty("user.dir");
         this.accountCsvPath = Paths.get(baseDir, accountCsvFilePath);
@@ -46,6 +69,13 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Initializes a CSV file with the specified header if it does not already exist.
+     *
+     * @param csvPath the path to the CSV file
+     * @param header the header to write to the CSV file
+     * @throws IOException if an I/O error occurs
+     */
     protected void initializeCsvFile(Path csvPath, String header) throws IOException {
         Path parentDir = csvPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
@@ -76,6 +106,13 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Initializes the transaction CSV file with the specified header if it does not already exist.
+     *
+     * @param transactionPath the path to the transaction CSV file
+     * @param header the header to write to the transaction CSV file
+     * @throws IOException if an I/O error occurs
+     */
     protected void initializeTransactionFile(Path transactionPath, String header) throws IOException {
         Path parentDir = transactionPath.getParent();
         if (parentDir != null && !Files.exists(parentDir)) {
@@ -129,6 +166,12 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Confirms the existence of the CSV file and writes the transaction data.
+     *
+     * @param transactionCsvPath the path to the transaction CSV file
+     * @param userInfo the transaction data to be written
+     */
     protected void confirmCsvExistence(Path transactionCsvPath, String userInfo) {
         try {
             Path parentDir = transactionCsvPath.getParent();
@@ -149,6 +192,12 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Generates a CSV-formatted string containing the information of a periodic transaction.
+     *
+     * @param periodicOutputData the periodic transaction data
+     * @return a CSV-formatted string representing the periodic transaction
+     */
     protected String getPeriodicTransactionInfo(P periodicOutputData) {
         String id = periodicOutputData.getId();
         float amount = periodicOutputData.getTransactionAmount();
@@ -161,6 +210,12 @@ public abstract class CSVAccountDataAccessObject<
         return String.format("%s,%.2f,%s,%s,%s,%s,%s,%s", id, amount, date, description, category, startDate, period, endDate);
     }
 
+    /**
+     * Generates a CSV-formatted string containing the information of a one-time transaction.
+     *
+     * @param oneTimeOutputData the one-time transaction data
+     * @return a CSV-formatted string representing the one-time transaction
+     */
     protected String getOneTimeTransactionInfo(O oneTimeOutputData) {
         String id = oneTimeOutputData.getId();
         System.out.println("output id"+id);
@@ -171,6 +226,17 @@ public abstract class CSVAccountDataAccessObject<
         return String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
     }
 
+    /**
+     * Generates a CSV-formatted string containing the information of a transaction.
+     * <p>
+     * This method returns a CSV-formatted string based on whether the transaction is periodic or one-time.
+     * </p>
+     *
+     * @param oneTimeOutputData the one-time transaction data
+     * @param periodicOutputData the periodic transaction data
+     * @param isPeriodic true if the transaction is periodic, false if it is one-time
+     * @return a CSV-formatted string representing the transaction
+     */
     protected String getTransactionInfo(O oneTimeOutputData,
                                         P periodicOutputData,
                                         boolean isPeriodic) {
@@ -254,14 +320,42 @@ public abstract class CSVAccountDataAccessObject<
         }
     }
 
+    /**
+     * Checks if a user account exists by its identification.
+     *
+     * @param identification the unique identifier for the user account
+     * @return {@code true} if the account exists, {@code false} otherwise
+     */
     public abstract boolean existById(String identification);
 
+    /**
+     * Saves a new user account to the CSV file.
+     *
+     * @param account the user account to be saved
+     */
     public abstract void save(A account);
 
+    /**
+     * Deletes a user account from the CSV file by its identification.
+     *
+     * @param identification the unique identifier for the user account to be deleted
+     */
     public abstract void deleteById(String identification);
 
+    /**
+     * Retrieves a user account by its identification from the CSV file.
+     *
+     * @param identification the unique identifier for the user account
+     * @return the user account with the specified identification
+     */
     public abstract A getById(String identification);
 
+    /**
+     * Reads transactions associated with a specific user ID from the CSV file.
+     *
+     * @param identification the unique identifier of the user whose transactions are to be retrieved
+     * @return a list of transactions associated with the specified user ID
+     */
     public abstract List<Transaction> readTransactions(String identification);
 
 }

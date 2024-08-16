@@ -8,19 +8,26 @@ import use_case.signup.shared_account.SharedAccountSignupInteractor;
 import java.util.Set;
 
 /**
- * The SharedAccountSignupController class handles user input for the shared account signup process.
- * It creates an input data object and delegates the execution to the signup interactor.
+ * The {@code SharedAccountSignupController} class handles user input for the shared account
+ * signup process. It constructs an input data object with the provided user information and
+ * delegates the execution to the associated signup interactor.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that user
+ * input is correctly processed and passed to the business logic layer for further handling.
+ * </p>
  *
- * @author Xile Chen, Eric Chen
+ * <p>
+ * <b>Author:</b> Xile Chen, Eric Chen, Jessica Chen
+ * </p>
  */
 public class SharedAccountSignupController extends SignupController<
         SharedAccountSignupInputBoundary,
         SharedAccountSignupInteractor> {
 
     /**
-     * Constructs a SharedAccountSignupController with the specified signup interactor.
+     * Constructs a {@code SharedAccountSignupController} with the specified signup interactor.
      *
-     * @param sharedAccountSignupInteractor the interactor that processes the signup data
+     * @param sharedAccountSignupInteractor the interactor responsible for processing the shared account signup data.
      */
     public SharedAccountSignupController(SharedAccountSignupInteractor sharedAccountSignupInteractor) {
         super(sharedAccountSignupInteractor);
@@ -28,12 +35,12 @@ public class SharedAccountSignupController extends SignupController<
 
     /**
      * Executes the signup process with the given input data.
+     * This method creates a {@code SharedAccountSignupInputData} object containing the shared account
+     * ID, password, and a set of additional user IDs, and then delegates the signup process to the interactor.
      *
-     * @param sharedAccountId       the shared account ID
-     * @param sharedAccountPassword the shared account password
-//     * @param user1Id               the first user's ID
-//     * @param user2Id               the second user's ID
-     * @param userIds     a set of additional user IDs
+     * @param sharedAccountId       the shared account ID.
+     * @param sharedAccountPassword the shared account password.
+     * @param userIds               a set of additional user IDs.
      */
     public void execute(String sharedAccountId, String sharedAccountPassword, Set<String> userIds) {
         // Create input data object for the shared account signup

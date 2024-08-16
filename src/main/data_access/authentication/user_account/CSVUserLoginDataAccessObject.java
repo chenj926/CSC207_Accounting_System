@@ -18,8 +18,8 @@ import java.nio.file.Files;
  * This class also includes login functionality for shared accounts.
  * </p>
  *
- * @author Jessica Chen
- * @author Eric Chen
+ * @author Jessica
+ * @author Eric
  */
 public class CSVUserLoginDataAccessObject extends CSVUserAccountDataAccessObject implements UserAccountLoginDataAccessInterface {
     /**

@@ -2,6 +2,16 @@ package use_case.update_periodic_at_login;
 
 import java.time.LocalDate;
 
+/**
+ * Abstract class for representing the input data required to update periodic transactions
+ * during a user login.
+ * <p>
+ * This class contains the basic details necessary for updating periodic transactions, including
+ * the user's identification and the current date of login.
+ * </p>
+ *
+ * @author Jessica
+ */
 public abstract class AccountUpdatePeriodicAtLoginInputData {
     protected String identification;
     protected LocalDate currentDate;

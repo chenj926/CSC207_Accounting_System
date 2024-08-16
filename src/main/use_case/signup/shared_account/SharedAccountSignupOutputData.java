@@ -6,21 +6,25 @@ import java.util.Set;
 
 /**
  * The SharedAccountSignupOutputData class represents the output data of a shared account signup operation.
- * It includes specific fields such as shared account ID and the status of whether the shared account already exists.
+ * It includes specific fields such as shared account ID and the user IDs associated with the shared account.
+ *
+ * @author Xile
+ * @author Dana
+ * @author Eric
  */
 public class SharedAccountSignupOutputData implements SignupOutputData<Set<String>> {
     private final String sharedAccountId;
-//    private String user1Id;
-//    private String user2Id;
     private Set<String> userIds;
-//    private final boolean sharedAccountExists;
 
+    /**
+     * Constructs a SharedAccountSignupOutputData object with the specified shared account ID and user IDs.
+     *
+     * @param sharedAccountId the ID of the shared account
+     * @param userIds the set of user IDs associated with the shared account
+     */
     public SharedAccountSignupOutputData(String sharedAccountId, Set<String> userIds) {
         this.sharedAccountId = sharedAccountId;
-//        this.user1Id = user1Id;
-//        this.user2Id = user2Id;
         this.userIds = userIds;
-//        this.sharedAccountExists = sharedAccountExists;
     }
 
     /**
@@ -31,24 +35,14 @@ public class SharedAccountSignupOutputData implements SignupOutputData<Set<Strin
     public String getSharedAccountId() {
         return this.sharedAccountId;
     }
-//
-//    public String getUser1Id() {return this.user1Id;}
-//
-//    public String getUser2Id() {return this.user2Id;}
 
+    /**
+     * Gets the set of user IDs associated with the shared account.
+     *
+     * @return the set of user IDs
+     */
     public Set<String> getUserIds() {
         return this.userIds;
     }
 
 }
-
-    /**
-     * Checks if the shared account already exists.
-     *
-     * @return true if the shared account already exists, false otherwise
-     */
-//    public boolean isSharedAccountExists() {
-//        return this.sharedAccountExists;
-//    }
-//}
-

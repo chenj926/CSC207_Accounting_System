@@ -5,7 +5,7 @@ import use_case.financial_report.FinancialReportOutputData;
 /**
  * Output data for presenting financial reports.
  *
- * @author :Dana
+ * @author Dana
  */
 public class SharedAccountFinancialReportOutputData extends FinancialReportOutputData {
 

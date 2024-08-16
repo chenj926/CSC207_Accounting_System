@@ -20,15 +20,14 @@ import java.time.LocalDate;
  * @see LocalDate
  *
  * author Eric
- * author Dana
- * author Jessica
+ * author Rita
  */
 public class SharedAccountPeriodicTransactionOutputData extends PeriodicTransactionOutputData {
 
     /**
      * Constructs a SharedAccountPeriodicTransactionOutputData object for a periodic transaction with the specified details.
      *
-     * @param periodicTransaction      the periodic transaction entity
+     * @param periodicTransaction   the periodic transaction entity
      */
     public SharedAccountPeriodicTransactionOutputData(PeriodicTransaction periodicTransaction) {
         super(periodicTransaction);

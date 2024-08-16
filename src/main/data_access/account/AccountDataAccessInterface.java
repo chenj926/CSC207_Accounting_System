@@ -2,12 +2,25 @@ package data_access.account;
 
 import entity.account.Account;
 import entity.transaction.Transaction;
-import use_case.transaction.TransactionOutputData;
 import use_case.transaction.one_time.OneTimeTransactionOutputData;
 import use_case.transaction.periodic.PeriodicTransactionOutputData;
 
 import java.util.List;
 
+/**
+ * Interface for data access operations related to user accounts.
+ * <p>
+ * This interface defines methods for basic CRUD (Create, Read, Update, Delete) operations and
+ * transaction management for user accounts in a data store. It supports generic types for accounts,
+ * one-time transactions, and periodic transactions.
+ * </p>
+ *
+ * @param <A> the type of the user account
+ * @param <O> the type of the one-time transaction output data
+ * @param <P> the type of the periodic transaction output data
+ *
+ * @author Eric
+ */
 public interface AccountDataAccessInterface<
         A extends Account,
         O extends OneTimeTransactionOutputData,

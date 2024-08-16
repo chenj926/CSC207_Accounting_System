@@ -10,6 +10,7 @@ import entity.account.user_account.UserAccount;
  * </p>
  *
  * @author Dana
+ * @author Jessica
  */
 public interface UserAccountLoginDataAccessInterface {
 
@@ -36,6 +37,4 @@ public interface UserAccountLoginDataAccessInterface {
      * @return {@code true} if the login is successful; {@code false} otherwise
      */
     boolean login(UserAccount userAccount);
-
-//    boolean login(SharedAccount sharedAccount);
 }

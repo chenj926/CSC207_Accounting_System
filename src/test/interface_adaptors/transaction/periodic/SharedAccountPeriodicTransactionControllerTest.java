@@ -53,7 +53,7 @@ class SharedAccountPeriodicTransactionControllerTest {
         assertEquals(expectedState.getTransactionDescription(), testViewModel.getState().getTransactionDescription());
         assertEquals(expectedState.getTransactionPeriod(), testViewModel.getState().getTransactionPeriod());
         assertEquals(expectedState.getTransactionEndDate(), testViewModel.getState().getTransactionEndDate());
-        assertEquals(expectedState.getErrorMsg(), testViewModel.getState().getErrorMsg());
+        assertEquals(expectedState.getErrorMessage(), testViewModel.getState().getErrorMessage());
         assertEquals(expectedState.getSuccessMessage(), testViewModel.getState().getSuccessMessage());
 
     }

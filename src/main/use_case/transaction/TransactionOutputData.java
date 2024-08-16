@@ -9,6 +9,7 @@ import java.time.LocalDate;
  * It includes details such as the transaction amount, date, description, category, identification, and.
  *
  * @author Jessica
+ * @author Eric
  */
 public abstract class TransactionOutputData<TransactionType>{
     protected float transactionAmount;

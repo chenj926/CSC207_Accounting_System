@@ -10,6 +10,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 
+/**
+ * Abstract base class for handling transactions, including one-time and periodic transactions.
+ *
+ * @param <DAO> the type of data access interface for account data
+ * @param <A> the type of account associated with the transaction
+ * @param <O> the type of one-time transaction output data
+ * @param <P> the type of periodic transaction output data
+ *
+ * @author Jessica
+ * @author Eric
+ */
 public abstract class TransactionInteractor<
         DAO extends AccountDataAccessInterface<A, O, P>,
         A extends Account,

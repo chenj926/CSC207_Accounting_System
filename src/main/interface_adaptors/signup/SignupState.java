@@ -1,11 +1,19 @@
 package interface_adaptors.signup;
 
 /**
- * The UserAccountSignupState class represents the state of the signup process,
- * including user details, error messages, and success messages.
+ * The {@code SignupState} class represents the state of the signup process,
+ * encapsulating user details, error messages, and success messages. This class
+ * provides the foundation for managing the state during the signup process, ensuring
+ * that the application maintains a consistent state throughout the operation.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, separating
+ * the business logic from the view logic. It abstracts the state management, allowing
+ * the underlying logic to be independent of how the state is represented and manipulated.
+ * </p>
  *
- * @author Chi Fong
- * @author Eric
+ * <p>
+ * <b>Author:</b> Chi Feng Huang, Jessica Chen, Eric Chen
+ * </p>
  */
 public abstract class SignupState {
     protected String identification;
@@ -15,7 +23,8 @@ public abstract class SignupState {
     protected String successMsg;
 
     /**
-     * Constructs a UserAccountSignupState object with default values.
+     * Constructs a {@code SignupState} object with default values.
+     * The default values ensure that the signup state starts with no user details or messages.
      */
     public SignupState() {
         this.identification = "";
@@ -25,9 +34,9 @@ public abstract class SignupState {
     }
 
     /**
-     * Gets the identification.
+     * Gets the identification associated with the signup state.
      *
-     * @return the identification
+     * @return the identification.
      */
     public String getIdentification() { return this.identification; }
 
@@ -87,16 +96,18 @@ public abstract class SignupState {
     public void setSuccessMsg(String msg) { this.successMsg = msg; }
 
     /**
-     * Checks if the signup state is valid (i.e., there is a success message).
+     * Checks if the signup state is valid, meaning a success message is present.
      *
-     * @return true if the signup state is valid, false otherwise
+     * @return {@code true} if the signup state is valid, {@code false} otherwise.
      */
     public boolean isValid() {
         return this.successMsg != null;
     }
 
     /**
-     * Resets the signup state to default values.
+     * Resets the signup state to its default values.
+     * This method clears all user details, error messages, and success messages,
+     * effectively returning the state to its initial configuration.
      */
     public void reset() {
         this.identification = "";

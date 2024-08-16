@@ -1,9 +1,9 @@
 package view.transaction.one_time.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,13 +13,19 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The SharedAccountOneTimeTransactionPanel class represents the user interface for a shared account one-time transaction form.
- * It extends JPanel and handles user inputs and interactions related to shared account one-time transactions.
+ * The {@code SharedAccountOneTimeTransactionPanel} class represents the user interface for managing one-time transactions
+ * within a shared account. It extends {@link JPanel} and handles user inputs and interactions related to shared account
+ * one-time transactions.
+ * <p>
+ * This class is part of the Clean Architecture's user interface layer, interacting with the {@link SharedOneTimeTransactionViewModel}
+ * to retrieve and display data, and the {@link SharedOneTimeTransactionController} to handle transaction-related actions.
+ * </p>
  *
+ * <p><b>Authors:</b> Xile Chen, Eric Chen</p>
  */
 public class SharedAccountOneTimeTransactionPanel extends JPanel {
-    private final SharedAccountOneTimeTransactionViewModel viewModel;
-    private final SharedAccountOneTimeTransactionController controller;
+    private final SharedOneTimeTransactionViewModel viewModel;
+    private final SharedOneTimeTransactionController controller;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -33,14 +39,17 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
     private JTextField userIdField;
 
     /**
-     * Constructs a SharedAccountOneTimeTransactionPanel object with the specified view model, controller, and view manager.
+     * Constructs a {@code SharedAccountOneTimeTransactionPanel} object with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the UI components and sets up the event listeners to handle user interactions.
+     * </p>
      *
      * @param viewModel  the view model for the shared account one-time transaction panel
      * @param controller the controller handling shared account one-time transaction actions
      * @param viewManager the view manager for handling view transitions
      */
-    public SharedAccountOneTimeTransactionPanel(SharedAccountOneTimeTransactionViewModel viewModel,
-                                                SharedAccountOneTimeTransactionController controller,
+    public SharedAccountOneTimeTransactionPanel(SharedOneTimeTransactionViewModel viewModel,
+                                                SharedOneTimeTransactionController controller,
                                                 ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.controller = controller;
@@ -51,7 +60,11 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
     }
 
     /**
-     * Initializes the components for the shared account one-time transaction panel, including labels, text fields, and buttons.
+     * Initializes the components for the shared account one-time transaction panel, including labels, text fields,
+     * combo boxes, and buttons.
+     * <p>
+     * The method also applies styles to the buttons to ensure a consistent user interface design.
+     * </p>
      */
     private void initializeComponents() {
         // Title label
@@ -84,9 +97,13 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
 
     /**
      * Styles the given button with the specified background color.
+     * <p>
+     * This method sets the font, background color, and foreground color of the button, and ensures
+     * it is opaque with no border painting.
+     * </p>
      *
      * @param button the button to style
-     * @param color the background color for the button
+     * @param color  the background color for the button
      */
     private void styleButton(JButton button, Color color) {
         button.setFont(new Font("Arial", Font.PLAIN, 16));
@@ -98,6 +115,10 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
 
     /**
      * Sets up the user interface layout for the shared account one-time transaction panel.
+     * <p>
+     * This method arranges the UI components in a {@link GridBagLayout} to provide a structured
+     * and user-friendly layout for the transaction form.
+     * </p>
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -165,8 +186,12 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
     }
 
     /**
-     * Sets up listeners for user interactions, including submit, cancel, and select users actions.
-     */
+     * Sets up listeners for user interactions, including submit and cancel actions.
+            * <p>
+     * This method ensures that the user inputs are processed, and the appropriate actions are taken
+     * when the user interacts with the panel's buttons and fields.
+            * </p>
+            */
     private void setupListeners() {
         // Submit button action
         submitButton.addActionListener(new ActionListener() {
@@ -194,39 +219,22 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         // Cancel button action
         cancelButton.addActionListener(e -> viewManager.setActiveViewName("Shared Account Homepage Two"));
 
-//        // Select Users button action
-//        selectUsersComb.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                // Open dialog to select responsible users
-//                String users = JOptionPane.showInputDialog(
-//                        null, "Enter responsible user IDs separated by commas",
-//                        "Select Users", JOptionPane.PLAIN_MESSAGE);
-//
-//                if (users != null && !users.trim().isEmpty()) {
-//                    // Split input string and add to set
-//                    String[] userIds = users.split(",");
-//                    for (String userId : userIds) {
-//                        responsibleUserIds.add(userId.trim());
-//                    }
-//                    JOptionPane.showMessageDialog(null, "Selected Users: " + responsibleUserIds);
-//                }
-//            }
-//        });
-
         // Add listeners for typing in fields to update state
         addTypingListeners();
     }
 
     /**
      * Adds typing listeners to fields to update the transaction state.
+     * <p>
+     * These listeners ensure that the transaction state in the view model is kept in sync with the user's input.
+     * </p>
      */
     private void addTypingListeners() {
         // Amount field listener
         this.amountField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
             }
             @Override
@@ -239,7 +247,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.dateField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -253,7 +261,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.descriptionField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -267,7 +275,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
+                SharedOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "Custom"
                 if ("Custom".equals(categoryComb.getSelectedItem())) {
@@ -290,6 +298,9 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
 
     /**
      * Clears all input fields in the shared account one-time transaction panel.
+     * <p>
+     * This method resets the UI components, ensuring that the fields are empty and ready for new input.
+     * </p>
      */
     public void clearFields() {
         amountField.setText("");

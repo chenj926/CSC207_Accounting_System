@@ -12,11 +12,21 @@ import java.time.temporal.ChronoUnit;
 import java.util.Set;
 
 /**
- * The SharedAccountPeriodicTransactionInteractor class is responsible for managing periodic transactions
- * for shared accounts. It implements the SharedAccountPeriodicTransactionInputBoundary and
- * SharedAccountPeriodicTransactionOutputBoundary interfaces.
+ * The {@code SharedAccountPeriodicTransactionInteractor} class manages periodic transactions
+ * for shared accounts. It extends {@link PeriodicTransactionInteractor} to handle transaction
+ * logic specific to shared accounts and implements the {@link SharedAccountPeriodicTransactionInputBoundary}
+ * interface.
+ * <p>
+ * This class is responsible for validating and processing periodic transactions, including
+ * inflows and outflows, for shared accounts. It interacts with data access objects to
+ * retrieve and update account information and uses presenters to provide feedback on
+ * transaction success or failure.
+ * </p>
  *
  * @author Rita
+ * @author Xile
+ * @author Eric
+ * @author Jessica
  */
 public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransactionInteractor<
         SharedAccountDataAccessInterface,
@@ -25,8 +35,6 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
         SharedAccountPeriodicTransactionOutputData,
         SharedAccountPeriodicTransactionInputData>
         implements SharedAccountPeriodicTransactionInputBoundary {
-
-//    private final SharedAccountPeriodicTransactionOutputBoundary outputBoundary;
 
     /**
      * Constructs a SharedAccountPeriodicTransactionInteractor object with the necessary dependencies.
@@ -39,7 +47,6 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
                                                       SharedAccount sharedAccount,
                                                       SharedAccountPeriodicTransactionOutputBoundary presenter) {
         super(DAO, presenter, sharedAccount);
-//        this.outputBoundary = outputBoundary;
     }
 
     @Override
@@ -156,8 +163,17 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
         }
     }
 
-
-
+    /**
+     * Checks if the user ID is valid for the shared account.
+     * <p>
+     * This method verifies if the provided user ID is associated with the specified
+     * shared account.
+     * </p>
+     *
+     * @param sharedId the shared account ID
+     * @param userId the user ID to be checked
+     * @return true if the user ID is valid for the shared account, false otherwise
+     */
     private boolean checkValidUserId(String sharedId, String userId) {
         SharedAccount account = this.userDataAccessObject.getById(sharedId);
         Set<String> userIds = account.getSharedUserIdentifications();
@@ -169,6 +185,19 @@ public class SharedAccountPeriodicTransactionInteractor extends PeriodicTransact
         return false;
     }
 
+    /**
+     * Creates output data for a given periodic transaction specific to shared accounts.
+     * <p>
+     * This method takes a {@link PeriodicTransaction} object and uses it to create an
+     * instance of {@link SharedAccountPeriodicTransactionOutputData}. The output data
+     * encapsulates the details of the transaction and is used to present the results
+     * to the user.
+     * </p>
+     *
+     * @param transaction the {@link PeriodicTransaction} for which to create output data
+     * @return an instance of {@link SharedAccountPeriodicTransactionOutputData} containing
+     *         the details of the provided transaction
+     */
     @Override
     protected SharedAccountPeriodicTransactionOutputData createOutputData(PeriodicTransaction transaction) {
         return new SharedAccountPeriodicTransactionOutputData(transaction);

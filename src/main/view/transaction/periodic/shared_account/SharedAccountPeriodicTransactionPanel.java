@@ -13,8 +13,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The SharedAccountPeriodicTransactionPanel class represents the panel used to input and manage shared account periodic transactions.
- * It includes fields for transaction amount, start and end dates, description, period, and a button for selecting responsible users.
+ * The {@code SharedAccountPeriodicTransactionPanel} class provides the graphical user interface for inputting and managing
+ * periodic transactions within a shared account. It extends {@link JPanel} and includes fields for transaction amount,
+ * start and end dates, description, period, and user selection.
+ * <p>
+ * This class is part of the user interface layer in the Clean Architecture structure, responsible for collecting user input
+ * and interacting with the controller to process periodic transactions.
+ * </p>
+ *
+ * <p><b>Authors:</b> Xile Chen, Eric Chen, Jessica Chen</p>
  */
 public class SharedAccountPeriodicTransactionPanel extends JPanel {
     private final SharedAccountPeriodicTransactionViewModel viewModel;
@@ -36,7 +43,10 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
     private JButton selectUsersButton;
 
     /**
-     * Constructs a SharedAccountPeriodicTransactionPanel with the specified view model, controller, and view manager.
+     * Constructs a {@code SharedAccountPeriodicTransactionPanel} with the specified view model, controller, and view manager.
+     * <p>
+     * This constructor initializes the panel by setting up the necessary UI components and configuring the interaction logic.
+     * </p>
      *
      * @param viewModel the view model for the shared account periodic transaction panel
      * @param sharedAccountPeriodicTransactionController the controller handling shared account periodic transaction actions
@@ -54,7 +64,10 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
     }
 
     /**
-     * Initializes the components for the panel, including labels, text fields, and buttons.
+     * Initializes the UI components for the panel, including labels, text fields, and buttons.
+     * <p>
+     * This method is responsible for creating and configuring the visual elements of the panel.
+     * </p>
      */
     private void initializeComponents() {
         this.titleLabel = new JLabel(viewModel.getTitleLabel());
@@ -83,27 +96,34 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
 //        this.selectUsersButton = new JButton(this.viewModel.getSELECT_USER()); // New button for selecting users
 
         // Style buttons
-        this.submitButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-//        this.selectUsersButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.submitButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-//        this.selectUsersButton.setBackground(new Color(150, 150, 200));
-        this.submitButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-//        this.selectUsersButton.setForeground(Color.WHITE);
-
-        // Adjust environment for compatibility with MAC
-        this.submitButton.setOpaque(true);
-        this.submitButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
-//        this.selectUsersButton.setOpaque(true);
-//        this.selectUsersButton.setBorderPainted(false);
+        this.styleButton(this.submitButton, new Color(100, 150, 200));
+        this.styleButton(this.cancelButton, new Color(200, 100, 100));
+//        this.styleButton(this.selectUsersButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the layout and UI components of the panel using GridBagLayout.
+     * Styles the given button with the specified background color.
+     * <p>
+     * This method sets the font, background color, and foreground color of the button, and ensures
+     * it is opaque with no border painting.
+     * </p>
+     *
+     * @param button the button to style
+     * @param color  the background color for the button
+     */
+    private void styleButton(JButton button, Color color) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(color);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Sets up the layout and UI components of the panel using {@link GridBagLayout}.
+     * <p>
+     * This method arranges the components within the panel and configures their positions and alignment.
+     * </p>
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -192,6 +212,9 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
 
     /**
      * Sets up the action listeners for the buttons and fields.
+     * <p>
+     * This method configures the event handling logic for the user interactions within the panel.
+     * </p>
      */
     private void setupListeners() {
         submitButton.addActionListener(new ActionListener() {
@@ -230,24 +253,6 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
         cancelButton.addActionListener(e -> {
             viewManager.setActiveViewName("Shared Account Homepage Two");
         });
-
-//        selectUsersButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent evt) {
-//                // Simulate user selection dialog
-//                String input = JOptionPane.showInputDialog(
-//                        null,
-//                        "Enter the IDs of responsible users separated by commas.",
-//                        "Select Users",
-//                        JOptionPane.PLAIN_MESSAGE
-//                );
-//
-//                if (input != null && !input.trim().isEmpty()) {
-//                    // Update the view model with the selected responsible users
-//                    viewModel.getState().setIdentification(userId.getText());
-//                }
-//            }
-//        });
 
         this.amountField.addKeyListener(new KeyListener() {
             @Override
@@ -350,7 +355,10 @@ public class SharedAccountPeriodicTransactionPanel extends JPanel {
     }
 
     /**
-     * Clears all text fields in the panel and resets the set of responsible user IDs.
+     * Clears all text fields in the panel and resets the responsible user ID field.
+     * <p>
+     * This method ensures that all input fields are cleared when the panel is reset.
+     * </p>
      */
     public void clearFields() {
         amountField.setText("");

@@ -10,5 +10,4 @@ import use_case.transaction.periodic.PeriodicTransactionInputBoundary;
  * @author Jessica
  */
 public interface UserAccountPeriodicTransactionInputBoundary extends PeriodicTransactionInputBoundary<UserAccountPeriodicTransactionInputData> {
-    // execute defined in TransactionInputBoundary interface
 }

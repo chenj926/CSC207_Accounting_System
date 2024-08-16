@@ -10,11 +10,4 @@ import use_case.signup.SignupInputBoundary;
  * @author Dana
  */
 public interface UserAccountSignupInputBoundary extends SignupInputBoundary<UserAccountSignupInputData> {
-//
-//    /**
-//     * Executes the signup process with the given input data.
-//     *
-//     * @param signupInputData the input data required for the signup process
-//     */
-//    void execute(UserAccountSignupInputData signupInputData);
 }
