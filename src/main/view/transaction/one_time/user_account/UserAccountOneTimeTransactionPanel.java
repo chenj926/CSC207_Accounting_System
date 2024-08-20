@@ -1,7 +1,7 @@
 package view.transaction.one_time.user_account;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
 import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
 import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 
@@ -17,7 +17,7 @@ import java.awt.event.KeyListener;
  * within a user account. It extends {@link JPanel} and handles user inputs and interactions related to one-time transactions.
  * <p>
  * This class is a part of the Clean Architecture's user interface layer, where it interacts with the
- * {@link UserOneTimeTransactionViewModel} to retrieve and display data, and the {@link UserOneTimeTransactionController}
+ * {@link UserOneTimeTransactionViewModel} to retrieve and display data, and the {@link UserAccountOneTimeTransactionController}
  * to execute transaction-related actions.
  * </p>
  *
@@ -25,7 +25,7 @@ import java.awt.event.KeyListener;
  */
 public class UserAccountOneTimeTransactionPanel extends JPanel {
     private final UserOneTimeTransactionViewModel viewModel;
-    private final UserOneTimeTransactionController oneTimeTransactionController;
+    private final UserAccountOneTimeTransactionController oneTimeTransactionController;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -48,7 +48,7 @@ public class UserAccountOneTimeTransactionPanel extends JPanel {
      * @param viewManager                the view manager for handling view transitions
      */
     public UserAccountOneTimeTransactionPanel(UserOneTimeTransactionViewModel viewModel,
-                                              UserOneTimeTransactionController oneTimeTransactionController,
+                                              UserAccountOneTimeTransactionController oneTimeTransactionController,
                                               ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.oneTimeTransactionController = oneTimeTransactionController;

@@ -4,9 +4,9 @@ import data_access.DAOFactory;
 import data_access.account.shared_account.SharedAccountDataAccessInterface;
 import entity.account.shared_account.SharedAccount;
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionPresenter;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionPresenter;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionInteractor;
 import use_case.transaction.one_time.shared_account.SharedAccountOneTimeTransactionOutputBoundary;
 import view.transaction.one_time.shared_account.SharedAccountOneTimeTransactionView;
@@ -41,9 +41,9 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
      * @return a {@link SharedAccountOneTimeTransactionView} instance if successful, or null if an IOException occurs
      */
     public static SharedAccountOneTimeTransactionView create(ViewManagerModel viewManagerModel,
-                                                SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) {
+                                                SharedAccountOneTimeTransactionViewModel oneTimeTransactionViewModel) {
         try {
-            SharedOneTimeTransactionController oneTimeTransactionController = createSharedAccountOneTimeUseCase(viewManagerModel,
+            SharedAccountOneTimeTransactionController oneTimeTransactionController = createSharedAccountOneTimeUseCase(viewManagerModel,
                     oneTimeTransactionViewModel);
             return new SharedAccountOneTimeTransactionView(oneTimeTransactionViewModel, oneTimeTransactionController, viewManagerModel);
         } catch (IOException e) {
@@ -58,16 +58,16 @@ public class SharedAccountOneTimeTransactionUseCaseFactory {
      *
      * @param viewManagerModel the view manager model used to manage the view state
      * @param oneTimeTransactionViewModel the view model for one-time transactions
-     * @return a {@link SharedOneTimeTransactionController} instance
+     * @return a {@link SharedAccountOneTimeTransactionController} instance
      * @throws IOException if an error occurs while accessing user data
      */
-    private static SharedOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
-                                                                                        SharedOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
+    private static SharedAccountOneTimeTransactionController createSharedAccountOneTimeUseCase(ViewManagerModel viewManagerModel,
+                                                                                               SharedAccountOneTimeTransactionViewModel oneTimeTransactionViewModel) throws IOException {
         SharedAccountDataAccessInterface dataAccessObject = DAOFactory.getShareAccountDataAccessObject();
-        SharedAccountOneTimeTransactionOutputBoundary presenter = new SharedOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
+        SharedAccountOneTimeTransactionOutputBoundary presenter = new SharedAccountOneTimeTransactionPresenter(oneTimeTransactionViewModel, viewManagerModel);
         SharedAccount sharedAccount = dataAccessObject.getById(viewManagerModel.getUserId());
         SharedAccountOneTimeTransactionInteractor interactor = new SharedAccountOneTimeTransactionInteractor(dataAccessObject, presenter, sharedAccount);
-        return new SharedOneTimeTransactionController(interactor, oneTimeTransactionViewModel);
+        return new SharedAccountOneTimeTransactionController(interactor, oneTimeTransactionViewModel);
     }
 
 }

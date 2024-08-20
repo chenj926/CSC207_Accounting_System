@@ -1,9 +1,9 @@
 package view.transaction.one_time.shared_account;
 
 import interface_adaptors.ViewManagerModel;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionState;
-import interface_adaptors.transaction.one_time.shared_account.SharedOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.shared_account.SharedAccountOneTimeTransactionViewModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,15 +17,15 @@ import java.awt.event.KeyListener;
  * within a shared account. It extends {@link JPanel} and handles user inputs and interactions related to shared account
  * one-time transactions.
  * <p>
- * This class is part of the Clean Architecture's user interface layer, interacting with the {@link SharedOneTimeTransactionViewModel}
- * to retrieve and display data, and the {@link SharedOneTimeTransactionController} to handle transaction-related actions.
+ * This class is part of the Clean Architecture's user interface layer, interacting with the {@link SharedAccountOneTimeTransactionViewModel}
+ * to retrieve and display data, and the {@link SharedAccountOneTimeTransactionController} to handle transaction-related actions.
  * </p>
  *
  * <p><b>Authors:</b> Xile Chen, Eric Chen</p>
  */
 public class SharedAccountOneTimeTransactionPanel extends JPanel {
-    private final SharedOneTimeTransactionViewModel viewModel;
-    private final SharedOneTimeTransactionController controller;
+    private final SharedAccountOneTimeTransactionViewModel viewModel;
+    private final SharedAccountOneTimeTransactionController controller;
     private final ViewManagerModel viewManager;
 
     private JLabel titleLabel;
@@ -48,8 +48,8 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
      * @param controller the controller handling shared account one-time transaction actions
      * @param viewManager the view manager for handling view transitions
      */
-    public SharedAccountOneTimeTransactionPanel(SharedOneTimeTransactionViewModel viewModel,
-                                                SharedOneTimeTransactionController controller,
+    public SharedAccountOneTimeTransactionPanel(SharedAccountOneTimeTransactionViewModel viewModel,
+                                                SharedAccountOneTimeTransactionController controller,
                                                 ViewManagerModel viewManager) {
         this.viewModel = viewModel;
         this.controller = controller;
@@ -234,7 +234,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.amountField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedOneTimeTransactionState currentState = viewModel.getState();
+                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionAmount(amountField.getText() + evt.getKeyChar());
             }
             @Override
@@ -247,7 +247,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.dateField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedOneTimeTransactionState currentState = viewModel.getState();
+                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDate(dateField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -261,7 +261,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.descriptionField.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent evt) {
-                SharedOneTimeTransactionState currentState = viewModel.getState();
+                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
                 currentState.setTransactionDescription(descriptionField.getText() + evt.getKeyChar());
                 viewModel.setState(currentState);
             }
@@ -275,7 +275,7 @@ public class SharedAccountOneTimeTransactionPanel extends JPanel {
         this.categoryComb.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                SharedOneTimeTransactionState currentState = viewModel.getState();
+                SharedAccountOneTimeTransactionState currentState = viewModel.getState();
 
                 // Check if the selected item is "Custom"
                 if ("Custom".equals(categoryComb.getSelectedItem())) {

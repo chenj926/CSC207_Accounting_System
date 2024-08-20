@@ -1,7 +1,7 @@
 package view.transaction.one_time.user_account;
 
 import interface_adaptors.*;
-import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionController;
+import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
 import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionState;
 import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 
@@ -17,7 +17,7 @@ import java.beans.PropertyChangeListener;
  * <p>
  * As part of the Clean Architecture, this class resides in the view layer, where it interacts with the
  * {@link UserOneTimeTransactionViewModel} to display data and updates the UI based on state changes.
- * It also communicates with the {@link UserOneTimeTransactionController} to manage the business logic for
+ * It also communicates with the {@link UserAccountOneTimeTransactionController} to manage the business logic for
  * one-time transactions.
  * </p>
  *
@@ -39,7 +39,7 @@ public class UserAccountOneTimeTransactionView extends JFrame implements Propert
      * @param viewManager              the view manager for handling view transitions
      */
     public UserAccountOneTimeTransactionView(UserOneTimeTransactionViewModel viewModel,
-                                             UserOneTimeTransactionController userAccountOneTimeTransactionController,
+                                             UserAccountOneTimeTransactionController userAccountOneTimeTransactionController,
                                              ViewManagerModel viewManager) {
         super(viewModel.getTitleLabel());
         this.viewModel = viewModel;
