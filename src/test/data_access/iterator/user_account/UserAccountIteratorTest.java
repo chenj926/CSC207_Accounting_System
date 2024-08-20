@@ -42,6 +42,7 @@ class UserAccountIteratorTest {
             assertEquals(1000.0f, account1.getTotalIncome());
             assertEquals(500.0f, account1.getTotalOutflow());
             assertEquals(500.0f, account1.getTotalBalance());
+            assertNotNull(account1.getLastLoginDate(), "Last login date should not be null for account1");
             assertEquals("2023-08-10", account1.getLastLoginDate().toString());
             assertEquals(Set.of("SA001", "SA002"), account1.getSharedAccounts());
 
@@ -55,11 +56,17 @@ class UserAccountIteratorTest {
             assertEquals(2000.0f, account2.getTotalIncome());
             assertEquals(1000.0f, account2.getTotalOutflow());
             assertEquals(1000.0f, account2.getTotalBalance());
+            if (account2.getLastLoginDate() == null) {
+                assertNull(account2.getLastLoginDate(), "Last login date is null for account2");
+            } else {
+                assertEquals("Expected date string", account2.getLastLoginDate().toString());
+            }
             assertTrue(account2.getSharedAccounts().isEmpty());
 
             assertFalse(iterator.hasNext());
         }
     }
+
 
     @Test
     void testEmptyFile() throws IOException {

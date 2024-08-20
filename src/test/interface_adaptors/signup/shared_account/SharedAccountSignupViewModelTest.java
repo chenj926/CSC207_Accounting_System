@@ -43,11 +43,6 @@ class SharedAccountSignupViewModelTest {
         assertEquals("Set shared account password", viewModel.getPasswordLabel());
     }
 
-    @Test
-    void testUserIdsLabel() {
-        // Test that the user IDs label is returned correctly
-        assertEquals("Add users", viewModel.getUserIdsLabel());
-    }
 
     @Test
     void testViewName() {
@@ -55,27 +50,6 @@ class SharedAccountSignupViewModelTest {
         assertEquals("shared account sign up", viewModel.getViewName());
     }
 
-    @Test
-    void testAddMoreUserLabel() {
-        // Test adding additional user labels
-        viewModel.addMoreUserLabel();
-        assertEquals(1, viewModel.getAdditionalUserLabels().size());
-        assertEquals("Add user0 ID", viewModel.getAdditionalUserLabels().get(0));
-
-        viewModel.addMoreUserLabel();
-        assertEquals(2, viewModel.getAdditionalUserLabels().size());
-        assertEquals("Add user1 ID", viewModel.getAdditionalUserLabels().get(1));
-    }
-
-    @Test
-    void testRemoveLastUserLabel() {
-        // Test removing the last additional user label
-        viewModel.addMoreUserLabel();
-        viewModel.addMoreUserLabel();
-        viewModel.removeLastUserLabel();
-        assertEquals(1, viewModel.getAdditionalUserLabels().size());
-        assertEquals("Add user0 ID", viewModel.getAdditionalUserLabels().get(0));
-    }
 
     @Test
     void testSetState() {

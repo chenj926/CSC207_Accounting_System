@@ -5,6 +5,19 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The {@code LoginViewModel} class represents the view model for the login process.
+ * It manages the state of the login UI components, including labels, buttons, and the current
+ * login state, and provides methods to access these components. This class is designed to work
+ * within a Clean Architecture framework, where it interacts with the view and business logic layers.
+ *
+ * <p>This abstract class should be extended by specific implementations that provide concrete
+ * behavior for different types of login states.</p>
+ *
+ * @param <S> the type of {@code LoginState} that this view model manages
+ *
+ * <p><b>Author:</b> Jessica Chen</p>
+ */
 public abstract class LoginViewModel<S extends LoginState> extends ViewModel {
     protected final String titleLabel = "ACCOUNT LOGIN";
     protected final String identificationLabel = "Enter account ID";
@@ -18,18 +31,19 @@ public abstract class LoginViewModel<S extends LoginState> extends ViewModel {
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a LoginViewModel object with the view name set to "login".
+     * Constructs a {@code LoginViewModel} object with the view name set to the provided name.
+     *
+     * @param viewModelName the name of the view model
      */
     public LoginViewModel(String viewModelName) {
         super(viewModelName);
     }
 
     /**
-     * Gets the title label.
+     * Gets the title label for the login view.
      *
      * @return the title label
      */
-
     public String getTitleLabel(){
         return this.titleLabel;
     }
@@ -98,7 +112,7 @@ public abstract class LoginViewModel<S extends LoginState> extends ViewModel {
     /**
      * Adds a property change listener to the listener list.
      *
-     * @param listener the PropertyChangeListener to be added
+     * @param listener the {@code PropertyChangeListener} to be added
      */
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {

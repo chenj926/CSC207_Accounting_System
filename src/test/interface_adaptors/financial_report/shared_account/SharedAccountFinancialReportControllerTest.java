@@ -1,45 +1,42 @@
 package interface_adaptors.financial_report.shared_account;
 
-import org.junit.jupiter.api.BeforeEach;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportController;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.financial_report.shared_account.SharedAccountFinancialReportInputBoundary;
 import use_case.financial_report.shared_account.SharedAccountFinancialReportInputData;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SharedAccountFinancialReportControllerTest {
 
-    private SharedAccountFinancialReportController controller;
-    private TestSharedAccountFinancialReportInteractor interactor;
-    private SharedAccountFinancialReportViewModel viewModel;
-
-    @BeforeEach
-    void setUp() {
-        interactor = new TestSharedAccountFinancialReportInteractor();
-        viewModel = new SharedAccountFinancialReportViewModel();
-        controller = new SharedAccountFinancialReportController(interactor, viewModel);
-    }
-
     @Test
-    void testExecute() {
-        String identification = "sharedAccount123";
+    void testGenerateReport() {
+        // Create a mock interactor to verify that execute is called with the correct data
+        SharedAccountFinancialReportInputBoundary testInteractor = new SharedAccountFinancialReportInputBoundary() {
+            @Override
+            public void execute(SharedAccountFinancialReportInputData inputData) {
+                // Verify that the interactor was called with the correct data
+                assertEquals("shared123", inputData.getIdentification());
+            }
+        };
 
-        controller.execute(identification);
+        // Create a mock view model, if you want to check reset state behavior
+        SharedAccountFinancialReportViewModel testViewModel = new SharedAccountFinancialReportViewModel() {
+            @Override
+            public void resetState() {
+                // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value
+            }
+        };
 
-        // Validate that the interactor received the correct data
-        assertNotNull(interactor.inputData);
-        assertEquals(identification, interactor.inputData.getIdentification());
-    }
+        // Create the controller with the mock implementations
+        SharedAccountFinancialReportController controller = new SharedAccountFinancialReportController(testInteractor, testViewModel);
 
-    // Inner class to simulate the SharedAccountFinancialReportInteractor behavior
-    private static class TestSharedAccountFinancialReportInteractor implements SharedAccountFinancialReportInputBoundary {
+        // Test data
+        String sharedAccountId = "shared123";
 
-        private SharedAccountFinancialReportInputData inputData;
-
-        @Override
-        public void execute(SharedAccountFinancialReportInputData inputData) {
-            this.inputData = inputData;  // Capture the input data for testing
-        }
+        // Execute the method with the correct parameters
+        controller.execute(sharedAccountId);
     }
 }
 

@@ -1,48 +1,139 @@
 package interface_adaptors.transaction;
 
 /**
- * The TransactionState class represents the state of a transaction,
- * indicating whether a one-time or periodic transaction is selected.
+ * The {@code TransactionState} class manages the state information related to a transaction.
+ * It includes fields for transaction ID, amount, description, category, success message,
+ * and error message. This class provides methods to update and retrieve the transaction state
+ * information, allowing for consistent state management throughout the transaction process.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that the
+ * state of a transaction is maintained and can be easily accessed and manipulated by other
+ * components in the application.
+ * </p>
  *
- * @author Xile
+ * <p>
+ * <b>Author:</b> Eric Chen
+ * </p>
  */
-public class TransactionState {
-    private boolean isOneTimeSelected;
-    private boolean isPeriodicSelected;
+public abstract class TransactionState {
+    protected String id;
+    protected String transactionAmount;
+    protected String transactionDescription;
+    protected String transactionCategory;
+    protected String successMessage;
+    protected String errorMessage;
 
     /**
-     * Checks if a one-time transaction is selected.
-     *
-     * @return true if a one-time transaction is selected, false otherwise
+     * Constructs a {@code TransactionState} object with default values.
+     * Initializes all fields to empty strings or {@code null} as appropriate.
      */
-    public boolean isOneTimeSelected() {
-        return isOneTimeSelected;
+    public TransactionState(){
+        this.id = "";
+        this.transactionAmount = "0";
+        this.transactionDescription = "";
+        this.transactionCategory = "";
+        this.errorMessage = null;
+        this.successMessage = null;
     }
 
+    // getters
     /**
-     * Sets the state of the one-time transaction selection.
+     * Gets the transaction ID.
      *
-     * @param oneTimeSelected the new state of the one-time transaction selection
+     * @return the transaction ID.
      */
-    public void setOneTimeSelected(boolean oneTimeSelected) {
-        isOneTimeSelected = oneTimeSelected;
+    public String getId() {
+        return this.id;
+    }
+    /**
+     * Gets the transaction amount.
+     *
+     * @return the transaction amount.
+     */
+    public String getTransactionAmount() {
+        return this.transactionAmount;
+    }
+    /**
+     * Gets the transaction description.
+     *
+     * @return the transaction description.
+     */
+    public String getTransactionDescription() {
+        return this.transactionDescription;
+    }
+    /**
+     * Gets the transaction category.
+     *
+     * @return the transaction category.
+     */
+    public String getTransactionCategory() {
+        return this.transactionCategory;
+    }
+    /**
+     * Gets the success message.
+     *
+     * @return the success message, or {@code null} if none is set.
+     */
+    public String getSuccessMessage() {
+        return this.successMessage;
+    }
+    /**
+     * Gets the error message.
+     *
+     * @return the error message, or {@code null} if none is set.
+     */
+    public String getErrorMessage() {
+        return this.errorMessage;
     }
 
+    // setters
     /**
-     * Checks if a periodic transaction is selected.
+     * Sets the transaction ID.
      *
-     * @return true if a periodic transaction is selected, false otherwise
+     * @param id the transaction ID.
      */
-    public boolean isPeriodicSelected() {
-        return isPeriodicSelected;
+    public void setId(String id) {
+        this.id = id;
     }
-
     /**
-     * Sets the state of the periodic transaction selection.
+     * Sets the transaction amount.
      *
-     * @param periodicSelected the new state of the periodic transaction selection
+     * @param transactionAmount the transaction amount.
      */
-    public void setPeriodicSelected(boolean periodicSelected) {
-        isPeriodicSelected = periodicSelected;
+    public void setTransactionAmount(String transactionAmount) {
+        this.transactionAmount = transactionAmount;
+    }
+    /**
+     * Sets the transaction description.
+     *
+     * @param transactionDescription the transaction description.
+     */
+    public void setTransactionDescription(String transactionDescription) {
+        this.transactionDescription = transactionDescription;
+    }
+    /**
+     * Sets the transaction category.
+     *
+     * @param transactionCategory the transaction category.
+     */
+    public void setTransactionCategory(String transactionCategory) {
+        this.transactionCategory = transactionCategory;
+    }
+    /**
+     * Sets the success message.
+     *
+     * @param successMessage the success message.
+     */
+    public void setSuccessMessage(String successMessage) {
+        this.successMessage = successMessage;
+    }
+    /**
+     * Sets the error message.
+     *
+     * @param errorMessage the error message.
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
     }
 }
+

@@ -6,8 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The SharedAccountSignupViewModel class extends UserAccountSignupViewModel to add properties and methods specific to shared account signup.
- * It provides additional labels and state management for the shared account signup view.
+ * The {@code SharedAccountSignupViewModel} class extends {@code SignupViewModel}
+ * to add properties and methods specific to the shared account signup process.
+ * It provides additional labels and state management tailored to the needs of
+ * the shared account signup view.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture,
+ * managing the interaction between the shared account signup view and the underlying
+ * state management. It ensures that the view is correctly updated based on the current
+ * state of the signup process.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Xile Chen
+ * </p>
  */
 public class SharedAccountSignupViewModel extends SignupViewModel<SharedAccountSignupState> {
 
@@ -15,48 +27,38 @@ public class SharedAccountSignupViewModel extends SignupViewModel<SharedAccountS
     private final String ID_LABEL = "Set shared account id";
     private final String PASSWORD_LABEL = "Set shared account password";
 
-    private final String USER_IDS_LABEL = "Add users";
-
-    // List to hold additional user labels
-    private final List<String> additionalUserLabels;
-
     /**
-     * Constructs a SharedAccountSignupViewModel object with the view name set to "shared account sign up".
+     * Constructs a {@code SharedAccountSignupViewModel} object with the view name set to "shared account sign up".
+     * Initializes the signup state to a new {@code SharedAccountSignupState} instance.
      */
     public SharedAccountSignupViewModel() {
         super("shared account sign up");
         this.state = new SharedAccountSignupState();
-        this.additionalUserLabels = new ArrayList<>();
     }
 
     /**
-     * Gets the identification label.
+     * Gets the title label for the shared account signup view.
      *
-     * @return the identification label
+     * @return the title label.
      */
-    public String getUserIdsLabel() { return this.USER_IDS_LABEL; }
-
-    public void addMoreUserLabel() {
-        int nextUserNumber = this.getState().getUserId().size();
-        String newLabel = "Add user" + nextUserNumber + " ID";
-        additionalUserLabels.add(newLabel);
-    }
+    @Override
+    public String getTitleLabel() { return this.TITLE_LABEL; }
 
     /**
-     * Removes the last additional user label if there are any.
-     */
-    public void removeLastUserLabel() {
-        if (!additionalUserLabels.isEmpty()) {
-            additionalUserLabels.remove(additionalUserLabels.size() - 1);
-        }
-    }
-
-    /**
-     * Gets the list of additional user labels.
+     * Gets the ID label for the shared account signup view.
      *
-     * @return the list of additional user labels
+     * @return the ID label.
      */
-    public List<String> getAdditionalUserLabels() {
-        return new ArrayList<>(additionalUserLabels);
-    }
+    @Override
+    public String getID_LABEL() { return this.ID_LABEL; }
+
+    /**
+     * Gets the password label for the shared account signup view.
+     *
+     * @return the password label.
+     */
+    @Override
+    public String getPasswordLabel() { return this.PASSWORD_LABEL; }
+
+
 }

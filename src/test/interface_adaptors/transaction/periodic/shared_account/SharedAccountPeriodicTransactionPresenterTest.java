@@ -78,7 +78,7 @@ class SharedAccountPeriodicTransactionPresenterTest {
 
         // Verify the view model state
         SharedAccountPeriodicTransactionState state = viewModel.getState();
-        assertEquals(errorMessage, state.getErrorMsg());
+        assertEquals(errorMessage, state.getErrorMessage());
         assertNull(state.getSuccessMessage());
     }
 }

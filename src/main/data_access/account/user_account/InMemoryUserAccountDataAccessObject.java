@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * In-memory data access object (DAO) for user account operations.
  * <p>
- * This class implements the {@link UserSignupDataAccessInterface} interface and provides an in-memory
+ * This class implements the {@link UserSignupDataAccessInterface} and {@link UserAccountDataAccessInterface} interface and provides an in-memory
  * implementation for managing user accounts. It is intended for testing purposes and does not persist data
  * beyond the lifetime of the application.
  * </p>
@@ -19,8 +19,6 @@ import java.util.*;
  * @author Eric
  * @author Jessica
  */
-
-// in memory DAO for test purposes
 public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccessInterface, UserAccountDataAccessInterface{
     private final Map<String, UserAccount> users = new HashMap<>();
 
@@ -44,11 +42,32 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
         users.put(newUser.getIdentification(), newUser);
     }
 
+    /**
+     * Saves a transaction for a user account. The transaction can be either a one-time or periodic transaction.
+     * <p>
+     * This method saves the transaction details associated with the user account. Depending on the value of
+     * {@code isPeriodic}, either the one-time transaction data or periodic transaction data is saved.
+     * </p>
+     *
+     * @param oneTimeOutputData the output data of the one-time transaction to be saved
+     * @param periodicOutputData the output data of the periodic transaction to be saved
+     * @param isPeriodic a flag indicating if the transaction is periodic
+     */
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData, UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
 
     }
 
+    /**
+     * Reads transactions associated with a specific user ID.
+     * <p>
+     * This method retrieves all transactions associated with the provided user ID. The transactions could
+     * be of any type (e.g., one-time, periodic).
+     * </p>
+     *
+     * @param userId the unique identifier of the user whose transactions are to be retrieved
+     * @return a list of transactions associated with the specified user ID
+     */
     @Override
     public List<Transaction> readTransactions(String userId) {
         return List.of();
@@ -73,6 +92,17 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
         return users.get(identifier);
     }
 
+    /**
+     * Updates an existing user account in the data store.
+     * <p>
+     * This method checks if a user account with the given identification exists in the data store.
+     * If it exists, the account is updated with the new data. If the account does not exist, an
+     * {@link IllegalArgumentException} is thrown.
+     * </p>
+     *
+     * @param account the {@link UserAccount} object containing updated information
+     * @throws IllegalArgumentException if the user account does not exist
+     */
     @Override
     public void update(UserAccount account) {
             // Check if the account exists before updating

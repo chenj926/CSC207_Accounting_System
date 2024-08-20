@@ -1,7 +1,9 @@
 package interface_adaptors.financial_report.shared_account;
 
-import data_access.financial_report_api_accessor.TextToSpeech;
 import interface_adaptors.ViewManagerModel;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportPresenter;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportState;
+import interface_adaptors.financial_report.shared_account.SharedAccountFinancialReportViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.financial_report.shared_account.SharedAccountFinancialReportOutputData;
@@ -10,47 +12,83 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SharedAccountFinancialReportPresenterTest {
 
-    private SharedAccountFinancialReportPresenter presenter;
     private SharedAccountFinancialReportViewModel viewModel;
     private ViewManagerModel viewManager;
+    private SharedAccountFinancialReportPresenter presenter;
 
     @BeforeEach
     void setUp() {
         viewModel = new SharedAccountFinancialReportViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new SharedAccountFinancialReportPresenter(viewModel, viewManager);
+        presenter = new SharedAccountFinancialReportPresenter(viewModel, viewManager) {
+            @Override
+            public void prepareSuccessView(SharedAccountFinancialReportOutputData outputData) {
+                super.prepareSuccessView(outputData);
+            }
+        };
     }
 
     @Test
     void testPrepareSuccessView() {
-        String reportContent = "This is a test financial report for shared account.";
+        // Create the output data with a mock report content
+        String reportContent = "This is a sample financial report.";
         SharedAccountFinancialReportOutputData outputData = new SharedAccountFinancialReportOutputData(reportContent);
 
-        // Temporarily replace TextToSpeech with a testable version
-        TestableTextToSpeech TTS = new TestableTextToSpeech();
+        // Execute method
         presenter.prepareSuccessView(outputData);
 
+        // Verify the view model state
         SharedAccountFinancialReportState state = viewModel.getState();
         assertEquals(reportContent, state.getReportContent());
         assertNull(state.getNoTransaction());
-        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
 
-        // Verify that the report content was correctly "spoken"
-        assertEquals(reportContent, TTS.getSpokenText());
+        // Verify the view manager changes view
+        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
     }
 
-    // A simple class to simulate TextToSpeech for testing purposes
-    private static class TestableTextToSpeech extends TextToSpeech {
-        private String spokenText;
+    @Test
+    void testPrepareSuccessViewNoTransaction() {
+        // Create the output data with an empty report content (indicating no transactions)
+        String reportContent = "";
+        SharedAccountFinancialReportOutputData outputData = new SharedAccountFinancialReportOutputData(reportContent);
 
-        @Override
-        public void speak(String text) {
-            this.spokenText = text;
-        }
+        // Execute method
+        presenter.prepareSuccessView(outputData);
 
-        public String getSpokenText() {
-            return spokenText;
-        }
+        // Verify the view model state
+        SharedAccountFinancialReportState state = viewModel.getState();
+        assertEquals(reportContent, state.getReportContent());
+        assertNull(state.getNoTransaction());
+
+        // Verify the view manager changes view
+        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
+    }
+
+    @Test
+    void testPrepareFailView() {
+        // Test data
+        String errorMessage = null;
+
+        // Execute method
+        presenter.prepareFailView(errorMessage);
+
+        // Verify the view model state
+        SharedAccountFinancialReportState state = viewModel.getState();
+        assertEquals(errorMessage, state.getNoTransaction());
+        assertNull(state.getReportContent());
+    }
+
+    @Test
+    void testFinancialReportStateSetters() {
+        SharedAccountFinancialReportState state = new SharedAccountFinancialReportState();
+
+        // Test setters
+        state.setReportContent("This is a sample financial report.");
+        state.setNoTransaction("No transactions found");
+
+        // Verify the values set by the setters
+        assertEquals("This is a sample financial report.", state.getReportContent());
+        assertEquals("No transactions found", state.getNoTransaction());
     }
 }
 

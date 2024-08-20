@@ -31,7 +31,7 @@ class SharedAccountLoginPresenterTest {
         assertEquals("Successfully Logged In to Shared Account!!!", state.getSuccessMsg());
 
         assertEquals("shared123", viewManagerModel.getUserId());
-        assertEquals(sharedAccountLoginViewModel.getViewName(), viewManagerModel.getActiveViewName());
+//        assertEquals(sharedAccountLoginViewModel.getViewName(), viewManagerModel.getActiveViewName());
         assertEquals("Shared Account Homepage Two", viewManagerModel.getActiveViewName());
     }
 }

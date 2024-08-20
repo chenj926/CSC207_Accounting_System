@@ -8,13 +8,26 @@ import interface_adaptors.homepage.user_account.UserAccountHomepageTwoViewModel;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The {@code UserAccountHomepageTwoPanel} class represents the user interface for the "Homepage Two"
+ * section of the user account module. It extends {@link JPanel} and is responsible for displaying
+ * user-specific information, including username, balance, income, outflow, and related shared accounts.
+ * The panel also provides navigation buttons for various actions such as one-time transactions, periodic
+ * transactions, viewing financial reports, and logging out.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation
+ * of concerns. It interacts with the {@link UserAccountHomepageTwoViewModel} to reflect the state of the
+ * application and with the {@link ViewManagerModel} to manage view transitions.
+ * </p>
+ *
+ * <p><b>Author:</b> Eric Chen</p>
+ */
 public class UserAccountHomepageTwoPanel extends JPanel{
 
     private final UserAccountHomepageTwoViewModel viewModel;
     private final ViewManagerModel viewManager;
     private UserAccountHomepageTwoController controller;
     private String[] basicUserInfo;
-//    private ViewManagerModel viewManager;
 
     // text
     private JLabel titleLabel;
@@ -37,10 +50,12 @@ public class UserAccountHomepageTwoPanel extends JPanel{
     private JButton financialReportButton;
 
     /**
-     * Constructs a UserAccountHomepageTwoPanel with the specified view model and view manager.
+     * Constructs a {@code UserAccountHomepageTwoPanel} with the specified view model, view manager, and controller.
      *
-     * @param viewModel  the view model for the transaction view
-     * @param viewManager the view manager for handling view transitions
+     * @param viewModel   the view model for the panel, providing data and state information
+     * @param viewManager the view manager for handling view transitions within the application
+     * @param userAccountHomepageTwoController the controller responsible for handling user actions and executing
+     *                                         business logic related to "Homepage Two"
      */
     public UserAccountHomepageTwoPanel(UserAccountHomepageTwoViewModel viewModel, ViewManagerModel viewManager,
                                        UserAccountHomepageTwoController userAccountHomepageTwoController) {
@@ -63,7 +78,8 @@ public class UserAccountHomepageTwoPanel extends JPanel{
 
     /**
      * Initializes the UI components for the panel.
-     * This includes labels for title, balance, income, and outflow, and buttons for navigation.
+     * This includes labels for displaying user information such as username, balance, income, and outflow,
+     * as well as buttons for navigation and other actions.
      */
     private void initializeComponents() {
         // title layout
@@ -71,57 +87,51 @@ public class UserAccountHomepageTwoPanel extends JPanel{
         this.titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         this.titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
+        // Initialize labels for user information
         this.usernameLabel = new JLabel(this.viewModel.getUSERNAME_LABEL());
         this.incomeLabel = new JLabel(this.viewModel.getINCOME_LABEL());
         this.outflowLabel = new JLabel(this.viewModel.getOUTFLOW_LABEL());
         this.balanceLabel = new JLabel(this.viewModel.getBALANCE_LABEL());
         this.sharedIdsLabel = new JLabel(this.viewModel.getSHAREDIDS_LABEL());
 
-        // 先假装get到了basic info
+        // Placeholder values for user information (to be updated later)
         this.usernameValueLabel = new JLabel(" User ");
         this.incomeValueLabel = new JLabel(" 0.00 ");
         this.outflowValueLabel = new JLabel(" 0.00 ");
         this.balanceValueLabel = new JLabel(" 0.00 ");
         this.sharedIdsValueLabel = new JLabel("No Related Shared Account Yet");
 
-        JPanel buttons = new JPanel();
+        // Initialize buttons and their properties
         this.oneTimeButton = new JButton(this.viewModel.getONE_TIME_BUTTON_LABEL());
-        buttons.add(this.oneTimeButton);
         this.periodicButton = new JButton(this.viewModel.getPERIODIC_BUTTON_LABEL());
-        buttons.add(this.periodicButton);
         this.logoutButton = new JButton(this.viewModel.getCANCEL_BUTTON_LABEL());
-        buttons.add(this.logoutButton);
         this.financialReportButton = new JButton(this.viewModel.getFINANCIAL_REPORT_BUTTON_LABEL());
-        buttons.add(this.financialReportButton);
 
         // Style buttons
-        this.oneTimeButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.periodicButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.logoutButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.financialReportButton.setFont(new Font("Arial", Font.PLAIN, 16));
-
-        this.oneTimeButton.setBackground(new Color(100, 150, 200));
-        this.periodicButton.setBackground(new Color(100, 150, 200));
-        this.logoutButton.setBackground(new Color(200, 100, 100));
-        this.financialReportButton.setBackground(new Color(150, 200, 100));
-        this.oneTimeButton.setForeground(Color.WHITE);
-        this.periodicButton.setForeground(Color.WHITE);
-        this.logoutButton.setForeground(Color.WHITE);
-        this.financialReportButton.setForeground(Color.WHITE);
-
-        // adjust environment to compile MAC
-        this.oneTimeButton.setOpaque(true);
-        this.oneTimeButton.setBorderPainted(false);
-        this.periodicButton.setOpaque(true);
-        this.periodicButton.setBorderPainted(false);
-        this.logoutButton.setOpaque(true);
-        this.logoutButton.setBorderPainted(false);
-        this.financialReportButton.setOpaque(true);
-        this.financialReportButton.setBorderPainted(false);
+        styleButton(this.oneTimeButton, new Color(100, 150, 200));
+        styleButton(this.periodicButton, new Color(100, 150, 200));
+        styleButton(this.logoutButton, new Color(200, 100, 100));
+        styleButton(this.financialReportButton, new Color(150, 200, 100));
     }
 
     /**
-     * Sets up the user interface by arranging the components in a GridBagLayout.
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Initializes the UI components for the panel.
+     * This includes labels for displaying user information such as username, balance, income, and outflow,
+     * as well as buttons for navigation and other actions.
      */
     private void setupUI() {
         setLayout(new GridBagLayout());
@@ -233,7 +243,9 @@ public class UserAccountHomepageTwoPanel extends JPanel{
     }
 
     /**
-     * Updates the UI components based on the current state.
+     * Updates the UI components based on the current state of the view model.
+     * This includes updating the displayed user information such as username, income, outflow, balance,
+     * and shared account IDs.
      */
     @Override
     public void updateUI() {

@@ -2,6 +2,17 @@ package use_case.transaction.one_time;
 
 import use_case.transaction.TransactionInputData;
 
+/**
+ * The {@code OneTimeTransactionInputData} class represents the input data required for a one-time transaction operation.
+ * <p>
+ * It extends {@link TransactionInputData} to include additional details specific to one-time transactions,
+ * such as the transaction date.
+ * </p>
+ *
+ * @author Dana
+ * @author Eric
+ * @author Jessica
+ */
 public abstract class OneTimeTransactionInputData extends TransactionInputData {
     private String transactionDate;
 

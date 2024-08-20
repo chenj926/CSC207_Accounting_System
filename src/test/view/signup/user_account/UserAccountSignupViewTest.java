@@ -29,7 +29,7 @@ class UserAccountSignupViewTest {
     @Test
     void testUserAccountSignupViewInitialization() {
         assertNotNull(userAccountSignupView);
-        assertEquals("User Account Signup", userAccountSignupView.getTitle()); // Check title
+        assertEquals("User Account Sign Up", userAccountSignupView.getTitle()); // Check title
         assertEquals(JFrame.EXIT_ON_CLOSE, userAccountSignupView.getDefaultCloseOperation()); // Check close operation
     }
 

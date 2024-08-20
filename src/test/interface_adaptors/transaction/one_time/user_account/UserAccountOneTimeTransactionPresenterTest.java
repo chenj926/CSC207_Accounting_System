@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserAccountOneTimeTransactionPresenterTest {
 
-    private UserAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
     private UserAccountOneTimeTransactionPresenter presenter;
 
     @BeforeEach
     void setUp() {
-        viewModel = new UserAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
         viewManager = new ViewManagerModel();
         presenter = new UserAccountOneTimeTransactionPresenter(viewModel, viewManager);
     }
@@ -38,7 +38,7 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Salary", state.getTransactionDescription());
@@ -62,7 +62,7 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareSuccessView(outputData);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals("mockUserId", state.getId());
         assertEquals("2023-08-01", state.getTransactionDate());
         assertEquals("Groceries", state.getTransactionDescription());
@@ -82,14 +82,14 @@ class UserAccountOneTimeTransactionPresenterTest {
         presenter.prepareFailView(errorMessage);
 
         // Verify the view model state
-        UserAccountOneTimeTransactionState state = viewModel.getState();
+        UserOneTimeTransactionState state = viewModel.getState();
         assertEquals(errorMessage, state.getErrorMessage());
         assertNull(state.getSuccessMessage());
     }
 
     @Test
     void testOneTimeTransactionStateSetters() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
 
         // Test setters
         state.setId("1");

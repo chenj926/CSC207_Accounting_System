@@ -2,7 +2,7 @@ package view.transaction.one_time.user_account;
 
 import interface_adaptors.ViewManagerModel;
 import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionController;
-import interface_adaptors.transaction.one_time.user_account.UserAccountOneTimeTransactionViewModel;
+import interface_adaptors.transaction.one_time.user_account.UserOneTimeTransactionViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,14 +13,14 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class UserAccountOneTimeTransactionViewTest {
 
-    private UserAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
     private ViewManagerModel viewManager;
     private UserAccountOneTimeTransactionController controller;
     private UserAccountOneTimeTransactionView view;
 
     @BeforeEach
     void setUp() {
-        viewModel = new UserAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
         viewManager = new ViewManagerModel();
         controller = new UserAccountOneTimeTransactionController(null, viewModel); // Assuming null for simplicity
         view = new UserAccountOneTimeTransactionView(viewModel, controller, viewManager);

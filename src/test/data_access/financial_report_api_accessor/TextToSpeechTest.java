@@ -41,14 +41,6 @@ class TextToSpeechTest {
         assertTrue(Files.exists(mp3Path), "Audio file should be created.");
     }
 
-    @Test
-    void testExecuteShellCommand() throws Exception {
-        String command = "echo Hello, World!";
-        textToSpeech.executeShellCommand(command);
-
-        // Since the command is executed on the system's shell, there's no direct way to capture its output,
-        // so we will not assert here. If running the command doesn't throw an exception, it's considered successful.
-    }
 
     // Utility method to delete files if they exist
     private void deleteFileIfExists(String filePath) {

@@ -5,25 +5,27 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeSupport;
 
 /**
- * The TransactionViewModel class extends the ViewModel class and manages the state and labels for transaction-related views.
- * It provides getters for various labels used in the transaction view and supports property change notifications.
+ * The {@code TransactionViewModel} class extends the {@code ViewModel} class and manages
+ * the state and labels for transaction-related views. It provides access to various labels
+ * used in the transaction view, such as the amount, description, and button labels, and
+ * supports property change notifications to ensure that the view is updated when the state changes.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the user interface reflects the current state of the transaction process and maintains
+ * a clear separation between the view and the underlying business logic.
+ * </p>
  *
- * @author Xile
- * @author Jessica
- * @author Eric
+ * <p>
+ * <b>Author:</b> Jessica Chen, Eric Chen
+ * </p>
  */
 public class TransactionViewModel extends ViewModel {
     // labels
-    private final String TITLE_LABEL = "Account";
-
-    private final String BALANCE_LABEL = "Total Balance";
-    private final String INCOME_LABEL = "Total Income";
-    private final String OUTFLOW_LABEL = "Total Outflow";
-
-    private final String ONE_TIME_BUTTON_LABEL = "One Time Transaction";
-    private final String PERIODIC_BUTTON_LABEL = "Periodic Transaction";
-    private final String CANCEL_BUTTON_LABEL = "Log out";
-    private final String FINANCIAL_REPORT_BUTTON_LABEL = "Transaction Report";
+    protected final String AMOUNT = "Transaction Amount";
+    protected final String DESCRIPTION = "Description";
+    protected final String CATEGORY_BUTTON = "Transaction Category";
+    protected final String SUBMIT_BUTTON = "Submit Transaction";
+    protected final String CANCEL_BUTTON = "Cancel";
 
 //    private final TransactionState transactionState = new TransactionState();
 //    protected TransactionViewModel currentViewModel;
@@ -31,112 +33,49 @@ public class TransactionViewModel extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a TransactionViewModel object with the view name set to "Transaction".
+     * Constructs a {@code TransactionViewModel} object with the specified view name.
+     *
+     * @param viewName the name of the view associated with this view model.
      */
-    public TransactionViewModel() {
-        super("Transaction");
+    public TransactionViewModel(String viewName) {
+        super(viewName);
     }
 
     /**
-     * Gets the title label.
+     * Gets the amount label.
      *
-     * @return the title label
+     * @return the amount label
      */
-    public String getTITLE_LABEL() {
-            return this.TITLE_LABEL;
-        }
-
-    /**
-     * Gets the balance label.
-     *
-     * @return the balance label
-     */
-    public String getBALANCE_LABEL() {
-        return this.BALANCE_LABEL;
+    public String getAmount() {
+        return this.AMOUNT;
     }
 
     /**
-     * Gets the income label.
+     * Gets the description label.
      *
-     * @return the income label
+     * @return the description label
      */
-    public String getINCOME_LABEL() {
-        return this.INCOME_LABEL;
+    public String getDescription() {
+        return this.DESCRIPTION;
     }
 
     /**
-     * Gets the outflow label.
+     * Gets the submit button label.
      *
-     * @return the outflow label
+     * @return the submit button label
      */
-    public String getOUTFLOW_LABEL() {
-        return this.OUTFLOW_LABEL;
+    public String getSubmitButton() {
+        return this.SUBMIT_BUTTON;
     }
 
     /**
-     * Gets the label for the one-time transaction button.
+     * Gets the cancel button label.
      *
-     * @return the label for the one-time transaction button
+     * @return the cancel button label
      */
-    public String getONE_TIME_BUTTON_LABEL() {
-        return this.ONE_TIME_BUTTON_LABEL;
+    public String getCancelButton() {
+        return this.CANCEL_BUTTON;
     }
-
-    /**
-     * Gets the label for the periodic transaction button.
-     *
-     * @return the label for the periodic transaction button
-     */
-    public String getPERIODIC_BUTTON_LABEL() {
-        return this.PERIODIC_BUTTON_LABEL;
-    }
-
-    /**
-     * Gets the label for the cancel button.
-     *
-     * @return the label for the cancel button
-     */
-    public String getCANCEL_BUTTON_LABEL() {
-        return this.CANCEL_BUTTON_LABEL;
-    }
-
-    /**
-     * Gets the label for the history button.
-     *
-     * @return the label for the history button
-     */
-    public String getFINANCIAL_REPORT_BUTTON_LABEL() {return this.FINANCIAL_REPORT_BUTTON_LABEL;}
-
-//    // Method to handle button click for one-time transaction
-//    public void selectOneTimeTransaction() {
-//        transactionState.setOneTimeSelected(true);
-//        transactionState.setPeriodicSelected(false);
-//        setCurrentViewModel(new UserAccountOneTimeTransactionViewModel());
-//    }
-//
-//    // Method to handle button click for periodic transaction
-//    public void selectPeriodicTransaction() {
-//        transactionState.setOneTimeSelected(false);
-//        transactionState.setPeriodicSelected(true);
-//        setCurrentViewModel(new PeriodicTransactionViewModel());
-//    }
-//
-//    public void setCurrentViewModel(TransactionViewModel newViewModel) {
-//        TransactionViewModel oldViewModel = this.currentViewModel;
-//        this.currentViewModel = newViewModel;
-//        firePropertyChanged("currentViewModel", oldViewModel, newViewModel);
-//    }
-//
-//    public void resetTransactionView() {
-//        transactionState.setOneTimeSelected(false);
-//        transactionState.setPeriodicSelected(false);
-//        setCurrentViewModel(null);
-//    }
-//
-//    public void cancelTransaction() {
-//        setCurrentViewModel(null); // This can be adjusted based on how you want to clear the view
-//        firePropertyChanged("currentViewModel", null, this);
-//    }
 }
 
 

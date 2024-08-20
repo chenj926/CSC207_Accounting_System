@@ -5,20 +5,37 @@ import interface_adaptors.ViewModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
+/**
+ * The {@code SignupViewModel} class provides the presentation logic for the signup process,
+ * managing labels, buttons, and the state of the signup form. It serves as a bridge between
+ * the view and the underlying signup state, allowing the view to update and reflect changes
+ * in the state.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring a clear
+ * separation between the view and the business logic. It is responsible for holding the
+ * current state of the signup process and notifying listeners of any changes.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Jessica Chen, Eric Chen, Rita Wang
+ * </p>
+ *
+ * @param <S> the type of {@code SignupState} managed by this view model.
+ */
 public abstract class SignupViewModel<S extends SignupState> extends ViewModel {
-    protected final String TITLE_LABEL = "Sign Up";
-    protected final String PASSWORD_LABEL = "Set password";
-    protected final String ID_LABEL = "Set identification";
+    protected final String TITLE_LABEL = "User Account Sign Up";
+    protected final String PASSWORD_LABEL = "Set user account password";
+    protected final String ID_LABEL = "Set user account identification";
 
-    protected final String SIGNUP_BUTTON_LABEL = "Sign up account";
+    protected final String SIGNUP_BUTTON_LABEL = "Sign up user account";
     protected final String CANCEL_BUTTON_LABEL = "Cancel";
 
     protected S state;
 
     /**
-     * Constructs a ViewModel object with the specified view name.
+     * Constructs a {@code SignupViewModel} object with the specified view name.
      *
-     * @param viewName the name of the view
+     * @param viewName the name of the view.
      */
     public SignupViewModel(String viewName) {
         super(viewName);
@@ -81,7 +98,7 @@ public abstract class SignupViewModel<S extends SignupState> extends ViewModel {
     private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Notifies listeners that the signup state has changed.
+     * Fires a property change event to notify listeners that the signup state has changed.
      */
     public void firePropertyChanged() {
         support.firePropertyChange("state", null, this.state);
@@ -90,7 +107,7 @@ public abstract class SignupViewModel<S extends SignupState> extends ViewModel {
     /**
      * Adds a property change listener to the listener list.
      *
-     * @param listener the PropertyChangeListener to be added
+     * @param listener the {@code PropertyChangeListener} to be added.
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);

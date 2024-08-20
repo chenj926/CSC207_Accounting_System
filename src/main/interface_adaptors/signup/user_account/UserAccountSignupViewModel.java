@@ -3,24 +3,27 @@ package interface_adaptors.signup.user_account;
 import interface_adaptors.signup.SignupViewModel;
 
 /**
- * The UserAccountSignupViewModel class extends the ViewModel class and manages the state and labels for the signup view.
- * It provides getters for various labels used in the signup view and supports property change notifications.
+ * The {@code UserAccountSignupViewModel} class extends {@code SignupViewModel}
+ * to manage the state and labels specific to the user account signup view.
+ * It provides access to the username label used in the signup process and
+ * initializes the signup state.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture,
+ * enabling interaction between the view and the underlying state management
+ * for the user account signup process.
+ * </p>
  *
- * @author Rita
- * @author Jessica
- * @author Eric
+ * <p>
+ * <b>Author:</b> Jessica Chen
+ * </p>
  */
-
 public class UserAccountSignupViewModel extends SignupViewModel<UserAccountSignupState> {
 
-    private final String TITLE_LABEL = "User Account Sign Up";
-    private final String PASSWORD_LABEL = "Set user account password";
-    private final String ID_LABEL = "Set user account identification";
-
-    private final String USERNAME_LABEL = "Set username";
+    private final String USERNAME_LABEL = "Set user account username";
 
     /**
-     * Constructs a UserAccountSignupViewModel object with a specified view name.
+     * Constructs a {@code UserAccountSignupViewModel} object with the default view name.
+     * Initializes the signup state to a new {@code UserAccountSignupState} instance.
      */
     public UserAccountSignupViewModel() {
         super("sign up");
@@ -28,9 +31,9 @@ public class UserAccountSignupViewModel extends SignupViewModel<UserAccountSignu
     }
 
     /**
-     * Gets the username label.
+     * Gets the username label for the signup view.
      *
-     * @return the username label
+     * @return the username label.
      */
     public String getUsernameLabel() { return this.USERNAME_LABEL; }
 }

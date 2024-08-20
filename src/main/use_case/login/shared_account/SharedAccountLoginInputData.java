@@ -3,9 +3,15 @@ package use_case.login.shared_account;
 import use_case.login.LoginInputData;
 
 /**
- * The SharedAccountLoginInputData class extends LoginInputData to include additional fields
+ * The {@code SharedAccountLoginInputData} class extends {@link LoginInputData} to include additional fields
  * specific to shared account login operations.
- * It includes the shared account ID as part of the login input data.
+ * <p>
+ * This class includes the shared account ID as part of the login input data, in addition to the usual identification
+ * and password fields.
+ * </p>
+ *
+ * @author Xile
+ * @author Dana
  */
 public class SharedAccountLoginInputData extends LoginInputData {
 

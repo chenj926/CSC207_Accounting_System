@@ -9,10 +9,12 @@ import use_case.update_periodic_at_login.shared_account.SharedAccountUpdatePerio
 import java.time.LocalDate;
 
 /**
- * The SharedAccountLoginInteractor class extends the LoginInteractor to handle login for shared accounts.
- * It includes additional validation for the shared account ID and ensures that the user is part of the shared account.
+ * The {@code SharedAccountLoginInteractor} class extends {@link LoginInteractor} to handle login operations for shared accounts.
+ * It includes additional validation for the shared account ID and ensures that the provided password matches.
  *
- * @author Xile Chen, Eric Chen
+ * @author Xile
+ * @author Eric
+ * @author Jessica
  */
 public class SharedAccountLoginInteractor extends LoginInteractor<
         SharedAccountLoginDataAccessInterface,

@@ -40,7 +40,7 @@ class SharedAccountPeriodicTransactionPanelTest {
     @Test
     void testSharedAccountPeriodicTransactionPanelInitialization() {
         assertNotNull(panel);
-        assertEquals("Shared Account Periodic Transaction", ((JLabel) panel.getComponent(0)).getText()); // Check title
+        assertEquals("Periodic Transaction", ((JLabel) panel.getComponent(0)).getText()); // Check title
     }
 
     @Test

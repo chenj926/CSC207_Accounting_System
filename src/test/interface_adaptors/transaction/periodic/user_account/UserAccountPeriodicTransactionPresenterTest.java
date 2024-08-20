@@ -76,7 +76,7 @@ class UserAccountPeriodicTransactionPresenterTest {
         presenter.prepareFailView(errorMessage);
 
         // Verify the view model state
-        assertEquals(errorMessage, viewModel.getState().getErrorMsg());
+        assertEquals(errorMessage, viewModel.getState().getErrorMessage());
         assertNull(viewModel.getState().getSuccessMessage());
     }
 }

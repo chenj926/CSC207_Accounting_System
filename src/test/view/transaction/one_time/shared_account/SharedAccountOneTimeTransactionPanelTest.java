@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -41,7 +43,7 @@ class SharedAccountOneTimeTransactionPanelTest {
     @Test
     void testSharedAccountOneTimeTransactionPanelInitialization() {
         assertNotNull(panel);
-        assertEquals("Shared Account One Time Transaction", ((JLabel) panel.getComponent(0)).getText()); // Check title
+        assertEquals("One Time Transaction", ((JLabel) panel.getComponent(0)).getText()); // Check title
     }
 
     @Test
@@ -63,6 +65,12 @@ class SharedAccountOneTimeTransactionPanelTest {
         JPanel buttonsPanel = (JPanel) panel.getComponent(11);
         JButton submitButton = (JButton) buttonsPanel.getComponent(0);
         submitButton.doClick();
+
+        // Verify the transaction state are cleared after submitting
+        assertEquals("0", viewModel.getState().getTransactionAmount());
+        assertEquals(null, viewModel.getState().getTransactionDate());
+        assertEquals("", viewModel.getState().getTransactionDescription());
+        assertEquals("", viewModel.getState().getTransactionCategory());
     }
 
 
@@ -95,11 +103,12 @@ class SharedAccountOneTimeTransactionPanelTest {
         panel.clearFields();
 
         // Verify fields are cleared
-        assertEquals("", userIdField.getText());
+        assertEquals("user123", userIdField.getText());
         assertEquals("", amountField.getText());
         assertEquals("", dateField.getText());
         assertEquals("", descriptionField.getText());
         assertEquals(0, categoryComb.getSelectedIndex());  // Assuming the first category is the default
     }
+
 }
 

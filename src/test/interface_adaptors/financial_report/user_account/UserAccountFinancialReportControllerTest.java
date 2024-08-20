@@ -1,45 +1,42 @@
 package interface_adaptors.financial_report.user_account;
 
-import org.junit.jupiter.api.BeforeEach;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import org.junit.jupiter.api.Test;
 import use_case.financial_report.user_account.UserAccountFinancialReportInputBoundary;
 import use_case.financial_report.user_account.UserAccountFinancialReportInputData;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserAccountFinancialReportControllerTest {
 
-    private UserAccountFinancialReportController controller;
-    private TestUserAccountFinancialReportInteractor interactor;
-    private UserAccountFinancialReportViewModel viewModel;
-
-    @BeforeEach
-    void setUp() {
-        interactor = new TestUserAccountFinancialReportInteractor();
-        viewModel = new UserAccountFinancialReportViewModel();
-        controller = new UserAccountFinancialReportController(interactor, viewModel);
-    }
-
     @Test
-    void testExecute() {
-        String identification = "userAccount123";
+    void testGenerateReport() {
+        // Create a mock interactor to verify that execute is called with the correct data
+        UserAccountFinancialReportInputBoundary testInteractor = new UserAccountFinancialReportInputBoundary() {
+            @Override
+            public void execute(UserAccountFinancialReportInputData inputData) {
+                // Verify that the interactor was called with the correct data
+                assertEquals("shared123", inputData.getIdentification());
+            }
+        };
 
-        controller.execute(identification);
+        // Create a mock view model, if you want to check reset state behavior
+        UserAccountFinancialReportViewModel testViewModel = new UserAccountFinancialReportViewModel() {
+            @Override
+            public void resetState() {
+                // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value
+            }
+        };
 
-        // Validate that the interactor received the correct data
-        assertNotNull(interactor.inputData);
-        assertEquals(identification, interactor.inputData.getIdentification());
-    }
+        // Create the controller with the mock implementations
+        UserAccountFinancialReportController controller = new UserAccountFinancialReportController(testInteractor, testViewModel);
 
-    // Inner class to simulate the UserAccountFinancialReportInteractor behavior
-    private static class TestUserAccountFinancialReportInteractor implements UserAccountFinancialReportInputBoundary {
+        // Test data
+        String UserAccountId = "shared123";
 
-        private UserAccountFinancialReportInputData inputData;
-
-        @Override
-        public void execute(UserAccountFinancialReportInputData inputData) {
-            this.inputData = inputData;  // Capture the input data for testing
-        }
+        // Execute the method with the correct parameters
+        controller.execute(UserAccountId);
     }
 }
 

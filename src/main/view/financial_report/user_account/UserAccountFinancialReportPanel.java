@@ -1,17 +1,31 @@
 package view.financial_report.user_account;
 
+import data_access.financial_report_api_accessor.TextToSpeech;
+import interface_adaptors.financial_report.FinancialReportViewModel;
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportController;
 import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import interface_adaptors.ViewManagerModel;
+import javafx.application.Platform;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
- * The panel for displaying the financial report. This class is responsible for setting up
- * the UI components, updating the view with report data, and handling user interactions.
+ * The {@code UserAccountFinancialReportPanel} class represents the panel that displays the financial
+ * report of a user account. It is responsible for setting up the user interface components, updating
+ * the view with the report data from the {@link UserAccountFinancialReportViewModel}, and handling
+ * user interactions such as navigating back to the previous view.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation
+ * of concerns by interacting with the {@link UserAccountFinancialReportController} to refresh the data and manage user actions.
+ * The view model {@link UserAccountFinancialReportViewModel} is observed to update the display when the underlying
+ * data changes.
+ * </p>
  *
- * @author Eric Chen
+ * <p><b>Author:</b> Eric Chen</p>
  */
 public class UserAccountFinancialReportPanel extends JPanel {
     private final UserAccountFinancialReportViewModel viewModel;
@@ -23,6 +37,9 @@ public class UserAccountFinancialReportPanel extends JPanel {
     private JTextArea reportTextArea;
     private JButton backButton;
     private JScrollPane scrollPane;
+
+    private MediaPlayer mediaPlayer; // Added for audio playback
+//    private static boolean isJavaFXInitialized = false;  // Flag to track JavaFX initialization
 
     /**
      * Constructs a UserAccountFinancialReportPanel with the specified view model, controller, and view manager.
@@ -40,9 +57,12 @@ public class UserAccountFinancialReportPanel extends JPanel {
         this.reportTextArea = new JTextArea();
 
         this.viewModel.addPropertyChangeListener(evt -> {
-            if ("state".equals(evt.getPropertyName())){
+            if ("userAccountFinancialReport".equals(evt.getPropertyName())){
                 this.reportTextArea.setText(viewModel.getReportContent());
-
+                TextToSpeech TTS = new TextToSpeech();
+                TTS.speak(viewModel.getReportContent());
+                initializeJavaFX(); // Initialize JavaFX before playing audio
+                playAudio(); // Play the audio when the view becomes visible
             }
         });
 
@@ -97,6 +117,7 @@ public class UserAccountFinancialReportPanel extends JPanel {
      */
     private void setupListeners() {
         this.backButton.addActionListener(e -> {
+            stopAudio(); // Stop the audio when the view becomes invisible
             viewManager.setActiveViewName("Homepage Two");
         });
     }
@@ -113,6 +134,43 @@ public class UserAccountFinancialReportPanel extends JPanel {
      */
     public void clearFields() {
         reportTextArea.setText("");
+    }
+
+    // Method to initialize JavaFX, but only once
+    private void initializeJavaFX() {
+        if (!this.viewManager.isJavaFXInitialized()) {
+            Platform.startup(() -> {
+                // JavaFX Toolkit initialized
+//                isJavaFXInitialized = true;
+                viewManager.setJavaFXInitialized(true);
+            });
+        }
+    }
+
+    // Method to play the audio (MP3 file)
+    public void playAudio() {
+        String audioFilePath = System.getProperty("user.dir") + "/src/main/data/audio_files/Audio.mp3";
+        Platform.runLater(() -> {
+            try {
+                if (mediaPlayer != null) {
+                    mediaPlayer.dispose(); // Dispose the previous player
+                }
+                Media media = new Media(new File(audioFilePath).toURI().toString());
+                mediaPlayer = new MediaPlayer(media);
+                mediaPlayer.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    // Method to stop the audio
+    public void stopAudio() {
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.dispose();
+            mediaPlayer = null;
+        }
     }
 
 }

@@ -1,18 +1,26 @@
 package interface_adaptors.transaction.one_time.shared_account;
 
-import interface_adaptors.transaction.one_time.AccountOneTimeTransactionState;
+import interface_adaptors.transaction.one_time.OneTimeTransactionState;
 
 /**
- * The SharedAccountOneTimeTransactionState class manages the state for the shared account one-time transaction.
- * It keeps track of the user IDs responsible for the transaction and provides methods for state management.
+ * The {@code SharedOneTimeTransactionState} class manages the state specific to
+ * one-time transactions within a shared account. It extends the {@code OneTimeTransactionState}
+ * class and is responsible for encapsulating transaction-related data, including user IDs
+ * responsible for the transaction.
+ * <p>
+ * This class is part of the view model state management in the Clean Architecture,
+ * ensuring that the state of shared account one-time transactions is maintained and can
+ * be easily accessed and modified by other components in the application.
+ * </p>
  *
- * This class is a part of the view model state management and helps in encapsulating the transaction-related data.
- *
+ * <p>
+ * <b>Author:</b> Eric Chen
+ * </p>
  */
-public class SharedAccountOneTimeTransactionState extends AccountOneTimeTransactionState {
+public class SharedAccountOneTimeTransactionState extends OneTimeTransactionState {
 
     /**
-     * Constructs a SharedAccountOneTimeTransactionState with an empty set of responsible user IDs.
+     * Constructs a {@code SharedOneTimeTransactionState} with default values.
      */
     public SharedAccountOneTimeTransactionState() {
         super();

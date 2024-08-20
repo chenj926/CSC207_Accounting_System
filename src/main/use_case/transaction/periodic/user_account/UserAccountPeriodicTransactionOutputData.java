@@ -29,7 +29,7 @@ public class UserAccountPeriodicTransactionOutputData extends PeriodicTransactio
     /**
      * Constructs a UserAccountPeriodicTransactionOutputData object for an inflow transaction with the specified details.
      *
-     * @param periodicTransaction the inflow transaction entity
+     * @param periodicTransaction the periodic transaction entity
      */
     public UserAccountPeriodicTransactionOutputData(PeriodicTransaction periodicTransaction) {
         super(periodicTransaction);

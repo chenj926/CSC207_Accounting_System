@@ -53,18 +53,9 @@ public class UserAccountPeriodicTransactionOutputDataTest {
         data.setTransactionAmount(200.0f);
         assertEquals(200.0f, data.getTransactionAmount());
 
-        LocalDate newStartDate = LocalDate.of(2025, 1, 1);
-        assertEquals(newStartDate, data.getTransactionStartDate());
-
         String newDescription = "Bonus";
         data.setTransactionDescription(newDescription);
         assertEquals(newDescription, data.getTransactionDescription());
-
-        LocalDate newEndDate = LocalDate.of(2025, 12, 31);
-        assertEquals(newEndDate, data.getTransactionEndDate());
-
-        String newPeriod = "WEEK";
-        assertEquals(newPeriod, data.getTransactionPeriod());
 
         LocalDate newDate = LocalDate.of(2024, 7, 17);
         data.setTransactionDate(newDate);

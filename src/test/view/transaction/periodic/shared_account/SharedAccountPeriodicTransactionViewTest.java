@@ -29,7 +29,7 @@ class SharedAccountPeriodicTransactionViewTest {
     @Test
     void testSharedAccountPeriodicTransactionViewInitialization() {
         assertNotNull(view);
-        assertEquals("Shared Account Periodic Transaction", view.getTitle());
+        assertEquals("Periodic Transaction", view.getTitle());
         assertEquals(JFrame.EXIT_ON_CLOSE, view.getDefaultCloseOperation());
     }
 

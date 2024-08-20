@@ -6,6 +6,8 @@ import use_case.login.LoginInputData;
  * The LoginInputData class represents the input data required for a login operation.
  *
  * @author Dana
+ * @author Eric
+ * @author Jessica
  */
 public class UserAccountLoginInputData extends LoginInputData {
 
@@ -18,5 +20,4 @@ public class UserAccountLoginInputData extends LoginInputData {
     public UserAccountLoginInputData(String identification, String password){
         super(identification,password);
     }
-
 }

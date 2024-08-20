@@ -1,7 +1,12 @@
 package interface_adaptors.financial_report.user_account;
 
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportState;
+import interface_adaptors.financial_report.user_account.UserAccountFinancialReportViewModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -15,61 +20,58 @@ class UserAccountFinancialReportViewModelTest {
     }
 
     @Test
-    void testInitialState() {
-        // Test that the initial state is set correctly
-        UserAccountFinancialReportState state = viewModel.getState();
-        assertNotNull(state);
-        assertEquals("", viewModel.getReportContent());
-    }
-
-    @Test
-    void testGetState() {
-        // Test that the state can be retrieved correctly
-        UserAccountFinancialReportState state = viewModel.getState();
-        assertNotNull(state);
-        assertEquals("", state.getReportContent());
-    }
-
-    @Test
-    void testSetState() {
-        // Test that the state can be set and retrieved correctly
-        UserAccountFinancialReportState newState = new UserAccountFinancialReportState();
-        newState.setReportContent("New financial report content");
-
-        viewModel.setState(newState);
-
-        assertEquals(newState, viewModel.getState());
-        assertEquals("New financial report content", viewModel.getState().getReportContent());
-    }
-
-    @Test
-    void testResetState() {
-        // Test resetting the state to a new instance
-        UserAccountFinancialReportState newState = new UserAccountFinancialReportState();
-        newState.setReportContent("Initial report content");
-
-        viewModel.setState(newState);
-        assertEquals("Initial report content", viewModel.getState().getReportContent());
-
-        viewModel.resetState();
-
-        UserAccountFinancialReportState resetState = viewModel.getState();
-        assertNotNull(resetState);
-        assertEquals("", resetState.getReportContent()); // Verify that report content is reset
-    }
-
-    @Test
     void testGetViewName() {
-        // Test that the view name is returned correctly
         assertEquals("Financial Report", viewModel.getViewName());
     }
 
     @Test
-    void testSetReportContent() {
-        // Test setting the report content
-        String content = "This is the financial report content.";
+    void testGetAndSetState() {
+        UserAccountFinancialReportState state = new UserAccountFinancialReportState();
+        viewModel.setState(state);
+        assertEquals(state, viewModel.getState());
+    }
+
+    @Test
+    void testGetAndSetReportContent() {
+        String content = "This is a financial report content.";
         viewModel.setReportContent(content);
         assertEquals(content, viewModel.getReportContent());
+    }
+
+    @Test
+    void testFirePropertyChanged() {
+        TestPropertyChangeListener listener = new TestPropertyChangeListener();
+        viewModel.addPropertyChangeListener(listener);
+
+        viewModel.firePropertyChange();
+
+        assertTrue(listener.isPropertyChanged());
+    }
+
+    @Test
+    void testResetState() {
+        UserAccountFinancialReportState state = new UserAccountFinancialReportState();
+        state.setReportContent("Sample Report");
+        viewModel.setState(state);
+
+        viewModel.resetState();
+
+        assertNotEquals("Sample Report", viewModel.getState().getReportContent());
+        assertEquals("", viewModel.getState().getReportContent());
+    }
+
+    // Inner class to test property change listener functionality
+    private static class TestPropertyChangeListener implements PropertyChangeListener {
+        private boolean propertyChanged = false;
+
+        @Override
+        public void propertyChange(PropertyChangeEvent evt) {
+            propertyChanged = true;
+        }
+
+        public boolean isPropertyChanged() {
+            return propertyChanged;
+        }
     }
 }
 

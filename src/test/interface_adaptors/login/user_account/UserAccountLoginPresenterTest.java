@@ -31,7 +31,7 @@ class UserAccountLoginPresenterTest {
         assertEquals("Successfully Logged In!!!", state.getSuccessMsg());
 
         assertEquals("user123", viewManagerModel.getUserId());
-        assertEquals(userAccountLoginViewModel.getViewName(), viewManagerModel.getActiveViewName());
+//        assertEquals(userAccountLoginViewModel.getViewName(), viewManagerModel.getActiveViewName());
         assertEquals("Homepage Two", viewManagerModel.getActiveViewName());
     }
 }

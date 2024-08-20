@@ -10,11 +10,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserAccountUserAccountOneTimeTransactionViewModelTest {
 
-    private UserAccountOneTimeTransactionViewModel viewModel;
+    private UserOneTimeTransactionViewModel viewModel;
 
     @BeforeEach
     void setUp() {
-        viewModel = new UserAccountOneTimeTransactionViewModel();
+        viewModel = new UserOneTimeTransactionViewModel();
     }
 
     @Test
@@ -30,7 +30,7 @@ class UserAccountUserAccountOneTimeTransactionViewModelTest {
 
     @Test
     void testGetAndSetState() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
         viewModel.setState(state);
         assertEquals(state, viewModel.getState());
     }
@@ -47,7 +47,7 @@ class UserAccountUserAccountOneTimeTransactionViewModelTest {
 
     @Test
     void testResetState() {
-        UserAccountOneTimeTransactionState state = new UserAccountOneTimeTransactionState();
+        UserOneTimeTransactionState state = new UserOneTimeTransactionState();
         state.setTransactionAmount("100.0");
         viewModel.setState(state);
 

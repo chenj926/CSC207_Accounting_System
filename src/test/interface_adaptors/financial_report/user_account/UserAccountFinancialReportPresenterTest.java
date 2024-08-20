@@ -10,59 +10,84 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class UserAccountFinancialReportPresenterTest {
 
-    private UserAccountFinancialReportPresenter presenter;
     private UserAccountFinancialReportViewModel viewModel;
     private ViewManagerModel viewManager;
+    private UserAccountFinancialReportPresenter presenter;
 
     @BeforeEach
     void setUp() {
         viewModel = new UserAccountFinancialReportViewModel();
         viewManager = new ViewManagerModel();
-        presenter = new UserAccountFinancialReportPresenter(viewModel, viewManager);
+        presenter = new UserAccountFinancialReportPresenter(viewModel, viewManager) {
+            @Override
+            public void prepareSuccessView(UserAccountFinancialReportOutputData outputData) {
+                super.prepareSuccessView(outputData);
+            }
+        };
     }
 
     @Test
     void testPrepareSuccessView() {
-        String reportContent = "This is a test financial report for user account.";
+        // Create the output data with a mock report content
+        String reportContent = "This is a sample financial report.";
         UserAccountFinancialReportOutputData outputData = new UserAccountFinancialReportOutputData(reportContent);
 
-        // Temporarily replace TextToSpeech with a testable version
-        TestableTextToSpeech TTS = new TestableTextToSpeech();
+        // Execute method
         presenter.prepareSuccessView(outputData);
 
+        // Verify the view model state
         UserAccountFinancialReportState state = viewModel.getState();
         assertEquals(reportContent, state.getReportContent());
         assertNull(state.getNoTransaction());
-        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
 
-        // Verify that the report content was correctly "spoken"
-        assertEquals(reportContent, TTS.getSpokenText());
+        // Verify the view manager changes view
+        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
+    }
+
+    @Test
+    void testPrepareSuccessViewNoTransaction() {
+        // Create the output data with an empty report content (indicating no transactions)
+        String reportContent = "";
+        UserAccountFinancialReportOutputData outputData = new UserAccountFinancialReportOutputData(reportContent);
+
+        // Execute method
+        presenter.prepareSuccessView(outputData);
+
+        // Verify the view model state
+        UserAccountFinancialReportState state = viewModel.getState();
+        assertEquals(reportContent, state.getReportContent());
+        assertNull(state.getNoTransaction());
+
+        // Verify the view manager changes view
+        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
     }
 
     @Test
     void testPrepareFailView() {
-        String noTransactionMessage = "No transactions available.";
+        // Test data
+        String errorMessage = "No transactions available.";
 
-        presenter.prepareFailView(noTransactionMessage);
+        // Execute method
+        presenter.prepareFailView(errorMessage);
 
+        // Verify the view model state
         UserAccountFinancialReportState state = viewModel.getState();
-        assertEquals(noTransactionMessage, state.getReportContent());
-        assertEquals(noTransactionMessage, state.getNoTransaction());
-        assertEquals(viewModel.getViewName(), viewManager.getActiveViewName());
+        assertEquals(errorMessage, state.getNoTransaction());
+        assertEquals(errorMessage, state.getReportContent());
     }
 
-    // A simple class to simulate TextToSpeech for testing purposes
-    private static class TestableTextToSpeech extends TextToSpeech {
-        private String spokenText;
+    @Test
+    void testFinancialReportStateSetters() {
+        UserAccountFinancialReportState state = new UserAccountFinancialReportState();
 
-        @Override
-        public void speak(String text) {
-            this.spokenText = text;
-        }
+        // Test setters
+        state.setReportContent("This is a sample financial report.");
+        state.setNoTransaction("No transactions found");
 
-        public String getSpokenText() {
-            return spokenText;
-        }
+        // Verify the values set by the setters
+        assertEquals("This is a sample financial report.", state.getReportContent());
+        assertEquals("No transactions found", state.getNoTransaction());
     }
 }
+
 

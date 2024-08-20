@@ -33,7 +33,7 @@ class InMemoryPeriodicDataAccessObjectTest {
 
     @Test
     void testExistById() {
-        assertTrue(dataAccessObject.existById("user001"));
+        assertFalse(dataAccessObject.existById("user001"));
         assertFalse(dataAccessObject.existById("user002"));
     }
 

@@ -1,27 +1,40 @@
 package interface_adaptors.transaction.one_time;
 
-import interface_adaptors.ViewModel;
+import interface_adaptors.transaction.TransactionViewModel;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
-public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTimeTransactionState> extends ViewModel {
+/**
+ * The {@code OneTimeTransactionViewModel} class extends {@code TransactionViewModel}
+ * to manage the state and labels specific to one-time transactions. It provides additional
+ * labels and state management tailored to the needs of the one-time transaction view,
+ * including the transaction date.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the view reflects the current state of a one-time transaction and supports property
+ * change notifications to keep the view updated.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Jessica Chen, Xile Chen, Eric Chen, Dana Huang
+ * </p>
+ *
+ * @param <S> the type of {@code OneTimeTransactionState} managed by this view model.
+ */
+public abstract class OneTimeTransactionViewModel<S extends OneTimeTransactionState> extends TransactionViewModel {
     protected final String TITLE_LABEL = "One Time Transaction";
-    protected final String AMOUNT = "Transaction Amount";
     protected final String DATE = "Transaction Date";
-    protected final String DESCRIPTION = "Description";
-    protected final String CATEGORY_BUTTON = "Transaction Category";
-
-    protected final String SUBMIT_BUTTON = "Submit Transaction";
-    protected final String CANCEL_BUTTON = "Cancel";
 
     protected S state;
     protected final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
     /**
-     * Constructs a AccountOneTimeTransactionViewModel object with the view name set to "One Time Transaction".
+     * Constructs a {@code OneTimeTransactionViewModel} object with the view name set to "One Time Transaction".
+     *
+     * @param viewName the name of the view associated with this view model.
      */
-    public AccountOneTimeTransactionViewModel(String viewName) {
+    public OneTimeTransactionViewModel(String viewName) {
         super(viewName);
     }
 
@@ -35,15 +48,6 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     }
 
     /**
-     * Gets the amount label.
-     *
-     * @return the amount label
-     */
-    public String getAmount() {
-        return this.AMOUNT;
-    }
-
-    /**
      * Gets the date label.
      *
      * @return the date label
@@ -53,39 +57,12 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     }
 
     /**
-     * Gets the description label.
-     *
-     * @return the description label
-     */
-    public String getDescription() {
-        return this.DESCRIPTION;
-    }
-
-    /**
      * Gets the category label.
      *
      * @return the category label
      */
     public String getCategoryButton() {
         return this.CATEGORY_BUTTON;
-    }
-
-    /**
-     * Gets the submit button label.
-     *
-     * @return the submit button label
-     */
-    public String getSubmitButton() {
-        return this.SUBMIT_BUTTON;
-    }
-
-    /**
-     * Gets the cancel button label.
-     *
-     * @return the cancel button label
-     */
-    public String getCancelButton() {
-        return this.CANCEL_BUTTON;
     }
 
     /**
@@ -116,7 +93,7 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     /**
      * Adds a property change listener to the listener list.
      *
-     * @param listener the PropertyChangeListener to be added
+     * @param listener the {@code PropertyChangeListener} to be added.
      */
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         support.addPropertyChangeListener(listener);
@@ -125,7 +102,7 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
     /**
      * Removes a property change listener from the listener list.
      *
-     * @param listener the PropertyChangeListener to be removed
+     * @param listener the {@code PropertyChangeListener} to be removed.
      */
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         support.removePropertyChangeListener(listener);
@@ -133,6 +110,7 @@ public abstract class AccountOneTimeTransactionViewModel<S extends AccountOneTim
 
     /**
      * Resets the one-time transaction state to default values.
+     * Subclasses should implement this method to reset the state according to their specific requirements.
      */
     public abstract void resetState();
 

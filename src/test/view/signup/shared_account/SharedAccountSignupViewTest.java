@@ -29,7 +29,7 @@ class SharedAccountSignupViewTest {
     @Test
     void testSharedAccountSignupViewInitialization() {
         assertNotNull(sharedAccountSignupView);
-        assertEquals("Shared Account Signup", sharedAccountSignupView.getTitle()); // Check title
+        assertEquals("Shared Account Sign Up", sharedAccountSignupView.getTitle()); // Check title
         assertEquals(JFrame.EXIT_ON_CLOSE, sharedAccountSignupView.getDefaultCloseOperation()); // Check close operation
     }
 

@@ -11,10 +11,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * The HomePagePanel class represents the panel for the home page in the application.
- * It extends JPanel and is responsible for displaying the home page interface, including
- * buttons for login, signup, and exit, along with a background image.
+ * The {@code HomePagePanel} class represents the panel for the home page in the application.
+ * It extends {@link JPanel} and is responsible for displaying the home page interface, including
+ * buttons for login, shared account login, signup, shared account signup, and exit, along with a background image.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation
+ * of concerns. It interacts with the {@link HomePageViewModel} to reflect the state of the application and
+ * with the {@link ViewManagerModel} to manage view transitions.
+ * </p>
  *
+ * <p><b>Authors:</b> Eric Chen, Jessica Chen, Xile Chen, Dana Huang</p>
  */
 public class HomePagePanel extends JPanel {
     private final HomePageViewModel viewModel;
@@ -29,10 +35,10 @@ public class HomePagePanel extends JPanel {
     private Image backgroundImage;
 
     /**
-     * Constructs a HomePagePanel object with the specified view model and view manager.
+     * Constructs a {@code HomePagePanel} object with the specified view model and view manager.
      *
-     * @param viewModel   the view model for the home page panel
-     * @param viewManager the view manager for managing view transitions
+     * @param viewModel   the view model providing data and state information to this panel
+     * @param viewManager the view manager responsible for managing view transitions within the application
      */
     public HomePagePanel(HomePageViewModel viewModel, ViewManagerModel viewManager) {
         this.viewModel = viewModel;
@@ -62,7 +68,7 @@ public class HomePagePanel extends JPanel {
     /**
      * Paints the component, including the background image.
      *
-     * @param g the Graphics context to use for painting
+     * @param g the {@link Graphics} context to use for painting
      */
     @Override
     protected void paintComponent(Graphics g) {
@@ -73,7 +79,8 @@ public class HomePagePanel extends JPanel {
     }
 
     /**
-     * Initializes the components used in the home page panel.
+     * Initializes the components used in the home page panel, including buttons and labels.
+     * Sets the style and dimensions for these components.
      */
     private void initializeComponents() {
         this.titleLabel = new JLabel(this.viewModel.getTitleLabel());
@@ -105,7 +112,8 @@ public class HomePagePanel extends JPanel {
     }
 
     /**
-     * Sets up the UI layout for the home page panel.
+     * Sets up the UI layout for the home page panel using {@link BorderLayout}.
+     * Arranges the buttons in the center panel and the title label at the top.
      */
     private void setupUI() {
         setLayout(new BorderLayout());
@@ -135,7 +143,8 @@ public class HomePagePanel extends JPanel {
     }
 
     /**
-     * Sets up listeners for the buttons in the home page panel.
+     * Sets up listeners for the buttons in the home page panel. Each button is associated with
+     * an action listener that triggers a transition to a different view or exits the application.
      */
     private void setupListeners() {
         // login button response action

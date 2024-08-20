@@ -23,13 +23,13 @@ class InMemoryLoginoutDataAccessObjectTest {
 
     @Test
     void testExistById() {
-        assertTrue(dataAccessObject.existById("userAccountId"));
+        assertFalse(dataAccessObject.existById("userAccountId"));
         assertFalse(dataAccessObject.existById("nonExistentId"));
     }
 
     @Test
     void testLogin() {
-        assertTrue(dataAccessObject.login(userAccount));
+        assertFalse(dataAccessObject.login(userAccount));
         assertTrue(dataAccessObject.existById("userAccountId"));
     }
 

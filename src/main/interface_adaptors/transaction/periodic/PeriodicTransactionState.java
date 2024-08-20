@@ -1,44 +1,36 @@
 package interface_adaptors.transaction.periodic;
 
-public abstract class PeriodicTransactionState {
-    protected String id;
-    protected String transactionAmount;
+import interface_adaptors.transaction.TransactionState;
+
+/**
+ * The {@code PeriodicTransactionState} class extends {@code TransactionState} to manage
+ * the state information specific to periodic transactions. It includes fields for the
+ * transaction start date, end date, and period, allowing for the management of recurring
+ * transactions over time.
+ * <p>
+ * This class is part of the presentation layer in the Clean Architecture, ensuring that
+ * the state of periodic transactions is maintained and can be easily accessed and modified
+ * by other components in the application.
+ * </p>
+ *
+ * <p>
+ * <b>Author:</b> Jessica Chen, Xile Chen
+ * </p>
+ */
+public abstract class PeriodicTransactionState extends TransactionState {
     protected String transactionStartDate;
     protected String transactionEndDate;
     protected String transactionPeriod;
-    protected String transactionDescription;
-    protected String transactionCategory;
-    protected String successMessage;
-    protected String errorMsg;
 
+    /**
+     * Constructs a {@code PeriodicTransactionState} object with default values.
+     * Initializes the start date, end date, and period to empty strings.
+     */
     public PeriodicTransactionState() {
-        this.id ="";
-        this.transactionAmount = "0";
+        super();
         this.transactionStartDate = "";
         this.transactionEndDate = "";
         this.transactionPeriod = "";
-        this.transactionDescription = "";
-        this.transactionCategory = "";
-        this.errorMsg = null;
-        this.successMessage = null;
-    }
-
-    /**
-     * Gets the transaction amount.
-     *
-     * @return the transaction amount
-     */
-    public String getTransactionAmount() {
-        return this.transactionAmount;
-    }
-
-    /**
-     * Sets the transaction amount.
-     *
-     * @param transactionAmount the new transaction amount
-     */
-    public void setTransactionAmount(String transactionAmount) {
-        this.transactionAmount = transactionAmount;
     }
 
     /**
@@ -94,71 +86,5 @@ public abstract class PeriodicTransactionState {
      */
     public void setTransactionPeriod(String transactionPeriod) {
         this.transactionPeriod = transactionPeriod;
-    }
-
-    /**
-     * Gets the transaction description.
-     *
-     * @return the transaction description
-     */
-    public String getTransactionDescription() {
-        return this.transactionDescription;
-    }
-
-    /**
-     * Sets the transaction description.
-     *
-     * @param transactionDescription the new transaction description
-     */
-    public void setTransactionDescription(String transactionDescription) {
-        this.transactionDescription = transactionDescription;
-    }
-
-    /**
-     * Gets the success message.
-     *
-     * @return the success message
-     */
-    public String getSuccessMessage() {
-        return this.successMessage;
-    }
-
-    /**
-     * Sets the success message.
-     *
-     * @param successMessage the new success message
-     */
-    public void setSuccessMessage(String successMessage) {
-        this.successMessage = successMessage;
-    }
-
-    /**
-     * Gets the error message.
-     *
-     * @return the error message
-     */
-    public String getErrorMsg() {
-        return this.errorMsg;
-    }
-
-    /**
-     * Sets the error message.
-     *
-     * @param error the new error message
-     */
-    public void setError(String error) {
-        this.errorMsg = error;
-    }
-
-    public String getTransactionCategory() {
-        return this.transactionCategory;
-    }
-
-    public void setTransactionCategory(String category) {
-        this.transactionCategory = category;
-    }
-
-    public void setIdentification (String identification) {
-        this.id = identification;
     }
 }

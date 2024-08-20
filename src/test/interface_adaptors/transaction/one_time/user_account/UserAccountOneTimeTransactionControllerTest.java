@@ -24,7 +24,7 @@ class UserAccountOneTimeTransactionControllerTest {
         };
 
         // Create a mock view model, if you want to check reset state behavior
-        UserAccountOneTimeTransactionViewModel testViewModel = new UserAccountOneTimeTransactionViewModel() {
+        UserOneTimeTransactionViewModel testViewModel = new UserOneTimeTransactionViewModel() {
             @Override
             public void resetState() {
                 // Optionally verify if resetState is called, e.g., add a boolean flag and assert its value

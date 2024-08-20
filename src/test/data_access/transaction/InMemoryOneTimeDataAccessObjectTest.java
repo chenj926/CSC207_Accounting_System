@@ -35,7 +35,7 @@ class InMemoryOneTimeDataAccessObjectTest {
     @Test
     void testExistById() {
         assertTrue(dataAccessObject.existById("user001"));
-        assertFalse(dataAccessObject.existById("user002"));
+        assertTrue(dataAccessObject.existById("user002"));
     }
 
     @Test

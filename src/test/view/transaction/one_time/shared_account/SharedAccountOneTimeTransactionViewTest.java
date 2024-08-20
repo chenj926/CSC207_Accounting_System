@@ -29,7 +29,7 @@ class SharedAccountOneTimeTransactionViewTest {
     @Test
     void testSharedAccountOneTimeTransactionViewInitialization() {
         assertNotNull(view);
-        assertEquals("Shared Account One Time Transaction", view.getTitle());
+        assertEquals("One Time Transaction", view.getTitle());
         assertEquals(JFrame.EXIT_ON_CLOSE, view.getDefaultCloseOperation());
     }
 

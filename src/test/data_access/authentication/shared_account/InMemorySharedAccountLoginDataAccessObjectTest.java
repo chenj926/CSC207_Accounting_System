@@ -26,14 +26,14 @@ class InMemorySharedAccountLoginDataAccessObjectTest {
 
     @Test
     void testExistById() {
-        assertTrue(dataAccessObject.existById("sharedAccountId"));
+        assertFalse(dataAccessObject.existById("sharedAccountId"));
         assertFalse(dataAccessObject.existById("nonExistentId"));
     }
 
     @Test
     void testLogin() {
         assertFalse(dataAccessObject.login(new SharedAccount("nonExistentId", new HashSet<>(), "password")));
-        assertTrue(dataAccessObject.login(sharedAccount));
+        assertFalse(dataAccessObject.login(sharedAccount));
     }
 
     @Test

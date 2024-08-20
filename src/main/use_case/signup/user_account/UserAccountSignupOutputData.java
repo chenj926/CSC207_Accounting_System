@@ -5,6 +5,11 @@ import use_case.signup.SignupOutputData;
 /**
  * The UserAccountSignupOutputData class serves as a base class for all types of signup output data.
  * It contains common fields such as username and the status of whether the use case has failed.
+ *
+ * @author Xile
+ * @author Jessica
+ * @author Dana
+ * @author Eric
  */
 public class UserAccountSignupOutputData implements SignupOutputData<String> {
     private final String username;

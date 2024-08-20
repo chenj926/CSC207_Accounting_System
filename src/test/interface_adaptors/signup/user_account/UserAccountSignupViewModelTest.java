@@ -26,25 +26,25 @@ class UserAccountSignupViewModelTest {
     @Test
     void testTitleLabel() {
         // Test that the title label is returned correctly
-        assertEquals("Sign Up", viewModel.getTitleLabel());
+        assertEquals("User Account Sign Up", viewModel.getTitleLabel());
     }
 
     @Test
     void testUsernameLabel() {
         // Test that the username label is returned correctly
-        assertEquals("Set username", viewModel.getUsernameLabel());
+        assertEquals("Set user account username", viewModel.getUsernameLabel());
     }
 
     @Test
     void testPasswordLabel() {
         // Test that the password label is returned correctly
-        assertEquals("Set password", viewModel.getPasswordLabel());
+        assertEquals("Set user account password", viewModel.getPasswordLabel());
     }
 
     @Test
     void testIdentificationLabel() {
         // Test that the identification label is returned correctly
-        assertEquals("Set identification", viewModel.getID_LABEL());
+        assertEquals("Set user account identification", viewModel.getID_LABEL());
     }
 
     @Test

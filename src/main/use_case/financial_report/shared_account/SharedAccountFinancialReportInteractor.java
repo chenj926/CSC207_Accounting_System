@@ -10,6 +10,17 @@ import use_case.transaction.periodic.shared_account.SharedAccountPeriodicTransac
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Interactor class for generating financial reports for shared accounts.
+ * <p>
+ * This class extends {@link FinancialReportInteractor} and implements the {@link SharedAccountFinancialReportInputBoundary}
+ * interface to handle the logic for generating financial reports specific to shared accounts. It retrieves and processes
+ * the relevant data and prepares the output for presentation.
+ * </p>
+ *
+ * @author Eric
+ * @author Dana
+ */
 public class SharedAccountFinancialReportInteractor extends FinancialReportInteractor<
         SharedAccountDataAccessInterface,
         SharedAccount,
@@ -20,16 +31,36 @@ public class SharedAccountFinancialReportInteractor extends FinancialReportInter
         SharedAccountFinancialReportOutputData
         > implements SharedAccountFinancialReportInputBoundary{
 
+    /**
+     * Constructs a new {@code SharedAccountFinancialReportInteractor}.
+     * <p>
+     * This constructor initializes the interactor with the necessary components for accessing shared account data,
+     * generating the financial report, and presenting the output.
+     * </p>
+     *
+     * @param account the shared account for which the financial report will be generated
+     * @param presenter the presenter responsible for preparing the output view
+     * @param userDataAccessObject the data access object used to retrieve account and transaction data
+     */
     public SharedAccountFinancialReportInteractor(SharedAccount account,
                                                   SharedAccountFinancialReportOutputBoundary presenter,
                                                   SharedAccountDataAccessInterface userDataAccessObject) {
         super(account, presenter, userDataAccessObject);
     }
 
+    /**
+     * Generates the content of the financial report based on the input data.
+     * <p>
+     * This method retrieves the shared account data and transactions, formats the report, and returns it as a string.
+     * If no transactions are found, it triggers the failure view preparation.
+     * </p>
+     *
+     * @param inputData the input data required for generating the financial report
+     * @return the content of the financial report as a string
+     */
     @Override
     protected String generateReportContent(SharedAccountFinancialReportInputData inputData) {
         String id = inputData.getIdentification();
-        //debug
         this.account = userDataAccessObject.getById(id);
         String shareId = this.account.getIdentification();
         Set<String> userIds = this.account.getSharedUserIdentifications();
@@ -65,6 +96,16 @@ public class SharedAccountFinancialReportInteractor extends FinancialReportInter
         return report.toString();
     }
 
+    /**
+     * Creates the output data object for the shared account financial report based on the report content.
+     * <p>
+     * This method returns a new instance of {@link SharedAccountFinancialReportOutputData} containing the generated
+     * report content.
+     * </p>
+     *
+     * @param reportContent the content of the financial report
+     * @return a {@link SharedAccountFinancialReportOutputData} object containing the report content
+     */
     @Override
     protected SharedAccountFinancialReportOutputData createOutputData(String reportContent) {
         return new SharedAccountFinancialReportOutputData(reportContent);

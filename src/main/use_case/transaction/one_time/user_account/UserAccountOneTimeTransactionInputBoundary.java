@@ -8,7 +8,7 @@ import use_case.transaction.one_time.OneTimeTransactionInputBoundary;
  *
  * @author Dana
  * @author Jessica
+ * @author Eric
  */
 public interface UserAccountOneTimeTransactionInputBoundary extends OneTimeTransactionInputBoundary<UserAccountOneTimeTransactionInputData> {
-    // execute defined in TransactionInputBoundary interface
 }

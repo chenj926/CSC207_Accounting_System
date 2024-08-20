@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.NoSuchElementException;
 
 /**
@@ -53,21 +54,26 @@ public class UserAccountIterator implements Iterator<UserAccount>, AutoCloseable
         if (currentLine == null) {
             throw new NoSuchElementException();
         }
-        // System.out.println(currentLine);
 
         String[] values = currentLine.split(",");
         UserAccount userAccount = new UserAccount(values[1], values[2], values[0],
                 Float.parseFloat(values[3]), Float.parseFloat(values[4]),
                 Float.parseFloat(values[5]));
 
-        if (values.length >= 7 && values[6] != null && !values[6].isEmpty()) {
-            userAccount.setLastLoginDate(LocalDate.parse(values[6]));
+        // Handle "null" or empty last login date
+        if (values.length >= 7 && values[6] != null && !values[6].isEmpty() && !"null".equals(values[6])) {
+            try {
+                userAccount.setLastLoginDate(LocalDate.parse(values[6]));
+            } catch (DateTimeParseException e) {
+                // Handle invalid date parsing if necessary, fall back to current date or other default handling
+                userAccount.setLastLoginDate(LocalDate.now()); // Default fallback
+            }
         } else {
-            userAccount.setLastLoginDate(LocalDate.now());
+            userAccount.setLastLoginDate(null); // Set to null if the value is "null" or empty
         }
 
-        // if user has 1+ shared accounts
-        if (values.length >= 8) {
+        // If user has 1+ shared accounts
+        if (values.length >= 8 && values[7] != null && !values[7].isEmpty()) {
             String[] sharedIds = values[7].split(";");
             for (String sharedId : sharedIds) {
                 userAccount.addSharedAccount(sharedId);
@@ -94,3 +100,4 @@ public class UserAccountIterator implements Iterator<UserAccount>, AutoCloseable
         reader.close();
     }
 }
+

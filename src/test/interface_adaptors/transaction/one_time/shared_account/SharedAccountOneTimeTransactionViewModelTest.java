@@ -19,7 +19,7 @@ class SharedAccountOneTimeTransactionViewModelTest {
 
     @Test
     void testGetLabels() {
-        assertEquals("Shared Account One Time Transaction", viewModel.getTitleLabel());
+        assertEquals("One Time Transaction", viewModel.getTitleLabel());
         assertEquals("Transaction Amount", viewModel.getAmount());
         assertEquals("Transaction Date", viewModel.getDate());
         assertEquals("Description", viewModel.getDescription());

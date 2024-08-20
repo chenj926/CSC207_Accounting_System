@@ -105,8 +105,6 @@ public class PeriodicTransactionInteractorTest {
                 "month", "01-12-2023", "Auto", LocalDate.now().toString()
         );
         interactor.execute(inputData);
-        System.out.println(userAccount.getTotalIncome());
-        System.out.println(userAccount.getTotalBalance());
         assertEquals(1200.0f, userAccount.getTotalIncome());
         assertEquals(1200.0f, userAccount.getTotalBalance());
     }
@@ -545,6 +543,504 @@ public class PeriodicTransactionInteractorTest {
         assertEquals(200.0f, userAccount.getTotalIncome());
         assertEquals(200.0f, userAccount.getTotalBalance());
     }
+
+    @Test
+    void testLargeCustomPeriodOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Salary",
+                "365", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData);
+
+        assertEquals(-200.0f, userAccount.getTotalOutflow());
+        assertEquals(-200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testStartDateAndEndDateSameDayInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "One-day Transaction",
+                "day", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData);
+
+        assertEquals(100.0f, userAccount.getTotalIncome());
+        assertEquals(100.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testStartDateAndEndDateSameDayOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "One-day Transaction",
+                "day", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData);
+
+        assertEquals(-100.0f, userAccount.getTotalOutflow());
+        assertEquals(-100.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testInvalidAmountZero() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Zero Period",
+                "0", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testSingleTransactionInThePastInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2022", "Past Salary",
+                "month", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(1300.0f, userAccount.getTotalIncome());
+        assertEquals(1300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testSingleTransactionInThePastOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2022", "Past Salary",
+                "month", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(-1300.0f, userAccount.getTotalOutflow());
+        assertEquals(-1300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testSameStartAndEndDateWithNonDayPeriodInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Same Date",
+                "month", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testSameStartAndEndDateWithNonDayPeriodOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Same Date",
+                "month", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testNegativeTransactionAmount() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Negative Transaction",
+                "month", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(-1300.0f, userAccount.getTotalOutflow());
+        assertEquals(-1300.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testInvalidPeriodValueInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Period",
+                "9999", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidPeriodValueOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Period",
+                "9999", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testBoundaryPeriodInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Boundary Period",
+                "365", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(200.0f, userAccount.getTotalIncome());
+        assertEquals(200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testBoundaryPeriodOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Boundary Period",
+                "365", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(-200.0f, userAccount.getTotalOutflow());
+        assertEquals(-200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testMultipleDifferentTransactionsInflow() {
+        // month
+        ConcretePeriodicTransactionInputData inputData1 = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Job Salary",
+                "month", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData1);
+
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(1300.0f, userAccount.getTotalIncome(), 0.01);
+        assertEquals(1300.0f, userAccount.getTotalBalance(), 0.01);
+
+        // week
+        ConcretePeriodicTransactionInputData inputData2 = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Freelance",
+                "week", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData2);
+
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(5300.0f + 1300.0f, userAccount.getTotalIncome(), 0.01);
+        assertEquals(5300.0f + 1300.0f, userAccount.getTotalBalance(), 0.01);
+
+        // year
+        ConcretePeriodicTransactionInputData inputData3 = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Yearly salary",
+                "year", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData3);
+
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(6800.0f, userAccount.getTotalIncome(), 0.01);
+        assertEquals(6800.0f, userAccount.getTotalBalance(), 0.01);
+
+        // day
+        ConcretePeriodicTransactionInputData inputData4 = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Yearly salary",
+                "day", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData4);
+
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(43400.0f, userAccount.getTotalIncome(), 0.01);  // since 2024 is a leap year, it has 366 days +1 in Jan. 1 2025
+        assertEquals(43400.0f, userAccount.getTotalBalance(), 0.01);
+
+        // custom
+        ConcretePeriodicTransactionInputData inputData5 = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Yearly salary",
+                "2", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData5);
+
+        System.out.println(userAccount.getTotalIncome());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(61700.0f, userAccount.getTotalIncome(), 0.01); // since 2024 is a leap year, it has 188 two-day periods +1 in Jan. 1 2025
+        assertEquals(61700.0f, userAccount.getTotalBalance(), 0.01);
+    }
+
+    @Test
+    void testMultipleDifferentTransactionsOutflow() {
+        // month
+        ConcretePeriodicTransactionInputData inputData1 = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Job Salary",
+                "month", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData1);
+
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-1300.0f, userAccount.getTotalOutflow());
+        assertEquals(-1300.0f, userAccount.getTotalBalance());
+
+        // week
+        ConcretePeriodicTransactionInputData inputData2 = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Freelance",
+                "week", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData2);
+
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-6600.0f, userAccount.getTotalOutflow());
+        assertEquals(-6600.0f, userAccount.getTotalBalance());
+
+        // year
+        ConcretePeriodicTransactionInputData inputData3 = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Yearly salary",
+                "year", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData3);
+
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-6800.0f, userAccount.getTotalOutflow());
+        assertEquals(-6800.0f, userAccount.getTotalBalance());
+
+        // day
+        ConcretePeriodicTransactionInputData inputData4 = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Yearly salary",
+                "day", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData4);
+
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-43400.0f, userAccount.getTotalOutflow());  // since 2024 is a leap year, it have 366 days -1 in Jan. 1 2025
+        assertEquals(-43400.0f, userAccount.getTotalBalance());
+
+        // custom
+        ConcretePeriodicTransactionInputData inputData5 = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Yearly salary",
+                "2", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData5);
+
+        System.out.println(userAccount.getTotalOutflow());
+        System.out.println(userAccount.getTotalBalance());
+        assertEquals(-61700.0f, userAccount.getTotalOutflow()); // since 2024 is a leap year, it have 188 two days -$2 in Jan. 1 2025
+        assertEquals(-61700.0f, userAccount.getTotalBalance());
+    }
+
+//
+////    @Test
+////    void testTransactionWithoutEndDateOutflow() {
+////        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+////                "100.0", "01-01-2023", "Salary", "month", null
+////        );
+////
+////        assertThrows(NullPointerException.class, () -> interactor.execute(inputData));
+////    }
+
+    @Test
+    void testSingleTransactionExactPeriodInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Exact Period Transaction",
+                "year", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(200.0f, userAccount.getTotalIncome());
+        assertEquals(200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testSingleTransactionExactPeriodOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Exact Period Transaction",
+                "year", "01-01-2024", "Auto", LocalDate.now().toString()
+        );
+
+        interactor.execute(inputData);
+
+        assertEquals(-200.0f, userAccount.getTotalOutflow());
+        assertEquals(-200.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testValidWeeklyInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Weekly Allowance",
+                "week", "11-02-2023", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData);
+
+        assertEquals(600.0f, userAccount.getTotalIncome()); // Assuming 6 weeks between the given dates
+        assertEquals(600.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testValidWeeklyOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "-100.0", "01-01-2023", "Weekly Expense",
+                "week", "11-02-2023", "Auto", LocalDate.now().toString()
+        );
+        interactor.execute(inputData);
+
+        assertEquals(-600.0f, userAccount.getTotalOutflow()); // Assuming 6 weeks between the given dates
+        assertEquals(-600.0f, userAccount.getTotalBalance());
+    }
+
+    @Test
+    void testInvalidDateFormatInStartDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "32-01-2023", "Invalid Start Date",
+                "week", "01-1-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDateFormatInStartDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "32-01-2023", "Invalid Start Date",
+                "week", "01-1-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDateFormatInEndDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid End Date",
+                "week", "32-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDateFormatInEndDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid End Date",
+                "week", "32-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInStartDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-13-2023", "Invalid Month Start Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInStartDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-13-2023", "Invalid Month Start Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInEndDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Month End Date",
+                "week", "01-13-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidMonthInEndDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Month End Date",
+                "week", "01-13-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInStartDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "31-04-2023", "Invalid Day Start Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInStartDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "31-04-2023", "Invalid Day Start Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInEndDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Day End Date",
+                "week", "31-11-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testInvalidDayInEndDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-01-2023", "Invalid Day End Date",
+                "week", "31-11-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testNonLeapYearDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "29-02-2023", "Non-Leap Year Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testNonLeapYearDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "29-02-2023", "Non-Leap Year Date",
+                "week", "01-12-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testWeeklyTransactionWithStartDateAfterEndDateInflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-12-2023", "Weekly Transaction",
+                "week", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
+    @Test
+    void testWeeklyTransactionWithStartDateAfterEndDateOutflow() {
+        ConcretePeriodicTransactionInputData inputData = new ConcretePeriodicTransactionInputData(
+                "id999", "100.0", "01-12-2023", "Weekly Transaction",
+                "week", "01-01-2023", "Auto", LocalDate.now().toString()
+        );
+
+        assertThrows(AssertionError.class, () -> interactor.execute(inputData));
+    }
+
 
 }
 

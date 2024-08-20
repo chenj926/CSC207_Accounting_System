@@ -13,6 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Abstract class for updating periodic transactions upon user login.
+ * <p>
+ * This class handles the retrieval and processing of periodic transactions that occurred between the user's last login
+ * and the current login date. It interacts with the data access object to read and update transactions based on the
+ * specified period and current date.
+ * </p>
+ *
+ * @param <DataAccessInterface> the type of data access interface used for account data
+ * @param <A> the type of account
+ * @param <O> the type of periodic transaction output data
+ *
+ * @author Jessica
+ */
 public abstract class AccountUpdatePeriodicAtLoginInteractor<
         DataAccessInterface extends AccountDataAccessInterface,
         A extends Account,
@@ -28,7 +42,13 @@ public abstract class AccountUpdatePeriodicAtLoginInteractor<
         this.dataAccessObject = dataAccessObject;
     }
 
-
+    /**
+     * Retrieves the latest periodic transactions that occurred before the specified last login date.
+     *
+     * @param id the account identification
+     * @param lastLoginDate the date of the last login
+     * @return a map of unique keys to the latest periodic transactions
+     */
     protected Map<String, PeriodicTransaction> getLatestTransactionsMap(String id, LocalDate lastLoginDate) {
         List<Transaction> transactions = dataAccessObject.readTransactions(id);
         Map<String, PeriodicTransaction> latestTransactionsMap = new HashMap<>();
@@ -50,6 +70,12 @@ public abstract class AccountUpdatePeriodicAtLoginInteractor<
         return latestTransactionsMap;
     }
 
+    /**
+     * Generates a unique key for a given periodic transaction based on its attributes.
+     *
+     * @param periodicTransaction the periodic transaction
+     * @return a unique key representing the transaction
+     */
     protected String getUniqueKey(PeriodicTransaction periodicTransaction) {
         return periodicTransaction.getIdentification() + "|" +
                 periodicTransaction.getTransactionCategory() + "|" +
@@ -61,6 +87,14 @@ public abstract class AccountUpdatePeriodicAtLoginInteractor<
                 (periodicTransaction.getAmount() >= 0 ? "inflow" : "outflow");
     }
 
+    /**
+     * Processes a periodic transaction by iterating over the period between the last recorded date and the current date.
+     * Creates new transactions as needed based on the period and updates the account accordingly.
+     *
+     * @param account the user account
+     * @param periodicTransaction the periodic transaction to process
+     * @param currentDate the current date of login
+     */
     protected void processTransaction(A account, PeriodicTransaction periodicTransaction, LocalDate currentDate) {
         LocalDate endDate = periodicTransaction.getEndDate();
         LocalDate lastRecordedDate = periodicTransaction.getDate();
@@ -84,6 +118,14 @@ public abstract class AccountUpdatePeriodicAtLoginInteractor<
         }
     }
 
+    /**
+     * Calculates the next date based on the period and custom period.
+     *
+     * @param date the current date
+     * @param unit the ChronoUnit of the period
+     * @param customPeriod the custom period in days
+     * @return the next date
+     */
     protected LocalDate getNextDate(LocalDate date, ChronoUnit unit, int customPeriod) {
         if (unit != ChronoUnit.DAYS) {
             return date.plus(1, unit);

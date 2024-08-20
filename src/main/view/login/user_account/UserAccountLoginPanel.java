@@ -13,12 +13,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 /**
- * The UserAccountLoginPanel class represents the panel used for user login.
- * It includes fields for user identification and password, as well as buttons for login and cancel actions.
- * It also handles setting up the user interface and listening to user inputs.
+ * The {@code UserAccountLoginPanel} class represents the panel used for user login within the application.
+ * This panel includes fields for user identification and password, as well as buttons for login and cancel actions.
+ * It is responsible for setting up the user interface and handling user inputs and interactions.
+ * <p>
+ * This class is part of the view layer in the Clean Architecture, adhering to the principles of separation
+ * of concerns. It interacts with the {@link UserAccountLoginViewModel} to reflect the state of the application
+ * and with the {@link ViewManagerModel} to manage view transitions.
+ * </p>
  *
- * @author Jessica
- * @author Eric
+ * <p><b>Authors:</b> Jessica Chen, Eric Chen</p>
  */
 public class UserAccountLoginPanel extends JPanel {
     private final UserAccountLoginViewModel viewModel;
@@ -31,13 +35,12 @@ public class UserAccountLoginPanel extends JPanel {
     protected JButton loginButton;
     protected JButton cancelButton;
 
-
     /**
-     * Constructs a UserAccountLoginPanel object with the specified view model, login controller, and view manager.
+     * Constructs a {@code UserAccountLoginPanel} with the specified view model, login controller, and view manager.
      *
-     * @param viewModel        the view model for the login panel
-     * @param loginController  the controller handling login actions
-     * @param viewManager      the view manager for managing view transitions
+     * @param viewModel       the view model for the login panel, providing data and state information
+     * @param loginController the controller handling login actions and business logic
+     * @param viewManager     the view manager for managing view transitions within the application
      */
     public UserAccountLoginPanel(UserAccountLoginViewModel viewModel, UserAccountLoginController loginController, ViewManagerModel viewManager) {
         this.loginController = loginController;
@@ -64,29 +67,30 @@ public class UserAccountLoginPanel extends JPanel {
         this.passwordField.setToolTipText("Enter User Account Password");
 
         // add buttons
-        JPanel buttons = new JPanel();
         this.loginButton = new JButton(this.viewModel.getLoginButtonLabel());
-        buttons.add(this.loginButton);
         this.cancelButton = new JButton(this.viewModel.getCancelButtonLabel());
-        buttons.add(this.cancelButton);
 
         // Style buttons
-        this.loginButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.cancelButton.setFont(new Font("Arial", Font.PLAIN, 16));
-        this.loginButton.setBackground(new Color(100, 150, 200));
-        this.cancelButton.setBackground(new Color(200, 100, 100));
-        this.loginButton.setForeground(Color.WHITE);
-        this.cancelButton.setForeground(Color.WHITE);
-
-        // adjust environment to compile MAC
-        this.loginButton.setOpaque(true);
-        this.loginButton.setBorderPainted(false);
-        this.cancelButton.setOpaque(true);
-        this.cancelButton.setBorderPainted(false);
+        styleButton(this.loginButton, new Color(100, 150, 200));
+        styleButton(this.cancelButton, new Color(200, 100, 100));
     }
 
     /**
-     * Sets up the user interface for the login panel, arranging components using a GridBagLayout.
+     * Styles the given button with the specified background color.
+     *
+     * @param button the button to style
+     * @param backgroundColor the background color to apply to the button
+     */
+    private void styleButton(JButton button, Color backgroundColor) {
+        button.setFont(new Font("Arial", Font.PLAIN, 16));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setOpaque(true);
+        button.setBorderPainted(false);
+    }
+
+    /**
+     * Sets up the user interface for the login panel, arranging components using a {@link GridBagLayout}.
      * Adds components such as labels, text fields, and buttons to the panel.
      */
     protected void setupUI() {
@@ -196,6 +200,7 @@ public class UserAccountLoginPanel extends JPanel {
 
     /**
      * Clears the text fields for identification and password.
+     * This method is typically called when the login panel is made visible again to ensure no old data remains.
      */
     public void clearFields() {
         passwordField.setText("");
