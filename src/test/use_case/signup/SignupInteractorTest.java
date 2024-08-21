@@ -1,4 +1,4 @@
-package use_case;
+package use_case.signup;
 
 import entity.account.user_account.UserAccount;
 import entity.account.AccountFactory;

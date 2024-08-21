@@ -1,4 +1,4 @@
-package use_case;
+package use_case.signup.UserAccount;
 
 import org.junit.Test;
 import use_case.signup.user_account.UserAccountSignupOutputData;
