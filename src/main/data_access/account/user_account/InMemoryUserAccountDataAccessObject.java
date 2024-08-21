@@ -8,6 +8,8 @@ import use_case.transaction.periodic.user_account.UserAccountPeriodicTransaction
 
 import java.util.*;
 
+import static java.lang.String.valueOf;
+
 /**
  * In-memory data access object (DAO) for user account operations.
  * <p>
@@ -21,6 +23,7 @@ import java.util.*;
  */
 public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccessInterface, UserAccountDataAccessInterface{
     private final Map<String, UserAccount> users = new HashMap<>();
+    private final List<Transaction> transactions = new ArrayList<>();
 
     /**
      * Checks if a user exists with the given identification.
@@ -55,7 +58,17 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
      */
     @Override
     public void saveTransaction(UserAccountOneTimeTransactionOutputData oneTimeOutputData, UserAccountPeriodicTransactionOutputData periodicOutputData, boolean isPeriodic) {
+        String id = oneTimeOutputData.getId();
+        System.out.println("output id"+id);
+        float amount = oneTimeOutputData.getTransactionAmount();
+        String date = valueOf(oneTimeOutputData.getTransactionDate());
+        String description = oneTimeOutputData.getTransactionDescription();
+        String category = oneTimeOutputData.getTransactionCategory();
+        String userInfo = String.format("%s,%.2f,%s,%s,%s", id, amount, date, description, category);
+    }
 
+    public void saveTransaction(Transaction transaction) {
+        transactions.add(transaction);
     }
 
     /**
@@ -70,7 +83,7 @@ public class InMemoryUserAccountDataAccessObject implements UserSignupDataAccess
      */
     @Override
     public List<Transaction> readTransactions(String userId) {
-        return List.of();
+        return transactions;
     }
 
     /**
