@@ -1,13 +1,15 @@
 package use_case.Login.SharedAccount;
 
+import data_access.DAOFactory;
+import data_access.account.shared_account.SharedAccountDataAccessInterface;
 import entity.account.shared_account.SharedAccount;
 import data_access.authentication.shared_account.SharedAccountLoginDataAccessInterface;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import use_case.login.shared_account.SharedAccountLoginInputData;
-import use_case.login.shared_account.SharedAccountLoginInteractor;
-import use_case.login.shared_account.SharedAccountLoginOutputBoundary;
-import use_case.login.shared_account.SharedAccountLoginOutputData;
+import use_case.login.LoginInteractor;
+import use_case.login.shared_account.*;
+import use_case.update_periodic_at_login.shared_account.SharedAccountUpdatePeriodicAtLoginInputBoundary;
+import use_case.update_periodic_at_login.shared_account.SharedAccountUpdatePeriodicAtLoginInteractor;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -68,6 +70,12 @@ public class SharedAccountLoginInteractorTest {
         ((InMemorySharedAccountLoginDataAccess) sharedAccountDataAccessObject).addAccount(sharedAccount);
         SharedAccountLoginInputData inputData = new SharedAccountLoginInputData(sharedAccountId, sharedPassword);
 
+        SharedAccountDataAccessInterface periodicTransactionDataAccessObject = DAOFactory.getShareAccountDataAccessObject();
+        SharedAccountUpdatePeriodicAtLoginInteractor updatePeriodicAtLoginInteractor = new SharedAccountUpdatePeriodicAtLoginInteractor(periodicTransactionDataAccessObject);
+
+        SharedAccountLoginMediator mediator = new SharedAccountLoginMediator(loginInteractor,
+                updatePeriodicAtLoginInteractor, periodicTransactionDataAccessObject);
+        loginInteractor.setMediator(mediator);
         loginInteractor.execute(inputData);
 
         assertTrue(presenter.isSuccess());
