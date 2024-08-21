@@ -19,8 +19,8 @@ import use_case.update_periodic_at_login.AccountUpdatePeriodicAtLoginInputData;
  *
  * @author Jessica
  */
-public class LoginMediator<LInputBoundary extends LoginInputBoundary,
-        UPLInputBoundary extends AccountUpdatePeriodicAtLoginInputBoundary,
+public class LoginMediator<LInputBoundary extends LoginInputBoundary<LInputData>,
+        UPLInputBoundary extends AccountUpdatePeriodicAtLoginInputBoundary<UPLInputData>,
         DataAccessInterface extends AccountDataAccessInterface,
         LInputData extends LoginInputData,
         UPLInputData extends AccountUpdatePeriodicAtLoginInputData>{
