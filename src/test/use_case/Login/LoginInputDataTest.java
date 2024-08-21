@@ -1,8 +1,7 @@
-package use_case;
+package use_case.Login;
 
 import org.junit.jupiter.api.Test;
 import use_case.login.LoginInputData;
-import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
 import use_case.login.LoginOutputData;
 

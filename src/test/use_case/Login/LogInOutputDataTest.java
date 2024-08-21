@@ -1,4 +1,4 @@
-package use_case;
+package use_case.Login;
 
 import org.junit.Test;
 import use_case.login.LoginOutputData;
